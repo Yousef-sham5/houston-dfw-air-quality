@@ -1,0 +1,39 @@
+table,column,type,description
+aqs_long_clean,site_id,character,"AQS site ID: state-county-site, e.g. 48-201-1052"
+aqs_long_clean,poc,integer,Parameter occurrence code; separates instruments measuring the same pollutant at one site
+aqs_long_clean,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+aqs_long_clean,method_code,character,AQS method code; FRM or FEM methods only
+aqs_long_clean,state_code,character,"2-digit state FIPS code; 72 = Puerto Rico, 78 = U.S. Virgin Islands"
+aqs_long_clean,county_code,character,3-digit county FIPS code
+aqs_long_clean,date_local,Date,Sample date in local time
+aqs_long_clean,year,numeric,Calendar year
+aqs_long_clean,month,ordered,"Month, ordered Jan to Dec"
+aqs_long_clean,year_month,Date,First day of the month
+aqs_long_clean,day_of_year,numeric,"Day of the year, 1 to 366"
+aqs_long_clean,season,factor,Meteorological season; winter is Dec to Feb
+aqs_long_clean,season_year,numeric,Year the season belongs to; December counts toward the next year's winter
+aqs_long_clean,day_of_week,ordered,"Day of the week, ordered Mon to Sun"
+aqs_long_clean,is_weekend,logical,TRUE on Saturday and Sunday
+aqs_long_clean,units_of_measure,character,"Units of the original values (ppm, ppb, or µg/m³ at local conditions)"
+aqs_long_clean,arithmetic_mean,numeric,Daily mean in original units
+aqs_long_clean,first_max_value,numeric,Daily maximum in original units; the NAAQS metric for the gases
+aqs_long_clean,first_max_hour,integer,Hour (0 to 23) of the daily maximum
+aqs_long_clean,mean_ugm3,numeric,Daily mean in µg/m³; gases converted at 25 °C and 1 atm
+aqs_long_clean,max_ugm3,numeric,Daily maximum in µg/m³; gases converted at 25 °C and 1 atm
+aqs_long_clean,event_type,character,AQS exceptional-event flag: None or Included
+aqs_long_clean,event_name,character,Event from events.csv or a fireworks window; NA when no event applies
+sites,site_id,character,AQS site ID; joins to aqs_long_clean and site_coverage
+sites,state_code,character,2-digit state FIPS code
+sites,county_code,character,3-digit county FIPS code
+sites,state_name,character,State or territory name
+sites,county_name,character,County name
+sites,cbsa_name,character,Core-based statistical area; NA for sites outside one
+sites,local_site_name,character,Site name given by the reporting agency; can be NA
+sites,latitude,numeric,Latitude in decimal degrees
+sites,longitude,numeric,Longitude in decimal degrees
+site_coverage,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+site_coverage,site_id,character,AQS site ID
+site_coverage,n_years_active,integer,Study years (0 to 5) in which the site met the 75% completeness rule
+cleaning_log,step,character,Cleaning step
+cleaning_log,rows,integer,Rows remaining after the step
+cleaning_log,rows_removed,integer,Rows removed by the step

@@ -1,0 +1,5 @@
+file,rows,columns,size_mib,md5,under_github_limit
+aqs_long_clean.rds,5557574,23,45.7,86f6a5e0f7ba8f05d2895a38b98fdf99,TRUE
+sites.rds,2038,9,0.1,2378fde7c32f2fff33a32d9f65d4e227,TRUE
+site_coverage.rds,3760,3,0,f512b27961c8a0399cbae0957a3fbc60,TRUE
+cleaning_log.rds,8,3,0,90dd5e560ab32dd951f03ac8b961e95e,TRUE
