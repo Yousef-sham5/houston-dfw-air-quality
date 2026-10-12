@@ -9,7 +9,7 @@ library(lubridate)
 library(lobstr)
 library(here)
 
-source(here("R", "utils.R")) # pollutant and region lookups
+source(here("R", "utils.R")) # log_step(), region_lookup
 
 
 

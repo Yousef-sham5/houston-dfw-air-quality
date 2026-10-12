@@ -1,5 +1,5 @@
 pkgs <- c(
-  "dplyr", "readr", "tidyr", "stringr", "janitor", "lubridate", "here", "lobstr",
+  "dplyr", "readr", "tidyr", "stringr", "purrr", "janitor", "lubridate", "here", "lobstr",
   "ggplot2", "scales", "naniar", "patchwork", "corrplot",
   "MASS", "moments", "nortest", "fitdistrplus", "trend",
   "broom", "car",

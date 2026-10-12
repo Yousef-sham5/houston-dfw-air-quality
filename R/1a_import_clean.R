@@ -69,7 +69,7 @@ expected_files <- expand_grid(
   mutate(file = str_c("daily_", parameter_code, "_", year, ".csv"))
 
 stopifnot(
-  "data/raw must hold one file per pollutant and year" =
+  "data/raw/daily must hold one file per pollutant and year" =
     setequal(basename(csv_paths), expected_files$file)
 )
 
