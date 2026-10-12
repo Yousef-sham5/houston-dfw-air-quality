@@ -42,7 +42,7 @@ R (`dplyr`, `tidyr`, `ggplot2`, `trend`, `fitdistrplus`), R Markdown, Git and Gi
 2. Install R and RStudio with `dplyr` 1.2.0 or later and `tidyr` 1.3.0 or later. Under **Tools → Global Options → General**, turn off restoring and saving `.RData`.
 3. Run `R/0_setup.R` once and restart R. Then source `R/1a_import_clean.R`, which takes several minutes, followed by `R/1b_event_checks.R`.
 
-## Repository structure
+## Repository structure (so far)
 
 <details>
 <summary>Show folder layout</summary>
