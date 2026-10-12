@@ -59,7 +59,7 @@ col_spec <- cols_only(
   `CBSA Name`           = col_character()
 )
 
-csv_paths <- here("data", "raw") %>%
+csv_paths <- here("data", "raw", "daily") %>%
   list.files(pattern = "^daily_.*\\.csv$", full.names = TRUE)
 
 expected_files <- expand_grid(

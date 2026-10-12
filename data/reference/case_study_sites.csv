@@ -1,0 +1,17 @@
+site_id,pollutant,region,site_group,local_site_name,latitude,longitude,n_days,pct_days,o3_no2_pair,selection_reason
+48-113-0087,Ozone,Dallas-Fort Worth,Dallas-Fort Worth,Dallas Redbird Airport Executive,32.676448,-96.87205,1715,0.93921139101862,TRUE,Top O3/NO2 completeness in county
+48-113-0087,NO2,Dallas-Fort Worth,Dallas-Fort Worth,Dallas Redbird Airport Executive,32.676448,-96.87205,1579,0.8647316538882804,TRUE,Top O3/NO2 completeness in county
+48-439-3009,Ozone,Dallas-Fort Worth,Dallas-Fort Worth,Grapevine Fairway,32.984258,-97.063702,1774,0.9715224534501643,TRUE,Top O3/NO2 completeness in county
+48-439-3009,NO2,Dallas-Fort Worth,Dallas-Fort Worth,Grapevine Fairway,32.984258,-97.063702,1791,0.9808324205914567,TRUE,Top O3/NO2 completeness in county
+48-201-0416,SO2,Houston,Houston Ship Channel,Park Place,29.686289,-95.294723,1746,0.9561883899233297,TRUE,All full-coverage SO2
+48-201-1034,Ozone,Houston,Houston Ship Channel,Houston East,29.768033,-95.220574,1750,0.9583789704271632,TRUE,Top O3/NO2 completeness in group
+48-201-1034,NO2,Houston,Houston Ship Channel,Houston East,29.768033,-95.220574,1786,0.9780941949616648,TRUE,Top O3/NO2 completeness in group
+48-201-1035,SO2,Houston,Houston Ship Channel,Clinton,29.733737,-95.257605,1736,0.9507119386637459,FALSE,All full-coverage SO2
+48-201-1039,Ozone,Houston,Houston Ship Channel,Houston Deer Park #2,29.670552,-95.129933,1777,0.9731653888280394,TRUE,Top O3/NO2 completeness in group
+48-201-1039,NO2,Houston,Houston Ship Channel,Houston Deer Park #2,29.670552,-95.129933,1783,0.9764512595837898,TRUE,Top O3/NO2 completeness in group
+48-201-1039,SO2,Houston,Houston Ship Channel,Houston Deer Park #2,29.670552,-95.129933,1736,0.9507119386637459,TRUE,All full-coverage SO2
+48-201-0051,SO2,Houston,Houston other,Houston Croquet,29.623961,-95.474333,1788,0.9791894852135816,FALSE,All full-coverage SO2
+48-201-0055,Ozone,Houston,Houston other,Houston Bayland Park,29.69566,-95.49924,1640,0.8981380065717415,TRUE,Top O3/NO2 completeness in group
+48-201-0055,NO2,Houston,Houston other,Houston Bayland Park,29.69566,-95.49924,1673,0.916210295728368,TRUE,Top O3/NO2 completeness in group
+48-201-0417,Ozone,Houston,Houston other,Houston Harvard Street,29.772857,-95.395937,1744,0.9550930996714129,TRUE,Top O3/NO2 completeness in group
+48-201-0417,NO2,Houston,Houston other,Houston Harvard Street,29.772857,-95.395937,1729,0.9468784227820373,TRUE,Top O3/NO2 completeness in group

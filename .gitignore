@@ -1,3 +1,4 @@
+.gitignore
 .Rproj.user/
 .Rhistory
 .RData
@@ -5,3 +6,6 @@
 data/raw/
 Thumbs.db
 desktop.ini
+data/hourly_filtered/
+CLAUDE.md
+HANDOFF.md
