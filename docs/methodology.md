@@ -89,7 +89,7 @@ Early findings: Harris County's two largest monitoring outages both lined up wit
 
 ## Final dataset
 
-The cleaned data hold **5,557,574 monitor-days**, one row per instrument per day from 2021-01-01 to 2025-12-31. Assertions confirm a unique key, no missing values outside `event_name`, every pollutant present in every year, and yearly counts that add up to the cleaning log's total. The data table keeps 23 of the 37 columns, and site details live in a separate `sites` table, which cut memory use from 1.42 GB to 867 MB (38.9%). The checkpoint is four gzip-compressed `.rds` files: `aqs_long_clean` (45.7 MiB), `sites` (2,038 rows), `site_coverage` (3,760 rows) and `cleaning_log`. They reload identically, and `data/processed/` also holds a data dictionary and an MD5 manifest.
+The cleaned data hold **5,557,574 monitor-days**, one row per instrument per day from 2021-01-01 to 2025-12-31. Assertions confirm a unique key, no missing values outside `event_name`, every pollutant present in every year, and yearly counts that add up to the cleaning log's total. The data table keeps 23 of the 37 columns, and site details live in a separate `sites` table, which cut the table's size in memory from 1.42 GB to 867 MB (38.9%). The import as a whole needs far more than the finished table: in a clean test run of `1a_import_clean.R`, R's peak-memory counters reached about 5.5 GB. The checkpoint is four gzip-compressed `.rds` files: `aqs_long_clean` (45.7 MiB), `sites` (2,038 rows), `site_coverage` (3,760 rows) and `cleaning_log`. They reload identically, and `data/processed/` also holds a data dictionary and an MD5 manifest.
 
 | Pollutant | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|
@@ -171,7 +171,7 @@ The zips total 585,513 KiB (572 MiB). Unzipped, the 15 CSVs total 18,781,706,906
 
 ### Import approach (1d)
 
-Reading everything at once would not fit on a 16 GB laptop, given that the 8.9 million daily rows already peaked at 1.42 GB. Each file is handled on its own, and the zips stay zipped:
+Reading everything at once would not fit on a 16 GB laptop. The daily import alone, at 8.9 million raw rows, pushed the R session to about 5.5 GB at its peak, and the hourly files hold 79.4 million rows, about nine times as many. Each file is handled on its own, and the zips stay zipped:
 
 1. Count the rows in each zip, 1 million lines at a time, and compare the counts with EPA's file list.
 2. Read the header of each zip and confirm that all 15 files share EPA's 24 documented columns, in order.
@@ -186,7 +186,7 @@ readr decompresses each zip to a temporary file while it reads and removes that 
 
 Nothing has been removed from the hourly data yet. These counts come from the 15 filtered files.
 
-- **Rows:** all 79,402,201 rows were read and 661,545 were kept (0.83%), which is 94.3% of the 701,184 possible monitor-hours: ozone 250,556, NO₂ 244,766 and SO₂ 166,223. The table takes about 85 MB in memory.
+- **Rows:** all 79,402,201 rows were read and 661,545 were kept (0.83%), which is 94.3% of the 701,184 possible monitor-hours: ozone 250,556, NO₂ 244,766 and SO₂ 166,223. The table takes about 85 MB in memory, and the R session running the script peaked at about 0.5 GB in the same test run.
 - **Monitors:** all 16 are present, each under one POC, with no duplicate hours. Houston Harvard Street starts on 2021-01-25 and Houston Bayland Park ozone on 2021-03-12. The other 13 monitors start on 2021-01-01, and all 16 run to 2025-12-31.
 - **Missing values:** no kept row is missing a measurement or a detection limit. Hours without data are absent from EPA's files, which accounts for the 5.7% of monitor-hours not present.
 - **Methods:** all seven method codes are FRM or FEM in EPA's methods table.
