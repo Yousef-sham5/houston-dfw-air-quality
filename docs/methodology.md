@@ -1,6 +1,6 @@
 # Phase 1 Methodology
 
-October 10, 2026 · Yousef Shamsaldeen
+October 13, 2026 · Yousef Shamsaldeen
 
 ## Data
 
@@ -89,7 +89,7 @@ Early findings: Harris County's two largest monitoring outages both lined up wit
 
 ## Final dataset
 
-The cleaned data hold **5,557,574 monitor-days**, one row per instrument per day from 2021-01-01 to 2025-12-31. Assertions confirm a unique key, no missing values outside `event_name`, every pollutant present in every year, and yearly counts that add up to the cleaning log's total. The data table keeps 23 of the 37 columns, and site details live in a separate `sites` table, which cut the table's size in memory from 1.42 GB to 867 MB (38.9%). The import as a whole needs far more than the finished table: in a clean test run of `1a_import_clean.R`, R's peak-memory counters reached about 5.5 GB. The checkpoint is four gzip-compressed `.rds` files: `aqs_long_clean` (45.7 MiB), `sites` (2,038 rows), `site_coverage` (3,760 rows) and `cleaning_log`. They reload identically, and `data/processed/` also holds a data dictionary and an MD5 manifest.
+The cleaned data hold **5,557,574 monitor-days**, one row per instrument per day from 2021-01-01 to 2025-12-31. Assertions confirm a unique key, no missing values outside `event_name`, every pollutant present in every year, and yearly counts that add up to the cleaning log's total. The data table keeps 23 of the 37 columns, and site details live in a separate `sites` table, which cut the table's size in memory from 1.42 GB to 867 MB (38.9%). The import as a whole needs far more than the finished table: in a clean test run of `1a_import_clean.R`, R's peak-memory counters reached about 5.5 GB. The checkpoint is three gzip-compressed `.rds` files that later scripts read: `aqs_long_clean` (45.7 MiB), `sites` (2,038 rows) and `site_coverage` (3,760 rows). They reload identically. Two records of the run are saved as CSV so they can be read on GitHub: `cleaning_log.csv` (rows removed at each step) and `daily_validation.csv` (the eight final checks, each with the value found and the value required). `data/processed/` also holds a data dictionary covering every saved column and an MD5 manifest of the `.rds` files.
 
 | Pollutant | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|
@@ -103,7 +103,7 @@ The row counts track changes in the monitoring network. PM2.5 rows grew 24% as F
 
 ## Hourly data for the case study (1c and 1d)
 
-Hourly data are added for the case-study sites in two scripts of their own, so the daily pipeline stays as it is. `R/1c_site_selection.R` picks the sites, and `R/1d_hourly_import_clean.R` (in progress) reads the hourly files for those sites only.
+Hourly data are added for the case-study sites in two scripts of their own, so the daily pipeline stays as it is. `R/1c_site_selection.R` picks the sites, and `R/1d_hourly_import_clean.R` reads the hourly files for those sites only, flags and labels them, and checks them against the daily data.
 
 ### Scope
 
@@ -111,7 +111,7 @@ Hourly data are added for the case-study sites in two scripts of their own, so t
 - **Sites:** the Houston and Dallas–Fort Worth case-study sites, picked from the full-coverage list above by `R/1c_site_selection.R`.
 - **CO is left out.** Texas has few CO monitors, its levels sit far below the NAAQS, NO₂ already captures the traffic signal, and NO₂ takes part directly in the ozone chemistry being tested.
 - **PM2.5 is left out.** FRM monitors take 24-hour filter samples, so hourly PM2.5 would come only from FEM monitors (with the T640 corrections) and wouldn't match the daily method mix. The PM2.5 standards are 24-hour and annual, and hourly PM2.5 mostly reflects boundary-layer mixing, which makes it a weak source indicator.
-- **No wind data** is used, so statements about sources are worded as "consistent with". A pollution rose is listed as future work.
+- **Wind and temperature come later.** A separate script, `R/1e_weather_import_clean.R`, is planned to import hourly wind speed, wind direction and temperature for the case-study sites, which would allow a pollution rose. Statements about sources are worded as "consistent with".
 
 ### Uses
 
@@ -149,9 +149,9 @@ Candidates are monitors in Harris, Dallas and Tarrant counties with ozone, NO₂
 
 Sources: [Bayport Industrial District (Wikipedia)](https://en.wikipedia.org/wiki/Bayport_Industrial_District), [Texas 2017 Annual Monitoring Network Plan (EPA archive)](https://19january2021snapshot.epa.gov/sites/static/files/2017-09/documents/txplan2017.pdf), [TCEQ DFW monitoring site list](https://www.tceq.texas.gov/airquality/airmod/data/dfw8h2/dfw8h2_site.html), [TCEQ 2024 state-initiative network changes](https://www.tceq.texas.gov/downloads/air-quality/air-monitoring/network/historical/2024-si-monitoring-network-changes.pdf).
 
-- **Why Dallas–Fort Worth as a whole:** Dallas and Tarrant counties share one air basin and sit in the same nine-county ozone nonattainment area, and pooling them gives enough full-coverage monitors. The region is also an ozone nonattainment area, so it serves as a comparison metro and is not a pollution-free baseline.
+- **Why Dallas–Fort Worth as a whole:** Dallas and Tarrant counties share one air basin and sit in the same nine-county ozone nonattainment area, and pooling them gives enough full-coverage monitors. The region is itself an ozone nonattainment area, so the comparison is between two polluted metros.
 - **Houston means Harris County.** Several Ship Channel monitors sit in other Harris County cities, such as Deer Park and Pasadena.
-- **Deer Park #2 (48-201-1039)** moved from 4514 ½ Durant St to 4413 Glenwood Ave on May 30, 2025. It kept its AQS ID, so `sites.rds` holds the new coordinates, and the hourly data will be checked for a level shift at the move.
+- **Deer Park #2 (48-201-1039)** moved from 4514 ½ Durant St to 4413 Glenwood Ave on May 30, 2025. It kept its AQS ID, and EPA's files list a single coordinate pair for the site in all five years, which is the pair `sites.rds` holds. The hourly data were checked for a level shift at the move (see "Deer Park #2 check" below).
 
 Sources: [TCEQ Region 12 2024 monitoring memo](https://www.tceq.texas.gov/downloads/toxicology/monitoring/air-evaluations/2024/reg12.pdf), [TCEQ biennial report on ozone nonattainment areas](https://www.tceq.texas.gov/publications/sfr/tceq-biennial-report/biennial-report-to-the-86th-legislature-fy2017-fy2018/agency-activities-air-quality-fy2017-2018).
 
@@ -178,13 +178,15 @@ Reading everything at once would not fit on a 16 GB laptop. The daily import alo
 3. Pass each zip to `readr::read_csv_chunked()` with explicit column types, parsing 16 of the 24 columns. Each 1-million-row chunk is cut to Texas rows first and then to the 16 case-study monitors, matched on site ID and parameter code.
 4. Save the filtered rows, together with the number of rows read, to `data/hourly_filtered/` (not tracked) and free memory. A file that is already saved is skipped on the next run, so a crash part-way through loses at most one file.
 5. Combine the 15 filtered files, confirm that the rows read equal the raw row counts, and inspect the values before any cleaning rule is set. Method codes are checked against EPA's methods table, as in `1a_import_clean.R`, and named assertions guard each step.
-6. Still to come: cleaning, validation against the daily data, and saving `data/processed/hourly_case_study.rds` with gzip compression, with new rows in the data dictionary and manifest.
+6. Add flags, timestamps, units and labels, without removing any row (see "Cleaning rules" below).
+7. Rebuild the daily maximums from the hourly values and compare them with the daily table. The script stops if any day fails to match.
+8. Save `data/processed/hourly_case_study.rds` with gzip compression, three CSV records of the run, and new rows in the data dictionary and manifest.
 
 readr decompresses each zip to a temporary file while it reads and removes that copy afterwards, so the extra disk in use stays close to the size of one CSV (the largest is 1.95 GiB). One monitor's full record is 1,826 days × 24 hours = 43,824 rows, so the 16 picked monitors come to at most 701,184 rows.
 
-### Results so far (sections 1–4)
+### Inspection results
 
-Nothing has been removed from the hourly data yet. These counts come from the 15 filtered files.
+These counts come from the 15 filtered files, before any flag was added.
 
 - **Rows:** all 79,402,201 rows were read and 661,545 were kept (0.83%), which is 94.3% of the 701,184 possible monitor-hours: ozone 250,556, NO₂ 244,766 and SO₂ 166,223. The table takes about 85 MB in memory, and the R session running the script peaked at about 0.5 GB in the same test run.
 - **Monitors:** all 16 are present, each under one POC, with no duplicate hours. Houston Harvard Street starts on 2021-01-25 and Houston Bayland Park ozone on 2021-03-12. The other 13 monitors start on 2021-01-01, and all 16 run to 2025-12-31.
@@ -195,18 +197,110 @@ Nothing has been removed from the hourly data yet. These counts come from the 15
 - **High values:** one SO₂ hour is above the 75 ppb level of the 1-hour standard, 94 ppb at Clinton at 02:00 on 2024-01-13, and no NO₂ hour is above 100 ppb. This is a screening observation, since the standards are judged on three-year design values.
 - **Deer Park #2:** the hourly files give the site one coordinate pair for all five years, so its May 30, 2025 move has to be checked in the measurements themselves.
 
-### Settled
+### Cleaning rules
 
-- **Time stamps:** EPA's file documentation states that `Date Local` and `Time Local` are in local standard time, so there is no daylight-saving shift. In summer, a 7–9 a.m. CDT rush hour appears as hours 6–8, and every diurnal plot will say so. An assertion that `Time GMT` minus `Time Local` is 6 hours passes on all 661,545 case-study rows, which confirms it.
-- **Columns:** EPA documents 24 columns for the hourly files. That documentation dates from 2015, so the script checks the real header before setting column types. All 15 headers match the documented list.
-- **Instruments:** each of the 16 monitors reports under a single POC, so there is no instrument to choose between.
+No hourly row is removed. Each rule adds a column, so later phases can keep or leave out the affected hours. The cleaning log shows 661,545 rows before and after every step.
 
-### Still to decide
+- **Wildfire hours are kept and labeled.** `is_wildfire_flagged` is true on the 142 ozone hours that carry the `RT` qualifier. This matches the daily data, where event-affected values were kept. Only the two other-Houston sites carry the flag, so dropping the hours would have removed smoke days from one group and left them in the others. The script stops if any qualifier other than `RT` ever appears, since a new code would need its own rule.
+- **Readings below the detection limit are kept as reported.** `below_mdl` marks them. Replacing them with half the limit was rejected because the SO₂ limit is 2 ppb at three sites and 0.2 ppb at Deer Park #2, so the three coarser sites would average about 1.0–1.1 ppb against 0.3 ppb, a gap produced by the instruments. Setting negatives to zero would push averages up, and deleting the readings would leave almost no complete days.
+- **Time stamps are local standard time.** EPA's file documentation states that `Date Local` and `Time Local` are in local standard time, so there is no daylight-saving shift. `datetime_local` is built at a fixed UTC-6 and equals EPA's GMT time on all 661,545 rows. In summer, a 7–9 a.m. CDT rush hour appears as hours 6–8, and every diurnal plot will say so. `datetime_utc` is kept for joins with data recorded in UTC, such as weather observations.
+- **Calendar columns** (`hour_local`, `day_of_week`, `is_weekend`, `season`) follow the same definitions as the daily table and agree with it on every shared monitor-day.
+- **Units:** `value_ppb` puts the three gases on one scale (ozone is multiplied by 1,000), and `value_ugm3` uses the same ideal-gas conversion as the daily data.
+- **Labels:** each row carries its `site_group`, `region`, site name and `event_name`. Winter Storm Uri covers 124 monitor-days and Hurricane Beryl 48.
+- **Complete days:** `is_complete_day` is true when a monitor has at least 75% of the day's hours (18 of 24), the rule EPA sets for NO₂ and SO₂ (40 CFR 50 Appendix S, section 3.2(b), and Appendix T, section 3.1(b)). The same flag is computed for ozone, so one simple rule covers all three gases. 540 monitor-days fall short (249 NO₂, 151 ozone, 140 SO₂), and their hours stay in. For NO₂ and SO₂, the days in EPA's daily file are exactly the days with 18 or more hours.
+- **Valid ozone days:** EPA judges an ozone day on its 8-hour means, so ozone rows carry a second flag. `n_valid_8hr_means` counts the valid means among the 17 that start at hours 7 to 23, and `is_valid_ozone_day` is true with at least 13 of them (40 CFR 50 Appendix U, section 3(d)). Both columns are empty on NO₂ and SO₂ rows. Of 10,685 ozone monitor-days, 10,424 are valid by this rule and 10,534 are complete by the 18-hour rule; the two flags disagree on 186 days (148 have 18 or more hours but fewer than 13 means, and 38 the reverse). Every ozone day in the daily table is a valid ozone day by this flag, and the only valid ozone days missing from the daily table are the 24 December 31 days of 2021–2024 (see "Known limits").
+- **Columns and instruments:** all 15 file headers match EPA's 24 documented columns, and each of the 16 monitors reports under a single POC, so there is no instrument to choose between.
 
-- How to treat the `RT` qualifier on 142 ozone hours: keep and label them, which would match the "Included" choice in the daily data, or drop them.
-- How to handle readings below the detection limit and negative readings, which EPA's AirNow documentation attributes to instrument drift. Keeping them as reported would match the daily rule, with a note on the SO₂ detection limit wherever SO₂ profiles are shown.
-- How to test for a level shift at Deer Park #2 around its May 30, 2025 move.
-- An hour-level completeness rule: 75% of hours (18 of 24) for a valid day, as in 40 CFR 50.
-- Cross-checks against the daily data: daily 1-hour maximums for NO₂ and SO₂, and daily maximum 8-hour ozone built from rolling 8-hour means with at least 6 valid hours, should match `first_max_value`.
+### Validation against the daily data
 
-Sources: [EPA AirData file formats](https://aqs.epa.gov/aqsweb/airdata/FileFormats.html), [40 CFR 50 Appendix S](https://www.law.cornell.edu/cfr/text/40/appendix-S_to_part_50), [AirNow hourly data fact sheet](https://docs.airnowapi.org/docs/HourlyDataFactSheet.pdf).
+The hourly values were used to rebuild the daily maximum that the daily pipeline kept for the same monitor and day.
+
+| Pollutant | Daily values | Rebuilt exactly from hourly data | Hour of the maximum also matched |
+|---|---|---|---|
+| NO₂ | 10,341 | 10,341 | 10,341 |
+| SO₂ | 7,006 | 7,006 | 7,006 |
+| Ozone | 10,400 | 10,400 | 10,400 |
+
+All 27,747 daily values are reproduced. For NO₂ and SO₂ the daily value is the highest 1-hour reading. For ozone it is the highest 8-hour mean under the 2015 standard: the 17 means that start at hours 7 to 23 count, each needs 6 of its 8 hours, and each is cut off at three decimals in ppm (40 CFR 50 Appendix U, section 3(b) to 3(d)). EPA also requires 13 of the 17 means for a valid day. A simpler rolling mean over all 24 start hours matched 96% of days. The script stops if any value fails to match, and the 14 checks are saved in `hourly_validation.csv`.
+
+### Deer Park #2 check
+
+To test for a level shift after the May 30, 2025 move, each Deer Park #2 hour was paired with the same hour at a neighbor that did not move, and the gap was averaged over June to December of each year. Houston East is the neighbor for ozone and NO₂. Park Place is the neighbor for SO₂, because the Clinton SO₂ baseline drifts.
+
+| Pollutant | Gap in 2021–2024 (ppb) | Gap in 2025, after the move (ppb) | Outside the earlier range |
+|---|---|---|---|
+| Ozone | 1.58 to 4.43 | 5.02 | Yes, by 0.6 ppb |
+| NO₂ | -5.43 to -2.93 | -3.42 | No |
+| SO₂ | 0.10 to 0.19 | 0.18 | No |
+
+There is no clear shift. Only ozone falls outside its earlier range, by a small margin, and seven months is a short period to judge. No data are adjusted, and `is_post_relocation` marks the hours after the move so later phases can test their sensitivity to it.
+
+### Harvard Street NO₂ check
+
+Houston Harvard Street is the only one of the 16 monitors that changed method. Method 099 (detection limit 2.7 ppb) reports until 2024-04-09, there are no data for April 10 to 21, and method 186 (5 ppb) reports from 2024-04-22. Both are chemiluminescence FRM methods. To test for a level shift, each Harvard Street hour was paired with the same hour at two neighbors that kept one method, and the gap was averaged over May to December of each year, the months the new method covers in both 2024 and 2025. Houston Bayland Park is the other NO₂ monitor in the same group, and Houston East is the second neighbor. Deer Park #2 is left out because its own NO₂ stepped up in 2024.
+
+| Neighbor | Gap in 2021–2023 (ppb) | Gap in 2024 (ppb) | Gap in 2025 (ppb) |
+|---|---|---|---|
+| Houston Bayland Park | 1.91 to 3.07 | 0.72 | 2.24 |
+| Houston East | -2.36 to -1.82 | -3.70 | -1.89 |
+
+The new method left no lasting shift, since the 2025 gap is back inside the earlier range against both neighbors. The first months on it read low: the 2024 gap sits 1.2 ppb below the earlier range against Bayland Park and 1.3 ppb below it against Houston East. Over those months the new instrument reported many exact zeros and no negative values. From 2024-04-22 to 2024-11-30, 649 of 5,119 hours (12.7%) are exactly 0 ppb, against 56 of 8,989 hours (0.6%) from December 2024 on. This pattern is consistent with a low baseline on the new analyzer that was later corrected, and the cause is not confirmed. No data are adjusted, and `is_post_method_change` marks the 14,108 hours on the new method so later phases can test their sensitivity to it.
+
+### Saved files
+
+- `hourly_case_study.rds`: 661,545 rows and 30 columns, 6.8 MiB, one row per monitor and hour.
+- `hourly_cleaning_log.csv`: rows after each import and cleaning step.
+- `hourly_validation.csv`: the 14 validation checks, each with the value found and the value required.
+- `hourly_monitor_summary.csv`: one row per monitor with its method, detection limit, coverage, share of readings below the limit, share of negative readings, and the number of daily values it reproduced.
+
+## Known limits
+
+- **SO₂ sits near zero, and three instruments are too coarse for it.** At Houston Croquet, Park Place and Clinton, 97.2–99.4% of hours are below the 2 ppb detection limit. SO₂ at these sites is best read through its spikes: hours at 2 ppb or more number 256 at Clinton, 1,062 at Croquet, 1,150 at Park Place and 803 at Deer Park #2. An average daily pattern is reliable only at Deer Park #2.
+- **The Clinton SO₂ baseline drifts.** Negative readings rose from 64.6% of hours in 2021 to 89.5% in 2025, and the five-year mean is -0.16 ppb. A trend in mean SO₂ at Clinton would reflect the instrument, so SO₂ trends should use spike counts or daily maximums.
+- **The daily table has no ozone rows on December 31.** EPA's yearly files cannot see the January 1 hours, so they report that day with 11 or 12 of its 17 eight-hour means (65–71%), and the 75% rule drops it. This removes about 3,650 monitor-days nationally, all in winter. The hourly data for those days are complete, and `is_valid_ozone_day` marks them as valid in the hourly table.
+- **Deer Park #2 moved during the study.** The Deer Park #2 check finds no clear shift, but its last seven months come from a different address.
+- **Deer Park #2 NO₂ stepped up in 2024**, a year before the move (June to December means of 5.9, 6.1, 6.3, 8.4 and 7.3 ppb). The cause is not known and will be examined in Phase 2.
+- **Houston Harvard Street NO₂ read low after its method change in 2024.** The Harvard Street NO₂ check finds the monitor 1.2 to 1.3 ppb low against two neighbors over May to December 2024 and back at its usual level in 2025. The other-Houston group has only two NO₂ sites, so its 2024 mean is pulled down by about half that amount (roughly 0.6 ppb). NO₂ comparisons between groups for 2024 should be run with and without the hours flagged `is_post_method_change`. The daily table holds the same months, where `method_code` 186 identifies them (594 days from 2024-04-23).
+- **The Harvard Street NO₂ detection limit rose from 2.7 to 5 ppb at the same change.** The share of hours flagged `below_mdl` rises from 16.0% to 50.6%. Against a fixed 5 ppb line the rise is 37.9% to 50.6%, so most of the jump (21.9 of 34.6 points) comes from the higher limit itself. `below_mdl` at this monitor should be compared within one method.
+- **Memory:** the daily import needs roughly 5.5 GB at its peak, so it may be slow on a machine with 8 GB.
+
+## Sources
+
+Every outside source this methodology relies on, with what it supports. Regulation text was read on Cornell's Legal Information Institute, a free mirror run by Cornell Law School. The official version is the eCFR, linked beside it.
+
+### Data and code tables (U.S. EPA)
+
+| Source | Used for |
+|---|---|
+| [EPA AirData download page](https://aqs.epa.gov/aqsweb/airdata/download_files.html) | The 25 daily files and 15 hourly files, and `file_list.csv` with each file's row count |
+| [EPA AirData file formats](https://aqs.epa.gov/aqsweb/airdata/FileFormats.html) | The columns of the daily and hourly files, and the statement that local times are local standard time |
+| [AQS methods code table](https://aqs.epa.gov/aqsweb/documents/codetables/methods_all.html) | FRM and FEM designations and each method's valid range (`data/reference/methods_all.csv`) |
+| [AQS qualifier code table](https://aqs.epa.gov/aqsweb/documents/codetables/qualifiers.html) | The meaning of `RT`: "Wildfire-U. S.", type "Request Exclusion" |
+| [EPA NAAQS table](https://www.epa.gov/criteria-air-pollutants/naaqs-table) | Standard levels: ozone 0.070 ppm (8-hour), NO₂ 100 ppb (1-hour), SO₂ 75 ppb (1-hour), CO 9 ppm (8-hour), PM2.5 35 µg/m³ (24-hour) and 9.0 µg/m³ (annual) |
+| [AirNow hourly data fact sheet](https://docs.airnowapi.org/docs/HourlyDataFactSheet.pdf) | Negative hourly readings as instrument drift |
+
+### Regulations (40 CFR)
+
+| Source | Used for |
+|---|---|
+| [Part 50, Appendix S](https://www.law.cornell.edu/cfr/text/40/appendix-S_to_part_50), section 3.2(b) | NO₂: a day is complete with 75% of its hourly values (18 of 24) |
+| [Part 50, Appendix T](https://www.law.cornell.edu/cfr/text/40/appendix-T_to_part_50), section 3.1(b) | SO₂: a day is complete with 75% of its hourly values |
+| [Part 50, Appendix U](https://www.law.cornell.edu/cfr/text/40/appendix-U_to_part_50), sections 3(b) to 3(d) | Ozone: an 8-hour mean needs 6 of 8 hours and is truncated to three decimals, 17 means count per day, and a day needs 13 of them |
+| [Part 58, Appendix D](https://www.law.cornell.edu/cfr/text/40/appendix-D_to_part_58), Table D-3 | Ozone monitoring seasons by state, used for the 184-day and 207-day coverage thresholds |
+| [Official text: eCFR, Title 40, Part 50](https://www.ecfr.gov/current/title-40/chapter-I/subchapter-C/part-50) | The authoritative version of Appendices S, T and U |
+| [Official text: eCFR, Title 40, Part 58](https://www.ecfr.gov/current/title-40/chapter-I/subchapter-C/part-58) | The authoritative version of Appendix D |
+
+### Case-study sites (Texas)
+
+| Source | Used for |
+|---|---|
+| [TCEQ Region 12 2024 monitoring memo](https://www.tceq.texas.gov/downloads/toxicology/monitoring/air-evaluations/2024/reg12.pdf) | The 15 Ship Channel sites |
+| [TCEQ 2024 state-initiative network changes](https://www.tceq.texas.gov/downloads/air-quality/air-monitoring/network/historical/2024-si-monitoring-network-changes.pdf) | The Park Place SO₂ deactivation recommendation |
+| [Texas 2017 Annual Monitoring Network Plan (EPA archive)](https://19january2021snapshot.epa.gov/sites/static/files/2017-09/documents/txplan2017.pdf) | The four near-road NO₂ sites |
+| [TCEQ DFW monitoring site list](https://www.tceq.texas.gov/airquality/airmod/data/dfw8h2/dfw8h2_site.html) | The Dallas–Fort Worth sites |
+| [TCEQ biennial report on ozone nonattainment areas](https://www.tceq.texas.gov/publications/sfr/tceq-biennial-report/biennial-report-to-the-86th-legislature-fy2017-fy2018/agency-activities-air-quality-fy2017-2018) | The Dallas–Fort Worth nonattainment area |
+| [Bayport Industrial District (Wikipedia)](https://en.wikipedia.org/wiki/Bayport_Industrial_District) | The industrial complex near Seabrook. A general reference, weaker than the agency sources |
+
+### Events
+
+The agency and news sources for each event are named in the Events table above, and their links are in the `source` column of `data/reference/events.csv`.

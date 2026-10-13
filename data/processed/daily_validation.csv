@@ -1,0 +1,9 @@
+check,observed,expected,passed
+Pollutants in the table,5,5,TRUE
+Study years in the table,5,5,TRUE
+Pollutant-years without data,0,0,TRUE
+Rows in the table,5557574,5557574,TRUE
+"Duplicate pollutant, site, POC and date keys",0,0,TRUE
+Missing values outside event_name,FALSE,FALSE,TRUE
+First date in the table,2021-01-01,2021-01-01,TRUE
+Last date in the table,2025-12-31,2025-12-31,TRUE

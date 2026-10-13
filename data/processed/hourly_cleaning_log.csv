@@ -1,0 +1,7 @@
+step,rows,rows_removed
+Raw hourly files,79402201,NA
+Keep case-study monitors,661545,78740656
+"Flag wildfire (RT) hours, none removed",661545,0
+"Flag readings below the detection limit, none removed",661545,0
+"Flag days with fewer than 18 hours, none removed",661545,0
+"Flag ozone days with fewer than 13 valid 8-hour means, none removed",661545,0

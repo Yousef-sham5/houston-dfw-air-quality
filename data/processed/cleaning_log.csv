@@ -1,0 +1,9 @@
+step,rows,rows_removed
+Raw import,8930992,NA
+Drop non-US sites,8921010,9982
+Keep one standard per pollutant,5964931,2956079
+Validate method codes,5649071,315860
+Keep event-included values,5646391,2680
+Drop T640 corrected rows overlapping firmware data,5646053,338
+Apply 75% completeness rule,5557575,88478
+Drop values outside method range,5557574,1

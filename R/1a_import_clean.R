@@ -870,11 +870,11 @@ monitor_gaps %>%
   count(is_off_season, name = "n_gaps") %>%
   print()
 
-# Harris County gaps overlapping Winter Storm Uri (Feb 11-20, 2021)
+# Harris County gaps overlapping Winter Storm Uri (Feb 11-23, 2021, as in events.csv)
 monitor_gaps %>%
   filter(
     str_starts(site_id, "48-201-"),
-    gap_start <= ymd("2021-02-20"),
+    gap_start <= ymd("2021-02-23"),
     gap_end >= ymd("2021-02-11")
   ) %>%
   select(pollutant, site_id, poc, gap_start, gap_end, gap_days) %>%
@@ -954,6 +954,24 @@ stopifnot(
 print(cleaning_log)
 print(final_counts)
 
+# The same checks as a table, saved in step 18 as a record of what this run confirmed
+daily_validation <- tribble(
+  ~check,                                         ~observed,                                 ~expected,
+  "Pollutants in the table",                      as.character(nrow(final_counts)),          as.character(nrow(pollutant_lookup)),
+  "Study years in the table",                     as.character(ncol(final_counts) - 1),      as.character(length(study_years)),
+  "Pollutant-years without data",                 as.character(sum(is.na(final_counts))),    "0",
+  "Rows in the table",                            as.character(nrow(aqs_long)),              as.character(last(cleaning_log$rows)),
+  "Duplicate pollutant, site, POC and date keys", as.character(nrow(duplicate_final_keys)),  "0",
+  "Missing values outside event_name",            as.character(final_na),                    "FALSE",
+  "First date in the table",                      as.character(date_range[1]),               as.character(make_date(min(study_years), 1, 1)),
+  "Last date in the table",                       as.character(date_range[2]),               as.character(make_date(max(study_years), 12, 31))
+) %>%
+  mutate(passed = observed == expected)
+
+stopifnot("Every final validation check passed" = all(daily_validation$passed))
+
+print(daily_validation, width = Inf)
+
 
 
 # 18. SAVE CHECKPOINT ----
@@ -965,8 +983,7 @@ dir.create(processed_dir, recursive = TRUE, showWarnings = FALSE)
 checkpoint <- list(
   aqs_long_clean = aqs_long,
   sites = sites,
-  site_coverage = site_coverage,
-  cleaning_log = cleaning_log
+  site_coverage = site_coverage
 )
 
 checkpoint_paths <- file.path(processed_dir, str_c(names(checkpoint), ".rds"))
@@ -984,7 +1001,31 @@ stopifnot(
 
 rm(reloaded)
 
-# Column descriptions for analysts using the checkpoint
+# Records of the run that no later script reads are saved as CSV, so they open in any editor and on GitHub
+records <- list(
+  cleaning_log = cleaning_log,
+  daily_validation = daily_validation
+)
+
+record_paths <- file.path(processed_dir, str_c(names(records), ".csv"))
+
+for (i in seq_along(records)) {
+  write_csv(records[[i]], record_paths[i])
+}
+
+record_rows <- vapply(
+  record_paths,
+  \(path) nrow(read_csv(path, col_types = cols(.default = col_character()))),
+  integer(1)
+)
+
+stopifnot(
+  "Every record file holds all of its rows" = all(record_rows == vapply(records, nrow, integer(1)))
+)
+
+# Column descriptions for analysts using the checkpoint and the records
+saved_tables <- c(checkpoint, records)
+
 data_dictionary <- tribble(
   ~table,           ~column,               ~description,
   "aqs_long_clean", "site_id",             "AQS site ID: state-county-site, e.g. 48-201-1052",
@@ -1024,13 +1065,17 @@ data_dictionary <- tribble(
   "site_coverage",  "n_years_active",      "Study years (0 to 5) in which the site met the 75% completeness rule",
   "cleaning_log",   "step",                "Cleaning step",
   "cleaning_log",   "rows",                "Rows remaining after the step",
-  "cleaning_log",   "rows_removed",        "Rows removed by the step"
+  "cleaning_log",   "rows_removed",        "Rows removed by the step",
+  "daily_validation", "check",             "Final validation check run at the end of 1a_import_clean.R",
+  "daily_validation", "observed",          "Value found in the cleaned data, as text",
+  "daily_validation", "expected",          "Value the check requires, as text",
+  "daily_validation", "passed",            "TRUE when observed equals expected"
 )
 
 saved_columns <- tibble(
-  table = rep(names(checkpoint), times = lengths(checkpoint)),
-  column = unlist(lapply(checkpoint, names), use.names = FALSE),
-  type = unlist(lapply(checkpoint, \(df) vapply(df, \(x) class(x)[1], character(1))), use.names = FALSE)
+  table = rep(names(saved_tables), times = lengths(saved_tables)),
+  column = unlist(lapply(saved_tables, names), use.names = FALSE),
+  type = unlist(lapply(saved_tables, \(df) vapply(df, \(x) class(x)[1], character(1))), use.names = FALSE)
 )
 
 undocumented_columns <- saved_columns %>%
@@ -1073,4 +1118,4 @@ if (!all(checkpoint_manifest$under_github_limit)) {
   )
 }
 
-rm(checkpoint)
+rm(checkpoint, records, saved_tables)

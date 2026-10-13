@@ -1,0 +1,17 @@
+pollutant,site_id,local_site_name,site_group,poc,method_codes,mdl_ppb_min,mdl_ppb_max,first_date,last_date,n_hours,pct_hours_present,pct_below_mdl,pct_negative,pct_negative_first_year,pct_negative_last_year,n_wildfire_hours,n_incomplete_days,mean_ppb,max_ppb,n_daily_days,n_daily_max_matched
+NO2,48-113-0087,Dallas Redbird Airport Executive,Dallas-Fort Worth,1,099,2.7,2.7,2021-01-01,2025-12-31,37389,85.3,35.1,6.3,5.4,0,0,45,6.306,55.4,1579,1579
+NO2,48-201-0055,Houston Bayland Park,Houston other,1,099,2.7,2.7,2021-01-01,2025-12-31,39709,90.6,32.5,0.9,4.4,0.1,0,71,6.88,55,1673,1673
+NO2,48-201-0417,Houston Harvard Street,Houston other,1,"099, 186",2.7,5,2021-01-25,2025-12-31,40905,93.3,27.9,0.3,0,0.3,0,47,9.027,55.3,1729,1729
+NO2,48-201-1034,Houston East,Houston Ship Channel,1,099,2.7,2.7,2021-01-01,2025-12-31,42087,96,5.5,0,0,0,0,21,11.267,69.6,1786,1786
+NO2,48-201-1039,Houston Deer Park #2,Houston Ship Channel,4,212,0.04,0.04,2021-01-01,2025-12-31,42502,97,0,0,0,0,0,36,6.832,53.8,1783,1783
+NO2,48-439-3009,Grapevine Fairway,Dallas-Fort Worth,1,099,2.7,2.7,2021-01-01,2025-12-31,42174,96.2,31.3,3,0,2,0,29,6.118,60.4,1791,1791
+Ozone,48-113-0087,Dallas Redbird Airport Executive,Dallas-Fort Worth,1,087,5,5,2021-01-01,2025-12-31,41325,94.3,3,0,0,0,0,30,31.142,105,1715,1715
+Ozone,48-201-0055,Houston Bayland Park,Houston other,1,087,5,5,2021-03-12,2025-12-31,39639,90.5,6.4,0,0,0,94,35,28.133,140,1640,1640
+Ozone,48-201-0417,Houston Harvard Street,Houston other,1,047,5,5,2021-01-25,2025-12-31,42068,96,6.4,0,0,0.1,48,22,27.349,138,1744,1744
+Ozone,48-201-1034,Houston East,Houston Ship Channel,2,087,5,5,2021-01-01,2025-12-31,42104,96.1,12.8,0,0,0,0,23,23.987,136,1750,1750
+Ozone,48-201-1039,Houston Deer Park #2,Houston Ship Channel,1,087,5,5,2021-01-01,2025-12-31,42854,97.8,4.6,0,0,0,0,25,27.257,130,1777,1777
+Ozone,48-439-3009,Grapevine Fairway,Dallas-Fort Worth,1,087,5,5,2021-01-01,2025-12-31,42566,97.1,3.9,0,0,0,0,16,29.62,114,1774,1774
+SO2,48-201-0051,Houston Croquet,Houston other,2,060,2,2,2021-01-01,2025-12-31,42389,96.7,97.5,43.4,35.4,48.7,0,19,0.055,30.8,1788,1788
+SO2,48-201-0416,Park Place,Houston Ship Channel,1,060,2,2,2021-01-01,2025-12-31,41391,94.4,97.2,53.6,52.6,50.8,0,31,0.095,18.2,1746,1746
+SO2,48-201-1035,Clinton,Houston Ship Channel,2,060,2,2,2021-01-01,2025-12-31,41491,94.7,99.4,76.1,64.6,89.5,0,61,-0.163,94,1736,1736
+SO2,48-201-1039,Houston Deer Park #2,Houston Ship Channel,2,600,0.2,0.2,2021-01-01,2025-12-31,40952,93.4,64.9,3.2,6.4,0.6,0,29,0.253,31.9,1736,1736

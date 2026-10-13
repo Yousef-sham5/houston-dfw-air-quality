@@ -37,3 +37,70 @@ site_coverage,n_years_active,integer,Study years (0 to 5) in which the site met 
 cleaning_log,step,character,Cleaning step
 cleaning_log,rows,integer,Rows remaining after the step
 cleaning_log,rows_removed,integer,Rows removed by the step
+daily_validation,check,character,Final validation check run at the end of 1a_import_clean.R
+daily_validation,observed,character,"Value found in the cleaned data, as text"
+daily_validation,expected,character,"Value the check requires, as text"
+daily_validation,passed,logical,TRUE when observed equals expected
+hourly_case_study,site_id,character,AQS site ID: state-county-site; joins to sites and aqs_long_clean
+hourly_case_study,local_site_name,character,Site name given by the reporting agency
+hourly_case_study,site_group,character,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+hourly_case_study,region,character,Houston or Dallas-Fort Worth
+hourly_case_study,pollutant,character,"Ozone, NO2 or SO2"
+hourly_case_study,poc,integer,Parameter occurrence code; one instrument per monitor in this table
+hourly_case_study,method_code,character,AQS method code; FRM or FEM methods only
+hourly_case_study,datetime_local,POSIXct,"Start of the hour in local standard time (fixed UTC-6, no daylight saving)"
+hourly_case_study,datetime_utc,POSIXct,Start of the hour in UTC; use it to join data recorded in UTC
+hourly_case_study,date_local,Date,Sample date in local standard time
+hourly_case_study,hour_local,integer,"Hour of the day, 0 to 23, in local standard time"
+hourly_case_study,day_of_week,ordered,"Day of the week, ordered Mon to Sun"
+hourly_case_study,is_weekend,logical,TRUE on Saturday and Sunday
+hourly_case_study,season,factor,Meteorological season; winter is Dec to Feb
+hourly_case_study,sample_measurement,numeric,"Hourly value in original units, as reported by EPA"
+hourly_case_study,units_of_measure,character,"Units of the original values: ppm for ozone, ppb for NO2 and SO2"
+hourly_case_study,mdl,numeric,Method detection limit in original units
+hourly_case_study,value_ppb,numeric,Hourly value in ppb; zeros and negatives kept as reported
+hourly_case_study,mdl_ppb,numeric,Method detection limit in ppb
+hourly_case_study,value_ugm3,numeric,"Hourly value in µg/m³, converted at 25 °C and 1 atm"
+hourly_case_study,below_mdl,logical,TRUE when the reading is below its method detection limit
+hourly_case_study,qualifier,character,AQS qualifier code; RT is a request to exclude for U.S. wildfire smoke; NA when none
+hourly_case_study,is_wildfire_flagged,logical,TRUE when the hour carries the RT qualifier
+hourly_case_study,event_name,character,Event from events.csv covering the day; NA when no event applies
+hourly_case_study,n_hours_day,integer,Hours with data for the monitor on that day
+hourly_case_study,is_complete_day,logical,TRUE when the day has at least 18 of 24 hours
+hourly_case_study,n_valid_8hr_means,integer,Ozone only: valid 8-hour means among the 17 that count toward the day; NA for NO2 and SO2
+hourly_case_study,is_valid_ozone_day,logical,Ozone only: TRUE when the day has at least 13 of its 17 8-hour means (40 CFR 50 Appendix U); NA for NO2 and SO2
+hourly_case_study,is_post_relocation,logical,TRUE for Houston Deer Park #2 hours on or after its move on 2025-05-30
+hourly_case_study,is_post_method_change,logical,"TRUE for Houston Harvard Street NO2 hours on or after 2024-04-22, when the monitor changed from method 099 to method 186"
+hourly_cleaning_log,step,character,Import or cleaning step
+hourly_cleaning_log,rows,integer,Rows remaining after the step
+hourly_cleaning_log,rows_removed,integer,Rows removed by the step
+hourly_validation,check,character,Validation check run at the end of 1d_hourly_import_clean.R
+hourly_validation,observed,character,"Value found in the hourly data, as text"
+hourly_validation,expected,character,"Value the check requires, as text"
+hourly_validation,passed,logical,TRUE when observed equals expected
+hourly_monitor_summary,pollutant,character,"Ozone, NO2 or SO2"
+hourly_monitor_summary,site_id,character,AQS site ID
+hourly_monitor_summary,local_site_name,character,Site name given by the reporting agency
+hourly_monitor_summary,site_group,character,Case-study group
+hourly_monitor_summary,poc,integer,Parameter occurrence code
+hourly_monitor_summary,method_codes,character,AQS method codes used by the monitor during the study
+hourly_monitor_summary,mdl_ppb_min,numeric,"Lowest method detection limit reported, in ppb"
+hourly_monitor_summary,mdl_ppb_max,numeric,"Highest method detection limit reported, in ppb"
+hourly_monitor_summary,first_date,Date,First date with hourly data
+hourly_monitor_summary,last_date,Date,Last date with hourly data
+hourly_monitor_summary,n_hours,integer,Hours with data
+hourly_monitor_summary,pct_hours_present,numeric,Hours with data as a share of all hours in the study window
+hourly_monitor_summary,pct_below_mdl,numeric,Share of hours below the method detection limit
+hourly_monitor_summary,pct_negative,numeric,Share of hours with a negative reading
+hourly_monitor_summary,pct_negative_first_year,numeric,Share of negative readings in the first study year
+hourly_monitor_summary,pct_negative_last_year,numeric,Share of negative readings in the last study year; a rise points to baseline drift
+hourly_monitor_summary,n_wildfire_hours,integer,Hours carrying the RT wildfire qualifier
+hourly_monitor_summary,n_incomplete_days,integer,Days with fewer than 18 hours of data
+hourly_monitor_summary,mean_ppb,numeric,"Mean of all hourly values, in ppb"
+hourly_monitor_summary,max_ppb,numeric,"Highest hourly value, in ppb"
+hourly_monitor_summary,n_daily_days,integer,Days the monitor has in the cleaned daily table
+hourly_monitor_summary,n_daily_max_matched,integer,Days whose daily maximum was rebuilt exactly from the hourly values
+hourly_raw_row_counts,file,character,Hourly zip file in data/raw/hourly
+hourly_raw_row_counts,parameter_code,character,"AQS parameter code: 44201 ozone, 42602 NO2 or 42401 SO2"
+hourly_raw_row_counts,year,integer,Year the file covers
+hourly_raw_row_counts,raw_rows,numeric,"Data rows in the file, header excluded; equal to the count in EPA's file list"

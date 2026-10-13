@@ -215,22 +215,39 @@ write_csv(case_study_sites, here("data", "reference", "case_study_sites.csv"))
 
 # 7. MAP PICKED SITES ----
 # Visual check that each group sits where expected
-site_map <- case_study_sites %>%
-  distinct(site_id, region, site_group, latitude, longitude) %>%
-  ggplot(aes(x = longitude, y = latitude, colour = site_group)) +
-  geom_point(size = 3) +
-  geom_text(aes(label = site_id), size = 2.5, vjust = -1, show.legend = FALSE) +
+# One row per site, labelled with a short name and the pollutants picked there
+map_sites <- case_study_sites %>%
+  group_by(site_id, region, site_group, local_site_name, latitude, longitude) %>%
+  summarise(
+    pollutants = str_flatten(sort(unique(as.character(pollutant))), collapse = " · "),
+    .groups = "drop"
+  ) %>%
+  mutate(site_label = str_remove(local_site_name, " Airport Executive$")) %>%
+  mutate(site_label = if_else(site_label == "Houston East", site_label, str_remove(site_label, "^Houston ")))
+
+stopifnot("One map point per case-study site" = nrow(map_sites) == n_distinct(case_study_sites$site_id))
+
+load_chart_fonts()
+
+site_map <- map_sites %>%
+  ggplot(aes(x = longitude, y = latitude)) +
+  geom_point(aes(fill = site_group), shape = 21, size = 4.2, colour = "white", stroke = 1.3) +
+  geom_text(aes(label = site_label), family = chart_fonts[["text"]], size = 3.1, fontface = "bold", colour = chart_ink[["primary"]], vjust = -2.9) +
+  geom_text(aes(label = pollutants), family = chart_fonts[["mono"]], size = 2.3, colour = chart_ink[["muted"]], vjust = -2.0) +
   facet_wrap(~ region, scales = "free") +
-  scale_x_continuous(n.breaks = 4, expand = expansion(mult = 0.3)) +
-  scale_y_continuous(expand = expansion(mult = 0.15)) +
+  scale_fill_manual(values = site_group_colours, breaks = names(site_group_colours)) +
+  scale_x_continuous(n.breaks = 4, labels = \(x) str_c(abs(x), "°W"), expand = expansion(mult = 0.3)) +
+  scale_y_continuous(n.breaks = 4, labels = \(x) str_c(x, "°N"), expand = expansion(mult = c(0.12, 0.3))) +
   labs(
-    title = "Case-study monitors for hourly analysis",
-    x = "Longitude",
-    y = "Latitude",
-    colour = "Site group"
+    title = "Where the case-study monitors sit",
+    subtitle = "9 sites and 16 monitors in three groups. Each panel has its own scale.",
+    x = NULL,
+    y = NULL,
+    fill = NULL,
+    caption = "Source: EPA AQS site coordinates. Positions are longitude and latitude, with no base map."
   ) +
-  theme_minimal()
+  theme_aqs()
 
 dir.create(here("figures"), showWarnings = FALSE)
 
-ggsave(here("figures", "case_study_sites.png"), site_map, width = 9, height = 5, dpi = 300)
+ggsave(here("figures", "case_study_sites.png"), site_map, width = 9, height = 5.8, dpi = 300)

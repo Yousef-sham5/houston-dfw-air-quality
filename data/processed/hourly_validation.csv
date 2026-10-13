@@ -1,0 +1,15 @@
+check,observed,expected,passed
+NO2: daily maximums rebuilt from the hourly values,10341,10341,TRUE
+Ozone: daily maximums rebuilt from the hourly values,10400,10400,TRUE
+SO2: daily maximums rebuilt from the hourly values,7006,7006,TRUE
+NO2: hours of the daily maximum rebuilt from the hourly values,10341,10341,TRUE
+Ozone: hours of the daily maximum rebuilt from the hourly values,10400,10400,TRUE
+SO2: hours of the daily maximum rebuilt from the hourly values,7006,7006,TRUE
+Daily values with no hourly data behind them,0,0,TRUE
+Monitor-days whose event label differs from the daily data,0,0,TRUE
+Monitor-days whose calendar columns differ from the daily data,0,0,TRUE
+Daily ozone values on days without 13 valid 8-hour means,0,0,TRUE
+"Valid ozone days missing from the daily table, December 31 aside",0,0,TRUE
+Timestamps that differ from EPA's GMT time,0,0,TRUE
+Duplicate monitor-hours,0,0,TRUE
+Case-study monitors in the table,16,16,TRUE
