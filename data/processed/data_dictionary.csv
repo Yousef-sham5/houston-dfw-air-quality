@@ -104,3 +104,97 @@ hourly_raw_row_counts,file,character,Hourly zip file in data/raw/hourly
 hourly_raw_row_counts,parameter_code,character,"AQS parameter code: 44201 ozone, 42602 NO2 or 42401 SO2"
 hourly_raw_row_counts,year,integer,Year the file covers
 hourly_raw_row_counts,raw_rows,numeric,"Data rows in the file, header excluded; equal to the count in EPA's file list"
+hourly_weather,site_id,character,AQS site ID: state-county-site; joins to hourly_case_study with datetime_utc
+hourly_weather,local_site_name,character,Site name given by the reporting agency
+hourly_weather,site_group,character,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+hourly_weather,region,character,Houston or Dallas-Fort Worth
+hourly_weather,datetime_local,POSIXct,"Start of the hour in local standard time (fixed UTC-6, no daylight saving)"
+hourly_weather,datetime_utc,POSIXct,"Start of the hour in UTC; with site_id, the key for joining to hourly_case_study"
+hourly_weather,date_local,Date,Date in local standard time
+hourly_weather,hour_local,integer,"Hour of the day, 0 to 23, in local standard time"
+hourly_weather,day_of_week,ordered,"Day of the week, ordered Mon to Sun"
+hourly_weather,is_weekend,logical,TRUE on Saturday and Sunday
+hourly_weather,season,factor,Meteorological season; winter is Dec to Feb
+hourly_weather,temp_f,numeric,"Outdoor temperature in °F as reported; at Harvard Street, Bayland Park's reading"
+hourly_weather,temp_c,numeric,Outdoor temperature in °C
+hourly_weather,own_temp_f,numeric,The site's own sensor in °F; at Harvard Street it starts on 2023-04-19
+hourly_weather,own_temp_c,numeric,Temperature from the site's own sensor in °C
+hourly_weather,temp_method_code,character,AQS method code of the sensor behind temp_f; 069 is the Met One AIO2 sonic sensor
+hourly_weather,temp_source_site,character,Site that gave temp_f (Bayland Park for Harvard Street); NA with no reading
+hourly_weather,wind_speed_kt,numeric,"Resultant hourly wind speed in knots; at Harvard Street, Croquet's reading"
+hourly_weather,wind_speed_ms,numeric,Wind speed in m/s (1 knot = 0.514444 m/s)
+hourly_weather,wind_dir_deg,numeric,"Resultant wind direction in degrees, taken as where the wind blows from (usual convention)"
+hourly_weather,wind_sector,numeric,12 sectors of 30° by centre angle; sector 0 runs from 345° to 15° and holds 0° and 360°
+hourly_weather,wind_u_ms,numeric,"East-west part of the wind in m/s, positive when blowing toward the east"
+hourly_weather,wind_v_ms,numeric,"North-south part of the wind in m/s, positive when blowing toward the north"
+hourly_weather,wind_method_code,character,AQS method code behind the wind columns; 069 is the Met One AIO2 sonic sensor
+hourly_weather,wind_source_site,character,Site that gave the wind columns (Croquet for Harvard Street); NA with no reading
+hourly_weather,is_calm,logical,"TRUE when wind speed is below 0.5 m/s (EPA-454/R-99-005, 6.2.3); direction is unreliable"
+hourly_weather,is_wind_spike,logical,TRUE when wind speed is more than 20 knots above both the hour before and the hour after
+hourly_weather,is_sonic_temp,logical,TRUE when temp_f comes from a sonic sensor (method 069)
+hourly_weather,is_sonic_wind,logical,TRUE when the wind columns come from a sonic sensor (method 069)
+hourly_weather,event_name,character,Weather event from events.csv covering the day (Uri or Beryl); NA when none applies
+hourly_weather,n_temp_hours_day,integer,Hours with a temperature at the site on that day
+hourly_weather,is_complete_temp_day,logical,TRUE when the day has a temperature in at least 18 of 24 hours
+hourly_weather,n_wind_hours_day,integer,Hours with wind at the site on that day
+hourly_weather,is_complete_wind_day,logical,TRUE when the day has wind in at least 18 of 24 hours
+weather_cleaning_log,step,character,"Import, cleaning or reshaping step"
+weather_cleaning_log,rows,integer,Rows in the working table after the step
+weather_cleaning_log,rows_removed,integer,Rows removed by the step; NA for steps that combine or add rows
+weather_validation,check,character,Validation check run at the end of 1e_weather_import_clean.R
+weather_validation,observed,character,"Value found in the weather data, as text"
+weather_validation,expected,character,"Value the check requires, as text"
+weather_validation,passed,logical,TRUE when observed equals expected
+weather_site_summary,site_id,character,AQS site ID
+weather_site_summary,local_site_name,character,Site name given by the reporting agency
+weather_site_summary,site_group,character,Case-study group
+weather_site_summary,region,character,Houston or Dallas-Fort Worth
+weather_site_summary,temp_source_sites,character,Sites whose sensors gave the temperatures
+weather_site_summary,wind_source_sites,character,Sites whose sensors gave the wind
+weather_site_summary,first_date,Date,First date with any weather reading
+weather_site_summary,last_date,Date,Last date with any weather reading
+weather_site_summary,n_hours,integer,Hours in the table
+weather_site_summary,pct_temp_hours,numeric,"Hours with a temperature, as a share of the 43,824 study hours"
+weather_site_summary,pct_wind_hours,numeric,"Hours with wind, as a share of the 43,824 study hours"
+weather_site_summary,pct_own_temp_hours,numeric,"Hours with a temperature from the site's own sensor, as a share of the study hours"
+weather_site_summary,temp_method_codes,character,AQS method codes behind the temperatures
+weather_site_summary,wind_method_codes,character,AQS method codes behind the wind
+weather_site_summary,n_complete_temp_days,integer,Days with a temperature in at least 18 hours
+weather_site_summary,n_complete_wind_days,integer,Days with wind in at least 18 hours
+weather_site_summary,pct_calm,numeric,Share of wind hours that are calm (below 0.5 m/s)
+weather_site_summary,n_wind_spikes,integer,Hours flagged as one-hour wind spikes
+weather_site_summary,mean_temp_c,numeric,Mean temperature in °C
+weather_site_summary,min_temp_c,numeric,Lowest temperature in °C
+weather_site_summary,max_temp_c,numeric,Highest temperature in °C
+weather_site_summary,mean_wind_speed_ms,numeric,Mean wind speed in m/s
+weather_site_summary,longest_temp_gap_days,numeric,"Longest run without a temperature, in days, counting the start and end of the study"
+weather_site_summary,longest_temp_gap_start,Date,First date of that run; NA when there is no gap
+weather_site_summary,longest_wind_gap_days,numeric,"Longest run without wind, in days, counting the start and end of the study"
+weather_site_summary,longest_wind_gap_start,Date,First date of that run; NA when there is no gap
+weather_site_summary,prevailing_wind_sector,numeric,Most common wind sector among hours that are not calm
+weather_site_summary,pct_prevailing_sector,numeric,Share of those hours in the prevailing sector
+weather_sensor_check,site_id,character,AQS site ID
+weather_sensor_check,local_site_name,character,Site name given by the reporting agency
+weather_sensor_check,sensor,character,Temperature or Wind (speed and direction share one sensor)
+weather_sensor_check,sensor_history,character,"Switched to sonic, Older sensor throughout, Sonic only, or No sensor"
+weather_sensor_check,old_method_code,character,"AQS method code of the older sensor (020 wind, 040 temperature)"
+weather_sensor_check,last_old_date,Date,Last date on the older sensor
+weather_sensor_check,first_sonic_date,Date,First date on the sonic sensor (method 069)
+weather_sensor_check,days_without_data,integer,Whole days with no reading between the older and the sonic sensor
+weather_sensor_check,hours_old,integer,Hours measured by the older sensor
+weather_sensor_check,hours_sonic,integer,Hours measured by the sonic sensor
+weather_sensor_check,neighbour_id,character,"Site used for comparison, which kept one sensor all five years; switched sites only"
+weather_sensor_check,diff_unit,character,"Unit of the differences: °F for temperature, knots for wind speed"
+weather_sensor_check,paired_hours_before,integer,Hours with readings at both sites in the 365 days before the switch
+weather_sensor_check,paired_hours_after,integer,Hours with readings at both sites in the 365 days after the switch
+weather_sensor_check,mean_diff_before,numeric,Mean of site minus neighbour before the switch
+weather_sensor_check,mean_diff_after,numeric,Mean of site minus neighbour after the switch
+weather_sensor_check,diff_change,numeric,Change in the mean difference at the switch (after minus before)
+weather_sensor_check,pct_calm_site_before,numeric,Share of paired hours that were calm at the site before the switch (wind only)
+weather_sensor_check,pct_calm_site_after,numeric,Share of paired hours that were calm at the site after the switch (wind only)
+weather_sensor_check,pct_calm_neighbour_before,numeric,Share of paired hours that were calm at the neighbour before the switch (wind only)
+weather_sensor_check,pct_calm_neighbour_after,numeric,Share of paired hours that were calm at the neighbour after the switch (wind only)
+weather_raw_row_counts,file,character,Weather zip file in data/raw/weather
+weather_raw_row_counts,file_type,character,WIND (speed and direction) or TEMP (temperature)
+weather_raw_row_counts,year,integer,Year the file covers
+weather_raw_row_counts,raw_rows,numeric,"Data rows in the file, header excluded; equal to the count in EPA's file list"

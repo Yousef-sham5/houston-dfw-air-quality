@@ -1,0 +1,9 @@
+step,rows,rows_removed
+Raw weather files,95477439,NA
+Keep case-study sites,1008615,94468824
+"Flag calm hours, none removed",1008615,0
+"Flag one-hour wind spikes, none removed",1008615,0
+"Reshape to one row per site and hour, no reading removed",370505,NA
+"Fill Harvard Street from Bayland Park and Croquet, rows added",390791,NA
+"Flag days with fewer than 18 hours of temperature or wind, none removed",390791,0
+"Flag hours measured by a sonic sensor, none removed",390791,0

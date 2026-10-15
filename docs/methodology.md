@@ -1,6 +1,6 @@
 # Phase 1 Methodology
 
-October 13, 2026 · Yousef Shamsaldeen
+October 15, 2026 · Yousef Shamsaldeen
 
 ## Data
 
@@ -78,16 +78,16 @@ The counts track changes in the monitoring network. PM2.5 rows grew 24% as FEM r
 
 **Saved files:** three gzip-compressed `.rds` checkpoints that later scripts read, `aqs_long_clean` (45.7 MiB), `sites` (2,038 rows) and `site_coverage` (3,760 rows), which reload identically. Two CSV records can be read on GitHub: `cleaning_log.csv` and `daily_validation.csv` (the eight final checks). `data/processed/` also holds a data dictionary of every saved column and an MD5 manifest of the `.rds` files.
 
-## Hourly data for the case study (1c and 1d)
+## Hourly data for the case study (1c, 1d and 1e)
 
-Hourly data are added for the case-study sites in two scripts of their own, so the daily pipeline stays as it is. `R/1c_site_selection.R` picks the sites. `R/1d_hourly_import_clean.R` reads the hourly files for those sites, flags and labels them, and checks them against the daily data. The hourly data serve the diurnal profiles in Phase 2 and the NO₂–ozone lag in Phase 4.
+Hourly data are added for the case-study sites in scripts of their own, so the daily pipeline stays as it is. `R/1c_site_selection.R` picks the sites. `R/1d_hourly_import_clean.R` reads the hourly pollutant files for those sites, flags and labels them, and checks them against the daily data. `R/1e_weather_import_clean.R` adds hourly wind and temperature for the same sites. The hourly data serve the diurnal profiles in Phase 2 and the NO₂–ozone lag in Phase 4.
 
 ### Scope
 
 - **Included:** ozone (44201), NO₂ (42602) and SO₂ (42401) for 2021–2025, which is 15 files.
 - **CO is left out.** Texas has few CO monitors, levels sit far below the NAAQS, and NO₂ already captures the traffic signal.
 - **PM2.5 is left out.** FRM monitors take 24-hour filter samples, so hourly PM2.5 would come only from FEM monitors and would differ from the daily method mix.
-- **Wind and temperature come later.** A separate script, `R/1e_weather_import_clean.R`, is planned to import hourly wind speed, wind direction and temperature for the case-study sites, which would allow a pollution rose. Statements about sources are worded as "consistent with".
+- **Wind and temperature** come from a separate script, `R/1e_weather_import_clean.R` (see "Weather (1e)" below), which allows pollution roses in Phase 2. Statements about sources are worded as "consistent with".
 
 ### Site selection (1c)
 
@@ -172,10 +172,34 @@ Houston Harvard Street is the only monitor that changed method. Method 099 (dete
 
 The new method left no lasting shift, since the 2025 gap is back inside the earlier range. The first months on it read low, by 1.2 to 1.3 ppb against the earlier range. Over those months the instrument reported many exact zeros and no negative values: 649 of 5,119 hours (12.7%) from 2024-04-22 to 2024-11-30 are exactly 0 ppb, against 56 of 8,989 (0.6%) from December 2024 on. This pattern is consistent with a low baseline on the new analyzer that was later corrected, and the cause is not confirmed. No data are adjusted, and `is_post_method_change` marks the 14,108 hours on the new method.
 
+### Weather (1e)
+
+The 10 hourly weather zips (`hourly_WIND` and `hourly_TEMP`, 2021–2025, from **Hourly Data → Meteorological**) hold 95,477,439 rows, and every count matches EPA's file list. They are read exactly as in 1d, in 1-million-row chunks, which keeps 1,008,615 rows for the 9 case-study sites: resultant wind speed (61103, knots), resultant wind direction (61104) and temperature (62101, °F). No row is removed after that. The data are reshaped to one row per site and hour, with °C and m/s added beside the original units, and join the pollutant table on `site_id` and `datetime_utc`.
+
+- **Houston Harvard Street** has no wind sensor, and its temperature starts on 2023-04-19. Its temperature comes from Houston Bayland Park (about 13 km away) and its wind from Houston Croquet (about 18 km), both in the same group, for all five years, and every row names its source sites. Bayland Park tracks Harvard Street's own sensor closely: a mean gap of −1.02 °F, 83.7% of hours within 2 °F, and r = 0.995. Harvard Street's own readings are kept in `own_temp_f` and `own_temp_c`.
+- **Calm hours:** `is_calm` marks wind below 0.5 m/s, EPA's calm threshold for site monitoring (EPA-454/R-99-005, section 6.2.3). Direction is unreliable in these hours, so they are left out of direction sectors, and they are kept because concentrations change in calm air. They make up 1.2% (Dallas Redbird) to 11.0% (Croquet) of wind hours.
+- **Wind spike:** one hour at Bayland Park (2024-01-24, 07:00) reads 41.7 knots between 6.9 and 3.2 knots, while five Houston neighbours read 2.1–3.0 knots. `is_wind_spike` flags any hour more than 20 knots above both the hour before and the hour after, and this is the only one. The next largest jump at any site is 13.9 knots.
+- **Direction:** 12 sectors of 30°, and east-west and north-south components (`wind_u_ms`, `wind_v_ms`), so mean directions are averaged correctly (EPA-454/R-99-005, section 6.2.2).
+- **Labels and days:** site group, region and event (Winter Storm Uri on 113 site-days, Hurricane Beryl on 27), plus separate 18-of-24-hour complete-day flags for temperature and wind. At four Houston sites (Bayland Park, Park Place, Houston East and Deer Park #2) the longest temperature gap starts on 2024-07-08, Beryl's landfall, consistent with power outages.
+
+**Sensor replacements:** five sites replaced their older weather sensors with the Met One AIO2 sonic sensor (method 069). Croquet, Park Place and Dallas Redbird kept their older sensors, and Harvard Street only ever had the sonic one. Each switch is compared with a neighbour that kept one sensor, over the 365 days before and after, and `is_sonic_temp` and `is_sonic_wind` mark the readings. Nothing is adjusted.
+
+| Site | Sonic temperature from | Sonic wind from | Days without wind | Calm-share change against neighbour |
+|---|---|---|---|---|
+| Bayland Park | 2022-04-22 | 2023-08-09 | 474 | −2.0 points |
+| Grapevine Fairway | 2022-08-31 | 2023-07-12 | 314 | −1.0 points |
+| Deer Park #2 | 2023-02-22 | 2023-07-12 | 161 | −1.3 points |
+| Clinton | 2023-06-16 | 2023-06-16 | 0 | +2.0 points |
+| Houston East | 2024-01-09 | 2024-01-09 | 0 | −3.8 points |
+
+Four of the five recorded fewer calm hours after the switch than their neighbour did, consistent with sonic sensors registering lighter winds. Temperature differences to the neighbour shifted by −0.26 to +0.95 °F. Fourteen checks pass, and temperature is present for 97.9–99.9% of pollutant hours. Wind is present for at least 98.4% at most sites, about 90.5% at Deer Park #2, about 82.5% at Grapevine and 67.8–71.4% at Bayland Park.
+
 ### Saved files
 
 - `hourly_case_study.rds`: 661,545 rows and 30 columns, 6.8 MiB, one row per monitor and hour.
 - `hourly_cleaning_log.csv`, `hourly_validation.csv` and `hourly_monitor_summary.csv`: the rows after each step, the 14 checks, and one row per monitor with its method, detection limit, coverage and daily values reproduced.
+- `hourly_weather.rds`: 390,791 rows and 34 columns, 11.0 MiB, one row per site and hour.
+- `weather_cleaning_log.csv`, `weather_validation.csv`, `weather_site_summary.csv` and `weather_sensor_check.csv`: the rows after each step, the 14 checks, one row per site with its coverage, gaps, calms and prevailing wind, and each site's sensor history.
 
 ## Known limits
 
@@ -184,6 +208,7 @@ The new method left no lasting shift, since the 2025 gap is back inside the earl
 - **The daily table has no ozone rows on December 31.** EPA's yearly files cannot see the January 1 hours, so that day has 11 or 12 of its 17 eight-hour means and the 75% rule drops it, about 3,650 monitor-days nationally. The hourly table holds those days, and `is_valid_ozone_day` marks them as valid.
 - **Deer Park #2** moved during the study, so its last seven months come from a different address. Its NO₂ also stepped up in 2024, a year before the move (June to December means of 5.9, 6.1, 6.3, 8.4 and 7.3 ppb). The cause is not known and will be examined in Phase 2.
 - **Houston Harvard Street NO₂ read low in 2024.** The other-Houston group has only two NO₂ sites, so its 2024 mean is pulled down by roughly 0.6 ppb. NO₂ comparisons between groups for 2024 should be run with and without the hours flagged `is_post_method_change`. The daily table holds the same months under `method_code` 186 (594 days from 2024-04-23). The higher detection limit also lifts the share of hours flagged `below_mdl` from 16.0% to 50.6%, so that flag should be compared within one method.
+- **Weather:** wind is missing for 474 days at Bayland Park, 314 at Grapevine and 161 at Deer Park #2 around their sensor replacements, so wind analyses for those sites cover fewer years. Harvard Street's weather comes from neighbours. Wind direction is taken as where the wind blows from, the usual convention, which EPA's documentation was not checked to confirm.
 - **Memory:** the daily import needs roughly 5.5 GB at its peak, so it may be slow on a machine with 8 GB.
 
 ## Sources
@@ -192,7 +217,8 @@ Regulation text was read on Cornell's Legal Information Institute. The official 
 
 | Source | Used for |
 |---|---|
-| [EPA AirData download page](https://aqs.epa.gov/aqsweb/airdata/download_files.html) | The 25 daily and 15 hourly files, and `file_list.csv` with each file's row count |
+| [EPA AirData download page](https://aqs.epa.gov/aqsweb/airdata/download_files.html) | The 25 daily, 15 hourly pollutant and 10 hourly weather files, and `file_list.csv` with each file's row count |
+| [EPA, Meteorological Monitoring Guidance for Regulatory Modeling Applications (EPA-454/R-99-005, 2000)](https://www.epa.gov/sites/production/files/2020-10/documents/mmgrma_0.pdf) | Calm wind below 0.5 m/s (section 6.2.3, Table 5-2) and vector averaging of wind direction (section 6.2.2) |
 | [EPA AirData file formats](https://aqs.epa.gov/aqsweb/airdata/FileFormats.html) | File columns, and local times as local standard time |
 | [AQS methods code table](https://aqs.epa.gov/aqsweb/documents/codetables/methods_all.html) | FRM and FEM designations and method ranges |
 | [AQS qualifier code table](https://aqs.epa.gov/aqsweb/documents/codetables/qualifiers.html) | The meaning of `RT` |

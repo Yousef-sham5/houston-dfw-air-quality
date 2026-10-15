@@ -1,0 +1,19 @@
+site_id,local_site_name,sensor,sensor_history,old_method_code,last_old_date,first_sonic_date,days_without_data,hours_old,hours_sonic,neighbour_id,diff_unit,paired_hours_before,paired_hours_after,mean_diff_before,mean_diff_after,diff_change,pct_calm_site_before,pct_calm_site_after,pct_calm_neighbour_before,pct_calm_neighbour_after
+48-113-0087,Dallas Redbird Airport Executive,Temperature,Older sensor throughout,040,2025-12-31,NA,NA,43645,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+48-113-0087,Dallas Redbird Airport Executive,Wind,Older sensor throughout,020,2025-12-31,NA,NA,43120,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+48-201-0051,Houston Croquet,Temperature,Older sensor throughout,040,2025-12-31,NA,NA,43044,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+48-201-0051,Houston Croquet,Wind,Older sensor throughout,020,2025-12-31,NA,NA,43204,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+48-201-0055,Houston Bayland Park,Temperature,Switched to sonic,040,2022-04-21,2022-04-22,0,11357,32074,48-201-0051,°F,8676,8591,-0.92,-0.73,0.19,NA,NA,NA,NA
+48-201-0055,Houston Bayland Park,Wind,Switched to sonic,020,2022-04-21,2023-08-09,474,8425,20757,48-201-0051,knots,7762,8526,1.24,1.62,0.38,8.7,5.6,10.2,9.1
+48-201-0416,Park Place,Temperature,Older sensor throughout,040,2025-12-31,NA,NA,43091,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+48-201-0416,Park Place,Wind,Older sensor throughout,020,2025-12-31,NA,NA,43269,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+48-201-0417,Houston Harvard Street,Temperature,Sonic only,NA,NA,2023-04-19,NA,0,23499,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+48-201-0417,Houston Harvard Street,Wind,No sensor,NA,NA,NA,NA,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+48-201-1034,Houston East,Temperature,Switched to sonic,040,2024-01-08,2024-01-09,0,25752,16900,48-201-0416,°F,8610,8221,0.18,-0.08,-0.26,NA,NA,NA,NA
+48-201-1034,Houston East,Wind,Switched to sonic,020,2024-01-08,2024-01-09,0,26103,16889,48-201-0416,knots,8514,8218,-0.96,-0.3,0.66,8.9,6.7,5.2,6.8
+48-201-1035,Clinton,Temperature,Switched to sonic,040,2023-06-15,2023-06-16,0,20187,21798,48-201-0416,°F,7874,8367,-0.3,0.65,0.95,NA,NA,NA,NA
+48-201-1035,Clinton,Wind,Switched to sonic,020,2023-06-15,2023-06-16,0,20700,21854,48-201-0416,knots,7986,8450,0.56,0.46,-0.1,2,2.6,7,5.6
+48-201-1039,Houston Deer Park #2,Temperature,Switched to sonic,040,2023-02-21,2023-02-22,0,18722,24841,48-201-0416,°F,8485,8565,-0.47,-0.1,0.37,NA,NA,NA,NA
+48-201-1039,Houston Deer Park #2,Wind,Switched to sonic,020,2023-01-31,2023-07-12,161,18181,21432,48-201-0416,knots,8616,8526,0.22,0.38,0.16,6,4.6,5.8,5.7
+48-439-3009,Grapevine Fairway,Temperature,Switched to sonic,040,2022-08-30,2022-08-31,0,14555,29086,48-113-0087,°F,8737,8514,-0.08,0.38,0.46,NA,NA,NA,NA
+48-439-3009,Grapevine Fairway,Wind,Switched to sonic,020,2022-08-31,2023-07-12,314,14488,21610,48-113-0087,knots,8623,8672,-2.17,-1.5,0.67,2.1,1.9,0.5,1.3

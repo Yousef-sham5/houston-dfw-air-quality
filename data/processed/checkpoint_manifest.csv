@@ -3,3 +3,4 @@ aqs_long_clean.rds,5557574,23,45.7,86f6a5e0f7ba8f05d2895a38b98fdf99,TRUE
 sites.rds,2038,9,0.1,2378fde7c32f2fff33a32d9f65d4e227,TRUE
 site_coverage.rds,3760,3,0,f512b27961c8a0399cbae0957a3fbc60,TRUE
 hourly_case_study.rds,661545,30,6.8,34e7592dc45125fe51c384d0098f5523,TRUE
+hourly_weather.rds,390791,34,11,8984d352bf3c1b5e1f0cb29ede052e5a,TRUE

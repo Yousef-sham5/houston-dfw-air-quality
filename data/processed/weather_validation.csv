@@ -1,0 +1,15 @@
+check,observed,expected,passed
+Rows read from the 10 zips against their raw row counts,95477439,95477439,TRUE
+Case-study sites in the table,9,9,TRUE
+Duplicate site-hours,0,0,TRUE
+Timestamps that differ from EPA's GMT time,0,0,TRUE
+Readings outside their method's range,0,0,TRUE
+Wind hours without a sector or u and v components,0,0,TRUE
+Calm flags that differ from the 1-knot rule,0,0,TRUE
+Harvard Street hours whose temperature differs from Bayland Park,0,0,TRUE
+Harvard Street hours whose wind differs from Croquet,0,0,TRUE
+Source readings not used for Harvard Street,0,0,TRUE
+Own temperatures that differ from temperature at the 8 other sites,0,0,TRUE
+Sites where summer is not warmer than winter,0,0,TRUE
+Pollutant hours at sites missing from the weather table,0,0,TRUE
+Matched hours whose local times disagree,0,0,TRUE
