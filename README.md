@@ -12,13 +12,10 @@ How do pollutant levels, trends and NAAQS compliance near the Houston Ship Chann
 
 | Phase | Techniques | Status |
 |---|---|---|
-| 1a, 1b. Import and cleaning (daily) | Method checks against EPA's FRM/FEM list, EPA's 75% completeness rule, ideal-gas unit conversion, event labels | Done |
-| 1c. Case-study site selection | Five-year monitors in Harris, Dallas and Tarrant counties, split into Ship Channel, other Houston and Dallas–Fort Worth groups, with collocated ozone and NO₂ sites ranked by completeness (one per county in Dallas–Fort Worth): 16 monitors at 9 sites | Done |
-| 1d. Hourly import and cleaning | Hourly ozone, NO₂ and SO₂ for the case-study sites, read from the zips in 1-million-row chunks and filtered one file at a time, with every row count checked against EPA's file list. Wildfire hours, readings below the detection limit and incomplete days are flagged and kept, and daily maximums rebuilt from the hourly values are checked against the daily table | Done |
-| 1e. Hourly weather import | Hourly wind speed, wind direction and temperature for the 9 case-study sites, imported the same way as 1d. Calm hours and one wind spike are flagged, Harvard Street's missing sensors are filled from two neighbours, and five sensor replacements are checked against neighbours | Done |
-| 2. Exploratory analysis | Summary statistics, seasonal and daily (diurnal) profiles, site comparisons, NAAQS exceedance screening | Planned |
-| 3. Distributions | Log-normal and gamma fits, Q-Q plots, extreme-value tails, design values | Planned |
-| 4. Trends and regression | Mann-Kendall and Theil-Sen trends, seasonal decomposition, multiple regression, residual diagnostics | Planned |
+| 1. Import and cleaning | Daily data for 5 pollutants nationwide, then hourly pollutants and weather for 16 monitors at 9 Houston and Dallas–Fort Worth sites. Every file is checked against EPA's row counts, and suspect readings are flagged and kept | Done |
+| 2. Exploratory analysis | Summary statistics, daily and seasonal profiles, site comparisons, NAAQS screening | Planned |
+| 3. Distributions | Log-normal and gamma fits, extreme-value tails, design values | Planned |
+| 4. Trends and regression | Mann-Kendall and Theil-Sen trends, seasonal decomposition, multiple regression | Planned |
 | 5. Report | R Markdown report (PDF and HTML) on GitHub Pages | Planned |
 
 ## Data quality highlights
