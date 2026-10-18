@@ -1,9 +1,9 @@
 pkgs <- c(
   "dplyr", "readr", "tidyr", "stringr", "purrr", "janitor", "lubridate", "here", "lobstr",
-  "ggplot2", "scales", "naniar", "patchwork", "corrplot", "ragg", "systemfonts",
-  "MASS", "moments", "nortest", "fitdistrplus", "trend",
+  "ggplot2", "scales", "naniar", "patchwork", "corrplot", "ragg", "systemfonts", "openair",
+  "MASS", "moments", "nortest", "fitdistrplus", "extRemes", "trend",
   "broom", "car",
-  "knitr", "rmarkdown", "tinytex", "kableExtra"
+  "knitr", "rmarkdown", "tinytex", "kableExtra", "renv"
 )
 
 missing_pkgs <- setdiff(pkgs, rownames(installed.packages()))

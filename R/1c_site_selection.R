@@ -6,7 +6,7 @@ library(lubridate)
 library(ggplot2)
 library(here)
 
-source(here("R", "utils.R")) # region_lookup
+source(here("R", "utils.R")) # study_years, region_lookup
 
 
 
@@ -29,8 +29,6 @@ stopifnot(
 
 
 # 2. DEFINE SCOPE ----
-study_years <- 2021:2025
-
 hourly_pollutants <- c("Ozone", "NO2", "SO2")
 
 houston_county <- "48-201"

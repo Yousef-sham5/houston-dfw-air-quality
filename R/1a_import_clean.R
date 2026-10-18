@@ -8,13 +8,11 @@ library(lubridate)
 library(lobstr)
 library(here)
 
-source(here("R", "utils.R")) # log_step(), region_lookup
+source(here("R", "utils.R")) # study_years, log_step(), region_lookup, calendar, events, save helpers
 
 
 
 # CONFIG ----
-study_years <- 2021:2025
-
 pollutant_lookup <- tribble(
   ~parameter_code, ~pollutant, ~units_of_measure,             ~mw_g_mol, ~to_ppb,
   88101L,          "PM2.5",    "Micrograms/cubic meter (LC)", NA,        NA,
@@ -217,13 +215,7 @@ gas_methods <- aqs_long %>%
 print(gas_methods, n = Inf)
 
 # EPA AQS methods reference table (FRM/FEM designations, instrument ranges, units)
-methods_ref <- here("data", "reference", "methods_all.csv") %>%
-  read_csv(col_types = cols(.default = col_character())) %>%
-  clean_names() %>%
-  mutate(
-    parameter_code = as.integer(parameter_code),
-    method_code = str_pad(method_code, width = 3, pad = "0")
-  )
+methods_ref <- read_methods_ref()
 
 regulatory_methods <- methods_ref %>%
   filter(method_type %in% c("FRM", "FEM")) %>%
@@ -531,13 +523,7 @@ rm(rows_with_limits, in_range_rows, out_of_range_rows)
 
 
 # 12. CONVERT UNITS TO µg/m³ ----
-# Ideal-gas molar volume at 25 °C and 1 atm
-r_gas <- 8.31446261815324 # J/(mol K), CODATA 2017
-t_ref <- 298.15           # K
-p_ref <- 101325           # Pa
-
-molar_volume <- 1000 * r_gas * t_ref / p_ref # L/mol
-
+# molar_volume (ideal gas at 25 °C and 1 atm) comes from utils.R, shared with 1d
 conversion_factors <- pollutant_lookup %>%
   mutate(ugm3_factor = if_else(pollutant == "PM2.5", 1, to_ppb * mw_g_mol / molar_volume)) %>%
   select(pollutant, ugm3_factor)
@@ -580,26 +566,13 @@ aqs_long <- aqs_long %>%
     day_of_year = yday(date_local)
   )
 
-# Meteorological seasons; December counts toward the following year's winter
+# Weekday, weekend and meteorological season, defined once in utils.R so 1d and 1e group the same way
 aqs_long <- aqs_long %>%
-  mutate(
-    month_num = month(date_local),
-    season = case_when(
-      month_num %in% c(12, 1, 2) ~ "Winter",
-      month_num %in% 3:5 ~ "Spring",
-      month_num %in% 6:8 ~ "Summer",
-      month_num %in% 9:11 ~ "Autumn"
-    ),
-    season = factor(season, levels = c("Winter", "Spring", "Summer", "Autumn")),
-    season_year = if_else(month_num == 12, year + 1, year)
-  ) %>%
-  select(-month_num)
+  add_calendar_columns()
 
+# December counts toward the following year's winter
 aqs_long <- aqs_long %>%
-  mutate(
-    day_of_week = wday(date_local, label = TRUE, week_start = 1, locale = "C"),
-    is_weekend = day_of_week %in% c("Sat", "Sun")
-  )
+  mutate(season_year = if_else(month(date_local) == 12, year + 1, year))
 
 date_cols <- c("year", "month", "year_month", "day_of_year",
                "season", "season_year", "day_of_week", "is_weekend")
@@ -608,17 +581,9 @@ date_cols_have_na <- aqs_long %>%
   select(all_of(date_cols)) %>%
   anyNA()
 
-first_day_of_week <- aqs_long %>%
-  filter(date_local == ymd("2021-01-01")) %>%
-  distinct(day_of_week) %>%
-  pull(day_of_week)
-
 stopifnot(
   "No missing date fields" = !date_cols_have_na,
-  "Month labels run Jan to Dec" = identical(levels(aqs_long$month), month.abb),
-  "Weekday labels run Mon to Sun" =
-    identical(levels(aqs_long$day_of_week), c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")),
-  "2021-01-01 is a Friday" = identical(as.character(first_day_of_week), "Fri")
+  "Month labels run Jan to Dec" = identical(levels(aqs_long$month), month.abb)
 )
 
 aqs_long %>%
@@ -628,30 +593,14 @@ aqs_long %>%
 
 
 # 14. EVENT LABELS ----
-events_raw <- here("data", "reference", "events.csv") %>%
-  read_csv(col_types = cols(.default = col_character()))
-
-stopifnot("readr reported problems in events.csv" = nrow(problems(events_raw)) == 0)
-
-events <- events_raw %>%
-  mutate(
-    start_date = ymd(start_date),
-    end_date = ymd(end_date)
-  )
+# Dates and codes are checked in read_events() (utils.R), which 1b, 1d and 1e also use
+events <- read_events()
 
 us_states <- aqs_long %>%
   distinct(state_code) %>%
   pull(state_code)
 
-stopifnot(
-  "Event dates parse as yyyy-mm-dd" = !anyNA(events$start_date) && !anyNA(events$end_date),
-  "Event windows end on or after they start" = all(events$end_date >= events$start_date),
-  "Event state codes are 2 digits (check for Excel-stripped zeros)" =
-    all(str_detect(events$state_code, "^\\d{2}$")),
-  "Event county codes are 3 digits (check for Excel-stripped zeros)" =
-    all(str_detect(events$event_county, "^\\d{3}$"), na.rm = TRUE),
-  "Every event state has monitors in the data" = all(events$state_code %in% us_states)
-)
+stopifnot("Every event state has monitors in the data" = all(events$state_code %in% us_states))
 
 # Fireworks windows (July 4-5 and Jan 1), every state, PM2.5 only
 july_4 <- expand_grid(state_code = us_states, year = study_years) %>%
@@ -677,9 +626,7 @@ event_windows <- events %>%
     july_4 %>% select(event_name, state_code, pollutants, start_date, end_date),
     new_year %>% select(event_name, state_code, pollutants, start_date, end_date)
   ) %>%
-  separate_longer_delim(pollutants, delim = ";") %>%
-  mutate(event_pollutant = str_trim(pollutants)) %>%
-  select(-pollutants)
+  split_event_pollutants()
 
 unknown_event_pollutants <- event_windows %>%
   distinct(event_pollutant) %>%
@@ -986,42 +933,16 @@ checkpoint <- list(
   site_coverage = site_coverage
 )
 
-checkpoint_paths <- file.path(processed_dir, str_c(names(checkpoint), ".rds"))
+# Each file is reloaded and checked against the object in memory (save_checkpoints() in utils.R)
+checkpoint_paths <- save_checkpoints(checkpoint, processed_dir)
 
-for (i in seq_along(checkpoint)) {
-  write_rds(checkpoint[[i]], checkpoint_paths[i], compress = "gz")
-}
-
-reloaded <- lapply(checkpoint_paths, read_rds)
-
-stopifnot(
-  "Saved files reload identical to the objects in memory" =
-    identical(unname(reloaded), unname(checkpoint))
-)
-
-rm(reloaded)
-
-# Records of the run that no later script reads are saved as CSV, so they open in any editor and on GitHub
+# Records of the run that no later script reads are saved as CSV
 records <- list(
   cleaning_log = cleaning_log,
   daily_validation = daily_validation
 )
 
-record_paths <- file.path(processed_dir, str_c(names(records), ".csv"))
-
-for (i in seq_along(records)) {
-  write_csv(records[[i]], record_paths[i])
-}
-
-record_rows <- vapply(
-  record_paths,
-  \(path) nrow(read_csv(path, col_types = cols(.default = col_character()))),
-  integer(1)
-)
-
-stopifnot(
-  "Every record file holds all of its rows" = all(record_rows == vapply(records, nrow, integer(1)))
-)
+save_records(records, processed_dir)
 
 # Column descriptions for analysts using the checkpoint and the records
 saved_tables <- c(checkpoint, records)
@@ -1072,48 +993,23 @@ data_dictionary <- tribble(
   "daily_validation", "passed",            "TRUE when observed equals expected"
 )
 
-saved_columns <- tibble(
-  table = rep(names(saved_tables), times = lengths(saved_tables)),
-  column = unlist(lapply(saved_tables, names), use.names = FALSE),
-  type = unlist(lapply(saved_tables, \(df) vapply(df, \(x) class(x)[1], character(1))), use.names = FALSE)
-)
+# Stops on a saved column without a description, or a description of a column that was not saved
+data_dictionary <- document_tables(saved_tables, data_dictionary)
 
-undocumented_columns <- saved_columns %>%
-  anti_join(data_dictionary, by = c("table", "column"))
-
-stale_dictionary_rows <- data_dictionary %>%
-  anti_join(saved_columns, by = c("table", "column"))
-
-stopifnot(
-  "Every saved column is in the data dictionary" = nrow(undocumented_columns) == 0,
-  "The data dictionary lists no columns that were not saved" = nrow(stale_dictionary_rows) == 0
-)
-
-data_dictionary <- saved_columns %>%
-  left_join(data_dictionary, by = c("table", "column"), relationship = "one-to-one")
-
-write_csv(data_dictionary, file.path(processed_dir, "data_dictionary.csv"))
+# 1d and 1e add their own rows to both shared files, and only the daily rows are replaced here
+replace_own_rows(data_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
 
 # File sizes and checksums; GitHub rejects files over 100 MiB
-github_limit_mib <- 100
+daily_manifest <- manifest_rows(checkpoint, checkpoint_paths)
 
-checkpoint_manifest <- tibble(
-  file = basename(checkpoint_paths),
-  rows = vapply(checkpoint, nrow, integer(1)),
-  columns = vapply(checkpoint, ncol, integer(1)),
-  size_mib = round(file.size(checkpoint_paths) / 2^20, 1),
-  md5 = unname(tools::md5sum(checkpoint_paths))
-) %>%
-  mutate(under_github_limit = size_mib < github_limit_mib)
-
-write_csv(checkpoint_manifest, file.path(processed_dir, "checkpoint_manifest.csv"))
+checkpoint_manifest <- replace_own_rows(daily_manifest, manifest_path, key = "file", col_types = manifest_col_types)
 
 print(checkpoint_manifest, width = Inf)
 
-if (!all(checkpoint_manifest$under_github_limit)) {
+if (!all(daily_manifest$under_github_limit)) {
   warning(
     "Over GitHub's ", github_limit_mib, " MiB limit: ",
-    str_c(checkpoint_manifest$file[!checkpoint_manifest$under_github_limit], collapse = ", "),
+    str_c(daily_manifest$file[!daily_manifest$under_github_limit], collapse = ", "),
     ". Add these files to .gitignore (the README explains how to rebuild them) or track them with Git LFS."
   )
 }

@@ -22,7 +22,7 @@ How do pollutant levels, trends and NAAQS compliance near the Houston Ship Chann
 
 - Cleaning took 8,930,992 raw rows down to 5,557,574. Most of the 37.8% removed were repeat summaries of the same monitor-day.
 - Every monitoring method is checked against EPA's FRM/FEM table, and 313,057 raw T640/T640X PM2.5 rows were dropped because EPA's corrected and firmware-corrected versions replace them.
-- EPA's 75% completeness rule is applied using the federal ozone-season lengths, and 8 verified events are labeled.
+- EPA's 75% completeness rule is applied using the federal ozone-season lengths, and 22 source-checked events (storms, hurricanes, wildfire smoke and a dust storm) are labeled under one data rule that a script rechecks.
 - Named assertions check each step. The saved checkpoint reloads identically and comes with a data dictionary and an MD5 manifest.
 - The hourly data rebuild every daily maximum exactly: 27,747 of 27,747 monitor-days for ozone, NO₂ and SO₂, including the hour of each maximum. A site move, a method change and five weather-sensor replacements are each checked against neighboring monitors and flagged.
 
@@ -42,7 +42,7 @@ R (`dplyr`, `tidyr`, `ggplot2`, `trend`, `fitdistrplus`), R Markdown, Git and Gi
 2. Under **Hourly Data → Criteria Gases**, download the 2021–2025 zips for 44201 (ozone), 42602 (NO₂) and 42401 (SO₂) into `data/raw/hourly/` and leave them zipped. The 15 files total 572 MiB zipped and 17.5 GiB unzipped. The files used here are the versions EPA's file list dates 2026-06-25, downloaded on 2026-10-12.
 3. Under **Hourly Data → Meteorological**, download the 2021–2025 `hourly_WIND` and `hourly_TEMP` zips into `data/raw/weather/` and leave them zipped. The 10 files total 723 MiB zipped and 21.9 GiB unzipped. EPA's file list dates them 2026-06-25, and they were downloaded on 2026-10-14.
 4. Install R and RStudio, then open `EPA AQS Project.Rproj`. The project file turns off restoring and saving `.RData`.
-5. Run `R/0_setup.R` once to install the packages, then restart R. Then source `R/1a_import_clean.R`, which takes several minutes, followed by `R/1b_event_checks.R`, `R/1c_site_selection.R`, `R/1d_hourly_import_clean.R`, which takes about ten minutes, and `R/1e_weather_import_clean.R`, which takes up to about 40 minutes on its first run. Keep this order: `1a` rewrites the data dictionary and manifest, and `1d` and `1e` add their rows to them. The first run needs an internet connection to fetch the chart fonts.
+5. Run `R/0_setup.R` once to install the packages, then restart R. Then source the scripts in order, since each reads what the one before it saved: `R/1a_import_clean.R` (several minutes), `R/1b_event_checks.R`, `R/1c_site_selection.R`, `R/1d_hourly_import_clean.R` and `R/1e_weather_import_clean.R`. On their first run, `1d` and `1e` each take about 10 to 15 minutes to read their zips. They cache the case-study rows in `data/hourly_filtered/` and `data/weather_filtered/` with each zip's size and modification time, so later runs take under a minute while the zips are unchanged. Each script replaces only its own rows in the data dictionary and manifest, so any one script can be rerun on its own. The first run needs an internet connection to fetch the chart fonts.
 
 ## Repository structure (so far)
 
@@ -60,7 +60,7 @@ EPA AQS Project/
 │   ├── weather_filtered/   # not tracked: case-study rows from each weather zip
 │   ├── reference/
 │   │   ├── methods_all.csv
-│   │   ├── events.csv
+│   │   ├── events.csv                 # 22 labeled events in 202 state or county rows
 │   │   ├── case_study_candidates.csv  # every eligible case-study monitor
 │   │   └── case_study_sites.csv       # the picked monitors
 │   └── processed/
@@ -89,7 +89,7 @@ EPA AQS Project/
 │   ├── 1c_site_selection.R       # picks the case-study sites
 │   ├── 1d_hourly_import_clean.R  # hourly import, flags and validation
 │   ├── 1e_weather_import_clean.R # hourly weather import, flags and validation
-│   └── utils.R                   # log_step(), region_lookup, event_medians(), chart theme
+│   └── utils.R                   # shared helpers: study years, calendar, events, zip reading, saving, chart theme
 ├── figures/
 │   └── case_study_sites.png      # map of the case-study monitors
 ├── docs/                   # GitHub Pages output and methodology

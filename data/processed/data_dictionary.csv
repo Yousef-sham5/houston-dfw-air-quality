@@ -133,7 +133,7 @@ hourly_weather,is_calm,logical,"TRUE when wind speed is below 0.5 m/s (EPA-454/R
 hourly_weather,is_wind_spike,logical,TRUE when wind speed is more than 20 knots above both the hour before and the hour after
 hourly_weather,is_sonic_temp,logical,TRUE when temp_f comes from a sonic sensor (method 069)
 hourly_weather,is_sonic_wind,logical,TRUE when the wind columns come from a sonic sensor (method 069)
-hourly_weather,event_name,character,Weather event from events.csv covering the day (Uri or Beryl); NA when none applies
+hourly_weather,event_name,character,Event from events.csv that also labels the hourly pollutants (Uri or Beryl); NA when none applies
 hourly_weather,n_temp_hours_day,integer,Hours with a temperature at the site on that day
 hourly_weather,is_complete_temp_day,logical,TRUE when the day has a temperature in at least 18 of 24 hours
 hourly_weather,n_wind_hours_day,integer,Hours with wind at the site on that day

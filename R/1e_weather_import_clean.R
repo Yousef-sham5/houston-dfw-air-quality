@@ -9,13 +9,11 @@ library(lubridate)
 library(lobstr)
 library(here)
 
-source(here("R", "utils.R")) # log_step(), region_lookup
+source(here("R", "utils.R")) # study_years, standard_time_zone, log_step(), region_lookup, hourly zip helpers, calendar, events, save helpers
 
 
 
 # CONFIG ----
-study_years <- 2021:2025
-
 # EPA AQS codes for the three weather variables. The WIND files hold speed and direction, the TEMP files temperature
 weather_codes <- tribble(
   ~variable,        ~parameter_code, ~file_type,
@@ -29,10 +27,6 @@ weather_dir <- here("data", "raw", "weather")
 processed_dir <- here("data", "processed")
 
 filtered_dir <- here("data", "weather_filtered")
-
-# AQS local times are local standard time all year, so Texas sits at a fixed UTC-6. "Etc/GMT+6" is that fixed
-# offset (this naming scheme reverses the sign). A zone such as "America/Chicago" would apply daylight saving time
-standard_time_zone <- "Etc/GMT+6"
 
 # 1 knot is 1,852 m per hour
 knots_to_ms <- 1852 / 3600
@@ -62,7 +56,7 @@ sonic_method_code <- "069"
 
 
 
-# 1. RAW ROW COUNTS ----
+# 1. RAW FILES AND EPA ROW COUNTS ----
 # The 10 zips the folder should hold: 2 file types x 5 years
 expected_zips <- expand_grid(
   file_type = unique(weather_codes$file_type),
@@ -78,33 +72,8 @@ stopifnot(
     setequal(basename(zip_paths), expected_zips$file)
 )
 
-# Count data rows in a zipped CSV, 1 million lines at a time to keep memory low (minus 1 for the header)
-count_csv_rows <- function(zip_path) {
-  n_lines <- 0
-  read_lines_chunked(
-    zip_path,
-    SideEffectChunkCallback$new(\(lines, pos) n_lines <<- n_lines + length(lines)),
-    chunk_size = 1e6
-  )
-  n_lines - 1
-}
-
-weather_row_counts <- tibble(zip_path = zip_paths) %>%
-  mutate(
-    file = basename(zip_path),
-    file_type = str_sub(file, 8, 11),
-    year = as.integer(str_sub(file, 13, 16))
-  ) %>%
-  mutate(raw_rows = map_dbl(zip_path, count_csv_rows, .progress = TRUE)) %>%
-  select(file, file_type, year, raw_rows) %>%
-  arrange(file_type, year)
-
-stopifnot(
-  "Every file has rows" = all(weather_row_counts$raw_rows > 0),
-  "Row counts are whole numbers" = all(weather_row_counts$raw_rows == round(weather_row_counts$raw_rows))
-)
-
-# Row counts from EPA's AirData file list (file_list.csv, files dated 2026-06-25)
+# Row counts from EPA's AirData file list (file_list.csv, files dated 2026-06-25). Section 3 counts every row
+# while it reads each zip and checks the counts against this list
 airdata_list_counts <- tribble(
   ~file_type, ~year, ~listed_rows,
   "WIND",     2021,  11807514,
@@ -119,73 +88,11 @@ airdata_list_counts <- tribble(
   "TEMP",     2025,  6877016
 )
 
-row_count_check <- weather_row_counts %>%
-  left_join(airdata_list_counts, by = c("file_type", "year"), relationship = "one-to-one") %>%
-  mutate(difference = raw_rows - listed_rows)
-
-print(row_count_check, n = Inf, width = Inf)
-
-# A mismatch means a damaged download, or files EPA has since regenerated (check file_list.csv again)
-stopifnot(
-  "Every file has an EPA listed count" = !anyNA(row_count_check$listed_rows),
-  "Row counts match EPA's file list" = all(row_count_check$difference == 0)
-)
-
-weather_row_counts %>%
-  group_by(file_type) %>%
-  summarise(raw_rows = sum(raw_rows)) %>%
-  print()
-
-print(sum(weather_row_counts$raw_rows))
-
-# Saved to cross-check the rows read during the import
-write_csv(weather_row_counts, file.path(processed_dir, "weather_raw_row_counts.csv"))
-
 
 
 # 2. CHECK FILE HEADERS ----
-# The 24 columns EPA documents for hourly files (AirData file formats, section 6.2), the same as the pollutant files in 1d
-documented_columns <- c(
-  "State Code",
-  "County Code",
-  "Site Num",
-  "Parameter Code",
-  "POC",
-  "Latitude",
-  "Longitude",
-  "Datum",
-  "Parameter Name",
-  "Date Local",
-  "Time Local",
-  "Date GMT",
-  "Time GMT",
-  "Sample Measurement",
-  "Units of Measure",
-  "MDL",
-  "Uncertainty",
-  "Qualifier",
-  "Method Type",
-  "Method Code",
-  "Method Name",
-  "State Name",
-  "County Name",
-  "Date of Last Change"
-)
-
-# Read the first lines of a zipped CSV without unzipping the whole file
-read_first_lines <- function(zip_path, n) {
-  csv_name <- str_replace(basename(zip_path), "\\.zip$", ".csv")
-  con <- unz(zip_path, csv_name)
-  on.exit(close(con))
-  readLines(con, n = n)
-}
-
-read_header <- function(zip_path) {
-  zip_path %>%
-    read_first_lines(n = 1) %>%
-    scan(text = ., what = "", sep = ",", quiet = TRUE)
-}
-
+# aqs_hourly_columns (utils.R) holds the 24 columns EPA documents for hourly files (AirData file formats,
+# section 6.2), the same as the pollutant files in 1d
 file_headers <- tibble(zip_path = zip_paths) %>%
   mutate(
     file = basename(zip_path),
@@ -196,12 +103,12 @@ header_strings <- map_chr(file_headers$columns, \(x) str_flatten(x, "|"))
 
 first_header <- file_headers$columns[[1]]
 
-print(setdiff(documented_columns, first_header))
-print(setdiff(first_header, documented_columns))
+print(setdiff(aqs_hourly_columns, first_header))
+print(setdiff(first_header, aqs_hourly_columns))
 
 stopifnot(
   "All 10 files share one header" = n_distinct(header_strings) == 1,
-  "Header matches EPA's 24 documented columns, in order" = identical(first_header, documented_columns)
+  "Header matches EPA's 24 documented columns, in order" = identical(first_header, aqs_hourly_columns)
 )
 
 # Preview 5 rows as text, to see how values are written before setting column types
@@ -228,85 +135,54 @@ stopifnot(
   "27 site and code pairs to look for" = nrow(weather_monitors) == 27
 )
 
-# Read the same 16 columns as 1d (8 of 24 are never parsed); codes stay text so leading zeros survive.
-# Latitude, longitude and the GMT columns are needed for the location and time-zone checks
-weather_col_spec <- cols_only(
-  `State Code`         = col_character(),
-  `County Code`        = col_character(),
-  `Site Num`           = col_character(),
-  `Parameter Code`     = col_integer(),
-  `POC`                = col_integer(),
-  `Latitude`           = col_double(),
-  `Longitude`          = col_double(),
-  `Date Local`         = col_date(),
-  `Time Local`         = col_character(),
-  `Date GMT`           = col_date(),
-  `Time GMT`           = col_character(),
-  `Sample Measurement` = col_double(),
-  `Units of Measure`   = col_character(),
-  `MDL`                = col_double(),
-  `Qualifier`          = col_character(),
-  `Method Code`        = col_character()
-)
-
-# Drop non-Texas rows first (cheap text comparison) so site IDs are only built for Texas rows
-keep_case_study_rows <- function(chunk) {
-  chunk %>%
-    filter(`State Code` == "48") %>%
-    mutate(site_id = str_c(`State Code`, `County Code`, `Site Num`, sep = "-")) %>%
-    semi_join(weather_monitors, by = c("site_id", "Parameter Code" = "parameter_code"))
-}
-
-# Read one zip in 1-million-row chunks, keep only case-study rows and save them with the
-# number of rows read. Files already saved are skipped, so a crash resumes where it stopped
-filter_weather_file <- function(zip_path) {
-  out_path <- file.path(filtered_dir, str_replace(basename(zip_path), "\\.zip$", ".rds"))
-
-  if (file.exists(out_path)) {
-    return(out_path)
-  }
-
-  rows_read <- 0
-
-  filtered_rows <- read_csv_chunked(
-    zip_path,
-    DataFrameCallback$new(\(chunk, pos) {
-      stopifnot("readr reported parsing problems" = nrow(problems(chunk)) == 0)
-      rows_read <<- rows_read + nrow(chunk)
-      keep_case_study_rows(chunk)
-    }),
-    chunk_size = 1e6,
-    col_types = weather_col_spec
-  )
-
-  write_rds(list(rows_read = rows_read, data = filtered_rows), out_path, compress = "gz")
-
-  rm(filtered_rows)
-  invisible(gc())
-
-  out_path
-}
-
+# Each zip is read in 1-million-row chunks with the same 16 columns as 1d (aqs_hourly_col_spec), and the case-study
+# rows are saved to data/weather_filtered with the number of rows read (filter_case_study_zip() in utils.R). A saved
+# file is reused while its zip keeps the same size and modification time, so a rerun skips the full read
 dir.create(filtered_dir, showWarnings = FALSE)
 
-filtered_paths <- map_chr(zip_paths, filter_weather_file, .progress = TRUE)
+filtered_paths <- map_chr(zip_paths, \(zip_path) filter_case_study_zip(zip_path, filtered_dir, weather_monitors), .progress = TRUE)
 
 filtered_files <- map(filtered_paths, read_rds)
 
-# Every row in every file must have been read: rows read has to equal the raw row count
 filter_log <- tibble(
   file = basename(zip_paths),
   rows_read = map_dbl(filtered_files, "rows_read"),
   rows_kept = map_int(filtered_files, \(x) nrow(x$data))
-) %>%
-  left_join(weather_row_counts %>% select(file, raw_rows), by = "file", relationship = "one-to-one")
+)
 
 print(filter_log, n = Inf)
 
+# Every row in every file must have been read: rows read has to equal EPA's listed count
+weather_row_counts <- filter_log %>%
+  mutate(
+    file_type = str_sub(file, 8, 11),
+    year = as.integer(str_sub(file, 13, 16))
+  ) %>%
+  select(file, file_type, year, raw_rows = rows_read) %>%
+  arrange(file_type, year)
+
+row_count_check <- weather_row_counts %>%
+  left_join(airdata_list_counts, by = c("file_type", "year"), relationship = "one-to-one") %>%
+  mutate(difference = raw_rows - listed_rows)
+
+print(row_count_check, n = Inf, width = Inf)
+
+# A mismatch means a damaged download, or files EPA has since regenerated (check file_list.csv again)
 stopifnot(
-  "Rows read match the raw row counts" = all(filter_log$rows_read == filter_log$raw_rows),
+  "Every file has an EPA listed count" = !anyNA(row_count_check$listed_rows),
+  "Rows read match EPA's file list" = all(row_count_check$difference == 0),
   "Every file kept some rows" = all(filter_log$rows_kept > 0)
 )
+
+weather_row_counts %>%
+  group_by(file_type) %>%
+  summarise(raw_rows = sum(raw_rows)) %>%
+  print()
+
+print(sum(weather_row_counts$raw_rows))
+
+# Saved as a record of the rows in each raw file
+write_csv(weather_row_counts, file.path(processed_dir, "weather_raw_row_counts.csv"))
 
 weather_raw <- filtered_files %>%
   map("data") %>%
@@ -334,7 +210,7 @@ instrument_year_rows <- weather_raw %>%
   mutate(hours_in_year = if_else(leap_year(year), 8784L, 8760L))
 
 stopifnot(
-  "Only the 16 chosen columns were read, plus site_id" = ncol(weather_raw) == length(weather_col_spec$cols) + 1,
+  "Only the 16 chosen columns were read, plus site_id" = ncol(weather_raw) == length(aqs_hourly_col_spec$cols) + 1,
   "All 9 case-study sites are in the weather data" = nrow(pairs_per_site) == 9,
   "Only case-study sites and the three weather codes were kept" =
     nrow(anti_join(pairs_found, weather_monitors, by = c("site_id", "parameter_code"))) == 0,
@@ -350,7 +226,7 @@ weather_raw %>%
 
 weather_cleaning_log <- tibble(
   step = c("Raw weather files", "Keep case-study sites"),
-  rows = c(sum(filter_log$raw_rows), nrow(weather_raw))
+  rows = c(sum(weather_row_counts$raw_rows), nrow(weather_raw))
 ) %>%
   mutate(rows_removed = lag(rows) - rows)
 
@@ -409,38 +285,12 @@ stopifnot(
   "Units are knots, compass degrees and °F" = all(unit_check$units_of_measure == unit_check$expected_unit)
 )
 
-# Time zone: as in 1d, local standard time puts Texas (UTC-6) 6 hours behind GMT all year.
-# Daylight saving time would show up as a 5-hour gap in summer
-time_check <- weather_raw %>%
-  select(date_local, time_local, date_gmt, time_gmt) %>%
-  mutate(
-    local_time = ymd_hm(str_c(date_local, " ", time_local), tz = "UTC"),
-    gmt_time = ymd_hm(str_c(date_gmt, " ", time_gmt), tz = "UTC"),
-    gmt_minus_local_hours = as.numeric(difftime(gmt_time, local_time, units = "hours"))
-  )
-
-time_check %>%
-  count(gmt_minus_local_hours) %>%
-  print()
-
-stopifnot(
-  "Every timestamp parses" = !anyNA(time_check$local_time) && !anyNA(time_check$gmt_time),
-  "Every time is on the hour" = all(str_detect(weather_raw$time_local, "^\\d{2}:00$")),
-  "GMT is always 6 hours ahead (local standard time, no daylight saving)" =
-    all(time_check$gmt_minus_local_hours == 6)
-)
-
-rm(time_check)
+# Time zone: as in 1d, local standard time puts Texas (UTC-6) 6 hours behind GMT all year (check in utils.R)
+check_local_standard_time(weather_raw)
 
 # Method codes, checked against EPA's methods table as in 1d. Weather methods carry no FRM or FEM
 # designation, so the table is used for each method's name, units and measuring range
-methods_ref <- here("data", "reference", "methods_all.csv") %>%
-  read_csv(col_types = cols(.default = col_character())) %>%
-  clean_names() %>%
-  mutate(
-    parameter_code = as.integer(parameter_code),
-    method_code = str_pad(method_code, width = 3, pad = "0")
-  )
+methods_ref <- read_methods_ref()
 
 weather_methods <- weather_raw %>%
   count(variable, parameter_code, method_code, units_of_measure, name = "n_rows")
@@ -523,27 +373,12 @@ weather_raw %>%
   mutate(matches_federal_mdl = abs(mdl - federal_mdl) < 1e-9) %>%
   print(n = Inf)
 
-# Qualifiers, typed with EPA's AQS qualifier table as in 1d. Any code outside the lookup is
-# labelled so it can be looked up before a rule is set
-qualifier_types <- bind_rows(
-  tibble(
-    qualifier = c(as.character(1:9), "MD", "ND", "SQ", "V", "LJ"),
-    qualifier_type = "Quality assurance"
-  ),
-  tibble(
-    qualifier = c("RA", "RB", "RC", "RF", "RT", "E"),
-    qualifier_type = "Request exclusion"
-  ),
-  tibble(
-    qualifier = c("IA", "IB", "IL", "J", "A"),
-    qualifier_type = "Informational"
-  )
-)
-
+# Qualifiers, typed with EPA's AQS qualifier table as in 1d (aqs_qualifier_types in utils.R). Any code outside
+# the lookup is labelled so it can be looked up before a rule is set
 qualifier_counts <- weather_raw %>%
   filter(!is.na(qualifier)) %>%
   count(variable, qualifier, name = "n_rows") %>%
-  left_join(qualifier_types, by = "qualifier", relationship = "many-to-one") %>%
+  left_join(aqs_qualifier_types, by = "qualifier", relationship = "many-to-one") %>%
   mutate(qualifier_type = replace_na(qualifier_type, "Not in lookup: check EPA table")) %>%
   arrange(variable, desc(n_rows))
 
@@ -688,44 +523,10 @@ stopifnot(
   "One row per site, variable and hour" = nrow(duplicate_timestamps) == 0
 )
 
-# Weekday and season follow the definitions in 1a and 1d, so weather and pollutant results group the same way
+# Weekday, weekend and season come from the same function as in 1a and 1d (utils.R), so weather and pollutant
+# results group the same way
 weather <- weather %>%
-  mutate(day_of_week = wday(date_local, label = TRUE, week_start = 1, locale = "C"))
-
-weather <- weather %>%
-  mutate(is_weekend = day_of_week %in% c("Sat", "Sun"))
-
-# Meteorological seasons
-weather <- weather %>%
-  mutate(month_num = month(date_local))
-
-weather <- weather %>%
-  mutate(
-    season = case_when(
-      month_num %in% c(12, 1, 2) ~ "Winter",
-      month_num %in% 3:5 ~ "Spring",
-      month_num %in% 6:8 ~ "Summer",
-      month_num %in% 9:11 ~ "Autumn"
-    )
-  )
-
-weather <- weather %>%
-  mutate(season = factor(season, levels = c("Winter", "Spring", "Summer", "Autumn")))
-
-weather <- weather %>%
-  select(-month_num)
-
-first_day_of_week <- weather %>%
-  filter(date_local == ymd("2021-01-01")) %>%
-  distinct(day_of_week) %>%
-  pull(day_of_week)
-
-stopifnot(
-  "No missing calendar fields" = !anyNA(weather$day_of_week) && !anyNA(weather$season),
-  "Weekday labels run Mon to Sun" =
-    identical(levels(weather$day_of_week), c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")),
-  "2021-01-01 is a Friday" = identical(as.character(first_day_of_week), "Fri")
-)
+  add_calendar_columns()
 
 
 
@@ -1068,20 +869,33 @@ stopifnot(
   "Three site groups" = n_distinct(weather_hourly$site_group) == 3
 )
 
-# Event windows from events.csv, matched on state and date, then on county (if given), as in 1d. The pollutant
-# column is not used: Winter Storm Uri and Hurricane Beryl were weather events, so they label every site in their area
-events <- here("data", "reference", "events.csv") %>%
-  read_csv(col_types = cols_only(
-    event_name   = col_character(),
-    start_date   = col_date(),
-    end_date     = col_date(),
-    state_code   = col_character(),
-    event_county = col_character()
-  ))
+# Hourly pollutants measured at the case-study sites in 1d
+hourly_pollutants <- here("data", "reference", "case_study_sites.csv") %>%
+  read_csv(col_types = cols_only(pollutant = col_character())) %>%
+  distinct(pollutant) %>%
+  pull(pollutant)
+
+stopifnot("Hourly pollutants found" = length(hourly_pollutants) > 0 && !anyNA(hourly_pollutants))
+
+# Event windows from events.csv, read and checked as in 1a and 1d (read_events() in utils.R), matched on state and
+# date, then on county (if given). Only rows whose pollutants column lists "all" or an hourly pollutant are kept,
+# so the weather hours carry the same events as 1d
+events <- read_events()
+
+event_windows <- events %>%
+  split_event_pollutants()
+
+hourly_events <- event_windows %>%
+  filter(event_pollutant == "all" | event_pollutant %in% hourly_pollutants) %>%
+  distinct(event_name, start_date, end_date, state_code, event_county)
+
+dropped_windows <- event_windows %>%
+  anti_join(hourly_events, by = c("event_name", "start_date", "end_date", "state_code", "event_county"))
 
 stopifnot(
-  "Event dates parse as yyyy-mm-dd" = !anyNA(events$start_date) && !anyNA(events$end_date),
-  "Event windows end on or after they start" = all(events$end_date >= events$start_date)
+  "Every kept event row is in events.csv" = all(hourly_events$event_name %in% events$event_name),
+  "No dropped event row lists all or an hourly pollutant" =
+    !any(dropped_windows$event_pollutant == "all" | dropped_windows$event_pollutant %in% hourly_pollutants)
 )
 
 site_days <- weather_hourly %>%
@@ -1090,7 +904,7 @@ site_days <- weather_hourly %>%
   mutate(county_code = str_sub(site_id, 4, 6))
 
 event_matches <- site_days %>%
-  inner_join(events, by = join_by(state_code, between(date_local, start_date, end_date))) %>%
+  inner_join(hourly_events, by = join_by(state_code, between(date_local, start_date, end_date))) %>%
   filter(is.na(event_county) | county_code == event_county) %>%
   distinct(site_id, date_local, event_name)
 
@@ -1109,7 +923,7 @@ weather_hourly %>%
   count(event_name, name = "site_days") %>%
   print()
 
-rm(site_days)
+rm(site_days, event_windows, dropped_windows)
 
 
 
@@ -1386,7 +1200,8 @@ print(join_coverage, n = Inf)
 # Each count is worked out first, then gathered into one table of checks
 rows_read <- sum(filter_log$rows_read)
 
-raw_rows <- sum(weather_row_counts$raw_rows)
+# The raw row counts are EPA's listed counts, which section 3 checked file by file
+raw_rows <- sum(airdata_list_counts$listed_rows)
 
 sites_in_table <- n_distinct(weather_hourly$site_id)
 
@@ -1572,22 +1387,10 @@ weather_checkpoint <- list(
   hourly_weather = hourly_weather
 )
 
-weather_checkpoint_paths <- file.path(processed_dir, str_c(names(weather_checkpoint), ".rds"))
+# Each file is reloaded and checked against the object in memory (save_checkpoints() in utils.R)
+weather_checkpoint_paths <- save_checkpoints(weather_checkpoint, processed_dir)
 
-for (i in seq_along(weather_checkpoint)) {
-  write_rds(weather_checkpoint[[i]], weather_checkpoint_paths[i], compress = "gz")
-}
-
-reloaded <- map(weather_checkpoint_paths, read_rds)
-
-stopifnot(
-  "Saved files reload identical to the objects in memory" =
-    identical(unname(reloaded), unname(weather_checkpoint))
-)
-
-rm(reloaded)
-
-# Records of the run that no later script reads are saved as CSV, so they open in any editor and on GitHub
+# Records of the run that no later script reads are saved as CSV
 weather_records <- list(
   weather_cleaning_log = weather_cleaning_log,
   weather_validation = weather_validation,
@@ -1595,20 +1398,7 @@ weather_records <- list(
   weather_sensor_check = weather_sensor_check
 )
 
-weather_record_paths <- file.path(processed_dir, str_c(names(weather_records), ".csv"))
-
-for (i in seq_along(weather_records)) {
-  write_csv(weather_records[[i]], weather_record_paths[i])
-}
-
-weather_record_rows <- map_int(
-  weather_record_paths,
-  \(path) nrow(read_csv(path, col_types = cols(.default = col_character())))
-)
-
-stopifnot(
-  "Every record file holds all of its rows" = all(weather_record_rows == map_int(weather_records, nrow))
-)
+save_records(weather_records, processed_dir)
 
 # Column descriptions for analysts using the checkpoint and the records, including the row counts saved in section 1
 saved_weather_tables <- c(weather_checkpoint, weather_records, list(weather_raw_row_counts = weather_row_counts))
@@ -1644,7 +1434,7 @@ weather_dictionary <- tribble(
   "hourly_weather",         "is_wind_spike",             "TRUE when wind speed is more than 20 knots above both the hour before and the hour after",
   "hourly_weather",         "is_sonic_temp",             "TRUE when temp_f comes from a sonic sensor (method 069)",
   "hourly_weather",         "is_sonic_wind",             "TRUE when the wind columns come from a sonic sensor (method 069)",
-  "hourly_weather",         "event_name",                "Weather event from events.csv covering the day (Uri or Beryl); NA when none applies",
+  "hourly_weather",         "event_name",                "Event from events.csv that also labels the hourly pollutants (Uri or Beryl); NA when none applies",
   "hourly_weather",         "n_temp_hours_day",          "Hours with a temperature at the site on that day",
   "hourly_weather",         "is_complete_temp_day",      "TRUE when the day has a temperature in at least 18 of 24 hours",
   "hourly_weather",         "n_wind_hours_day",          "Hours with wind at the site on that day",
@@ -1711,69 +1501,17 @@ weather_dictionary <- tribble(
   "weather_raw_row_counts", "raw_rows",                  "Data rows in the file, header excluded; equal to the count in EPA's file list"
 )
 
-saved_weather_columns <- tibble(
-  table = rep(names(saved_weather_tables), times = lengths(saved_weather_tables)),
-  column = unlist(map(saved_weather_tables, names), use.names = FALSE),
-  type = unlist(map(saved_weather_tables, \(df) map_chr(df, \(x) class(x)[1])), use.names = FALSE)
-)
+# Stops on a saved column without a description, or a description of a column that was not saved
+weather_dictionary <- document_tables(saved_weather_tables, weather_dictionary)
 
-undocumented_weather_columns <- saved_weather_columns %>%
-  anti_join(weather_dictionary, by = c("table", "column"))
+# 1a and 1d add their own rows to both shared files, and only the weather rows are replaced here
+replace_own_rows(weather_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
 
-stale_weather_dictionary_rows <- weather_dictionary %>%
-  anti_join(saved_weather_columns, by = c("table", "column"))
-
-print(undocumented_weather_columns)
-print(stale_weather_dictionary_rows)
-
-stopifnot(
-  "Every saved column is in the data dictionary" = nrow(undocumented_weather_columns) == 0,
-  "The data dictionary lists no columns that were not saved" = nrow(stale_weather_dictionary_rows) == 0
-)
-
-weather_dictionary <- saved_weather_columns %>%
-  left_join(weather_dictionary, by = c("table", "column"), relationship = "one-to-one")
-
-# 1a rewrites both files for the daily checkpoint and 1d adds the hourly rows, so the weather rows are added
-# here and replace any left by an earlier run of this script. Rerun this script after rerunning 1a
-dictionary_path <- file.path(processed_dir, "data_dictionary.csv")
-
-data_dictionary <- dictionary_path %>%
-  read_csv(col_types = cols(.default = col_character())) %>%
-  filter(!table %in% names(saved_weather_tables)) %>%
-  bind_rows(weather_dictionary)
-
-write_csv(data_dictionary, dictionary_path)
-
-# File size and checksum of the checkpoint; GitHub rejects files over 100 MiB.
-# The CSV records stay out of the manifest, since Git may change their line endings and with them the checksum
-github_limit_mib <- 100
-
-weather_manifest <- tibble(
-  file = basename(weather_checkpoint_paths),
-  rows = map_int(weather_checkpoint, nrow),
-  columns = map_int(weather_checkpoint, ncol),
-  size_mib = round(file.size(weather_checkpoint_paths) / 2^20, 1),
-  md5 = unname(tools::md5sum(weather_checkpoint_paths))
-) %>%
-  mutate(under_github_limit = size_mib < github_limit_mib)
+# File size and checksum of the checkpoint; GitHub rejects files over 100 MiB
+weather_manifest <- manifest_rows(weather_checkpoint, weather_checkpoint_paths)
 
 stopifnot("Every weather file is under GitHub's 100 MiB limit" = all(weather_manifest$under_github_limit))
 
-manifest_path <- file.path(processed_dir, "checkpoint_manifest.csv")
-
-checkpoint_manifest <- manifest_path %>%
-  read_csv(col_types = cols(
-    file               = col_character(),
-    rows               = col_integer(),
-    columns            = col_integer(),
-    size_mib           = col_double(),
-    md5                = col_character(),
-    under_github_limit = col_logical()
-  )) %>%
-  filter(!file %in% basename(weather_checkpoint_paths)) %>%
-  bind_rows(weather_manifest)
-
-write_csv(checkpoint_manifest, manifest_path)
+checkpoint_manifest <- replace_own_rows(weather_manifest, manifest_path, key = "file", col_types = manifest_col_types)
 
 print(checkpoint_manifest, width = Inf)
