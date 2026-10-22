@@ -33,7 +33,7 @@ sites,latitude,numeric,Latitude in decimal degrees
 sites,longitude,numeric,Longitude in decimal degrees
 site_coverage,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
 site_coverage,site_id,character,AQS site ID
-site_coverage,n_years_active,integer,Study years (0 to 5) in which the site met the 75% completeness rule
+site_coverage,n_years_active,integer,Study years (0 to 5) with at least 75% of the expected sample days for the instrument's schedule
 cleaning_log,step,character,Cleaning step
 cleaning_log,rows,integer,Rows remaining after the step
 cleaning_log,rows_removed,integer,Rows removed by the step

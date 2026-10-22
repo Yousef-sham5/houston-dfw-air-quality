@@ -475,26 +475,32 @@ site_group_colours <- c(
   "Dallas-Fort Worth"    = "#1baf7a"
 )
 
-# Typefaces: Inter Tight for titles, Inter for text, IBM Plex Mono for axis values and small labels
+# Typefaces: Latin Modern Roman for headings, the LaTeX default that the PDF report uses, and Arial for all other text
 chart_fonts <- c(
-  title = "Inter Tight",
-  text  = "Inter",
-  mono  = "IBM Plex Mono"
+  title = "Latin Modern Roman",
+  text  = "Arial"
 )
 
-# Call once before drawing. The fonts are fetched from Google Fonts on first use and kept in the
-# user's R cache, so later runs work offline. A font that cannot be fetched falls back to the system sans.
-# Saving with these fonts needs the ragg package, which ggsave() uses when it is installed
+# Call once before drawing. Registers Latin Modern Roman from the TinyTeX install that 0_setup.R creates,
+# then checks that both fonts resolve to their own files rather than a fallback.
+# Registered fonts only draw on ragg devices: ggsave() uses ragg, and RStudio needs Graphics backend AGG
 load_chart_fonts <- function() {
-  font_dir <- tools::R_user_dir("epa-aqs-fonts", which = "cache")
-  dir.create(font_dir, recursive = TRUE, showWarnings = FALSE)
-  cached_fonts <- list.files(font_dir, pattern = "\\.ttf$", full.names = TRUE)
-  if (length(cached_fonts) > 0) {
-    systemfonts::add_fonts(cached_fonts)
-  }
-  for (family in chart_fonts) {
-    systemfonts::require_font(family, fallback = "sans", dir = font_dir, verbose = FALSE)
-  }
+  lm_dir <- file.path(tinytex::tinytex_root(), "texmf-dist", "fonts", "opentype", "public", "lm")
+  lm_files <- file.path(lm_dir, c("lmroman10-regular.otf", "lmroman10-bold.otf", "lmroman10-italic.otf", "lmroman10-bolditalic.otf"))
+  stopifnot("Latin Modern Roman font files are in TinyTeX (run 0_setup.R)" = all(file.exists(lm_files)))
+  systemfonts::register_font(
+    chart_fonts[["title"]],
+    plain = lm_files[1],
+    bold = lm_files[2],
+    italic = lm_files[3],
+    bolditalic = lm_files[4]
+  )
+  title_file <- systemfonts::match_fonts(chart_fonts[["title"]], weight = "bold")$path
+  text_file <- systemfonts::match_fonts(chart_fonts[["text"]])$path
+  stopifnot(
+    "Heading font resolves to Latin Modern Roman" = grepl("^lmroman", basename(title_file)),
+    "Text font resolves to Arial" = grepl("^arial", basename(text_file), ignore.case = TRUE)
+  )
 }
 
 # Add to any ggplot with + theme_aqs(). Needs ggplot2 loaded by the calling script
@@ -509,13 +515,13 @@ theme_aqs <- function(base_size = 11) {
       plot.caption.position = "plot",
       plot.title = element_text(family = chart_fonts[["title"]], colour = chart_ink[["primary"]], face = "bold", size = rel(1.5), margin = margin(b = 5)),
       plot.subtitle = element_text(colour = chart_ink[["secondary"]], size = rel(0.95), margin = margin(b = 14)),
-      plot.caption = element_text(family = chart_fonts[["mono"]], colour = chart_ink[["muted"]], size = rel(0.72), hjust = 0, margin = margin(t = 12)),
+      plot.caption = element_text(colour = chart_ink[["muted"]], size = rel(0.72), hjust = 0, margin = margin(t = 12)),
       panel.grid.major = element_line(colour = chart_ink[["grid"]], linewidth = 0.3),
       panel.grid.minor = element_blank(),
       panel.spacing = unit(22, "pt"),
       axis.line = element_blank(),
       axis.ticks = element_blank(),
-      axis.text = element_text(family = chart_fonts[["mono"]], colour = chart_ink[["muted"]], size = rel(0.8)),
+      axis.text = element_text(colour = chart_ink[["muted"]], size = rel(0.8)),
       axis.title = element_text(colour = chart_ink[["secondary"]], size = rel(0.85)),
       axis.title.x = element_text(margin = margin(t = 8)),
       axis.title.y = element_text(margin = margin(r = 8)),

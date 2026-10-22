@@ -137,7 +137,7 @@ aqs_long <- aqs_long %>%
       from = pollutant_lookup$parameter_code,
       to = as.character(pollutant_lookup$pollutant),
       unmatched = "error"
-    ),
+    ), # dictionary lookup
     pollutant = factor(pollutant, levels = levels(pollutant_lookup$pollutant))
   )
 
@@ -231,6 +231,7 @@ method_status %>%
   filter(!method_type %in% c("FRM", "FEM")) %>%
   print(n = Inf)
 
+# Finds any 636/638 rows dated before 2023, for the check below
 early_firmware_rows <- aqs_long %>%
   filter(
     method_code %in% t640_firmware_codes,
@@ -251,7 +252,7 @@ stopifnot(
 non_regulatory_count <- aqs_long %>%
   filter(!is.na(method_code), !method_code %in% t640_raw_codes) %>%
   anti_join(regulatory_methods, by = c("parameter_code", "method_code")) %>%
-  nrow()
+  nrow() # no FRM/FEM distinction but has method code and is not 236/238
 
 removal_breakdown <- tibble(
   raw_t640 = sum(aqs_long$method_code %in% t640_raw_codes),
@@ -598,7 +599,7 @@ events <- read_events()
 
 us_states <- aqs_long %>%
   distinct(state_code) %>%
-  pull(state_code)
+  pull(state_code) # returns as a vector
 
 stopifnot("Every event state has monitors in the data" = all(events$state_code %in% us_states))
 
@@ -680,7 +681,7 @@ rm(event_matches)
 
 
 
-# 15. SITE COVERAGE AND MONITORING GAPS ----
+# 15. SITE COVERAGE ----
 # A year counts as active with at least 75% of its expected samples.
 # Seasonal ozone uses the most common federal season (Mar 1 to Oct 31, 245 days),
 # except Dallas-Fort Worth, whose season runs Mar 1 to Nov 30 (275 days).
@@ -764,6 +765,9 @@ site_coverage %>%
   count(region, pollutant) %>%
   print(n = Inf)
 
+
+
+# 16. MONITORING GAPS ----
 # Gaps longer than twice an instrument's typical sampling interval
 monitor_gaps <- aqs_long %>%
   select(pollutant, site_id, poc, date_local) %>%
@@ -786,7 +790,7 @@ monitor_gaps <- monitor_gaps %>%
   ) %>%
   select(pollutant, site_id, poc, year, gap_start, gap_end, gap_days)
 
-# Seasonal ozone off-season: the whole gap falls between Nov 1 and Mar 31
+# Seasonal ozone off-season: the whole gap falls between Oct 31 and Mar 31
 monitor_gaps <- monitor_gaps %>%
   left_join(
     instrument_years %>% select(pollutant, site_id, poc, year, schedule),
@@ -795,7 +799,7 @@ monitor_gaps <- monitor_gaps %>%
   ) %>%
   mutate(
     off_season_end = make_date(if_else(month(gap_end) <= 3, year(gap_end), year(gap_end) + 1), 3, 31),
-    off_season_start = make_date(year(off_season_end) - 1, 11, 1),
+    off_season_start = make_date(year(off_season_end) - 1, 10, 31),
     is_off_season = str_starts(schedule, "ozone ") & gap_start >= off_season_start
   )
 
@@ -832,7 +836,7 @@ rm(instrument_years, site_schedule_years, site_years)
 
 
 
-# 16. SITE TABLE AND UNUSED COLUMNS ----
+# 17. SITE TABLE AND UNUSED COLUMNS ----
 site_cols <- c(
   "site_id", "state_code", "county_code", "state_name", "county_name",
   "cbsa_name", "local_site_name", "latitude", "longitude"
@@ -872,7 +876,7 @@ print(obj_size(aqs_long))
 
 
 
-# 17. FINAL VALIDATION ----
+# 18. FINAL VALIDATION ----
 final_counts <- aqs_long %>%
   count(pollutant, year) %>%
   pivot_wider(names_from = year, values_from = n)
@@ -901,7 +905,7 @@ stopifnot(
 print(cleaning_log)
 print(final_counts)
 
-# The same checks as a table, saved in step 18 as a record of what this run confirmed
+# The same checks as a table, saved in step 19 as a record of what this run confirmed
 daily_validation <- tribble(
   ~check,                                         ~observed,                                 ~expected,
   "Pollutants in the table",                      as.character(nrow(final_counts)),          as.character(nrow(pollutant_lookup)),
@@ -921,7 +925,7 @@ print(daily_validation, width = Inf)
 
 
 
-# 18. SAVE CHECKPOINT ----
+# 19. SAVE CHECKPOINT ----
 # Scripts 1b onward read these files: aqs_long_clean.rds and sites.rds are the names 1b expects
 processed_dir <- here("data", "processed")
 
@@ -944,7 +948,7 @@ records <- list(
 
 save_records(records, processed_dir)
 
-# Column descriptions for analysts using the checkpoint and the records
+# Column descriptions
 saved_tables <- c(checkpoint, records)
 
 data_dictionary <- tribble(
@@ -983,7 +987,7 @@ data_dictionary <- tribble(
   "sites",          "longitude",           "Longitude in decimal degrees",
   "site_coverage",  "pollutant",           "PM2.5, Ozone, NO2, SO2 or CO",
   "site_coverage",  "site_id",             "AQS site ID",
-  "site_coverage",  "n_years_active",      "Study years (0 to 5) in which the site met the 75% completeness rule",
+  "site_coverage",  "n_years_active",      "Study years (0 to 5) with at least 75% of the expected sample days for the instrument's schedule",
   "cleaning_log",   "step",                "Cleaning step",
   "cleaning_log",   "rows",                "Rows remaining after the step",
   "cleaning_log",   "rows_removed",        "Rows removed by the step",

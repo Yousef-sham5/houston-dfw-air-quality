@@ -42,7 +42,7 @@ R (`dplyr`, `tidyr`, `ggplot2`, `trend`, `fitdistrplus`), R Markdown, Git and Gi
 2. Under **Hourly Data → Criteria Gases**, download the 2021–2025 zips for 44201 (ozone), 42602 (NO₂) and 42401 (SO₂) into `data/raw/hourly/` and leave them zipped. The 15 files total 572 MiB zipped and 17.5 GiB unzipped. The files used here are the versions EPA's file list dates 2026-06-25, downloaded on 2026-10-12.
 3. Under **Hourly Data → Meteorological**, download the 2021–2025 `hourly_WIND` and `hourly_TEMP` zips into `data/raw/weather/` and leave them zipped. The 10 files total 723 MiB zipped and 21.9 GiB unzipped. EPA's file list dates them 2026-06-25, and they were downloaded on 2026-10-14.
 4. Install R and RStudio, then open `EPA AQS Project.Rproj`. The project file turns off restoring and saving `.RData`.
-5. Run `R/0_setup.R` once to install the packages, then restart R. Then source the scripts in order, since each reads what the one before it saved: `R/1a_import_clean.R` (several minutes), `R/1b_event_checks.R`, `R/1c_site_selection.R`, `R/1d_hourly_import_clean.R` and `R/1e_weather_import_clean.R`. On their first run, `1d` and `1e` each take about 10 to 15 minutes to read their zips. They cache the case-study rows in `data/hourly_filtered/` and `data/weather_filtered/` with each zip's size and modification time, so later runs take under a minute while the zips are unchanged. Each script replaces only its own rows in the data dictionary and manifest, so any one script can be rerun on its own. The first run needs an internet connection to fetch the chart fonts.
+5. Run `R/0_setup.R` once to install the packages, then restart R. Then source the scripts in order, since each reads what the one before it saved: `R/1a_import_clean.R` (several minutes), `R/1b_event_checks.R`, `R/1c_site_selection.R`, `R/1d_hourly_import_clean.R` and `R/1e_weather_import_clean.R`. On their first run, `1d` and `1e` each take about 10 to 15 minutes to read their zips. They cache the case-study rows in `data/hourly_filtered/` and `data/weather_filtered/` with each zip's size and modification time, so later runs take under a minute while the zips are unchanged. Each script replaces only its own rows in the data dictionary and manifest, so any one script can be rerun on its own. Charts use Arial with headings in Latin Modern Roman, which `0_setup.R` installs with TinyTeX. To see the heading font in RStudio's Plots pane, set Tools → Global Options → General → Graphics → Backend to AGG.
 
 ## Repository structure (so far)
 
@@ -60,7 +60,7 @@ EPA AQS Project/
 │   ├── weather_filtered/   # not tracked: case-study rows from each weather zip
 │   ├── reference/
 │   │   ├── methods_all.csv
-│   │   ├── events.csv                 # 22 labeled events in 202 state or county rows
+│   │   ├── events.csv                 # 22 labeled events in 203 state or county rows
 │   │   ├── case_study_candidates.csv  # every eligible case-study monitor
 │   │   └── case_study_sites.csv       # the picked monitors
 │   └── processed/

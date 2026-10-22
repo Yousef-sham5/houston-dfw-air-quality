@@ -1,3 +1,4 @@
+# Installs/Updates required packages
 pkgs <- c(
   "dplyr", "readr", "tidyr", "stringr", "purrr", "janitor", "lubridate", "here", "lobstr",
   "ggplot2", "scales", "naniar", "patchwork", "corrplot", "ragg", "systemfonts", "openair",

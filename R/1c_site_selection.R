@@ -4,6 +4,7 @@ library(readr)
 library(stringr)
 library(lubridate)
 library(ggplot2)
+library(patchwork)
 library(here)
 
 source(here("R", "utils.R")) # study_years, region_lookup
@@ -214,38 +215,150 @@ write_csv(case_study_sites, here("data", "reference", "case_study_sites.csv"))
 # 7. MAP PICKED SITES ----
 # Visual check that each group sits where expected
 # One row per site, labelled with a short name and the pollutants picked there
+pollutant_symbols <- c(Ozone = "O₃", NO2 = "NO₂", SO2 = "SO₂")
+
 map_sites <- case_study_sites %>%
+  mutate(pollutant_symbol = recode_values(
+    as.character(pollutant),
+    from = names(pollutant_symbols),
+    to = unname(pollutant_symbols),
+    unmatched = "error"
+  )) %>%
   group_by(site_id, region, site_group, local_site_name, latitude, longitude) %>%
   summarise(
-    pollutants = str_flatten(sort(unique(as.character(pollutant))), collapse = " · "),
+    pollutants = str_flatten(sort(unique(pollutant_symbol)), collapse = " · "),
     .groups = "drop"
   ) %>%
   mutate(site_label = str_remove(local_site_name, " Airport Executive$")) %>%
-  mutate(site_label = if_else(site_label == "Houston East", site_label, str_remove(site_label, "^Houston ")))
+  mutate(site_label = if_else(site_label == "Houston East", site_label, str_remove(site_label, "^Houston "))) %>%
+  mutate(label_side = case_when(
+    site_label %in% c("Clinton", "Grapevine Fairway") ~ "right",
+    site_label == "Park Place" ~ "below",
+    .default = "above"
+  ))
 
-stopifnot("One map point per case-study site" = nrow(map_sites) == n_distinct(case_study_sites$site_id))
+# Label offsets from each point, in degrees, for a figure printed 6.5 inches wide
+label_offsets <- tribble(
+  ~label_side, ~name_dx, ~name_dy, ~name_hjust, ~name_vjust, ~pollutant_dx, ~pollutant_dy, ~pollutant_hjust, ~pollutant_vjust,
+  "above",     0,        0.036,    0.5,         0,           0,             0.017,         0.5,              0,
+  "below",     0,        -0.017,   0.5,         1,           0,             -0.036,        0.5,              1,
+  "right",     0.025,    0.003,    0,           0,           0.025,         -0.004,        0,                1
+)
+
+map_sites <- map_sites %>%
+  left_join(label_offsets, by = "label_side", relationship = "many-to-one")
+
+# Text sizes in mm (1 mm is about 2.85 pt); none prints below 7 pt
+map_text_mm <- c(region = 3.8, site = 2.8, detail = 2.5)
+
+# Reference points for orientation only
+map_landmarks <- tribble(
+  ~region,             ~landmark,          ~latitude, ~longitude,
+  "Houston",           "Downtown",         29.7604,   -95.3698,
+  "Dallas-Fort Worth", "Downtown Dallas",  32.7767,   -96.7970,
+  "Dallas-Fort Worth", "DFW Airport",      32.8998,   -97.0403
+)
+
+# Both frames span 0.46 degrees of latitude, so the two maps share one scale
+map_frames <- tribble(
+  ~region,             ~lon_min, ~lon_max, ~lat_min, ~lat_max,
+  "Houston",           -95.585,  -95.035,  29.525,   29.985,
+  "Dallas-Fort Worth", -97.150,  -96.710,  32.635,   33.095
+)
+
+sites_outside_frame <- map_sites %>%
+  inner_join(map_frames, by = "region", relationship = "many-to-one") %>%
+  filter(!between(longitude, lon_min, lon_max) | !between(latitude, lat_min, lat_max))
+
+stopifnot(
+  "One map point per case-study site" = nrow(map_sites) == n_distinct(case_study_sites$site_id),
+  "Every region has a map frame" = all(map_sites$region %in% map_frames$region),
+  "Every site sits inside its map frame" = nrow(sites_outside_frame) == 0,
+  "Both frames span the same latitude" = n_distinct(round(map_frames$lat_max - map_frames$lat_min, 6)) == 1,
+  "Every site has label offsets" = !anyNA(map_sites$name_dx)
+)
+
+km_per_lon_degree <- function(lat) 111.32 * cos(lat * pi / 180)
+
+draw_region_map <- function(region_name, bar_km = 10) {
+  frame <- filter(map_frames, region == region_name)
+  region_sites <- filter(map_sites, region == region_name)
+  region_landmarks <- filter(map_landmarks, region == region_name)
+  bar_start <- frame$lon_min + 0.03
+  bar_end <- bar_start + bar_km / km_per_lon_degree((frame$lat_min + frame$lat_max) / 2)
+  bar_y <- frame$lat_min + 0.03
+
+  region_map <- ggplot() +
+    annotate("text", x = (frame$lon_min + frame$lon_max) / 2, y = frame$lat_max - 0.025, label = region_name, family = chart_fonts[["title"]], fontface = "bold", size = map_text_mm[["region"]], colour = chart_ink[["primary"]], hjust = 0.5, vjust = 1) +
+    annotate("segment", x = bar_start, xend = bar_end, y = bar_y, yend = bar_y, colour = chart_ink[["secondary"]], linewidth = 0.5) +
+    annotate("segment", x = c(bar_start, bar_end), xend = c(bar_start, bar_end), y = bar_y - 0.008, yend = bar_y + 0.008, colour = chart_ink[["secondary"]], linewidth = 0.5) +
+    annotate("text", x = (bar_start + bar_end) / 2, y = bar_y + 0.024, label = str_c(bar_km, " km"), family = chart_fonts[["text"]], size = map_text_mm[["detail"]], colour = chart_ink[["secondary"]]) +
+    geom_point(data = region_landmarks, aes(longitude, latitude), shape = 3, size = 1.8, stroke = 0.6, colour = chart_ink[["muted"]]) +
+    geom_text(data = region_landmarks, aes(longitude, latitude, label = landmark), family = chart_fonts[["text"]], fontface = "italic", size = map_text_mm[["detail"]], colour = chart_ink[["muted"]], vjust = 1, nudge_y = -0.015) +
+    geom_point(data = region_sites, aes(longitude, latitude, fill = site_group), shape = 21, size = 3.6, colour = "white", stroke = 1.1, show.legend = TRUE) +
+    geom_text(data = region_sites, aes(longitude + name_dx, latitude + name_dy, label = site_label, hjust = name_hjust, vjust = name_vjust), family = chart_fonts[["text"]], fontface = "bold", size = map_text_mm[["site"]], colour = chart_ink[["primary"]]) +
+    geom_text(data = region_sites, aes(longitude + pollutant_dx, latitude + pollutant_dy, label = pollutants, hjust = pollutant_hjust, vjust = pollutant_vjust), family = chart_fonts[["text"]], size = map_text_mm[["detail"]], colour = chart_ink[["secondary"]]) +
+    scale_fill_manual(values = site_group_colours, breaks = names(site_group_colours), limits = names(site_group_colours), name = NULL) +
+    coord_quickmap(xlim = c(frame$lon_min, frame$lon_max), ylim = c(frame$lat_min, frame$lat_max), expand = FALSE) +
+    labs(x = NULL, y = NULL) +
+    theme_aqs(base_size = 10) +
+    theme(
+      panel.background = element_rect(fill = "#f6f5f0", colour = NA),
+      panel.grid.major = element_line(colour = "#e8e6de", linewidth = 0.3),
+      axis.text = element_blank(),
+      plot.margin = margin(0, 4, 0, 4)
+    )
+
+  if (region_name == "Houston") {
+    region_map <- region_map +
+      annotate("text", x = frame$lon_max - 0.015, y = 29.6, label = "Galveston Bay →", family = chart_fonts[["text"]], fontface = "italic", size = map_text_mm[["detail"]], colour = chart_ink[["muted"]], hjust = 1)
+  }
+
+  region_map
+}
+
+# Panel widths in km, so both maps keep the same scale side by side
+frame_widths_km <- map_frames %>%
+  mutate(width_km = (lon_max - lon_min) * km_per_lon_degree((lat_min + lat_max) / 2))
 
 load_chart_fonts()
 
-site_map <- map_sites %>%
-  ggplot(aes(x = longitude, y = latitude)) +
-  geom_point(aes(fill = site_group), shape = 21, size = 4.2, colour = "white", stroke = 1.3) +
-  geom_text(aes(label = site_label), family = chart_fonts[["text"]], size = 3.1, fontface = "bold", colour = chart_ink[["primary"]], vjust = -2.9) +
-  geom_text(aes(label = pollutants), family = chart_fonts[["mono"]], size = 2.3, colour = chart_ink[["muted"]], vjust = -2.0) +
-  facet_wrap(~ region, scales = "free") +
-  scale_fill_manual(values = site_group_colours, breaks = names(site_group_colours)) +
-  scale_x_continuous(n.breaks = 4, labels = \(x) str_c(abs(x), "°W"), expand = expansion(mult = 0.3)) +
-  scale_y_continuous(n.breaks = 4, labels = \(x) str_c(x, "°N"), expand = expansion(mult = c(0.12, 0.3))) +
-  labs(
-    title = "Where the case-study monitors sit",
-    subtitle = "9 sites and 16 monitors in three groups. Each panel has its own scale.",
-    x = NULL,
-    y = NULL,
-    fill = NULL,
-    caption = "Source: EPA AQS site coordinates. Positions are longitude and latitude, with no base map."
+site_map <- (draw_region_map("Houston") + draw_region_map("Dallas-Fort Worth")) +
+  plot_layout(
+    widths = frame_widths_km$width_km[match(c("Houston", "Dallas-Fort Worth"), frame_widths_km$region)],
+    guides = "collect"
   ) +
-  theme_aqs()
+  plot_annotation(
+    title = "Nine monitoring sites in Houston and Dallas-Fort Worth",
+    subtitle = "16 hourly monitors in three groups. The Ship Channel sites sit on Houston's industrial east side.",
+    caption = "Source: EPA AQS site coordinates. Both maps use the same scale. Crosses mark landmarks for orientation.",
+    theme = theme_aqs(base_size = 10) +
+      theme(
+        plot.title = element_text(margin = margin(b = 3)),
+        plot.subtitle = element_text(margin = margin(b = 9)),
+        plot.caption = element_text(margin = margin(t = 8)),
+        plot.margin = margin(10, 10, 8, 10)
+      )
+  ) &
+  theme(
+    legend.position = "top",
+    legend.justification = "left",
+    legend.text = element_text(size = 9, margin = margin(l = 3, r = 12)),
+    legend.margin = margin(0, 0, 0, 0),
+    legend.box.spacing = unit(8, "pt")
+  )
 
 dir.create(here("figures"), showWarnings = FALSE)
 
-ggsave(here("figures", "case_study_sites.png"), site_map, width = 9, height = 5.8, dpi = 300)
+site_map_path <- here("figures", "case_study_sites.png")
+
+save_started <- Sys.time()
+
+# Saved at the report text width, so the sizes above are the printed sizes
+ggsave(site_map_path, site_map, width = 6.5, height = 4.25, dpi = 300)
+
+# ragg only warns when the file is locked (an open viewer or OneDrive syncing), so check the write
+stopifnot(
+  "case_study_sites.png was written (close any viewer of it and rerun this step)" =
+    file.mtime(site_map_path) >= save_started - 2
+)
