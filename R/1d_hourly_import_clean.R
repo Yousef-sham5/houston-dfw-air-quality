@@ -358,7 +358,7 @@ duplicate_hours <- hourly_raw %>%
 
 print(nrow(duplicate_hours))
 
-# Coordinates over time, printed to 6 decimals. A site listed twice has moved (Deer Park #2 moved on 2025-05-30)
+# Coordinates over time, printed to 6 decimals. Deer Park #2's move does not show here because EPA lists one pair
 site_locations <- hourly_raw %>%
   group_by(site_id, latitude, longitude) %>%
   summarise(
@@ -581,10 +581,11 @@ hourly %>%
   ) %>%
   print()
 
-# Ozone has its own rule (40 CFR 50 Appendix U, section 3), judged on 8-hour means. The 17 means that start
-# at hours 7 to 23 count (the last ones run into the next morning), each needs 6 of its 8 hours and is
-# truncated to 3 decimals in ppm, and a day is valid with at least 13 of the 17.
-# Missing hours are added as NA first so that lead() steps one hour at a time
+# Ozone days follow EPA's rule (40 CFR 50 Appendix U, section 3), which uses 8-hour averages.
+# Each hour from 7:00 to 23:00 starts one 8-hour window, so a day has 17 windows; the 23:00 window ends at
+# 06:59 the next morning. A window counts if at least 6 of its 8 hours have data, and its average is
+# truncated to 3 decimals in ppm (0.0708 becomes 0.070). A day is valid when at least 13 of its 17 windows count.
+# Missing hours are first added as NA rows, so each row is one hour and lead() moves exactly one hour
 study_hours <- seq(
   make_datetime(min(study_years), 1, 1, 0, tz = standard_time_zone),
   make_datetime(max(study_years), 12, 31, 23, tz = standard_time_zone),
@@ -992,13 +993,6 @@ monitor_validation <- daily_check %>%
     .groups = "drop"
   )
 
-# Days with hourly data that the daily table does not hold, split by the 18-hour flag
-hourly %>%
-  distinct(pollutant, site_id, poc, date_local, is_complete_day) %>%
-  anti_join(daily_values, by = c("pollutant", "site_id", "poc", "date_local")) %>%
-  count(pollutant, is_complete_day, name = "days_missing_from_daily") %>%
-  print()
-
 rm(
   daily_values, gas_daily_max, ozone_grid, ozone_8hr, ozone_day_validity, ozone_daily_max, daily_check, label_check,
   daily_ozone_days, ozone_day_check, daily_days_not_valid, valid_days_missing_from_daily
@@ -1109,7 +1103,6 @@ hourly_records <- list(
 
 save_records(hourly_records, processed_dir)
 
-# Column descriptions for analysts using the checkpoint and the records, including the row counts saved in section 1
 saved_hourly_tables <- c(hourly_checkpoint, hourly_records, list(hourly_raw_row_counts = hourly_row_counts))
 
 hourly_dictionary <- tribble(

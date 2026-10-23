@@ -67,6 +67,7 @@ The hourly data cover ozone, NO₂ and SO₂ for the diurnal profiles in Phase 2
 **Flags:** no hourly row is removed. Each rule adds a column, so later phases can keep or leave out the affected hours.
 
 - `is_wildfire_flagged`: the 142 ozone hours carrying EPA's `RT` wildfire qualifier.
+- `event_name`: Uri on 124 monitor-days (NO₂ and SO₂) and Beryl on 48 (Harris County, all three gases). No smoke row in `events.csv` covers Texas ozone, NO₂ or SO₂, so the 2022 smoke hours are marked only by `RT`.
 - `below_mdl`: readings below the detection limit, kept as reported. Half-limit substitution would make the 2 ppb SO₂ instruments average three to four times the 0.2 ppb one.
 - `is_complete_day`: at least 18 of 24 hours (40 CFR 50 Appendices S and T). `is_valid_ozone_day`: at least 13 of the 17 eight-hour means (Appendix U).
 - Times are local standard time at a fixed UTC-6, so a summer 7–9 a.m. CDT rush hour appears as hours 6–8. `datetime_utc` joins the weather data.
@@ -122,7 +123,7 @@ Figures use Arial, with headings in Latin Modern Roman to match the PDF report, 
 
 - **SO₂ sits near zero.** At Croquet, Park Place and Clinton, 97.2–99.4% of hours are below the 2 ppb detection limit, and Clinton's baseline drifts (64.6% negative hours in 2021, 89.5% in 2025). SO₂ is best read through spikes or daily maximums, and an average daily pattern is reliable only at Deer Park #2.
 - **The daily table has no ozone rows on December 31.** EPA's yearly files cannot see January 1, so the 75% rule drops that day (about 3,650 monitor-days nationally). The hourly table holds these days.
-- **Deer Park #2** moved in 2025, and its NO₂ stepped up in 2024 for an unknown reason, to be examined in Phase 2.
+- **Deer Park #2** moved in 2025, and its NO₂ stepped up in 2024 for an unknown reason, to be examined in Phase 2. EPA's files give it the new address and one coordinate pair for all five years, so a move that keeps its AQS ID cannot be seen in the data.
 - **Harvard Street NO₂ read low in 2024,** which pulls the other-Houston 2024 mean down by roughly 0.6 ppb. Group comparisons for 2024 should run with and without `is_post_method_change` hours, and `below_mdl` should be compared within one method because the detection limit rose from 2.7 to 5 ppb.
 - **Weather:** wind is missing for 474 days at Bayland Park, 314 at Grapevine and 161 at Deer Park #2 around their sensor replacements, and Harvard Street's weather comes from neighbours. Wind direction is taken as where the wind blows from, which EPA's documentation was not checked to confirm.
 - **Memory:** the daily import peaks at roughly 5.5 GB, so it may be slow on a machine with 8 GB.
