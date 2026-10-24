@@ -1,6 +1,6 @@
 # Phase 1 Methodology
 
-October 22, 2026 · Yousef Shamsaldeen
+October 24, 2026 · Yousef Shamsaldeen
 
 Phase 1 builds three cleaned datasets from EPA AQS files: daily data for five pollutants nationwide (`1a`, `1b`), hourly pollutant data for 16 case-study monitors (`1c`, `1d`) and hourly weather for the 9 case-study sites (`1e`). Every column is read with an explicit type, codes stay as text so leading zeros survive, and named assertions stop a script when an assumption fails.
 
@@ -93,7 +93,7 @@ The 10 weather zips (`hourly_WIND` and `hourly_TEMP`) hold 95,477,439 rows, all 
 - **Harvard Street** has no wind sensor, and its temperature starts on 2023-04-19. It takes temperature from Bayland Park (about 13 km away) and wind from Croquet (about 18 km), and every row names its source sites. Against Harvard Street's own sensor, Bayland Park averages −1.02 °F (r = 0.995). The site's own readings are kept in `own_temp_f`.
 - **Calm hours:** `is_calm` marks wind below 0.5 m/s (EPA-454/R-99-005, section 6.2.3), from 1.2% of hours at Dallas Redbird to 11.0% at Croquet. These hours stay out of direction sectors and stay in the data.
 - **Wind spike:** `is_wind_spike` flags an hour more than 20 knots above both neighbouring hours. Only one qualifies: 41.7 knots at Bayland Park on 2024-01-24.
-- **Direction:** 12 sectors of 30°, plus east-west and north-south components so mean directions average correctly (section 6.2.2).
+- **Direction:** where the wind blows from, in degrees clockwise from true north (EPA-454/R-99-005, section 2.2). It is grouped into 12 sectors of 30° and split into east-west and north-south components so mean directions average correctly (section 6.2.2).
 - **Labels:** site group, region, events and complete-day flags for wind and temperature. Only event rows that list ozone, NO₂, SO₂ or "all" are used, so the weather carries Uri on 113 site-days and Beryl on 27.
 
 **Sensor replacements:** five sites switched to the Met One AIO2 sonic sensor (method 069), each compared with a neighbour that kept one sensor over the 365 days before and after. Nothing is adjusted, and `is_sonic_temp` and `is_sonic_wind` mark the readings.
@@ -125,7 +125,7 @@ Figures use Arial, with headings in Latin Modern Roman to match the PDF report, 
 - **The daily table has no ozone rows on December 31.** EPA's yearly files cannot see January 1, so the 75% rule drops that day (about 3,650 monitor-days nationally). The hourly table holds these days.
 - **Deer Park #2** moved in 2025, and its NO₂ stepped up in 2024 for an unknown reason, to be examined in Phase 2. EPA's files give it the new address and one coordinate pair for all five years, so a move that keeps its AQS ID cannot be seen in the data.
 - **Harvard Street NO₂ read low in 2024,** which pulls the other-Houston 2024 mean down by roughly 0.6 ppb. Group comparisons for 2024 should run with and without `is_post_method_change` hours, and `below_mdl` should be compared within one method because the detection limit rose from 2.7 to 5 ppb.
-- **Weather:** wind is missing for 474 days at Bayland Park, 314 at Grapevine and 161 at Deer Park #2 around their sensor replacements, and Harvard Street's weather comes from neighbours. Wind direction is taken as where the wind blows from, which EPA's documentation was not checked to confirm.
+- **Weather:** wind is missing for 474 days at Bayland Park, 314 at Grapevine and 161 at Deer Park #2 around their sensor replacements, and Harvard Street's weather comes from neighbours. During Beryl, the Ship Channel sites lost weather and pollutant data together (Houston East has 7 of 168 hours of each), and Harvard Street's borrowed Croquet wind covers only 4 of its 167 ozone hours.
 - **Memory:** the daily import peaks at roughly 5.5 GB, so it may be slow on a machine with 8 GB.
 
 ## Sources
@@ -135,7 +135,7 @@ Regulation text was read on Cornell's Legal Information Institute. The official 
 | Source | Used for |
 |---|---|
 | [EPA AirData download page](https://aqs.epa.gov/aqsweb/airdata/download_files.html) | The 25 daily, 15 hourly pollutant and 10 hourly weather files, and `file_list.csv` with each file's row count |
-| [EPA, Meteorological Monitoring Guidance for Regulatory Modeling Applications (EPA-454/R-99-005, 2000)](https://www.epa.gov/sites/production/files/2020-10/documents/mmgrma_0.pdf) | Calm wind below 0.5 m/s (section 6.2.3, Table 5-2) and vector averaging of wind direction (section 6.2.2) |
+| [EPA, Meteorological Monitoring Guidance for Regulatory Modeling Applications (EPA-454/R-99-005, 2000)](https://www.epa.gov/sites/production/files/2020-10/documents/mmgrma_0.pdf) | Wind direction as where the wind blows from (section 2.2), calm wind below 0.5 m/s (section 6.2.3, Table 5-2) and vector averaging of wind direction (section 6.2.2) |
 | [EPA AirData file formats](https://aqs.epa.gov/aqsweb/airdata/FileFormats.html) | File columns, and local times as local standard time |
 | [AQS methods code table](https://aqs.epa.gov/aqsweb/documents/codetables/methods_all.html) | FRM and FEM designations and method ranges |
 | [AQS qualifier code table](https://aqs.epa.gov/aqsweb/documents/codetables/qualifiers.html) | The meaning of `RT` |

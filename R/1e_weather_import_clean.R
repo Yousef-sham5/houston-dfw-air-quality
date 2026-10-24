@@ -14,7 +14,7 @@ source(here("R", "utils.R")) # study_years, standard_time_zone, log_step(), regi
 
 
 # CONFIG ----
-# EPA AQS codes for the three weather variables. The WIND files hold speed and direction, the TEMP files temperature
+# The WIND files hold speed and direction, the TEMP files temperature
 weather_codes <- tribble(
   ~variable,        ~parameter_code, ~file_type,
   "Wind speed",     61103L,          "WIND",
@@ -31,27 +31,25 @@ filtered_dir <- here("data", "weather_filtered")
 # 1 knot is 1,852 m per hour
 knots_to_ms <- 1852 / 3600
 
-# EPA counts an hour as calm when the wind speed is below 0.5 m/s (EPA-454/R-99-005, section 6.2.3 and Table 5-2)
+# EPA counts an hour as calm when the wind speed is below 0.5 m/s
 calm_threshold_ms <- 0.5
 
-# A wind spike is an hour more than 20 knots above both the hour before and the hour after (section 5)
+# Spike: an hour more than 20 knots above both the hour before and the hour after
 spike_threshold_kt <- 20
 
-# 12 wind sectors of 30°
 sector_width <- 30
 
-# A day is complete with at least 18 of its 24 hours (75%), as in 1d
+# 75% of 24 hours, as in 1d
 min_hours_per_day <- 18
 
-# Houston Harvard Street has no wind sensor, and its own temperature starts in 2023. Its temperature comes from
-# Houston Bayland Park and its wind from Houston Croquet (section 9)
+# Harvard Street takes its temperature from Bayland Park and its wind from Croquet (section 9)
 harvard_street_id <- "48-201-0417"
 
 temp_source_id <- "48-201-0055"
 
 wind_source_id <- "48-201-0051"
 
-# AQS method code of the Met One AIO2 sonic weather sensor (section 12)
+# Method code of the Met One AIO2 sonic sensor, which measures wind with ultrasound
 sonic_method_code <- "069"
 
 
@@ -91,8 +89,7 @@ airdata_list_counts <- tribble(
 
 
 # 2. CHECK FILE HEADERS ----
-# aqs_hourly_columns (utils.R) holds the 24 columns EPA documents for hourly files (AirData file formats,
-# section 6.2), the same as the pollutant files in 1d
+# aqs_hourly_columns (utils.R) holds the 24 columns EPA documents for hourly files (AirData file formats, section 6.2)
 file_headers <- tibble(zip_path = zip_paths) %>%
   mutate(
     file = basename(zip_path),
@@ -122,7 +119,7 @@ glimpse(header_preview)
 
 
 # 3. FILTER TO THE CASE-STUDY SITES ----
-# The 9 sites picked in 1c. Weather is measured per site, so each site is searched for all three codes
+# The 9 sites picked in 1c, each searched for all three codes
 case_study_site_ids <- here("data", "reference", "case_study_sites.csv") %>%
   read_csv(col_types = cols_only(site_id = col_character())) %>%
   distinct(site_id)
@@ -135,9 +132,8 @@ stopifnot(
   "27 site and code pairs to look for" = nrow(weather_monitors) == 27
 )
 
-# Each zip is read in 1-million-row chunks with the same 16 columns as 1d (aqs_hourly_col_spec), and the case-study
-# rows are saved to data/weather_filtered with the number of rows read (filter_case_study_zip() in utils.R). A saved
-# file is reused while its zip keeps the same size and modification time, so a rerun skips the full read
+# Each zip is read in chunks and its case-study rows saved to data/weather_filtered (filter_case_study_zip() in
+# utils.R). A rerun reuses the saved rows while the zip is unchanged
 dir.create(filtered_dir, showWarnings = FALSE)
 
 filtered_paths <- map_chr(zip_paths, \(zip_path) filter_case_study_zip(zip_path, filtered_dir, weather_monitors), .progress = TRUE)
@@ -194,7 +190,6 @@ invisible(gc())
 
 print(obj_size(weather_raw))
 
-# Harvard Street has no wind in EPA's files, so it should report temperature only (section 9 fills its weather)
 pairs_found <- weather_raw %>%
   distinct(site_id, parameter_code)
 
@@ -258,7 +253,7 @@ weather_raw %>%
   ) %>%
   print(n = Inf)
 
-# Hours present as a share of each year, by site and variable. Long gaps show up as low years
+# Share of each year's hours present, by site and variable
 weather_raw %>%
   count(site_id, variable, year = year(date_local), name = "n_hours") %>%
   mutate(hours_in_year = if_else(leap_year(year), 8784, 8760)) %>%
@@ -266,7 +261,7 @@ weather_raw %>%
   pivot_wider(id_cols = c(site_id, variable), names_from = year, values_from = pct_hours) %>%
   print(n = Inf, width = Inf)
 
-# Units: one per variable (wind speed in knots, wind direction in compass degrees, temperature in °F)
+# Units: one per variable
 expected_units <- tribble(
   ~variable,        ~expected_unit,
   "Wind speed",     "Knots",
@@ -285,11 +280,10 @@ stopifnot(
   "Units are knots, compass degrees and °F" = all(unit_check$units_of_measure == unit_check$expected_unit)
 )
 
-# Time zone: as in 1d, local standard time puts Texas (UTC-6) 6 hours behind GMT all year (check in utils.R)
+# Time zone: AQS local times skip daylight saving, so Texas is always 6 hours behind GMT (check in utils.R)
 check_local_standard_time(weather_raw)
 
-# Method codes, checked against EPA's methods table as in 1d. Weather methods carry no FRM or FEM
-# designation, so the table is used for each method's name, units and measuring range
+# Method codes against EPA's methods table, for each method's name, units and valid range
 methods_ref <- read_methods_ref()
 
 weather_methods <- weather_raw %>%
@@ -326,8 +320,7 @@ stopifnot(
   "Every method has a lower limit" = !anyNA(method_check$method_min)
 )
 
-# Sensor history: the dates each site reports under each method. A site listed under two methods
-# changed instruments, which section 12 checks against a neighbour
+# Dates each site reports under each method. Two methods mean a sensor change (section 12)
 method_history <- weather_raw %>%
   group_by(site_id, variable, method_code) %>%
   summarise(
@@ -361,8 +354,7 @@ range_check <- weather_raw %>%
 
 print(range_check, n = Inf, width = Inf)
 
-# The MDL column is compared with the Federal MDL in EPA's methods table. It is printed for the record
-# and not used as a detection limit
+# Detection limit (MDL) against the one EPA lists for the method, printed for the record only
 weather_raw %>%
   distinct(variable, parameter_code, method_code, mdl) %>%
   left_join(
@@ -373,8 +365,7 @@ weather_raw %>%
   mutate(matches_federal_mdl = abs(mdl - federal_mdl) < 1e-9) %>%
   print(n = Inf)
 
-# Qualifiers, typed with EPA's AQS qualifier table as in 1d (aqs_qualifier_types in utils.R). Any code outside
-# the lookup is labelled so it can be looked up before a rule is set
+# Qualifier codes (flags agencies attach to readings), typed with aqs_qualifier_types (utils.R)
 qualifier_counts <- weather_raw %>%
   filter(!is.na(qualifier)) %>%
   count(variable, qualifier, name = "n_rows") %>%
@@ -391,7 +382,7 @@ duplicate_hours <- weather_raw %>%
 
 print(nrow(duplicate_hours))
 
-# Coordinates over time, printed to 6 decimals. A site listed twice has moved
+# Coordinates over time, printed to 6 decimals. Deer Park #2's move does not show here because EPA lists one pair
 site_locations <- weather_raw %>%
   group_by(site_id, latitude, longitude) %>%
   summarise(
@@ -421,12 +412,8 @@ stopifnot(
     sum(range_check$n_below_method_min) == 0 && sum(range_check$n_above_method_max) == 0
 )
 
-# Calm hours: wind speed below 0.5 m/s, the recommended starting threshold for anemometers and wind vanes
-# (EPA-454/R-99-005, section 6.2.3 and Table 5-2). In calm air the direction is unreliable, so later phases
-# leave calm hours out of direction sectors. The hours stay in, since concentrations change in calm air.
-# Wind spikes: an hour more than 20 knots above both the hour before and the hour after. The next largest
-# one-hour jump at any site is 13.9 knots, so the rule only catches a jump consistent with an instrument fault.
-# An hour next to a gap cannot be judged and is not flagged
+# Calm: the vane cannot point reliably in very light wind, so later phases leave calm hours out of wind sectors.
+# Spike: the next largest one-hour jump at any site is 13.9 knots. An hour beside a missing hour is not checked
 wind_flags <- weather_raw %>%
   filter(variable == "Wind speed") %>%
   select(site_id, date_local, time_local, wind_speed_kt = sample_measurement) %>%
@@ -464,7 +451,7 @@ weather <- weather_raw %>%
     relationship = "many-to-one"
   )
 
-# Both flags describe the wind, so they stay empty on temperature rows. A spike marks the hour's speed and direction
+# Wind flags stay NA on temperature rows
 weather <- weather %>%
   mutate(is_calm = if_else(variable == "Temperature", NA, is_calm)) %>%
   mutate(is_wind_spike = if_else(variable == "Temperature", NA, is_wind_spike))
@@ -500,11 +487,11 @@ rm(wind_flags)
 
 
 # 6. BUILD TIMESTAMPS AND CALENDAR COLUMNS ----
-# Built exactly as in 1d, at the fixed UTC-6 set in CONFIG, so every weather hour lines up with a pollutant hour
+# Built as in 1d at the fixed UTC-6 of standard_time_zone (utils.R), so weather and pollutant hours line up
 weather <- weather %>%
   mutate(datetime_local = ymd_hm(str_c(date_local, " ", time_local), tz = standard_time_zone))
 
-# The UTC timestamp is the join key to hourly_case_study.rds
+# The UTC timestamp matches each weather hour to hourly_case_study.rds
 weather <- weather %>%
   mutate(datetime_utc = ymd_hm(str_c(date_gmt, " ", time_gmt), tz = "UTC"))
 
@@ -523,16 +510,14 @@ stopifnot(
   "One row per site, variable and hour" = nrow(duplicate_timestamps) == 0
 )
 
-# Weekday, weekend and season come from the same function as in 1a and 1d (utils.R), so weather and pollutant
-# results group the same way
+# Same calendar columns as 1a and 1d (utils.R)
 weather <- weather %>%
   add_calendar_columns()
 
 
 
 # 7. CONVERT UNITS ----
-# Temperature to °C and wind speed to m/s. Direction stays in compass degrees.
-# The original values stay beside the converted ones, as 1d keeps sample_measurement beside value_ppb
+# Direction stays in degrees. The original values are kept beside the converted ones, as in 1d
 fahrenheit_to_celsius <- function(temp_f) {
   (temp_f - 32) * 5 / 9
 }
@@ -568,8 +553,7 @@ weather %>%
 
 
 # 8. RESHAPE TO ONE ROW PER SITE AND HOUR ----
-# Speed, direction and temperature for the same site and hour go side by side. An hour with only some of
-# the three keeps NA for the rest, so no reading is dropped
+# An hour missing a variable keeps NA for it, so no reading is dropped
 hour_keys <- c("site_id", "datetime_local")
 
 calendar_hours <- weather %>%
@@ -599,7 +583,6 @@ weather_hourly <- calendar_hours %>%
   left_join(wind_direction_hours, by = hour_keys, relationship = "one-to-one") %>%
   left_join(temperature_hours, by = hour_keys, relationship = "one-to-one")
 
-# Readings of each variable before and after the reshape
 readings_per_variable <- weather %>%
   count(variable)
 
@@ -623,20 +606,17 @@ stopifnot(
 weather_hourly <- weather_hourly %>%
   select(-direction_method_code)
 
-# Wind direction is read as the direction the wind blows from, the usual meteorological convention. EPA's
-# AQS documentation was not checked to confirm it. The 12 sectors are 30° wide and named by their centre angle,
-# so sector 0 runs from 345° up to 15° and takes both 0° and 360°
+# Wind direction is the direction the wind blows from, in degrees clockwise from true north (EPA-454/R-99-005,
+# section 2.2). Sectors are named by their centre, so sector 0 runs from 345° to 15° and holds 0° and 360°
 weather_hourly <- weather_hourly %>%
   mutate(wind_sector = floor(((wind_dir_deg + sector_width / 2) %% 360) / sector_width) * sector_width)
 
-# East-west (u) and north-south (v) parts of the wind, in m/s, pointing where the wind blows to. Averaging
-# u and v gives a correct mean direction, where averaging degrees would not (350° and 10° average to 180°)
-# (EPA-454/R-99-005, section 6.2.2)
+# The wind split into east-west (u) and north-south (v) parts in m/s. Averaging the parts gives a correct mean
+# direction near north, where 350° and 10° would average to 180° (EPA-454/R-99-005, section 6.2.2)
 weather_hourly <- weather_hourly %>%
   mutate(wind_u_ms = -wind_speed_ms * sin(wind_dir_deg * pi / 180)) %>%
   mutate(wind_v_ms = -wind_speed_ms * cos(wind_dir_deg * pi / 180))
 
-# A 1 m/s wind from the east (90°) blows west, so u = -1 and v = 0. A wind from the north (0°) blows south, so v = -1
 unit_vector_check <- tibble(speed = c(1, 1), direction = c(90, 0)) %>%
   mutate(u = -speed * sin(direction * pi / 180)) %>%
   mutate(v = -speed * cos(direction * pi / 180))
@@ -654,8 +634,7 @@ stopifnot(
     isTRUE(all.equal(c(unit_vector_check$u[2], unit_vector_check$v[2]), c(0, -1)))
 )
 
-# The cleaning log counts rows of the working table. Reshaping combines rows without dropping any reading,
-# so this step has no removal count
+# Reshaping combines rows, so the step has no removal count
 weather_cleaning_log <- weather_cleaning_log %>%
   add_row(
     step = "Reshape to one row per site and hour, no reading removed",
@@ -684,11 +663,8 @@ rm(calendar_hours, wind_speed_hours, wind_direction_hours, temperature_hours, un
 
 
 # 9. FILL HOUSTON HARVARD STREET FROM ITS NEIGHBOURS ----
-# Harvard Street has no wind sensor, and its own temperature starts on 2023-04-19. Its weather comes from two sites
-# in the same group for all five years: temperature from Houston Bayland Park (about 13 km away) and wind from
-# Houston Croquet (about 18 km away). Every row records where its temperature and wind came from, and
-# own_temp_f and own_temp_c keep each site's own sensor, so Harvard Street's sensor can be compared with Bayland Park.
-# The three site IDs are set in CONFIG
+# Harvard Street has no wind sensor and its own temperature starts on 2023-04-19. All five years take temperature
+# from Bayland Park (about 13 km) and wind from Croquet (about 18 km). own_temp_f and own_temp_c keep its own sensor
 harvard_own_rows <- weather_hourly %>%
   filter(site_id == harvard_street_id)
 
@@ -759,7 +735,6 @@ harvard_filled <- harvard_hours %>%
 weather_hourly <- bind_rows(own_site_rows, harvard_filled) %>%
   arrange(site_id, datetime_local)
 
-# Checks: Harvard Street's values equal its sources hour for hour, and no reading of its own was lost
 harvard_check <- weather_hourly %>%
   filter(site_id == harvard_street_id) %>%
   left_join(
@@ -793,7 +768,7 @@ stopifnot(
     all(harvard_check$wind_source_site %in% c(wind_source_id, NA))
 )
 
-# Bayland Park against Harvard Street's own sensor, on every hour both have (from 2023-04-19)
+# Bayland Park against Harvard Street's own sensor, from 2023-04-19
 harvard_temp_comparison <- harvard_check %>%
   filter(!is.na(temp_f), !is.na(own_temp_f)) %>%
   summarise(
@@ -811,7 +786,7 @@ stopifnot(
     harvard_temp_comparison$correlation > 0.95
 )
 
-# Filling adds Harvard Street hours that had no reading of its own, so this step has no removal count
+# Filling adds rows, so the step has no removal count
 weather_cleaning_log <- weather_cleaning_log %>%
   add_row(
     step = "Fill Harvard Street from Bayland Park and Croquet, rows added",
@@ -877,9 +852,7 @@ hourly_pollutants <- here("data", "reference", "case_study_sites.csv") %>%
 
 stopifnot("Hourly pollutants found" = length(hourly_pollutants) > 0 && !anyNA(hourly_pollutants))
 
-# Event windows from events.csv, read and checked as in 1a and 1d (read_events() in utils.R), matched on state and
-# date, then on county (if given). Only rows whose pollutants column lists "all" or an hourly pollutant are kept,
-# so the weather hours carry the same events as 1d
+# Events as in 1a and 1d (read_events() in utils.R), kept when they list "all" or an hourly pollutant
 events <- read_events()
 
 event_windows <- events %>%
@@ -928,8 +901,7 @@ rm(site_days, event_windows, dropped_windows)
 
 
 # 11. FLAG COMPLETE DAYS ----
-# As in 1d, a day is complete with at least 18 of its 24 hours (75%). Temperature and wind are counted separately,
-# since a site can lose one without the other. Hours on incomplete days stay in and are flagged
+# A day is complete with 18 of 24 hours, as in 1d, counted separately for temperature and wind
 weather_hourly <- weather_hourly %>%
   add_count(site_id, date_local, wt = !is.na(temp_f), name = "n_temp_hours_day")
 
@@ -964,11 +936,8 @@ weather_hourly %>%
 
 
 # 12. CHECK THE SWITCH TO SONIC SENSORS ----
-# Between 2022 and 2024, five sites replaced their older weather instruments (wind method 020, temperature method 040)
-# with the Met One AIO2 sonic sensor (method 069), which measures wind with ultrasound and has no moving parts.
-# A sonic sensor can register lighter winds, so the share of calm hours may change at the switch. Each switched site
-# is compared with a neighbour that kept one sensor for all five years, over the 365 days before and after its switch.
-# Nothing is adjusted: two flags record which sensor took each reading (at Harvard Street, the sensor of its source site)
+# Five sites replaced their older sensors with the sonic sensor in 2022-2024, which may change the share of calm hours.
+# Each is compared with a nearby site that kept its old sensor, over 365 days either side. Nothing is adjusted
 weather_hourly <- weather_hourly %>%
   mutate(is_sonic_temp = temp_method_code == sonic_method_code) %>%
   mutate(is_sonic_wind = wind_method_code == sonic_method_code)
@@ -976,8 +945,7 @@ weather_hourly <- weather_hourly %>%
 weather_cleaning_log <- weather_cleaning_log %>%
   log_step("Flag hours measured by a sonic sensor, none removed", weather_hourly)
 
-# Each site's own sensors, from the method history in section 4. Wind speed stands for both wind columns,
-# since speed and direction share one method in every hour (section 8)
+# Wind speed stands for both wind columns, which share one method (section 8)
 sensor_periods <- method_history %>%
   filter(variable != "Wind direction") %>%
   mutate(sensor = if_else(variable == "Wind speed", "Wind", "Temperature")) %>%
@@ -1003,7 +971,7 @@ stopifnot(
     all(sensor_switches$first_sonic_date > sensor_switches$last_old_date, na.rm = TRUE)
 )
 
-# One row per site and sensor for all 9 sites. Harvard Street has no wind sensor of its own
+# One row per site and sensor
 sensor_check <- expand_grid(site_id = site_groups$site_id, sensor = c("Temperature", "Wind")) %>%
   left_join(sensor_switches, by = c("site_id", "sensor"), relationship = "one-to-one") %>%
   mutate(
@@ -1041,7 +1009,7 @@ stopifnot(
     all(neighbour_histories$sensor_history == "Older sensor throughout")
 )
 
-# Each site's own readings: its own temperature sensor, and wind only where the site is its own source
+# Only each site's own sensor readings, so Harvard Street's borrowed wind is left out
 own_sensor_hours <- bind_rows(
   weather_hourly %>%
     filter(!is.na(own_temp_f)) %>%
@@ -1197,7 +1165,6 @@ join_coverage <- weather_match %>%
 
 print(join_coverage, n = Inf)
 
-# Each count is worked out first, then gathered into one table of checks
 rows_read <- sum(filter_log$rows_read)
 
 # The raw row counts are EPA's listed counts, which section 3 checked file by file
@@ -1253,7 +1220,7 @@ invisible(gc())
 
 
 # 14. SUMMARISE EACH SITE ----
-# One row per site: where its weather comes from, how complete it is, its longest gaps, sensors, calms and prevailing wind
+# One row per site: weather sources, completeness, longest gaps, sensors, calms and prevailing wind
 study_start <- make_datetime(min(study_years), 1, 1, 0, tz = standard_time_zone)
 
 study_end <- make_datetime(max(study_years), 12, 31, 23, tz = standard_time_zone)
@@ -1262,7 +1229,7 @@ n_study_hours <- as.numeric(difftime(study_end, study_start, units = "hours")) +
 
 stopifnot("The study window holds 43,824 hours" = n_study_hours == 43824)
 
-# Longest run of hours without data, counting the start and end of the study window, and the date it begins
+# Longest run of missing hours, including the study's start and end, and its first date
 longest_gap <- function(hours_with_data) {
   hour_values <- c(as.numeric(study_start) - 3600, sort(as.numeric(hours_with_data)), as.numeric(study_end) + 3600)
   gap_hours <- diff(hour_values) / 3600 - 1
@@ -1351,7 +1318,7 @@ final_keys <- hourly_weather %>%
   count(site_id, datetime_local) %>%
   filter(n > 1)
 
-# Weather values, their sources and their flags may be missing in an hour; the site, time and day columns may not
+# Only the site, time and day columns must be complete
 required_columns_have_na <- hourly_weather %>%
   select(
     site_id, local_site_name, site_group, region,
@@ -1400,7 +1367,6 @@ weather_records <- list(
 
 save_records(weather_records, processed_dir)
 
-# Column descriptions for analysts using the checkpoint and the records, including the row counts saved in section 1
 saved_weather_tables <- c(weather_checkpoint, weather_records, list(weather_raw_row_counts = weather_row_counts))
 
 weather_dictionary <- tribble(
@@ -1424,7 +1390,7 @@ weather_dictionary <- tribble(
   "hourly_weather",         "temp_source_site",          "Site that gave temp_f (Bayland Park for Harvard Street); NA with no reading",
   "hourly_weather",         "wind_speed_kt",             "Resultant hourly wind speed in knots; at Harvard Street, Croquet's reading",
   "hourly_weather",         "wind_speed_ms",             "Wind speed in m/s (1 knot = 0.514444 m/s)",
-  "hourly_weather",         "wind_dir_deg",              "Resultant wind direction in degrees, taken as where the wind blows from (usual convention)",
+  "hourly_weather",         "wind_dir_deg",              "Resultant wind direction: where the wind blows from, in degrees clockwise from true north",
   "hourly_weather",         "wind_sector",               "12 sectors of 30° by centre angle; sector 0 runs from 345° to 15° and holds 0° and 360°",
   "hourly_weather",         "wind_u_ms",                 "East-west part of the wind in m/s, positive when blowing toward the east",
   "hourly_weather",         "wind_v_ms",                 "North-south part of the wind in m/s, positive when blowing toward the north",

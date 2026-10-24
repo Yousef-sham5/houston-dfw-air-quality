@@ -13,9 +13,8 @@ log_step <- function(log, step, data) {
 # STUDY PERIOD AND TIME ZONE ----
 study_years <- 2021:2025
 
-# AQS local times are local standard time all year, so Texas sits at a fixed UTC-6. "Etc/GMT+6" is that fixed
-# offset (this naming scheme reverses the sign). A zone such as "America/Chicago" would apply daylight saving time
-# and shift every summer hour
+# AQS local times skip daylight saving, so Texas is always UTC-6. "Etc/GMT+6" is that fixed offset (the name
+# reverses the sign). "America/Chicago" would add daylight saving and shift every summer hour
 standard_time_zone <- "Etc/GMT+6"
 
 
@@ -301,8 +300,8 @@ filter_case_study_zip <- function(zip_path, out_dir, monitors) {
   out_path
 }
 
-# Under local standard time, Texas (UTC-6) is always 6 hours behind GMT. Daylight saving time would show up as a
-# 5-hour gap in summer
+# AQS local times skip daylight saving, so Texas is always 6 hours behind GMT. A 5-hour gap in summer would
+# mean daylight saving had been applied
 check_local_standard_time <- function(data) {
   time_check <- data %>%
     select(date_local, time_local, date_gmt, time_gmt) %>%

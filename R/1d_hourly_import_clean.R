@@ -245,7 +245,7 @@ stopifnot(
   "Units match the daily data" = all(unit_check$units_of_measure == unit_check$expected_unit)
 )
 
-# Time zone: under local standard time, Texas (UTC-6) is always 6 hours behind GMT (check in utils.R)
+# Time zone: AQS local times skip daylight saving, so Texas is always 6 hours behind GMT (check in utils.R)
 check_local_standard_time(hourly_raw)
 
 # Method detection limit (MDL): the values each monitor reports, and whether
@@ -417,8 +417,7 @@ hourly %>%
 
 
 # 6. BUILD TIMESTAMPS AND CALENDAR COLUMNS ----
-# AQS local times are local standard time all year (section 4), so Texas sits at a fixed UTC-6
-# (standard_time_zone in utils.R)
+# AQS local times skip daylight saving (section 4), so Texas is always UTC-6 (standard_time_zone in utils.R)
 hourly <- hourly %>%
   mutate(datetime_local = ymd_hm(str_c(date_local, " ", time_local), tz = standard_time_zone))
 

@@ -123,7 +123,7 @@ hourly_weather,temp_method_code,character,AQS method code of the sensor behind t
 hourly_weather,temp_source_site,character,Site that gave temp_f (Bayland Park for Harvard Street); NA with no reading
 hourly_weather,wind_speed_kt,numeric,"Resultant hourly wind speed in knots; at Harvard Street, Croquet's reading"
 hourly_weather,wind_speed_ms,numeric,Wind speed in m/s (1 knot = 0.514444 m/s)
-hourly_weather,wind_dir_deg,numeric,"Resultant wind direction in degrees, taken as where the wind blows from (usual convention)"
+hourly_weather,wind_dir_deg,numeric,"Resultant wind direction: where the wind blows from, in degrees clockwise from true north"
 hourly_weather,wind_sector,numeric,12 sectors of 30° by centre angle; sector 0 runs from 345° to 15° and holds 0° and 360°
 hourly_weather,wind_u_ms,numeric,"East-west part of the wind in m/s, positive when blowing toward the east"
 hourly_weather,wind_v_ms,numeric,"North-south part of the wind in m/s, positive when blowing toward the north"

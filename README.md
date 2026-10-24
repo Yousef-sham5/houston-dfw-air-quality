@@ -2,7 +2,7 @@
 
 This project uses R to clean, explore and model five years of daily air quality data from the EPA's Air Quality System (AQS) for PM2.5, ozone, NO₂, SO₂ and CO. The raw download holds 8.9 million daily records, and 5.56 million remain after cleaning. The analysis is written in R with the tidyverse and reported in R Markdown.
 
-**Status:** Phase 1 is done. The daily import and cleaning (1a, 1b), the case-study site selection (1c), the hourly import (1d) and the hourly weather import (1e) are finished. The hourly data for the 16 case-study monitors (661,545 rows) reproduce all 27,747 daily maximums in the daily table, and hourly wind and temperature for the 9 case-study sites (390,791 site-hours) are ready to pair with them. Exploratory analysis in Phase 2 is next.
+**Status:** Phase 1 is complete as of October 24, 2026. The daily import and cleaning (1a, 1b), the case-study site selection (1c), the hourly import (1d) and the hourly weather import (1e) are finished. The hourly data for the 16 case-study monitors (661,545 rows) reproduce all 27,747 daily maximums in the daily table, and hourly wind and temperature for the 9 case-study sites (390,791 site-hours) are ready to pair with them. Exploratory analysis in Phase 2 is next.
 
 ## Research question
 
