@@ -1,8 +1,8 @@
-# Phase 1 Methodology
+# Methodology
 
-October 24, 2026 · Yousef Shamsaldeen
+October 26, 2026 · Yousef Shamsaldeen
 
-Phase 1 builds three cleaned datasets from EPA AQS files: daily data for five pollutants nationwide (`1a`, `1b`), hourly pollutant data for 16 case-study monitors (`1c`, `1d`) and hourly weather for the 9 case-study sites (`1e`). Every column is read with an explicit type, codes stay as text so leading zeros survive, and named assertions stop a script when an assumption fails.
+Phase 1 builds three cleaned datasets from EPA AQS files: daily data for five pollutants nationwide (`1a`, `1b`), hourly pollutant data for 16 case-study monitors (`1c`, `1d`) and hourly weather for the 9 case-study sites (`1e`). Every column is read with an explicit type, codes stay as text so leading zeros survive, and named assertions stop a script when an assumption fails. Phase 2 starts with `2a`, the daily exploratory analysis, whose national sections are described after the Phase 1 sections.
 
 ## Daily data (1a, 1b)
 
@@ -108,6 +108,26 @@ The 10 weather zips (`hourly_WIND` and `hourly_TEMP`) hold 95,477,439 rows, all 
 
 Four of the five recorded fewer calm hours than their neighbour after switching, consistent with sonic sensors registering lighter winds. Temperature is present for 97.9–99.9% of pollutant hours. Wind is present for at least 98.4% at most sites, about 90.5% at Deer Park #2, about 82.5% at Grapevine and 67.8–71.4% at Bayland Park.
 
+## Daily exploratory analysis, national (2a, sections 1 to 6)
+
+**Analysis table:** collocated instruments are averaged per site and day (5,198,843 site-days from 5,557,574 instrument-days). Levels, NAAQS values, monthly profiles and weekend ratios use the five-year sites; exceedance rates use all sites, since a rate per 1,000 site-days allows for a changing network. Event and fireworks days are kept as their own class, and results are shown with and without them.
+
+**Network (figure 2A.1):** reporting SO₂ sites fell 18.1% and CO sites 17.4% from 2021 to 2025. The FEM share of PM2.5 instrument-days rose from 79.2% to 85.2%, and FEM read a median 0.3 to 0.5 µg/m³ above FRM on the same site-day (1.1 to 3.7 on event days), so a national PM2.5 mean can drift up from the instrument mix alone.
+
+**NAAQS screening (figure 2A.2):** each site-year gets its standard's statistic (ozone's 4th-highest day, CO's 2nd-highest, the 98th or 99th percentile day from Table 1 of Appendices N, S and T, and the mean of four quarterly means for annual PM2.5), rounded as the standard specifies. A three-year average of the same values gives a design-value screen.
+
+| Share of five-year sites above the level | 2021 | 2022 | 2023 | 2024 | 2025 | Three-year screen |
+|---|---|---|---|---|---|---|
+| Ozone 8-hour | 23.4% | 19.8% | 42.7% | 25.8% | 16.4% | 22.8% to 24.1% |
+| PM2.5 annual | 27.7% | 12.7% | 39.0% | 11.3% | 13.4% | 16.4% to 22.3% |
+| PM2.5 24-hour | 11.2% | 3.6% | 8.2% | 4.4% | 7.8% | 2.9% to 5.9% |
+
+**Exceedances (figures 2A.3 and 2A.4):** a site-day exceeds when its rounded value is above the short-term level, a screening count since the standards allow some days above it. Labeled events hold 39.9% of PM2.5 exceedance days over five years (68.2% in 2023) and 4.8% of ozone exceedance days in 2023. EPA's own exceptional-event flag marks 14.4% of these labeled PM2.5 exceedances. Houston and Dallas–Fort Worth rank 6th and 8th of 353 metro areas (core-based statistical areas) for ozone exceedance days.
+
+**Seasonality (figures 2A.5 and 2A.6):** ozone uses the 615 five-year sites with winter data in every year, so each month has the same sites, and a site-month needs 75% of its expected days. NO₂ and CO peak in winter at about 1.7 times their lows, ozone in June and PM2.5 in July. Events made June 2023 the highest PM2.5 month (12.8 µg/m³, or 10.6 without event days).
+
+**Weekend effect (figure 2A.7):** each site's weekend mean over its weekday mean, April to October, five-year sites, ordinary days, with Memorial Day, Independence Day and Labor Day left out because NO₂ on them behaves like a Sunday. NO₂ is 0.805 at the median site and ozone 0.987. Weekend ozone rises in Los Angeles (+5.0%), consistent with VOC-limited ozone, and falls in Houston (−4.0%) and Dallas–Fort Worth (−4.8%).
+
 ## Saved files
 
 All in `data/processed/`. Later scripts read the `.rds` files, and the CSV records can be read on GitHub.
@@ -116,8 +136,9 @@ All in `data/processed/`. Later scripts read the `.rds` files, and the CSV recor
 - **Hourly pollutants:** `hourly_case_study.rds` (661,545 rows × 30 columns), `hourly_cleaning_log.csv`, `hourly_validation.csv` (14 checks), `hourly_monitor_summary.csv`, `hourly_raw_row_counts.csv`.
 - **Hourly weather:** `hourly_weather.rds` (390,791 rows × 34 columns), `weather_cleaning_log.csv`, `weather_validation.csv` (14 checks), `weather_site_summary.csv`, `weather_sensor_check.csv`, `weather_raw_row_counts.csv`.
 - `data_dictionary.csv` describes every saved column, and `checkpoint_manifest.csv` lists the size and MD5 of each `.rds` file. Each script replaces only its own rows in both.
+- **2a** so far writes only its figures (`figures/2a_*.png`). Its CSV records are planned for its last section.
 
-Figures use Arial, with headings in Latin Modern Roman to match the PDF report, and are saved at the report width of 6.5 inches.
+Figures use Inter Tight for titles, Inter for text and IBM Plex Mono for numbers, bundled in `fonts/` under the SIL Open Font Licence, and are saved at the report width of 6.5 inches.
 
 ## Known limits
 
@@ -145,6 +166,11 @@ Regulation text was read on Cornell's Legal Information Institute. The official 
 | [40 CFR 50, Appendix T](https://www.law.cornell.edu/cfr/text/40/appendix-T_to_part_50), section 3.1(b) | SO₂: a day needs 75% of its hourly values |
 | [40 CFR 50, Appendix U](https://www.law.cornell.edu/cfr/text/40/appendix-U_to_part_50), sections 3(b) to 3(d) | Ozone 8-hour means and valid days |
 | [40 CFR 58, Appendix D](https://www.law.cornell.edu/cfr/text/40/appendix-D_to_part_58), Table D-3 | Ozone monitoring seasons by state |
+| [40 CFR 50, Appendix N](https://www.law.cornell.edu/cfr/text/40/appendix-N_to_part_50), Table 1 and section 4.3 | PM2.5: 98th percentile ranks, quarterly means and rounding |
+| [40 CFR 50, Appendix S](https://www.law.cornell.edu/cfr/text/40/appendix-S_to_part_50), Table 1 and section 4.2(c) | NO₂: 98th percentile ranks and rounding |
+| [40 CFR 50, Appendix T](https://www.law.cornell.edu/cfr/text/40/appendix-T_to_part_50), Table 1 and section 4.1(c) | SO₂: 99th percentile ranks and rounding |
+| [40 CFR 50, Appendix U](https://www.law.cornell.edu/cfr/text/40/appendix-U_to_part_50), section 3(e), and [40 CFR 50.8](https://www.law.cornell.edu/cfr/text/40/50.8)(d) | Ozone truncation and CO rounding |
+| [U.S. Census Bureau regions and divisions](https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf) | The 13 states of the West region |
 | [TCEQ Region 12 2024 monitoring memo](https://www.tceq.texas.gov/downloads/toxicology/monitoring/air-evaluations/2024/reg12.pdf) | The 15 Ship Channel sites |
 | [TCEQ 2024 state-initiative network changes](https://www.tceq.texas.gov/downloads/air-quality/air-monitoring/network/historical/2024-si-monitoring-network-changes.pdf) | The Park Place SO₂ deactivation recommendation |
 | [Texas 2017 Annual Monitoring Network Plan (EPA archive)](https://19january2021snapshot.epa.gov/sites/static/files/2017-09/documents/txplan2017.pdf) | The four near-road NO₂ sites |

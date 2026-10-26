@@ -233,7 +233,7 @@ map_sites <- case_study_sites %>%
   mutate(site_label = if_else(site_label == "Houston East", site_label, str_remove(site_label, "^Houston "))) %>%
   mutate(label_side = case_when(
     site_label %in% c("Clinton", "Grapevine Fairway") ~ "right",
-    site_label == "Park Place" ~ "below",
+    site_label %in% c("Park Place", "Deer Park #2") ~ "below",
     .default = "above"
   ))
 
@@ -305,13 +305,21 @@ draw_region_map <- function(region_name, bar_km = 10) {
     theme(
       panel.background = element_rect(fill = "#f6f5f0", colour = NA),
       panel.grid.major = element_line(colour = "#e8e6de", linewidth = 0.3),
+      panel.grid.major.x = element_line(colour = "#e8e6de", linewidth = 0.3),
       axis.text = element_blank(),
-      plot.margin = margin(0, 4, 0, 4)
+      legend.text = element_text(size = 9, margin = margin(l = 3, r = 12)),
+      legend.margin = margin(0, 0, 0, 0),
+      legend.box.spacing = unit(8, "pt"),
+      plot.margin = margin(0, 10, chart_spacing[["panel_row_gap"]], 0)
     )
 
+  # The group legend sits above the Houston map only, so the two maps keep the same top edge
   if (region_name == "Houston") {
     region_map <- region_map +
       annotate("text", x = frame$lon_max - 0.015, y = 29.6, label = "Galveston Bay →", family = chart_fonts[["text"]], fontface = "italic", size = map_text_mm[["detail"]], colour = chart_ink[["muted"]], hjust = 1)
+  } else {
+    region_map <- region_map +
+      theme(legend.position = "none")
   }
 
   region_map
@@ -323,30 +331,20 @@ frame_widths_km <- map_frames %>%
 
 load_chart_fonts()
 
-site_map <- (draw_region_map("Houston") + draw_region_map("Dallas-Fort Worth")) +
-  plot_layout(
-    widths = frame_widths_km$width_km[match(c("Houston", "Dallas-Fort Worth"), frame_widths_km$region)],
-    guides = "collect"
-  ) +
-  plot_annotation(
-    title = "Nine monitoring sites in Houston and Dallas-Fort Worth",
-    subtitle = "16 hourly monitors in three groups. The Ship Channel sites sit on Houston's industrial east side.",
-    caption = "Source: EPA AQS site coordinates. Both maps use the same scale. Crosses mark landmarks for orientation.",
-    theme = theme_aqs(base_size = 10) +
-      theme(
-        plot.title = element_text(margin = margin(b = 3)),
-        plot.subtitle = element_text(margin = margin(b = 9)),
-        plot.caption = element_text(margin = margin(t = 8)),
-        plot.margin = margin(10, 10, 8, 10)
-      )
-  ) &
-  theme(
-    legend.position = "top",
-    legend.justification = "left",
-    legend.text = element_text(size = 9, margin = margin(l = 3, r = 12)),
-    legend.margin = margin(0, 0, 0, 0),
-    legend.box.spacing = unit(8, "pt")
-  )
+site_map_header <- chart_header(
+  "FIGURE 1C.1  /  CASE-STUDY SITES  /  HARRIS, DALLAS AND TARRANT COUNTIES",
+  "Nine monitoring sites in Houston and DFW",
+  "16 hourly monitors in three groups. The Ship Channel sites sit on Houston's industrial east side."
+)
+
+site_map_footer <- chart_footer("EPA AQS site coordinates. Both maps use the same scale. Crosses mark landmarks for orientation.")
+
+site_map <- chart_compose(
+  site_map_header,
+  list(draw_region_map("Houston"), draw_region_map("Dallas-Fort Worth")),
+  site_map_footer,
+  widths = frame_widths_km$width_km[match(c("Houston", "Dallas-Fort Worth"), frame_widths_km$region)]
+)
 
 dir.create(here("figures"), showWarnings = FALSE)
 
@@ -355,7 +353,7 @@ site_map_path <- here("figures", "case_study_sites.png")
 save_started <- Sys.time()
 
 # Saved at the report text width, so the sizes above are the printed sizes
-ggsave(site_map_path, site_map, width = 6.5, height = 4.25, dpi = 300)
+ggsave(site_map_path, site_map, width = 6.5, height = 5.4, dpi = 300)
 
 # ragg only warns when the file is locked (an open viewer or OneDrive syncing), so check the write
 stopifnot(
