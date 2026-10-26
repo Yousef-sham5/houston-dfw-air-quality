@@ -1,0 +1,91 @@
+site_set,site_group,year,n_sites,median_site_mean_ppb
+Main,Houston Ship Channel,2021,4,20.13
+Main,Houston Ship Channel,2022,4,19.26
+Main,Houston Ship Channel,2023,4,19.99
+Main,Houston Ship Channel,2024,4,20.26
+Main,Houston Ship Channel,2025,4,19.26
+Main,Houston other,2021,3,17.23
+Main,Houston other,2022,3,18.04
+Main,Houston other,2023,3,19.11
+Main,Houston other,2024,3,19.39
+Main,Houston other,2025,3,17.92
+Main,Dallas-Fort Worth,2021,4,15.38
+Main,Dallas-Fort Worth,2022,4,16.88
+Main,Dallas-Fort Worth,2023,4,15.85
+Main,Dallas-Fort Worth,2024,4,16.65
+Main,Dallas-Fort Worth,2025,4,16.72
+Without the transition band,Houston Ship Channel,2021,4,20.13
+Without the transition band,Houston Ship Channel,2022,4,19.26
+Without the transition band,Houston Ship Channel,2023,4,19.99
+Without the transition band,Houston Ship Channel,2024,4,20.26
+Without the transition band,Houston Ship Channel,2025,4,19.26
+Without the transition band,Houston other,2021,2,16.74
+Without the transition band,Houston other,2022,2,17.7
+Without the transition band,Houston other,2023,2,18.4
+Without the transition band,Houston other,2024,2,18.01
+Without the transition band,Houston other,2025,2,16.84
+Without the transition band,Dallas-Fort Worth,2021,4,15.38
+Without the transition band,Dallas-Fort Worth,2022,4,16.88
+Without the transition band,Dallas-Fort Worth,2023,4,15.85
+Without the transition band,Dallas-Fort Worth,2024,4,16.65
+Without the transition band,Dallas-Fort Worth,2025,4,16.72
+Memo-list groups,Houston Ship Channel,2021,4,20.13
+Memo-list groups,Houston Ship Channel,2022,4,19.26
+Memo-list groups,Houston Ship Channel,2023,4,19.99
+Memo-list groups,Houston Ship Channel,2024,4,20.26
+Memo-list groups,Houston Ship Channel,2025,4,19.26
+Memo-list groups,Houston other,2021,3,17.23
+Memo-list groups,Houston other,2022,3,18.04
+Memo-list groups,Houston other,2023,3,19.11
+Memo-list groups,Houston other,2024,3,19.39
+Memo-list groups,Houston other,2025,3,17.92
+Memo-list groups,Dallas-Fort Worth,2021,4,15.38
+Memo-list groups,Dallas-Fort Worth,2022,4,16.88
+Memo-list groups,Dallas-Fort Worth,2023,4,15.85
+Memo-list groups,Dallas-Fort Worth,2024,4,16.65
+Memo-list groups,Dallas-Fort Worth,2025,4,16.72
+Without days after method changes,Houston Ship Channel,2021,4,20.13
+Without days after method changes,Houston Ship Channel,2022,4,19.26
+Without days after method changes,Houston Ship Channel,2023,4,19.68
+Without days after method changes,Houston Ship Channel,2024,3,23.07
+Without days after method changes,Houston Ship Channel,2025,3,20.95
+Without days after method changes,Houston other,2021,3,17.23
+Without days after method changes,Houston other,2022,3,18.04
+Without days after method changes,Houston other,2023,3,19.11
+Without days after method changes,Houston other,2024,3,19.39
+Without days after method changes,Houston other,2025,2,16.84
+Without days after method changes,Dallas-Fort Worth,2021,4,15.38
+Without days after method changes,Dallas-Fort Worth,2022,4,16.88
+Without days after method changes,Dallas-Fort Worth,2023,4,15.85
+Without days after method changes,Dallas-Fort Worth,2024,4,16.65
+Without days after method changes,Dallas-Fort Worth,2025,4,16.72
+Without Deer Park #2 after its move,Houston Ship Channel,2021,4,20.13
+Without Deer Park #2 after its move,Houston Ship Channel,2022,4,19.26
+Without Deer Park #2 after its move,Houston Ship Channel,2023,4,19.99
+Without Deer Park #2 after its move,Houston Ship Channel,2024,4,20.26
+Without Deer Park #2 after its move,Houston Ship Channel,2025,4,19.13
+Without Deer Park #2 after its move,Houston other,2021,3,17.23
+Without Deer Park #2 after its move,Houston other,2022,3,18.04
+Without Deer Park #2 after its move,Houston other,2023,3,19.11
+Without Deer Park #2 after its move,Houston other,2024,3,19.39
+Without Deer Park #2 after its move,Houston other,2025,3,17.92
+Without Deer Park #2 after its move,Dallas-Fort Worth,2021,4,15.38
+Without Deer Park #2 after its move,Dallas-Fort Worth,2022,4,16.88
+Without Deer Park #2 after its move,Dallas-Fort Worth,2023,4,15.85
+Without Deer Park #2 after its move,Dallas-Fort Worth,2024,4,16.65
+Without Deer Park #2 after its move,Dallas-Fort Worth,2025,4,16.72
+With 4-year sites,Houston Ship Channel,2021,6,20.32
+With 4-year sites,Houston Ship Channel,2022,6,20.83
+With 4-year sites,Houston Ship Channel,2023,6,20.47
+With 4-year sites,Houston Ship Channel,2024,6,22.33
+With 4-year sites,Houston Ship Channel,2025,6,20.92
+With 4-year sites,Houston other,2021,4,16.74
+With 4-year sites,Houston other,2022,4,17.7
+With 4-year sites,Houston other,2023,4,18.4
+With 4-year sites,Houston other,2024,4,18.01
+With 4-year sites,Houston other,2025,4,16.84
+With 4-year sites,Dallas-Fort Worth,2021,8,15.38
+With 4-year sites,Dallas-Fort Worth,2022,8,16.37
+With 4-year sites,Dallas-Fort Worth,2023,8,15.99
+With 4-year sites,Dallas-Fort Worth,2024,8,16.58
+With 4-year sites,Dallas-Fort Worth,2025,8,16.37

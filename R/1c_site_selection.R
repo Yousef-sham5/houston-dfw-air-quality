@@ -5,9 +5,10 @@ library(stringr)
 library(lubridate)
 library(ggplot2)
 library(patchwork)
+library(jsonlite)
 library(here)
 
-source(here("R", "utils.R")) # study_years, region_lookup
+source(here("R", "utils.R")) # study_years, region_lookup, chart theme
 
 
 
@@ -40,8 +41,9 @@ case_regions <- region_lookup %>%
 
 stopifnot("region_lookup holds Harris, Dallas and Tarrant" = nrow(case_regions) == 3)
 
-# Industrial east-side sites: the TCEQ Region 12 memo list, plus Park Place and Baytown Garth
-ship_channel_ids <- c(
+# Sites in TCEQ's 2024 Region 12 air toxics memo, plus Park Place and Baytown Garth. The groups no longer come from
+# this list; 2b reruns its comparisons with it as a check
+memo_list_ids <- c(
   "48-201-0026",
   "48-201-0036",
   "48-201-0057",
@@ -66,11 +68,39 @@ bayport_adjacent_ids <- c(
   "48-201-1050"
 )
 
+# Land-cut reach of the Houston Ship Channel, from Morgan's Point to the Turning Basin: 12 sections of the USACE
+# National Channel Framework (ChannelArea layer)
+channel_path <- here("data", "reference", "ship_channel.geojson")
+
+land_cut_sections <- c(
+  "CESWG_HS_04_MPE",
+  "CESWG_HS_05_ECB",
+  "CESWG_HS_06_CBB",
+  "CESWG_HS_07_BGB",
+  "CESWG_HS_08_GHB",
+  "CESWG_HS_09_HSB",
+  "CESWG_HS_0A_TPB",
+  "CESWG_HS_10_SBT",
+  "CESWG_HS_11_HTB",
+  "CESWG_HS_12_UTB",
+  "CESWG_HS_8A_TPH",
+  "CESWG_HS_9A_TPC"
+)
+
+# A Harris site within ship_channel_km of the land-cut channel is a Ship Channel site; every other Harris site is
+# Houston other. 7.5 km falls between Deer Park #2 (6.9 km) and North Wayside (8.5 km). Sites up to transition_km form a
+# transition band that 2b leaves out as a check
+ship_channel_km <- 7.5
+
+transition_km <- 15
+
 stopifnot(
-  "Ship Channel IDs are Harris County site IDs" = all(str_detect(ship_channel_ids, "^48-201-\\d{4}$")),
-  "Ship Channel IDs are unique" = !anyDuplicated(ship_channel_ids),
+  "Memo-list IDs are Harris County site IDs" = all(str_detect(memo_list_ids, "^48-201-\\d{4}$")),
+  "Memo-list IDs are unique" = !anyDuplicated(memo_list_ids),
   "Bayport-adjacent IDs are Harris County site IDs" = all(str_detect(bayport_adjacent_ids, "^48-201-\\d{4}$")),
-  "No site is both Ship Channel and Bayport-adjacent" = !any(bayport_adjacent_ids %in% ship_channel_ids)
+  "No site is both on the memo list and Bayport-adjacent" = !any(bayport_adjacent_ids %in% memo_list_ids),
+  "Twelve unique land-cut sections" = length(unique(land_cut_sections)) == 12,
+  "The transition band starts at the Ship Channel cutoff" = ship_channel_km < transition_km
 )
 
 study_days <- as.numeric(make_date(max(study_years), 12, 31) - make_date(min(study_years), 1, 1)) + 1
@@ -79,7 +109,112 @@ stopifnot("Study window is 1826 days" = study_days == 1826)
 
 
 
-# 3. COUNT VALID DAYS PER SITE AND POLLUTANT ----
+# 3. MEASURE DISTANCE TO THE SHIP CHANNEL ----
+# Outer ring of each land-cut section, one row per vertex
+channel_features <- read_json(channel_path)$features
+
+feature_sections <- vapply(channel_features, \(feature) feature$properties$channelareaidpk, character(1))
+
+feature_types <- vapply(channel_features, \(feature) feature$geometry$type, character(1))
+
+stopifnot(
+  "Every land-cut section is in the channel file" = all(land_cut_sections %in% feature_sections),
+  "Each land-cut section is one polygon" = all(feature_types[feature_sections %in% land_cut_sections] == "Polygon")
+)
+
+channel_vertices <- bind_rows(lapply(channel_features[feature_sections %in% land_cut_sections], \(feature) {
+  ring <- feature$geometry$coordinates[[1]]
+  tibble(
+    section = feature$properties$channelareaidpk,
+    vertex = seq_along(ring),
+    longitude = vapply(ring, \(point) point[[1]], numeric(1)),
+    latitude = vapply(ring, \(point) point[[2]], numeric(1))
+  )
+}))
+
+ring_ends <- channel_vertices %>%
+  summarise(is_closed = first(longitude) == last(longitude) & first(latitude) == last(latitude), .by = section)
+
+stopifnot("Each section's ring closes on its first vertex" = all(ring_ends$is_closed))
+
+# Kilometres on a flat map centred on Houston's latitude (29.7°)
+km_per_lat_degree <- 110.574
+
+km_per_lon_degree_houston <- 111.320 * cos(29.7 * pi / 180)
+
+channel_edges <- channel_vertices %>%
+  mutate(x0 = longitude * km_per_lon_degree_houston, y0 = latitude * km_per_lat_degree) %>%
+  mutate(x1 = lead(x0), y1 = lead(y0), .by = section) %>%
+  filter(!is.na(x1)) %>%
+  filter(x0 != x1 | y0 != y1) %>%
+  select(section, x0, y0, x1, y1)
+
+harris_sites <- sites %>%
+  filter(str_sub(site_id, 1, 6) == houston_county) %>%
+  select(site_id, local_site_name, latitude, longitude) %>%
+  mutate(site_x = longitude * km_per_lon_degree_houston, site_y = latitude * km_per_lat_degree)
+
+# Shortest distance from each site to any edge of a section, and whether the site sits inside it (an odd number of edge
+# crossings on a ray running east)
+section_distances <- harris_sites %>%
+  select(site_id, site_x, site_y) %>%
+  cross_join(channel_edges) %>%
+  mutate(dx = x1 - x0, dy = y1 - y0) %>%
+  mutate(t = pmin(pmax(((site_x - x0) * dx + (site_y - y0) * dy) / (dx^2 + dy^2), 0), 1)) %>%
+  mutate(edge_km = sqrt((site_x - x0 - t * dx)^2 + (site_y - y0 - t * dy)^2)) %>%
+  mutate(crosses_edge = (y0 > site_y) != (y1 > site_y) & site_x < x0 + dx * (site_y - y0) / dy) %>%
+  summarise(edge_km = min(edge_km), is_inside = sum(crosses_edge) %% 2 == 1, .by = c(site_id, section))
+
+channel_distances <- section_distances %>%
+  summarise(km_to_channel = if_else(any(is_inside), 0, min(edge_km)), .by = site_id)
+
+# Every Harris site with its distance, distance band, group, and its group under the memo list
+harris_channel_distance <- harris_sites %>%
+  select(site_id, local_site_name, latitude, longitude) %>%
+  inner_join(channel_distances, by = "site_id", relationship = "one-to-one") %>%
+  mutate(
+    distance_band = case_when(
+      km_to_channel <= ship_channel_km ~ str_c("Within ", ship_channel_km, " km"),
+      km_to_channel <= transition_km ~ str_c(ship_channel_km, " to ", transition_km, " km"),
+      .default = str_c("Over ", transition_km, " km")
+    )
+  ) %>%
+  mutate(
+    site_group = case_when(
+      site_id %in% bayport_adjacent_ids ~ "Excluded: Bayport-adjacent",
+      km_to_channel <= ship_channel_km ~ "Houston Ship Channel",
+      .default = "Houston other"
+    )
+  ) %>%
+  mutate(in_memo_list = site_id %in% memo_list_ids) %>%
+  mutate(
+    memo_site_group = case_when(
+      site_id %in% bayport_adjacent_ids ~ "Excluded: Bayport-adjacent",
+      in_memo_list ~ "Houston Ship Channel",
+      .default = "Houston other"
+    )
+  ) %>%
+  mutate(km_to_channel = round(km_to_channel, 3)) %>%
+  arrange(km_to_channel)
+
+print(harris_channel_distance, n = Inf, width = Inf)
+
+memo_sites_beyond_cutoff <- harris_channel_distance %>%
+  filter(in_memo_list, km_to_channel > ship_channel_km)
+
+sites_near_a_cutoff <- harris_channel_distance %>%
+  filter(abs(km_to_channel - ship_channel_km) < 0.5 | abs(km_to_channel - transition_km) < 0.5)
+
+stopifnot(
+  "Every Harris site has a distance" = nrow(harris_channel_distance) == nrow(harris_sites),
+  "No Harris site lies within 0.5 km of a cutoff, so small coordinate errors cannot change a group" =
+    nrow(sites_near_a_cutoff) == 0,
+  "Every memo-list site with data is within the cutoff except Baytown Garth" = identical(memo_sites_beyond_cutoff$site_id, "48-201-1017")
+)
+
+
+
+# 4. COUNT VALID DAYS PER SITE AND POLLUTANT ----
 # Days with data per site and pollutant (instruments pooled), as a share of the 1,826 study days
 day_counts <- aqs_long_clean %>%
   filter(pollutant %in% hourly_pollutants) %>%
@@ -94,8 +229,9 @@ invisible(gc())
 
 
 
-# 4. BUILD CANDIDATE TABLE ----
-# Eligible pool: 5-year monitors of the three pollutants in the case-study counties, each placed in one group
+# 5. BUILD CANDIDATE TABLE ----
+# Eligible pool: 5-year monitors of the three pollutants in the case-study counties, each placed in one group. Houston
+# sites take the group set by their distance to the channel
 candidates <- site_coverage %>%
   filter(pollutant %in% hourly_pollutants) %>%
   filter(n_years_active == length(study_years)) %>%
@@ -103,12 +239,13 @@ candidates <- site_coverage %>%
   inner_join(case_regions, by = "county_id", relationship = "many-to-one") %>%
   inner_join(day_counts, by = c("pollutant", "site_id"), relationship = "one-to-one") %>%
   left_join(sites, by = "site_id", relationship = "many-to-one") %>%
-  mutate(site_group = case_when(
-    site_id %in% ship_channel_ids ~ "Houston Ship Channel",
-    site_id %in% bayport_adjacent_ids ~ "Excluded: Bayport-adjacent",
-    county_id == houston_county ~ "Houston other",
-    .default = "Dallas-Fort Worth"
-  ))
+  left_join(
+    select(harris_channel_distance, site_id, houston_group = site_group, km_to_channel, in_memo_list),
+    by = "site_id",
+    relationship = "many-to-one"
+  ) %>%
+  mutate(site_group = if_else(county_id == houston_county, houston_group, "Dallas-Fort Worth")) %>%
+  select(-houston_group)
 
 # Flag sites that measure both ozone and NO2, since the NO2-ozone lag needs both at one place
 collocation <- candidates %>%
@@ -130,7 +267,8 @@ duplicate_candidates <- candidates %>%
 stopifnot(
   "Candidate monitors found" = nrow(candidates) > 0,
   "One candidate row per site and pollutant" = nrow(duplicate_candidates) == 0,
-  "Every candidate has site metadata" = !anyNA(candidates$latitude)
+  "Every candidate has site metadata" = !anyNA(candidates$latitude),
+  "Every Houston candidate has a group from its channel distance" = !anyNA(candidates$site_group)
 )
 
 candidates %>%
@@ -139,7 +277,7 @@ candidates %>%
 
 
 
-# 5. APPLY SELECTION RULES ----
+# 6. APPLY SELECTION RULES ----
 eligible <- candidates %>%
   filter(!str_starts(site_group, "Excluded"))
 
@@ -205,14 +343,16 @@ case_study_sites %>%
 
 
 
-# 6. SAVE ----
-# The full pool and the picks; 1d reads case_study_sites.csv
+# 7. SAVE ----
+# The full pool and the picks; 1d reads case_study_sites.csv. 2a and 2b take the Houston groups from
+# harris_site_channel_distance.csv
+write_csv(harris_channel_distance, here("data", "reference", "harris_site_channel_distance.csv"))
 write_csv(candidates, here("data", "reference", "case_study_candidates.csv"))
 write_csv(case_study_sites, here("data", "reference", "case_study_sites.csv"))
 
 
 
-# 7. MAP PICKED SITES ----
+# 8. MAP PICKED SITES ----
 # Visual check that each group sits where expected
 # One row per site, labelled with a short name and the pollutants picked there
 pollutant_symbols <- c(Ozone = "O₃", NO2 = "NO₂", SO2 = "SO₂")
@@ -334,7 +474,7 @@ load_chart_fonts()
 site_map_header <- chart_header(
   "FIGURE 1C.1  /  CASE-STUDY SITES  /  HARRIS, DALLAS AND TARRANT COUNTIES",
   "Nine monitoring sites in Houston and DFW",
-  "16 hourly monitors in three groups. The Ship Channel sites sit on Houston's industrial east side."
+  str_c("16 hourly monitors in three groups. Ship Channel sites are within ", ship_channel_km, " km of the land-cut channel.")
 )
 
 site_map_footer <- chart_footer("EPA AQS site coordinates. Both maps use the same scale. Crosses mark landmarks for orientation.")
@@ -346,9 +486,9 @@ site_map <- chart_compose(
   widths = frame_widths_km$width_km[match(c("Houston", "Dallas-Fort Worth"), frame_widths_km$region)]
 )
 
-dir.create(here("figures"), showWarnings = FALSE)
+dir.create(here("figures", "phase1"), recursive = TRUE, showWarnings = FALSE)
 
-site_map_path <- here("figures", "case_study_sites.png")
+site_map_path <- here("figures", "phase1", "case_study_sites.png")
 
 save_started <- Sys.time()
 

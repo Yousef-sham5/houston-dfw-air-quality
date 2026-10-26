@@ -198,3 +198,185 @@ weather_raw_row_counts,file,character,Weather zip file in data/raw/weather
 weather_raw_row_counts,file_type,character,WIND (speed and direction) or TEMP (temperature)
 weather_raw_row_counts,year,integer,Year the file covers
 weather_raw_row_counts,raw_rows,numeric,"Data rows in the file, header excluded; equal to the count in EPA's file list"
+daily_case_study,site_id,character,"AQS site ID: state-county-site; joins to sites, aqs_long_clean and hourly_case_study"
+daily_case_study,local_site_name,character,Site name given by the reporting agency
+daily_case_study,site_group,factor,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+daily_case_study,region,character,Houston or Dallas-Fort Worth
+daily_case_study,pollutant,factor,"PM2.5, Ozone, NO2 or SO2; CO is left out of the case study"
+daily_case_study,date_local,Date,Sample date in local time
+daily_case_study,year,numeric,Calendar year
+daily_case_study,month,ordered,"Month, ordered Jan to Dec"
+daily_case_study,year_month,Date,First day of the month
+daily_case_study,season,factor,Meteorological season; winter is Dec to Feb
+daily_case_study,season_year,numeric,Year the season belongs to; December counts toward the next year's winter
+daily_case_study,is_full_season,logical,FALSE in the partial winters inside the window (Jan to Feb 2021 and Dec 2025)
+daily_case_study,day_of_week,ordered,"Day of the week, ordered Mon to Sun"
+daily_case_study,is_weekend,logical,TRUE on Saturday and Sunday
+daily_case_study,units_of_measure,character,"Units of the original values (ppm, ppb, or µg/m³ at local conditions)"
+daily_case_study,value,numeric,PM2.5 daily mean or gas daily max in original units; collocated instruments averaged
+daily_case_study,n_instruments,integer,Instruments averaged into the site-day
+daily_case_study,method_types,character,"FRM, FEM or FEM+FRM for the instruments averaged that day"
+daily_case_study,n_years_active,integer,Study years (0 to 5) in which the site met the 75% completeness rule for the pollutant
+daily_case_study,is_five_year,logical,TRUE when the site has all five study years for the pollutant
+daily_case_study,event_name,character,Event from events.csv or a fireworks window; NA when no event applies
+daily_case_study,event_class,factor,"None, Event (an events.csv window) or Fireworks (PM2.5 only)"
+daily_case_study,is_agency_event_flagged,logical,TRUE when any instrument that day has EPA's exceptional-event flag (Included)
+daily_case_study,is_post_method_change,logical,TRUE on or after the site's method change in 2a CONFIG method_changes (5 monitors)
+daily_case_study_instruments,site_id,character,AQS site ID; joins to daily_case_study
+daily_case_study_instruments,pollutant,factor,"PM2.5, Ozone, NO2 or SO2"
+daily_case_study_instruments,poc,integer,Parameter occurrence code; separates instruments of one pollutant at one site
+daily_case_study_instruments,method_code,character,AQS method code; FRM or FEM methods only
+daily_case_study_instruments,method_type,character,"FRM or FEM, from EPA's methods table"
+daily_case_study_instruments,date_local,Date,Sample date in local time
+daily_case_study_instruments,value,numeric,The instrument's PM2.5 daily mean or gas daily maximum in original units
+daily_case_study_months,site_id,character,"AQS site ID; five-year sites, ozone only those reporting every winter (2a section 5)"
+daily_case_study_months,site_group,factor,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+daily_case_study_months,region,character,Houston or Dallas-Fort Worth
+daily_case_study_months,pollutant,factor,"PM2.5, Ozone, NO2 or SO2"
+daily_case_study_months,year,numeric,Calendar year
+daily_case_study_months,month,ordered,"Month, ordered Jan to Dec"
+daily_case_study_months,year_month,Date,First day of the month
+daily_case_study_months,season,factor,Meteorological season; winter is Dec to Feb
+daily_case_study_months,season_year,numeric,Year the season belongs to; December counts toward the next year's winter
+daily_case_study_months,is_full_season,logical,FALSE in the partial winters inside the window (Jan to Feb 2021 and Dec 2025)
+daily_case_study_months,n_days,numeric,Days with data in the site-month
+daily_case_study_months,n_ordinary_days,numeric,Days with data and no event or fireworks label
+daily_case_study_months,sampling_interval,numeric,"Days between scheduled samples: 1, 3 or 6 for PM2.5, 1 for the gases"
+daily_case_study_months,expected_days,numeric,Days in the month divided by the sampling interval
+daily_case_study_months,is_complete,logical,TRUE with at least 75% of the expected days; only these enter monthly profiles
+daily_case_study_months,mean_value,numeric,Mean of the site-month's daily values in original units
+daily_case_study_months,mean_ordinary,numeric,Mean over days with no event or fireworks label; NA when the month has none
+case_study_site_inventory,site_group,factor,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+case_study_site_inventory,region,character,Houston or Dallas-Fort Worth
+case_study_site_inventory,site_id,character,AQS site ID: state-county-site
+case_study_site_inventory,local_site_name,character,Site name given by the reporting agency
+case_study_site_inventory,pollutant,factor,"PM2.5, Ozone, NO2 or SO2"
+case_study_site_inventory,analysis_role,character,"Main (five-year site), 4-year PM2.5 or NO2 sensitivity, or Inventory only"
+case_study_site_inventory,is_five_year,logical,TRUE when the site has all five study years for the pollutant
+case_study_site_inventory,n_years_active,integer,Study years (0 to 5) that met the 75% completeness rule
+case_study_site_inventory,first_date,Date,First day with data
+case_study_site_inventory,last_date,Date,Last day with data
+case_study_site_inventory,n_site_days,integer,Days with data
+case_study_site_inventory,pct_study_days,numeric,"Days with data as a share of the 1,826 study days"
+case_study_site_inventory,days_2021,integer,Days with data in 2021
+case_study_site_inventory,days_2022,integer,Days with data in 2022
+case_study_site_inventory,days_2023,integer,Days with data in 2023
+case_study_site_inventory,days_2024,integer,Days with data in 2024
+case_study_site_inventory,days_2025,integer,Days with data in 2025
+case_study_site_inventory,longest_gap_days,numeric,"Longest run of missing days between records, incl. days off a 1-in-3 or 1-in-6 schedule"
+case_study_site_inventory,longest_gap_start,Date,First missing day of the longest gap
+case_study_site_inventory,max_instruments,integer,Most instruments averaged on one day
+case_study_site_inventory,n_collocated_days,integer,Days averaged over more than one instrument
+case_study_site_inventory,n_fem_frm_days,integer,PM2.5 days with both an FEM and an FRM reading
+case_study_site_inventory,fem_minus_frm_ugm3,numeric,"Mean FEM minus FRM on those days, µg/m³; NA without paired days"
+case_study_site_inventory,method_history,character,"Each instrument's method type, AQS method code, POC and dates"
+case_study_site_inventory,method_change_date,Date,First day of a method that began over 30 days after the site's first day; NA if none
+case_study_site_inventory,is_listed_method_change,logical,TRUE when 2a flags the change (is_post_method_change in daily_case_study)
+case_study_site_inventory,is_near_road,logical,TRUE for the four near-road sites
+case_study_site_inventory,sensitivity_left_out,character,Whole site or Days after the method change in the with-and-without checks; else NA
+case_study_site_inventory,has_relocation,logical,"TRUE for Houston Deer Park #2, which moved on 2025-05-30"
+case_study_site_inventory,km_to_channel,numeric,"Distance to the land-cut Ship Channel in km, from 1c; NA in Dallas-Fort Worth"
+case_study_site_inventory,distance_band,character,"Within 7.5 km, 7.5 to 15 km or Over 15 km from the channel; NA in Dallas-Fort Worth"
+case_study_site_inventory,in_transition_band,logical,TRUE for Houston other sites 7.5 to 15 km from the channel; left out in one check
+case_study_site_inventory,in_memo_list,logical,TRUE for sites on the TCEQ Region 12 memo list plus Park Place and Baytown Garth
+case_study_site_inventory,memo_site_group,character,"Group under the memo list, used in the memo-grouping check"
+case_study_site_inventory,n_event_days,integer,Days in an events.csv window
+case_study_site_inventory,n_fireworks_days,integer,Fireworks days (PM2.5 only)
+case_study_ozone_site_years,site_group,factor,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+case_study_ozone_site_years,site_id,character,AQS site ID: state-county-site
+case_study_ozone_site_years,local_site_name,character,Site name given by the reporting agency
+case_study_ozone_site_years,year,numeric,Calendar year
+case_study_ozone_site_years,n_site_days,integer,Days with an ozone value
+case_study_ozone_site_years,n_exceedance_days,integer,"Days whose 8-hour peak, truncated to 3 decimals, is above 0.070 ppm"
+case_study_ozone_site_years,fourth_highest_ppm,numeric,"4th-highest daily 8-hour peak of the year, truncated, ppm"
+case_study_ozone_site_years,is_above_standard,logical,TRUE when the 4th-highest value is above 0.070 ppm
+case_study_ozone_site_years,three_year_screen,numeric,"Mean of this and the two previous 4th-highest values, truncated; NA in 2021 and 2022"
+case_study_ozone_by_group,site_set,factor,"Main, or the check applied: transition band, memo groups, method changes, Deer Park #2 move"
+case_study_ozone_by_group,site_group,factor,Case-study group under that site set
+case_study_ozone_by_group,year,numeric,Calendar year
+case_study_ozone_by_group,n_sites,integer,Five-year ozone sites in the group
+case_study_ozone_by_group,n_site_days,integer,Site-days with an ozone value
+case_study_ozone_by_group,n_exceedance_days,integer,Site-days above 0.070 ppm
+case_study_ozone_by_group,days_per_site,numeric,Exceedance days per site in the year
+case_study_ozone_by_group,rate_per_1000,numeric,"Exceedance days per 1,000 site-days"
+case_study_no2_site_years,site_group,factor,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+case_study_no2_site_years,site_id,character,AQS site ID: state-county-site
+case_study_no2_site_years,local_site_name,character,Site name given by the reporting agency
+case_study_no2_site_years,year,numeric,Calendar year
+case_study_no2_site_years,n_site_days,integer,Days with an NO2 value
+case_study_no2_site_years,mean_daily_peak_ppb,numeric,"Mean of the daily highest 1-hour values, ppb"
+case_study_no2_site_years,p98_ppb,numeric,"98th-percentile daily peak of the year, rounded to whole ppb"
+case_study_no2_site_years,is_above_standard,logical,TRUE when the 98th-percentile value is above 100 ppb
+case_study_no2_by_group,site_set,factor,"Main or a check: transition band, memo groups, method changes, Deer Park #2, 4-year sites"
+case_study_no2_by_group,site_group,factor,Case-study group under that site set
+case_study_no2_by_group,year,numeric,Calendar year
+case_study_no2_by_group,n_sites,integer,Five-year NO2 sites in the group with data that year
+case_study_no2_by_group,median_site_mean_ppb,numeric,"Median across sites of each site's mean daily peak, ppb"
+case_study_pm25_site_years,site_group,factor,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+case_study_pm25_site_years,site_id,character,AQS site ID: state-county-site
+case_study_pm25_site_years,local_site_name,character,Site name given by the reporting agency
+case_study_pm25_site_years,is_five_year,logical,TRUE for five-year sites; FALSE for the four-year sites in the 4-year check
+case_study_pm25_site_years,year,numeric,Calendar year
+case_study_pm25_site_years,n_site_days,integer,Days with a PM2.5 value
+case_study_pm25_site_years,n_days_above_35,integer,"Days whose 24-hour mean, rounded to whole µg/m³, is above 35"
+case_study_pm25_site_years,annual_mean_ugm3,numeric,"Mean of the four quarterly means, rounded to 0.1 µg/m³; NA without all four quarters"
+case_study_pm25_site_years,is_above_annual,logical,TRUE when the annual mean is above 9.0 µg/m³
+case_study_pm25_site_years,p98_ugm3,numeric,"98th-percentile day of the year, rounded to whole µg/m³"
+case_study_pm25_site_years,is_above_24_hour,logical,TRUE when the 98th-percentile value is above 35 µg/m³
+case_study_pm25_by_group,site_set,factor,"Main or a check: transition band, memo groups, whole-site, Deer Park #2, events, 4-year sites"
+case_study_pm25_by_group,standard,character,Annual (mean of quarterly means) or 24-hour (98th percentile)
+case_study_pm25_by_group,site_group,factor,Case-study group under that site set
+case_study_pm25_by_group,year,numeric,Calendar year
+case_study_pm25_by_group,n_sites,integer,Sites with a value for that standard and year
+case_study_pm25_by_group,median_value,numeric,"Median site value, µg/m³"
+case_study_pm25_by_group,n_above,integer,Sites above the level
+case_study_so2_site_years,site_group,factor,Case-study group: Houston Ship Channel or Houston other
+case_study_so2_site_years,site_id,character,AQS site ID: state-county-site
+case_study_so2_site_years,local_site_name,character,Site name given by the reporting agency
+case_study_so2_site_years,year,numeric,Calendar year
+case_study_so2_site_years,n_site_days,integer,Days with an SO2 value
+case_study_so2_site_years,n_days_ge5,integer,Days whose highest 1-hour value is 5 ppb or more
+case_study_so2_site_years,n_days_ge10,integer,Days whose highest 1-hour value is 10 ppb or more
+case_study_so2_site_years,n_days_ge20,integer,Days whose highest 1-hour value is 20 ppb or more
+case_study_so2_site_years,p99_ppb,numeric,"99th-percentile daily peak of the year, rounded to whole ppb"
+case_study_so2_site_years,is_above_standard,logical,TRUE when the 99th-percentile value is above 75 ppb
+case_study_so2_site_years,pct_below_2_ppb,numeric,Share of days whose peak is below the 2 ppb detection limit
+case_study_so2_by_group,site_set,factor,"Main or a check: transition band, memo groups, Deer Park #2 move"
+case_study_so2_by_group,site_group,factor,Case-study group under that site set
+case_study_so2_by_group,year,numeric,Calendar year
+case_study_so2_by_group,n_sites,integer,Five-year SO2 sites in the group
+case_study_so2_by_group,n_site_days,integer,Site-days with an SO2 value
+case_study_so2_by_group,spike_days_per_site,numeric,Days at or above 5 ppb per site in the year
+case_study_event_reporting,event_name,factor,Winter Storm Uri or Hurricane Beryl
+case_study_event_reporting,site_group,factor,Case-study group
+case_study_event_reporting,date_local,Date,"Day, from a week before the event window to a week after"
+case_study_event_reporting,in_window,logical,TRUE inside the events.csv window
+case_study_event_reporting,n_monitors,integer,Five-year monitors (site and gas) in the group
+case_study_event_reporting,n_reporting,integer,Monitors with a value that day
+case_study_event_reporting,pct_reporting,numeric,Share of the group's monitors reporting that day
+case_study_event_levels,event_name,factor,Winter Storm Uri or Hurricane Beryl
+case_study_event_levels,pollutant,factor,"PM2.5, Ozone or NO2 (SO2 left out, near zero)"
+case_study_event_levels,level_group,character,"Case-study group, or North Loop (near-road) for NO2"
+case_study_event_levels,n_event_site_days,integer,Site-days with data inside the window
+case_study_event_levels,median_sites_per_day,numeric,Median number of sites reporting per event day
+case_study_event_levels,is_thin,logical,TRUE when one site or none reported on most event days
+case_study_event_levels,median_event,numeric,"Median daily value inside the window (PM2.5 µg/m³, ozone ppm, NO2 ppb)"
+case_study_event_levels,median_normal,numeric,Median on the same calendar dates in the other four study years
+case_study_event_levels,ratio_normal,numeric,median_event divided by median_normal
+case_study_event_levels,median_week_before,numeric,Median over the seven days before the window
+case_study_event_levels,ratio_week_before,numeric,median_event divided by median_week_before
+case_study_paired_differences,site_set,factor,"Main or the check applied (as in sections 2 to 6, plus half the sites or more)"
+case_study_paired_differences,contrast,factor,"Ship Channel minus Houston other, or Houston (all Houston sites) minus Dallas-Fort Worth"
+case_study_paired_differences,pollutant,factor,"PM2.5, Ozone, NO2 or SO2 (no Dallas-Fort Worth SO2)"
+case_study_paired_differences,period_type,character,"Overall, Season or Year"
+case_study_paired_differences,period,character,"2021 to 2025, the season, or the year"
+case_study_paired_differences,n_days,integer,Days on which both sides of the contrast had a value
+case_study_paired_differences,median_difference,numeric,"Median same-day difference (ppb for gases, ozone included; µg/m³ for PM2.5)"
+case_study_paired_differences,ci_low,numeric,Lower end of the 95% range from the block bootstrap
+case_study_paired_differences,ci_high,numeric,Upper end of the 95% range from the block bootstrap
+case_study_paired_differences,pct_days_positive,numeric,Share of days on which the first side was higher
+case_study_paired_differences,range_excludes_zero,logical,TRUE when the 95% range lies wholly above or below zero
+case_study_validation,check,character,"What 2b section 8 checks: inputs, site sets, 95% ranges, findings or saved files"
+case_study_validation,observed,character,Value found in this run
+case_study_validation,expected,character,Value the check requires
+case_study_validation,passed,logical,TRUE when observed equals expected; the script stops otherwise

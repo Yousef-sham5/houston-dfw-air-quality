@@ -1,40 +1,40 @@
-pollutant,site_id,n_years_active,county_id,region,n_days,pct_days,state_code,county_code,state_name,county_name,cbsa_name,local_site_name,latitude,longitude,site_group,has_ozone,has_no2,o3_no2_pair
-Ozone,48-113-0075,5,48-113,Dallas-Fort Worth,1661,0.9096385542168675,48,113,Texas,Dallas,"Dallas-Fort Worth-Arlington, TX",Dallas North #2,32.919207,-96.808501,Dallas-Fort Worth,TRUE,FALSE,FALSE
-Ozone,48-113-0087,5,48-113,Dallas-Fort Worth,1715,0.93921139101862,48,113,Texas,Dallas,"Dallas-Fort Worth-Arlington, TX",Dallas Redbird Airport Executive,32.676448,-96.87205,Dallas-Fort Worth,TRUE,TRUE,TRUE
-Ozone,48-201-0024,5,48-201,Houston,1642,0.8992332968236583,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Aldine,29.90103,-95.326147,Houston other,TRUE,TRUE,TRUE
-Ozone,48-201-0026,5,48-201,Houston,1772,0.9704271631982475,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Channelview,29.802716,-95.125516,Houston Ship Channel,TRUE,FALSE,FALSE
-Ozone,48-201-0029,5,48-201,Houston,1749,0.95783132530120485,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Northwest Harris County,30.039522,-95.673918,Houston other,TRUE,FALSE,FALSE
-Ozone,48-201-0046,5,48-201,Houston,1720,0.9419496166484118,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston North Wayside,29.828516,-95.283956,Houston other,TRUE,FALSE,FALSE
-Ozone,48-201-0047,5,48-201,Houston,1751,0.9589266155531215,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Lang,29.834167,-95.489129,Houston other,TRUE,FALSE,FALSE
-Ozone,48-201-0051,5,48-201,Houston,1764,0.9660460021905805,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Croquet,29.623961,-95.474333,Houston other,TRUE,FALSE,FALSE
-Ozone,48-201-0055,5,48-201,Houston,1640,0.8981380065717415,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Bayland Park,29.69566,-95.49924,Houston other,TRUE,TRUE,TRUE
-Ozone,48-201-0062,5,48-201,Houston,1725,0.9446878422782037,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Monroe,29.625667,-95.267058,Houston other,TRUE,FALSE,FALSE
-Ozone,48-201-0066,5,48-201,Houston,1735,0.9501642935377875,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Westhollow,29.723333,-95.635941,Houston other,TRUE,FALSE,FALSE
-Ozone,48-201-0416,5,48-201,Houston,1750,0.9583789704271632,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Park Place,29.686289,-95.294723,Houston Ship Channel,TRUE,TRUE,TRUE
-Ozone,48-201-0417,5,48-201,Houston,1744,0.9550930996714129,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Harvard Street,29.772857,-95.395937,Houston other,TRUE,TRUE,TRUE
-Ozone,48-201-1015,5,48-201,Houston,1746,0.9561883899233297,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Lynchburg Ferry,29.758914,-95.079325,Houston Ship Channel,TRUE,TRUE,TRUE
-Ozone,48-201-1017,5,48-201,Houston,1787,0.9786418400876232,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Baytown Garth,29.827169,-94.988311,Houston Ship Channel,TRUE,FALSE,FALSE
-Ozone,48-201-1034,5,48-201,Houston,1750,0.9583789704271632,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston East,29.768033,-95.220574,Houston Ship Channel,TRUE,TRUE,TRUE
-Ozone,48-201-1035,5,48-201,Houston,1715,0.93921139101862,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Clinton,29.733737,-95.257605,Houston Ship Channel,TRUE,FALSE,FALSE
-Ozone,48-201-1039,5,48-201,Houston,1777,0.9731653888280394,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Deer Park #2,29.670552,-95.129933,Houston Ship Channel,TRUE,TRUE,TRUE
-Ozone,48-201-1050,5,48-201,Houston,1714,0.9386637458926615,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Seabrook Friendship Park,29.583068,-95.015554,Excluded: Bayport-adjacent,TRUE,TRUE,TRUE
-Ozone,48-439-0075,5,48-439,Dallas-Fort Worth,1716,0.9397590361445783,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Eagle Mountain Lake,32.987887,-97.477154,Dallas-Fort Worth,TRUE,FALSE,FALSE
-Ozone,48-439-1002,5,48-439,Dallas-Fort Worth,1759,0.9633077765607886,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Fort Worth Northwest,32.805816,-97.356526,Dallas-Fort Worth,TRUE,TRUE,TRUE
-Ozone,48-439-2003,5,48-439,Dallas-Fort Worth,1732,0.9485213581599123,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Keller,32.922489,-97.282096,Dallas-Fort Worth,TRUE,FALSE,FALSE
-Ozone,48-439-3009,5,48-439,Dallas-Fort Worth,1774,0.9715224534501643,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Grapevine Fairway,32.984258,-97.063702,Dallas-Fort Worth,TRUE,TRUE,TRUE
-NO2,48-113-0087,5,48-113,Dallas-Fort Worth,1579,0.8647316538882804,48,113,Texas,Dallas,"Dallas-Fort Worth-Arlington, TX",Dallas Redbird Airport Executive,32.676448,-96.87205,Dallas-Fort Worth,TRUE,TRUE,TRUE
-NO2,48-201-0024,5,48-201,Houston,1494,0.8181818181818182,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Aldine,29.90103,-95.326147,Houston other,TRUE,TRUE,TRUE
-NO2,48-201-0055,5,48-201,Houston,1673,0.916210295728368,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Bayland Park,29.69566,-95.49924,Houston other,TRUE,TRUE,TRUE
-NO2,48-201-0416,5,48-201,Houston,1704,0.9331872946330778,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Park Place,29.686289,-95.294723,Houston Ship Channel,TRUE,TRUE,TRUE
-NO2,48-201-0417,5,48-201,Houston,1729,0.9468784227820373,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Harvard Street,29.772857,-95.395937,Houston other,TRUE,TRUE,TRUE
-NO2,48-201-1015,5,48-201,Houston,1662,0.9101861993428259,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Lynchburg Ferry,29.758914,-95.079325,Houston Ship Channel,TRUE,TRUE,TRUE
-NO2,48-201-1034,5,48-201,Houston,1786,0.9780941949616648,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston East,29.768033,-95.220574,Houston Ship Channel,TRUE,TRUE,TRUE
-NO2,48-201-1039,5,48-201,Houston,1783,0.9764512595837898,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Deer Park #2,29.670552,-95.129933,Houston Ship Channel,TRUE,TRUE,TRUE
-NO2,48-201-1050,5,48-201,Houston,1670,0.9145673603504929,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Seabrook Friendship Park,29.583068,-95.015554,Excluded: Bayport-adjacent,TRUE,TRUE,TRUE
-NO2,48-439-1002,5,48-439,Dallas-Fort Worth,1757,0.9622124863088719,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Fort Worth Northwest,32.805816,-97.356526,Dallas-Fort Worth,TRUE,TRUE,TRUE
-NO2,48-439-3009,5,48-439,Dallas-Fort Worth,1791,0.9808324205914567,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Grapevine Fairway,32.984258,-97.063702,Dallas-Fort Worth,TRUE,TRUE,TRUE
-NO2,48-439-3011,5,48-439,Dallas-Fort Worth,1710,0.9364731653888281,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Arlington Municipal Airport,32.656365,-97.088592,Dallas-Fort Worth,FALSE,TRUE,FALSE
-SO2,48-201-0051,5,48-201,Houston,1788,0.9791894852135816,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Croquet,29.623961,-95.474333,Houston other,TRUE,FALSE,FALSE
-SO2,48-201-0416,5,48-201,Houston,1746,0.9561883899233297,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Park Place,29.686289,-95.294723,Houston Ship Channel,TRUE,TRUE,TRUE
-SO2,48-201-1035,5,48-201,Houston,1736,0.9507119386637459,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Clinton,29.733737,-95.257605,Houston Ship Channel,TRUE,FALSE,FALSE
-SO2,48-201-1039,5,48-201,Houston,1736,0.9507119386637459,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Deer Park #2,29.670552,-95.129933,Houston Ship Channel,TRUE,TRUE,TRUE
+pollutant,site_id,n_years_active,county_id,region,n_days,pct_days,state_code,county_code,state_name,county_name,cbsa_name,local_site_name,latitude,longitude,km_to_channel,in_memo_list,site_group,has_ozone,has_no2,o3_no2_pair
+Ozone,48-113-0075,5,48-113,Dallas-Fort Worth,1661,0.9096385542168675,48,113,Texas,Dallas,"Dallas-Fort Worth-Arlington, TX",Dallas North #2,32.919207,-96.808501,NA,NA,Dallas-Fort Worth,TRUE,FALSE,FALSE
+Ozone,48-113-0087,5,48-113,Dallas-Fort Worth,1715,0.93921139101862,48,113,Texas,Dallas,"Dallas-Fort Worth-Arlington, TX",Dallas Redbird Airport Executive,32.676448,-96.87205,NA,NA,Dallas-Fort Worth,TRUE,TRUE,TRUE
+Ozone,48-201-0024,5,48-201,Houston,1642,0.8992332968236583,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Aldine,29.90103,-95.326147,16.854,FALSE,Houston other,TRUE,TRUE,TRUE
+Ozone,48-201-0026,5,48-201,Houston,1772,0.9704271631982475,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Channelview,29.802716,-95.125516,5.652,TRUE,Houston Ship Channel,TRUE,FALSE,FALSE
+Ozone,48-201-0029,5,48-201,Houston,1749,0.95783132530120485,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Northwest Harris County,30.039522,-95.673918,48.882,FALSE,Houston other,TRUE,FALSE,FALSE
+Ozone,48-201-0046,5,48-201,Houston,1720,0.9419496166484118,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston North Wayside,29.828516,-95.283956,8.49,FALSE,Houston other,TRUE,FALSE,FALSE
+Ozone,48-201-0047,5,48-201,Houston,1751,0.9589266155531215,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Lang,29.834167,-95.489129,21.195,FALSE,Houston other,TRUE,FALSE,FALSE
+Ozone,48-201-0051,5,48-201,Houston,1764,0.9660460021905805,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Croquet,29.623961,-95.474333,22.149,FALSE,Houston other,TRUE,FALSE,FALSE
+Ozone,48-201-0055,5,48-201,Houston,1640,0.8981380065717415,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Bayland Park,29.69566,-95.49924,20.673,FALSE,Houston other,TRUE,TRUE,TRUE
+Ozone,48-201-0062,5,48-201,Houston,1725,0.9446878422782037,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Monroe,29.625667,-95.267058,10.458,FALSE,Houston other,TRUE,FALSE,FALSE
+Ozone,48-201-0066,5,48-201,Houston,1735,0.9501642935377875,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Westhollow,29.723333,-95.635941,33.197,FALSE,Houston other,TRUE,FALSE,FALSE
+Ozone,48-201-0416,5,48-201,Houston,1750,0.9583789704271632,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Park Place,29.686289,-95.294723,4.798,TRUE,Houston Ship Channel,TRUE,TRUE,TRUE
+Ozone,48-201-0417,5,48-201,Houston,1744,0.9550930996714129,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Harvard Street,29.772857,-95.395937,10.281,FALSE,Houston other,TRUE,TRUE,TRUE
+Ozone,48-201-1015,5,48-201,Houston,1746,0.9561883899233297,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Lynchburg Ferry,29.758914,-95.079325,0.355,TRUE,Houston Ship Channel,TRUE,TRUE,TRUE
+Ozone,48-201-1017,5,48-201,Houston,1787,0.9786418400876232,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Baytown Garth,29.827169,-94.988311,10.871,TRUE,Houston other,TRUE,FALSE,FALSE
+Ozone,48-201-1034,5,48-201,Houston,1750,0.9583789704271632,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston East,29.768033,-95.220574,3.404,TRUE,Houston Ship Channel,TRUE,TRUE,TRUE
+Ozone,48-201-1035,5,48-201,Houston,1715,0.93921139101862,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Clinton,29.733737,-95.257605,0.728,TRUE,Houston Ship Channel,TRUE,FALSE,FALSE
+Ozone,48-201-1039,5,48-201,Houston,1777,0.9731653888280394,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Deer Park #2,29.670552,-95.129933,6.936,TRUE,Houston Ship Channel,TRUE,TRUE,TRUE
+Ozone,48-201-1050,5,48-201,Houston,1714,0.9386637458926615,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Seabrook Friendship Park,29.583068,-95.015554,11.445,FALSE,Excluded: Bayport-adjacent,TRUE,TRUE,TRUE
+Ozone,48-439-0075,5,48-439,Dallas-Fort Worth,1716,0.9397590361445783,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Eagle Mountain Lake,32.987887,-97.477154,NA,NA,Dallas-Fort Worth,TRUE,FALSE,FALSE
+Ozone,48-439-1002,5,48-439,Dallas-Fort Worth,1759,0.9633077765607886,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Fort Worth Northwest,32.805816,-97.356526,NA,NA,Dallas-Fort Worth,TRUE,TRUE,TRUE
+Ozone,48-439-2003,5,48-439,Dallas-Fort Worth,1732,0.9485213581599123,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Keller,32.922489,-97.282096,NA,NA,Dallas-Fort Worth,TRUE,FALSE,FALSE
+Ozone,48-439-3009,5,48-439,Dallas-Fort Worth,1774,0.9715224534501643,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Grapevine Fairway,32.984258,-97.063702,NA,NA,Dallas-Fort Worth,TRUE,TRUE,TRUE
+NO2,48-113-0087,5,48-113,Dallas-Fort Worth,1579,0.8647316538882804,48,113,Texas,Dallas,"Dallas-Fort Worth-Arlington, TX",Dallas Redbird Airport Executive,32.676448,-96.87205,NA,NA,Dallas-Fort Worth,TRUE,TRUE,TRUE
+NO2,48-201-0024,5,48-201,Houston,1494,0.8181818181818182,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Aldine,29.90103,-95.326147,16.854,FALSE,Houston other,TRUE,TRUE,TRUE
+NO2,48-201-0055,5,48-201,Houston,1673,0.916210295728368,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Bayland Park,29.69566,-95.49924,20.673,FALSE,Houston other,TRUE,TRUE,TRUE
+NO2,48-201-0416,5,48-201,Houston,1704,0.9331872946330778,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Park Place,29.686289,-95.294723,4.798,TRUE,Houston Ship Channel,TRUE,TRUE,TRUE
+NO2,48-201-0417,5,48-201,Houston,1729,0.9468784227820373,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Harvard Street,29.772857,-95.395937,10.281,FALSE,Houston other,TRUE,TRUE,TRUE
+NO2,48-201-1015,5,48-201,Houston,1662,0.9101861993428259,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Lynchburg Ferry,29.758914,-95.079325,0.355,TRUE,Houston Ship Channel,TRUE,TRUE,TRUE
+NO2,48-201-1034,5,48-201,Houston,1786,0.9780941949616648,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston East,29.768033,-95.220574,3.404,TRUE,Houston Ship Channel,TRUE,TRUE,TRUE
+NO2,48-201-1039,5,48-201,Houston,1783,0.9764512595837898,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Deer Park #2,29.670552,-95.129933,6.936,TRUE,Houston Ship Channel,TRUE,TRUE,TRUE
+NO2,48-201-1050,5,48-201,Houston,1670,0.9145673603504929,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Seabrook Friendship Park,29.583068,-95.015554,11.445,FALSE,Excluded: Bayport-adjacent,TRUE,TRUE,TRUE
+NO2,48-439-1002,5,48-439,Dallas-Fort Worth,1757,0.9622124863088719,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Fort Worth Northwest,32.805816,-97.356526,NA,NA,Dallas-Fort Worth,TRUE,TRUE,TRUE
+NO2,48-439-3009,5,48-439,Dallas-Fort Worth,1791,0.9808324205914567,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Grapevine Fairway,32.984258,-97.063702,NA,NA,Dallas-Fort Worth,TRUE,TRUE,TRUE
+NO2,48-439-3011,5,48-439,Dallas-Fort Worth,1710,0.9364731653888281,48,439,Texas,Tarrant,"Dallas-Fort Worth-Arlington, TX",Arlington Municipal Airport,32.656365,-97.088592,NA,NA,Dallas-Fort Worth,FALSE,TRUE,FALSE
+SO2,48-201-0051,5,48-201,Houston,1788,0.9791894852135816,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Croquet,29.623961,-95.474333,22.149,FALSE,Houston other,TRUE,FALSE,FALSE
+SO2,48-201-0416,5,48-201,Houston,1746,0.9561883899233297,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Park Place,29.686289,-95.294723,4.798,TRUE,Houston Ship Channel,TRUE,TRUE,TRUE
+SO2,48-201-1035,5,48-201,Houston,1736,0.9507119386637459,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Clinton,29.733737,-95.257605,0.728,TRUE,Houston Ship Channel,TRUE,FALSE,FALSE
+SO2,48-201-1039,5,48-201,Houston,1736,0.9507119386637459,48,201,Texas,Harris,"Houston-The Woodlands-Sugar Land, TX",Houston Deer Park #2,29.670552,-95.129933,6.936,TRUE,Houston Ship Channel,TRUE,TRUE,TRUE

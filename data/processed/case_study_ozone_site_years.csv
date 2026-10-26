@@ -1,0 +1,111 @@
+site_group,site_id,local_site_name,year,n_site_days,n_exceedance_days,fourth_highest_ppm,is_above_standard,three_year_screen
+Houston Ship Channel,48-201-0026,Channelview,2021,348,3,0.068,FALSE,NA
+Houston Ship Channel,48-201-0026,Channelview,2022,358,1,0.063,FALSE,NA
+Houston Ship Channel,48-201-0026,Channelview,2023,361,10,0.085,TRUE,0.072
+Houston Ship Channel,48-201-0026,Channelview,2024,351,10,0.075,TRUE,0.074
+Houston Ship Channel,48-201-0026,Channelview,2025,354,4,0.074,TRUE,0.078
+Houston Ship Channel,48-201-0416,Park Place,2021,354,12,0.078,TRUE,NA
+Houston Ship Channel,48-201-0416,Park Place,2022,349,6,0.072,TRUE,NA
+Houston Ship Channel,48-201-0416,Park Place,2023,352,18,0.085,TRUE,0.078
+Houston Ship Channel,48-201-0416,Park Place,2024,342,13,0.082,TRUE,0.079
+Houston Ship Channel,48-201-0416,Park Place,2025,353,8,0.076,TRUE,0.081
+Houston Ship Channel,48-201-1015,Lynchburg Ferry,2021,349,2,0.065,FALSE,NA
+Houston Ship Channel,48-201-1015,Lynchburg Ferry,2022,356,1,0.063,FALSE,NA
+Houston Ship Channel,48-201-1015,Lynchburg Ferry,2023,344,10,0.082,TRUE,0.07
+Houston Ship Channel,48-201-1015,Lynchburg Ferry,2024,341,12,0.078,TRUE,0.074
+Houston Ship Channel,48-201-1015,Lynchburg Ferry,2025,356,4,0.071,TRUE,0.077
+Houston Ship Channel,48-201-1034,Houston East,2021,352,6,0.076,TRUE,NA
+Houston Ship Channel,48-201-1034,Houston East,2022,356,7,0.073,TRUE,NA
+Houston Ship Channel,48-201-1034,Houston East,2023,350,21,0.09,TRUE,0.079
+Houston Ship Channel,48-201-1034,Houston East,2024,331,16,0.084,TRUE,0.082
+Houston Ship Channel,48-201-1034,Houston East,2025,361,8,0.075,TRUE,0.083
+Houston Ship Channel,48-201-1035,Clinton,2021,356,2,0.07,FALSE,NA
+Houston Ship Channel,48-201-1035,Clinton,2022,334,7,0.076,TRUE,NA
+Houston Ship Channel,48-201-1035,Clinton,2023,326,14,0.082,TRUE,0.076
+Houston Ship Channel,48-201-1035,Clinton,2024,343,18,0.084,TRUE,0.08
+Houston Ship Channel,48-201-1035,Clinton,2025,356,6,0.075,TRUE,0.08
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,2021,358,6,0.074,TRUE,NA
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,2022,356,2,0.067,FALSE,NA
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,2023,359,18,0.083,TRUE,0.074
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,2024,347,12,0.084,TRUE,0.078
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,2025,357,12,0.088,TRUE,0.085
+Houston other,48-201-0024,Houston Aldine,2021,319,5,0.074,TRUE,NA
+Houston other,48-201-0024,Houston Aldine,2022,333,1,0.064,FALSE,NA
+Houston other,48-201-0024,Houston Aldine,2023,318,9,0.078,TRUE,0.072
+Houston other,48-201-0024,Houston Aldine,2024,329,18,0.097,TRUE,0.079
+Houston other,48-201-0024,Houston Aldine,2025,343,11,0.073,TRUE,0.082
+Houston other,48-201-0029,Northwest Harris County,2021,355,2,0.069,FALSE,NA
+Houston other,48-201-0029,Northwest Harris County,2022,354,8,0.074,TRUE,NA
+Houston other,48-201-0029,Northwest Harris County,2023,334,11,0.079,TRUE,0.074
+Houston other,48-201-0029,Northwest Harris County,2024,358,11,0.082,TRUE,0.078
+Houston other,48-201-0029,Northwest Harris County,2025,348,17,0.084,TRUE,0.081
+Houston other,48-201-0046,Houston North Wayside,2021,338,2,0.065,FALSE,NA
+Houston other,48-201-0046,Houston North Wayside,2022,347,1,0.062,FALSE,NA
+Houston other,48-201-0046,Houston North Wayside,2023,346,7,0.074,TRUE,0.067
+Houston other,48-201-0046,Houston North Wayside,2024,343,10,0.092,TRUE,0.076
+Houston other,48-201-0046,Houston North Wayside,2025,346,0,0.064,FALSE,0.076
+Houston other,48-201-0047,Lang,2021,355,5,0.071,TRUE,NA
+Houston other,48-201-0047,Lang,2022,356,4,0.071,TRUE,NA
+Houston other,48-201-0047,Lang,2023,356,20,0.083,TRUE,0.075
+Houston other,48-201-0047,Lang,2024,325,11,0.083,TRUE,0.079
+Houston other,48-201-0047,Lang,2025,359,6,0.075,TRUE,0.08
+Houston other,48-201-0051,Houston Croquet,2021,351,10,0.083,TRUE,NA
+Houston other,48-201-0051,Houston Croquet,2022,351,5,0.072,TRUE,NA
+Houston other,48-201-0051,Houston Croquet,2023,361,12,0.08,TRUE,0.078
+Houston other,48-201-0051,Houston Croquet,2024,345,7,0.076,TRUE,0.076
+Houston other,48-201-0051,Houston Croquet,2025,356,11,0.079,TRUE,0.078
+Houston other,48-201-0055,Houston Bayland Park,2021,274,12,0.078,TRUE,NA
+Houston other,48-201-0055,Houston Bayland Park,2022,325,12,0.084,TRUE,NA
+Houston other,48-201-0055,Houston Bayland Park,2023,340,23,0.087,TRUE,0.083
+Houston other,48-201-0055,Houston Bayland Park,2024,354,17,0.083,TRUE,0.084
+Houston other,48-201-0055,Houston Bayland Park,2025,347,13,0.079,TRUE,0.083
+Houston other,48-201-0062,Houston Monroe,2021,343,2,0.068,FALSE,NA
+Houston other,48-201-0062,Houston Monroe,2022,359,0,0.06,FALSE,NA
+Houston other,48-201-0062,Houston Monroe,2023,353,9,0.078,TRUE,0.068
+Houston other,48-201-0062,Houston Monroe,2024,315,2,0.066,FALSE,0.068
+Houston other,48-201-0062,Houston Monroe,2025,355,3,0.069,FALSE,0.071
+Houston other,48-201-0066,Houston Westhollow,2021,345,4,0.071,TRUE,NA
+Houston other,48-201-0066,Houston Westhollow,2022,355,5,0.073,TRUE,NA
+Houston other,48-201-0066,Houston Westhollow,2023,343,9,0.077,TRUE,0.073
+Houston other,48-201-0066,Houston Westhollow,2024,335,7,0.078,TRUE,0.076
+Houston other,48-201-0066,Houston Westhollow,2025,357,6,0.073,TRUE,0.076
+Houston other,48-201-0417,Houston Harvard Street,2021,321,13,0.079,TRUE,NA
+Houston other,48-201-0417,Houston Harvard Street,2022,352,10,0.078,TRUE,NA
+Houston other,48-201-0417,Houston Harvard Street,2023,357,16,0.078,TRUE,0.078
+Houston other,48-201-0417,Houston Harvard Street,2024,359,21,0.09,TRUE,0.082
+Houston other,48-201-0417,Houston Harvard Street,2025,355,16,0.078,TRUE,0.082
+Houston other,48-201-1017,Baytown Garth,2021,359,4,0.071,TRUE,NA
+Houston other,48-201-1017,Baytown Garth,2022,355,5,0.071,TRUE,NA
+Houston other,48-201-1017,Baytown Garth,2023,347,21,0.084,TRUE,0.075
+Houston other,48-201-1017,Baytown Garth,2024,363,8,0.078,TRUE,0.077
+Houston other,48-201-1017,Baytown Garth,2025,363,5,0.071,TRUE,0.077
+Dallas-Fort Worth,48-113-0075,Dallas North #2,2021,355,7,0.073,TRUE,NA
+Dallas-Fort Worth,48-113-0075,Dallas North #2,2022,317,5,0.072,TRUE,NA
+Dallas-Fort Worth,48-113-0075,Dallas North #2,2023,303,20,0.08,TRUE,0.075
+Dallas-Fort Worth,48-113-0075,Dallas North #2,2024,337,9,0.08,TRUE,0.077
+Dallas-Fort Worth,48-113-0075,Dallas North #2,2025,349,7,0.075,TRUE,0.078
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2021,356,1,0.07,FALSE,NA
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2022,350,9,0.077,TRUE,NA
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2023,309,15,0.079,TRUE,0.075
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2024,353,14,0.08,TRUE,0.078
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2025,347,3,0.07,FALSE,0.076
+Dallas-Fort Worth,48-439-0075,Eagle Mountain Lake,2021,335,5,0.076,TRUE,NA
+Dallas-Fort Worth,48-439-0075,Eagle Mountain Lake,2022,353,12,0.077,TRUE,NA
+Dallas-Fort Worth,48-439-0075,Eagle Mountain Lake,2023,355,14,0.079,TRUE,0.077
+Dallas-Fort Worth,48-439-0075,Eagle Mountain Lake,2024,343,21,0.089,TRUE,0.081
+Dallas-Fort Worth,48-439-0075,Eagle Mountain Lake,2025,330,9,0.076,TRUE,0.081
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,2021,361,9,0.076,TRUE,NA
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,2022,358,12,0.08,TRUE,NA
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,2023,348,18,0.084,TRUE,0.08
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,2024,342,13,0.084,TRUE,0.082
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,2025,350,19,0.082,TRUE,0.083
+Dallas-Fort Worth,48-439-2003,Keller,2021,360,8,0.074,TRUE,NA
+Dallas-Fort Worth,48-439-2003,Keller,2022,358,6,0.072,TRUE,NA
+Dallas-Fort Worth,48-439-2003,Keller,2023,354,15,0.08,TRUE,0.075
+Dallas-Fort Worth,48-439-2003,Keller,2024,344,20,0.088,TRUE,0.08
+Dallas-Fort Worth,48-439-2003,Keller,2025,316,13,0.077,TRUE,0.081
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2021,360,7,0.075,TRUE,NA
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2022,355,8,0.078,TRUE,NA
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2023,358,17,0.084,TRUE,0.079
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2024,362,14,0.081,TRUE,0.081
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2025,339,14,0.073,TRUE,0.079

@@ -4,3 +4,6 @@ sites.rds,2038,9,0.1,2378fde7c32f2fff33a32d9f65d4e227,TRUE
 site_coverage.rds,3760,3,0,f512b27961c8a0399cbae0957a3fbc60,TRUE
 hourly_case_study.rds,661545,30,6.8,34e7592dc45125fe51c384d0098f5523,TRUE
 hourly_weather.rds,390791,34,11,8984d352bf3c1b5e1f0cb29ede052e5a,TRUE
+daily_case_study.rds,109365,24,0.3,e0ebcc02ec7f14c794de6ddaed765787,TRUE
+daily_case_study_instruments.rds,112537,7,0.2,7239e1a2c43148585cb8a8465d1fb672,TRUE
+daily_case_study_months.rds,2631,17,0,ce71988dd150950f4b8dc6d482fe4825,TRUE

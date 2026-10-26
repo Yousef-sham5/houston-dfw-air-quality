@@ -1,0 +1,56 @@
+site_group,site_id,local_site_name,year,n_site_days,mean_daily_peak_ppb,p98_ppb,is_above_standard
+Houston Ship Channel,48-201-0416,Park Place,2021,360,20.35,44,FALSE
+Houston Ship Channel,48-201-0416,Park Place,2022,347,20.74,46,FALSE
+Houston Ship Channel,48-201-0416,Park Place,2023,334,20.82,44,FALSE
+Houston Ship Channel,48-201-0416,Park Place,2024,353,17.36,41,FALSE
+Houston Ship Channel,48-201-0416,Park Place,2025,310,15.52,41,FALSE
+Houston Ship Channel,48-201-1015,Lynchburg Ferry,2021,322,19.9,45,FALSE
+Houston Ship Channel,48-201-1015,Lynchburg Ferry,2022,284,17.79,39,FALSE
+Houston Ship Channel,48-201-1015,Lynchburg Ferry,2023,357,19.16,43,FALSE
+Houston Ship Channel,48-201-1015,Lynchburg Ferry,2024,344,23.07,55,FALSE
+Houston Ship Channel,48-201-1015,Lynchburg Ferry,2025,355,20.95,49,FALSE
+Houston Ship Channel,48-201-1034,Houston East,2021,364,23.21,45,FALSE
+Houston Ship Channel,48-201-1034,Houston East,2022,363,23.33,48,FALSE
+Houston Ship Channel,48-201-1034,Houston East,2023,357,23.17,47,FALSE
+Houston Ship Channel,48-201-1034,Houston East,2024,341,24.13,47,FALSE
+Houston Ship Channel,48-201-1034,Houston East,2025,361,22.32,48,FALSE
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,2021,362,14.63,34,FALSE
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,2022,358,15.54,40,FALSE
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,2023,360,15.02,35,FALSE
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,2024,355,17.46,43,FALSE
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,2025,348,17.58,42,FALSE
+Houston other,48-201-0024,Houston Aldine,2021,295,17.23,36,FALSE
+Houston other,48-201-0024,Houston Aldine,2022,333,18.04,41,FALSE
+Houston other,48-201-0024,Houston Aldine,2023,280,19.11,40,FALSE
+Houston other,48-201-0024,Houston Aldine,2024,290,19.39,39,FALSE
+Houston other,48-201-0024,Houston Aldine,2025,296,17.92,41,FALSE
+Houston other,48-201-0055,Houston Bayland Park,2021,308,16.24,38,FALSE
+Houston other,48-201-0055,Houston Bayland Park,2022,355,17.36,42,FALSE
+Houston other,48-201-0055,Houston Bayland Park,2023,313,17.7,39,FALSE
+Houston other,48-201-0055,Houston Bayland Park,2024,340,16.63,40,FALSE
+Houston other,48-201-0055,Houston Bayland Park,2025,357,15.77,38,FALSE
+Houston other,48-201-0417,Houston Harvard Street,2021,336,20.8,47,FALSE
+Houston other,48-201-0417,Houston Harvard Street,2022,349,21.68,47,FALSE
+Houston other,48-201-0417,Houston Harvard Street,2023,355,20.32,48,FALSE
+Houston other,48-201-0417,Houston Harvard Street,2024,339,20.34,46,FALSE
+Houston other,48-201-0417,Houston Harvard Street,2025,350,20.08,45,FALSE
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2021,322,15.27,42,FALSE
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2022,282,17.36,48,FALSE
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2023,312,15.62,41,FALSE
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2024,315,16.95,44,FALSE
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2025,348,17.06,43,FALSE
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,2021,353,22.27,48,FALSE
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,2022,361,22.39,52,FALSE
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,2023,358,23.7,46,FALSE
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,2024,353,21.7,48,FALSE
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,2025,332,21.74,47,FALSE
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2021,360,15.27,37,FALSE
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2022,362,15.59,40,FALSE
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2023,355,15.49,40,FALSE
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2024,360,13.3,36,FALSE
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2025,354,15.26,36,FALSE
+Dallas-Fort Worth,48-439-3011,Arlington Municipal Airport,2021,360,15.49,38,FALSE
+Dallas-Fort Worth,48-439-3011,Arlington Municipal Airport,2022,343,16.4,39,FALSE
+Dallas-Fort Worth,48-439-3011,Arlington Municipal Airport,2023,306,16.07,35,FALSE
+Dallas-Fort Worth,48-439-3011,Arlington Municipal Airport,2024,342,16.35,38,FALSE
+Dallas-Fort Worth,48-439-3011,Arlington Municipal Airport,2025,359,16.38,37,FALSE

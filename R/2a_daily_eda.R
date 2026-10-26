@@ -10,7 +10,7 @@ library(scales)
 library(patchwork)
 library(here)
 
-source(here("R", "utils.R")) # study_years, region_lookup, read_methods_ref(), read_events(), event_medians(), save helpers, chart theme
+source(here("R", "utils.R")) # study_years, region_lookup, read helpers, naaqs_statistics(), monthly_profile(), save helpers, chart theme
 
 load_chart_fonts()
 
@@ -21,30 +21,11 @@ processed_dir <- here("data", "processed")
 
 pollutant_levels <- c("PM2.5", "Ozone", "NO2", "SO2", "CO")
 
-# Copied from 1c: the TCEQ Region 12 memo sites plus Park Place and Baytown Garth
-ship_channel_ids <- c(
-  "48-201-0026",
-  "48-201-0036",
-  "48-201-0057",
-  "48-201-0069",
-  "48-201-0307",
-  "48-201-0416",
-  "48-201-0617",
-  "48-201-0803",
-  "48-201-0807",
-  "48-201-1015",
-  "48-201-1017",
-  "48-201-1034",
-  "48-201-1035",
-  "48-201-1039",
-  "48-201-1049",
-  "48-201-1614",
-  "48-201-6000"
-)
+# CO stays out of the case-study checkpoint: Harris County has one five-year CO site and Dallas-Fort Worth has none
+case_study_pollutants <- c("PM2.5", "Ozone", "NO2", "SO2")
 
-bayport_adjacent_ids <- c(
-  "48-201-1050"
-)
+# Group of every Harris site, set by 1c from its distance to the land-cut Ship Channel
+harris_groups_path <- here("data", "reference", "harris_site_channel_distance.csv")
 
 # Houston North Loop, Houston Southwest Freeway, Dallas LBJ Freeway, Fort Worth California Parkway North
 near_road_ids <- c(
@@ -151,10 +132,9 @@ weekday_holidays <- tibble(year = study_years) %>%
   pivot_longer(-year, names_to = "holiday", values_to = "date_local")
 
 stopifnot(
-  "Ship Channel IDs are unique Harris County site IDs" =
-    all(str_detect(ship_channel_ids, "^48-201-\\d{4}$")) && !anyDuplicated(ship_channel_ids),
-  "No site is both Ship Channel and Bayport-adjacent" = !any(bayport_adjacent_ids %in% ship_channel_ids),
+  "1c has written the Harris site groups (run 1c first)" = file.exists(harris_groups_path),
   "Near-road IDs are in the three case-study counties" = all(str_sub(near_road_ids, 1, 6) %in% region_lookup$county_id),
+  "Case-study pollutants are daily pollutants other than CO" = setequal(case_study_pollutants, setdiff(pollutant_levels, "CO")),
   "One parameter code per pollutant" = setequal(parameter_codes$pollutant, pollutant_levels),
   "Every pollutant has a NAAQS row" = setequal(naaqs$pollutant, pollutant_levels),
   "Each percentile rank table covers 1 to 366 days without gaps" = all(vapply(
@@ -692,16 +672,16 @@ network_footer <- chart_footer(sprintf(
 
 network_figure <- chart_compose(network_header, list(change_panel, mix_panel, schedule_panel, gap_panel), network_footer)
 
-dir.create(here("figures"), showWarnings = FALSE)
+dir.create(here("figures", "phase2"), recursive = TRUE, showWarnings = FALSE)
 
-network_figure_path <- here("figures", "2a_network.png")
+network_figure_path <- here("figures", "phase2", "2a.01_network.png")
 
 save_started <- Sys.time()
 
 ggsave(network_figure_path, network_figure, width = 6.5, height = 6.4, dpi = 300)
 
 stopifnot(
-  "2a_network.png was written (close any viewer of it and rerun this step)" =
+  "2a.01_network.png was written (close any viewer of it and rerun this step)" =
     file.mtime(network_figure_path) >= save_started - 2
 )
 
@@ -748,57 +728,12 @@ stopifnot(
   "No site-year has more days than the calendar" = max(site_year_days$n_days) <= 366
 )
 
-# The value of each standard per site-year: the ranked daily value for the short-term standards and the mean of the
-# quarterly means for annual PM2.5, rounded as the standard specifies and compared with its level. Annual PM2.5
-# keeps only site-years with data in all four quarters, since Appendix N needs every quarter for a complete year
-naaqs_statistics <- function(site_days) {
-  site_year_ranks <- site_days %>%
-    count(pollutant, site_id, year, name = "n_days") %>%
-    left_join(naaqs_ranks, by = "pollutant", relationship = "many-to-one") %>%
-    left_join(percentile_ranks, by = join_by(percentile, between(n_days, min_days, max_days)), relationship = "many-to-one") %>%
-    mutate(value_rank = coalesce(fixed_rank, rank)) %>%
-    select(pollutant, site_id, year, n_days, value_rank)
-
-  stopifnot(
-    "Every site-year has a rank" = !anyNA(site_year_ranks$value_rank),
-    "No rank is beyond the site-year's days" = all(site_year_ranks$value_rank <= site_year_ranks$n_days)
-  )
-
-  short_term <- site_days %>%
-    arrange(pollutant, site_id, year, desc(value)) %>%
-    mutate(value_order = row_number(), .by = c(pollutant, site_id, year)) %>%
-    inner_join(site_year_ranks, by = c("pollutant", "site_id", "year"), relationship = "many-to-one") %>%
-    filter(value_order == value_rank) %>%
-    inner_join(filter(naaqs, standard != "Annual") %>% select(pollutant, standard), by = "pollutant", relationship = "many-to-one") %>%
-    select(pollutant, standard, site_id, year, n_days, value)
-
-  pm25_annual <- site_days %>%
-    filter(pollutant == "PM2.5") %>%
-    mutate(quarter = quarter(date_local)) %>%
-    summarise(quarter_mean = mean(value), .by = c(pollutant, site_id, year, quarter)) %>%
-    summarise(n_quarters = n(), value = mean(quarter_mean), .by = c(pollutant, site_id, year)) %>%
-    mutate(standard = "Annual") %>%
-    left_join(select(site_year_ranks, pollutant, site_id, year, n_days), by = c("pollutant", "site_id", "year"), relationship = "one-to-one")
-
-  stopifnot(
-    "One short-term value per site-year" = nrow(short_term) == nrow(site_year_ranks),
-    "Annual PM2.5 has 1 to 4 quarters per site-year" = all(between(pm25_annual$n_quarters, 1, 4))
-  )
-
-  pm25_annual <- pm25_annual %>%
-    filter(n_quarters == 4)
-
-  bind_rows(short_term, pm25_annual) %>%
-    left_join(select(naaqs, pollutant, standard, level, digits, rounding), by = c("pollutant", "standard"), relationship = "many-to-one") %>%
-    mutate(value_rounded = if_else(rounding == "truncate", truncate_to(value, digits), round_half_up(value, digits))) %>%
-    mutate(is_above = value_rounded > level) %>%
-    select(pollutant, standard, site_id, year, n_days, n_quarters, value, value_rounded, level, is_above)
-}
-
+# Each standard's value per site-year, with and without event days. naaqs_statistics() is in utils.R so 2b screens the
+# case-study sites with the same rules
 naaqs_site_year <- bind_rows(
-  naaqs_statistics(naaqs_site_days) %>%
+  naaqs_statistics(naaqs_site_days, naaqs, naaqs_ranks, percentile_ranks) %>%
     mutate(day_set = "All days"),
-  naaqs_statistics(filter(naaqs_site_days, event_class == "None")) %>%
+  naaqs_statistics(filter(naaqs_site_days, event_class == "None"), naaqs, naaqs_ranks, percentile_ranks) %>%
     mutate(day_set = "Without event and fireworks days")
 )
 
@@ -1002,24 +937,31 @@ naaqs_header <- chart_header(
   )
 )
 
+naaqs_site_note <- naaqs_site_counts %>%
+  arrange(pollutant) %>%
+  mutate(label = str_c(pollutant, " ", format(n_sites, big.mark = ","))) %>%
+  pull(label) %>%
+  str_flatten(collapse = ", ")
+
 naaqs_footer <- chart_footer(sprintf(
   str_c(
     "EPA AQS daily data, %s to %s. Single-year screening values for five-year sites, not EPA design values.\n",
-    "The year's value: ozone's 4th-highest day, CO's 2nd-highest, or the 98th or 99th percentile day for PM2.5, NO2 and SO2."
+    "The year's value: ozone's 4th-highest day, CO's 2nd-highest, or the 98th or 99th percentile day for PM2.5, NO2 and SO2.\n",
+    "Five-year sites: %s."
   ),
-  first_year, last_year
+  first_year, last_year, naaqs_site_note
 ))
 
 naaqs_figure <- chart_compose(naaqs_header, naaqs_panels, naaqs_footer, ncol = 3)
 
-naaqs_figure_path <- here("figures", "2a_naaqs_form.png")
+naaqs_figure_path <- here("figures", "phase2", "2a.02_naaqs_form.png")
 
 save_started <- Sys.time()
 
 ggsave(naaqs_figure_path, naaqs_figure, width = 6.5, height = 6.2, dpi = 300)
 
 stopifnot(
-  "2a_naaqs_form.png was written (close any viewer of it and rerun this step)" =
+  "2a.02_naaqs_form.png was written (close any viewer of it and rerun this step)" =
     file.mtime(naaqs_figure_path) >= save_started - 2
 )
 
@@ -1267,14 +1209,14 @@ exceedance_footer <- chart_footer(sprintf(
 
 exceedance_figure <- chart_compose(exceedance_header, exceedance_panels, exceedance_footer, ncol = 3)
 
-exceedance_figure_path <- here("figures", "2a_exceedances.png")
+exceedance_figure_path <- here("figures", "phase2", "2a.03_exceedances.png")
 
 save_started <- Sys.time()
 
 ggsave(exceedance_figure_path, exceedance_figure, width = 6.5, height = 4.6, dpi = 300)
 
 stopifnot(
-  "2a_exceedances.png was written (close any viewer of it and rerun this step)" =
+  "2a.03_exceedances.png was written (close any viewer of it and rerun this step)" =
     file.mtime(exceedance_figure_path) >= save_started - 2
 )
 
@@ -1414,14 +1356,14 @@ metro_footer <- chart_footer(str_c(
 
 metro_figure <- chart_compose(metro_header, metro_panels, metro_footer, ncol = 2)
 
-metro_figure_path <- here("figures", "2a_exceedance_metros.png")
+metro_figure_path <- here("figures", "phase2", "2a.04_exceedance_metros.png")
 
 save_started <- Sys.time()
 
 ggsave(metro_figure_path, metro_figure, width = 6.5, height = 4.8, dpi = 300)
 
 stopifnot(
-  "2a_exceedance_metros.png was written (close any viewer of it and rerun this step)" =
+  "2a.04_exceedance_metros.png was written (close any viewer of it and rerun this step)" =
     file.mtime(metro_figure_path) >= save_started - 2
 )
 
@@ -1544,7 +1486,7 @@ stopifnot(
 )
 
 # Typical year: each site's mean for a calendar month across the five years, each year counting once, then the median
-# and middle half across sites. Sections 8 to 10 reuse monthly_profile() with the case-study groups as group_cols
+# and middle half across sites. monthly_profile() is in utils.R, where 2b reuses it with the case-study groups
 site_calendar_months <- complete_site_months %>%
   summarise(
     n_years = n(),
@@ -1553,19 +1495,6 @@ site_calendar_months <- complete_site_months %>%
     .by = c(pollutant, site_id, state_code, month)
   ) %>%
   mutate(mean_ordinary = if_else(is.nan(mean_ordinary), NA_real_, mean_ordinary))
-
-monthly_profile <- function(site_calendar_months, group_cols = "pollutant") {
-  site_calendar_months %>%
-    summarise(
-      n_sites = n(),
-      median_value = median(mean_value),
-      q25_value = quantile(mean_value, 0.25),
-      q75_value = quantile(mean_value, 0.75),
-      median_ordinary = median(mean_ordinary, na.rm = TRUE),
-      .by = all_of(c(group_cols, "month"))
-    ) %>%
-    arrange(across(all_of(c(group_cols, "month"))))
-}
 
 national_monthly_profile <- monthly_profile(site_calendar_months)
 
@@ -1861,24 +1790,39 @@ profile_header <- chart_header(
   )
 )
 
+profile_site_counts <- site_calendar_months %>%
+  distinct(pollutant, site_id) %>%
+  count(pollutant, name = "n_sites")
+
+profile_site_note <- profile_site_counts %>%
+  mutate(label = str_c(pollutant, " ", n_sites)) %>%
+  pull(label) %>%
+  str_flatten(collapse = ", ")
+
+stopifnot(
+  "The typical year uses only the ozone sites that report every winter" =
+    profile_site_counts$n_sites[profile_site_counts$pollutant == "Ozone"] == length(year_round_ozone_ids)
+)
+
 profile_footer <- chart_footer(sprintf(
   str_c(
-    "EPA AQS daily data, five-year sites. Ozone uses the %d sites that report every winter. Site-months need 75%% of\n",
-    "their expected days. Ozone has no December 31 rows. Peak month: the calendar month with a site's highest mean."
+    "EPA AQS daily data, five-year sites: %s. Ozone uses only the sites that\n",
+    "report every winter. Site-months need 75%% of their expected days. Ozone has no December 31 rows. Peak month:\n",
+    "the calendar month with a site's highest mean."
   ),
-  length(year_round_ozone_ids)
+  profile_site_note
 ))
 
 profile_figure <- chart_compose(profile_header, profile_panels, profile_footer, ncol = 3)
 
-profile_figure_path <- here("figures", "2a_monthly_profile.png")
+profile_figure_path <- here("figures", "phase2", "2a.05_monthly_profile.png")
 
 save_started <- Sys.time()
 
 ggsave(profile_figure_path, profile_figure, width = 6.5, height = 6.0, dpi = 300)
 
 stopifnot(
-  "2a_monthly_profile.png was written (close any viewer of it and rerun this step)" =
+  "2a.05_monthly_profile.png was written (close any viewer of it and rerun this step)" =
     file.mtime(profile_figure_path) >= save_started - 2
 )
 
@@ -1984,14 +1928,14 @@ series_footer <- chart_footer(sprintf(
 
 series_figure <- chart_compose(series_header, series_panels, series_footer, ncol = 1)
 
-series_figure_path <- here("figures", "2a_monthly_series.png")
+series_figure_path <- here("figures", "phase2", "2a.06_monthly_series.png")
 
 save_started <- Sys.time()
 
 ggsave(series_figure_path, series_figure, width = 6.5, height = 6.2, dpi = 300)
 
 stopifnot(
-  "2a_monthly_series.png was written (close any viewer of it and rerun this step)" =
+  "2a.06_monthly_series.png was written (close any viewer of it and rerun this step)" =
     file.mtime(series_figure_path) >= save_started - 2
 )
 
@@ -2157,20 +2101,25 @@ print(filter(ozone_weekend_metros, is_case_study))
 
 stopifnot("Both case-study metros have at least 5 five-year ozone sites" = sum(ozone_weekend_metros$is_case_study) == 2)
 
-# Case-study group of every Harris, Dallas and Tarrant site, reused in sections 7 to 13. Bayport-adjacent sites belong
-# to neither Houston group
+# Case-study group of every Harris, Dallas and Tarrant site, saved for 2b in section 7. Harris sites take the group 1c
+# set from their distance to the Ship Channel; the Bayport-adjacent site belongs to neither Houston group
+harris_groups <- read_csv(
+  harris_groups_path,
+  col_types = cols_only(site_id = col_character(), km_to_channel = col_double(), site_group = col_character())
+)
+
 site_groups <- daily_sites %>%
   distinct(site_id) %>%
   mutate(county_id = str_sub(site_id, 1, 6)) %>%
   inner_join(region_lookup, by = "county_id", relationship = "many-to-one") %>%
-  filter(!site_id %in% bayport_adjacent_ids) %>%
-  mutate(
-    site_group = case_when(
-      site_id %in% ship_channel_ids ~ "Houston Ship Channel",
-      region == "Houston" ~ "Houston other",
-      .default = "Dallas-Fort Worth"
-    )
-  ) %>%
+  left_join(select(harris_groups, site_id, houston_group = site_group), by = "site_id", relationship = "one-to-one") %>%
+  mutate(site_group = if_else(region == "Houston", houston_group, "Dallas-Fort Worth"))
+
+harris_sites_without_group <- site_groups %>%
+  filter(region == "Houston", is.na(site_group))
+
+site_groups <- site_groups %>%
+  filter(site_group %in% names(site_group_colours)) %>%
   mutate(site_group = factor(site_group, levels = names(site_group_colours))) %>%
   select(site_id, region, site_group)
 
@@ -2187,12 +2136,9 @@ weekend_by_group <- weekend_ratios %>%
 
 print(weekend_by_group, n = Inf)
 
-ship_channel_daily_sites <- site_groups %>%
-  filter(site_id %in% ship_channel_ids)
-
 stopifnot(
-  "7 of the 17 Ship Channel IDs have daily data, and all are in the Ship Channel group" =
-    nrow(ship_channel_daily_sites) == 7 && all(ship_channel_daily_sites$site_group == "Houston Ship Channel"),
+  "Every Harris site in the daily data has a group from 1c (rerun 1c if not)" = nrow(harris_sites_without_group) == 0,
+  "9 Harris sites with daily data are within the Ship Channel cutoff" = sum(site_groups$site_group == "Houston Ship Channel") == 9,
   "Group labels match the chart colours" = all(levels(site_groups$site_group) == names(site_group_colours))
 )
 
@@ -2283,12 +2229,13 @@ day_panel <- ggplot(day_of_week_data, aes(day_number, median_ratio, colour = pol
     )
   )
 
+# Group labels sit above the highest dot so they never cover one
 group_label_data <- tibble(
   site_group = factor(names(site_group_colours), levels = names(site_group_colours)),
   label = toupper(names(site_group_colours))
 ) %>%
   mutate(NO2 = min(no2_ozone_ratios$NO2)) %>%
-  mutate(Ozone = max(no2_ozone_ratios$Ozone) - (row_number() - 1) * 0.011)
+  mutate(Ozone = max(no2_ozone_ratios$Ozone) + 0.07 - (row_number() - 1) * 0.021)
 
 scatter_panel <- ggplot(no2_ozone_ratios, aes(NO2, Ozone)) +
   geom_hline(yintercept = 1, colour = chart_ink[["primary"]], linewidth = 0.35) +
@@ -2400,16 +2347,163 @@ weekend_footer <- chart_footer(str_c(
 
 weekend_figure <- chart_compose(weekend_header, list(ratio_panel, day_panel, scatter_panel, free(ozone_metro_panel)), weekend_footer)
 
-weekend_figure_path <- here("figures", "2a_weekend.png")
+weekend_figure_path <- here("figures", "phase2", "2a.07_weekend.png")
 
 save_started <- Sys.time()
 
 ggsave(weekend_figure_path, weekend_figure, width = 6.5, height = 6.6, dpi = 300)
 
 stopifnot(
-  "2a_weekend.png was written (close any viewer of it and rerun this step)" =
+  "2a.07_weekend.png was written (close any viewer of it and rerun this step)" =
     file.mtime(weekend_figure_path) >= save_started - 2
 )
 
 rm(weekend_site_days, day_type_means)
 invisible(gc())
+
+
+
+# 7. SAVE THE CASE-STUDY CHECKPOINT ----
+# Site-days of every Harris, Dallas and Tarrant site in a case-study group, with a flag for days on a monitor's new
+# method. 2b_daily_case_study.R starts from these files, so the national table is only built here
+daily_case_study <- daily_sites %>%
+  filter(pollutant %in% case_study_pollutants) %>%
+  inner_join(site_groups, by = "site_id", relationship = "many-to-one")
+
+daily_case_study <- daily_case_study %>%
+  left_join(select(method_changes, site_id, pollutant, change_date), by = c("site_id", "pollutant"), relationship = "many-to-one") %>%
+  mutate(is_post_method_change = coalesce(date_local >= change_date, FALSE)) %>%
+  select(-change_date)
+
+daily_case_study <- daily_case_study %>%
+  select(
+    site_id, local_site_name, site_group, region, pollutant, date_local, year, month, year_month, season, season_year,
+    is_full_season, day_of_week, is_weekend, units_of_measure, value, n_instruments, method_types, n_years_active,
+    is_five_year, event_name, event_class, is_agency_event_flagged, is_post_method_change
+  ) %>%
+  arrange(pollutant, site_id, date_local)
+
+# Each instrument's own daily value, for method histories and collocated FEM and FRM comparisons
+daily_case_study_instruments <- daily_instruments %>%
+  semi_join(daily_case_study, by = c("pollutant", "site_id")) %>%
+  select(site_id, pollutant, poc, method_code, method_type, date_local, value) %>%
+  arrange(pollutant, site_id, poc, date_local)
+
+# Section 5's site-months for the five-year case-study sites, so 2b's monthly profiles follow the same 75% rule
+daily_case_study_months <- site_months %>%
+  filter(pollutant %in% case_study_pollutants) %>%
+  inner_join(site_groups, by = "site_id", relationship = "many-to-one") %>%
+  select(
+    site_id, site_group, region, pollutant, year, month, year_month, season, season_year, is_full_season,
+    n_days, n_ordinary_days, sampling_interval, expected_days, is_complete, mean_value, mean_ordinary
+  ) %>%
+  arrange(pollutant, site_id, year_month)
+
+case_study_keys <- daily_case_study %>%
+  count(pollutant, site_id, date_local) %>%
+  filter(n > 1)
+
+five_year_case_study_sites <- daily_case_study %>%
+  filter(is_five_year) %>%
+  distinct(pollutant, site_group, site_id) %>%
+  count(pollutant, site_group, name = "n_sites")
+
+print(five_year_case_study_sites)
+
+first_flagged_days <- daily_case_study %>%
+  filter(is_post_method_change) %>%
+  summarise(first_flagged = min(date_local), .by = c(site_id, pollutant)) %>%
+  right_join(method_changes, by = c("site_id", "pollutant"), relationship = "one-to-one")
+
+five_year_case_study_days <- daily_case_study %>%
+  filter(is_five_year) %>%
+  nrow()
+
+stopifnot(
+  "One row per pollutant, site and day" = nrow(case_study_keys) == 0,
+  "Every case-study site-day has a group and a value" = !anyNA(daily_case_study$site_group) && !anyNA(daily_case_study$value),
+  "No Bayport-adjacent site is saved" =
+    !any(daily_case_study$site_id %in% harris_groups$site_id[harris_groups$site_group == "Excluded: Bayport-adjacent"]),
+  "Only Harris, Dallas and Tarrant sites are saved" = all(str_sub(daily_case_study$site_id, 1, 6) %in% region_lookup$county_id),
+  "Five-year sites per group: PM2.5 3, 1, 3; ozone 6, 10, 6; NO2 4, 3, 4; SO2 3, 1, 0" =
+    identical(five_year_case_study_sites$n_sites, c(3L, 1L, 3L, 6L, 10L, 6L, 4L, 3L, 4L, 3L, 1L)),
+  "Every listed method change is flagged from its first day" = all(first_flagged_days$first_flagged == first_flagged_days$change_date),
+  "Instrument-days add up to the site-days' instrument counts" =
+    nrow(daily_case_study_instruments) == sum(daily_case_study$n_instruments),
+  "Site-months hold every five-year case-study site-day once" = sum(daily_case_study_months$n_days) == five_year_case_study_days
+)
+
+case_study_checkpoint <- list(
+  daily_case_study = daily_case_study,
+  daily_case_study_instruments = daily_case_study_instruments,
+  daily_case_study_months = daily_case_study_months
+)
+
+# Each file is reloaded and checked against the object in memory (save_checkpoints() in utils.R)
+case_study_checkpoint_paths <- save_checkpoints(case_study_checkpoint, processed_dir)
+
+case_study_dictionary <- tribble(
+  ~table,                         ~column,                   ~description,
+  "daily_case_study",             "site_id",                 "AQS site ID: state-county-site; joins to sites, aqs_long_clean and hourly_case_study",
+  "daily_case_study",             "local_site_name",         "Site name given by the reporting agency",
+  "daily_case_study",             "site_group",              "Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth",
+  "daily_case_study",             "region",                  "Houston or Dallas-Fort Worth",
+  "daily_case_study",             "pollutant",               "PM2.5, Ozone, NO2 or SO2; CO is left out of the case study",
+  "daily_case_study",             "date_local",              "Sample date in local time",
+  "daily_case_study",             "year",                    "Calendar year",
+  "daily_case_study",             "month",                   "Month, ordered Jan to Dec",
+  "daily_case_study",             "year_month",              "First day of the month",
+  "daily_case_study",             "season",                  "Meteorological season; winter is Dec to Feb",
+  "daily_case_study",             "season_year",             "Year the season belongs to; December counts toward the next year's winter",
+  "daily_case_study",             "is_full_season",          "FALSE in the partial winters inside the window (Jan to Feb 2021 and Dec 2025)",
+  "daily_case_study",             "day_of_week",             "Day of the week, ordered Mon to Sun",
+  "daily_case_study",             "is_weekend",              "TRUE on Saturday and Sunday",
+  "daily_case_study",             "units_of_measure",        "Units of the original values (ppm, ppb, or µg/m³ at local conditions)",
+  "daily_case_study",             "value",                   "PM2.5 daily mean or gas daily max in original units; collocated instruments averaged",
+  "daily_case_study",             "n_instruments",           "Instruments averaged into the site-day",
+  "daily_case_study",             "method_types",            "FRM, FEM or FEM+FRM for the instruments averaged that day",
+  "daily_case_study",             "n_years_active",          "Study years (0 to 5) in which the site met the 75% completeness rule for the pollutant",
+  "daily_case_study",             "is_five_year",            "TRUE when the site has all five study years for the pollutant",
+  "daily_case_study",             "event_name",              "Event from events.csv or a fireworks window; NA when no event applies",
+  "daily_case_study",             "event_class",             "None, Event (an events.csv window) or Fireworks (PM2.5 only)",
+  "daily_case_study",             "is_agency_event_flagged", "TRUE when any instrument that day has EPA's exceptional-event flag (Included)",
+  "daily_case_study",             "is_post_method_change",   "TRUE on or after the site's method change in 2a CONFIG method_changes (5 monitors)",
+  "daily_case_study_instruments", "site_id",                 "AQS site ID; joins to daily_case_study",
+  "daily_case_study_instruments", "pollutant",               "PM2.5, Ozone, NO2 or SO2",
+  "daily_case_study_instruments", "poc",                     "Parameter occurrence code; separates instruments of one pollutant at one site",
+  "daily_case_study_instruments", "method_code",             "AQS method code; FRM or FEM methods only",
+  "daily_case_study_instruments", "method_type",             "FRM or FEM, from EPA's methods table",
+  "daily_case_study_instruments", "date_local",              "Sample date in local time",
+  "daily_case_study_instruments", "value",                   "The instrument's PM2.5 daily mean or gas daily maximum in original units",
+  "daily_case_study_months",      "site_id",                 "AQS site ID; five-year sites, ozone only those reporting every winter (2a section 5)",
+  "daily_case_study_months",      "site_group",              "Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth",
+  "daily_case_study_months",      "region",                  "Houston or Dallas-Fort Worth",
+  "daily_case_study_months",      "pollutant",               "PM2.5, Ozone, NO2 or SO2",
+  "daily_case_study_months",      "year",                    "Calendar year",
+  "daily_case_study_months",      "month",                   "Month, ordered Jan to Dec",
+  "daily_case_study_months",      "year_month",              "First day of the month",
+  "daily_case_study_months",      "season",                  "Meteorological season; winter is Dec to Feb",
+  "daily_case_study_months",      "season_year",             "Year the season belongs to; December counts toward the next year's winter",
+  "daily_case_study_months",      "is_full_season",          "FALSE in the partial winters inside the window (Jan to Feb 2021 and Dec 2025)",
+  "daily_case_study_months",      "n_days",                  "Days with data in the site-month",
+  "daily_case_study_months",      "n_ordinary_days",         "Days with data and no event or fireworks label",
+  "daily_case_study_months",      "sampling_interval",       "Days between scheduled samples: 1, 3 or 6 for PM2.5, 1 for the gases",
+  "daily_case_study_months",      "expected_days",           "Days in the month divided by the sampling interval",
+  "daily_case_study_months",      "is_complete",             "TRUE with at least 75% of the expected days; only these enter monthly profiles",
+  "daily_case_study_months",      "mean_value",              "Mean of the site-month's daily values in original units",
+  "daily_case_study_months",      "mean_ordinary",           "Mean over days with no event or fireworks label; NA when the month has none"
+)
+
+# Stops on a saved column without a description, or a description of a column that was not saved
+case_study_dictionary <- document_tables(case_study_checkpoint, case_study_dictionary)
+
+# 1a, 1d and 1e add their own rows to both shared files, and only the rows of these three tables are replaced here
+replace_own_rows(case_study_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
+case_study_manifest <- manifest_rows(case_study_checkpoint, case_study_checkpoint_paths)
+
+stopifnot("Every case-study file is under GitHub's 100 MiB limit" = all(case_study_manifest$under_github_limit))
+
+checkpoint_manifest <- replace_own_rows(case_study_manifest, manifest_path, key = "file", col_types = manifest_col_types)
+
+print(checkpoint_manifest, width = Inf)

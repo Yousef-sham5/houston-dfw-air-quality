@@ -1,6 +1,6 @@
 # Installs/Updates required packages
 pkgs <- c(
-  "dplyr", "readr", "tidyr", "stringr", "purrr", "janitor", "lubridate", "here", "lobstr",
+  "dplyr", "readr", "tidyr", "stringr", "purrr", "janitor", "lubridate", "here", "jsonlite", "lobstr",
   "ggplot2", "scales", "naniar", "patchwork", "corrplot", "ragg", "systemfonts", "openair",
   "MASS", "moments", "nortest", "fitdistrplus", "extRemes", "trend",
   "broom", "car",

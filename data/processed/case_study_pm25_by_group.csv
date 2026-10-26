@@ -1,0 +1,211 @@
+site_set,standard,site_group,year,n_sites,median_value,n_above
+Main,24-hour,Houston Ship Channel,2021,3,22,0
+Main,24-hour,Houston Ship Channel,2022,3,23,0
+Main,24-hour,Houston Ship Channel,2023,3,23,0
+Main,24-hour,Houston Ship Channel,2024,3,22,0
+Main,24-hour,Houston Ship Channel,2025,3,19,0
+Main,24-hour,Houston other,2021,1,21,0
+Main,24-hour,Houston other,2022,1,23,0
+Main,24-hour,Houston other,2023,1,24,0
+Main,24-hour,Houston other,2024,1,23,0
+Main,24-hour,Houston other,2025,1,19,0
+Main,24-hour,Dallas-Fort Worth,2021,3,22,0
+Main,24-hour,Dallas-Fort Worth,2022,3,25,0
+Main,24-hour,Dallas-Fort Worth,2023,3,23,0
+Main,24-hour,Dallas-Fort Worth,2024,3,25,0
+Main,24-hour,Dallas-Fort Worth,2025,3,18,0
+Main,Annual,Houston Ship Channel,2021,3,9.7,2
+Main,Annual,Houston Ship Channel,2022,3,9.9,2
+Main,Annual,Houston Ship Channel,2023,3,10.7,3
+Main,Annual,Houston Ship Channel,2024,3,9.9,3
+Main,Annual,Houston Ship Channel,2025,3,9.7,2
+Main,Annual,Houston other,2021,1,10,1
+Main,Annual,Houston other,2022,1,10.2,1
+Main,Annual,Houston other,2023,1,10.5,1
+Main,Annual,Houston other,2024,1,10.9,1
+Main,Annual,Houston other,2025,1,10.3,1
+Main,Annual,Dallas-Fort Worth,2021,3,9.2,2
+Main,Annual,Dallas-Fort Worth,2022,3,8.5,1
+Main,Annual,Dallas-Fort Worth,2023,3,10.5,3
+Main,Annual,Dallas-Fort Worth,2024,3,9.6,3
+Main,Annual,Dallas-Fort Worth,2025,3,9,1
+Without the transition band,24-hour,Houston Ship Channel,2021,3,22,0
+Without the transition band,24-hour,Houston Ship Channel,2022,3,23,0
+Without the transition band,24-hour,Houston Ship Channel,2023,3,23,0
+Without the transition band,24-hour,Houston Ship Channel,2024,3,22,0
+Without the transition band,24-hour,Houston Ship Channel,2025,3,19,0
+Without the transition band,24-hour,Houston other,2021,1,21,0
+Without the transition band,24-hour,Houston other,2022,1,23,0
+Without the transition band,24-hour,Houston other,2023,1,24,0
+Without the transition band,24-hour,Houston other,2024,1,23,0
+Without the transition band,24-hour,Houston other,2025,1,19,0
+Without the transition band,24-hour,Dallas-Fort Worth,2021,3,22,0
+Without the transition band,24-hour,Dallas-Fort Worth,2022,3,25,0
+Without the transition band,24-hour,Dallas-Fort Worth,2023,3,23,0
+Without the transition band,24-hour,Dallas-Fort Worth,2024,3,25,0
+Without the transition band,24-hour,Dallas-Fort Worth,2025,3,18,0
+Without the transition band,Annual,Houston Ship Channel,2021,3,9.7,2
+Without the transition band,Annual,Houston Ship Channel,2022,3,9.9,2
+Without the transition band,Annual,Houston Ship Channel,2023,3,10.7,3
+Without the transition band,Annual,Houston Ship Channel,2024,3,9.9,3
+Without the transition band,Annual,Houston Ship Channel,2025,3,9.7,2
+Without the transition band,Annual,Houston other,2021,1,10,1
+Without the transition band,Annual,Houston other,2022,1,10.2,1
+Without the transition band,Annual,Houston other,2023,1,10.5,1
+Without the transition band,Annual,Houston other,2024,1,10.9,1
+Without the transition band,Annual,Houston other,2025,1,10.3,1
+Without the transition band,Annual,Dallas-Fort Worth,2021,3,9.2,2
+Without the transition band,Annual,Dallas-Fort Worth,2022,3,8.5,1
+Without the transition band,Annual,Dallas-Fort Worth,2023,3,10.5,3
+Without the transition band,Annual,Dallas-Fort Worth,2024,3,9.6,3
+Without the transition band,Annual,Dallas-Fort Worth,2025,3,9,1
+Memo-list groups,24-hour,Houston Ship Channel,2021,2,22.5,0
+Memo-list groups,24-hour,Houston Ship Channel,2022,2,23.5,0
+Memo-list groups,24-hour,Houston Ship Channel,2023,2,22.5,0
+Memo-list groups,24-hour,Houston Ship Channel,2024,2,23,0
+Memo-list groups,24-hour,Houston Ship Channel,2025,2,18,0
+Memo-list groups,24-hour,Houston other,2021,2,20.5,0
+Memo-list groups,24-hour,Houston other,2022,2,23,0
+Memo-list groups,24-hour,Houston other,2023,2,24,0
+Memo-list groups,24-hour,Houston other,2024,2,22.5,0
+Memo-list groups,24-hour,Houston other,2025,2,19,0
+Memo-list groups,24-hour,Dallas-Fort Worth,2021,3,22,0
+Memo-list groups,24-hour,Dallas-Fort Worth,2022,3,25,0
+Memo-list groups,24-hour,Dallas-Fort Worth,2023,3,23,0
+Memo-list groups,24-hour,Dallas-Fort Worth,2024,3,25,0
+Memo-list groups,24-hour,Dallas-Fort Worth,2025,3,18,0
+Memo-list groups,Annual,Houston Ship Channel,2021,2,9.6,1
+Memo-list groups,Annual,Houston Ship Channel,2022,2,9.25,1
+Memo-list groups,Annual,Houston Ship Channel,2023,2,10.05,2
+Memo-list groups,Annual,Houston Ship Channel,2024,2,10.1,2
+Memo-list groups,Annual,Houston Ship Channel,2025,2,9,1
+Memo-list groups,Annual,Houston other,2021,2,9.85,2
+Memo-list groups,Annual,Houston other,2022,2,10.35,2
+Memo-list groups,Annual,Houston other,2023,2,11,2
+Memo-list groups,Annual,Houston other,2024,2,10.4,2
+Memo-list groups,Annual,Houston other,2025,2,10,2
+Memo-list groups,Annual,Dallas-Fort Worth,2021,3,9.2,2
+Memo-list groups,Annual,Dallas-Fort Worth,2022,3,8.5,1
+Memo-list groups,Annual,Dallas-Fort Worth,2023,3,10.5,3
+Memo-list groups,Annual,Dallas-Fort Worth,2024,3,9.6,3
+Memo-list groups,Annual,Dallas-Fort Worth,2025,3,9,1
+Without whole-site checks,24-hour,Houston Ship Channel,2021,3,22,0
+Without whole-site checks,24-hour,Houston Ship Channel,2022,3,23,0
+Without whole-site checks,24-hour,Houston Ship Channel,2023,3,23,0
+Without whole-site checks,24-hour,Houston Ship Channel,2024,3,22,0
+Without whole-site checks,24-hour,Houston Ship Channel,2025,3,19,0
+Without whole-site checks,24-hour,Houston other,2021,1,21,0
+Without whole-site checks,24-hour,Houston other,2022,1,23,0
+Without whole-site checks,24-hour,Houston other,2023,1,24,0
+Without whole-site checks,24-hour,Houston other,2024,1,23,0
+Without whole-site checks,24-hour,Houston other,2025,1,19,0
+Without whole-site checks,24-hour,Dallas-Fort Worth,2021,2,22.5,0
+Without whole-site checks,24-hour,Dallas-Fort Worth,2022,2,26,0
+Without whole-site checks,24-hour,Dallas-Fort Worth,2023,2,21.5,0
+Without whole-site checks,24-hour,Dallas-Fort Worth,2024,2,27.5,0
+Without whole-site checks,24-hour,Dallas-Fort Worth,2025,2,18,0
+Without whole-site checks,Annual,Houston Ship Channel,2021,3,9.7,2
+Without whole-site checks,Annual,Houston Ship Channel,2022,3,9.9,2
+Without whole-site checks,Annual,Houston Ship Channel,2023,3,10.7,3
+Without whole-site checks,Annual,Houston Ship Channel,2024,3,9.9,3
+Without whole-site checks,Annual,Houston Ship Channel,2025,3,9.7,2
+Without whole-site checks,Annual,Houston other,2021,1,10,1
+Without whole-site checks,Annual,Houston other,2022,1,10.2,1
+Without whole-site checks,Annual,Houston other,2023,1,10.5,1
+Without whole-site checks,Annual,Houston other,2024,1,10.9,1
+Without whole-site checks,Annual,Houston other,2025,1,10.3,1
+Without whole-site checks,Annual,Dallas-Fort Worth,2021,2,9.4,2
+Without whole-site checks,Annual,Dallas-Fort Worth,2022,2,8.45,0
+Without whole-site checks,Annual,Dallas-Fort Worth,2023,2,9.9,2
+Without whole-site checks,Annual,Dallas-Fort Worth,2024,2,9.5,2
+Without whole-site checks,Annual,Dallas-Fort Worth,2025,2,8.5,0
+Without Deer Park #2 after its move,24-hour,Houston Ship Channel,2021,3,22,0
+Without Deer Park #2 after its move,24-hour,Houston Ship Channel,2022,3,23,0
+Without Deer Park #2 after its move,24-hour,Houston Ship Channel,2023,3,23,0
+Without Deer Park #2 after its move,24-hour,Houston Ship Channel,2024,3,22,0
+Without Deer Park #2 after its move,24-hour,Houston Ship Channel,2025,3,19,0
+Without Deer Park #2 after its move,24-hour,Houston other,2021,1,21,0
+Without Deer Park #2 after its move,24-hour,Houston other,2022,1,23,0
+Without Deer Park #2 after its move,24-hour,Houston other,2023,1,24,0
+Without Deer Park #2 after its move,24-hour,Houston other,2024,1,23,0
+Without Deer Park #2 after its move,24-hour,Houston other,2025,1,19,0
+Without Deer Park #2 after its move,24-hour,Dallas-Fort Worth,2021,3,22,0
+Without Deer Park #2 after its move,24-hour,Dallas-Fort Worth,2022,3,25,0
+Without Deer Park #2 after its move,24-hour,Dallas-Fort Worth,2023,3,23,0
+Without Deer Park #2 after its move,24-hour,Dallas-Fort Worth,2024,3,25,0
+Without Deer Park #2 after its move,24-hour,Dallas-Fort Worth,2025,3,18,0
+Without Deer Park #2 after its move,Annual,Houston Ship Channel,2021,3,9.7,2
+Without Deer Park #2 after its move,Annual,Houston Ship Channel,2022,3,9.9,2
+Without Deer Park #2 after its move,Annual,Houston Ship Channel,2023,3,10.7,3
+Without Deer Park #2 after its move,Annual,Houston Ship Channel,2024,3,9.9,3
+Without Deer Park #2 after its move,Annual,Houston Ship Channel,2025,2,9.9,2
+Without Deer Park #2 after its move,Annual,Houston other,2021,1,10,1
+Without Deer Park #2 after its move,Annual,Houston other,2022,1,10.2,1
+Without Deer Park #2 after its move,Annual,Houston other,2023,1,10.5,1
+Without Deer Park #2 after its move,Annual,Houston other,2024,1,10.9,1
+Without Deer Park #2 after its move,Annual,Houston other,2025,1,10.3,1
+Without Deer Park #2 after its move,Annual,Dallas-Fort Worth,2021,3,9.2,2
+Without Deer Park #2 after its move,Annual,Dallas-Fort Worth,2022,3,8.5,1
+Without Deer Park #2 after its move,Annual,Dallas-Fort Worth,2023,3,10.5,3
+Without Deer Park #2 after its move,Annual,Dallas-Fort Worth,2024,3,9.6,3
+Without Deer Park #2 after its move,Annual,Dallas-Fort Worth,2025,3,9,1
+Without event and fireworks days,24-hour,Houston Ship Channel,2021,3,22,0
+Without event and fireworks days,24-hour,Houston Ship Channel,2022,3,23,0
+Without event and fireworks days,24-hour,Houston Ship Channel,2023,3,23,0
+Without event and fireworks days,24-hour,Houston Ship Channel,2024,3,22,0
+Without event and fireworks days,24-hour,Houston Ship Channel,2025,3,18,0
+Without event and fireworks days,24-hour,Houston other,2021,1,21,0
+Without event and fireworks days,24-hour,Houston other,2022,1,23,0
+Without event and fireworks days,24-hour,Houston other,2023,1,23,0
+Without event and fireworks days,24-hour,Houston other,2024,1,23,0
+Without event and fireworks days,24-hour,Houston other,2025,1,18,0
+Without event and fireworks days,24-hour,Dallas-Fort Worth,2021,3,20,0
+Without event and fireworks days,24-hour,Dallas-Fort Worth,2022,3,25,0
+Without event and fireworks days,24-hour,Dallas-Fort Worth,2023,3,23,0
+Without event and fireworks days,24-hour,Dallas-Fort Worth,2024,3,25,0
+Without event and fireworks days,24-hour,Dallas-Fort Worth,2025,3,18,0
+Without event and fireworks days,Annual,Houston Ship Channel,2021,3,9.7,2
+Without event and fireworks days,Annual,Houston Ship Channel,2022,3,9.8,2
+Without event and fireworks days,Annual,Houston Ship Channel,2023,3,10.6,3
+Without event and fireworks days,Annual,Houston Ship Channel,2024,3,9.8,3
+Without event and fireworks days,Annual,Houston Ship Channel,2025,3,9.6,2
+Without event and fireworks days,Annual,Houston other,2021,1,9.9,1
+Without event and fireworks days,Annual,Houston other,2022,1,10.2,1
+Without event and fireworks days,Annual,Houston other,2023,1,10.4,1
+Without event and fireworks days,Annual,Houston other,2024,1,10.8,1
+Without event and fireworks days,Annual,Houston other,2025,1,10.1,1
+Without event and fireworks days,Annual,Dallas-Fort Worth,2021,3,9.1,2
+Without event and fireworks days,Annual,Dallas-Fort Worth,2022,3,8.5,1
+Without event and fireworks days,Annual,Dallas-Fort Worth,2023,3,10.5,3
+Without event and fireworks days,Annual,Dallas-Fort Worth,2024,3,9.6,3
+Without event and fireworks days,Annual,Dallas-Fort Worth,2025,3,8.7,1
+With 4-year sites,24-hour,Houston Ship Channel,2021,4,22,0
+With 4-year sites,24-hour,Houston Ship Channel,2022,4,23.5,0
+With 4-year sites,24-hour,Houston Ship Channel,2023,4,23.5,0
+With 4-year sites,24-hour,Houston Ship Channel,2024,4,23,0
+With 4-year sites,24-hour,Houston Ship Channel,2025,4,19.5,0
+With 4-year sites,24-hour,Houston other,2021,3,21,0
+With 4-year sites,24-hour,Houston other,2022,3,24,0
+With 4-year sites,24-hour,Houston other,2023,3,24,0
+With 4-year sites,24-hour,Houston other,2024,3,27,0
+With 4-year sites,24-hour,Houston other,2025,3,19,0
+With 4-year sites,24-hour,Dallas-Fort Worth,2021,5,21,0
+With 4-year sites,24-hour,Dallas-Fort Worth,2022,5,25,0
+With 4-year sites,24-hour,Dallas-Fort Worth,2023,5,22,0
+With 4-year sites,24-hour,Dallas-Fort Worth,2024,5,25,0
+With 4-year sites,24-hour,Dallas-Fort Worth,2025,5,18,0
+With 4-year sites,Annual,Houston Ship Channel,2021,4,9.95,3
+With 4-year sites,Annual,Houston Ship Channel,2022,4,10.2,3
+With 4-year sites,Annual,Houston Ship Channel,2023,4,11,4
+With 4-year sites,Annual,Houston Ship Channel,2024,4,10.2,4
+With 4-year sites,Annual,Houston Ship Channel,2025,4,9.9,3
+With 4-year sites,Annual,Houston other,2021,2,9.1,1
+With 4-year sites,Annual,Houston other,2022,3,10.2,2
+With 4-year sites,Annual,Houston other,2023,3,10.5,3
+With 4-year sites,Annual,Houston other,2024,3,10.9,3
+With 4-year sites,Annual,Houston other,2025,3,10.3,3
+With 4-year sites,Annual,Dallas-Fort Worth,2021,5,9.2,3
+With 4-year sites,Annual,Dallas-Fort Worth,2022,5,8.5,2
+With 4-year sites,Annual,Dallas-Fort Worth,2023,5,10.5,5
+With 4-year sites,Annual,Dallas-Fort Worth,2024,5,9.9,5
+With 4-year sites,Annual,Dallas-Fort Worth,2025,4,9.1,2

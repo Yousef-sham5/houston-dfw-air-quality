@@ -1,0 +1,19 @@
+check,observed,expected,passed
+Site-days in the checkpoint against the manifest,109365,109365,TRUE
+"Duplicate site-days (gas, site, day)",0,0,TRUE
+Houston sites whose group differs from 1c,0,0,TRUE
+Main-set site-days against five-year site-days in the checkpoint,75994,75994,TRUE
+Runs that lose a group the main set has,0,0,TRUE
+Same-day results without a 95% range,0,0,TRUE
+95% ranges that leave out their own median,0,0,TRUE
+"Main same-day comparisons with fewer than 1,700 days",0,0,TRUE
+Main ranges whose ends move over 10% of their width (second seed),0,0,TRUE
+Runs in which Ship Channel NO2 is not clearly higher,0,0,TRUE
+Runs in which Houston minus Dallas-Fort Worth does not hold,0,0,TRUE
+2b figures on disk,8,8,TRUE
+Saved 2b tables without data dictionary rows,0,0,TRUE
+Saved 2b tables at or over the GitHub limit,0,0,TRUE
+Sites and site-pollutants in the inventory,"33 sites, 68 site-pollutants","33 sites, 68 site-pollutants",TRUE
+"Five-year sites per group: PM2.5, ozone, NO2, SO2","3/1/3, 6/10/6, 4/3/4, 3/1/0","3/1/3, 6/10/6, 4/3/4, 3/1/0",TRUE
+Runs in which Ship Channel ozone is not clearly lower,Memo-list groups,Memo-list groups,TRUE
+Main results clear of zero under one seed only,"PM2.5, Ship Channel minus Houston other","PM2.5, Ship Channel minus Houston other",TRUE

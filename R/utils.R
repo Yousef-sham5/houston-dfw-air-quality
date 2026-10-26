@@ -88,6 +88,57 @@ truncate_to <- function(x, digits = 0) {
 
 
 
+# NAAQS-FORM VALUES (2a AND 2b) ----
+# The value of each standard per site-year: the ranked daily value for the short-term standards and the mean of the
+# quarterly means for annual PM2.5, rounded as the standard specifies and compared with its level. Annual PM2.5
+# keeps only site-years with data in all four quarters, since Appendix N needs every quarter for a complete year.
+# naaqs, naaqs_ranks and percentile_ranks are the tables in 2a's CONFIG
+naaqs_statistics <- function(site_days, naaqs, naaqs_ranks, percentile_ranks) {
+  site_year_ranks <- site_days %>%
+    count(pollutant, site_id, year, name = "n_days") %>%
+    left_join(naaqs_ranks, by = "pollutant", relationship = "many-to-one") %>%
+    left_join(percentile_ranks, by = join_by(percentile, between(n_days, min_days, max_days)), relationship = "many-to-one") %>%
+    mutate(value_rank = coalesce(fixed_rank, rank)) %>%
+    select(pollutant, site_id, year, n_days, value_rank)
+
+  stopifnot(
+    "Every site-year has a rank" = !anyNA(site_year_ranks$value_rank),
+    "No rank is beyond the site-year's days" = all(site_year_ranks$value_rank <= site_year_ranks$n_days)
+  )
+
+  short_term <- site_days %>%
+    arrange(pollutant, site_id, year, desc(value)) %>%
+    mutate(value_order = row_number(), .by = c(pollutant, site_id, year)) %>%
+    inner_join(site_year_ranks, by = c("pollutant", "site_id", "year"), relationship = "many-to-one") %>%
+    filter(value_order == value_rank) %>%
+    inner_join(filter(naaqs, standard != "Annual") %>% select(pollutant, standard), by = "pollutant", relationship = "many-to-one") %>%
+    select(pollutant, standard, site_id, year, n_days, value)
+
+  pm25_annual <- site_days %>%
+    filter(pollutant == "PM2.5") %>%
+    mutate(quarter = quarter(date_local)) %>%
+    summarise(quarter_mean = mean(value), .by = c(pollutant, site_id, year, quarter)) %>%
+    summarise(n_quarters = n(), value = mean(quarter_mean), .by = c(pollutant, site_id, year)) %>%
+    mutate(standard = "Annual") %>%
+    left_join(select(site_year_ranks, pollutant, site_id, year, n_days), by = c("pollutant", "site_id", "year"), relationship = "one-to-one")
+
+  stopifnot(
+    "One short-term value per site-year" = nrow(short_term) == nrow(site_year_ranks),
+    "Annual PM2.5 has 1 to 4 quarters per site-year" = all(between(pm25_annual$n_quarters, 1, 4))
+  )
+
+  pm25_annual <- pm25_annual %>%
+    filter(n_quarters == 4)
+
+  bind_rows(short_term, pm25_annual) %>%
+    left_join(select(naaqs, pollutant, standard, level, digits, rounding), by = c("pollutant", "standard"), relationship = "many-to-one") %>%
+    mutate(value_rounded = if_else(rounding == "truncate", truncate_to(value, digits), round_half_up(value, digits))) %>%
+    mutate(is_above = value_rounded > level) %>%
+    select(pollutant, standard, site_id, year, n_days, n_quarters, value, value_rounded, level, is_above)
+}
+
+
+
 # GAS UNIT CONVERSION ----
 # Ideal-gas molar volume at 25 °C and 1 atm, used to convert ppb to µg/m³
 r_gas <- 8.31446261815324 # J/(mol K), CODATA 2017
@@ -193,6 +244,24 @@ event_median_table <- function(data, area_col, areas, pollutants, start, end) {
     select(-n_sites) %>%
     pivot_wider(names_from = area, values_from = median_value) %>%
     arrange(pollutant, date_local)
+}
+
+
+
+# MONTHLY PROFILES (2a AND 2b) ----
+# Typical year from one row per site and calendar month (mean_value, mean_ordinary): the median and middle half across
+# sites for each month. group_cols adds groups such as site_group, so the case study and the nation share one rule
+monthly_profile <- function(site_calendar_months, group_cols = "pollutant") {
+  site_calendar_months %>%
+    summarise(
+      n_sites = n(),
+      median_value = median(mean_value),
+      q25_value = quantile(mean_value, 0.25),
+      q75_value = quantile(mean_value, 0.75),
+      median_ordinary = median(mean_ordinary, na.rm = TRUE),
+      .by = all_of(c(group_cols, "month"))
+    ) %>%
+    arrange(across(all_of(c(group_cols, "month"))))
 }
 
 
@@ -437,7 +506,7 @@ manifest_col_types <- cols(
   under_github_limit = col_logical()
 )
 
-# 1a, 1d and 1e share data_dictionary.csv and checkpoint_manifest.csv. Each script replaces only its own rows
+# 1a, 1d, 1e and 2a share data_dictionary.csv and checkpoint_manifest.csv. Each script replaces only its own rows
 # (matched on key: table or file) and keeps the rows the others wrote, so rerunning one script never removes
 # another's rows. Replaced rows keep their place in the file; a script writing for the first time adds its rows
 # at the end. Returns the whole updated file

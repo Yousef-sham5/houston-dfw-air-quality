@@ -1,0 +1,23 @@
+site_id,local_site_name,latitude,longitude,km_to_channel,distance_band,site_group,in_memo_list,memo_site_group
+48-201-1015,Lynchburg Ferry,29.758914,-95.079325,0.355,Within 7.5 km,Houston Ship Channel,TRUE,Houston Ship Channel
+48-201-1035,Clinton,29.733737,-95.257605,0.728,Within 7.5 km,Houston Ship Channel,TRUE,Houston Ship Channel
+48-201-1056,Houston Pleasantville Elementary,29.763567,-95.272233,2.048,Within 7.5 km,Houston Ship Channel,FALSE,Houston other
+48-201-1034,Houston East,29.768033,-95.220574,3.404,Within 7.5 km,Houston Ship Channel,TRUE,Houston Ship Channel
+48-201-1099,Houston Finnigan Park,29.769442,-95.318978,3.406,Within 7.5 km,Houston Ship Channel,FALSE,Houston other
+48-201-0058,Baytown,29.770692,-95.031237,3.793,Within 7.5 km,Houston Ship Channel,FALSE,Houston other
+48-201-0416,Park Place,29.686289,-95.294723,4.798,Within 7.5 km,Houston Ship Channel,TRUE,Houston Ship Channel
+48-201-0026,Channelview,29.802716,-95.125516,5.652,Within 7.5 km,Houston Ship Channel,TRUE,Houston Ship Channel
+48-201-1039,Houston Deer Park #2,29.670552,-95.129933,6.936,Within 7.5 km,Houston Ship Channel,TRUE,Houston Ship Channel
+48-201-0046,Houston North Wayside,29.828516,-95.283956,8.49,7.5 to 15 km,Houston other,FALSE,Houston other
+48-201-0417,Houston Harvard Street,29.772857,-95.395937,10.281,7.5 to 15 km,Houston other,FALSE,Houston other
+48-201-0062,Houston Monroe,29.625667,-95.267058,10.458,7.5 to 15 km,Houston other,FALSE,Houston other
+48-201-1017,Baytown Garth,29.827169,-94.988311,10.871,7.5 to 15 km,Houston other,TRUE,Houston Ship Channel
+48-201-1050,Seabrook Friendship Park,29.583068,-95.015554,11.445,7.5 to 15 km,Excluded: Bayport-adjacent,FALSE,Excluded: Bayport-adjacent
+48-201-1052,Houston North Loop,29.814387,-95.387817,11.712,7.5 to 15 km,Houston other,FALSE,Houston other
+48-201-0024,Houston Aldine,29.90103,-95.326147,16.854,Over 15 km,Houston other,FALSE,Houston other
+48-201-1066,Houston Southwest Freeway,29.721621,-95.492667,19.444,Over 15 km,Houston other,FALSE,Houston other
+48-201-0055,Houston Bayland Park,29.69566,-95.49924,20.673,Over 15 km,Houston other,FALSE,Houston other
+48-201-0047,Lang,29.834167,-95.489129,21.195,Over 15 km,Houston other,FALSE,Houston other
+48-201-0051,Houston Croquet,29.623961,-95.474333,22.149,Over 15 km,Houston other,FALSE,Houston other
+48-201-0066,Houston Westhollow,29.723333,-95.635941,33.197,Over 15 km,Houston other,FALSE,Houston other
+48-201-0029,Northwest Harris County,30.039522,-95.673918,48.882,Over 15 km,Houston other,FALSE,Houston other

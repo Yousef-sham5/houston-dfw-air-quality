@@ -1,0 +1,145 @@
+event_name,site_group,date_local,in_window,n_monitors,n_reporting,pct_reporting
+Winter Storm Uri,Houston Ship Channel,2021-02-04,FALSE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-05,FALSE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-06,FALSE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-07,FALSE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-08,FALSE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-09,FALSE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-10,FALSE,16,15,93.8
+Winter Storm Uri,Houston Ship Channel,2021-02-11,TRUE,16,15,93.8
+Winter Storm Uri,Houston Ship Channel,2021-02-12,TRUE,16,15,93.8
+Winter Storm Uri,Houston Ship Channel,2021-02-13,TRUE,16,15,93.8
+Winter Storm Uri,Houston Ship Channel,2021-02-14,TRUE,16,15,93.8
+Winter Storm Uri,Houston Ship Channel,2021-02-15,TRUE,16,12,75
+Winter Storm Uri,Houston Ship Channel,2021-02-16,TRUE,16,3,18.8
+Winter Storm Uri,Houston Ship Channel,2021-02-17,TRUE,16,4,25
+Winter Storm Uri,Houston Ship Channel,2021-02-18,TRUE,16,12,75
+Winter Storm Uri,Houston Ship Channel,2021-02-19,TRUE,16,14,87.5
+Winter Storm Uri,Houston Ship Channel,2021-02-20,TRUE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-21,TRUE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-22,TRUE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-23,TRUE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-24,FALSE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-25,FALSE,16,16,100
+Winter Storm Uri,Houston Ship Channel,2021-02-26,FALSE,16,15,93.8
+Winter Storm Uri,Houston Ship Channel,2021-02-27,FALSE,16,15,93.8
+Winter Storm Uri,Houston Ship Channel,2021-02-28,FALSE,16,15,93.8
+Winter Storm Uri,Houston Ship Channel,2021-03-01,FALSE,16,15,93.8
+Winter Storm Uri,Houston Ship Channel,2021-03-02,FALSE,16,15,93.8
+Winter Storm Uri,Houston other,2021-02-04,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-05,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-06,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-07,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-08,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-09,FALSE,15,13,86.7
+Winter Storm Uri,Houston other,2021-02-10,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-11,TRUE,15,13,86.7
+Winter Storm Uri,Houston other,2021-02-12,TRUE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-13,TRUE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-14,TRUE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-15,TRUE,15,8,53.3
+Winter Storm Uri,Houston other,2021-02-16,TRUE,15,3,20
+Winter Storm Uri,Houston other,2021-02-17,TRUE,15,4,26.7
+Winter Storm Uri,Houston other,2021-02-18,TRUE,15,9,60
+Winter Storm Uri,Houston other,2021-02-19,TRUE,15,10,66.7
+Winter Storm Uri,Houston other,2021-02-20,TRUE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-21,TRUE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-22,TRUE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-23,TRUE,15,12,80
+Winter Storm Uri,Houston other,2021-02-24,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-25,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-26,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-27,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-02-28,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-03-01,FALSE,15,14,93.3
+Winter Storm Uri,Houston other,2021-03-02,FALSE,15,14,93.3
+Winter Storm Uri,Dallas-Fort Worth,2021-02-04,FALSE,13,12,92.3
+Winter Storm Uri,Dallas-Fort Worth,2021-02-05,FALSE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-06,FALSE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-07,FALSE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-08,FALSE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-09,FALSE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-10,FALSE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-11,TRUE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-12,TRUE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-13,TRUE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-14,TRUE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-15,TRUE,13,8,61.5
+Winter Storm Uri,Dallas-Fort Worth,2021-02-16,TRUE,13,8,61.5
+Winter Storm Uri,Dallas-Fort Worth,2021-02-17,TRUE,13,12,92.3
+Winter Storm Uri,Dallas-Fort Worth,2021-02-18,TRUE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-19,TRUE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-20,TRUE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-21,TRUE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-22,TRUE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-23,TRUE,13,12,92.3
+Winter Storm Uri,Dallas-Fort Worth,2021-02-24,FALSE,13,12,92.3
+Winter Storm Uri,Dallas-Fort Worth,2021-02-25,FALSE,13,13,100
+Winter Storm Uri,Dallas-Fort Worth,2021-02-26,FALSE,13,12,92.3
+Winter Storm Uri,Dallas-Fort Worth,2021-02-27,FALSE,13,12,92.3
+Winter Storm Uri,Dallas-Fort Worth,2021-02-28,FALSE,13,12,92.3
+Winter Storm Uri,Dallas-Fort Worth,2021-03-01,FALSE,13,12,92.3
+Winter Storm Uri,Dallas-Fort Worth,2021-03-02,FALSE,13,12,92.3
+Hurricane Beryl,Houston Ship Channel,2024-07-01,FALSE,16,15,93.8
+Hurricane Beryl,Houston Ship Channel,2024-07-02,FALSE,16,16,100
+Hurricane Beryl,Houston Ship Channel,2024-07-03,FALSE,16,15,93.8
+Hurricane Beryl,Houston Ship Channel,2024-07-04,FALSE,16,16,100
+Hurricane Beryl,Houston Ship Channel,2024-07-05,FALSE,16,16,100
+Hurricane Beryl,Houston Ship Channel,2024-07-06,FALSE,16,16,100
+Hurricane Beryl,Houston Ship Channel,2024-07-07,FALSE,16,16,100
+Hurricane Beryl,Houston Ship Channel,2024-07-08,TRUE,16,0,0
+Hurricane Beryl,Houston Ship Channel,2024-07-09,TRUE,16,0,0
+Hurricane Beryl,Houston Ship Channel,2024-07-10,TRUE,16,0,0
+Hurricane Beryl,Houston Ship Channel,2024-07-11,TRUE,16,3,18.8
+Hurricane Beryl,Houston Ship Channel,2024-07-12,TRUE,16,5,31.2
+Hurricane Beryl,Houston Ship Channel,2024-07-13,TRUE,16,5,31.2
+Hurricane Beryl,Houston Ship Channel,2024-07-14,TRUE,16,9,56.2
+Hurricane Beryl,Houston Ship Channel,2024-07-15,FALSE,16,11,68.8
+Hurricane Beryl,Houston Ship Channel,2024-07-16,FALSE,16,15,93.8
+Hurricane Beryl,Houston Ship Channel,2024-07-17,FALSE,16,14,87.5
+Hurricane Beryl,Houston Ship Channel,2024-07-18,FALSE,16,12,75
+Hurricane Beryl,Houston Ship Channel,2024-07-19,FALSE,16,15,93.8
+Hurricane Beryl,Houston Ship Channel,2024-07-20,FALSE,16,15,93.8
+Hurricane Beryl,Houston Ship Channel,2024-07-21,FALSE,16,15,93.8
+Hurricane Beryl,Houston other,2024-07-01,FALSE,15,14,93.3
+Hurricane Beryl,Houston other,2024-07-02,FALSE,15,14,93.3
+Hurricane Beryl,Houston other,2024-07-03,FALSE,15,15,100
+Hurricane Beryl,Houston other,2024-07-04,FALSE,15,15,100
+Hurricane Beryl,Houston other,2024-07-05,FALSE,15,15,100
+Hurricane Beryl,Houston other,2024-07-06,FALSE,15,14,93.3
+Hurricane Beryl,Houston other,2024-07-07,FALSE,15,14,93.3
+Hurricane Beryl,Houston other,2024-07-08,TRUE,15,4,26.7
+Hurricane Beryl,Houston other,2024-07-09,TRUE,15,6,40
+Hurricane Beryl,Houston other,2024-07-10,TRUE,15,7,46.7
+Hurricane Beryl,Houston other,2024-07-11,TRUE,15,9,60
+Hurricane Beryl,Houston other,2024-07-12,TRUE,15,9,60
+Hurricane Beryl,Houston other,2024-07-13,TRUE,15,13,86.7
+Hurricane Beryl,Houston other,2024-07-14,TRUE,15,13,86.7
+Hurricane Beryl,Houston other,2024-07-15,FALSE,15,14,93.3
+Hurricane Beryl,Houston other,2024-07-16,FALSE,15,14,93.3
+Hurricane Beryl,Houston other,2024-07-17,FALSE,15,14,93.3
+Hurricane Beryl,Houston other,2024-07-18,FALSE,15,14,93.3
+Hurricane Beryl,Houston other,2024-07-19,FALSE,15,14,93.3
+Hurricane Beryl,Houston other,2024-07-20,FALSE,15,14,93.3
+Hurricane Beryl,Houston other,2024-07-21,FALSE,15,15,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-01,FALSE,13,12,92.3
+Hurricane Beryl,Dallas-Fort Worth,2024-07-02,FALSE,13,12,92.3
+Hurricane Beryl,Dallas-Fort Worth,2024-07-03,FALSE,13,12,92.3
+Hurricane Beryl,Dallas-Fort Worth,2024-07-04,FALSE,13,12,92.3
+Hurricane Beryl,Dallas-Fort Worth,2024-07-05,FALSE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-06,FALSE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-07,FALSE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-08,TRUE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-09,TRUE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-10,TRUE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-11,TRUE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-12,TRUE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-13,TRUE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-14,TRUE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-15,FALSE,13,13,100
+Hurricane Beryl,Dallas-Fort Worth,2024-07-16,FALSE,13,12,92.3
+Hurricane Beryl,Dallas-Fort Worth,2024-07-17,FALSE,13,12,92.3
+Hurricane Beryl,Dallas-Fort Worth,2024-07-18,FALSE,13,12,92.3
+Hurricane Beryl,Dallas-Fort Worth,2024-07-19,FALSE,13,12,92.3
+Hurricane Beryl,Dallas-Fort Worth,2024-07-20,FALSE,13,11,84.6
+Hurricane Beryl,Dallas-Fort Worth,2024-07-21,FALSE,13,12,92.3

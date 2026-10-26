@@ -1,0 +1,21 @@
+event_name,pollutant,level_group,n_event_site_days,median_sites_per_day,is_thin,median_event,median_normal,ratio_normal,median_week_before,ratio_week_before
+Winter Storm Uri,PM2.5,Dallas-Fort Worth,34,3,FALSE,10.1,6.45,1.5659,6.5,1.5538
+Winter Storm Uri,PM2.5,Houston Ship Channel,33,3,FALSE,10.25,8.2,1.25,8.2,1.25
+Winter Storm Uri,PM2.5,Houston other,11,1,TRUE,11.5,9.55,1.2042,7.9,1.4557
+Winter Storm Uri,Ozone,Dallas-Fort Worth,71,6,FALSE,0.037,0.036,1.0278,0.031,1.1935
+Winter Storm Uri,Ozone,Houston Ship Channel,65,6,FALSE,0.036,0.031,1.1613,0.025,1.44
+Winter Storm Uri,Ozone,Houston other,91,8,FALSE,0.035,0.032,1.0938,0.0265,1.3208
+Winter Storm Uri,NO2,Dallas-Fort Worth,52,4,FALSE,10.15,15.7,0.6465,10.85,0.9355
+Winter Storm Uri,NO2,Houston Ship Channel,39,3,FALSE,16.4,19.2,0.8542,18.8,0.8723
+Winter Storm Uri,NO2,Houston other,33,3,FALSE,11.1,18.95,0.5858,16.3,0.681
+Winter Storm Uri,NO2,North Loop (near-road),10,1,TRUE,21.7,34,0.6382,29.4,0.7381
+Hurricane Beryl,PM2.5,Dallas-Fort Worth,21,3,FALSE,10.95,8.6,1.2733,11.3,0.969
+Hurricane Beryl,PM2.5,Houston Ship Channel,7,1,TRUE,12.8,9.8,1.3061,16.2,0.7901
+Hurricane Beryl,PM2.5,Houston other,4,1,TRUE,18.9,8.7,2.1724,14.4,1.3125
+Hurricane Beryl,Ozone,Dallas-Fort Worth,42,6,FALSE,0.06,0.0465,1.2903,0.041,1.4634
+Hurricane Beryl,Ozone,Houston Ship Channel,5,0,TRUE,0.028,0.025,1.12,0.035,0.8
+Hurricane Beryl,Ozone,Houston other,45,6,FALSE,0.034,0.026,1.3077,0.034,1
+Hurricane Beryl,NO2,Dallas-Fort Worth,28,4,FALSE,11.75,9.3,1.2634,7.55,1.5563
+Hurricane Beryl,NO2,Houston Ship Channel,5,1,TRUE,24.4,8.65,2.8208,11.95,2.0418
+Hurricane Beryl,NO2,Houston other,12,2,FALSE,28.6,10.1,2.8317,6.6,4.3333
+Hurricane Beryl,NO2,North Loop (near-road),5,1,TRUE,37.4,24.5,1.5265,26.7,1.4007

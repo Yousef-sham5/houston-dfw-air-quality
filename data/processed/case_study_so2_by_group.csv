@@ -1,0 +1,41 @@
+site_set,site_group,year,n_sites,n_site_days,spike_days_per_site
+Main,Houston Ship Channel,2021,3,1075,14.67
+Main,Houston Ship Channel,2022,3,1058,23
+Main,Houston Ship Channel,2023,3,1048,13.33
+Main,Houston Ship Channel,2024,3,995,4.67
+Main,Houston Ship Channel,2025,3,1042,8.33
+Main,Houston other,2021,1,359,24
+Main,Houston other,2022,1,361,28
+Main,Houston other,2023,1,362,30
+Main,Houston other,2024,1,357,6
+Main,Houston other,2025,1,349,16
+Without the transition band,Houston Ship Channel,2021,3,1075,14.67
+Without the transition band,Houston Ship Channel,2022,3,1058,23
+Without the transition band,Houston Ship Channel,2023,3,1048,13.33
+Without the transition band,Houston Ship Channel,2024,3,995,4.67
+Without the transition band,Houston Ship Channel,2025,3,1042,8.33
+Without the transition band,Houston other,2021,1,359,24
+Without the transition band,Houston other,2022,1,361,28
+Without the transition band,Houston other,2023,1,362,30
+Without the transition band,Houston other,2024,1,357,6
+Without the transition band,Houston other,2025,1,349,16
+Memo-list groups,Houston Ship Channel,2021,3,1075,14.67
+Memo-list groups,Houston Ship Channel,2022,3,1058,23
+Memo-list groups,Houston Ship Channel,2023,3,1048,13.33
+Memo-list groups,Houston Ship Channel,2024,3,995,4.67
+Memo-list groups,Houston Ship Channel,2025,3,1042,8.33
+Memo-list groups,Houston other,2021,1,359,24
+Memo-list groups,Houston other,2022,1,361,28
+Memo-list groups,Houston other,2023,1,362,30
+Memo-list groups,Houston other,2024,1,357,6
+Memo-list groups,Houston other,2025,1,349,16
+Without Deer Park #2 after its move,Houston Ship Channel,2021,3,1075,14.67
+Without Deer Park #2 after its move,Houston Ship Channel,2022,3,1058,23
+Without Deer Park #2 after its move,Houston Ship Channel,2023,3,1048,13.33
+Without Deer Park #2 after its move,Houston Ship Channel,2024,3,995,4.67
+Without Deer Park #2 after its move,Houston Ship Channel,2025,3,833,5.67
+Without Deer Park #2 after its move,Houston other,2021,1,359,24
+Without Deer Park #2 after its move,Houston other,2022,1,361,28
+Without Deer Park #2 after its move,Houston other,2023,1,362,30
+Without Deer Park #2 after its move,Houston other,2024,1,357,6
+Without Deer Park #2 after its move,Houston other,2025,1,349,16

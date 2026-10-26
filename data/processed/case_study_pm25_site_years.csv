@@ -1,0 +1,61 @@
+site_group,site_id,local_site_name,is_five_year,year,n_site_days,n_days_above_35,annual_mean_ugm3,is_above_annual,p98_ugm3,is_above_24_hour
+Houston Ship Channel,48-201-0058,Baytown,TRUE,2021,355,0,9.7,TRUE,20,FALSE
+Houston Ship Channel,48-201-0058,Baytown,TRUE,2022,360,0,10.5,TRUE,23,FALSE
+Houston Ship Channel,48-201-0058,Baytown,TRUE,2023,352,0,11.5,TRUE,24,FALSE
+Houston Ship Channel,48-201-0058,Baytown,TRUE,2024,316,2,9.9,TRUE,22,FALSE
+Houston Ship Channel,48-201-0058,Baytown,TRUE,2025,323,0,9.7,TRUE,19,FALSE
+Houston Ship Channel,48-201-1034,Houston East,TRUE,2021,340,1,10.5,TRUE,23,FALSE
+Houston Ship Channel,48-201-1034,Houston East,TRUE,2022,350,0,9.9,TRUE,23,FALSE
+Houston Ship Channel,48-201-1034,Houston East,TRUE,2023,355,0,10.7,TRUE,23,FALSE
+Houston Ship Channel,48-201-1034,Houston East,TRUE,2024,333,3,10.5,TRUE,24,FALSE
+Houston Ship Channel,48-201-1034,Houston East,TRUE,2025,347,0,10.1,TRUE,20,FALSE
+Houston Ship Channel,48-201-1035,Clinton,FALSE,2021,340,0,10.2,TRUE,22,FALSE
+Houston Ship Channel,48-201-1035,Clinton,FALSE,2022,341,1,10.5,TRUE,25,FALSE
+Houston Ship Channel,48-201-1035,Clinton,FALSE,2023,350,0,11.3,TRUE,24,FALSE
+Houston Ship Channel,48-201-1035,Clinton,FALSE,2024,344,3,10.7,TRUE,24,FALSE
+Houston Ship Channel,48-201-1035,Clinton,FALSE,2025,245,1,12.5,TRUE,24,FALSE
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,TRUE,2021,342,0,8.7,FALSE,22,FALSE
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,TRUE,2022,342,0,8.6,FALSE,24,FALSE
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,TRUE,2023,363,0,9.4,TRUE,22,FALSE
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,TRUE,2024,363,2,9.7,TRUE,22,FALSE
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,TRUE,2025,362,0,7.9,FALSE,16,FALSE
+Houston other,48-201-0024,Houston Aldine,TRUE,2021,355,0,10,TRUE,21,FALSE
+Houston other,48-201-0024,Houston Aldine,TRUE,2022,360,0,10.2,TRUE,23,FALSE
+Houston other,48-201-0024,Houston Aldine,TRUE,2023,357,0,10.5,TRUE,24,FALSE
+Houston other,48-201-0024,Houston Aldine,TRUE,2024,344,1,10.9,TRUE,23,FALSE
+Houston other,48-201-0024,Houston Aldine,TRUE,2025,324,0,10.3,TRUE,19,FALSE
+Houston other,48-201-0046,Houston North Wayside,FALSE,2021,230,0,NA,NA,27,FALSE
+Houston other,48-201-0046,Houston North Wayside,FALSE,2022,355,1,11.8,TRUE,27,FALSE
+Houston other,48-201-0046,Houston North Wayside,FALSE,2023,344,1,13.1,TRUE,28,FALSE
+Houston other,48-201-0046,Houston North Wayside,FALSE,2024,330,2,13.2,TRUE,27,FALSE
+Houston other,48-201-0046,Houston North Wayside,FALSE,2025,307,0,12.1,TRUE,22,FALSE
+Houston other,48-201-0066,Houston Westhollow,FALSE,2021,263,0,8.2,FALSE,18,FALSE
+Houston other,48-201-0066,Houston Westhollow,FALSE,2022,344,0,8,FALSE,24,FALSE
+Houston other,48-201-0066,Houston Westhollow,FALSE,2023,345,0,9.6,TRUE,23,FALSE
+Houston other,48-201-0066,Houston Westhollow,FALSE,2024,339,3,9.2,TRUE,27,FALSE
+Houston other,48-201-0066,Houston Westhollow,FALSE,2025,331,0,9.2,TRUE,19,FALSE
+Dallas-Fort Worth,48-113-0050,Convention Center,FALSE,2021,112,0,9.5,TRUE,21,FALSE
+Dallas-Fort Worth,48-113-0050,Convention Center,FALSE,2022,273,0,9.8,TRUE,27,FALSE
+Dallas-Fort Worth,48-113-0050,Convention Center,FALSE,2023,339,1,10.5,TRUE,22,FALSE
+Dallas-Fort Worth,48-113-0050,Convention Center,FALSE,2024,340,2,10,TRUE,25,FALSE
+Dallas-Fort Worth,48-113-0050,Convention Center,FALSE,2025,358,1,9.2,TRUE,18,FALSE
+Dallas-Fort Worth,48-113-0069,Dallas Hinton,FALSE,2021,348,0,8.1,FALSE,18,FALSE
+Dallas-Fort Worth,48-113-0069,Dallas Hinton,FALSE,2022,324,0,8.2,FALSE,18,FALSE
+Dallas-Fort Worth,48-113-0069,Dallas Hinton,FALSE,2023,356,1,10.1,TRUE,21,FALSE
+Dallas-Fort Worth,48-113-0069,Dallas Hinton,FALSE,2024,328,0,10.1,TRUE,25,FALSE
+Dallas-Fort Worth,48-113-0069,Dallas Hinton,FALSE,2025,54,0,NA,NA,18,FALSE
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,TRUE,2021,350,0,9.2,TRUE,22,FALSE
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,TRUE,2022,350,0,8.4,FALSE,25,FALSE
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,TRUE,2023,341,0,9.1,TRUE,20,FALSE
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,TRUE,2024,342,0,9.9,TRUE,30,FALSE
+Dallas-Fort Worth,48-439-1002,Fort Worth Northwest,TRUE,2025,357,1,8,FALSE,16,FALSE
+Dallas-Fort Worth,48-439-1006,Haws Athletic Center,TRUE,2021,334,0,9.6,TRUE,23,FALSE
+Dallas-Fort Worth,48-439-1006,Haws Athletic Center,TRUE,2022,357,1,8.5,FALSE,27,FALSE
+Dallas-Fort Worth,48-439-1006,Haws Athletic Center,TRUE,2023,354,2,10.7,TRUE,23,FALSE
+Dallas-Fort Worth,48-439-1006,Haws Athletic Center,TRUE,2024,344,0,9.1,TRUE,25,FALSE
+Dallas-Fort Worth,48-439-1006,Haws Athletic Center,TRUE,2025,361,3,9,FALSE,20,FALSE
+Dallas-Fort Worth,48-439-1053,Fort Worth California Parkway North,TRUE,2021,353,0,8.8,FALSE,21,FALSE
+Dallas-Fort Worth,48-439-1053,Fort Worth California Parkway North,TRUE,2022,355,0,9.2,TRUE,25,FALSE
+Dallas-Fort Worth,48-439-1053,Fort Worth California Parkway North,TRUE,2023,356,1,10.5,TRUE,24,FALSE
+Dallas-Fort Worth,48-439-1053,Fort Worth California Parkway North,TRUE,2024,342,0,9.6,TRUE,20,FALSE
+Dallas-Fort Worth,48-439-1053,Fort Worth California Parkway North,TRUE,2025,357,2,9.8,TRUE,18,FALSE

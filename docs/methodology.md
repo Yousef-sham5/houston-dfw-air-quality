@@ -2,11 +2,11 @@
 
 October 26, 2026 · Yousef Shamsaldeen
 
-Phase 1 builds three cleaned datasets from EPA AQS files: daily data for five pollutants nationwide (`1a`, `1b`), hourly pollutant data for 16 case-study monitors (`1c`, `1d`) and hourly weather for the 9 case-study sites (`1e`). Every column is read with an explicit type, codes stay as text so leading zeros survive, and named assertions stop a script when an assumption fails. Phase 2 starts with `2a`, the daily exploratory analysis, whose national sections are described after the Phase 1 sections.
+Phase 1 builds three cleaned datasets from EPA AQS files: daily data for five pollutants nationwide (`1a`, `1b`), hourly pollutants for 16 case-study monitors (`1c`, `1d`) and hourly weather for the 9 case-study sites (`1e`). Phase 2 explores them: the national daily picture (`2a`), the daily case study (`2b`) and, next, the hourly case study (`2c`). Every column is read with an explicit type, codes stay as text, and named assertions stop a script when an assumption fails.
 
 ## Daily data (1a, 1b)
 
-The input is 25 daily summary files for 2021–2025 with 8,930,992 rows: PM2.5 (88101, FRM/FEM monitors only), ozone (44201), NO₂ (42602), SO₂ (42401) and CO (42101). Cleaning removed **3,373,418 rows (37.8%)**, almost all of them repeat summaries of a monitor-day already in the data.
+The 25 daily files for 2021–2025 hold 8,930,992 rows: PM2.5 (88101, FRM/FEM monitors only), ozone (44201), NO₂ (42602), SO₂ (42401) and CO (42101). Cleaning removed **3,373,418 rows (37.8%)**, almost all repeat summaries of a monitor-day already in the data.
 
 | Step | Rows removed | Reason |
 |---|---|---|
@@ -18,29 +18,17 @@ The input is 25 daily summary files for 2021–2025 with 8,930,992 rows: PM2.5 (
 | 75% completeness rule | 88,478 | Days with less than 75% of expected measurements |
 | Outside method range | 1 | One SO₂ maximum of 2,732 ppb, above the analyzer's 1,500 ppb limit |
 
-- **T640 PM2.5:** EPA-corrected (736/738) and firmware-corrected (636/638) values are kept and the raw codes (236/238) dropped. In 2024–2025, 1,941 site-days had no corrected version and no other PM2.5 reading, so they were lost.
-- **Kept as reported:** collocated instruments (averaged per site-day in Phase 2) and negative or zero readings inside EPA's method limits (SO₂ has the most, at 16% of daily means). Gaps are flagged and never imputed.
-- **Simplification:** incomplete days are dropped even when they already exceed a standard, so exceedance counts run slightly low.
+- **T640 PM2.5:** the corrected codes (736/738, 636/638) are kept and the raw codes (236/238) dropped. 1,941 site-days in 2024–2025 had no corrected value and no other PM2.5 reading, so they were lost.
+- **Kept as reported:** collocated instruments (averaged per site-day in Phase 2) and negative or zero readings inside method limits. Gaps are flagged and never imputed. Incomplete days are dropped even when they exceed a standard, so exceedance counts run slightly low.
+- **Daily metrics:** PM2.5 24-hour mean, ozone and CO maximum 8-hour, NO₂ and SO₂ maximum 1-hour. Gases are also stored in µg/m³ = ppb × MW / 24.465 (25 °C, 1 atm; MW 48.00 ozone, 46.01 NO₂, 64.06 SO₂, 28.01 CO), and original units are kept for NAAQS comparisons. Seasons are meteorological, with December in the following winter.
 
-| Pollutant | Averaging time | Daily metric | MW (g/mol) | Factor to µg/m³ |
-|---|---|---|---|---|
-| PM2.5 | 24-hour | Mean | n/a | 1 |
-| Ozone | 8-hour running | Maximum 8-hour | 48.00 | 1,962.0 per ppm |
-| NO₂ | 1-hour | Maximum 1-hour | 46.01 | 1.881 per ppb |
-| SO₂ | 1-hour | Maximum 1-hour | 64.06 | 2.618 per ppb |
-| CO | 8-hour | Maximum 8-hour | 28.01 | 1,144.9 per ppm |
+**Events:** `data/reference/events.csv` holds 22 events in 203 state or county rows: Winter Storm Uri, Hurricanes Ida and Beryl, the January 2025 Los Angeles fires, the March 2025 Plains dust storm and 17 smoke episodes. July 4–5 and January 1 are fireworks windows for PM2.5. No rows are removed: 32,024 instrument-days (0.58%) carry a label.
 
-Gases are also stored in µg/m³ = ppb × MW / Vm, with Vm = RT/P = 24.465 L/mol at 25 °C and 1 atm, and the original units are kept for NAAQS comparisons. Seasons are meteorological, with December counted toward the following winter.
+- **Inclusion rule:** a smoke, fire or dust row stays only if, on at least one of its days, the area's median PM2.5 is at least twice its baseline-week median and a site-day is above 35 µg/m³. `1b_event_checks.R` rechecks all 200 such rows. Every row cites a source.
+- **Outages:** Uri, Ida and Beryl run from when monitors went offline until most returned.
+- **Share of high days:** of 8,654 PM2.5 site-days above 35 µg/m³, 39.4% fall on an event day and 3.4% in a fireworks window (event share 4.9% in 2024, 67.6% in 2023).
 
-**Events:** `data/reference/events.csv` holds 22 events in 203 state or county rows: Winter Storm Uri, Hurricanes Ida and Beryl, the January 2025 Los Angeles fires, the March 2025 Plains dust storm and 17 wildfire smoke episodes (five in 2021, one in 2022, seven in 2023, one in 2024 and three in 2025). `1a` also labels July 4–5 and January 1 as fireworks windows for PM2.5 in every state. No rows are removed: 32,024 instrument-days (0.58%) carry a label, 16,537 from `events.csv` and 15,487 from the fireworks windows.
-
-- **Inclusion rule:** a smoke, fire or dust row is kept only when, on at least one of its days, the area's median PM2.5 is at least twice its baseline-week median and at least one site-day is above 35 µg/m³ (the 24-hour standard). The baseline is the week before the event, or the week after when the week before was itself smoky, with labeled days left out. Smoky days without a label can remain in a baseline, which only makes the rule stricter. `1b_event_checks.R` recomputes the rule for all 200 such rows and stops if any fails.
-- **Outage and emission events:** Uri, Ida and Beryl run from when monitors went offline until most returned. During Uri, reporting NO₂ sites in Harris County fell from 12 to 1. During Beryl, Houston North Loop, the only CO site back online, reached 2.9–4.7 times its prior median, a pattern consistent with generator use and traffic disruption.
-- **Left unlabeled:** high-PM2.5 episodes with no confirmed cause, such as December 2024 in Utah and California, and single days just outside an event row that would also pass the rule. All of these are outside Texas.
-- **Sources:** every row cites a news or agency page in its `source` column.
-- **Share of high days:** of the 8,654 PM2.5 site-days above 35 µg/m³, 3,411 (39.4%) fall on an event day and 293 (3.4%) in a fireworks window. The event share runs from 4.9% in 2024 to 67.6% in 2023, the year of the large Canadian fires.
-
-**Site coverage:** `n_years_active` counts the years in which a site reaches 75% of its expected samples: 274 days for daily monitors, 92 for 1-in-3, 46 for 1-in-6, and 184 or 207 for seasonal ozone (40 CFR 58 Appendix D, Table D-3).
+**Site coverage:** `n_years_active` counts the years in which a site reaches 75% of its expected samples, using the seasonal ozone lengths in 40 CFR 58 Appendix D, Table D-3.
 
 | Sites active in all five years | Ozone | PM2.5 | NO₂ | SO₂ | CO |
 |---|---|---|---|---|---|
@@ -48,13 +36,23 @@ Gases are also stored in µg/m³ = ppb × MW / Vm, with Vm = RT/P = 24.465 L/mol
 | Houston (Harris County) | 17 | 4 | 8 | 4 | 1 |
 | Dallas–Fort Worth (Dallas and Tarrant) | 6 | 3 | 4 | 0 | 0 |
 
-**Result:** 5,557,574 monitor-days, one row per instrument per day from 2021-01-01 to 2025-12-31, in 23 columns. The network changed over the five years (PM2.5 rows grew 24%, while reporting SO₂ and CO sites fell 18% and 17%), so trend work uses five-year sites only.
+**Result:** 5,557,574 monitor-days in 23 columns. PM2.5 rows grew 24% while reporting SO₂ and CO sites fell 18% and 17%, so trend work uses five-year sites only.
 
-## Hourly pollutants for the case study (1c, 1d)
+## Hourly pollutants (1c, 1d)
 
-The hourly data cover ozone, NO₂ and SO₂ for the diurnal profiles in Phase 2 and the NO₂–ozone lag in Phase 4. CO (few Texas monitors, levels far below the NAAQS) and PM2.5 (hourly values only from FEM monitors) are left out.
+Hourly ozone, NO₂ and SO₂ feed the daily profiles in Phase 2 and the NO₂–ozone lag in Phase 4. CO (few Texas monitors) and PM2.5 (hourly values from FEM monitors only) are left out.
 
-**Site selection (1c):** candidates are five-year monitors in Harris, Dallas and Tarrant counties, in three groups. The Houston Ship Channel group holds the 15 sites in TCEQ's 2024 Region 12 memo plus Park Place (6.4 km from the nearest Ship Channel monitor) and Baytown Garth. Other Houston is the rest of Harris County, except Seabrook Friendship Park, about 5 km from the Bayport Industrial District. Dallas–Fort Worth pools Dallas and Tarrant counties, which share one ozone nonattainment area. Every five-year SO₂ monitor is kept. For ozone and NO₂, only sites measuring both count, ranked by their less complete pollutant: the top two in each Houston group and the top one in each Dallas–Fort Worth county. No near-road site is picked. The picks are in `data/reference/case_study_sites.csv` and mapped in `figures/case_study_sites.png`.
+**Site groups (1c):** a Harris County site is in the Ship Channel group when it lies within **7.5 km** of the 12 USACE land-cut channel sections from Morgan's Point to the Turning Basin (`data/reference/ship_channel.geojson`), measured on a flat map centred on 29.7° N. The cutoff falls between Deer Park #2 (6.94 km) and North Wayside (8.49 km), and no site lies within 0.5 km of it. Other Houston is every other Harris site except Seabrook Friendship Park, next to the Bayport Industrial District. Sites 7.5 to 15 km away form a transition band. Distances are in `data/reference/harris_site_channel_distance.csv`.
+
+| Group | Sites with data (km to the channel) |
+|---|---|
+| Ship Channel | Lynchburg Ferry 0.35, Clinton 0.73, Pleasantville 2.05, Houston East 3.40, Finnigan Park 3.41, Baytown 3.79, Park Place 4.80, Channelview 5.65, Deer Park #2 6.94 |
+| Other Houston, transition band | North Wayside 8.49, Harvard Street 10.28, Monroe 10.46, Baytown Garth 10.87, North Loop 11.71 |
+| Other Houston, over 15 km | Aldine 16.85, Southwest Freeway 19.44, Bayland Park 20.67, Lang 21.19, Croquet 22.15, Westhollow 33.20, Northwest Harris County 48.88 |
+
+An earlier grouping, the sites in TCEQ's 2024 Region 12 air toxics memo plus Park Place and Baytown Garth, is kept as a sensitivity check. It differs from the distance rule for Baytown, Baytown Garth and the two sites opened in November 2025.
+
+**Hourly picks (1c):** Dallas–Fort Worth pools Dallas and Tarrant counties, one ozone nonattainment area. Every five-year SO₂ monitor is kept. For ozone and NO₂, sites measuring both are ranked by their less complete pollutant: the top two in each Houston group and the top one in each Dallas–Fort Worth county, with no near-road sites. Picks are in `data/reference/case_study_sites.csv` and mapped in `figures/phase1/case_study_sites.png`.
 
 | Group | Ozone and NO₂ (share of days with data) | SO₂ |
 |---|---|---|
@@ -62,19 +60,13 @@ The hourly data cover ozone, NO₂ and SO₂ for the diurnal profiles in Phase 2
 | Other Houston | Harvard Street (95.5% / 94.7%), Bayland Park (89.8% / 91.6%) | Croquet (97.9%) |
 | Dallas–Fort Worth | Dallas Redbird (93.9% / 86.5%), Grapevine Fairway (97.2% / 98.1%) | None |
 
-**Import (1d):** the 15 hourly zips hold 79,402,201 rows (17.5 GiB unzipped), too many to load at once on a 16 GB laptop. Each zip is read in 1-million-row chunks that keep only the 16 monitors, and its row count must equal EPA's file list. The kept rows are cached per zip, so a rerun skips any zip that has not changed. The result is 661,545 rows, 94.3% of the possible monitor-hours, with no duplicate hours, no missing values and FRM or FEM methods only.
+**Import (1d):** the 15 hourly zips hold 79,402,201 rows (17.5 GiB unzipped). Each is read in 1-million-row chunks that keep only the 16 monitors, its row count must match EPA's file list, and the kept rows are cached per zip. The result is 661,545 rows, 94.3% of possible monitor-hours, with no duplicates and FRM or FEM methods only.
 
-**Flags:** no hourly row is removed. Each rule adds a column, so later phases can keep or leave out the affected hours.
+**Flags:** no hourly row is removed. `is_wildfire_flagged` marks the 142 ozone hours with EPA's `RT` qualifier; `event_name` marks Uri and Beryl; `below_mdl` marks readings below the detection limit, kept as reported; `is_complete_day` needs 18 of 24 hours (Appendices S and T) and `is_valid_ozone_day` 13 of 17 eight-hour means (Appendix U). Times are local standard time (UTC-6), so a 7–9 a.m. CDT rush hour appears as hours 6–8.
 
-- `is_wildfire_flagged`: the 142 ozone hours carrying EPA's `RT` wildfire qualifier.
-- `event_name`: Uri on 124 monitor-days (NO₂ and SO₂) and Beryl on 48 (Harris County, all three gases). No smoke row in `events.csv` covers Texas ozone, NO₂ or SO₂, so the 2022 smoke hours are marked only by `RT`.
-- `below_mdl`: readings below the detection limit, kept as reported. Half-limit substitution would make the 2 ppb SO₂ instruments average three to four times the 0.2 ppb one.
-- `is_complete_day`: at least 18 of 24 hours (40 CFR 50 Appendices S and T). `is_valid_ozone_day`: at least 13 of the 17 eight-hour means (Appendix U).
-- Times are local standard time at a fixed UTC-6, so a summer 7–9 a.m. CDT rush hour appears as hours 6–8. `datetime_utc` joins the weather data.
+**Validation:** the hourly values rebuild all **27,747 daily maximums** in the daily table, with the hour of each. Ozone uses the 2015 rule: 17 eight-hour means starting at hours 7 to 23, each needing 6 of 8 hours, truncated to three decimals.
 
-**Validation:** the hourly values rebuild all **27,747 daily maximums** in the daily table, with the hour of each (NO₂ 10,341, ozone 10,400, SO₂ 7,006). Ozone uses the 2015 rule: 17 eight-hour means starting at hours 7 to 23, each needing 6 of 8 hours, truncated to three decimals in ppm. The script stops on any mismatch.
-
-**Neighbour checks:** two monitors changed during the study. Each was compared hour by hour with neighbours that did not change, averaged by year. Nothing is adjusted, and `is_post_relocation` and `is_post_method_change` mark the hours.
+**Neighbour checks:** two monitors changed during the study. Each was compared hour by hour with a neighbour that did not, and the hours are marked with `is_post_relocation` and `is_post_method_change` and left unadjusted.
 
 | Monitor | Change | Gap before (ppb) | Gap after (ppb) |
 |---|---|---|---|
@@ -82,39 +74,25 @@ The hourly data cover ozone, NO₂ and SO₂ for the diurnal profiles in Phase 2
 | Deer Park #2 NO₂ (vs Houston East) | Moved on 2025-05-30 | −5.43 to −2.93 | −3.42 |
 | Deer Park #2 SO₂ (vs Park Place) | Moved on 2025-05-30 | 0.10 to 0.19 | 0.18 |
 | Harvard Street NO₂ (vs Bayland Park) | Method 099 to 186 on 2024-04-22 | 1.91 to 3.07 | 0.72 (2024), 2.24 (2025) |
-| Harvard Street NO₂ (vs Houston East) | Method 099 to 186 on 2024-04-22 | −2.36 to −1.82 | −3.70 (2024), −1.89 (2025) |
 
-Deer Park #2 shows no clear shift; only ozone falls outside its range, by 0.6 ppb. Harvard Street read about 1.2–1.3 ppb low in its first months on the new method, with 12.7% of hours at exactly 0 ppb until 2024-11-30 against 0.6% afterwards. That pattern is consistent with a low baseline on the new analyzer that was later corrected, and the cause is not confirmed.
+Deer Park #2 shows no clear shift. Harvard Street read about 1.2–1.3 ppb low in its first months on the new method, with 12.7% of hours at exactly 0 ppb until 2024-11-30, consistent with a low baseline that was later corrected. The cause is not confirmed.
 
-## Hourly weather for the case study (1e)
+## Hourly weather (1e)
 
-The 10 weather zips (`hourly_WIND` and `hourly_TEMP`) hold 95,477,439 rows, all matching EPA's file list, and are read the same way as in 1d. That keeps 1,008,615 rows of resultant wind speed, resultant wind direction and temperature for the 9 sites, and no row is removed after that. The data are reshaped to one row per site and hour, with m/s and °C added, and join the pollutant table on `site_id` and `datetime_utc`.
+The 10 weather zips (95,477,439 rows) are read as in 1d, giving wind speed, wind direction and temperature for the 9 sites, one row per site and hour, joined to the pollutants on `site_id` and `datetime_utc`.
 
-- **Harvard Street** has no wind sensor, and its temperature starts on 2023-04-19. It takes temperature from Bayland Park (about 13 km away) and wind from Croquet (about 18 km), and every row names its source sites. Against Harvard Street's own sensor, Bayland Park averages −1.02 °F (r = 0.995). The site's own readings are kept in `own_temp_f`.
-- **Calm hours:** `is_calm` marks wind below 0.5 m/s (EPA-454/R-99-005, section 6.2.3), from 1.2% of hours at Dallas Redbird to 11.0% at Croquet. These hours stay out of direction sectors and stay in the data.
-- **Wind spike:** `is_wind_spike` flags an hour more than 20 knots above both neighbouring hours. Only one qualifies: 41.7 knots at Bayland Park on 2024-01-24.
-- **Direction:** where the wind blows from, in degrees clockwise from true north (EPA-454/R-99-005, section 2.2). It is grouped into 12 sectors of 30° and split into east-west and north-south components so mean directions average correctly (section 6.2.2).
-- **Labels:** site group, region, events and complete-day flags for wind and temperature. Only event rows that list ozone, NO₂, SO₂ or "all" are used, so the weather carries Uri on 113 site-days and Beryl on 27.
+- **Harvard Street** has no wind sensor and its temperature starts in 2023, so it takes temperature from Bayland Park (about 13 km) and wind from Croquet (about 18 km). Its own temperature is kept in `own_temp_f`.
+- **Calm hours:** `is_calm` marks wind below 0.5 m/s (EPA-454/R-99-005, section 6.2.3), 1.2% to 11.0% of hours by site. Calm hours stay out of direction sectors.
+- **Direction** is where the wind blows from (section 2.2), in 12 sectors of 30°, with east-west and north-south components so averages work (section 6.2.2).
+- **Sensor replacements:** five sites switched to sonic sensors in 2022–2024, and four then logged fewer calm hours than a neighbour. `is_sonic_temp` and `is_sonic_wind` mark the readings, and `weather_sensor_check.csv` holds the comparison. Wind is present for at least 98.4% of pollutant hours at most sites, about 90.5% at Deer Park #2, 82.5% at Grapevine and 68–71% at Bayland Park.
 
-**Sensor replacements:** five sites switched to the Met One AIO2 sonic sensor (method 069), each compared with a neighbour that kept one sensor over the 365 days before and after. Nothing is adjusted, and `is_sonic_temp` and `is_sonic_wind` mark the readings.
+## National daily analysis (2a)
 
-| Site | Sonic temperature from | Sonic wind from | Days without wind | Calm-share change vs neighbour |
-|---|---|---|---|---|
-| Bayland Park | 2022-04-22 | 2023-08-09 | 474 | −2.0 points |
-| Grapevine Fairway | 2022-08-31 | 2023-07-12 | 314 | −1.0 points |
-| Deer Park #2 | 2023-02-22 | 2023-07-12 | 161 | −1.3 points |
-| Clinton | 2023-06-16 | 2023-06-16 | 0 | +2.0 points |
-| Houston East | 2024-01-09 | 2024-01-09 | 0 | −3.8 points |
+Collocated instruments are averaged per site and day (5,198,843 site-days). Levels, NAAQS values, profiles and weekend ratios use five-year sites. Exceedance rates use all sites, per 1,000 site-days. Event and fireworks days are their own class.
 
-Four of the five recorded fewer calm hours than their neighbour after switching, consistent with sonic sensors registering lighter winds. Temperature is present for 97.9–99.9% of pollutant hours. Wind is present for at least 98.4% at most sites, about 90.5% at Deer Park #2, about 82.5% at Grapevine and 67.8–71.4% at Bayland Park.
+**Network (figure 2A.1):** reporting SO₂ sites fell 18.1% and CO sites 17.4% from 2021 to 2025. The FEM share of PM2.5 rose from 79.2% to 85.2%, and FEM reads a median 0.3 to 0.5 µg/m³ above FRM on the same site-day, so national PM2.5 can drift up from the instrument mix alone.
 
-## Daily exploratory analysis, national (2a, sections 1 to 6)
-
-**Analysis table:** collocated instruments are averaged per site and day (5,198,843 site-days from 5,557,574 instrument-days). Levels, NAAQS values, monthly profiles and weekend ratios use the five-year sites; exceedance rates use all sites, since a rate per 1,000 site-days allows for a changing network. Event and fireworks days are kept as their own class, and results are shown with and without them.
-
-**Network (figure 2A.1):** reporting SO₂ sites fell 18.1% and CO sites 17.4% from 2021 to 2025. The FEM share of PM2.5 instrument-days rose from 79.2% to 85.2%, and FEM read a median 0.3 to 0.5 µg/m³ above FRM on the same site-day (1.1 to 3.7 on event days), so a national PM2.5 mean can drift up from the instrument mix alone.
-
-**NAAQS screening (figure 2A.2):** each site-year gets its standard's statistic (ozone's 4th-highest day, CO's 2nd-highest, the 98th or 99th percentile day from Table 1 of Appendices N, S and T, and the mean of four quarterly means for annual PM2.5), rounded as the standard specifies. A three-year average of the same values gives a design-value screen.
+**NAAQS screening (figure 2A.2):** each site-year gets its standard's statistic (4th-highest ozone day, the 98th or 99th percentile day from Table 1 of Appendices N, S and T, the mean of quarterly means for annual PM2.5), rounded as the standard specifies. A three-year average gives a design-value screen.
 
 | Share of five-year sites above the level | 2021 | 2022 | 2023 | 2024 | 2025 | Three-year screen |
 |---|---|---|---|---|---|---|
@@ -122,32 +100,79 @@ Four of the five recorded fewer calm hours than their neighbour after switching,
 | PM2.5 annual | 27.7% | 12.7% | 39.0% | 11.3% | 13.4% | 16.4% to 22.3% |
 | PM2.5 24-hour | 11.2% | 3.6% | 8.2% | 4.4% | 7.8% | 2.9% to 5.9% |
 
-**Exceedances (figures 2A.3 and 2A.4):** a site-day exceeds when its rounded value is above the short-term level, a screening count since the standards allow some days above it. Labeled events hold 39.9% of PM2.5 exceedance days over five years (68.2% in 2023) and 4.8% of ozone exceedance days in 2023. EPA's own exceptional-event flag marks 14.4% of these labeled PM2.5 exceedances. Houston and Dallas–Fort Worth rank 6th and 8th of 353 metro areas (core-based statistical areas) for ozone exceedance days.
+**Exceedances (figures 2A.3 and 2A.4):** labelled events hold 39.9% of PM2.5 exceedance days (68.2% in 2023), and EPA's exceptional-event flag marks 14.4% of these. Houston and Dallas–Fort Worth rank 6th and 8th of 353 metro areas for ozone exceedance days.
 
-**Seasonality (figures 2A.5 and 2A.6):** ozone uses the 615 five-year sites with winter data in every year, so each month has the same sites, and a site-month needs 75% of its expected days. NO₂ and CO peak in winter at about 1.7 times their lows, ozone in June and PM2.5 in July. Events made June 2023 the highest PM2.5 month (12.8 µg/m³, or 10.6 without event days).
+**Seasons (figures 2A.5 and 2A.6):** NO₂ and CO peak in winter at about 1.7 times their lows, ozone in June and PM2.5 in July. Events made June 2023 the highest PM2.5 month (12.8 µg/m³, 10.6 without event days).
 
-**Weekend effect (figure 2A.7):** each site's weekend mean over its weekday mean, April to October, five-year sites, ordinary days, with Memorial Day, Independence Day and Labor Day left out because NO₂ on them behaves like a Sunday. NO₂ is 0.805 at the median site and ozone 0.987. Weekend ozone rises in Los Angeles (+5.0%), consistent with VOC-limited ozone, and falls in Houston (−4.0%) and Dallas–Fort Worth (−4.8%).
+**Weekends (figure 2A.7):** April to October, ordinary days, with Memorial Day, Independence Day and Labor Day left out. The weekend-to-weekday ratio is 0.805 for NO₂ and 0.987 for ozone at the median site. Weekend ozone rises in Los Angeles (+5.0%), consistent with VOC-limited ozone, and falls in Houston (−4.0%) and Dallas–Fort Worth (−4.8%).
+
+## Daily case study (2b)
+
+**Sites (section 1, figure 2B.1):** the five-year sites in each group, from the checkpoint 2a saves. `case_study_site_inventory.csv` lists all 33 sites with coverage, method history, distance and role.
+
+| Five-year sites | Ship Channel | Other Houston | Dallas–Fort Worth |
+|---|---|---|---|
+| PM2.5 | 3 | 1 | 3 |
+| Ozone | 6 | 10 | 6 |
+| NO₂ | 4 | 3 | 4 |
+| SO₂ | 3 | 1 | 0 |
+
+Every comparison is rerun under each check that applies:
+- without the other Houston sites in the transition band
+- with the memo-list groups
+- with four-year sites added (PM2.5 and NO₂, near-road sites left out)
+- without Deer Park #2 after its move
+- without days after the Westhollow ozone, Park Place NO₂ and Harvard Street NO₂ method changes
+- without near-road California Parkway North PM2.5
+- without event and fireworks days
+- only on days when at least half of each group's sites report
+
+Groups hold 1 to 10 sites, so results describe these sites.
+
+**Ozone (section 2, figure 2B.2):** Dallas–Fort Worth has the most exceedance days per site in every year (6.2 to 16.5) and the Ship Channel the fewest in 3 of 5, consistent with fresh NO using up ozone near its sources. Both Houston groups dip in July, and no exceedance falls on an event day.
+
+**NO₂ (section 3, figure 2B.3):** the median site's yearly mean of daily peaks. The Ship Channel is highest in every year (19.3 to 20.3 ppb, against 17.2 to 19.4 for other Houston and 15.4 to 16.9 for Dallas–Fort Worth) under every check. NO₂ falls with distance from the channel: Spearman −0.54 (p = 0.22) for 7 sites, −0.72 (p = 0.02) with 3 four-year sites added. The highest 98th percentile is 55 ppb, against the 100 ppb standard.
+
+**PM2.5 (section 4, figure 2B.4):** the annual value is the mean of quarterly means (Appendix N). Every group sits near 9.0 µg/m³, all seven sites were above it in 2023, and distance shows no pattern, consistent with regional PM2.5. Of 19 site-days above 35 µg/m³, 14 fall on five dates, including 2024-05-09 and 2024-05-27, which have no labelled cause.
+
+**SO₂ (section 5, figure 2B.5):** read through spike days (daily peak of 5 ppb or more). Croquet, 22 km from the channel, has more spike days than the Ship Channel site average in every year, mostly in summer. 74% of its summer spike hours come with wind from the 210° and 240° sectors, which blow 20% of summer hours, consistent with a source to its southwest. One day tops 75 ppb (Clinton, 94 ppb, 2024-01-13).
+
+**Events (section 6, figure 2B.6):** Uri and Beryl against the same dates in the other four years. During Beryl the Ship Channel averaged 20% of monitors reporting (none on July 8 to 10) while Dallas–Fort Worth kept 100%. Uri raised PM2.5 to 1.2 to 1.6 times normal and cut NO₂ to 0.59 to 0.85 times. During Beryl, Houston NO₂ ran about 2.8 times normal at the few sites still on, consistent with generators and disrupted traffic. SO₂ is left out of the level ratios because it sits near zero.
+
+**Same-day differences (section 7, figure 2B.7):** each group's daily value is the mean of its reporting sites, and the difference between two groups on the same day cancels most shared weather. 95% ranges come from a moving-block bootstrap (1,000 resamples of 14-day blocks, seed 2026), because neighbouring days are correlated (lag-one 0.23 to 0.46). About 1,800 days per comparison.
+
+| Same-day median (95% range) | Ship Channel minus other Houston | Houston minus Dallas–Fort Worth |
+|---|---|---|
+| NO₂ (ppb) | +1.15 (+0.81 to +1.41) | +1.77 (+1.26 to +2.26) |
+| Ozone (ppb) | −0.97 (−1.11 to −0.77) | −4.00 (−4.87 to −3.27) |
+| SO₂ (ppb) | +0.13 (+0.10 to +0.20) | No Dallas–Fort Worth site |
+| PM2.5 (µg/m³) | −0.20 (−0.40 to −0.03) | +0.47 (+0.22 to +0.73) |
+
+The Ship Channel's NO₂ lead holds in every year and is consistent with nearby NOx sources; its lower ozone is consistent with fresh NO using up ozone.
+
+**Validation (section 8, figure 2B.8):** a run is the main site set or one check. Ship Channel minus other Houston keeps its sign with a range clear of zero in 8 of 8 runs for NO₂, 6 of 6 for SO₂, 6 of 7 for ozone (all but the memo-list groups) and 3 of 8 for PM2.5, so the PM2.5 gap does not hold up. Houston minus Dallas–Fort Worth holds in all 23 runs. With a second seed (2027) every range end moves less than 10% of its range's width, and the PM2.5 Ship Channel range reaches zero. `case_study_validation.csv` holds 18 observed / expected / passed checks.
 
 ## Saved files
 
-All in `data/processed/`. Later scripts read the `.rds` files, and the CSV records can be read on GitHub.
+All in `data/processed/`. Later scripts read the `.rds` files; the CSV records can be read on GitHub. `data_dictionary.csv` describes every saved column and `checkpoint_manifest.csv` lists the size and MD5 of each `.rds` file.
 
-- **Daily:** `aqs_long_clean.rds` (5,557,574 rows, 45.7 MiB), `sites.rds`, `site_coverage.rds`, `cleaning_log.csv`, `daily_validation.csv` (8 checks).
-- **Hourly pollutants:** `hourly_case_study.rds` (661,545 rows × 30 columns), `hourly_cleaning_log.csv`, `hourly_validation.csv` (14 checks), `hourly_monitor_summary.csv`, `hourly_raw_row_counts.csv`.
-- **Hourly weather:** `hourly_weather.rds` (390,791 rows × 34 columns), `weather_cleaning_log.csv`, `weather_validation.csv` (14 checks), `weather_site_summary.csv`, `weather_sensor_check.csv`, `weather_raw_row_counts.csv`.
-- `data_dictionary.csv` describes every saved column, and `checkpoint_manifest.csv` lists the size and MD5 of each `.rds` file. Each script replaces only its own rows in both.
-- **2a** so far writes only its figures (`figures/2a_*.png`). Its CSV records are planned for its last section.
+- **Daily:** `aqs_long_clean.rds` (5,557,574 rows, 45.7 MiB), `sites.rds`, `site_coverage.rds`, `cleaning_log.csv`, `daily_validation.csv`.
+- **Hourly pollutants:** `hourly_case_study.rds` (661,545 rows), `hourly_cleaning_log.csv`, `hourly_validation.csv`, `hourly_monitor_summary.csv`, `hourly_raw_row_counts.csv`.
+- **Hourly weather:** `hourly_weather.rds` (390,791 rows), `weather_cleaning_log.csv`, `weather_validation.csv`, `weather_site_summary.csv`, `weather_sensor_check.csv`, `weather_raw_row_counts.csv`.
+- **Case-study checkpoint (2a, read by 2b):** `daily_case_study.rds` (109,365 site-days), `daily_case_study_instruments.rds`, `daily_case_study_months.rds`.
+- **Case-study records (2b):** `case_study_site_inventory.csv`, a `site_years` and a `by_group` table per gas, `case_study_event_reporting.csv`, `case_study_event_levels.csv`, `case_study_paired_differences.csv`, `case_study_validation.csv`.
 
-Figures use Inter Tight for titles, Inter for text and IBM Plex Mono for numbers, bundled in `fonts/` under the SIL Open Font Licence, and are saved at the report width of 6.5 inches.
+Figures are in `figures/phase1/` and `figures/phase2/`, numbered in figure order (`2a.01` to `2a.07`, `2b.01` to `2b.08`). They use Inter Tight, Inter and IBM Plex Mono, bundled in `fonts/` under the SIL Open Font Licence, at the report width of 6.5 inches.
 
 ## Known limits
 
-- **SO₂ sits near zero.** At Croquet, Park Place and Clinton, 97.2–99.4% of hours are below the 2 ppb detection limit, and Clinton's baseline drifts (64.6% negative hours in 2021, 89.5% in 2025). SO₂ is best read through spikes or daily maximums, and an average daily pattern is reliable only at Deer Park #2.
-- **The daily table has no ozone rows on December 31.** EPA's yearly files cannot see January 1, so the 75% rule drops that day (about 3,650 monitor-days nationally). The hourly table holds these days.
-- **Deer Park #2** moved in 2025, and its NO₂ stepped up in 2024 for an unknown reason, to be examined in Phase 2. EPA's files give it the new address and one coordinate pair for all five years, so a move that keeps its AQS ID cannot be seen in the data.
-- **Harvard Street NO₂ read low in 2024,** which pulls the other-Houston 2024 mean down by roughly 0.6 ppb. Group comparisons for 2024 should run with and without `is_post_method_change` hours, and `below_mdl` should be compared within one method because the detection limit rose from 2.7 to 5 ppb.
-- **Weather:** wind is missing for 474 days at Bayland Park, 314 at Grapevine and 161 at Deer Park #2 around their sensor replacements, and Harvard Street's weather comes from neighbours. During Beryl, the Ship Channel sites lost weather and pollutant data together (Houston East has 7 of 168 hours of each), and Harvard Street's borrowed Croquet wind covers only 4 of its 167 ozone hours.
-- **Memory:** the daily import peaks at roughly 5.5 GB, so it may be slow on a machine with 8 GB.
+- **SO₂ sits near zero.** 97.2–99.4% of hours at Croquet, Park Place and Clinton are below the 2 ppb detection limit, and Clinton's baseline drifts (negative days rose from 32% to 56%), so its spike count may run low. SO₂ is read through spikes and daily maximums.
+- **No ozone rows on December 31** in the daily table, because EPA's yearly files cannot see January 1 (about 3,650 monitor-days nationally). The hourly table holds these days.
+- **Deer Park #2** moved in 2025, and its NO₂ stepped up in 2024 for an unknown reason. EPA lists one coordinate pair for all five years, so the move cannot be seen in the site data.
+- **Method changes:** Park Place and Harvard Street NO₂ read lower after their changes. 2b runs every comparison with and without those days, and `below_mdl` should be compared within one method.
+- **Weather:** wind is missing for 474 days at Bayland Park, 314 at Grapevine and 161 at Deer Park #2 around sensor replacements, and Harvard Street's weather comes from neighbours.
+- **Site groups:** distance to the channel water stands in for distance to the plants along it. Other Houston has one five-year PM2.5 site (Aldine), so PM2.5 group results lean on the four-year check.
+- **Memory:** the daily import peaks at about 5.5 GB.
 
 ## Sources
 
@@ -156,22 +181,21 @@ Regulation text was read on Cornell's Legal Information Institute. The official 
 | Source | Used for |
 |---|---|
 | [EPA AirData download page](https://aqs.epa.gov/aqsweb/airdata/download_files.html) | The 25 daily, 15 hourly pollutant and 10 hourly weather files, and `file_list.csv` with each file's row count |
-| [EPA, Meteorological Monitoring Guidance for Regulatory Modeling Applications (EPA-454/R-99-005, 2000)](https://www.epa.gov/sites/production/files/2020-10/documents/mmgrma_0.pdf) | Wind direction as where the wind blows from (section 2.2), calm wind below 0.5 m/s (section 6.2.3, Table 5-2) and vector averaging of wind direction (section 6.2.2) |
+| [EPA, Meteorological Monitoring Guidance for Regulatory Modeling Applications (EPA-454/R-99-005, 2000)](https://www.epa.gov/sites/production/files/2020-10/documents/mmgrma_0.pdf) | Wind direction as where the wind blows from (section 2.2), calm wind below 0.5 m/s (section 6.2.3, Table 5-2) and vector averaging (section 6.2.2) |
 | [EPA AirData file formats](https://aqs.epa.gov/aqsweb/airdata/FileFormats.html) | File columns, and local times as local standard time |
 | [AQS methods code table](https://aqs.epa.gov/aqsweb/documents/codetables/methods_all.html) | FRM and FEM designations and method ranges |
 | [AQS qualifier code table](https://aqs.epa.gov/aqsweb/documents/codetables/qualifiers.html) | The meaning of `RT` |
 | [EPA NAAQS table](https://www.epa.gov/criteria-air-pollutants/naaqs-table) | Standard levels |
 | [AirNow hourly data fact sheet](https://docs.airnowapi.org/docs/HourlyDataFactSheet.pdf) | Negative hourly readings as instrument drift |
-| [40 CFR 50, Appendix S](https://www.law.cornell.edu/cfr/text/40/appendix-S_to_part_50), section 3.2(b) | NO₂: a day needs 75% of its hourly values |
-| [40 CFR 50, Appendix T](https://www.law.cornell.edu/cfr/text/40/appendix-T_to_part_50), section 3.1(b) | SO₂: a day needs 75% of its hourly values |
-| [40 CFR 50, Appendix U](https://www.law.cornell.edu/cfr/text/40/appendix-U_to_part_50), sections 3(b) to 3(d) | Ozone 8-hour means and valid days |
-| [40 CFR 58, Appendix D](https://www.law.cornell.edu/cfr/text/40/appendix-D_to_part_58), Table D-3 | Ozone monitoring seasons by state |
 | [40 CFR 50, Appendix N](https://www.law.cornell.edu/cfr/text/40/appendix-N_to_part_50), Table 1 and section 4.3 | PM2.5: 98th percentile ranks, quarterly means and rounding |
-| [40 CFR 50, Appendix S](https://www.law.cornell.edu/cfr/text/40/appendix-S_to_part_50), Table 1 and section 4.2(c) | NO₂: 98th percentile ranks and rounding |
-| [40 CFR 50, Appendix T](https://www.law.cornell.edu/cfr/text/40/appendix-T_to_part_50), Table 1 and section 4.1(c) | SO₂: 99th percentile ranks and rounding |
-| [40 CFR 50, Appendix U](https://www.law.cornell.edu/cfr/text/40/appendix-U_to_part_50), section 3(e), and [40 CFR 50.8](https://www.law.cornell.edu/cfr/text/40/50.8)(d) | Ozone truncation and CO rounding |
+| [40 CFR 50, Appendix S](https://www.law.cornell.edu/cfr/text/40/appendix-S_to_part_50), sections 3.2(b) and 4.2(c), Table 1 | NO₂: complete days, 98th percentile ranks and rounding |
+| [40 CFR 50, Appendix T](https://www.law.cornell.edu/cfr/text/40/appendix-T_to_part_50), sections 3.1(b) and 4.1(c), Table 1 | SO₂: complete days, 99th percentile ranks and rounding |
+| [40 CFR 50, Appendix U](https://www.law.cornell.edu/cfr/text/40/appendix-U_to_part_50), sections 3(b) to 3(e) | Ozone 8-hour means, valid days and truncation |
+| [40 CFR 50.8](https://www.law.cornell.edu/cfr/text/40/50.8)(d) | CO rounding |
+| [40 CFR 58, Appendix D](https://www.law.cornell.edu/cfr/text/40/appendix-D_to_part_58), Table D-3 | Ozone monitoring seasons by state |
 | [U.S. Census Bureau regions and divisions](https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf) | The 13 states of the West region |
-| [TCEQ Region 12 2024 monitoring memo](https://www.tceq.texas.gov/downloads/toxicology/monitoring/air-evaluations/2024/reg12.pdf) | The 15 Ship Channel sites |
+| [USACE National Channel Framework](https://services7.arcgis.com/n1YM8pTrFmm7L4hs/ArcGIS/rest/services/National_Channel_Framework/FeatureServer), ChannelArea layer, downloaded 2026-10-22 | The 12 land-cut sections of the Houston Ship Channel that set the site groups |
+| [TCEQ Region 12 2024 monitoring memo](https://www.tceq.texas.gov/downloads/toxicology/monitoring/air-evaluations/2024/reg12.pdf) | The memo-list grouping kept as a sensitivity check |
 | [TCEQ 2024 state-initiative network changes](https://www.tceq.texas.gov/downloads/air-quality/air-monitoring/network/historical/2024-si-monitoring-network-changes.pdf) | The Park Place SO₂ deactivation recommendation |
 | [Texas 2017 Annual Monitoring Network Plan (EPA archive)](https://19january2021snapshot.epa.gov/sites/static/files/2017-09/documents/txplan2017.pdf) | The four near-road NO₂ sites |
 | [TCEQ DFW monitoring site list](https://www.tceq.texas.gov/airquality/airmod/data/dfw8h2/dfw8h2_site.html) | The Dallas–Fort Worth sites |
