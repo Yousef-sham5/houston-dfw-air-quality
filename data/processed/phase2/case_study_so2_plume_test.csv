@@ -1,0 +1,10 @@
+period,measure,n_spike_hours,n_episodes,mean_difference_ppb,ci_low,ci_high
+All hours,Ozone,79,58,1.45,-1.64,4.87
+All hours,NO2,79,58,7.49,5.07,10.04
+All hours,Ox,79,58,8.95,5.16,12.38
+"Day, 9 am to 6 pm",Ozone,58,42,3.21,-0.71,7.68
+"Day, 9 am to 6 pm",NO2,58,42,6.75,3.74,9.95
+"Day, 9 am to 6 pm",Ox,58,42,9.96,5.48,14.73
+Night and morning,Ozone,21,19,-3.39,-6.81,0.37
+Night and morning,NO2,21,19,9.54,6.27,13.16
+Night and morning,Ox,21,19,6.15,3.86,8.49

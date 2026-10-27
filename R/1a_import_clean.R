@@ -931,6 +931,11 @@ processed_dir <- here("data", "processed")
 
 dir.create(processed_dir, recursive = TRUE, showWarnings = FALSE)
 
+# CSV records go to a folder per phase; checkpoints, the dictionary and the manifest stay in data/processed
+records_dir <- file.path(processed_dir, "phase1")
+
+dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
+
 checkpoint <- list(
   aqs_long_clean = aqs_long,
   sites = sites,
@@ -946,7 +951,7 @@ records <- list(
   daily_validation = daily_validation
 )
 
-save_records(records, processed_dir)
+save_records(records, records_dir)
 
 # Column descriptions
 saved_tables <- c(checkpoint, records)

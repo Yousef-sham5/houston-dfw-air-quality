@@ -1,0 +1,1441 @@
+site_set,season,site_group,hour_local,n_sites,mean_ox_ppb,low_site_ppb,high_site_ppb
+Main,All year,Houston Ship Channel,0,2,27.88,27.85,27.9
+Main,All year,Houston Ship Channel,1,2,26.83,26.78,26.88
+Main,All year,Houston Ship Channel,2,2,25.92,25.89,25.95
+Main,All year,Houston Ship Channel,3,2,25.16,24.97,25.35
+Main,All year,Houston Ship Channel,4,2,24.66,24.4,24.93
+Main,All year,Houston Ship Channel,5,2,24.53,24.29,24.78
+Main,All year,Houston Ship Channel,6,2,25.46,25.31,25.6
+Main,All year,Houston Ship Channel,7,2,28.45,28.44,28.45
+Main,All year,Houston Ship Channel,8,2,32.72,32.71,32.74
+Main,All year,Houston Ship Channel,9,2,36.79,36.33,37.25
+Main,All year,Houston Ship Channel,10,2,40.31,39.5,41.12
+Main,All year,Houston Ship Channel,11,2,43.26,42.14,44.37
+Main,All year,Houston Ship Channel,12,2,45.34,43.9,46.78
+Main,All year,Houston Ship Channel,13,2,46.56,44.9,48.23
+Main,All year,Houston Ship Channel,14,2,46.73,44.94,48.52
+Main,All year,Houston Ship Channel,15,2,45.99,44.35,47.63
+Main,All year,Houston Ship Channel,16,2,44.11,42.72,45.49
+Main,All year,Houston Ship Channel,17,2,41.5,40.62,42.37
+Main,All year,Houston Ship Channel,18,2,38.42,37.9,38.93
+Main,All year,Houston Ship Channel,19,2,35.62,35.39,35.86
+Main,All year,Houston Ship Channel,20,2,33.55,33.47,33.63
+Main,All year,Houston Ship Channel,21,2,31.9,31.83,31.96
+Main,All year,Houston Ship Channel,22,2,30.6,30.53,30.67
+Main,All year,Houston Ship Channel,23,2,28.91,28.9,28.91
+Main,All year,Houston other,0,2,29.54,28.49,30.59
+Main,All year,Houston other,1,2,28.33,27.23,29.44
+Main,All year,Houston other,2,2,27.33,25.99,28.67
+Main,All year,Houston other,3,2,26.48,25.09,27.88
+Main,All year,Houston other,4,2,25.71,24.33,27.09
+Main,All year,Houston other,5,2,25.33,24.01,26.66
+Main,All year,Houston other,6,2,26.22,25.09,27.34
+Main,All year,Houston other,7,2,29.03,28.35,29.71
+Main,All year,Houston other,8,2,32.82,32.52,33.11
+Main,All year,Houston other,9,2,36.7,36.62,36.78
+Main,All year,Houston other,10,2,40.5,40.39,40.62
+Main,All year,Houston other,11,2,43.55,43.14,43.96
+Main,All year,Houston other,12,2,45.84,45.38,46.3
+Main,All year,Houston other,13,2,47.22,46.63,47.82
+Main,All year,Houston other,14,2,47.58,47.11,48.06
+Main,All year,Houston other,15,2,47.16,46.6,47.72
+Main,All year,Houston other,16,2,45.61,45.24,45.98
+Main,All year,Houston other,17,2,42.9,42.86,42.94
+Main,All year,Houston other,18,2,39.78,39.68,39.88
+Main,All year,Houston other,19,2,37.03,37.02,37.05
+Main,All year,Houston other,20,2,35.05,34.9,35.2
+Main,All year,Houston other,21,2,33.49,33.12,33.86
+Main,All year,Houston other,22,2,32.13,31.51,32.76
+Main,All year,Houston other,23,2,31.24,30.29,32.2
+Main,All year,Dallas-Fort Worth,0,2,32.15,30.6,33.7
+Main,All year,Dallas-Fort Worth,1,2,31.02,29.45,32.59
+Main,All year,Dallas-Fort Worth,2,2,29.7,28.13,31.28
+Main,All year,Dallas-Fort Worth,3,2,28.55,27.01,30.1
+Main,All year,Dallas-Fort Worth,4,2,27.56,25.98,29.13
+Main,All year,Dallas-Fort Worth,5,2,26.7,25.14,28.26
+Main,All year,Dallas-Fort Worth,6,2,26.59,25.11,28.06
+Main,All year,Dallas-Fort Worth,7,2,28.09,26.89,29.3
+Main,All year,Dallas-Fort Worth,8,2,31.21,30.39,32.02
+Main,All year,Dallas-Fort Worth,9,2,34.9,34.46,35.34
+Main,All year,Dallas-Fort Worth,10,2,38.54,38.35,38.74
+Main,All year,Dallas-Fort Worth,11,2,41.62,41.61,41.64
+Main,All year,Dallas-Fort Worth,12,2,44.09,43.99,44.2
+Main,All year,Dallas-Fort Worth,13,2,45.84,45.65,46.03
+Main,All year,Dallas-Fort Worth,14,2,46.92,46.83,47.01
+Main,All year,Dallas-Fort Worth,15,2,47.31,47.24,47.38
+Main,All year,Dallas-Fort Worth,16,2,46.81,46.54,47.08
+Main,All year,Dallas-Fort Worth,17,2,45.14,44.61,45.66
+Main,All year,Dallas-Fort Worth,18,2,42.68,41.89,43.47
+Main,All year,Dallas-Fort Worth,19,2,40.08,39.15,41.01
+Main,All year,Dallas-Fort Worth,20,2,37.92,36.73,39.12
+Main,All year,Dallas-Fort Worth,21,2,36.33,34.93,37.72
+Main,All year,Dallas-Fort Worth,22,2,35.04,33.49,36.59
+Main,All year,Dallas-Fort Worth,23,2,33.44,31.84,35.04
+Main,Winter,Houston Ship Channel,0,2,28.75,28.74,28.76
+Main,Winter,Houston Ship Channel,1,2,28.05,28.01,28.08
+Main,Winter,Houston Ship Channel,2,2,27.21,27.14,27.28
+Main,Winter,Houston Ship Channel,3,2,26.62,26.56,26.68
+Main,Winter,Houston Ship Channel,4,2,26.24,26.23,26.26
+Main,Winter,Houston Ship Channel,5,2,26.02,25.99,26.06
+Main,Winter,Houston Ship Channel,6,2,26.39,26.32,26.46
+Main,Winter,Houston Ship Channel,7,2,26.94,26.9,26.98
+Main,Winter,Houston Ship Channel,8,2,29.56,29.43,29.7
+Main,Winter,Houston Ship Channel,9,2,33.01,32.32,33.69
+Main,Winter,Houston Ship Channel,10,2,34.9,34.21,35.59
+Main,Winter,Houston Ship Channel,11,2,36.47,35.95,36.99
+Main,Winter,Houston Ship Channel,12,2,38.16,37.67,38.64
+Main,Winter,Houston Ship Channel,13,2,39.37,38.78,39.96
+Main,Winter,Houston Ship Channel,14,2,40.23,39.62,40.83
+Main,Winter,Houston Ship Channel,15,2,40.48,39.99,40.96
+Main,Winter,Houston Ship Channel,16,2,39.6,39.01,40.19
+Main,Winter,Houston Ship Channel,17,2,37.91,37.53,38.29
+Main,Winter,Houston Ship Channel,18,2,35.91,35.63,36.19
+Main,Winter,Houston Ship Channel,19,2,34.26,33.99,34.54
+Main,Winter,Houston Ship Channel,20,2,32.9,32.67,33.13
+Main,Winter,Houston Ship Channel,21,2,31.75,31.65,31.84
+Main,Winter,Houston Ship Channel,22,2,30.79,30.77,30.82
+Main,Winter,Houston Ship Channel,23,2,29.41,29.33,29.48
+Main,Winter,Houston other,0,2,29.27,28.31,30.22
+Main,Winter,Houston other,1,2,28.62,27.63,29.61
+Main,Winter,Houston other,2,2,27.84,26.82,28.87
+Main,Winter,Houston other,3,2,27.26,26.23,28.29
+Main,Winter,Houston other,4,2,26.68,25.66,27.7
+Main,Winter,Houston other,5,2,26.36,25.31,27.41
+Main,Winter,Houston other,6,2,26.3,25.21,27.39
+Main,Winter,Houston other,7,2,26.91,25.7,28.12
+Main,Winter,Houston other,8,2,29.27,28.43,30.1
+Main,Winter,Houston other,9,2,31.92,31.72,32.12
+Main,Winter,Houston other,10,2,34.04,33.94,34.13
+Main,Winter,Houston other,11,2,35.66,35.56,35.76
+Main,Winter,Houston other,12,2,37.21,37.12,37.29
+Main,Winter,Houston other,13,2,38.59,38.51,38.66
+Main,Winter,Houston other,14,2,39.32,39.15,39.5
+Main,Winter,Houston other,15,2,39.51,39.45,39.57
+Main,Winter,Houston other,16,2,38.98,38.85,39.11
+Main,Winter,Houston other,17,2,37.59,37.42,37.76
+Main,Winter,Houston other,18,2,35.9,35.88,35.92
+Main,Winter,Houston other,19,2,34.68,34.55,34.81
+Main,Winter,Houston other,20,2,33.59,33.3,33.89
+Main,Winter,Houston other,21,2,32.49,31.99,33
+Main,Winter,Houston other,22,2,31.4,30.7,32.09
+Main,Winter,Houston other,23,2,30.44,29.49,31.39
+Main,Winter,Dallas-Fort Worth,0,2,29.43,27.45,31.41
+Main,Winter,Dallas-Fort Worth,1,2,28.68,26.78,30.59
+Main,Winter,Dallas-Fort Worth,2,2,27.73,25.9,29.56
+Main,Winter,Dallas-Fort Worth,3,2,27.16,25.2,29.12
+Main,Winter,Dallas-Fort Worth,4,2,26.69,24.74,28.63
+Main,Winter,Dallas-Fort Worth,5,2,26.2,24.21,28.19
+Main,Winter,Dallas-Fort Worth,6,2,25.81,23.89,27.73
+Main,Winter,Dallas-Fort Worth,7,2,25.91,24.2,27.61
+Main,Winter,Dallas-Fort Worth,8,2,27.04,25.6,28.48
+Main,Winter,Dallas-Fort Worth,9,2,28.73,27.58,29.87
+Main,Winter,Dallas-Fort Worth,10,2,30.34,29.24,31.43
+Main,Winter,Dallas-Fort Worth,11,2,32.15,31.15,33.15
+Main,Winter,Dallas-Fort Worth,12,2,33.89,32.88,34.91
+Main,Winter,Dallas-Fort Worth,13,2,35.65,34.46,36.85
+Main,Winter,Dallas-Fort Worth,14,2,36.96,35.67,38.25
+Main,Winter,Dallas-Fort Worth,15,2,37.55,36.28,38.82
+Main,Winter,Dallas-Fort Worth,16,2,37.41,36.13,38.69
+Main,Winter,Dallas-Fort Worth,17,2,36.35,35.02,37.69
+Main,Winter,Dallas-Fort Worth,18,2,34.87,33.51,36.22
+Main,Winter,Dallas-Fort Worth,19,2,33.83,32.3,35.35
+Main,Winter,Dallas-Fort Worth,20,2,32.98,31.27,34.68
+Main,Winter,Dallas-Fort Worth,21,2,32.13,30.25,34.02
+Main,Winter,Dallas-Fort Worth,22,2,31.42,29.43,33.41
+Main,Winter,Dallas-Fort Worth,23,2,30.42,28.27,32.57
+Main,Spring,Houston Ship Channel,0,2,32.51,31.95,33.06
+Main,Spring,Houston Ship Channel,1,2,31.48,30.95,32.02
+Main,Spring,Houston Ship Channel,2,2,30.59,30.03,31.15
+Main,Spring,Houston Ship Channel,3,2,30,29.29,30.71
+Main,Spring,Houston Ship Channel,4,2,29.55,28.76,30.34
+Main,Spring,Houston Ship Channel,5,2,29.4,28.71,30.1
+Main,Spring,Houston Ship Channel,6,2,30.4,29.83,30.97
+Main,Spring,Houston Ship Channel,7,2,33.21,32.49,33.94
+Main,Spring,Houston Ship Channel,8,2,36.78,35.88,37.68
+Main,Spring,Houston Ship Channel,9,2,39.8,38.56,41.04
+Main,Spring,Houston Ship Channel,10,2,42.65,41.26,44.03
+Main,Spring,Houston Ship Channel,11,2,45.13,43.38,46.88
+Main,Spring,Houston Ship Channel,12,2,46.78,44.88,48.68
+Main,Spring,Houston Ship Channel,13,2,47.7,45.66,49.75
+Main,Spring,Houston Ship Channel,14,2,47.82,45.54,50.09
+Main,Spring,Houston Ship Channel,15,2,47.2,45.12,49.28
+Main,Spring,Houston Ship Channel,16,2,45.74,43.81,47.67
+Main,Spring,Houston Ship Channel,17,2,44.1,42.78,45.42
+Main,Spring,Houston Ship Channel,18,2,41.76,40.8,42.73
+Main,Spring,Houston Ship Channel,19,2,39.37,38.56,40.19
+Main,Spring,Houston Ship Channel,20,2,37.47,36.82,38.13
+Main,Spring,Houston Ship Channel,21,2,36.05,35.61,36.5
+Main,Spring,Houston Ship Channel,22,2,34.68,34.3,35.06
+Main,Spring,Houston Ship Channel,23,2,33.48,33.01,33.95
+Main,Spring,Houston other,0,2,33.08,32.86,33.31
+Main,Spring,Houston other,1,2,31.91,31.56,32.26
+Main,Spring,Houston other,2,2,31.05,30.45,31.64
+Main,Spring,Houston other,3,2,30.44,29.79,31.1
+Main,Spring,Houston other,4,2,29.65,29.01,30.28
+Main,Spring,Houston other,5,2,29.4,28.75,30.06
+Main,Spring,Houston other,6,2,30.35,29.86,30.85
+Main,Spring,Houston other,7,2,32.96,32.96,32.97
+Main,Spring,Houston other,8,2,36.24,35.79,36.68
+Main,Spring,Houston other,9,2,39.36,39.01,39.7
+Main,Spring,Houston other,10,2,42.87,42.76,42.97
+Main,Spring,Houston other,11,2,45.13,44.99,45.27
+Main,Spring,Houston other,12,2,46.47,46.27,46.67
+Main,Spring,Houston other,13,2,47.69,47.66,47.72
+Main,Spring,Houston other,14,2,47.99,47.89,48.08
+Main,Spring,Houston other,15,2,47.65,47.63,47.68
+Main,Spring,Houston other,16,2,46.52,46.48,46.56
+Main,Spring,Houston other,17,2,44.56,44.32,44.79
+Main,Spring,Houston other,18,2,42.12,41.57,42.66
+Main,Spring,Houston other,19,2,39.47,38.94,40
+Main,Spring,Houston other,20,2,37.68,37.18,38.19
+Main,Spring,Houston other,21,2,36.4,36.07,36.73
+Main,Spring,Houston other,22,2,35.06,34.99,35.13
+Main,Spring,Houston other,23,2,34.25,34.11,34.39
+Main,Spring,Dallas-Fort Worth,0,2,34.73,33.2,36.25
+Main,Spring,Dallas-Fort Worth,1,2,33.71,32.26,35.17
+Main,Spring,Dallas-Fort Worth,2,2,32.42,30.87,33.96
+Main,Spring,Dallas-Fort Worth,3,2,31.6,30.11,33.1
+Main,Spring,Dallas-Fort Worth,4,2,30.63,29.14,32.11
+Main,Spring,Dallas-Fort Worth,5,2,30.04,28.47,31.61
+Main,Spring,Dallas-Fort Worth,6,2,29.98,28.37,31.6
+Main,Spring,Dallas-Fort Worth,7,2,31.42,30.01,32.84
+Main,Spring,Dallas-Fort Worth,8,2,33.88,32.89,34.87
+Main,Spring,Dallas-Fort Worth,9,2,36.68,35.86,37.51
+Main,Spring,Dallas-Fort Worth,10,2,39.57,38.79,40.35
+Main,Spring,Dallas-Fort Worth,11,2,42.55,41.72,43.37
+Main,Spring,Dallas-Fort Worth,12,2,45.22,44.47,45.96
+Main,Spring,Dallas-Fort Worth,13,2,47.1,46.42,47.78
+Main,Spring,Dallas-Fort Worth,14,2,48.31,47.45,49.17
+Main,Spring,Dallas-Fort Worth,15,2,48.71,47.65,49.76
+Main,Spring,Dallas-Fort Worth,16,2,48.49,47.4,49.58
+Main,Spring,Dallas-Fort Worth,17,2,47.4,46.36,48.43
+Main,Spring,Dallas-Fort Worth,18,2,45.4,44.44,46.36
+Main,Spring,Dallas-Fort Worth,19,2,42.62,41.7,43.53
+Main,Spring,Dallas-Fort Worth,20,2,40.17,38.96,41.38
+Main,Spring,Dallas-Fort Worth,21,2,38.51,37.25,39.76
+Main,Spring,Dallas-Fort Worth,22,2,37.11,35.58,38.65
+Main,Spring,Dallas-Fort Worth,23,2,35.82,34.32,37.32
+Main,Summer,Houston Ship Channel,0,2,21.69,21.55,21.82
+Main,Summer,Houston Ship Channel,1,2,20.57,20.42,20.72
+Main,Summer,Houston Ship Channel,2,2,19.89,19.71,20.08
+Main,Summer,Houston Ship Channel,3,2,19.07,18.56,19.59
+Main,Summer,Houston Ship Channel,4,2,18.4,17.8,19.01
+Main,Summer,Houston Ship Channel,5,2,18.12,17.51,18.74
+Main,Summer,Houston Ship Channel,6,2,20,19.48,20.52
+Main,Summer,Houston Ship Channel,7,2,24.6,24.23,24.96
+Main,Summer,Houston Ship Channel,8,2,28.86,28.77,28.95
+Main,Summer,Houston Ship Channel,9,2,33.86,33.33,34.39
+Main,Summer,Houston Ship Channel,10,2,39.01,37.65,40.37
+Main,Summer,Houston Ship Channel,11,2,43.31,41.21,45.42
+Main,Summer,Houston Ship Channel,12,2,46,43.12,48.89
+Main,Summer,Houston Ship Channel,13,2,47.38,44.2,50.55
+Main,Summer,Houston Ship Channel,14,2,46.79,43.39,50.2
+Main,Summer,Houston Ship Channel,15,2,45.35,42.29,48.41
+Main,Summer,Houston Ship Channel,16,2,42.21,39.65,44.77
+Main,Summer,Houston Ship Channel,17,2,38.38,36.57,40.18
+Main,Summer,Houston Ship Channel,18,2,34.27,33.13,35.41
+Main,Summer,Houston Ship Channel,19,2,30.36,29.79,30.93
+Main,Summer,Houston Ship Channel,20,2,27.69,27.4,27.99
+Main,Summer,Houston Ship Channel,21,2,25.79,25.57,26
+Main,Summer,Houston Ship Channel,22,2,24.42,24.09,24.76
+Main,Summer,Houston Ship Channel,23,2,22.61,22.31,22.92
+Main,Summer,Houston other,0,2,23.72,22.78,24.66
+Main,Summer,Houston other,1,2,22.44,21.39,23.49
+Main,Summer,Houston other,2,2,21.6,20.34,22.85
+Main,Summer,Houston other,3,2,20.67,19.19,22.16
+Main,Summer,Houston other,4,2,19.76,18.17,21.35
+Main,Summer,Houston other,5,2,19.27,17.72,20.82
+Main,Summer,Houston other,6,2,21.38,20.26,22.49
+Main,Summer,Houston other,7,2,25.51,24.97,26.06
+Main,Summer,Houston other,8,2,29.51,29.11,29.92
+Main,Summer,Houston other,9,2,34.22,33.87,34.58
+Main,Summer,Houston other,10,2,39.54,38.98,40.11
+Main,Summer,Houston other,11,2,43.89,42.71,45.07
+Main,Summer,Houston other,12,2,47.03,45.61,48.45
+Main,Summer,Houston other,13,2,48.23,46.38,50.07
+Main,Summer,Houston other,14,2,48.07,46.42,49.72
+Main,Summer,Houston other,15,2,47.15,45.09,49.22
+Main,Summer,Houston other,16,2,44.82,43.22,46.41
+Main,Summer,Houston other,17,2,41.13,40.36,41.9
+Main,Summer,Houston other,18,2,36.85,36.65,37.05
+Main,Summer,Houston other,19,2,32.68,32.47,32.89
+Main,Summer,Houston other,20,2,29.63,29.38,29.87
+Main,Summer,Houston other,21,2,27.56,27.26,27.87
+Main,Summer,Houston other,22,2,26.29,25.82,26.76
+Main,Summer,Houston other,23,2,26.12,25.31,26.92
+Main,Summer,Dallas-Fort Worth,0,2,31.28,30.91,31.64
+Main,Summer,Dallas-Fort Worth,1,2,29.48,29.07,29.89
+Main,Summer,Dallas-Fort Worth,2,2,27.83,27.39,28.28
+Main,Summer,Dallas-Fort Worth,3,2,26.19,25.88,26.5
+Main,Summer,Dallas-Fort Worth,4,2,24.72,24.36,25.08
+Main,Summer,Dallas-Fort Worth,5,2,23.33,23.06,23.6
+Main,Summer,Dallas-Fort Worth,6,2,23.66,23.4,23.93
+Main,Summer,Dallas-Fort Worth,7,2,27.01,26.9,27.11
+Main,Summer,Dallas-Fort Worth,8,2,31.97,31.39,32.54
+Main,Summer,Dallas-Fort Worth,9,2,38.06,36.78,39.33
+Main,Summer,Dallas-Fort Worth,10,2,43.72,41.87,45.57
+Main,Summer,Dallas-Fort Worth,11,2,47.39,45.21,49.57
+Main,Summer,Dallas-Fort Worth,12,2,49.88,47.5,52.26
+Main,Summer,Dallas-Fort Worth,13,2,51,48.26,53.74
+Main,Summer,Dallas-Fort Worth,14,2,51.52,48.66,54.38
+Main,Summer,Dallas-Fort Worth,15,2,51.69,49.06,54.31
+Main,Summer,Dallas-Fort Worth,16,2,50.95,48.78,53.12
+Main,Summer,Dallas-Fort Worth,17,2,48.95,47.43,50.47
+Main,Summer,Dallas-Fort Worth,18,2,46.06,45.56,46.55
+Main,Summer,Dallas-Fort Worth,19,2,42.52,42.38,42.67
+Main,Summer,Dallas-Fort Worth,20,2,39.25,39.22,39.28
+Main,Summer,Dallas-Fort Worth,21,2,36.99,36.69,37.29
+Main,Summer,Dallas-Fort Worth,22,2,35.27,34.8,35.75
+Main,Summer,Dallas-Fort Worth,23,2,33.1,32.7,33.5
+Main,Autumn,Houston Ship Channel,0,2,28.56,27.93,29.19
+Main,Autumn,Houston Ship Channel,1,2,27.22,26.55,27.89
+Main,Autumn,Houston Ship Channel,2,2,25.97,25.5,26.43
+Main,Autumn,Houston Ship Channel,3,2,24.92,24.71,25.13
+Main,Autumn,Houston Ship Channel,4,2,24.45,24.32,24.58
+Main,Autumn,Houston Ship Channel,5,2,24.59,24.46,24.73
+Main,Autumn,Houston Ship Channel,6,2,24.98,24.5,25.45
+Main,Autumn,Houston Ship Channel,7,2,28.92,27.85,29.99
+Main,Autumn,Houston Ship Channel,8,2,35.59,34.54,36.63
+Main,Autumn,Houston Ship Channel,9,2,40.43,39.99,40.86
+Main,Autumn,Houston Ship Channel,10,2,44.58,44.56,44.59
+Main,Autumn,Houston Ship Channel,11,2,47.85,47.72,47.99
+Main,Autumn,Houston Ship Channel,12,2,50.11,49.66,50.56
+Main,Autumn,Houston Ship Channel,13,2,51.59,50.76,52.42
+Main,Autumn,Houston Ship Channel,14,2,51.93,51.02,52.84
+Main,Autumn,Houston Ship Channel,15,2,50.79,49.84,51.75
+Main,Autumn,Houston Ship Channel,16,2,48.74,48.17,49.3
+Main,Autumn,Houston Ship Channel,17,2,45.47,45.34,45.61
+Main,Autumn,Houston Ship Channel,18,2,41.62,41.45,41.79
+Main,Autumn,Houston Ship Channel,19,2,38.44,37.92,38.96
+Main,Autumn,Houston Ship Channel,20,2,36.1,35.47,36.74
+Main,Autumn,Houston Ship Channel,21,2,33.98,33.17,34.79
+Main,Autumn,Houston Ship Channel,22,2,32.47,31.68,33.25
+Main,Autumn,Houston Ship Channel,23,2,30.15,29.47,30.83
+Main,Autumn,Houston other,0,2,31.63,29.24,34.02
+Main,Autumn,Houston other,1,2,29.87,27.41,32.34
+Main,Autumn,Houston other,2,2,28.37,25.5,31.23
+Main,Autumn,Houston other,3,2,27.2,24.44,29.97
+Main,Autumn,Houston other,4,2,26.4,23.74,29.06
+Main,Autumn,Houston other,5,2,25.95,23.52,28.38
+Main,Autumn,Houston other,6,2,26.48,24.34,28.62
+Main,Autumn,Houston other,7,2,30.25,28.99,31.52
+Main,Autumn,Houston other,8,2,35.77,35.15,36.4
+Main,Autumn,Houston other,9,2,40.79,40.69,40.88
+Main,Autumn,Houston other,10,2,45.04,44.9,45.18
+Main,Autumn,Houston other,11,2,48.92,48.71,49.13
+Main,Autumn,Houston other,12,2,51.89,51.6,52.19
+Main,Autumn,Houston other,13,2,53.55,53.35,53.75
+Main,Autumn,Houston other,14,2,54.18,54.13,54.22
+Main,Autumn,Houston other,15,2,53.57,53.5,53.64
+Main,Autumn,Houston other,16,2,51.47,51.34,51.6
+Main,Autumn,Houston other,17,2,47.74,47.48,48
+Main,Autumn,Houston other,18,2,43.74,43.73,43.76
+Main,Autumn,Houston other,19,2,40.84,40.44,41.24
+Main,Autumn,Houston other,20,2,38.84,38.07,39.6
+Main,Autumn,Houston other,21,2,37.05,35.82,38.29
+Main,Autumn,Houston other,22,2,35.28,33.56,37
+Main,Autumn,Houston other,23,2,33.8,31.68,35.93
+Main,Autumn,Dallas-Fort Worth,0,2,32.79,30.67,34.92
+Main,Autumn,Dallas-Fort Worth,1,2,31.77,29.49,34.06
+Main,Autumn,Dallas-Fort Worth,2,2,30.41,28.16,32.66
+Main,Autumn,Dallas-Fort Worth,3,2,28.93,26.72,31.15
+Main,Autumn,Dallas-Fort Worth,4,2,27.85,25.57,30.14
+Main,Autumn,Dallas-Fort Worth,5,2,26.86,24.68,29.04
+Main,Autumn,Dallas-Fort Worth,6,2,26.54,24.62,28.46
+Main,Autumn,Dallas-Fort Worth,7,2,27.74,26.11,29.36
+Main,Autumn,Dallas-Fort Worth,8,2,31.67,30.4,32.93
+Main,Autumn,Dallas-Fort Worth,9,2,35.87,34.96,36.79
+Main,Autumn,Dallas-Fort Worth,10,2,40.15,39.53,40.76
+Main,Autumn,Dallas-Fort Worth,11,2,43.92,43.71,44.12
+Main,Autumn,Dallas-Fort Worth,12,2,46.82,46.8,46.84
+Main,Autumn,Dallas-Fort Worth,13,2,48.98,48.93,49.04
+Main,Autumn,Dallas-Fort Worth,14,2,50.21,50.06,50.36
+Main,Autumn,Dallas-Fort Worth,15,2,50.61,50.27,50.94
+Main,Autumn,Dallas-Fort Worth,16,2,49.72,49.12,50.32
+Main,Autumn,Dallas-Fort Worth,17,2,47.23,46.24,48.22
+Main,Autumn,Dallas-Fort Worth,18,2,43.86,42.73,45
+Main,Autumn,Dallas-Fort Worth,19,2,40.92,39.66,42.17
+Main,Autumn,Dallas-Fort Worth,20,2,38.9,37.23,40.56
+Main,Autumn,Dallas-Fort Worth,21,2,37.29,35.33,39.25
+Main,Autumn,Dallas-Fort Worth,22,2,36,33.97,38.02
+Main,Autumn,Dallas-Fort Worth,23,2,34.08,31.91,36.25
+Without the transition band,All year,Houston Ship Channel,0,2,27.88,27.85,27.9
+Without the transition band,All year,Houston Ship Channel,1,2,26.83,26.78,26.88
+Without the transition band,All year,Houston Ship Channel,2,2,25.92,25.89,25.95
+Without the transition band,All year,Houston Ship Channel,3,2,25.16,24.97,25.35
+Without the transition band,All year,Houston Ship Channel,4,2,24.66,24.4,24.93
+Without the transition band,All year,Houston Ship Channel,5,2,24.53,24.29,24.78
+Without the transition band,All year,Houston Ship Channel,6,2,25.46,25.31,25.6
+Without the transition band,All year,Houston Ship Channel,7,2,28.45,28.44,28.45
+Without the transition band,All year,Houston Ship Channel,8,2,32.72,32.71,32.74
+Without the transition band,All year,Houston Ship Channel,9,2,36.79,36.33,37.25
+Without the transition band,All year,Houston Ship Channel,10,2,40.31,39.5,41.12
+Without the transition band,All year,Houston Ship Channel,11,2,43.26,42.14,44.37
+Without the transition band,All year,Houston Ship Channel,12,2,45.34,43.9,46.78
+Without the transition band,All year,Houston Ship Channel,13,2,46.56,44.9,48.23
+Without the transition band,All year,Houston Ship Channel,14,2,46.73,44.94,48.52
+Without the transition band,All year,Houston Ship Channel,15,2,45.99,44.35,47.63
+Without the transition band,All year,Houston Ship Channel,16,2,44.11,42.72,45.49
+Without the transition band,All year,Houston Ship Channel,17,2,41.5,40.62,42.37
+Without the transition band,All year,Houston Ship Channel,18,2,38.42,37.9,38.93
+Without the transition band,All year,Houston Ship Channel,19,2,35.62,35.39,35.86
+Without the transition band,All year,Houston Ship Channel,20,2,33.55,33.47,33.63
+Without the transition band,All year,Houston Ship Channel,21,2,31.9,31.83,31.96
+Without the transition band,All year,Houston Ship Channel,22,2,30.6,30.53,30.67
+Without the transition band,All year,Houston Ship Channel,23,2,28.91,28.9,28.91
+Without the transition band,All year,Houston other,0,1,28.49,28.49,28.49
+Without the transition band,All year,Houston other,1,1,27.23,27.23,27.23
+Without the transition band,All year,Houston other,2,1,25.99,25.99,25.99
+Without the transition band,All year,Houston other,3,1,25.09,25.09,25.09
+Without the transition band,All year,Houston other,4,1,24.33,24.33,24.33
+Without the transition band,All year,Houston other,5,1,24.01,24.01,24.01
+Without the transition band,All year,Houston other,6,1,25.09,25.09,25.09
+Without the transition band,All year,Houston other,7,1,28.35,28.35,28.35
+Without the transition band,All year,Houston other,8,1,32.52,32.52,32.52
+Without the transition band,All year,Houston other,9,1,36.62,36.62,36.62
+Without the transition band,All year,Houston other,10,1,40.39,40.39,40.39
+Without the transition band,All year,Houston other,11,1,43.14,43.14,43.14
+Without the transition band,All year,Houston other,12,1,45.38,45.38,45.38
+Without the transition band,All year,Houston other,13,1,46.63,46.63,46.63
+Without the transition band,All year,Houston other,14,1,47.11,47.11,47.11
+Without the transition band,All year,Houston other,15,1,46.6,46.6,46.6
+Without the transition band,All year,Houston other,16,1,45.24,45.24,45.24
+Without the transition band,All year,Houston other,17,1,42.86,42.86,42.86
+Without the transition band,All year,Houston other,18,1,39.88,39.88,39.88
+Without the transition band,All year,Houston other,19,1,37.02,37.02,37.02
+Without the transition band,All year,Houston other,20,1,34.9,34.9,34.9
+Without the transition band,All year,Houston other,21,1,33.12,33.12,33.12
+Without the transition band,All year,Houston other,22,1,31.51,31.51,31.51
+Without the transition band,All year,Houston other,23,1,30.29,30.29,30.29
+Without the transition band,All year,Dallas-Fort Worth,0,2,32.15,30.6,33.7
+Without the transition band,All year,Dallas-Fort Worth,1,2,31.02,29.45,32.59
+Without the transition band,All year,Dallas-Fort Worth,2,2,29.7,28.13,31.28
+Without the transition band,All year,Dallas-Fort Worth,3,2,28.55,27.01,30.1
+Without the transition band,All year,Dallas-Fort Worth,4,2,27.56,25.98,29.13
+Without the transition band,All year,Dallas-Fort Worth,5,2,26.7,25.14,28.26
+Without the transition band,All year,Dallas-Fort Worth,6,2,26.59,25.11,28.06
+Without the transition band,All year,Dallas-Fort Worth,7,2,28.09,26.89,29.3
+Without the transition band,All year,Dallas-Fort Worth,8,2,31.21,30.39,32.02
+Without the transition band,All year,Dallas-Fort Worth,9,2,34.9,34.46,35.34
+Without the transition band,All year,Dallas-Fort Worth,10,2,38.54,38.35,38.74
+Without the transition band,All year,Dallas-Fort Worth,11,2,41.62,41.61,41.64
+Without the transition band,All year,Dallas-Fort Worth,12,2,44.09,43.99,44.2
+Without the transition band,All year,Dallas-Fort Worth,13,2,45.84,45.65,46.03
+Without the transition band,All year,Dallas-Fort Worth,14,2,46.92,46.83,47.01
+Without the transition band,All year,Dallas-Fort Worth,15,2,47.31,47.24,47.38
+Without the transition band,All year,Dallas-Fort Worth,16,2,46.81,46.54,47.08
+Without the transition band,All year,Dallas-Fort Worth,17,2,45.14,44.61,45.66
+Without the transition band,All year,Dallas-Fort Worth,18,2,42.68,41.89,43.47
+Without the transition band,All year,Dallas-Fort Worth,19,2,40.08,39.15,41.01
+Without the transition band,All year,Dallas-Fort Worth,20,2,37.92,36.73,39.12
+Without the transition band,All year,Dallas-Fort Worth,21,2,36.33,34.93,37.72
+Without the transition band,All year,Dallas-Fort Worth,22,2,35.04,33.49,36.59
+Without the transition band,All year,Dallas-Fort Worth,23,2,33.44,31.84,35.04
+Without the transition band,Winter,Houston Ship Channel,0,2,28.75,28.74,28.76
+Without the transition band,Winter,Houston Ship Channel,1,2,28.05,28.01,28.08
+Without the transition band,Winter,Houston Ship Channel,2,2,27.21,27.14,27.28
+Without the transition band,Winter,Houston Ship Channel,3,2,26.62,26.56,26.68
+Without the transition band,Winter,Houston Ship Channel,4,2,26.24,26.23,26.26
+Without the transition band,Winter,Houston Ship Channel,5,2,26.02,25.99,26.06
+Without the transition band,Winter,Houston Ship Channel,6,2,26.39,26.32,26.46
+Without the transition band,Winter,Houston Ship Channel,7,2,26.94,26.9,26.98
+Without the transition band,Winter,Houston Ship Channel,8,2,29.56,29.43,29.7
+Without the transition band,Winter,Houston Ship Channel,9,2,33.01,32.32,33.69
+Without the transition band,Winter,Houston Ship Channel,10,2,34.9,34.21,35.59
+Without the transition band,Winter,Houston Ship Channel,11,2,36.47,35.95,36.99
+Without the transition band,Winter,Houston Ship Channel,12,2,38.16,37.67,38.64
+Without the transition band,Winter,Houston Ship Channel,13,2,39.37,38.78,39.96
+Without the transition band,Winter,Houston Ship Channel,14,2,40.23,39.62,40.83
+Without the transition band,Winter,Houston Ship Channel,15,2,40.48,39.99,40.96
+Without the transition band,Winter,Houston Ship Channel,16,2,39.6,39.01,40.19
+Without the transition band,Winter,Houston Ship Channel,17,2,37.91,37.53,38.29
+Without the transition band,Winter,Houston Ship Channel,18,2,35.91,35.63,36.19
+Without the transition band,Winter,Houston Ship Channel,19,2,34.26,33.99,34.54
+Without the transition band,Winter,Houston Ship Channel,20,2,32.9,32.67,33.13
+Without the transition band,Winter,Houston Ship Channel,21,2,31.75,31.65,31.84
+Without the transition band,Winter,Houston Ship Channel,22,2,30.79,30.77,30.82
+Without the transition band,Winter,Houston Ship Channel,23,2,29.41,29.33,29.48
+Without the transition band,Winter,Houston other,0,1,28.31,28.31,28.31
+Without the transition band,Winter,Houston other,1,1,27.63,27.63,27.63
+Without the transition band,Winter,Houston other,2,1,26.82,26.82,26.82
+Without the transition band,Winter,Houston other,3,1,26.23,26.23,26.23
+Without the transition band,Winter,Houston other,4,1,25.66,25.66,25.66
+Without the transition band,Winter,Houston other,5,1,25.31,25.31,25.31
+Without the transition band,Winter,Houston other,6,1,25.21,25.21,25.21
+Without the transition band,Winter,Houston other,7,1,25.7,25.7,25.7
+Without the transition band,Winter,Houston other,8,1,28.43,28.43,28.43
+Without the transition band,Winter,Houston other,9,1,31.72,31.72,31.72
+Without the transition band,Winter,Houston other,10,1,33.94,33.94,33.94
+Without the transition band,Winter,Houston other,11,1,35.56,35.56,35.56
+Without the transition band,Winter,Houston other,12,1,37.29,37.29,37.29
+Without the transition band,Winter,Houston other,13,1,38.66,38.66,38.66
+Without the transition band,Winter,Houston other,14,1,39.5,39.5,39.5
+Without the transition band,Winter,Houston other,15,1,39.57,39.57,39.57
+Without the transition band,Winter,Houston other,16,1,39.11,39.11,39.11
+Without the transition band,Winter,Houston other,17,1,37.76,37.76,37.76
+Without the transition band,Winter,Houston other,18,1,35.92,35.92,35.92
+Without the transition band,Winter,Houston other,19,1,34.55,34.55,34.55
+Without the transition band,Winter,Houston other,20,1,33.3,33.3,33.3
+Without the transition band,Winter,Houston other,21,1,31.99,31.99,31.99
+Without the transition band,Winter,Houston other,22,1,30.7,30.7,30.7
+Without the transition band,Winter,Houston other,23,1,29.49,29.49,29.49
+Without the transition band,Winter,Dallas-Fort Worth,0,2,29.43,27.45,31.41
+Without the transition band,Winter,Dallas-Fort Worth,1,2,28.68,26.78,30.59
+Without the transition band,Winter,Dallas-Fort Worth,2,2,27.73,25.9,29.56
+Without the transition band,Winter,Dallas-Fort Worth,3,2,27.16,25.2,29.12
+Without the transition band,Winter,Dallas-Fort Worth,4,2,26.69,24.74,28.63
+Without the transition band,Winter,Dallas-Fort Worth,5,2,26.2,24.21,28.19
+Without the transition band,Winter,Dallas-Fort Worth,6,2,25.81,23.89,27.73
+Without the transition band,Winter,Dallas-Fort Worth,7,2,25.91,24.2,27.61
+Without the transition band,Winter,Dallas-Fort Worth,8,2,27.04,25.6,28.48
+Without the transition band,Winter,Dallas-Fort Worth,9,2,28.73,27.58,29.87
+Without the transition band,Winter,Dallas-Fort Worth,10,2,30.34,29.24,31.43
+Without the transition band,Winter,Dallas-Fort Worth,11,2,32.15,31.15,33.15
+Without the transition band,Winter,Dallas-Fort Worth,12,2,33.89,32.88,34.91
+Without the transition band,Winter,Dallas-Fort Worth,13,2,35.65,34.46,36.85
+Without the transition band,Winter,Dallas-Fort Worth,14,2,36.96,35.67,38.25
+Without the transition band,Winter,Dallas-Fort Worth,15,2,37.55,36.28,38.82
+Without the transition band,Winter,Dallas-Fort Worth,16,2,37.41,36.13,38.69
+Without the transition band,Winter,Dallas-Fort Worth,17,2,36.35,35.02,37.69
+Without the transition band,Winter,Dallas-Fort Worth,18,2,34.87,33.51,36.22
+Without the transition band,Winter,Dallas-Fort Worth,19,2,33.83,32.3,35.35
+Without the transition band,Winter,Dallas-Fort Worth,20,2,32.98,31.27,34.68
+Without the transition band,Winter,Dallas-Fort Worth,21,2,32.13,30.25,34.02
+Without the transition band,Winter,Dallas-Fort Worth,22,2,31.42,29.43,33.41
+Without the transition band,Winter,Dallas-Fort Worth,23,2,30.42,28.27,32.57
+Without the transition band,Spring,Houston Ship Channel,0,2,32.51,31.95,33.06
+Without the transition band,Spring,Houston Ship Channel,1,2,31.48,30.95,32.02
+Without the transition band,Spring,Houston Ship Channel,2,2,30.59,30.03,31.15
+Without the transition band,Spring,Houston Ship Channel,3,2,30,29.29,30.71
+Without the transition band,Spring,Houston Ship Channel,4,2,29.55,28.76,30.34
+Without the transition band,Spring,Houston Ship Channel,5,2,29.4,28.71,30.1
+Without the transition band,Spring,Houston Ship Channel,6,2,30.4,29.83,30.97
+Without the transition band,Spring,Houston Ship Channel,7,2,33.21,32.49,33.94
+Without the transition band,Spring,Houston Ship Channel,8,2,36.78,35.88,37.68
+Without the transition band,Spring,Houston Ship Channel,9,2,39.8,38.56,41.04
+Without the transition band,Spring,Houston Ship Channel,10,2,42.65,41.26,44.03
+Without the transition band,Spring,Houston Ship Channel,11,2,45.13,43.38,46.88
+Without the transition band,Spring,Houston Ship Channel,12,2,46.78,44.88,48.68
+Without the transition band,Spring,Houston Ship Channel,13,2,47.7,45.66,49.75
+Without the transition band,Spring,Houston Ship Channel,14,2,47.82,45.54,50.09
+Without the transition band,Spring,Houston Ship Channel,15,2,47.2,45.12,49.28
+Without the transition band,Spring,Houston Ship Channel,16,2,45.74,43.81,47.67
+Without the transition band,Spring,Houston Ship Channel,17,2,44.1,42.78,45.42
+Without the transition band,Spring,Houston Ship Channel,18,2,41.76,40.8,42.73
+Without the transition band,Spring,Houston Ship Channel,19,2,39.37,38.56,40.19
+Without the transition band,Spring,Houston Ship Channel,20,2,37.47,36.82,38.13
+Without the transition band,Spring,Houston Ship Channel,21,2,36.05,35.61,36.5
+Without the transition band,Spring,Houston Ship Channel,22,2,34.68,34.3,35.06
+Without the transition band,Spring,Houston Ship Channel,23,2,33.48,33.01,33.95
+Without the transition band,Spring,Houston other,0,1,32.86,32.86,32.86
+Without the transition band,Spring,Houston other,1,1,31.56,31.56,31.56
+Without the transition band,Spring,Houston other,2,1,30.45,30.45,30.45
+Without the transition band,Spring,Houston other,3,1,29.79,29.79,29.79
+Without the transition band,Spring,Houston other,4,1,29.01,29.01,29.01
+Without the transition band,Spring,Houston other,5,1,28.75,28.75,28.75
+Without the transition band,Spring,Houston other,6,1,29.86,29.86,29.86
+Without the transition band,Spring,Houston other,7,1,32.97,32.97,32.97
+Without the transition band,Spring,Houston other,8,1,36.68,36.68,36.68
+Without the transition band,Spring,Houston other,9,1,39.7,39.7,39.7
+Without the transition band,Spring,Houston other,10,1,42.97,42.97,42.97
+Without the transition band,Spring,Houston other,11,1,45.27,45.27,45.27
+Without the transition band,Spring,Houston other,12,1,46.67,46.67,46.67
+Without the transition band,Spring,Houston other,13,1,47.66,47.66,47.66
+Without the transition band,Spring,Houston other,14,1,47.89,47.89,47.89
+Without the transition band,Spring,Houston other,15,1,47.63,47.63,47.63
+Without the transition band,Spring,Houston other,16,1,46.56,46.56,46.56
+Without the transition band,Spring,Houston other,17,1,44.79,44.79,44.79
+Without the transition band,Spring,Houston other,18,1,42.66,42.66,42.66
+Without the transition band,Spring,Houston other,19,1,40,40,40
+Without the transition band,Spring,Houston other,20,1,38.19,38.19,38.19
+Without the transition band,Spring,Houston other,21,1,36.73,36.73,36.73
+Without the transition band,Spring,Houston other,22,1,35.13,35.13,35.13
+Without the transition band,Spring,Houston other,23,1,34.11,34.11,34.11
+Without the transition band,Spring,Dallas-Fort Worth,0,2,34.73,33.2,36.25
+Without the transition band,Spring,Dallas-Fort Worth,1,2,33.71,32.26,35.17
+Without the transition band,Spring,Dallas-Fort Worth,2,2,32.42,30.87,33.96
+Without the transition band,Spring,Dallas-Fort Worth,3,2,31.6,30.11,33.1
+Without the transition band,Spring,Dallas-Fort Worth,4,2,30.63,29.14,32.11
+Without the transition band,Spring,Dallas-Fort Worth,5,2,30.04,28.47,31.61
+Without the transition band,Spring,Dallas-Fort Worth,6,2,29.98,28.37,31.6
+Without the transition band,Spring,Dallas-Fort Worth,7,2,31.42,30.01,32.84
+Without the transition band,Spring,Dallas-Fort Worth,8,2,33.88,32.89,34.87
+Without the transition band,Spring,Dallas-Fort Worth,9,2,36.68,35.86,37.51
+Without the transition band,Spring,Dallas-Fort Worth,10,2,39.57,38.79,40.35
+Without the transition band,Spring,Dallas-Fort Worth,11,2,42.55,41.72,43.37
+Without the transition band,Spring,Dallas-Fort Worth,12,2,45.22,44.47,45.96
+Without the transition band,Spring,Dallas-Fort Worth,13,2,47.1,46.42,47.78
+Without the transition band,Spring,Dallas-Fort Worth,14,2,48.31,47.45,49.17
+Without the transition band,Spring,Dallas-Fort Worth,15,2,48.71,47.65,49.76
+Without the transition band,Spring,Dallas-Fort Worth,16,2,48.49,47.4,49.58
+Without the transition band,Spring,Dallas-Fort Worth,17,2,47.4,46.36,48.43
+Without the transition band,Spring,Dallas-Fort Worth,18,2,45.4,44.44,46.36
+Without the transition band,Spring,Dallas-Fort Worth,19,2,42.62,41.7,43.53
+Without the transition band,Spring,Dallas-Fort Worth,20,2,40.17,38.96,41.38
+Without the transition band,Spring,Dallas-Fort Worth,21,2,38.51,37.25,39.76
+Without the transition band,Spring,Dallas-Fort Worth,22,2,37.11,35.58,38.65
+Without the transition band,Spring,Dallas-Fort Worth,23,2,35.82,34.32,37.32
+Without the transition band,Summer,Houston Ship Channel,0,2,21.69,21.55,21.82
+Without the transition band,Summer,Houston Ship Channel,1,2,20.57,20.42,20.72
+Without the transition band,Summer,Houston Ship Channel,2,2,19.89,19.71,20.08
+Without the transition band,Summer,Houston Ship Channel,3,2,19.07,18.56,19.59
+Without the transition band,Summer,Houston Ship Channel,4,2,18.4,17.8,19.01
+Without the transition band,Summer,Houston Ship Channel,5,2,18.12,17.51,18.74
+Without the transition band,Summer,Houston Ship Channel,6,2,20,19.48,20.52
+Without the transition band,Summer,Houston Ship Channel,7,2,24.6,24.23,24.96
+Without the transition band,Summer,Houston Ship Channel,8,2,28.86,28.77,28.95
+Without the transition band,Summer,Houston Ship Channel,9,2,33.86,33.33,34.39
+Without the transition band,Summer,Houston Ship Channel,10,2,39.01,37.65,40.37
+Without the transition band,Summer,Houston Ship Channel,11,2,43.31,41.21,45.42
+Without the transition band,Summer,Houston Ship Channel,12,2,46,43.12,48.89
+Without the transition band,Summer,Houston Ship Channel,13,2,47.38,44.2,50.55
+Without the transition band,Summer,Houston Ship Channel,14,2,46.79,43.39,50.2
+Without the transition band,Summer,Houston Ship Channel,15,2,45.35,42.29,48.41
+Without the transition band,Summer,Houston Ship Channel,16,2,42.21,39.65,44.77
+Without the transition band,Summer,Houston Ship Channel,17,2,38.38,36.57,40.18
+Without the transition band,Summer,Houston Ship Channel,18,2,34.27,33.13,35.41
+Without the transition band,Summer,Houston Ship Channel,19,2,30.36,29.79,30.93
+Without the transition band,Summer,Houston Ship Channel,20,2,27.69,27.4,27.99
+Without the transition band,Summer,Houston Ship Channel,21,2,25.79,25.57,26
+Without the transition band,Summer,Houston Ship Channel,22,2,24.42,24.09,24.76
+Without the transition band,Summer,Houston Ship Channel,23,2,22.61,22.31,22.92
+Without the transition band,Summer,Houston other,0,1,22.78,22.78,22.78
+Without the transition band,Summer,Houston other,1,1,21.39,21.39,21.39
+Without the transition band,Summer,Houston other,2,1,20.34,20.34,20.34
+Without the transition band,Summer,Houston other,3,1,19.19,19.19,19.19
+Without the transition band,Summer,Houston other,4,1,18.17,18.17,18.17
+Without the transition band,Summer,Houston other,5,1,17.72,17.72,17.72
+Without the transition band,Summer,Houston other,6,1,20.26,20.26,20.26
+Without the transition band,Summer,Houston other,7,1,24.97,24.97,24.97
+Without the transition band,Summer,Houston other,8,1,29.11,29.11,29.11
+Without the transition band,Summer,Houston other,9,1,33.87,33.87,33.87
+Without the transition band,Summer,Houston other,10,1,38.98,38.98,38.98
+Without the transition band,Summer,Houston other,11,1,42.71,42.71,42.71
+Without the transition band,Summer,Houston other,12,1,45.61,45.61,45.61
+Without the transition band,Summer,Houston other,13,1,46.38,46.38,46.38
+Without the transition band,Summer,Houston other,14,1,46.42,46.42,46.42
+Without the transition band,Summer,Houston other,15,1,45.09,45.09,45.09
+Without the transition band,Summer,Houston other,16,1,43.22,43.22,43.22
+Without the transition band,Summer,Houston other,17,1,40.36,40.36,40.36
+Without the transition band,Summer,Houston other,18,1,36.65,36.65,36.65
+Without the transition band,Summer,Houston other,19,1,32.47,32.47,32.47
+Without the transition band,Summer,Houston other,20,1,29.38,29.38,29.38
+Without the transition band,Summer,Houston other,21,1,27.26,27.26,27.26
+Without the transition band,Summer,Houston other,22,1,25.82,25.82,25.82
+Without the transition band,Summer,Houston other,23,1,25.31,25.31,25.31
+Without the transition band,Summer,Dallas-Fort Worth,0,2,31.28,30.91,31.64
+Without the transition band,Summer,Dallas-Fort Worth,1,2,29.48,29.07,29.89
+Without the transition band,Summer,Dallas-Fort Worth,2,2,27.83,27.39,28.28
+Without the transition band,Summer,Dallas-Fort Worth,3,2,26.19,25.88,26.5
+Without the transition band,Summer,Dallas-Fort Worth,4,2,24.72,24.36,25.08
+Without the transition band,Summer,Dallas-Fort Worth,5,2,23.33,23.06,23.6
+Without the transition band,Summer,Dallas-Fort Worth,6,2,23.66,23.4,23.93
+Without the transition band,Summer,Dallas-Fort Worth,7,2,27.01,26.9,27.11
+Without the transition band,Summer,Dallas-Fort Worth,8,2,31.97,31.39,32.54
+Without the transition band,Summer,Dallas-Fort Worth,9,2,38.06,36.78,39.33
+Without the transition band,Summer,Dallas-Fort Worth,10,2,43.72,41.87,45.57
+Without the transition band,Summer,Dallas-Fort Worth,11,2,47.39,45.21,49.57
+Without the transition band,Summer,Dallas-Fort Worth,12,2,49.88,47.5,52.26
+Without the transition band,Summer,Dallas-Fort Worth,13,2,51,48.26,53.74
+Without the transition band,Summer,Dallas-Fort Worth,14,2,51.52,48.66,54.38
+Without the transition band,Summer,Dallas-Fort Worth,15,2,51.69,49.06,54.31
+Without the transition band,Summer,Dallas-Fort Worth,16,2,50.95,48.78,53.12
+Without the transition band,Summer,Dallas-Fort Worth,17,2,48.95,47.43,50.47
+Without the transition band,Summer,Dallas-Fort Worth,18,2,46.06,45.56,46.55
+Without the transition band,Summer,Dallas-Fort Worth,19,2,42.52,42.38,42.67
+Without the transition band,Summer,Dallas-Fort Worth,20,2,39.25,39.22,39.28
+Without the transition band,Summer,Dallas-Fort Worth,21,2,36.99,36.69,37.29
+Without the transition band,Summer,Dallas-Fort Worth,22,2,35.27,34.8,35.75
+Without the transition band,Summer,Dallas-Fort Worth,23,2,33.1,32.7,33.5
+Without the transition band,Autumn,Houston Ship Channel,0,2,28.56,27.93,29.19
+Without the transition band,Autumn,Houston Ship Channel,1,2,27.22,26.55,27.89
+Without the transition band,Autumn,Houston Ship Channel,2,2,25.97,25.5,26.43
+Without the transition band,Autumn,Houston Ship Channel,3,2,24.92,24.71,25.13
+Without the transition band,Autumn,Houston Ship Channel,4,2,24.45,24.32,24.58
+Without the transition band,Autumn,Houston Ship Channel,5,2,24.59,24.46,24.73
+Without the transition band,Autumn,Houston Ship Channel,6,2,24.98,24.5,25.45
+Without the transition band,Autumn,Houston Ship Channel,7,2,28.92,27.85,29.99
+Without the transition band,Autumn,Houston Ship Channel,8,2,35.59,34.54,36.63
+Without the transition band,Autumn,Houston Ship Channel,9,2,40.43,39.99,40.86
+Without the transition band,Autumn,Houston Ship Channel,10,2,44.58,44.56,44.59
+Without the transition band,Autumn,Houston Ship Channel,11,2,47.85,47.72,47.99
+Without the transition band,Autumn,Houston Ship Channel,12,2,50.11,49.66,50.56
+Without the transition band,Autumn,Houston Ship Channel,13,2,51.59,50.76,52.42
+Without the transition band,Autumn,Houston Ship Channel,14,2,51.93,51.02,52.84
+Without the transition band,Autumn,Houston Ship Channel,15,2,50.79,49.84,51.75
+Without the transition band,Autumn,Houston Ship Channel,16,2,48.74,48.17,49.3
+Without the transition band,Autumn,Houston Ship Channel,17,2,45.47,45.34,45.61
+Without the transition band,Autumn,Houston Ship Channel,18,2,41.62,41.45,41.79
+Without the transition band,Autumn,Houston Ship Channel,19,2,38.44,37.92,38.96
+Without the transition band,Autumn,Houston Ship Channel,20,2,36.1,35.47,36.74
+Without the transition band,Autumn,Houston Ship Channel,21,2,33.98,33.17,34.79
+Without the transition band,Autumn,Houston Ship Channel,22,2,32.47,31.68,33.25
+Without the transition band,Autumn,Houston Ship Channel,23,2,30.15,29.47,30.83
+Without the transition band,Autumn,Houston other,0,1,29.24,29.24,29.24
+Without the transition band,Autumn,Houston other,1,1,27.41,27.41,27.41
+Without the transition band,Autumn,Houston other,2,1,25.5,25.5,25.5
+Without the transition band,Autumn,Houston other,3,1,24.44,24.44,24.44
+Without the transition band,Autumn,Houston other,4,1,23.74,23.74,23.74
+Without the transition band,Autumn,Houston other,5,1,23.52,23.52,23.52
+Without the transition band,Autumn,Houston other,6,1,24.34,24.34,24.34
+Without the transition band,Autumn,Houston other,7,1,28.99,28.99,28.99
+Without the transition band,Autumn,Houston other,8,1,35.15,35.15,35.15
+Without the transition band,Autumn,Houston other,9,1,40.69,40.69,40.69
+Without the transition band,Autumn,Houston other,10,1,45.18,45.18,45.18
+Without the transition band,Autumn,Houston other,11,1,48.71,48.71,48.71
+Without the transition band,Autumn,Houston other,12,1,51.6,51.6,51.6
+Without the transition band,Autumn,Houston other,13,1,53.35,53.35,53.35
+Without the transition band,Autumn,Houston other,14,1,54.22,54.22,54.22
+Without the transition band,Autumn,Houston other,15,1,53.64,53.64,53.64
+Without the transition band,Autumn,Houston other,16,1,51.6,51.6,51.6
+Without the transition band,Autumn,Houston other,17,1,48,48,48
+Without the transition band,Autumn,Houston other,18,1,43.73,43.73,43.73
+Without the transition band,Autumn,Houston other,19,1,40.44,40.44,40.44
+Without the transition band,Autumn,Houston other,20,1,38.07,38.07,38.07
+Without the transition band,Autumn,Houston other,21,1,35.82,35.82,35.82
+Without the transition band,Autumn,Houston other,22,1,33.56,33.56,33.56
+Without the transition band,Autumn,Houston other,23,1,31.68,31.68,31.68
+Without the transition band,Autumn,Dallas-Fort Worth,0,2,32.79,30.67,34.92
+Without the transition band,Autumn,Dallas-Fort Worth,1,2,31.77,29.49,34.06
+Without the transition band,Autumn,Dallas-Fort Worth,2,2,30.41,28.16,32.66
+Without the transition band,Autumn,Dallas-Fort Worth,3,2,28.93,26.72,31.15
+Without the transition band,Autumn,Dallas-Fort Worth,4,2,27.85,25.57,30.14
+Without the transition band,Autumn,Dallas-Fort Worth,5,2,26.86,24.68,29.04
+Without the transition band,Autumn,Dallas-Fort Worth,6,2,26.54,24.62,28.46
+Without the transition band,Autumn,Dallas-Fort Worth,7,2,27.74,26.11,29.36
+Without the transition band,Autumn,Dallas-Fort Worth,8,2,31.67,30.4,32.93
+Without the transition band,Autumn,Dallas-Fort Worth,9,2,35.87,34.96,36.79
+Without the transition band,Autumn,Dallas-Fort Worth,10,2,40.15,39.53,40.76
+Without the transition band,Autumn,Dallas-Fort Worth,11,2,43.92,43.71,44.12
+Without the transition band,Autumn,Dallas-Fort Worth,12,2,46.82,46.8,46.84
+Without the transition band,Autumn,Dallas-Fort Worth,13,2,48.98,48.93,49.04
+Without the transition band,Autumn,Dallas-Fort Worth,14,2,50.21,50.06,50.36
+Without the transition band,Autumn,Dallas-Fort Worth,15,2,50.61,50.27,50.94
+Without the transition band,Autumn,Dallas-Fort Worth,16,2,49.72,49.12,50.32
+Without the transition band,Autumn,Dallas-Fort Worth,17,2,47.23,46.24,48.22
+Without the transition band,Autumn,Dallas-Fort Worth,18,2,43.86,42.73,45
+Without the transition band,Autumn,Dallas-Fort Worth,19,2,40.92,39.66,42.17
+Without the transition band,Autumn,Dallas-Fort Worth,20,2,38.9,37.23,40.56
+Without the transition band,Autumn,Dallas-Fort Worth,21,2,37.29,35.33,39.25
+Without the transition band,Autumn,Dallas-Fort Worth,22,2,36,33.97,38.02
+Without the transition band,Autumn,Dallas-Fort Worth,23,2,34.08,31.91,36.25
+Without hours after the method change,All year,Houston Ship Channel,0,2,27.88,27.85,27.9
+Without hours after the method change,All year,Houston Ship Channel,1,2,26.83,26.78,26.88
+Without hours after the method change,All year,Houston Ship Channel,2,2,25.92,25.89,25.95
+Without hours after the method change,All year,Houston Ship Channel,3,2,25.16,24.97,25.35
+Without hours after the method change,All year,Houston Ship Channel,4,2,24.66,24.4,24.93
+Without hours after the method change,All year,Houston Ship Channel,5,2,24.53,24.29,24.78
+Without hours after the method change,All year,Houston Ship Channel,6,2,25.46,25.31,25.6
+Without hours after the method change,All year,Houston Ship Channel,7,2,28.45,28.44,28.45
+Without hours after the method change,All year,Houston Ship Channel,8,2,32.72,32.71,32.74
+Without hours after the method change,All year,Houston Ship Channel,9,2,36.79,36.33,37.25
+Without hours after the method change,All year,Houston Ship Channel,10,2,40.31,39.5,41.12
+Without hours after the method change,All year,Houston Ship Channel,11,2,43.26,42.14,44.37
+Without hours after the method change,All year,Houston Ship Channel,12,2,45.34,43.9,46.78
+Without hours after the method change,All year,Houston Ship Channel,13,2,46.56,44.9,48.23
+Without hours after the method change,All year,Houston Ship Channel,14,2,46.73,44.94,48.52
+Without hours after the method change,All year,Houston Ship Channel,15,2,45.99,44.35,47.63
+Without hours after the method change,All year,Houston Ship Channel,16,2,44.11,42.72,45.49
+Without hours after the method change,All year,Houston Ship Channel,17,2,41.5,40.62,42.37
+Without hours after the method change,All year,Houston Ship Channel,18,2,38.42,37.9,38.93
+Without hours after the method change,All year,Houston Ship Channel,19,2,35.62,35.39,35.86
+Without hours after the method change,All year,Houston Ship Channel,20,2,33.55,33.47,33.63
+Without hours after the method change,All year,Houston Ship Channel,21,2,31.9,31.83,31.96
+Without hours after the method change,All year,Houston Ship Channel,22,2,30.6,30.53,30.67
+Without hours after the method change,All year,Houston Ship Channel,23,2,28.91,28.9,28.91
+Without hours after the method change,All year,Houston other,0,2,29.45,28.49,30.42
+Without hours after the method change,All year,Houston other,1,2,28.17,27.23,29.11
+Without hours after the method change,All year,Houston other,2,2,27.18,25.99,28.37
+Without hours after the method change,All year,Houston other,3,2,26.39,25.09,27.69
+Without hours after the method change,All year,Houston other,4,2,25.66,24.33,26.99
+Without hours after the method change,All year,Houston other,5,2,25.3,24.01,26.59
+Without hours after the method change,All year,Houston other,6,2,26.14,25.09,27.19
+Without hours after the method change,All year,Houston other,7,2,28.91,28.35,29.46
+Without hours after the method change,All year,Houston other,8,2,32.76,32.52,33
+Without hours after the method change,All year,Houston other,9,2,36.71,36.62,36.81
+Without hours after the method change,All year,Houston other,10,2,40.55,40.39,40.7
+Without hours after the method change,All year,Houston other,11,2,43.52,43.14,43.91
+Without hours after the method change,All year,Houston other,12,2,45.72,45.38,46.06
+Without hours after the method change,All year,Houston other,13,2,47.11,46.63,47.59
+Without hours after the method change,All year,Houston other,14,2,47.45,47.11,47.8
+Without hours after the method change,All year,Houston other,15,2,47.11,46.6,47.61
+Without hours after the method change,All year,Houston other,16,2,45.5,45.24,45.76
+Without hours after the method change,All year,Houston other,17,2,42.76,42.66,42.86
+Without hours after the method change,All year,Houston other,18,2,39.66,39.44,39.88
+Without hours after the method change,All year,Houston other,19,2,36.88,36.75,37.02
+Without hours after the method change,All year,Houston other,20,2,34.94,34.9,34.98
+Without hours after the method change,All year,Houston other,21,2,33.45,33.12,33.77
+Without hours after the method change,All year,Houston other,22,2,32.1,31.51,32.7
+Without hours after the method change,All year,Houston other,23,2,31.04,30.29,31.79
+Without hours after the method change,All year,Dallas-Fort Worth,0,2,32.15,30.6,33.7
+Without hours after the method change,All year,Dallas-Fort Worth,1,2,31.02,29.45,32.59
+Without hours after the method change,All year,Dallas-Fort Worth,2,2,29.7,28.13,31.28
+Without hours after the method change,All year,Dallas-Fort Worth,3,2,28.55,27.01,30.1
+Without hours after the method change,All year,Dallas-Fort Worth,4,2,27.56,25.98,29.13
+Without hours after the method change,All year,Dallas-Fort Worth,5,2,26.7,25.14,28.26
+Without hours after the method change,All year,Dallas-Fort Worth,6,2,26.59,25.11,28.06
+Without hours after the method change,All year,Dallas-Fort Worth,7,2,28.09,26.89,29.3
+Without hours after the method change,All year,Dallas-Fort Worth,8,2,31.21,30.39,32.02
+Without hours after the method change,All year,Dallas-Fort Worth,9,2,34.9,34.46,35.34
+Without hours after the method change,All year,Dallas-Fort Worth,10,2,38.54,38.35,38.74
+Without hours after the method change,All year,Dallas-Fort Worth,11,2,41.62,41.61,41.64
+Without hours after the method change,All year,Dallas-Fort Worth,12,2,44.09,43.99,44.2
+Without hours after the method change,All year,Dallas-Fort Worth,13,2,45.84,45.65,46.03
+Without hours after the method change,All year,Dallas-Fort Worth,14,2,46.92,46.83,47.01
+Without hours after the method change,All year,Dallas-Fort Worth,15,2,47.31,47.24,47.38
+Without hours after the method change,All year,Dallas-Fort Worth,16,2,46.81,46.54,47.08
+Without hours after the method change,All year,Dallas-Fort Worth,17,2,45.14,44.61,45.66
+Without hours after the method change,All year,Dallas-Fort Worth,18,2,42.68,41.89,43.47
+Without hours after the method change,All year,Dallas-Fort Worth,19,2,40.08,39.15,41.01
+Without hours after the method change,All year,Dallas-Fort Worth,20,2,37.92,36.73,39.12
+Without hours after the method change,All year,Dallas-Fort Worth,21,2,36.33,34.93,37.72
+Without hours after the method change,All year,Dallas-Fort Worth,22,2,35.04,33.49,36.59
+Without hours after the method change,All year,Dallas-Fort Worth,23,2,33.44,31.84,35.04
+Without hours after the method change,Winter,Houston Ship Channel,0,2,28.75,28.74,28.76
+Without hours after the method change,Winter,Houston Ship Channel,1,2,28.05,28.01,28.08
+Without hours after the method change,Winter,Houston Ship Channel,2,2,27.21,27.14,27.28
+Without hours after the method change,Winter,Houston Ship Channel,3,2,26.62,26.56,26.68
+Without hours after the method change,Winter,Houston Ship Channel,4,2,26.24,26.23,26.26
+Without hours after the method change,Winter,Houston Ship Channel,5,2,26.02,25.99,26.06
+Without hours after the method change,Winter,Houston Ship Channel,6,2,26.39,26.32,26.46
+Without hours after the method change,Winter,Houston Ship Channel,7,2,26.94,26.9,26.98
+Without hours after the method change,Winter,Houston Ship Channel,8,2,29.56,29.43,29.7
+Without hours after the method change,Winter,Houston Ship Channel,9,2,33.01,32.32,33.69
+Without hours after the method change,Winter,Houston Ship Channel,10,2,34.9,34.21,35.59
+Without hours after the method change,Winter,Houston Ship Channel,11,2,36.47,35.95,36.99
+Without hours after the method change,Winter,Houston Ship Channel,12,2,38.16,37.67,38.64
+Without hours after the method change,Winter,Houston Ship Channel,13,2,39.37,38.78,39.96
+Without hours after the method change,Winter,Houston Ship Channel,14,2,40.23,39.62,40.83
+Without hours after the method change,Winter,Houston Ship Channel,15,2,40.48,39.99,40.96
+Without hours after the method change,Winter,Houston Ship Channel,16,2,39.6,39.01,40.19
+Without hours after the method change,Winter,Houston Ship Channel,17,2,37.91,37.53,38.29
+Without hours after the method change,Winter,Houston Ship Channel,18,2,35.91,35.63,36.19
+Without hours after the method change,Winter,Houston Ship Channel,19,2,34.26,33.99,34.54
+Without hours after the method change,Winter,Houston Ship Channel,20,2,32.9,32.67,33.13
+Without hours after the method change,Winter,Houston Ship Channel,21,2,31.75,31.65,31.84
+Without hours after the method change,Winter,Houston Ship Channel,22,2,30.79,30.77,30.82
+Without hours after the method change,Winter,Houston Ship Channel,23,2,29.41,29.33,29.48
+Without hours after the method change,Winter,Houston other,0,2,29.66,28.31,31.02
+Without hours after the method change,Winter,Houston other,1,2,28.87,27.63,30.11
+Without hours after the method change,Winter,Houston other,2,2,28.11,26.82,29.41
+Without hours after the method change,Winter,Houston other,3,2,27.53,26.23,28.83
+Without hours after the method change,Winter,Houston other,4,2,26.99,25.66,28.33
+Without hours after the method change,Winter,Houston other,5,2,26.72,25.31,28.14
+Without hours after the method change,Winter,Houston other,6,2,26.7,25.21,28.19
+Without hours after the method change,Winter,Houston other,7,2,27.32,25.7,28.94
+Without hours after the method change,Winter,Houston other,8,2,29.75,28.43,31.06
+Without hours after the method change,Winter,Houston other,9,2,32.42,31.72,33.13
+Without hours after the method change,Winter,Houston other,10,2,34.59,33.94,35.23
+Without hours after the method change,Winter,Houston other,11,2,36.22,35.56,36.89
+Without hours after the method change,Winter,Houston other,12,2,37.78,37.29,38.27
+Without hours after the method change,Winter,Houston other,13,2,39.14,38.66,39.62
+Without hours after the method change,Winter,Houston other,14,2,39.9,39.5,40.3
+Without hours after the method change,Winter,Houston other,15,2,40.09,39.57,40.62
+Without hours after the method change,Winter,Houston other,16,2,39.52,39.11,39.92
+Without hours after the method change,Winter,Houston other,17,2,38.11,37.76,38.45
+Without hours after the method change,Winter,Houston other,18,2,36.33,35.92,36.74
+Without hours after the method change,Winter,Houston other,19,2,35.07,34.55,35.59
+Without hours after the method change,Winter,Houston other,20,2,33.97,33.3,34.65
+Without hours after the method change,Winter,Houston other,21,2,32.9,31.99,33.81
+Without hours after the method change,Winter,Houston other,22,2,31.74,30.7,32.78
+Without hours after the method change,Winter,Houston other,23,2,30.72,29.49,31.95
+Without hours after the method change,Winter,Dallas-Fort Worth,0,2,29.43,27.45,31.41
+Without hours after the method change,Winter,Dallas-Fort Worth,1,2,28.68,26.78,30.59
+Without hours after the method change,Winter,Dallas-Fort Worth,2,2,27.73,25.9,29.56
+Without hours after the method change,Winter,Dallas-Fort Worth,3,2,27.16,25.2,29.12
+Without hours after the method change,Winter,Dallas-Fort Worth,4,2,26.69,24.74,28.63
+Without hours after the method change,Winter,Dallas-Fort Worth,5,2,26.2,24.21,28.19
+Without hours after the method change,Winter,Dallas-Fort Worth,6,2,25.81,23.89,27.73
+Without hours after the method change,Winter,Dallas-Fort Worth,7,2,25.91,24.2,27.61
+Without hours after the method change,Winter,Dallas-Fort Worth,8,2,27.04,25.6,28.48
+Without hours after the method change,Winter,Dallas-Fort Worth,9,2,28.73,27.58,29.87
+Without hours after the method change,Winter,Dallas-Fort Worth,10,2,30.34,29.24,31.43
+Without hours after the method change,Winter,Dallas-Fort Worth,11,2,32.15,31.15,33.15
+Without hours after the method change,Winter,Dallas-Fort Worth,12,2,33.89,32.88,34.91
+Without hours after the method change,Winter,Dallas-Fort Worth,13,2,35.65,34.46,36.85
+Without hours after the method change,Winter,Dallas-Fort Worth,14,2,36.96,35.67,38.25
+Without hours after the method change,Winter,Dallas-Fort Worth,15,2,37.55,36.28,38.82
+Without hours after the method change,Winter,Dallas-Fort Worth,16,2,37.41,36.13,38.69
+Without hours after the method change,Winter,Dallas-Fort Worth,17,2,36.35,35.02,37.69
+Without hours after the method change,Winter,Dallas-Fort Worth,18,2,34.87,33.51,36.22
+Without hours after the method change,Winter,Dallas-Fort Worth,19,2,33.83,32.3,35.35
+Without hours after the method change,Winter,Dallas-Fort Worth,20,2,32.98,31.27,34.68
+Without hours after the method change,Winter,Dallas-Fort Worth,21,2,32.13,30.25,34.02
+Without hours after the method change,Winter,Dallas-Fort Worth,22,2,31.42,29.43,33.41
+Without hours after the method change,Winter,Dallas-Fort Worth,23,2,30.42,28.27,32.57
+Without hours after the method change,Spring,Houston Ship Channel,0,2,32.51,31.95,33.06
+Without hours after the method change,Spring,Houston Ship Channel,1,2,31.48,30.95,32.02
+Without hours after the method change,Spring,Houston Ship Channel,2,2,30.59,30.03,31.15
+Without hours after the method change,Spring,Houston Ship Channel,3,2,30,29.29,30.71
+Without hours after the method change,Spring,Houston Ship Channel,4,2,29.55,28.76,30.34
+Without hours after the method change,Spring,Houston Ship Channel,5,2,29.4,28.71,30.1
+Without hours after the method change,Spring,Houston Ship Channel,6,2,30.4,29.83,30.97
+Without hours after the method change,Spring,Houston Ship Channel,7,2,33.21,32.49,33.94
+Without hours after the method change,Spring,Houston Ship Channel,8,2,36.78,35.88,37.68
+Without hours after the method change,Spring,Houston Ship Channel,9,2,39.8,38.56,41.04
+Without hours after the method change,Spring,Houston Ship Channel,10,2,42.65,41.26,44.03
+Without hours after the method change,Spring,Houston Ship Channel,11,2,45.13,43.38,46.88
+Without hours after the method change,Spring,Houston Ship Channel,12,2,46.78,44.88,48.68
+Without hours after the method change,Spring,Houston Ship Channel,13,2,47.7,45.66,49.75
+Without hours after the method change,Spring,Houston Ship Channel,14,2,47.82,45.54,50.09
+Without hours after the method change,Spring,Houston Ship Channel,15,2,47.2,45.12,49.28
+Without hours after the method change,Spring,Houston Ship Channel,16,2,45.74,43.81,47.67
+Without hours after the method change,Spring,Houston Ship Channel,17,2,44.1,42.78,45.42
+Without hours after the method change,Spring,Houston Ship Channel,18,2,41.76,40.8,42.73
+Without hours after the method change,Spring,Houston Ship Channel,19,2,39.37,38.56,40.19
+Without hours after the method change,Spring,Houston Ship Channel,20,2,37.47,36.82,38.13
+Without hours after the method change,Spring,Houston Ship Channel,21,2,36.05,35.61,36.5
+Without hours after the method change,Spring,Houston Ship Channel,22,2,34.68,34.3,35.06
+Without hours after the method change,Spring,Houston Ship Channel,23,2,33.48,33.01,33.95
+Without hours after the method change,Spring,Houston other,0,2,33.28,32.86,33.7
+Without hours after the method change,Spring,Houston other,1,2,32.03,31.56,32.51
+Without hours after the method change,Spring,Houston other,2,2,31.2,30.45,31.95
+Without hours after the method change,Spring,Houston other,3,2,30.59,29.79,31.39
+Without hours after the method change,Spring,Houston other,4,2,29.81,29.01,30.61
+Without hours after the method change,Spring,Houston other,5,2,29.51,28.75,30.28
+Without hours after the method change,Spring,Houston other,6,2,30.36,29.86,30.86
+Without hours after the method change,Spring,Houston other,7,2,33.01,32.97,33.06
+Without hours after the method change,Spring,Houston other,8,2,36.43,36.18,36.68
+Without hours after the method change,Spring,Houston other,9,2,39.64,39.57,39.7
+Without hours after the method change,Spring,Houston other,10,2,43.21,42.97,43.44
+Without hours after the method change,Spring,Houston other,11,2,45.43,45.27,45.6
+Without hours after the method change,Spring,Houston other,12,2,46.72,46.67,46.78
+Without hours after the method change,Spring,Houston other,13,2,48.06,47.66,48.46
+Without hours after the method change,Spring,Houston other,14,2,48.42,47.89,48.95
+Without hours after the method change,Spring,Houston other,15,2,48.11,47.63,48.6
+Without hours after the method change,Spring,Houston other,16,2,46.91,46.56,47.27
+Without hours after the method change,Spring,Houston other,17,2,44.94,44.79,45.09
+Without hours after the method change,Spring,Houston other,18,2,42.44,42.22,42.66
+Without hours after the method change,Spring,Houston other,19,2,39.74,39.48,40
+Without hours after the method change,Spring,Houston other,20,2,37.95,37.71,38.19
+Without hours after the method change,Spring,Houston other,21,2,36.74,36.73,36.75
+Without hours after the method change,Spring,Houston other,22,2,35.37,35.13,35.61
+Without hours after the method change,Spring,Houston other,23,2,34.36,34.11,34.62
+Without hours after the method change,Spring,Dallas-Fort Worth,0,2,34.73,33.2,36.25
+Without hours after the method change,Spring,Dallas-Fort Worth,1,2,33.71,32.26,35.17
+Without hours after the method change,Spring,Dallas-Fort Worth,2,2,32.42,30.87,33.96
+Without hours after the method change,Spring,Dallas-Fort Worth,3,2,31.6,30.11,33.1
+Without hours after the method change,Spring,Dallas-Fort Worth,4,2,30.63,29.14,32.11
+Without hours after the method change,Spring,Dallas-Fort Worth,5,2,30.04,28.47,31.61
+Without hours after the method change,Spring,Dallas-Fort Worth,6,2,29.98,28.37,31.6
+Without hours after the method change,Spring,Dallas-Fort Worth,7,2,31.42,30.01,32.84
+Without hours after the method change,Spring,Dallas-Fort Worth,8,2,33.88,32.89,34.87
+Without hours after the method change,Spring,Dallas-Fort Worth,9,2,36.68,35.86,37.51
+Without hours after the method change,Spring,Dallas-Fort Worth,10,2,39.57,38.79,40.35
+Without hours after the method change,Spring,Dallas-Fort Worth,11,2,42.55,41.72,43.37
+Without hours after the method change,Spring,Dallas-Fort Worth,12,2,45.22,44.47,45.96
+Without hours after the method change,Spring,Dallas-Fort Worth,13,2,47.1,46.42,47.78
+Without hours after the method change,Spring,Dallas-Fort Worth,14,2,48.31,47.45,49.17
+Without hours after the method change,Spring,Dallas-Fort Worth,15,2,48.71,47.65,49.76
+Without hours after the method change,Spring,Dallas-Fort Worth,16,2,48.49,47.4,49.58
+Without hours after the method change,Spring,Dallas-Fort Worth,17,2,47.4,46.36,48.43
+Without hours after the method change,Spring,Dallas-Fort Worth,18,2,45.4,44.44,46.36
+Without hours after the method change,Spring,Dallas-Fort Worth,19,2,42.62,41.7,43.53
+Without hours after the method change,Spring,Dallas-Fort Worth,20,2,40.17,38.96,41.38
+Without hours after the method change,Spring,Dallas-Fort Worth,21,2,38.51,37.25,39.76
+Without hours after the method change,Spring,Dallas-Fort Worth,22,2,37.11,35.58,38.65
+Without hours after the method change,Spring,Dallas-Fort Worth,23,2,35.82,34.32,37.32
+Without hours after the method change,Summer,Houston Ship Channel,0,2,21.69,21.55,21.82
+Without hours after the method change,Summer,Houston Ship Channel,1,2,20.57,20.42,20.72
+Without hours after the method change,Summer,Houston Ship Channel,2,2,19.89,19.71,20.08
+Without hours after the method change,Summer,Houston Ship Channel,3,2,19.07,18.56,19.59
+Without hours after the method change,Summer,Houston Ship Channel,4,2,18.4,17.8,19.01
+Without hours after the method change,Summer,Houston Ship Channel,5,2,18.12,17.51,18.74
+Without hours after the method change,Summer,Houston Ship Channel,6,2,20,19.48,20.52
+Without hours after the method change,Summer,Houston Ship Channel,7,2,24.6,24.23,24.96
+Without hours after the method change,Summer,Houston Ship Channel,8,2,28.86,28.77,28.95
+Without hours after the method change,Summer,Houston Ship Channel,9,2,33.86,33.33,34.39
+Without hours after the method change,Summer,Houston Ship Channel,10,2,39.01,37.65,40.37
+Without hours after the method change,Summer,Houston Ship Channel,11,2,43.31,41.21,45.42
+Without hours after the method change,Summer,Houston Ship Channel,12,2,46,43.12,48.89
+Without hours after the method change,Summer,Houston Ship Channel,13,2,47.38,44.2,50.55
+Without hours after the method change,Summer,Houston Ship Channel,14,2,46.79,43.39,50.2
+Without hours after the method change,Summer,Houston Ship Channel,15,2,45.35,42.29,48.41
+Without hours after the method change,Summer,Houston Ship Channel,16,2,42.21,39.65,44.77
+Without hours after the method change,Summer,Houston Ship Channel,17,2,38.38,36.57,40.18
+Without hours after the method change,Summer,Houston Ship Channel,18,2,34.27,33.13,35.41
+Without hours after the method change,Summer,Houston Ship Channel,19,2,30.36,29.79,30.93
+Without hours after the method change,Summer,Houston Ship Channel,20,2,27.69,27.4,27.99
+Without hours after the method change,Summer,Houston Ship Channel,21,2,25.79,25.57,26
+Without hours after the method change,Summer,Houston Ship Channel,22,2,24.42,24.09,24.76
+Without hours after the method change,Summer,Houston Ship Channel,23,2,22.61,22.31,22.92
+Without hours after the method change,Summer,Houston other,0,2,22.96,22.78,23.13
+Without hours after the method change,Summer,Houston other,1,2,21.62,21.39,21.85
+Without hours after the method change,Summer,Houston other,2,2,20.85,20.34,21.36
+Without hours after the method change,Summer,Houston other,3,2,20.04,19.19,20.9
+Without hours after the method change,Summer,Houston other,4,2,19.19,18.17,20.2
+Without hours after the method change,Summer,Houston other,5,2,18.71,17.72,19.71
+Without hours after the method change,Summer,Houston other,6,2,20.74,20.26,21.22
+Without hours after the method change,Summer,Houston other,7,2,24.75,24.54,24.97
+Without hours after the method change,Summer,Houston other,8,2,28.86,28.61,29.11
+Without hours after the method change,Summer,Houston other,9,2,33.82,33.77,33.87
+Without hours after the method change,Summer,Houston other,10,2,39.42,38.98,39.85
+Without hours after the method change,Summer,Houston other,11,2,43.69,42.71,44.67
+Without hours after the method change,Summer,Houston other,12,2,46.96,45.61,48.3
+Without hours after the method change,Summer,Houston other,13,2,48.11,46.38,49.83
+Without hours after the method change,Summer,Houston other,14,2,47.82,46.42,49.22
+Without hours after the method change,Summer,Houston other,15,2,46.97,45.09,48.85
+Without hours after the method change,Summer,Houston other,16,2,44.42,43.22,45.61
+Without hours after the method change,Summer,Houston other,17,2,40.42,40.36,40.48
+Without hours after the method change,Summer,Houston other,18,2,36.1,35.56,36.65
+Without hours after the method change,Summer,Houston other,19,2,31.86,31.25,32.47
+Without hours after the method change,Summer,Houston other,20,2,28.81,28.23,29.38
+Without hours after the method change,Summer,Houston other,21,2,26.82,26.39,27.26
+Without hours after the method change,Summer,Houston other,22,2,25.67,25.53,25.82
+Without hours after the method change,Summer,Houston other,23,2,25.18,25.05,25.31
+Without hours after the method change,Summer,Dallas-Fort Worth,0,2,31.28,30.91,31.64
+Without hours after the method change,Summer,Dallas-Fort Worth,1,2,29.48,29.07,29.89
+Without hours after the method change,Summer,Dallas-Fort Worth,2,2,27.83,27.39,28.28
+Without hours after the method change,Summer,Dallas-Fort Worth,3,2,26.19,25.88,26.5
+Without hours after the method change,Summer,Dallas-Fort Worth,4,2,24.72,24.36,25.08
+Without hours after the method change,Summer,Dallas-Fort Worth,5,2,23.33,23.06,23.6
+Without hours after the method change,Summer,Dallas-Fort Worth,6,2,23.66,23.4,23.93
+Without hours after the method change,Summer,Dallas-Fort Worth,7,2,27.01,26.9,27.11
+Without hours after the method change,Summer,Dallas-Fort Worth,8,2,31.97,31.39,32.54
+Without hours after the method change,Summer,Dallas-Fort Worth,9,2,38.06,36.78,39.33
+Without hours after the method change,Summer,Dallas-Fort Worth,10,2,43.72,41.87,45.57
+Without hours after the method change,Summer,Dallas-Fort Worth,11,2,47.39,45.21,49.57
+Without hours after the method change,Summer,Dallas-Fort Worth,12,2,49.88,47.5,52.26
+Without hours after the method change,Summer,Dallas-Fort Worth,13,2,51,48.26,53.74
+Without hours after the method change,Summer,Dallas-Fort Worth,14,2,51.52,48.66,54.38
+Without hours after the method change,Summer,Dallas-Fort Worth,15,2,51.69,49.06,54.31
+Without hours after the method change,Summer,Dallas-Fort Worth,16,2,50.95,48.78,53.12
+Without hours after the method change,Summer,Dallas-Fort Worth,17,2,48.95,47.43,50.47
+Without hours after the method change,Summer,Dallas-Fort Worth,18,2,46.06,45.56,46.55
+Without hours after the method change,Summer,Dallas-Fort Worth,19,2,42.52,42.38,42.67
+Without hours after the method change,Summer,Dallas-Fort Worth,20,2,39.25,39.22,39.28
+Without hours after the method change,Summer,Dallas-Fort Worth,21,2,36.99,36.69,37.29
+Without hours after the method change,Summer,Dallas-Fort Worth,22,2,35.27,34.8,35.75
+Without hours after the method change,Summer,Dallas-Fort Worth,23,2,33.1,32.7,33.5
+Without hours after the method change,Autumn,Houston Ship Channel,0,2,28.56,27.93,29.19
+Without hours after the method change,Autumn,Houston Ship Channel,1,2,27.22,26.55,27.89
+Without hours after the method change,Autumn,Houston Ship Channel,2,2,25.97,25.5,26.43
+Without hours after the method change,Autumn,Houston Ship Channel,3,2,24.92,24.71,25.13
+Without hours after the method change,Autumn,Houston Ship Channel,4,2,24.45,24.32,24.58
+Without hours after the method change,Autumn,Houston Ship Channel,5,2,24.59,24.46,24.73
+Without hours after the method change,Autumn,Houston Ship Channel,6,2,24.98,24.5,25.45
+Without hours after the method change,Autumn,Houston Ship Channel,7,2,28.92,27.85,29.99
+Without hours after the method change,Autumn,Houston Ship Channel,8,2,35.59,34.54,36.63
+Without hours after the method change,Autumn,Houston Ship Channel,9,2,40.43,39.99,40.86
+Without hours after the method change,Autumn,Houston Ship Channel,10,2,44.58,44.56,44.59
+Without hours after the method change,Autumn,Houston Ship Channel,11,2,47.85,47.72,47.99
+Without hours after the method change,Autumn,Houston Ship Channel,12,2,50.11,49.66,50.56
+Without hours after the method change,Autumn,Houston Ship Channel,13,2,51.59,50.76,52.42
+Without hours after the method change,Autumn,Houston Ship Channel,14,2,51.93,51.02,52.84
+Without hours after the method change,Autumn,Houston Ship Channel,15,2,50.79,49.84,51.75
+Without hours after the method change,Autumn,Houston Ship Channel,16,2,48.74,48.17,49.3
+Without hours after the method change,Autumn,Houston Ship Channel,17,2,45.47,45.34,45.61
+Without hours after the method change,Autumn,Houston Ship Channel,18,2,41.62,41.45,41.79
+Without hours after the method change,Autumn,Houston Ship Channel,19,2,38.44,37.92,38.96
+Without hours after the method change,Autumn,Houston Ship Channel,20,2,36.1,35.47,36.74
+Without hours after the method change,Autumn,Houston Ship Channel,21,2,33.98,33.17,34.79
+Without hours after the method change,Autumn,Houston Ship Channel,22,2,32.47,31.68,33.25
+Without hours after the method change,Autumn,Houston Ship Channel,23,2,30.15,29.47,30.83
+Without hours after the method change,Autumn,Houston other,0,2,31.25,29.24,33.26
+Without hours after the method change,Autumn,Houston other,1,2,29.41,27.41,31.41
+Without hours after the method change,Autumn,Houston other,2,2,27.84,25.5,30.18
+Without hours after the method change,Autumn,Houston other,3,2,26.75,24.44,29.07
+Without hours after the method change,Autumn,Houston other,4,2,25.99,23.74,28.23
+Without hours after the method change,Autumn,Houston other,5,2,25.56,23.52,27.61
+Without hours after the method change,Autumn,Houston other,6,2,26.12,24.34,27.9
+Without hours after the method change,Autumn,Houston other,7,2,29.89,28.99,30.8
+Without hours after the method change,Autumn,Houston other,8,2,35.49,35.15,35.84
+Without hours after the method change,Autumn,Houston other,9,2,40.59,40.5,40.69
+Without hours after the method change,Autumn,Houston other,10,2,44.75,44.31,45.18
+Without hours after the method change,Autumn,Houston other,11,2,48.67,48.62,48.71
+Without hours after the method change,Autumn,Houston other,12,2,51.42,51.25,51.6
+Without hours after the method change,Autumn,Houston other,13,2,52.99,52.62,53.35
+Without hours after the method change,Autumn,Houston other,14,2,53.5,52.78,54.22
+Without hours after the method change,Autumn,Houston other,15,2,53.05,52.45,53.64
+Without hours after the method change,Autumn,Houston other,16,2,50.95,50.3,51.6
+Without hours after the method change,Autumn,Houston other,17,2,47.24,46.48,48
+Without hours after the method change,Autumn,Houston other,18,2,43.35,42.97,43.73
+Without hours after the method change,Autumn,Houston other,19,2,40.38,40.32,40.44
+Without hours after the method change,Autumn,Houston other,20,2,38.49,38.07,38.9
+Without hours after the method change,Autumn,Houston other,21,2,36.72,35.82,37.63
+Without hours after the method change,Autumn,Houston other,22,2,34.97,33.56,36.38
+Without hours after the method change,Autumn,Houston other,23,2,33.36,31.68,35.04
+Without hours after the method change,Autumn,Dallas-Fort Worth,0,2,32.79,30.67,34.92
+Without hours after the method change,Autumn,Dallas-Fort Worth,1,2,31.77,29.49,34.06
+Without hours after the method change,Autumn,Dallas-Fort Worth,2,2,30.41,28.16,32.66
+Without hours after the method change,Autumn,Dallas-Fort Worth,3,2,28.93,26.72,31.15
+Without hours after the method change,Autumn,Dallas-Fort Worth,4,2,27.85,25.57,30.14
+Without hours after the method change,Autumn,Dallas-Fort Worth,5,2,26.86,24.68,29.04
+Without hours after the method change,Autumn,Dallas-Fort Worth,6,2,26.54,24.62,28.46
+Without hours after the method change,Autumn,Dallas-Fort Worth,7,2,27.74,26.11,29.36
+Without hours after the method change,Autumn,Dallas-Fort Worth,8,2,31.67,30.4,32.93
+Without hours after the method change,Autumn,Dallas-Fort Worth,9,2,35.87,34.96,36.79
+Without hours after the method change,Autumn,Dallas-Fort Worth,10,2,40.15,39.53,40.76
+Without hours after the method change,Autumn,Dallas-Fort Worth,11,2,43.92,43.71,44.12
+Without hours after the method change,Autumn,Dallas-Fort Worth,12,2,46.82,46.8,46.84
+Without hours after the method change,Autumn,Dallas-Fort Worth,13,2,48.98,48.93,49.04
+Without hours after the method change,Autumn,Dallas-Fort Worth,14,2,50.21,50.06,50.36
+Without hours after the method change,Autumn,Dallas-Fort Worth,15,2,50.61,50.27,50.94
+Without hours after the method change,Autumn,Dallas-Fort Worth,16,2,49.72,49.12,50.32
+Without hours after the method change,Autumn,Dallas-Fort Worth,17,2,47.23,46.24,48.22
+Without hours after the method change,Autumn,Dallas-Fort Worth,18,2,43.86,42.73,45
+Without hours after the method change,Autumn,Dallas-Fort Worth,19,2,40.92,39.66,42.17
+Without hours after the method change,Autumn,Dallas-Fort Worth,20,2,38.9,37.23,40.56
+Without hours after the method change,Autumn,Dallas-Fort Worth,21,2,37.29,35.33,39.25
+Without hours after the method change,Autumn,Dallas-Fort Worth,22,2,36,33.97,38.02
+Without hours after the method change,Autumn,Dallas-Fort Worth,23,2,34.08,31.91,36.25
+Without Deer Park #2 after its move,All year,Houston Ship Channel,0,2,27.95,27.85,28.06
+Without Deer Park #2 after its move,All year,Houston Ship Channel,1,2,26.91,26.78,27.04
+Without Deer Park #2 after its move,All year,Houston Ship Channel,2,2,26.02,25.95,26.1
+Without Deer Park #2 after its move,All year,Houston Ship Channel,3,2,25.29,25.23,25.35
+Without Deer Park #2 after its move,All year,Houston Ship Channel,4,2,24.8,24.67,24.93
+Without Deer Park #2 after its move,All year,Houston Ship Channel,5,2,24.67,24.56,24.78
+Without Deer Park #2 after its move,All year,Houston Ship Channel,6,2,25.52,25.44,25.6
+Without Deer Park #2 after its move,All year,Houston Ship Channel,7,2,28.39,28.35,28.44
+Without Deer Park #2 after its move,All year,Houston Ship Channel,8,2,32.59,32.48,32.71
+Without Deer Park #2 after its move,All year,Houston Ship Channel,9,2,36.61,35.97,37.25
+Without Deer Park #2 after its move,All year,Houston Ship Channel,10,2,40.09,39.06,41.12
+Without Deer Park #2 after its move,All year,Houston Ship Channel,11,2,43.01,41.66,44.37
+Without Deer Park #2 after its move,All year,Houston Ship Channel,12,2,45.1,43.42,46.78
+Without Deer Park #2 after its move,All year,Houston Ship Channel,13,2,46.37,44.51,48.23
+Without Deer Park #2 after its move,All year,Houston Ship Channel,14,2,46.54,44.56,48.52
+Without Deer Park #2 after its move,All year,Houston Ship Channel,15,2,45.82,44.01,47.63
+Without Deer Park #2 after its move,All year,Houston Ship Channel,16,2,43.92,42.36,45.49
+Without Deer Park #2 after its move,All year,Houston Ship Channel,17,2,41.37,40.36,42.37
+Without Deer Park #2 after its move,All year,Houston Ship Channel,18,2,38.36,37.79,38.93
+Without Deer Park #2 after its move,All year,Houston Ship Channel,19,2,35.58,35.29,35.86
+Without Deer Park #2 after its move,All year,Houston Ship Channel,20,2,33.54,33.44,33.63
+Without Deer Park #2 after its move,All year,Houston Ship Channel,21,2,31.92,31.83,32
+Without Deer Park #2 after its move,All year,Houston Ship Channel,22,2,30.62,30.53,30.7
+Without Deer Park #2 after its move,All year,Houston Ship Channel,23,2,28.95,28.9,29
+Without Deer Park #2 after its move,All year,Houston other,0,2,29.54,28.49,30.59
+Without Deer Park #2 after its move,All year,Houston other,1,2,28.33,27.23,29.44
+Without Deer Park #2 after its move,All year,Houston other,2,2,27.33,25.99,28.67
+Without Deer Park #2 after its move,All year,Houston other,3,2,26.48,25.09,27.88
+Without Deer Park #2 after its move,All year,Houston other,4,2,25.71,24.33,27.09
+Without Deer Park #2 after its move,All year,Houston other,5,2,25.33,24.01,26.66
+Without Deer Park #2 after its move,All year,Houston other,6,2,26.22,25.09,27.34
+Without Deer Park #2 after its move,All year,Houston other,7,2,29.03,28.35,29.71
+Without Deer Park #2 after its move,All year,Houston other,8,2,32.82,32.52,33.11
+Without Deer Park #2 after its move,All year,Houston other,9,2,36.7,36.62,36.78
+Without Deer Park #2 after its move,All year,Houston other,10,2,40.5,40.39,40.62
+Without Deer Park #2 after its move,All year,Houston other,11,2,43.55,43.14,43.96
+Without Deer Park #2 after its move,All year,Houston other,12,2,45.84,45.38,46.3
+Without Deer Park #2 after its move,All year,Houston other,13,2,47.22,46.63,47.82
+Without Deer Park #2 after its move,All year,Houston other,14,2,47.58,47.11,48.06
+Without Deer Park #2 after its move,All year,Houston other,15,2,47.16,46.6,47.72
+Without Deer Park #2 after its move,All year,Houston other,16,2,45.61,45.24,45.98
+Without Deer Park #2 after its move,All year,Houston other,17,2,42.9,42.86,42.94
+Without Deer Park #2 after its move,All year,Houston other,18,2,39.78,39.68,39.88
+Without Deer Park #2 after its move,All year,Houston other,19,2,37.03,37.02,37.05
+Without Deer Park #2 after its move,All year,Houston other,20,2,35.05,34.9,35.2
+Without Deer Park #2 after its move,All year,Houston other,21,2,33.49,33.12,33.86
+Without Deer Park #2 after its move,All year,Houston other,22,2,32.13,31.51,32.76
+Without Deer Park #2 after its move,All year,Houston other,23,2,31.24,30.29,32.2
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,0,2,32.15,30.6,33.7
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,1,2,31.02,29.45,32.59
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,2,2,29.7,28.13,31.28
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,3,2,28.55,27.01,30.1
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,4,2,27.56,25.98,29.13
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,5,2,26.7,25.14,28.26
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,6,2,26.59,25.11,28.06
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,7,2,28.09,26.89,29.3
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,8,2,31.21,30.39,32.02
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,9,2,34.9,34.46,35.34
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,10,2,38.54,38.35,38.74
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,11,2,41.62,41.61,41.64
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,12,2,44.09,43.99,44.2
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,13,2,45.84,45.65,46.03
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,14,2,46.92,46.83,47.01
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,15,2,47.31,47.24,47.38
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,16,2,46.81,46.54,47.08
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,17,2,45.14,44.61,45.66
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,18,2,42.68,41.89,43.47
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,19,2,40.08,39.15,41.01
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,20,2,37.92,36.73,39.12
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,21,2,36.33,34.93,37.72
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,22,2,35.04,33.49,36.59
+Without Deer Park #2 after its move,All year,Dallas-Fort Worth,23,2,33.44,31.84,35.04
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,0,2,28.83,28.76,28.89
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,1,2,28.09,28.01,28.17
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,2,2,27.25,27.14,27.36
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,3,2,26.67,26.56,26.78
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,4,2,26.31,26.23,26.38
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,5,2,26.09,25.99,26.18
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,6,2,26.43,26.4,26.46
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,7,2,26.99,26.98,26.99
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,8,2,29.62,29.54,29.7
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,9,2,33.04,32.39,33.69
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,10,2,34.93,34.27,35.59
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,11,2,36.52,36.05,36.99
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,12,2,38.21,37.77,38.64
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,13,2,39.41,38.85,39.96
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,14,2,40.27,39.71,40.83
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,15,2,40.52,40.09,40.96
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,16,2,39.65,39.12,40.19
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,17,2,37.98,37.66,38.29
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,18,2,36.01,35.82,36.19
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,19,2,34.38,34.23,34.54
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,20,2,33,32.87,33.13
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,21,2,31.84,31.84,31.84
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,22,2,30.86,30.82,30.91
+Without Deer Park #2 after its move,Winter,Houston Ship Channel,23,2,29.46,29.44,29.48
+Without Deer Park #2 after its move,Winter,Houston other,0,2,29.27,28.31,30.22
+Without Deer Park #2 after its move,Winter,Houston other,1,2,28.62,27.63,29.61
+Without Deer Park #2 after its move,Winter,Houston other,2,2,27.84,26.82,28.87
+Without Deer Park #2 after its move,Winter,Houston other,3,2,27.26,26.23,28.29
+Without Deer Park #2 after its move,Winter,Houston other,4,2,26.68,25.66,27.7
+Without Deer Park #2 after its move,Winter,Houston other,5,2,26.36,25.31,27.41
+Without Deer Park #2 after its move,Winter,Houston other,6,2,26.3,25.21,27.39
+Without Deer Park #2 after its move,Winter,Houston other,7,2,26.91,25.7,28.12
+Without Deer Park #2 after its move,Winter,Houston other,8,2,29.27,28.43,30.1
+Without Deer Park #2 after its move,Winter,Houston other,9,2,31.92,31.72,32.12
+Without Deer Park #2 after its move,Winter,Houston other,10,2,34.04,33.94,34.13
+Without Deer Park #2 after its move,Winter,Houston other,11,2,35.66,35.56,35.76
+Without Deer Park #2 after its move,Winter,Houston other,12,2,37.21,37.12,37.29
+Without Deer Park #2 after its move,Winter,Houston other,13,2,38.59,38.51,38.66
+Without Deer Park #2 after its move,Winter,Houston other,14,2,39.32,39.15,39.5
+Without Deer Park #2 after its move,Winter,Houston other,15,2,39.51,39.45,39.57
+Without Deer Park #2 after its move,Winter,Houston other,16,2,38.98,38.85,39.11
+Without Deer Park #2 after its move,Winter,Houston other,17,2,37.59,37.42,37.76
+Without Deer Park #2 after its move,Winter,Houston other,18,2,35.9,35.88,35.92
+Without Deer Park #2 after its move,Winter,Houston other,19,2,34.68,34.55,34.81
+Without Deer Park #2 after its move,Winter,Houston other,20,2,33.59,33.3,33.89
+Without Deer Park #2 after its move,Winter,Houston other,21,2,32.49,31.99,33
+Without Deer Park #2 after its move,Winter,Houston other,22,2,31.4,30.7,32.09
+Without Deer Park #2 after its move,Winter,Houston other,23,2,30.44,29.49,31.39
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,0,2,29.43,27.45,31.41
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,1,2,28.68,26.78,30.59
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,2,2,27.73,25.9,29.56
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,3,2,27.16,25.2,29.12
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,4,2,26.69,24.74,28.63
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,5,2,26.2,24.21,28.19
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,6,2,25.81,23.89,27.73
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,7,2,25.91,24.2,27.61
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,8,2,27.04,25.6,28.48
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,9,2,28.73,27.58,29.87
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,10,2,30.34,29.24,31.43
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,11,2,32.15,31.15,33.15
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,12,2,33.89,32.88,34.91
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,13,2,35.65,34.46,36.85
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,14,2,36.96,35.67,38.25
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,15,2,37.55,36.28,38.82
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,16,2,37.41,36.13,38.69
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,17,2,36.35,35.02,37.69
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,18,2,34.87,33.51,36.22
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,19,2,33.83,32.3,35.35
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,20,2,32.98,31.27,34.68
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,21,2,32.13,30.25,34.02
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,22,2,31.42,29.43,33.41
+Without Deer Park #2 after its move,Winter,Dallas-Fort Worth,23,2,30.42,28.27,32.57
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,0,2,32.52,31.98,33.06
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,1,2,31.5,30.99,32.02
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,2,2,30.61,30.07,31.15
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,3,2,30.02,29.32,30.71
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,4,2,29.57,28.8,30.34
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,5,2,29.43,28.75,30.1
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,6,2,30.42,29.87,30.97
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,7,2,33.22,32.5,33.94
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,8,2,36.78,35.88,37.68
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,9,2,39.8,38.57,41.04
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,10,2,42.64,41.25,44.03
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,11,2,45.11,43.35,46.88
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,12,2,46.76,44.85,48.68
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,13,2,47.67,45.6,49.75
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,14,2,47.78,45.47,50.09
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,15,2,47.15,45.02,49.28
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,16,2,45.68,43.7,47.67
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,17,2,44.08,42.73,45.42
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,18,2,41.74,40.75,42.73
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,19,2,39.35,38.51,40.19
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,20,2,37.46,36.79,38.13
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,21,2,36.05,35.59,36.5
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,22,2,34.69,34.31,35.06
+Without Deer Park #2 after its move,Spring,Houston Ship Channel,23,2,33.48,33,33.95
+Without Deer Park #2 after its move,Spring,Houston other,0,2,33.08,32.86,33.31
+Without Deer Park #2 after its move,Spring,Houston other,1,2,31.91,31.56,32.26
+Without Deer Park #2 after its move,Spring,Houston other,2,2,31.05,30.45,31.64
+Without Deer Park #2 after its move,Spring,Houston other,3,2,30.44,29.79,31.1
+Without Deer Park #2 after its move,Spring,Houston other,4,2,29.65,29.01,30.28
+Without Deer Park #2 after its move,Spring,Houston other,5,2,29.4,28.75,30.06
+Without Deer Park #2 after its move,Spring,Houston other,6,2,30.35,29.86,30.85
+Without Deer Park #2 after its move,Spring,Houston other,7,2,32.96,32.96,32.97
+Without Deer Park #2 after its move,Spring,Houston other,8,2,36.24,35.79,36.68
+Without Deer Park #2 after its move,Spring,Houston other,9,2,39.36,39.01,39.7
+Without Deer Park #2 after its move,Spring,Houston other,10,2,42.87,42.76,42.97
+Without Deer Park #2 after its move,Spring,Houston other,11,2,45.13,44.99,45.27
+Without Deer Park #2 after its move,Spring,Houston other,12,2,46.47,46.27,46.67
+Without Deer Park #2 after its move,Spring,Houston other,13,2,47.69,47.66,47.72
+Without Deer Park #2 after its move,Spring,Houston other,14,2,47.99,47.89,48.08
+Without Deer Park #2 after its move,Spring,Houston other,15,2,47.65,47.63,47.68
+Without Deer Park #2 after its move,Spring,Houston other,16,2,46.52,46.48,46.56
+Without Deer Park #2 after its move,Spring,Houston other,17,2,44.56,44.32,44.79
+Without Deer Park #2 after its move,Spring,Houston other,18,2,42.12,41.57,42.66
+Without Deer Park #2 after its move,Spring,Houston other,19,2,39.47,38.94,40
+Without Deer Park #2 after its move,Spring,Houston other,20,2,37.68,37.18,38.19
+Without Deer Park #2 after its move,Spring,Houston other,21,2,36.4,36.07,36.73
+Without Deer Park #2 after its move,Spring,Houston other,22,2,35.06,34.99,35.13
+Without Deer Park #2 after its move,Spring,Houston other,23,2,34.25,34.11,34.39
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,0,2,34.73,33.2,36.25
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,1,2,33.71,32.26,35.17
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,2,2,32.42,30.87,33.96
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,3,2,31.6,30.11,33.1
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,4,2,30.63,29.14,32.11
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,5,2,30.04,28.47,31.61
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,6,2,29.98,28.37,31.6
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,7,2,31.42,30.01,32.84
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,8,2,33.88,32.89,34.87
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,9,2,36.68,35.86,37.51
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,10,2,39.57,38.79,40.35
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,11,2,42.55,41.72,43.37
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,12,2,45.22,44.47,45.96
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,13,2,47.1,46.42,47.78
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,14,2,48.31,47.45,49.17
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,15,2,48.71,47.65,49.76
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,16,2,48.49,47.4,49.58
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,17,2,47.4,46.36,48.43
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,18,2,45.4,44.44,46.36
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,19,2,42.62,41.7,43.53
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,20,2,40.17,38.96,41.38
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,21,2,38.51,37.25,39.76
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,22,2,37.11,35.58,38.65
+Without Deer Park #2 after its move,Spring,Dallas-Fort Worth,23,2,35.82,34.32,37.32
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,0,2,21.6,21.37,21.82
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,1,2,20.45,20.19,20.72
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,2,2,19.79,19.5,20.08
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,3,2,19,18.42,19.59
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,4,2,18.3,17.6,19.01
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,5,2,18,17.27,18.74
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,6,2,19.79,19.07,20.52
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,7,2,24.39,23.83,24.96
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,8,2,28.76,28.58,28.95
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,9,2,33.77,33.14,34.39
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,10,2,38.87,37.37,40.37
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,11,2,43.2,40.99,45.42
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,12,2,45.9,42.92,48.89
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,13,2,47.32,44.09,50.55
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,14,2,46.67,43.15,50.2
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,15,2,45.18,41.94,48.41
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,16,2,41.92,39.08,44.77
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,17,2,38.08,35.99,40.18
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,18,2,34.11,32.82,35.41
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,19,2,30.14,29.35,30.93
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,20,2,27.52,27.05,27.99
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,21,2,25.67,25.34,26
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,22,2,24.29,23.83,24.76
+Without Deer Park #2 after its move,Summer,Houston Ship Channel,23,2,22.49,22.07,22.92
+Without Deer Park #2 after its move,Summer,Houston other,0,2,23.72,22.78,24.66
+Without Deer Park #2 after its move,Summer,Houston other,1,2,22.44,21.39,23.49
+Without Deer Park #2 after its move,Summer,Houston other,2,2,21.6,20.34,22.85
+Without Deer Park #2 after its move,Summer,Houston other,3,2,20.67,19.19,22.16
+Without Deer Park #2 after its move,Summer,Houston other,4,2,19.76,18.17,21.35
+Without Deer Park #2 after its move,Summer,Houston other,5,2,19.27,17.72,20.82
+Without Deer Park #2 after its move,Summer,Houston other,6,2,21.38,20.26,22.49
+Without Deer Park #2 after its move,Summer,Houston other,7,2,25.51,24.97,26.06
+Without Deer Park #2 after its move,Summer,Houston other,8,2,29.51,29.11,29.92
+Without Deer Park #2 after its move,Summer,Houston other,9,2,34.22,33.87,34.58
+Without Deer Park #2 after its move,Summer,Houston other,10,2,39.54,38.98,40.11
+Without Deer Park #2 after its move,Summer,Houston other,11,2,43.89,42.71,45.07
+Without Deer Park #2 after its move,Summer,Houston other,12,2,47.03,45.61,48.45
+Without Deer Park #2 after its move,Summer,Houston other,13,2,48.23,46.38,50.07
+Without Deer Park #2 after its move,Summer,Houston other,14,2,48.07,46.42,49.72
+Without Deer Park #2 after its move,Summer,Houston other,15,2,47.15,45.09,49.22
+Without Deer Park #2 after its move,Summer,Houston other,16,2,44.82,43.22,46.41
+Without Deer Park #2 after its move,Summer,Houston other,17,2,41.13,40.36,41.9
+Without Deer Park #2 after its move,Summer,Houston other,18,2,36.85,36.65,37.05
+Without Deer Park #2 after its move,Summer,Houston other,19,2,32.68,32.47,32.89
+Without Deer Park #2 after its move,Summer,Houston other,20,2,29.63,29.38,29.87
+Without Deer Park #2 after its move,Summer,Houston other,21,2,27.56,27.26,27.87
+Without Deer Park #2 after its move,Summer,Houston other,22,2,26.29,25.82,26.76
+Without Deer Park #2 after its move,Summer,Houston other,23,2,26.12,25.31,26.92
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,0,2,31.28,30.91,31.64
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,1,2,29.48,29.07,29.89
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,2,2,27.83,27.39,28.28
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,3,2,26.19,25.88,26.5
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,4,2,24.72,24.36,25.08
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,5,2,23.33,23.06,23.6
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,6,2,23.66,23.4,23.93
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,7,2,27.01,26.9,27.11
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,8,2,31.97,31.39,32.54
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,9,2,38.06,36.78,39.33
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,10,2,43.72,41.87,45.57
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,11,2,47.39,45.21,49.57
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,12,2,49.88,47.5,52.26
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,13,2,51,48.26,53.74
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,14,2,51.52,48.66,54.38
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,15,2,51.69,49.06,54.31
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,16,2,50.95,48.78,53.12
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,17,2,48.95,47.43,50.47
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,18,2,46.06,45.56,46.55
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,19,2,42.52,42.38,42.67
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,20,2,39.25,39.22,39.28
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,21,2,36.99,36.69,37.29
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,22,2,35.27,34.8,35.75
+Without Deer Park #2 after its move,Summer,Dallas-Fort Worth,23,2,33.1,32.7,33.5
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,0,2,28.34,27.93,28.74
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,1,2,27.02,26.55,27.5
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,2,2,25.88,25.5,26.26
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,3,2,24.88,24.71,25.05
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,4,2,24.39,24.32,24.47
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,5,2,24.52,24.46,24.59
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,6,2,24.77,24.5,25.04
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,7,2,28.46,27.85,29.07
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,8,2,34.92,34.54,35.3
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,9,2,39.75,39.5,39.99
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,10,2,43.93,43.3,44.56
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,11,2,47.21,46.42,47.99
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,12,2,49.51,48.47,50.56
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,13,2,51.17,49.92,52.42
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,14,2,51.56,50.28,52.84
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,15,2,50.45,49.15,51.75
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,16,2,48.38,47.45,49.3
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,17,2,45.12,44.64,45.61
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,18,2,41.28,41.12,41.45
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,19,2,38.08,37.92,38.24
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,20,2,35.78,35.47,36.09
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,21,2,33.65,33.17,34.13
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,22,2,32.14,31.68,32.59
+Without Deer Park #2 after its move,Autumn,Houston Ship Channel,23,2,29.88,29.47,30.28
+Without Deer Park #2 after its move,Autumn,Houston other,0,2,31.63,29.24,34.02
+Without Deer Park #2 after its move,Autumn,Houston other,1,2,29.87,27.41,32.34
+Without Deer Park #2 after its move,Autumn,Houston other,2,2,28.37,25.5,31.23
+Without Deer Park #2 after its move,Autumn,Houston other,3,2,27.2,24.44,29.97
+Without Deer Park #2 after its move,Autumn,Houston other,4,2,26.4,23.74,29.06
+Without Deer Park #2 after its move,Autumn,Houston other,5,2,25.95,23.52,28.38
+Without Deer Park #2 after its move,Autumn,Houston other,6,2,26.48,24.34,28.62
+Without Deer Park #2 after its move,Autumn,Houston other,7,2,30.25,28.99,31.52
+Without Deer Park #2 after its move,Autumn,Houston other,8,2,35.77,35.15,36.4
+Without Deer Park #2 after its move,Autumn,Houston other,9,2,40.79,40.69,40.88
+Without Deer Park #2 after its move,Autumn,Houston other,10,2,45.04,44.9,45.18
+Without Deer Park #2 after its move,Autumn,Houston other,11,2,48.92,48.71,49.13
+Without Deer Park #2 after its move,Autumn,Houston other,12,2,51.89,51.6,52.19
+Without Deer Park #2 after its move,Autumn,Houston other,13,2,53.55,53.35,53.75
+Without Deer Park #2 after its move,Autumn,Houston other,14,2,54.18,54.13,54.22
+Without Deer Park #2 after its move,Autumn,Houston other,15,2,53.57,53.5,53.64
+Without Deer Park #2 after its move,Autumn,Houston other,16,2,51.47,51.34,51.6
+Without Deer Park #2 after its move,Autumn,Houston other,17,2,47.74,47.48,48
+Without Deer Park #2 after its move,Autumn,Houston other,18,2,43.74,43.73,43.76
+Without Deer Park #2 after its move,Autumn,Houston other,19,2,40.84,40.44,41.24
+Without Deer Park #2 after its move,Autumn,Houston other,20,2,38.84,38.07,39.6
+Without Deer Park #2 after its move,Autumn,Houston other,21,2,37.05,35.82,38.29
+Without Deer Park #2 after its move,Autumn,Houston other,22,2,35.28,33.56,37
+Without Deer Park #2 after its move,Autumn,Houston other,23,2,33.8,31.68,35.93
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,0,2,32.79,30.67,34.92
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,1,2,31.77,29.49,34.06
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,2,2,30.41,28.16,32.66
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,3,2,28.93,26.72,31.15
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,4,2,27.85,25.57,30.14
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,5,2,26.86,24.68,29.04
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,6,2,26.54,24.62,28.46
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,7,2,27.74,26.11,29.36
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,8,2,31.67,30.4,32.93
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,9,2,35.87,34.96,36.79
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,10,2,40.15,39.53,40.76
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,11,2,43.92,43.71,44.12
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,12,2,46.82,46.8,46.84
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,13,2,48.98,48.93,49.04
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,14,2,50.21,50.06,50.36
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,15,2,50.61,50.27,50.94
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,16,2,49.72,49.12,50.32
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,17,2,47.23,46.24,48.22
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,18,2,43.86,42.73,45
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,19,2,40.92,39.66,42.17
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,20,2,38.9,37.23,40.56
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,21,2,37.29,35.33,39.25
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,22,2,36,33.97,38.02
+Without Deer Park #2 after its move,Autumn,Dallas-Fort Worth,23,2,34.08,31.91,36.25

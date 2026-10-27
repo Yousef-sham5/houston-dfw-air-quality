@@ -380,3 +380,151 @@ case_study_validation,check,character,"What 2b section 8 checks: inputs, site se
 case_study_validation,observed,character,Value found in this run
 case_study_validation,expected,character,Value the check requires
 case_study_validation,passed,logical,TRUE when observed equals expected; the script stops otherwise
+case_study_hourly_inventory,site_group,factor,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+case_study_hourly_inventory,region,character,Houston or Dallas-Fort Worth
+case_study_hourly_inventory,site_id,character,AQS site ID: state-county-site
+case_study_hourly_inventory,local_site_name,character,Site name given by the reporting agency
+case_study_hourly_inventory,pollutant,factor,"Ozone, NO2 or SO2"
+case_study_hourly_inventory,km_to_channel,numeric,"Distance to the land-cut Ship Channel in km, from 1c; NA in Dallas-Fort Worth"
+case_study_hourly_inventory,distance_band,character,"Within 7.5 km, 7.5 to 15 km or Over 15 km from the channel; NA in Dallas-Fort Worth"
+case_study_hourly_inventory,in_transition_band,logical,TRUE for Houston other sites 7.5 to 15 km from the channel; left out in one check
+case_study_hourly_inventory,left_out_in_checks,character,The 2c checks that leave out this monitor or some of its hours; NA when none
+case_study_hourly_inventory,method_codes,character,AQS method codes the monitor reported under
+case_study_hourly_inventory,method_change_from,Date,First day on the new method (Harvard Street NO2); NA when the method never changed
+case_study_hourly_inventory,relocated_from,Date,First day after the Deer Park #2 move; NA at other sites
+case_study_hourly_inventory,first_hour,character,"First hour with data, local standard time (UTC-6)"
+case_study_hourly_inventory,last_hour,character,"Last hour with data, local standard time (UTC-6)"
+case_study_hourly_inventory,n_hours,integer,Hours with data
+case_study_hourly_inventory,pct_hours,numeric,"Hours with data as a share of the 43,824 study hours"
+case_study_hourly_inventory,pct_hours_2021,numeric,Hours with data as a share of the hours in 2021
+case_study_hourly_inventory,pct_hours_2022,numeric,Hours with data as a share of the hours in 2022
+case_study_hourly_inventory,pct_hours_2023,numeric,Hours with data as a share of the hours in 2023
+case_study_hourly_inventory,pct_hours_2024,numeric,Hours with data as a share of the hours in 2024
+case_study_hourly_inventory,pct_hours_2025,numeric,Hours with data as a share of the hours in 2025
+case_study_hourly_inventory,n_valid_day_hours,integer,"Hours on valid days: 13 of 17 8-hour means for ozone, 18 of 24 hours for NO2 and SO2"
+case_study_hourly_inventory,n_event_hours,integer,Hours during Winter Storm Uri or Hurricane Beryl
+case_study_hourly_inventory,n_wildfire_hours,integer,Hours with the RT wildfire qualifier
+case_study_hourly_inventory,n_ordinary_hours,integer,"Valid-day hours outside Uri, Beryl and wildfire flags; the hours 2c analyses"
+case_study_hourly_inventory,pct_ordinary_hours,numeric,"Ordinary hours as a share of the 43,824 study hours"
+case_study_hourly_inventory,n_holiday_hours,integer,Hours on the three holidays left out of weekend comparisons
+case_study_hourly_inventory,n_post_method_change_hours,integer,Hours after the Harvard Street NO2 method change (is_post_method_change)
+case_study_hourly_inventory,n_post_relocation_hours,integer,Hours after the Deer Park #2 move (is_post_relocation)
+case_study_hourly_inventory,pct_below_mdl,numeric,Share of hours below the method detection limit
+case_study_hourly_inventory,pct_with_temperature,numeric,Share of hours with a temperature (Bayland Park's at Harvard Street)
+case_study_hourly_inventory,pct_with_wind,numeric,Share of hours with a wind reading (Croquet's at Harvard Street)
+case_study_hourly_inventory,wind_from_site,character,AQS site ID of the wind sensor used
+case_study_hourly_inventory,sonic_wind_from,Date,First day on the sonic wind sensor at a site that switched; NA otherwise
+case_study_hourly_inventory,longest_wind_gap_days,numeric,Longest run of whole days without wind in the wind used
+case_study_hourly_inventory,pct_calm,numeric,Share of hours with wind that are calm (below 0.5 m/s)
+case_study_hourly_inventory,n_direction_hours,integer,"Ordinary hours with a usable wind direction (not calm, not the wind-spike hour)"
+case_study_hourly_inventory,pct_direction_hours,numeric,"Ordinary hours with a usable wind direction as a share of the 43,824 study hours"
+case_study_hourly_inventory,min_sector_hours,integer,Direction hours in the thinnest of the 12 wind sectors
+case_study_hourly_site_profiles,pollutant,factor,Ozone or NO2
+case_study_hourly_site_profiles,season,factor,"All year, or a meteorological season (winter is December to February)"
+case_study_hourly_site_profiles,site_group,factor,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+case_study_hourly_site_profiles,site_id,character,AQS site ID: state-county-site
+case_study_hourly_site_profiles,local_site_name,character,Site name given by the reporting agency
+case_study_hourly_site_profiles,hour_local,integer,"Hour of day, local standard time (UTC-6); 6 is 7 am daylight time"
+case_study_hourly_site_profiles,n_hours,integer,Ordinary hours behind the mean
+case_study_hourly_site_profiles,mean_ppb,numeric,"Mean of the ordinary hours, ppb"
+case_study_hourly_group_profiles,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move"
+case_study_hourly_group_profiles,pollutant,factor,Ozone or NO2
+case_study_hourly_group_profiles,season,factor,"All year, or a meteorological season (winter is December to February)"
+case_study_hourly_group_profiles,site_group,factor,Case-study group under that site set
+case_study_hourly_group_profiles,hour_local,integer,"Hour of day, local standard time (UTC-6)"
+case_study_hourly_group_profiles,n_sites,integer,Sites in the group
+case_study_hourly_group_profiles,mean_ppb,numeric,"Mean of the sites' means at that hour, each site weighted equally, ppb"
+case_study_hourly_group_profiles,low_site_ppb,numeric,"Lowest site mean at that hour, ppb"
+case_study_hourly_group_profiles,high_site_ppb,numeric,"Highest site mean at that hour, ppb"
+case_study_hourly_gaps,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move"
+case_study_hourly_gaps,pollutant,factor,Ozone or NO2
+case_study_hourly_gaps,hour_local,integer,"Hour of day, local standard time (UTC-6)"
+case_study_hourly_gaps,n_paired_hours,integer,Hours when both groups report
+case_study_hourly_gaps,gap_ppb,numeric,"Mean Ship Channel minus Houston other in the same hour, ppb"
+case_study_hourly_gaps,ci_low,numeric,Lower end of the 95% range from the 14-day block bootstrap; NA for checks
+case_study_hourly_gaps,ci_high,numeric,Upper end of the 95% range from the 14-day block bootstrap; NA for checks
+case_study_hourly_weekend,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move"
+case_study_hourly_weekend,pollutant,factor,Ozone or NO2
+case_study_hourly_weekend,site_group,factor,Case-study group under that site set
+case_study_hourly_weekend,hour_local,integer,"Hour of day, local standard time (UTC-6)"
+case_study_hourly_weekend,n_sites,integer,Sites in the group
+case_study_hourly_weekend,min_weekend_hours,integer,Weekend hours at the group's thinnest site
+case_study_hourly_weekend,weekday_ppb,numeric,"Mean of the sites' weekday means, April to October, three holidays left out, ppb"
+case_study_hourly_weekend,weekend_ppb,numeric,"Mean of the sites' Saturday and Sunday means, April to October, ppb"
+case_study_hourly_weekend,weekend_ratio,numeric,weekend_ppb over weekday_ppb; below 1 means lower on weekends
+case_study_hourly_cycle_checks,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move"
+case_study_hourly_cycle_checks,pollutant,factor,Ozone or NO2
+case_study_hourly_cycle_checks,mean_gap_ppb,numeric,"Ship Channel minus Houston other, mean of the 24 hourly gaps, ppb"
+case_study_hourly_cycle_checks,morning_gap_ppb,numeric,"The same gap averaged over 6 to 8 am local standard time, ppb"
+case_study_hourly_cycle_checks,afternoon_gap_ppb,numeric,"The same gap averaged over 12 to 4 pm local standard time, ppb"
+case_study_hourly_cycle_checks,hours_ship_channel_higher,integer,"Hours of the day, of 24, when the Ship Channel mean is higher"
+case_study_hourly_cycle_checks,weekend_ratio_houston_ship_channel,numeric,"Ship Channel weekend over weekday mean, 6 to 8 am, April to October"
+case_study_hourly_cycle_checks,weekend_ratio_houston_other,numeric,"Houston other weekend over weekday mean, 6 to 8 am, April to October"
+case_study_hourly_cycle_checks,weekend_ratio_dallas_fort_worth,numeric,"Dallas-Fort Worth weekend over weekday mean, 6 to 8 am, April to October"
+case_study_ox_sites,site_group,factor,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+case_study_ox_sites,site_id,character,AQS site ID: state-county-site
+case_study_ox_sites,local_site_name,character,Site name given by the reporting agency
+case_study_ox_sites,n_ozone_hours,integer,Ordinary ozone hours
+case_study_ox_sites,n_paired_hours,integer,Hours when ozone and NO2 are both ordinary at the site
+case_study_ox_sites,pct_of_ozone_hours,numeric,Paired hours as a share of the ordinary ozone hours
+case_study_ox_sites,mean_ozone_ppb,numeric,"Mean ozone over the paired hours, ppb"
+case_study_ox_sites,mean_no2_ppb,numeric,"Mean NO2 over the paired hours, ppb"
+case_study_ox_sites,mean_ox_ppb,numeric,"Mean Ox (ozone + NO2) over the paired hours, ppb"
+case_study_ox_profiles,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move"
+case_study_ox_profiles,season,factor,"All year, or a meteorological season (winter is December to February)"
+case_study_ox_profiles,site_group,factor,Case-study group under that site set
+case_study_ox_profiles,hour_local,integer,"Hour of day, local standard time (UTC-6)"
+case_study_ox_profiles,n_sites,integer,Sites in the group
+case_study_ox_profiles,mean_ox_ppb,numeric,"Mean of the sites' mean Ox at that hour, each site weighted equally, ppb"
+case_study_ox_profiles,low_site_ppb,numeric,"Lowest site mean Ox at that hour, ppb"
+case_study_ox_profiles,high_site_ppb,numeric,"Highest site mean Ox at that hour, ppb"
+case_study_ox_hour_gaps,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move"
+case_study_ox_hour_gaps,measure,factor,"Ozone, NO2 or Ox, all on paired hours"
+case_study_ox_hour_gaps,hour_local,integer,"Hour of day, local standard time (UTC-6)"
+case_study_ox_hour_gaps,n_paired_hours,integer,Hours when both groups report
+case_study_ox_hour_gaps,gap_ppb,numeric,"Mean Ship Channel minus Houston other in the same hour, ppb"
+case_study_ox_hour_gaps,ci_low,numeric,Lower end of the 95% range from the 14-day block bootstrap; Ox in the main set only
+case_study_ox_hour_gaps,ci_high,numeric,Upper end of the 95% range from the 14-day block bootstrap; Ox in the main set only
+case_study_ox_checks,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move"
+case_study_ox_checks,season,factor,"All year, or a meteorological season (winter is December to February)"
+case_study_ox_checks,n_days,integer,Days with at least one paired hour for both groups
+case_study_ox_checks,ozone_gap_ppb,numeric,"Mean daily Ship Channel minus Houston other ozone, ppb"
+case_study_ox_checks,no2_gap_ppb,numeric,"Mean daily Ship Channel minus Houston other NO2, ppb"
+case_study_ox_checks,ox_gap_ppb,numeric,"Mean daily Ship Channel minus Houston other Ox, ppb"
+case_study_ox_checks,ozone_ci_low,numeric,Lower end of the 95% range of the ozone gap; main set only
+case_study_ox_checks,ozone_ci_high,numeric,Upper end of the 95% range of the ozone gap; main set only
+case_study_ox_checks,ox_ci_low,numeric,Lower end of the 95% range of the Ox gap; main set only
+case_study_ox_checks,ox_ci_high,numeric,Upper end of the 95% range of the Ox gap; main set only
+case_study_ox_checks,share_of_ozone_gap_closed,numeric,1 minus the Ox gap over the ozone gap: the part of the ozone gap that NO2 accounts for
+case_study_so2_spike_sites,site_set,factor,Main or Without Deer Park #2 after its move (the only check that changes SO2 hours)
+case_study_so2_spike_sites,site_group,factor,Case-study group: Houston Ship Channel or Houston other
+case_study_so2_spike_sites,site_id,character,AQS site ID: state-county-site
+case_study_so2_spike_sites,local_site_name,character,"Site name, shortened"
+case_study_so2_spike_sites,n_hours,integer,Ordinary SO2 hours
+case_study_so2_spike_sites,pct_below_mdl,numeric,Share of hours below the method detection limit
+case_study_so2_spike_sites,n_spike_hours,integer,Hours at or above 5 ppb
+case_study_so2_spike_sites,spike_rate_per_1000,numeric,"Spike hours per 1,000 ordinary hours"
+case_study_so2_spike_sites,n_spike_days,integer,Days with at least one spike hour
+case_study_so2_spike_sites,n_check_spike_hours,integer,Hours at or above 10 ppb (the check cutoff)
+case_study_so2_spike_sites,check_spike_rate_per_1000,numeric,"Hours at or above 10 ppb per 1,000 ordinary hours"
+case_study_so2_spike_sites,max_ppb,numeric,"Highest ordinary hour, ppb"
+case_study_so2_spike_sites,pct_spikes_daytime,numeric,"Share of spike hours between 9 am and 6 pm, local standard time"
+case_study_so2_spike_sites,n_episodes,integer,Runs of consecutive spike hours
+case_study_so2_spike_sites,median_episode_hours,numeric,"Median length of an episode, hours"
+case_study_so2_spike_sites,max_episode_hours,integer,"Longest episode, hours"
+case_study_so2_spike_sites,n_spike_hours_shared,integer,Spike hours when another Ship Channel site also spiked; NA at Croquet
+case_study_so2_spike_profiles,site_group,factor,Case-study group: Houston Ship Channel or Houston other
+case_study_so2_spike_profiles,site_id,character,AQS site ID: state-county-site
+case_study_so2_spike_profiles,local_site_name,character,"Site name, shortened"
+case_study_so2_spike_profiles,period_type,character,"Hour of day, Season, or Day type (April to October, three holidays left out)"
+case_study_so2_spike_profiles,period,character,"The hour (0 to 23, local standard time), season, or Weekday / Weekend"
+case_study_so2_spike_profiles,n_hours,integer,Ordinary SO2 hours in the period
+case_study_so2_spike_profiles,n_spike_hours,integer,Hours at or above 5 ppb in the period
+case_study_so2_spike_profiles,spike_rate_per_1000,numeric,"Spike hours per 1,000 ordinary hours in the period"
+case_study_so2_plume_test,period,factor,"All hours, Day (9 am to 6 pm) or Night and morning, local standard time"
+case_study_so2_plume_test,measure,factor,"Ozone, NO2 or Ox (ozone + NO2) at Deer Park #2"
+case_study_so2_plume_test,n_spike_hours,integer,SO2 spike hours with ozone and NO2 also ordinary
+case_study_so2_plume_test,n_episodes,integer,Runs of consecutive spike hours among them
+case_study_so2_plume_test,mean_difference_ppb,numeric,"Mean on spike hours minus the spike-free mean at the same hour and month, ppb"
+case_study_so2_plume_test,ci_low,numeric,Lower end of the 95% range from resampling whole episodes
+case_study_so2_plume_test,ci_high,numeric,Upper end of the 95% range from resampling whole episodes

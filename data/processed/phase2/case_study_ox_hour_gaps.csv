@@ -1,0 +1,289 @@
+site_set,measure,hour_local,n_paired_hours,gap_ppb,ci_low,ci_high
+Main,Ozone,0,1759,-2.39,NA,NA
+Main,Ozone,1,1507,-2.37,NA,NA
+Main,Ozone,2,1517,-2.3,NA,NA
+Main,Ozone,3,1696,-2.2,NA,NA
+Main,Ozone,4,1696,-2.21,NA,NA
+Main,Ozone,5,1760,-1.95,NA,NA
+Main,Ozone,6,1759,-1.36,NA,NA
+Main,Ozone,7,1749,-0.88,NA,NA
+Main,Ozone,8,1743,-0.48,NA,NA
+Main,Ozone,9,1729,-0.36,NA,NA
+Main,Ozone,10,1720,-0.76,NA,NA
+Main,Ozone,11,1729,-1.05,NA,NA
+Main,Ozone,12,1732,-1.35,NA,NA
+Main,Ozone,13,1741,-1.63,NA,NA
+Main,Ozone,14,1752,-1.99,NA,NA
+Main,Ozone,15,1754,-2.57,NA,NA
+Main,Ozone,16,1756,-3.04,NA,NA
+Main,Ozone,17,1758,-2.98,NA,NA
+Main,Ozone,18,1758,-2.64,NA,NA
+Main,Ozone,19,1760,-2.15,NA,NA
+Main,Ozone,20,1760,-1.97,NA,NA
+Main,Ozone,21,1760,-2.14,NA,NA
+Main,Ozone,22,1502,-2.03,NA,NA
+Main,Ozone,23,1688,-2.91,NA,NA
+Main,NO2,0,1759,0.79,NA,NA
+Main,NO2,1,1507,0.98,NA,NA
+Main,NO2,2,1517,0.92,NA,NA
+Main,NO2,3,1696,0.91,NA,NA
+Main,NO2,4,1696,1.22,NA,NA
+Main,NO2,5,1760,1.15,NA,NA
+Main,NO2,6,1759,0.62,NA,NA
+Main,NO2,7,1749,0.43,NA,NA
+Main,NO2,8,1743,0.52,NA,NA
+Main,NO2,9,1729,0.56,NA,NA
+Main,NO2,10,1720,0.7,NA,NA
+Main,NO2,11,1729,0.9,NA,NA
+Main,NO2,12,1732,1.08,NA,NA
+Main,NO2,13,1741,1.24,NA,NA
+Main,NO2,14,1752,1.34,NA,NA
+Main,NO2,15,1754,1.61,NA,NA
+Main,NO2,16,1756,1.69,NA,NA
+Main,NO2,17,1758,1.77,NA,NA
+Main,NO2,18,1758,1.51,NA,NA
+Main,NO2,19,1760,0.98,NA,NA
+Main,NO2,20,1760,0.7,NA,NA
+Main,NO2,21,1760,0.72,NA,NA
+Main,NO2,22,1502,0.65,NA,NA
+Main,NO2,23,1688,0.66,NA,NA
+Main,Ox,0,1759,-1.6,-2.02,-1.25
+Main,Ox,1,1507,-1.39,-1.73,-1.06
+Main,Ox,2,1517,-1.37,-1.71,-1.07
+Main,Ox,3,1696,-1.29,-1.62,-1
+Main,Ox,4,1696,-0.99,-1.3,-0.7
+Main,Ox,5,1760,-0.8,-1.1,-0.52
+Main,Ox,6,1759,-0.74,-1.07,-0.43
+Main,Ox,7,1749,-0.45,-0.79,-0.14
+Main,Ox,8,1743,0.05,-0.33,0.38
+Main,Ox,9,1729,0.2,-0.18,0.52
+Main,Ox,10,1720,-0.07,-0.46,0.27
+Main,Ox,11,1729,-0.15,-0.62,0.26
+Main,Ox,12,1732,-0.27,-0.86,0.28
+Main,Ox,13,1741,-0.39,-1.04,0.19
+Main,Ox,14,1752,-0.65,-1.3,-0.1
+Main,Ox,15,1754,-0.96,-1.58,-0.39
+Main,Ox,16,1756,-1.35,-1.94,-0.82
+Main,Ox,17,1758,-1.21,-1.71,-0.8
+Main,Ox,18,1758,-1.13,-1.56,-0.76
+Main,Ox,19,1760,-1.17,-1.56,-0.83
+Main,Ox,20,1760,-1.27,-1.67,-0.93
+Main,Ox,21,1760,-1.42,-1.81,-1.06
+Main,Ox,22,1502,-1.38,-1.78,-1.02
+Main,Ox,23,1688,-2.25,-2.71,-1.85
+Without the transition band,Ozone,0,1507,-1.94,NA,NA
+Without the transition band,Ozone,1,1270,-1.99,NA,NA
+Without the transition band,Ozone,2,1277,-1.99,NA,NA
+Without the transition band,Ozone,3,1457,-1.96,NA,NA
+Without the transition band,Ozone,4,1458,-2.15,NA,NA
+Without the transition band,Ozone,5,1510,-1.86,NA,NA
+Without the transition band,Ozone,6,1502,-1.28,NA,NA
+Without the transition band,Ozone,7,1477,-1.25,NA,NA
+Without the transition band,Ozone,8,1452,-1.45,NA,NA
+Without the transition band,Ozone,9,1430,-1.39,NA,NA
+Without the transition band,Ozone,10,1421,-1.49,NA,NA
+Without the transition band,Ozone,11,1438,-1.66,NA,NA
+Without the transition band,Ozone,12,1448,-1.85,NA,NA
+Without the transition band,Ozone,13,1473,-2.11,NA,NA
+Without the transition band,Ozone,14,1486,-2.49,NA,NA
+Without the transition band,Ozone,15,1495,-2.94,NA,NA
+Without the transition band,Ozone,16,1503,-3.51,NA,NA
+Without the transition band,Ozone,17,1504,-3.78,NA,NA
+Without the transition band,Ozone,18,1508,-3.58,NA,NA
+Without the transition band,Ozone,19,1511,-2.95,NA,NA
+Without the transition band,Ozone,20,1515,-2.66,NA,NA
+Without the transition band,Ozone,21,1513,-2.43,NA,NA
+Without the transition band,Ozone,22,1264,-1.97,NA,NA
+Without the transition band,Ozone,23,1429,-2.6,NA,NA
+Without the transition band,NO2,0,1507,1.79,NA,NA
+Without the transition band,NO2,1,1270,2.15,NA,NA
+Without the transition band,NO2,2,1277,2.39,NA,NA
+Without the transition band,NO2,3,1457,2.47,NA,NA
+Without the transition band,NO2,4,1458,2.92,NA,NA
+Without the transition band,NO2,5,1510,2.74,NA,NA
+Without the transition band,NO2,6,1502,2,NA,NA
+Without the transition band,NO2,7,1477,1.76,NA,NA
+Without the transition band,NO2,8,1452,1.98,NA,NA
+Without the transition band,NO2,9,1430,1.97,NA,NA
+Without the transition band,NO2,10,1421,1.91,NA,NA
+Without the transition band,NO2,11,1438,2.05,NA,NA
+Without the transition band,NO2,12,1448,2.15,NA,NA
+Without the transition band,NO2,13,1473,2.28,NA,NA
+Without the transition band,NO2,14,1486,2.45,NA,NA
+Without the transition band,NO2,15,1495,2.68,NA,NA
+Without the transition band,NO2,16,1503,2.72,NA,NA
+Without the transition band,NO2,17,1504,2.81,NA,NA
+Without the transition band,NO2,18,1508,2.59,NA,NA
+Without the transition band,NO2,19,1511,2,NA,NA
+Without the transition band,NO2,20,1515,1.75,NA,NA
+Without the transition band,NO2,21,1513,1.65,NA,NA
+Without the transition band,NO2,22,1264,1.61,NA,NA
+Without the transition band,NO2,23,1429,1.69,NA,NA
+Without the transition band,Ox,0,1507,-0.15,NA,NA
+Without the transition band,Ox,1,1270,0.16,NA,NA
+Without the transition band,Ox,2,1277,0.41,NA,NA
+Without the transition band,Ox,3,1457,0.51,NA,NA
+Without the transition band,Ox,4,1458,0.77,NA,NA
+Without the transition band,Ox,5,1510,0.88,NA,NA
+Without the transition band,Ox,6,1502,0.72,NA,NA
+Without the transition band,Ox,7,1477,0.52,NA,NA
+Without the transition band,Ox,8,1452,0.53,NA,NA
+Without the transition band,Ox,9,1430,0.58,NA,NA
+Without the transition band,Ox,10,1421,0.42,NA,NA
+Without the transition band,Ox,11,1438,0.39,NA,NA
+Without the transition band,Ox,12,1448,0.29,NA,NA
+Without the transition band,Ox,13,1473,0.17,NA,NA
+Without the transition band,Ox,14,1486,-0.04,NA,NA
+Without the transition band,Ox,15,1495,-0.26,NA,NA
+Without the transition band,Ox,16,1503,-0.8,NA,NA
+Without the transition band,Ox,17,1504,-0.97,NA,NA
+Without the transition band,Ox,18,1508,-0.99,NA,NA
+Without the transition band,Ox,19,1511,-0.95,NA,NA
+Without the transition band,Ox,20,1515,-0.91,NA,NA
+Without the transition band,Ox,21,1513,-0.78,NA,NA
+Without the transition band,Ox,22,1264,-0.35,NA,NA
+Without the transition band,Ox,23,1429,-0.91,NA,NA
+Without hours after the method change,Ozone,0,1721,-2.19,NA,NA
+Without hours after the method change,Ozone,1,1472,-2.13,NA,NA
+Without hours after the method change,Ozone,2,1481,-2.06,NA,NA
+Without hours after the method change,Ozone,3,1660,-2.03,NA,NA
+Without hours after the method change,Ozone,4,1660,-2.12,NA,NA
+Without hours after the method change,Ozone,5,1723,-1.8,NA,NA
+Without hours after the method change,Ozone,6,1719,-1.23,NA,NA
+Without hours after the method change,Ozone,7,1709,-0.89,NA,NA
+Without hours after the method change,Ozone,8,1690,-0.64,NA,NA
+Without hours after the method change,Ozone,9,1670,-0.54,NA,NA
+Without hours after the method change,Ozone,10,1656,-0.87,NA,NA
+Without hours after the method change,Ozone,11,1676,-1.19,NA,NA
+Without hours after the method change,Ozone,12,1690,-1.48,NA,NA
+Without hours after the method change,Ozone,13,1702,-1.74,NA,NA
+Without hours after the method change,Ozone,14,1714,-2.1,NA,NA
+Without hours after the method change,Ozone,15,1716,-2.67,NA,NA
+Without hours after the method change,Ozone,16,1716,-3.19,NA,NA
+Without hours after the method change,Ozone,17,1718,-3.21,NA,NA
+Without hours after the method change,Ozone,18,1720,-2.9,NA,NA
+Without hours after the method change,Ozone,19,1722,-2.36,NA,NA
+Without hours after the method change,Ozone,20,1723,-2.13,NA,NA
+Without hours after the method change,Ozone,21,1723,-2.21,NA,NA
+Without hours after the method change,Ozone,22,1468,-2,NA,NA
+Without hours after the method change,Ozone,23,1654,-2.75,NA,NA
+Without hours after the method change,NO2,0,1721,1.04,NA,NA
+Without hours after the method change,NO2,1,1472,1.28,NA,NA
+Without hours after the method change,NO2,2,1481,1.31,NA,NA
+Without hours after the method change,NO2,3,1660,1.33,NA,NA
+Without hours after the method change,NO2,4,1660,1.69,NA,NA
+Without hours after the method change,NO2,5,1723,1.51,NA,NA
+Without hours after the method change,NO2,6,1719,0.93,NA,NA
+Without hours after the method change,NO2,7,1709,0.7,NA,NA
+Without hours after the method change,NO2,8,1690,0.72,NA,NA
+Without hours after the method change,NO2,9,1670,0.72,NA,NA
+Without hours after the method change,NO2,10,1656,0.82,NA,NA
+Without hours after the method change,NO2,11,1676,1.02,NA,NA
+Without hours after the method change,NO2,12,1690,1.2,NA,NA
+Without hours after the method change,NO2,13,1702,1.37,NA,NA
+Without hours after the method change,NO2,14,1714,1.45,NA,NA
+Without hours after the method change,NO2,15,1716,1.72,NA,NA
+Without hours after the method change,NO2,16,1716,1.83,NA,NA
+Without hours after the method change,NO2,17,1718,1.94,NA,NA
+Without hours after the method change,NO2,18,1720,1.71,NA,NA
+Without hours after the method change,NO2,19,1722,1.22,NA,NA
+Without hours after the method change,NO2,20,1723,0.96,NA,NA
+Without hours after the method change,NO2,21,1723,0.97,NA,NA
+Without hours after the method change,NO2,22,1468,0.92,NA,NA
+Without hours after the method change,NO2,23,1654,0.93,NA,NA
+Without hours after the method change,Ox,0,1721,-1.15,NA,NA
+Without hours after the method change,Ox,1,1472,-0.85,NA,NA
+Without hours after the method change,Ox,2,1481,-0.75,NA,NA
+Without hours after the method change,Ox,3,1660,-0.7,NA,NA
+Without hours after the method change,Ox,4,1660,-0.43,NA,NA
+Without hours after the method change,Ox,5,1723,-0.29,NA,NA
+Without hours after the method change,Ox,6,1719,-0.3,NA,NA
+Without hours after the method change,Ox,7,1709,-0.18,NA,NA
+Without hours after the method change,Ox,8,1690,0.09,NA,NA
+Without hours after the method change,Ox,9,1670,0.18,NA,NA
+Without hours after the method change,Ox,10,1656,-0.05,NA,NA
+Without hours after the method change,Ox,11,1676,-0.17,NA,NA
+Without hours after the method change,Ox,12,1690,-0.29,NA,NA
+Without hours after the method change,Ox,13,1702,-0.37,NA,NA
+Without hours after the method change,Ox,14,1714,-0.65,NA,NA
+Without hours after the method change,Ox,15,1716,-0.95,NA,NA
+Without hours after the method change,Ox,16,1716,-1.35,NA,NA
+Without hours after the method change,Ox,17,1718,-1.27,NA,NA
+Without hours after the method change,Ox,18,1720,-1.19,NA,NA
+Without hours after the method change,Ox,19,1722,-1.14,NA,NA
+Without hours after the method change,Ox,20,1723,-1.17,NA,NA
+Without hours after the method change,Ox,21,1723,-1.24,NA,NA
+Without hours after the method change,Ox,22,1468,-1.08,NA,NA
+Without hours after the method change,Ox,23,1654,-1.82,NA,NA
+Without Deer Park #2 after its move,Ozone,0,1758,-2.73,NA,NA
+Without Deer Park #2 after its move,Ozone,1,1504,-2.74,NA,NA
+Without Deer Park #2 after its move,Ozone,2,1515,-2.62,NA,NA
+Without Deer Park #2 after its move,Ozone,3,1695,-2.52,NA,NA
+Without Deer Park #2 after its move,Ozone,4,1695,-2.55,NA,NA
+Without Deer Park #2 after its move,Ozone,5,1759,-2.27,NA,NA
+Without Deer Park #2 after its move,Ozone,6,1754,-1.64,NA,NA
+Without Deer Park #2 after its move,Ozone,7,1743,-1.19,NA,NA
+Without Deer Park #2 after its move,Ozone,8,1734,-0.8,NA,NA
+Without Deer Park #2 after its move,Ozone,9,1723,-0.65,NA,NA
+Without Deer Park #2 after its move,Ozone,10,1715,-0.98,NA,NA
+Without Deer Park #2 after its move,Ozone,11,1726,-1.24,NA,NA
+Without Deer Park #2 after its move,Ozone,12,1730,-1.52,NA,NA
+Without Deer Park #2 after its move,Ozone,13,1740,-1.75,NA,NA
+Without Deer Park #2 after its move,Ozone,14,1751,-2.13,NA,NA
+Without Deer Park #2 after its move,Ozone,15,1753,-2.71,NA,NA
+Without Deer Park #2 after its move,Ozone,16,1755,-3.23,NA,NA
+Without Deer Park #2 after its move,Ozone,17,1756,-3.27,NA,NA
+Without Deer Park #2 after its move,Ozone,18,1756,-3.02,NA,NA
+Without Deer Park #2 after its move,Ozone,19,1759,-2.59,NA,NA
+Without Deer Park #2 after its move,Ozone,20,1759,-2.38,NA,NA
+Without Deer Park #2 after its move,Ozone,21,1759,-2.52,NA,NA
+Without Deer Park #2 after its move,Ozone,22,1501,-2.38,NA,NA
+Without Deer Park #2 after its move,Ozone,23,1687,-3.24,NA,NA
+Without Deer Park #2 after its move,NO2,0,1758,1,NA,NA
+Without Deer Park #2 after its move,NO2,1,1504,1.21,NA,NA
+Without Deer Park #2 after its move,NO2,2,1515,1.15,NA,NA
+Without Deer Park #2 after its move,NO2,3,1695,1.15,NA,NA
+Without Deer Park #2 after its move,NO2,4,1695,1.49,NA,NA
+Without Deer Park #2 after its move,NO2,5,1759,1.39,NA,NA
+Without Deer Park #2 after its move,NO2,6,1754,0.75,NA,NA
+Without Deer Park #2 after its move,NO2,7,1743,0.53,NA,NA
+Without Deer Park #2 after its move,NO2,8,1734,0.64,NA,NA
+Without Deer Park #2 after its move,NO2,9,1723,0.7,NA,NA
+Without Deer Park #2 after its move,NO2,10,1715,0.83,NA,NA
+Without Deer Park #2 after its move,NO2,11,1726,1.03,NA,NA
+Without Deer Park #2 after its move,NO2,12,1730,1.21,NA,NA
+Without Deer Park #2 after its move,NO2,13,1740,1.36,NA,NA
+Without Deer Park #2 after its move,NO2,14,1751,1.48,NA,NA
+Without Deer Park #2 after its move,NO2,15,1753,1.76,NA,NA
+Without Deer Park #2 after its move,NO2,16,1755,1.86,NA,NA
+Without Deer Park #2 after its move,NO2,17,1756,2.01,NA,NA
+Without Deer Park #2 after its move,NO2,18,1756,1.84,NA,NA
+Without Deer Park #2 after its move,NO2,19,1759,1.29,NA,NA
+Without Deer Park #2 after its move,NO2,20,1759,0.97,NA,NA
+Without Deer Park #2 after its move,NO2,21,1759,0.96,NA,NA
+Without Deer Park #2 after its move,NO2,22,1501,0.86,NA,NA
+Without Deer Park #2 after its move,NO2,23,1687,0.86,NA,NA
+Without Deer Park #2 after its move,Ox,0,1758,-1.74,NA,NA
+Without Deer Park #2 after its move,Ox,1,1504,-1.53,NA,NA
+Without Deer Park #2 after its move,Ox,2,1515,-1.48,NA,NA
+Without Deer Park #2 after its move,Ox,3,1695,-1.37,NA,NA
+Without Deer Park #2 after its move,Ox,4,1695,-1.07,NA,NA
+Without Deer Park #2 after its move,Ox,5,1759,-0.89,NA,NA
+Without Deer Park #2 after its move,Ox,6,1754,-0.89,NA,NA
+Without Deer Park #2 after its move,Ox,7,1743,-0.66,NA,NA
+Without Deer Park #2 after its move,Ox,8,1734,-0.16,NA,NA
+Without Deer Park #2 after its move,Ox,9,1723,0.05,NA,NA
+Without Deer Park #2 after its move,Ox,10,1715,-0.15,NA,NA
+Without Deer Park #2 after its move,Ox,11,1726,-0.21,NA,NA
+Without Deer Park #2 after its move,Ox,12,1730,-0.31,NA,NA
+Without Deer Park #2 after its move,Ox,13,1740,-0.4,NA,NA
+Without Deer Park #2 after its move,Ox,14,1751,-0.65,NA,NA
+Without Deer Park #2 after its move,Ox,15,1753,-0.95,NA,NA
+Without Deer Park #2 after its move,Ox,16,1755,-1.37,NA,NA
+Without Deer Park #2 after its move,Ox,17,1756,-1.25,NA,NA
+Without Deer Park #2 after its move,Ox,18,1756,-1.18,NA,NA
+Without Deer Park #2 after its move,Ox,19,1759,-1.3,NA,NA
+Without Deer Park #2 after its move,Ox,20,1759,-1.41,NA,NA
+Without Deer Park #2 after its move,Ox,21,1759,-1.56,NA,NA
+Without Deer Park #2 after its move,Ox,22,1501,-1.52,NA,NA
+Without Deer Park #2 after its move,Ox,23,1687,-2.39,NA,NA

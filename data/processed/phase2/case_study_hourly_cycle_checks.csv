@@ -1,0 +1,8 @@
+site_set,pollutant,mean_gap_ppb,morning_gap_ppb,afternoon_gap_ppb,hours_ship_channel_higher,weekend_ratio_houston_ship_channel,weekend_ratio_houston_other,weekend_ratio_dallas_fort_worth
+Main,Ozone,-1.841,-0.876,-2.013,0,1.198,1.189,1.178
+Without the transition band,Ozone,-2.238,-1.375,-2.611,0,1.198,1.159,1.178
+Without Deer Park #2 after its move,Ozone,-2.141,-1.191,-2.177,0,1.196,1.189,1.178
+Main,NO2,1.109,0.707,1.474,24,0.64,0.581,0.497
+Without the transition band,NO2,2.259,2.041,2.475,24,0.64,0.555,0.497
+Without hours after the method change,NO2,1.353,0.971,1.607,24,0.64,0.563,0.497
+Without Deer Park #2 after its move,NO2,1.3,0.821,1.614,24,0.645,0.581,0.497

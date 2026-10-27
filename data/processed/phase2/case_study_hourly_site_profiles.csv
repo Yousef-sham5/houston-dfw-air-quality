@@ -1,0 +1,1441 @@
+pollutant,season,site_group,site_id,local_site_name,hour_local,n_hours,mean_ppb
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,0,1748,17.16
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,1,1748,16.22
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,2,1748,15.21
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,3,1748,13.89
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,4,1748,12.08
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,5,1747,10.03
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,6,1741,9.65
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,7,1734,12.88
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,8,1719,18.69
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,9,1706,25.45
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,10,1694,31.56
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,11,1696,36.29
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,12,1719,39.35
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,13,1749,40.9
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,14,1753,40.91
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,15,1753,39.56
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,16,1751,36.75
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,17,1750,32.04
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,18,1753,26.44
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,19,1754,22.69
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,20,1754,21.03
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,21,1754,19.81
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,22,1499,19.02
+Ozone,All year,Houston Ship Channel,48-201-1034,Houston East,23,1688,17.88
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,1771,21.4
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,1773,20.35
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,2,1772,19.36
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,3,1773,18.25
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,4,1774,16.75
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,5,1775,14.89
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,6,1774,14.16
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,7,1769,17.13
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,8,1769,22.9
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,9,1770,28.59
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,10,1761,33.51
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,11,1753,37.21
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,12,1760,39.45
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,13,1743,40.64
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,14,1756,40.84
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,15,1753,39.91
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,16,1761,38.04
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17,1768,35.32
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,18,1772,31.49
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,19,1777,28.31
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,20,1777,26.26
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,21,1778,24.82
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,22,1521,23.74
+Ozone,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,23,1709,22.27
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,0,1628,21.41
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,1,1628,20.28
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,2,1628,19.21
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,3,1629,18.14
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,4,1630,16.61
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,5,1630,14.33
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,6,1626,13.3
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,7,1613,16.49
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,8,1592,22.52
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,9,1581,28.82
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,10,1571,34.45
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,11,1582,38.61
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,12,1597,41.54
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,13,1624,43.11
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,14,1631,43.66
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,15,1634,43.03
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,16,1635,41.26
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,17,1635,37.87
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,18,1634,33.01
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,19,1633,28.87
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,20,1637,26.59
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,21,1637,25.02
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,22,1385,23.7
+Ozone,All year,Houston other,48-201-0055,Houston Bayland Park,23,1552,22.79
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,0,1731,22.03
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,1,1731,21.06
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,2,1731,19.85
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,3,1731,18.51
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,4,1730,16.73
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,5,1729,14.5
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,6,1730,13.35
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,7,1722,15.63
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,8,1706,20.62
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,9,1688,26.7
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,10,1662,32.82
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,11,1679,37.46
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,12,1696,40.39
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,13,1722,42.2
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,14,1729,42.55
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,15,1731,42.02
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,16,1736,39.93
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,17,1739,35.98
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,18,1739,30.9
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,19,1739,27.05
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,20,1739,25.12
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,21,1739,24.21
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,22,1489,23.41
+Ozone,All year,Houston other,48-201-0417,Houston Harvard Street,23,1676,23.22
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,1704,26.61
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,1707,26.01
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2,1707,25.02
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,3,1706,23.67
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,4,1706,21.79
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,5,1705,19.23
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,6,1700,17.78
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,7,1690,19.65
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,8,1661,24.4
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,9,1654,29.77
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,10,1652,34.48
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,11,1679,38.29
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,12,1692,41.09
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,13,1714,42.98
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,14,1714,44.25
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,15,1717,44.75
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,16,1716,44.28
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,17,1716,41.87
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,18,1718,37.36
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,19,1717,32.38
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,20,1718,29.53
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,21,1719,28.24
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,22,1484,27.47
+Ozone,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,23,1661,27.01
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,1773,24.22
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,1773,23.41
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2,1772,22.47
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,3,1770,21.31
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,4,1770,19.82
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,5,1770,17.78
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,6,1768,16.21
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,7,1756,17.59
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,8,1743,21.85
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,9,1733,27.5
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,10,1737,32.79
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,11,1740,37.13
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,12,1755,40.56
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13,1774,42.82
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14,1777,43.96
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,15,1776,44.29
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,16,1776,43.41
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,17,1777,40.58
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,18,1778,36.15
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,19,1778,31.82
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,20,1778,28.53
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,21,1777,26.73
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,22,1523,25.42
+Ozone,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,23,1714,24.81
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,0,440,15.84
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,1,440,15.6
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,2,440,15.28
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,3,440,14.75
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,4,440,13.78
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,5,440,11.78
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,6,440,9.98
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,7,440,9.61
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,8,437,12.19
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,9,433,17.14
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,10,432,22.53
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,11,424,26.46
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,12,426,29.09
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,13,439,30.83
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,14,441,31.38
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,15,441,30.9
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,16,441,28.71
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,17,440,24.02
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,18,441,18.69
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,19,441,16.84
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,20,441,16.56
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,21,441,16.45
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,22,378,16.5
+Ozone,Winter,Houston Ship Channel,48-201-1034,Houston East,23,427,16.11
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,441,19.9
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,442,19.17
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,2,442,18.68
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,3,442,18.42
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,4,442,17.55
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,5,442,16.32
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,6,443,14.85
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,7,442,14.02
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,8,442,16.61
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,9,442,21.27
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,10,438,25.51
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,11,436,28.6
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,12,439,30.85
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,13,434,32.21
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,14,436,33.27
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,15,437,33.12
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,16,438,31.91
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17,440,29.18
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,18,442,25.53
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,19,442,23.23
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,20,443,22.24
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,21,443,21.5
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,22,378,21.12
+Ozone,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,23,425,20.34
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,0,381,18.66
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,1,381,18.31
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,2,381,17.91
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,3,381,17.54
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,4,381,16.91
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,5,381,15.92
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,6,381,13.72
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,7,379,12.34
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,8,376,14.89
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,9,372,20.06
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,10,367,25.16
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,11,373,28.5
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,12,375,31.38
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,13,377,33.03
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,14,380,34.13
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,15,380,34.11
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,16,381,32.85
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,17,381,29.48
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,18,381,24.3
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,19,380,21.35
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,20,380,20.65
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,21,380,20.21
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,22,321,19.74
+Ozone,Winter,Houston other,48-201-0055,Houston Bayland Park,23,363,19.05
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,0,408,18.56
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,1,408,18.3
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,2,408,17.89
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,3,408,17.27
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,4,408,16.12
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,5,407,14.57
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,6,409,12.44
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,7,409,11.43
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,8,406,13.56
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,9,401,17.51
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,10,394,22.14
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,11,398,25.93
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,12,398,28.44
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,13,402,30.33
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,14,406,31.14
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,15,405,31.22
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,16,408,29.89
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,17,409,26.65
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,18,409,21.98
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,19,409,19.58
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,20,409,19.14
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,21,409,19.08
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,22,352,18.76
+Ozone,Winter,Houston other,48-201-0417,Houston Harvard Street,23,396,18.88
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,405,22.13
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,406,21.99
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2,406,21.64
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,3,406,21.14
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,4,406,20.51
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,5,406,19.27
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,6,405,17.1
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,7,403,15.86
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,8,403,17.78
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,9,401,21.52
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,10,396,24.66
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,11,403,27.34
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,12,402,29.65
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,13,408,31.77
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,14,408,33.37
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,15,410,33.9
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,16,409,33.37
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,17,409,30.53
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,18,409,25.57
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,19,409,22.37
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,20,410,21.61
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,21,410,21.66
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,22,351,21.43
+Ozone,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,23,395,21.83
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,435,19.34
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,435,19
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2,434,18.65
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,3,434,17.92
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,4,433,17.24
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,5,433,16.28
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,6,432,14.9
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,7,431,13.57
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,8,427,15.14
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,9,423,18.58
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,10,422,22.14
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,11,424,25.21
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,12,427,28.2
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13,434,30.23
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14,436,31.69
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,15,434,32.2
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,16,434,31.71
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,17,435,28.7
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,18,436,24.65
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,19,436,21.94
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,20,436,20.58
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,21,436,20.02
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,22,373,19.76
+Ozone,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,23,421,19.55
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,0,440,23.69
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,1,440,22.96
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,2,440,21.87
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,3,440,20.25
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,4,440,17.86
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,5,439,15.32
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,6,439,15.12
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,7,437,19.13
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,8,433,24.97
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,9,429,30.77
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,10,425,35.52
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,11,429,39.54
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,12,434,41.94
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,13,442,43.21
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,14,442,43.39
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,15,442,42.38
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,16,441,40.34
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,17,442,37.32
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,18,442,32.8
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,19,442,28.91
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,20,442,27.36
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,21,442,26.03
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,22,378,25.08
+Ozone,Spring,Houston Ship Channel,48-201-1034,Houston East,23,422,24.53
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,446,26.81
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,445,25.93
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,2,445,24.98
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,3,446,23.98
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,4,447,22.62
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,5,447,20.75
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,6,447,20.14
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,7,446,23.08
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,8,445,28.38
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,9,444,32.68
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,10,441,36.39
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,11,438,39.29
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,12,442,41.12
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,13,440,42.16
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,14,444,42.24
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,15,442,41.45
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,16,444,40.07
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17,444,38.79
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,18,444,36.2
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,19,447,33.3
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,20,447,31.28
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,21,447,30.04
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,22,383,28.85
+Ozone,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,23,428,27.85
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,0,424,27.88
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,1,424,26.74
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,2,424,25.71
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,3,424,24.61
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,4,425,22.9
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,5,425,20.21
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,6,425,18.86
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,7,424,22.41
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,8,420,28.69
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,9,412,33.96
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,10,412,38.26
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,11,414,41.52
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,12,413,43.53
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,13,423,44.85
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,14,425,45.17
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,15,425,44.85
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,16,426,43.76
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,17,426,41.75
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,18,425,38.83
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,19,426,35.06
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,20,427,32.59
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,21,427,31
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,22,365,29.52
+Ozone,Spring,Houston other,48-201-0055,Houston Bayland Park,23,399,28.77
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,0,443,26.44
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,1,443,25.73
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,2,443,24.4
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,3,443,23.23
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,4,443,21
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,5,442,18.4
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,6,442,17.27
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,7,438,19.96
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,8,430,24.93
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,9,430,30.47
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,10,425,35.75
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,11,431,39.09
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,12,435,40.99
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,13,441,42.59
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,14,441,43.26
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,15,444,42.79
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,16,444,41.57
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,17,445,39.16
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,18,445,35.71
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,19,445,31.9
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,20,445,29.59
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,21,445,28.54
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,22,381,27.52
+Ozone,Spring,Houston other,48-201-0417,Houston Harvard Street,23,426,27.4
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,414,30.31
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,414,30.17
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2,414,29.52
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,3,414,28.28
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,4,414,26.39
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,5,414,24
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,6,412,22.75
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,7,410,24.98
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,8,395,29.24
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,9,399,33.34
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,10,400,37.25
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,11,405,40.87
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,12,412,43.65
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,13,417,45.73
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,14,415,47.28
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,15,416,47.9
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,16,417,47.65
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,17,416,46.19
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,18,417,43.19
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,19,417,38.16
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,20,417,34.4
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,21,417,32.27
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,22,359,31.06
+Ozone,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,23,400,30.64
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,456,28.27
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,456,27.52
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2,456,26.34
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,3,454,25.46
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,4,455,23.95
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,5,456,21.96
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,6,455,20.22
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,7,449,21.75
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,8,450,25.41
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,9,443,30.09
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,10,446,34.01
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,11,448,37.97
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,12,453,41.29
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13,456,43.74
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14,457,44.85
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,15,457,45.18
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,16,457,44.72
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,17,457,43.44
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,18,457,40.33
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,19,457,36.07
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,20,457,32.6
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,21,457,30.89
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,22,390,29.05
+Ozone,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,23,437,28.97
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,0,448,14.13
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,1,448,12.85
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,2,448,11.83
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,3,448,10.21
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,4,448,8.17
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,5,448,6.24
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,6,444,7.46
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,7,440,13.71
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,8,435,20.64
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,9,438,27.71
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,10,432,34.41
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,11,438,39.76
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,12,445,43.55
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,13,448,44.92
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,14,449,44.24
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,15,448,42.06
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,16,448,38.46
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,17,448,33.86
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,18,449,28.68
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,19,449,23.43
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,20,449,20.16
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,21,449,18.01
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,22,384,16.51
+Ozone,Summer,Houston Ship Channel,48-201-1034,Houston East,23,433,14.85
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,435,17.5
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,436,16.41
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,2,435,15.33
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,3,435,13.77
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,4,435,11.9
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,5,436,9.75
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,6,434,10.63
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,7,431,16.77
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,8,433,23.13
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,9,436,28.89
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,10,434,34.17
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,11,432,38.35
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,12,433,40.63
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,13,429,41.59
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,14,432,40.89
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,15,433,39.76
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,16,436,36.88
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17,436,33.86
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,18,436,30.01
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,19,438,26.15
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,20,437,23.4
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,21,438,21.46
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,22,375,19.93
+Ozone,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,23,423,18.11
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,0,400,18.37
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,1,400,16.9
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,2,400,15.56
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,3,401,14.3
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,4,401,12.44
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,5,401,9.84
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,6,400,11.1
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,7,391,17.46
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,8,389,23.96
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,9,391,30.04
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,10,387,35.58
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,11,393,39.93
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,12,395,42.75
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,13,403,43.86
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,14,405,43.84
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,15,406,42.51
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,16,405,40.27
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,17,405,37.1
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,18,405,32.86
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,19,404,28.05
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,20,406,24.73
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,21,406,22.55
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,22,341,21.13
+Ozone,Summer,Houston other,48-201-0055,Houston Bayland Park,23,387,20.42
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,0,435,19.89
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,1,435,18.8
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,2,435,17.86
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,3,435,16.47
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,4,434,14.75
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,5,435,12.39
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,6,433,12.58
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,7,430,17.49
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,8,429,23.26
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,9,420,29.6
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,10,420,36.17
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,11,424,41.46
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,12,428,44.76
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,13,435,46.48
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,14,436,45.98
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,15,436,45.21
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,16,438,42.28
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,17,439,37.64
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,18,439,32.47
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,19,439,27.81
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,20,439,24.44
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,21,439,22.53
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,22,374,21.36
+Ozone,Summer,Houston other,48-201-0417,Houston Harvard Street,23,423,21.7
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,445,27.85
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,447,26.33
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2,447,24.46
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,3,446,22.44
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,4,446,19.83
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,5,446,16.54
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,6,445,16.47
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,7,441,21.04
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,8,431,27.43
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,9,433,34.11
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,10,433,40.05
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,11,442,44.18
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,12,445,46.7
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,13,446,47.67
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,14,448,48.2
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,15,448,48.67
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,16,448,48.47
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,17,448,46.92
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,18,449,44.21
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,19,448,39.31
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,20,448,34.58
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,21,449,32.15
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,22,391,30.66
+Ozone,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,23,436,29.07
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,436,26.25
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,436,24.85
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2,436,23.54
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,3,436,21.74
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,4,436,19.57
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,5,436,16.71
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,6,436,15.88
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,7,433,19.99
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,8,425,26.33
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,9,426,34.39
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,10,425,41.65
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,11,428,46.31
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,12,431,49.46
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13,438,51.42
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14,438,52.17
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,15,438,52.22
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,16,438,51.05
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,17,438,48.34
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,18,438,43.78
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,19,438,38.57
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,20,438,33.73
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,21,438,30.6
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,22,378,28.49
+Ozone,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,23,424,27.38
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,0,420,14.93
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,420,13.39
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,2,420,11.75
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,3,420,10.26
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,4,420,8.42
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,5,420,6.72
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,6,418,5.87
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,7,417,8.91
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,8,414,16.95
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,9,406,26.28
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,10,405,33.99
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,11,405,39.4
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,12,414,42.7
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,13,420,44.71
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,14,421,44.75
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,15,422,43.01
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,16,421,39.58
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,17,420,32.95
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,18,421,25.49
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,19,422,21.48
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,20,422,20.01
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,21,422,18.7
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,22,359,17.97
+Ozone,Autumn,Houston Ship Channel,48-201-1034,Houston East,23,406,16.06
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,449,21.27
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,450,19.81
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,2,450,18.36
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,3,450,16.72
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,4,450,14.82
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,5,450,12.67
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,6,450,10.96
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,7,450,14.61
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,8,449,23.45
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,9,448,31.45
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,10,448,37.87
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,11,447,42.47
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,12,446,45.11
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,13,440,46.5
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,14,444,46.82
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,15,441,45.26
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,16,443,43.22
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17,448,39.32
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,18,450,34.13
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,19,450,30.43
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,20,450,28
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,21,450,26.19
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,22,385,24.95
+Ozone,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,23,433,22.7
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,0,423,20.3
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,423,18.78
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,2,423,17.34
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,3,423,15.82
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,4,423,13.99
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,5,423,11.23
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,6,420,9.41
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,7,419,13.36
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,8,407,21.81
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,9,406,30.46
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,10,405,37.89
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,11,402,43.72
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,12,414,47.6
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,13,421,49.65
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,14,421,50.55
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,15,423,49.7
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,16,423,47.27
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,17,423,42.25
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,18,423,35.16
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,19,423,30.18
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,20,424,27.65
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,21,424,25.67
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,22,358,23.75
+Ozone,Autumn,Houston other,48-201-0055,Houston Bayland Park,23,403,22.51
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,0,445,22.92
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,1,445,21.13
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,2,445,19.08
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,3,445,16.94
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,4,445,14.95
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,5,445,12.61
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,6,446,11.06
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,7,445,13.44
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,8,441,20.36
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,9,437,28.63
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,10,423,36.49
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,11,426,42.6
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,12,435,46.43
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,13,444,48.36
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,14,446,48.89
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,15,446,47.95
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,16,446,45.18
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,17,446,39.74
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,18,446,32.75
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,19,446,28.33
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,20,446,26.83
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,21,446,26.25
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,22,382,25.61
+Ozone,Autumn,Houston other,48-201-0417,Houston Harvard Street,23,431,24.57
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,440,26
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,440,25.49
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2,440,24.47
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,3,440,22.91
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,4,440,20.64
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,5,439,17.41
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,6,438,15.08
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,7,436,16.74
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,8,432,23.12
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,9,421,29.79
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,10,423,35.36
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,11,429,40.08
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,12,433,43.52
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,13,443,45.98
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,14,443,47.44
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,15,443,47.85
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,16,442,46.94
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,17,443,43.19
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,18,443,35.81
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,19,443,29.19
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,20,443,27.16
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,21,443,26.59
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,22,383,26.39
+Ozone,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,23,430,26.28
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,446,22.87
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,446,22.1
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2,446,21.18
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,3,446,19.96
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,4,446,18.35
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,5,445,16.02
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,6,445,13.7
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,7,443,14.96
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,8,441,20.39
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,9,441,26.78
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,10,444,33.18
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,11,440,38.85
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,12,444,43.07
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13,446,45.71
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14,446,46.99
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,15,447,47.36
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,16,447,45.95
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,17,447,41.61
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,18,447,35.62
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,19,447,30.5
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,20,447,27.04
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,21,446,25.23
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,22,382,24.18
+Ozone,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,23,432,23.19
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,0,1774,10.8
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,1,1518,10.8
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,2,1516,11.02
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,3,1709,11.59
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,4,1709,13.04
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,5,1774,14.93
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,6,1768,16.1
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,7,1756,15.69
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,8,1737,14.15
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,9,1732,11.87
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,10,1726,9.54
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,11,1720,8.09
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,12,1740,7.43
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,13,1758,7.28
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,14,1762,7.55
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,15,1762,8.03
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,16,1764,8.73
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,17,1764,10.37
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,18,1768,12.54
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,19,1772,13.24
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,20,1774,12.67
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,21,1774,12.1
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,22,1774,11.54
+NO2,All year,Houston Ship Channel,48-201-1034,Houston East,23,1774,11.14
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,1760,6.53
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,1510,6.61
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,2,1684,6.56
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,3,1753,6.76
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,4,1761,7.68
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,5,1763,9.44
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,6,1762,11.2
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,7,1755,11.38
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,8,1759,9.83
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,9,1752,7.67
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,10,1748,5.94
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,11,1739,4.9
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,12,1741,4.45
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,13,1717,4.29
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,14,1714,4.21
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,15,1716,4.51
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,16,1734,4.71
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17,1748,5.33
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,18,1757,6.39
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,19,1762,7.08
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,20,1766,7.21
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,21,1766,7.12
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,22,1764,6.9
+NO2,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,23,1763,6.64
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,0,1654,6.81
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,1,1407,6.47
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,2,1407,6.43
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,3,1603,6.61
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,4,1603,7.36
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,5,1657,9.31
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,6,1651,11.48
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,7,1635,11.68
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,8,1613,9.95
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,9,1590,7.72
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,10,1580,5.81
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,11,1588,4.52
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,12,1592,3.87
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,13,1608,3.55
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,14,1621,3.51
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,15,1634,3.68
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,16,1640,4.07
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,17,1644,5.1
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,18,1650,6.95
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,19,1653,8.17
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,20,1655,8.21
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,21,1652,7.93
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,22,1652,7.56
+NO2,All year,Houston other,48-201-0055,Houston Bayland Park,23,1653,7.16
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,0,1709,8.63
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,1,1464,8.59
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,2,1461,9.12
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,3,1649,9.54
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,4,1649,10.53
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,5,1710,12.28
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,6,1708,14.1
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,7,1700,14.14
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,8,1679,12.53
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,9,1635,10.25
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,10,1614,8
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,11,1627,6.52
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,12,1635,5.71
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,13,1658,5.37
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,14,1683,5.42
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,15,1694,5.52
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,16,1697,5.89
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,17,1703,6.88
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,18,1704,8.74
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,19,1708,9.96
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,20,1708,10.06
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,21,1707,9.67
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,22,1706,9.27
+NO2,All year,Houston other,48-201-0417,Houston Harvard Street,23,1706,8.98
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,1556,7.04
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,1331,6.61
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2,1332,6.18
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,3,1504,6.2
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,4,1502,7.18
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,5,1561,8.86
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,6,1558,10.2
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,7,1546,9.65
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,8,1525,7.65
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,9,1515,5.62
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,10,1513,4.28
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,11,1505,3.42
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,12,1516,2.89
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,13,1538,2.64
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,14,1547,2.48
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,15,1557,2.47
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,16,1556,2.65
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,17,1556,3.68
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,18,1558,6.13
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,19,1560,8.8
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,20,1559,9.74
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,21,1563,9.56
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,22,1562,8.89
+NO2,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,23,1562,7.96
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,1777,6.44
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,1518,6.14
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2,1520,5.79
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,3,1712,5.77
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,4,1712,6.23
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,5,1778,7.4
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,6,1767,8.93
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,7,1742,9.29
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,8,1723,8.51
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,9,1717,6.98
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,10,1709,5.58
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,11,1701,4.46
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,12,1714,3.66
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13,1729,3.2
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14,1745,3.01
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,15,1757,2.95
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,16,1766,3.18
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,17,1772,4.09
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,18,1773,5.78
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,19,1776,7.33
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,20,1777,8.19
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,21,1777,8.25
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,22,1778,7.98
+NO2,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,23,1777,7.09
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,0,427,13.19
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,1,364,12.54
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,2,365,12.02
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,3,412,12.14
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,4,412,12.82
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,5,427,14.49
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,6,427,16.77
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,7,425,17.68
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,8,422,17.88
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,9,420,16.88
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,10,420,13.31
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,11,410,10.79
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,12,411,9.68
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,13,422,9.25
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,14,426,9.62
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,15,426,10.25
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,16,426,11.74
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,17,425,14.64
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,18,426,17.82
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,19,427,17.98
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,20,427,16.83
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,21,427,15.71
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,22,427,14.61
+NO2,Winter,Houston Ship Channel,48-201-1034,Houston East,23,427,13.73
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,431,8.98
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,371,9.01
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,2,414,8.67
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,3,431,8.4
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,4,434,8.81
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,5,434,9.87
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,6,433,11.6
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,7,432,13.04
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,8,433,13.05
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,9,430,11.18
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,10,429,8.8
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,11,427,7.47
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,12,429,6.86
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,13,425,6.64
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,14,424,6.48
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,15,430,6.94
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,16,429,7.16
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17,431,8.37
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,18,432,10.18
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,19,433,10.85
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,20,434,10.59
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,21,434,10.32
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,22,434,9.81
+NO2,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,23,433,9.16
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,0,429,9.59
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,1,364,8.87
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,2,359,8.64
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,3,414,8.61
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,4,414,8.72
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,5,428,9.44
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,6,428,11.55
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,7,424,13.48
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,8,422,13.57
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,9,412,11.45
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,10,409,8.63
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,11,411,6.98
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,12,411,5.98
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,13,413,5.49
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,14,416,5.19
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,15,421,5.35
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,16,422,6.07
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,17,423,8.1
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,18,427,11.49
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,19,429,13.03
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,20,429,12.41
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,21,426,11.46
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,22,427,10.72
+NO2,Winter,Houston other,48-201-0055,Houston Bayland Park,23,427,10.1
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,0,398,11.63
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,1,342,11.2
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,2,340,10.99
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,3,386,11.12
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,4,386,11.67
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,5,400,12.89
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,6,400,14.98
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,7,400,16.73
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,8,399,16.64
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,9,389,14.81
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,10,378,12.1
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,11,377,9.87
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,12,379,8.7
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,13,384,8.22
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,14,390,8.06
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,15,395,8.22
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,16,397,8.9
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,17,398,10.7
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,18,399,13.8
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,19,400,15.07
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,20,400,14.53
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,21,399,13.74
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,22,398,12.91
+NO2,Winter,Houston other,48-201-0417,Houston Harvard Street,23,398,12.26
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,361,9.72
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,309,9.4
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2,309,8.58
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,3,352,8.25
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,4,352,8.43
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,5,365,9.19
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,6,365,11.05
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,7,365,12.21
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,8,363,10.93
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,9,357,8.59
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,10,353,6.81
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,11,355,5.87
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,12,354,5.26
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,13,359,4.89
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,14,360,4.63
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,15,361,4.67
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,16,361,5.14
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,17,361,7.04
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,18,361,10.94
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,19,363,13.72
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,20,362,13.82
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,21,364,12.97
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,22,364,12.07
+NO2,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,23,364,10.99
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,433,8.28
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,369,7.91
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2,370,7.36
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,3,418,7.48
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,4,418,7.72
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,5,433,8.15
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,6,433,9.27
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,7,430,10.84
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,8,424,10.6
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,9,422,9.2
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,10,412,7.39
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,11,409,6.14
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,12,415,4.9
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13,418,4.48
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14,421,4.21
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,15,425,4.27
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,16,428,4.68
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,17,430,6.6
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,18,430,9.19
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,19,433,10.6
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,20,433,10.97
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,21,433,10.58
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,22,433,9.87
+NO2,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,23,432,9.08
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,0,450,9.44
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,1,386,9.33
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,2,387,9.65
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,3,431,10.53
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,4,431,12.57
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,5,450,14.99
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,6,448,16.05
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,7,444,14.98
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,8,439,13
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,9,437,10.32
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,10,435,8.44
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,11,436,7.41
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,12,441,6.89
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,13,445,6.65
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,14,446,6.76
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,15,447,6.98
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,16,448,7.34
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,17,449,8.13
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,18,450,9.99
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,19,450,11.4
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,20,450,10.91
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,21,450,10.57
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,22,450,9.99
+NO2,Spring,Houston Ship Channel,48-201-1034,Houston East,23,450,9.67
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,445,5.11
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,383,5.13
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,2,424,5.12
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,3,445,5.36
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,4,446,6.15
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,5,446,8
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,6,444,9.84
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,7,440,9.56
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,8,445,7.49
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,9,444,5.74
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,10,442,4.8
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,11,440,4.04
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,12,441,3.69
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,13,434,3.49
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,14,435,3.32
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,15,431,3.57
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,16,437,3.71
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17,442,3.96
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,18,444,4.53
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,19,445,5.24
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,20,446,5.49
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,21,447,5.48
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,22,447,5.3
+NO2,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,23,446,5.09
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,0,432,4.99
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,1,374,4.87
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,2,373,4.84
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,3,416,5.13
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,4,416,6.07
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,5,432,8.37
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,6,431,10.71
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,7,431,10.34
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,8,428,7.86
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,9,417,5.71
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,10,415,4.5
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,11,418,3.59
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,12,414,3.02
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,13,420,2.71
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,14,425,2.73
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,15,429,2.88
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,16,430,2.99
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,17,429,3.22
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,18,429,3.97
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,19,430,5.1
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,20,431,5.49
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,21,432,5.64
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,22,431,5.54
+NO2,Spring,Houston other,48-201-0055,Houston Bayland Park,23,431,5.26
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,0,428,7.04
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,1,365,6.96
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,2,366,7.7
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,3,409,8.08
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,4,409,9.48
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,5,427,11.92
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,6,427,13.88
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,7,425,13.19
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,8,416,10.98
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,9,407,8.8
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,10,403,7
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,11,409,5.89
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,12,411,5.2
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,13,417,4.75
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,14,426,4.62
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,15,426,4.65
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,16,426,4.68
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,17,426,5.03
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,18,425,5.85
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,19,427,7.15
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,20,427,7.71
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,21,427,7.67
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,22,427,7.51
+NO2,Spring,Houston other,48-201-0417,Houston Harvard Street,23,427,7.25
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,422,5.89
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,363,5.34
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2,363,4.81
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,3,403,4.76
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,4,403,5.73
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,5,421,7.55
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,6,419,8.85
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,7,412,7.9
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,8,404,5.86
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,9,406,4.29
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,10,406,3.18
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,11,403,2.54
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,12,409,2.23
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,13,417,2.1
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,14,418,1.97
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,15,421,1.96
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,16,419,2
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,17,416,2.32
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,18,418,3.28
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,19,419,5.47
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,20,419,7.03
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,21,421,7.46
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,22,421,7.25
+NO2,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,23,421,6.61
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,451,5.09
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,386,5
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2,386,4.92
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,3,430,4.85
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,4,430,5.36
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,5,451,6.63
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,6,447,8.21
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,7,441,8.29
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,8,438,7.47
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,9,439,5.77
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,10,438,4.79
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,11,435,3.84
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,12,439,3.24
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13,436,2.77
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14,442,2.73
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,15,444,2.64
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,16,448,2.83
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,17,450,3.06
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,18,451,4.19
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,19,451,5.63
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,20,451,6.31
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,21,451,6.32
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,22,451,6.27
+NO2,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,23,451,5.42
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,0,447,7.72
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,1,382,8.14
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,2,379,8.5
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,3,431,9.42
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,4,431,10.94
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,5,447,12.55
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,6,445,13.1
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,7,440,11.34
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,8,435,8.48
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,9,437,6.87
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,10,435,6.09
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,11,437,5.87
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,12,441,5.5
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,13,442,5.65
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,14,442,5.89
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,15,442,6.32
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,16,445,6.4
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,17,445,6.36
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,18,446,6.78
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,19,447,7.52
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,20,447,7.82
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,21,447,7.99
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,22,447,8.05
+NO2,Summer,Houston Ship Channel,48-201-1034,Houston East,23,447,7.92
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,436,4.09
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,372,4.24
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,2,419,4.35
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,3,431,4.76
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,4,434,5.88
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,5,436,7.74
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,6,437,8.81
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,7,434,7.47
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,8,434,5.61
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,9,432,4.41
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,10,430,3.47
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,11,427,3
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,12,426,2.76
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,13,421,2.78
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,14,422,2.78
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,15,420,2.86
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,16,425,2.95
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17,430,2.95
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,18,433,3.16
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,19,435,3.75
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,20,437,4.08
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,21,436,4.17
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,22,435,4.21
+NO2,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,23,436,4.26
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,0,384,3.81
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,1,323,3.73
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,2,324,4.09
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,3,374,4.35
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,4,374,5.2
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,5,387,7.42
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,6,386,8.78
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,7,376,7
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,8,373,4.61
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,9,375,3.38
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,10,370,2.79
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,11,371,2.33
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,12,372,2.23
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,13,372,2.12
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,14,375,2.28
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,15,379,2.44
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,16,382,2.72
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,17,383,3.03
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,18,384,3.36
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,19,385,3.98
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,20,386,4.2
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,21,386,4.16
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,22,386,4.01
+NO2,Summer,Houston other,48-201-0055,Houston Bayland Park,23,387,3.99
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,0,436,4.88
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,1,374,4.89
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,2,372,5.18
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,3,421,5.75
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,4,421,6.69
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,5,436,8.5
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,6,435,9.94
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,7,432,8.68
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,8,428,6.63
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,9,410,5.13
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,10,408,4.26
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,11,412,3.78
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,12,412,3.53
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,13,421,3.51
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,14,425,3.78
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,15,429,3.83
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,16,430,3.98
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,17,433,4.18
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,18,433,4.51
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,19,434,4.96
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,20,434,5.41
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,21,434,5.39
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,22,434,5.31
+NO2,Summer,Houston other,48-201-0417,Houston Harvard Street,23,434,5.19
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,363,3.94
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,308,3.78
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2,309,3.82
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,3,351,3.9
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,4,350,5.2
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,5,364,7.13
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,6,364,7.49
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,7,361,6.02
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,8,354,4.24
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,9,355,3.02
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,10,360,2.17
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,11,356,1.56
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,12,355,1.16
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,13,359,0.95
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,14,361,0.86
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,15,364,0.76
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,16,366,0.68
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,17,366,0.88
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,18,366,1.46
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,19,365,3.13
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,20,365,4.9
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,21,365,5.27
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,22,365,4.92
+NO2,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,23,365,4.46
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,445,4.63
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,379,4.33
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2,380,4.04
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,3,431,4.01
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,4,431,4.67
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,5,446,6.26
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,6,441,7.42
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,7,431,7
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,8,425,6.04
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,9,423,4.82
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,10,424,3.77
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,11,423,3.02
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,12,424,2.64
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13,432,2.34
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14,437,2.26
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,15,442,2.16
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,16,443,2.18
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,17,445,2.27
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,18,445,2.85
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,19,445,4.1
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,20,445,5.51
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,21,446,6.21
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,22,446,6.28
+NO2,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,23,446,5.34
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,0,450,12.93
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,386,13.24
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,2,385,13.93
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,3,435,14.27
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,4,435,15.79
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,5,450,17.65
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,6,448,18.48
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,7,447,18.78
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,8,441,17.33
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,9,438,13.6
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,10,436,10.45
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,11,437,8.47
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,12,447,7.79
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,13,449,7.67
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,14,448,8
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,15,447,8.65
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,16,445,9.56
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,17,445,12.55
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,18,446,15.85
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,19,448,16.27
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,20,450,15.31
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,21,450,14.31
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,22,450,13.64
+NO2,Autumn,Houston Ship Channel,48-201-1034,Houston East,23,450,13.33
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,448,7.95
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,384,8.05
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,2,427,8.09
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,3,446,8.51
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,4,447,9.86
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,5,447,12.1
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,6,448,14.49
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,7,449,15.36
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,8,447,13.14
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,9,446,9.36
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,10,447,6.7
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,11,445,5.13
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,12,445,4.52
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,13,437,4.26
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,14,433,4.27
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,15,435,4.64
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,16,443,5
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17,445,6.06
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,18,448,7.69
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,19,449,8.49
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,20,449,8.68
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,21,449,8.52
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,22,448,8.27
+NO2,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,23,448,8.06
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,0,409,8.63
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,346,8.23
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,2,351,8.03
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,3,399,8.19
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,4,399,9.33
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,5,410,11.96
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,6,406,14.78
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,7,404,15.6
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,8,390,13.43
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,9,386,10.14
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,10,386,7.12
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,11,388,5.02
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,12,395,4.08
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,13,403,3.74
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,14,405,3.72
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,15,405,3.96
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,16,406,4.4
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,17,409,5.92
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,18,410,8.72
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,19,409,10.26
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,20,409,10.45
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,21,408,10.26
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,22,408,9.77
+NO2,Autumn,Houston other,48-201-0055,Houston Bayland Park,23,408,9.1
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,0,447,11.13
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,1,383,11.43
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,2,383,12.64
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,3,433,13.2
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,4,433,14.23
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,5,447,15.75
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,6,446,17.58
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,7,443,18.04
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,8,436,16.03
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,9,429,12.37
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,10,425,8.9
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,11,429,6.79
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,12,433,5.65
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,13,436,5.25
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,14,442,5.43
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,15,444,5.59
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,16,444,6.2
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,17,446,7.87
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,18,447,11.09
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,19,447,12.92
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,20,447,12.83
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,21,447,12.11
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,22,447,11.58
+NO2,Autumn,Houston other,48-201-0417,Houston Harvard Street,23,447,11.37
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,410,8.58
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,351,7.97
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,2,351,7.55
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,3,398,7.87
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,4,397,9.31
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,5,411,11.43
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,6,410,13.23
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,7,408,12.35
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,8,404,9.47
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,9,397,6.65
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,10,394,5.06
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,11,391,3.78
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,12,398,3.02
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,13,403,2.7
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,14,408,2.54
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,15,411,2.57
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,16,410,2.87
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,17,413,4.59
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,18,413,8.95
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,19,413,12.85
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,20,413,13.19
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,21,413,12.48
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,22,412,11.27
+NO2,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,23,412,9.77
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,448,7.8
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,384,7.36
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,2,384,6.88
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,3,433,6.78
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,4,433,7.23
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,5,448,8.6
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,6,446,10.83
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,7,440,11
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,8,436,9.95
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,9,433,8.14
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,10,435,6.44
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,11,434,4.93
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,12,436,3.87
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13,443,3.25
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14,445,2.91
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,15,446,2.78
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,16,447,3.08
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,17,447,4.54
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,18,447,7.02
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,19,447,9.08
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,20,448,10.05
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,21,447,9.97
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,22,448,9.56
+NO2,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,23,448,8.6

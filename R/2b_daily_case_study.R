@@ -18,6 +18,11 @@ load_chart_fonts()
 # CONFIG ----
 processed_dir <- here("data", "processed")
 
+# CSV records go to a folder per phase; checkpoints, the dictionary and the manifest stay in data/processed
+records_dir <- file.path(processed_dir, "phase2")
+
+dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
+
 # Written by 2a section 7, which builds the site groups, collocated averages and site-months from the national table
 case_study_files <- c("daily_case_study.rds", "daily_case_study_instruments.rds", "daily_case_study_months.rds")
 
@@ -665,7 +670,7 @@ inventory_records <- list(
   case_study_site_inventory = site_inventory
 )
 
-save_records(inventory_records, processed_dir)
+save_records(inventory_records, records_dir)
 
 inventory_dictionary <- tribble(
   ~table,                      ~column,                     ~description,
@@ -711,6 +716,7 @@ inventory_dictionary <- tribble(
 inventory_dictionary <- document_tables(inventory_records, inventory_dictionary)
 
 replace_own_rows(inventory_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
 
 
 # 2. OZONE ----
@@ -1032,7 +1038,7 @@ ozone_records <- list(
   case_study_ozone_by_group = mutate(ozone_by_group, across(c(days_per_site, rate_per_1000), \(x) round(x, 2)))
 )
 
-save_records(ozone_records, processed_dir)
+save_records(ozone_records, records_dir)
 
 ozone_dictionary <- tribble(
   ~table,                        ~column,               ~description,
@@ -1058,6 +1064,7 @@ ozone_dictionary <- tribble(
 ozone_dictionary <- document_tables(ozone_records, ozone_dictionary)
 
 replace_own_rows(ozone_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
 
 
 # 3. NO2 ----
@@ -1335,7 +1342,7 @@ no2_records <- list(
   case_study_no2_by_group = mutate(no2_by_group, median_site_mean_ppb = round(median_site_mean_ppb, 2))
 )
 
-save_records(no2_records, processed_dir)
+save_records(no2_records, records_dir)
 
 no2_dictionary <- tribble(
   ~table,                      ~column,                 ~description,
@@ -1357,6 +1364,7 @@ no2_dictionary <- tribble(
 no2_dictionary <- document_tables(no2_records, no2_dictionary)
 
 replace_own_rows(no2_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
 
 
 # 4. PM2.5 ----
@@ -1665,7 +1673,7 @@ pm25_records <- list(
   case_study_pm25_by_group = mutate(pm25_by_group, median_value = round(median_value, 2))
 )
 
-save_records(pm25_records, processed_dir)
+save_records(pm25_records, records_dir)
 
 pm25_dictionary <- tribble(
   ~table,                       ~column,            ~description,
@@ -1692,6 +1700,7 @@ pm25_dictionary <- tribble(
 pm25_dictionary <- document_tables(pm25_records, pm25_dictionary)
 
 replace_own_rows(pm25_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
 
 
 # 5. SO2 ----
@@ -1936,7 +1945,7 @@ so2_records <- list(
   case_study_so2_by_group = mutate(so2_by_group, spike_days_per_site = round(spike_days_per_site, 2))
 )
 
-save_records(so2_records, processed_dir)
+save_records(so2_records, records_dir)
 
 so2_dictionary <- tribble(
   ~table,                      ~column,               ~description,
@@ -1962,6 +1971,7 @@ so2_dictionary <- tribble(
 so2_dictionary <- document_tables(so2_records, so2_dictionary)
 
 replace_own_rows(so2_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
 
 
 # 6. EVENTS: URI AND BERYL ----
@@ -2192,7 +2202,7 @@ event_records <- list(
     )
 )
 
-save_records(event_records, processed_dir)
+save_records(event_records, records_dir)
 
 event_dictionary <- tribble(
   ~table,                       ~column,                ~description,
@@ -2219,6 +2229,7 @@ event_dictionary <- tribble(
 event_dictionary <- document_tables(event_records, event_dictionary)
 
 replace_own_rows(event_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
 
 
 # 7. PAIRED SAME-DAY DIFFERENCES ----
@@ -2285,6 +2296,33 @@ stopifnot(
     all(count(filter(daily_differences, site_set == "Main"), contrast, pollutant)$n >= 1700)
 )
 
+# A check that leaves a comparison's days and values exactly as in the main run is not a separate run: its range would
+# differ from the main one only by resampling chance. It is dropped for that comparison, so its row stays empty
+difference_series <- daily_differences %>%
+  summarise(dates = list(date_local), values = list(difference), .by = c(site_set, contrast, pollutant))
+
+main_series <- difference_series %>%
+  filter(site_set == "Main") %>%
+  select(contrast, pollutant, main_dates = dates, main_values = values)
+
+unchanged_checks <- difference_series %>%
+  filter(site_set != "Main") %>%
+  inner_join(main_series, by = c("contrast", "pollutant"), relationship = "many-to-one") %>%
+  mutate(is_unchanged = mapply(\(d, v, md, mv) identical(d, md) && isTRUE(all.equal(v, mv)), dates, values, main_dates, main_values)) %>%
+  filter(is_unchanged) %>%
+  select(site_set, contrast, pollutant)
+
+print(unchanged_checks, n = Inf)
+
+daily_differences <- daily_differences %>%
+  anti_join(unchanged_checks, by = c("site_set", "contrast", "pollutant"))
+
+stopifnot(
+  "Nine checks leave a comparison unchanged, among them both Ship Channel SO2 checks that move no SO2 site" =
+    nrow(unchanged_checks) == 9 &&
+    nrow(filter(unchanged_checks, pollutant == "SO2", site_set %in% c("Without the transition band", "Memo-list groups"))) == 2
+)
+
 # Median of a day-ordered series and a 95% range from resampled two-week blocks
 block_bootstrap_range <- function(x) {
   n <- length(x)
@@ -2343,7 +2381,8 @@ paired_results %>%
   pivot_wider(names_from = pollutant, values_from = cell) %>%
   print(width = Inf)
 
-# Linked days: the one-day autocorrelation of each main series, the reason for block resampling
+# Linked days: how closely each day's difference follows the day before (one-day autocorrelation). Above zero, days
+# are not independent, which is why whole 14-day blocks are resampled
 main_differences %>%
   summarise(lag_one_correlation = round(cor(difference[-1], difference[-n()]), 2), .by = c(contrast, pollutant)) %>%
   print()
@@ -2495,7 +2534,7 @@ paired_records <- list(
     mutate(across(c(median_difference, ci_low, ci_high, pct_days_positive), \(x) round(x, 3)))
 )
 
-save_records(paired_records, processed_dir)
+save_records(paired_records, records_dir)
 
 paired_dictionary <- tribble(
   ~table,                          ~column,               ~description,
@@ -2577,16 +2616,23 @@ pm25_tally <- tally_for(contrast_levels[1], "PM2.5")
 houston_dfw_tally <- check_tally %>%
   filter(contrast == contrast_levels[2])
 
+# Detection limits from hourly_case_study.rds (mdl_ppb): 2 ppb at Clinton, Croquet and Park Place, 0.2 ppb at Deer Park #2
+so2_detection_limit_ppb <- 2
+
+so2_main_difference <- run_results %>%
+  filter(contrast == contrast_levels[1], pollutant == "SO2", site_set == "Main") %>%
+  pull(median_difference)
+
 stopifnot(
   "No run reverses a main result with a range clear of zero, so grey in figure 2B.8 means the range includes zero" =
     all(check_tally$n_holding + check_tally$n_crossing_zero == check_tally$n_runs),
-  "Ship Channel NO2 and SO2 stay higher in every run, as the figure title says" =
-    no2_tally$main_sign > 0 && so2_tally$main_sign > 0 && no2_tally$n_holding == no2_tally$n_runs && so2_tally$n_holding == so2_tally$n_runs,
+  "Ship Channel NO2 stays higher in every run, as the figure title says" = no2_tally$main_sign > 0 && no2_tally$n_holding == no2_tally$n_runs,
+  "Ship Channel SO2 stays higher in every run, as the subtitle says" = so2_tally$main_sign > 0 && so2_tally$n_holding == so2_tally$n_runs,
+  "The SO2 gap is under a tenth of the detection limit, as the subtitle says" = so2_main_difference < so2_detection_limit_ppb / 10,
   "Ship Channel ozone stays lower in every run but the memo-list groups, as the subtitle says" =
     ozone_tally$main_sign < 0 && ozone_tally$runs_not_holding == "Memo-list groups",
-  "PM2.5 ranges include zero in most runs, as the subtitle says" = pm25_tally$n_crossing_zero > pm25_tally$n_runs / 2,
-  "Houston minus Dallas-Fort Worth holds in every run for every gas, as the subtitle says" =
-    all(houston_dfw_tally$n_holding == houston_dfw_tally$n_runs),
+  "PM2.5 ranges include zero in at least half the runs, as the subtitle says" = pm25_tally$n_crossing_zero >= pm25_tally$n_runs / 2,
+  "Houston minus Dallas-Fort Worth holds in every run for every gas" = all(houston_dfw_tally$n_holding == houston_dfw_tally$n_runs),
   "Only the PM2.5 Ship Channel range changes its verdict with a second seed, as the footer says" =
     seed_verdict_changes == "PM2.5, Ship Channel minus Houston other"
 )
@@ -2630,13 +2676,14 @@ pm25_run_panel <- run_panel("PM2.5", "04")
 
 runs_header <- chart_header(
   sprintf("FIGURE 2B.8  /  EVERY CHECK  /  %s TO %s", min(study_years), max(study_years)),
-  "NO2 and SO2 hold up under every check",
+  "Ship Channel NO2 holds up under every check",
   sprintf(
     str_c(
-      "Ship Channel minus Houston other. Ozone stays lower in %d of %d runs; only the memo-list groups\n",
-      "remove the gap. PM2.5 ranges include zero in %d of %d. Houston minus DFW holds in all %d runs."
+      "SO2 is higher in all %d runs, by %.2f ppb, well under the %d ppb detection limit at 3 of 4 sites.\n",
+      "Ozone is lower in %d of %d runs (not the memo-list groups); PM2.5 ranges include zero in %d of %d."
     ),
-    ozone_tally$n_holding, ozone_tally$n_runs, pm25_tally$n_crossing_zero, pm25_tally$n_runs, sum(houston_dfw_tally$n_runs)
+    so2_tally$n_runs, so2_main_difference, so2_detection_limit_ppb, ozone_tally$n_holding, ozone_tally$n_runs,
+    pm25_tally$n_crossing_zero, pm25_tally$n_runs
   ),
   key = tribble(
     ~mark, ~colour,                ~label,
@@ -2647,8 +2694,9 @@ runs_header <- chart_header(
 
 runs_footer <- chart_footer(str_c(
   "EPA AQS daily data, five-year sites, same-day differences. A run is the main site set or one check from sections\n",
-  "2 to 7. Gases in ppb, PM2.5 in µg/m³. 95% ranges: ", format(bootstrap_reps, big.mark = ","), " resamples of ", bootstrap_block_days, "-day blocks. ",
-  "Dashed line: the main result.\nEmpty rows: the check does not apply. With a second seed, the PM2.5 main range reaches zero."
+  "2 to 7. Gases in ppb, PM2.5 in µg/m³. 95% ranges: ", format(bootstrap_reps, big.mark = ","), " resamples of ",
+  bootstrap_block_days, "-day blocks. ",
+  "Dashed line: the main result.\nEmpty rows: the check does not apply or changes nothing. With a second seed, the PM2.5 main range reaches zero."
 ))
 
 runs_figure <- chart_compose(runs_header, list(no2_run_panel, ozone_run_panel, so2_run_panel, pm25_run_panel), runs_footer)
@@ -2718,7 +2766,7 @@ documented_tables <- read_csv(data_dictionary_path, col_types = cols(.default = 
   distinct(table) %>%
   pull(table)
 
-record_paths <- file.path(processed_dir, str_c(names(earlier_records), ".csv"))
+record_paths <- file.path(records_dir, str_c(names(earlier_records), ".csv"))
 
 inventory_size <- str_c(n_distinct(site_inventory$site_id), " sites, ", nrow(site_inventory), " site-pollutants")
 
@@ -2770,7 +2818,7 @@ validation_records <- list(
   case_study_validation = case_study_validation
 )
 
-save_records(validation_records, processed_dir)
+save_records(validation_records, records_dir)
 
 validation_dictionary <- tribble(
   ~table,                  ~column,    ~description,

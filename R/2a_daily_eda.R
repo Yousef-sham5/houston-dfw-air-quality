@@ -1311,8 +1311,8 @@ metro_panel <- function(panel_pollutant, kicker, panel_title) {
 }
 
 metro_panels <- list(
-  metro_panel("PM2.5", "01  PM2.5 24-HOUR", "Days above 35 µg/m³"),
-  metro_panel("Ozone", "02  OZONE 8-HOUR", "Days above 0.070 ppm")
+  metro_panel("PM2.5", "01  PM2.5 24-HOUR", "Site-days above 35 µg/m³"),
+  metro_panel("Ozone", "02  OZONE 8-HOUR", "Site-days above 0.070 ppm")
 )
 
 top_metro_each <- top_10_metros %>%
@@ -1335,8 +1335,8 @@ metro_header <- chart_header(
   "California metros top both lists",
   sprintf(
     str_c(
-      "Exceedance days at each metro's monitors, %s to %s, top 10 per pollutant. In %s,\n",
-      "%.0f%% of PM2.5 exceedance days were event days; in %s, %.0f%% were ordinary."
+      "Site-days above each standard, summed over each metro's monitors, %s to %s. In %s,\n",
+      "%.0f%% of PM2.5 exceedance site-days were event days; in %s, %.0f%% were ordinary."
     ),
     first_year, last_year, most_event_metro$metro_label, most_event_metro$pct_event,
     most_local_metro$metro_label, 100 - most_local_metro$pct_event
@@ -1350,7 +1350,7 @@ metro_header <- chart_header(
 )
 
 metro_footer <- chart_footer(str_c(
-  "EPA AQS daily data, all sites, grouped by core-based statistical area. Ranked by exceedance days, which also rise with\n",
+  "EPA AQS daily data, all sites, grouped by core-based statistical area. Ranked by exceedance site-days, which rise with\n",
   "the number of monitors in a metro. Bold names are the two case-study metros. Screening counts, not violations."
 ))
 

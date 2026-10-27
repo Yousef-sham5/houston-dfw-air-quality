@@ -26,6 +26,11 @@ weather_dir <- here("data", "raw", "weather")
 
 processed_dir <- here("data", "processed")
 
+# CSV records go to a folder per phase; checkpoints, the dictionary and the manifest stay in data/processed
+records_dir <- file.path(processed_dir, "phase1")
+
+dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
+
 filtered_dir <- here("data", "weather_filtered")
 
 # 1 knot is 1,852 m per hour
@@ -178,7 +183,7 @@ weather_row_counts %>%
 print(sum(weather_row_counts$raw_rows))
 
 # Saved as a record of the rows in each raw file
-write_csv(weather_row_counts, file.path(processed_dir, "weather_raw_row_counts.csv"))
+write_csv(weather_row_counts, file.path(records_dir, "weather_raw_row_counts.csv"))
 
 weather_raw <- filtered_files %>%
   map("data") %>%
@@ -1365,7 +1370,7 @@ weather_records <- list(
   weather_sensor_check = weather_sensor_check
 )
 
-save_records(weather_records, processed_dir)
+save_records(weather_records, records_dir)
 
 saved_weather_tables <- c(weather_checkpoint, weather_records, list(weather_raw_row_counts = weather_row_counts))
 

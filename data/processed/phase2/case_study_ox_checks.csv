@@ -1,0 +1,21 @@
+site_set,season,n_days,ozone_gap_ppb,no2_gap_ppb,ox_gap_ppb,ozone_ci_low,ozone_ci_high,ox_ci_low,ox_ci_high,share_of_ozone_gap_closed
+Main,All year,1760,-1.899,0.99,-0.909,-2.247,-1.602,-1.244,-0.582,0.521
+Without the transition band,All year,1518,-2.217,2.186,-0.031,NA,NA,NA,NA,0.986
+Without hours after the method change,All year,1724,-1.935,1.227,-0.708,NA,NA,NA,NA,0.634
+Without Deer Park #2 after its move,All year,1759,-2.19,1.184,-1.006,NA,NA,NA,NA,0.541
+Main,Winter,409,-0.537,0.587,0.05,-0.983,-0.085,-0.458,0.557,1.093
+Without the transition band,Winter,372,-1.404,1.957,0.553,NA,NA,NA,NA,1.394
+Without hours after the method change,Winter,407,-0.974,0.959,-0.015,NA,NA,NA,NA,0.985
+Without Deer Park #2 after its move,Winter,409,-0.715,0.668,-0.047,NA,NA,NA,NA,0.934
+Main,Spring,458,-1.43,1.206,-0.224,-1.753,-1.024,-0.653,0.284,0.843
+Without the transition band,Spring,406,-2.535,2.377,-0.158,NA,NA,NA,NA,0.938
+Without hours after the method change,Spring,444,-1.774,1.403,-0.371,NA,NA,NA,NA,0.791
+Without Deer Park #2 after its move,Spring,458,-1.442,1.213,-0.229,NA,NA,NA,NA,0.841
+Main,Summer,443,-2.633,1.493,-1.139,-3.142,-2.042,-1.672,-0.508,0.567
+Without the transition band,Summer,354,-1.878,2.335,0.456,NA,NA,NA,NA,1.243
+Without hours after the method change,Summer,434,-2.172,1.535,-0.637,NA,NA,NA,NA,0.707
+Without Deer Park #2 after its move,Summer,442,-2.956,1.788,-1.168,NA,NA,NA,NA,0.605
+Main,Autumn,450,-2.892,0.64,-2.252,-3.488,-2.266,-2.973,-1.532,0.221
+Without the transition band,Autumn,386,-2.978,2.07,-0.907,NA,NA,NA,NA,0.695
+Without hours after the method change,Autumn,439,-2.753,0.993,-1.76,NA,NA,NA,NA,0.361
+Without Deer Park #2 after its move,Autumn,450,-3.54,1.031,-2.509,NA,NA,NA,NA,0.291

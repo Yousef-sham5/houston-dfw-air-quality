@@ -506,7 +506,7 @@ manifest_col_types <- cols(
   under_github_limit = col_logical()
 )
 
-# 1a, 1d, 1e and 2a share data_dictionary.csv and checkpoint_manifest.csv. Each script replaces only its own rows
+# Every script that saves files shares data_dictionary.csv, and 1a, 1d, 1e and 2a share checkpoint_manifest.csv. Each replaces only its own rows
 # (matched on key: table or file) and keeps the rows the others wrote, so rerunning one script never removes
 # another's rows. Replaced rows keep their place in the file; a script writing for the first time adds its rows
 # at the end. Returns the whole updated file

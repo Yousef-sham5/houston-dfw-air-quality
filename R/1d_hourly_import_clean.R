@@ -20,6 +20,11 @@ hourly_dir <- here("data", "raw", "hourly")
 
 processed_dir <- here("data", "processed")
 
+# CSV records go to a folder per phase; checkpoints, the dictionary and the manifest stay in data/processed
+records_dir <- file.path(processed_dir, "phase1")
+
+dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
+
 filtered_dir <- here("data", "hourly_filtered")
 
 
@@ -159,7 +164,7 @@ hourly_row_counts %>%
 print(sum(hourly_row_counts$raw_rows))
 
 # Saved as a record of the rows in each raw file
-write_csv(hourly_row_counts, file.path(processed_dir, "hourly_raw_row_counts.csv"))
+write_csv(hourly_row_counts, file.path(records_dir, "hourly_raw_row_counts.csv"))
 
 hourly_raw <- filtered_files %>%
   map("data") %>%
@@ -1100,7 +1105,7 @@ hourly_records <- list(
   hourly_monitor_summary = hourly_monitor_summary
 )
 
-save_records(hourly_records, processed_dir)
+save_records(hourly_records, records_dir)
 
 saved_hourly_tables <- c(hourly_checkpoint, hourly_records, list(hourly_raw_row_counts = hourly_row_counts))
 

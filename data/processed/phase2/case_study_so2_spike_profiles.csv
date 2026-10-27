@@ -1,0 +1,121 @@
+site_group,site_id,local_site_name,period_type,period,n_hours,n_spike_hours,spike_rate_per_1000
+Houston other,48-201-0051,Croquet,Hour of day,0,1779,0,0
+Houston other,48-201-0051,Croquet,Hour of day,1,1779,0,0
+Houston other,48-201-0051,Croquet,Hour of day,2,1779,0,0
+Houston other,48-201-0051,Croquet,Hour of day,3,1780,0,0
+Houston other,48-201-0051,Croquet,Hour of day,4,1779,0,0
+Houston other,48-201-0051,Croquet,Hour of day,5,1778,0,0
+Houston other,48-201-0051,Croquet,Hour of day,6,1778,0,0
+Houston other,48-201-0051,Croquet,Hour of day,7,1776,0,0
+Houston other,48-201-0051,Croquet,Hour of day,8,1759,5,2.84
+Houston other,48-201-0051,Croquet,Hour of day,9,1729,18,10.41
+Houston other,48-201-0051,Croquet,Hour of day,10,1716,27,15.73
+Houston other,48-201-0051,Croquet,Hour of day,11,1690,38,22.49
+Houston other,48-201-0051,Croquet,Hour of day,12,1707,36,21.09
+Houston other,48-201-0051,Croquet,Hour of day,13,1739,30,17.25
+Houston other,48-201-0051,Croquet,Hour of day,14,1764,30,17.01
+Houston other,48-201-0051,Croquet,Hour of day,15,1771,17,9.6
+Houston other,48-201-0051,Croquet,Hour of day,16,1774,12,6.76
+Houston other,48-201-0051,Croquet,Hour of day,17,1777,7,3.94
+Houston other,48-201-0051,Croquet,Hour of day,18,1777,3,1.69
+Houston other,48-201-0051,Croquet,Hour of day,19,1523,2,1.31
+Houston other,48-201-0051,Croquet,Hour of day,20,1712,0,0
+Houston other,48-201-0051,Croquet,Hour of day,21,1777,0,0
+Houston other,48-201-0051,Croquet,Hour of day,22,1777,0,0
+Houston other,48-201-0051,Croquet,Hour of day,23,1777,0,0
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,0,1732,5,2.89
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,1,1732,5,2.89
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,2,1730,6,3.47
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,3,1730,7,4.05
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,4,1732,6,3.46
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,5,1732,4,2.31
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,6,1729,11,6.36
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,7,1710,21,12.28
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,8,1692,21,12.41
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,9,1672,23,13.76
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,10,1673,17,10.16
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,11,1674,13,7.77
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,12,1679,8,4.76
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,13,1695,5,2.95
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,14,1705,3,1.76
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,15,1719,5,2.91
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,16,1725,0,0
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,17,1725,0,0
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,18,1727,2,1.16
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,19,1478,4,2.71
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,20,1609,6,3.73
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,21,1714,5,2.92
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,22,1725,3,1.74
+Houston Ship Channel,48-201-0416,Park Place,Hour of day,23,1725,0,0
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,0,1724,1,0.58
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,1,1722,0,0
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,2,1723,3,1.74
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,3,1719,2,1.16
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,4,1720,2,1.16
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,5,1722,1,0.58
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,6,1717,0,0
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,7,1706,0,0
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,8,1680,3,1.79
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,9,1651,2,1.21
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,10,1645,2,1.22
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,11,1663,4,2.41
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,12,1685,6,3.56
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,13,1695,5,2.95
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,14,1705,0,0
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,15,1711,2,1.17
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,16,1715,3,1.75
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,17,1719,2,1.16
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,18,1719,2,1.16
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,19,1467,1,0.68
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,20,1583,0,0
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,21,1718,1,0.58
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,22,1718,0,0
+Houston Ship Channel,48-201-1035,Clinton,Hour of day,23,1719,1,0.58
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,0,1720,1,0.58
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,1,1721,1,0.58
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,2,1718,0,0
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,3,1717,0,0
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,4,1716,1,0.58
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,5,1715,3,1.75
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,6,1717,1,0.58
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,7,1715,0,0
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,8,1711,8,4.68
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,9,1700,17,10
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,10,1695,11,6.49
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,11,1673,10,5.98
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,12,1673,5,2.99
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,13,1660,3,1.81
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,14,1660,3,1.81
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,15,1670,3,1.8
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,16,1693,4,2.36
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,17,1705,2,1.17
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,18,1710,1,0.58
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,19,1462,3,2.05
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,20,1448,2,1.38
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,21,1644,2,1.22
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,22,1707,0,0
+Houston Ship Channel,48-201-1039,Deer Park #2,Hour of day,23,1710,1,0.58
+Houston other,48-201-0051,Croquet,Season,Winter,10091,34,3.37
+Houston other,48-201-0051,Croquet,Season,Spring,10861,13,1.2
+Houston other,48-201-0051,Croquet,Season,Summer,10535,144,13.67
+Houston other,48-201-0051,Croquet,Season,Autumn,10510,34,3.24
+Houston Ship Channel,48-201-0416,Park Place,Season,Winter,9415,44,4.67
+Houston Ship Channel,48-201-0416,Park Place,Season,Spring,10375,25,2.41
+Houston Ship Channel,48-201-0416,Park Place,Season,Summer,10576,36,3.4
+Houston Ship Channel,48-201-0416,Park Place,Season,Autumn,10398,75,7.21
+Houston Ship Channel,48-201-1035,Clinton,Season,Winter,9976,10,1
+Houston Ship Channel,48-201-1035,Clinton,Season,Spring,10198,11,1.08
+Houston Ship Channel,48-201-1035,Clinton,Season,Summer,9966,9,0.9
+Houston Ship Channel,48-201-1035,Clinton,Season,Autumn,10406,13,1.25
+Houston Ship Channel,48-201-1039,Deer Park #2,Season,Winter,10115,28,2.77
+Houston Ship Channel,48-201-1039,Deer Park #2,Season,Spring,10518,6,0.57
+Houston Ship Channel,48-201-1039,Deer Park #2,Season,Summer,9295,16,1.72
+Houston Ship Channel,48-201-1039,Deer Park #2,Season,Autumn,10332,32,3.1
+Houston other,48-201-0051,Croquet,Day type,Weekday,17302,132,7.63
+Houston other,48-201-0051,Croquet,Day type,Weekend,7076,47,6.64
+Houston Ship Channel,48-201-0416,Park Place,Day type,Weekday,17302,84,4.85
+Houston Ship Channel,48-201-0416,Park Place,Day type,Weekend,7017,27,3.85
+Houston Ship Channel,48-201-1035,Clinton,Day type,Weekday,16642,16,0.96
+Houston Ship Channel,48-201-1035,Clinton,Day type,Weekend,6656,4,0.6
+Houston Ship Channel,48-201-1039,Deer Park #2,Day type,Weekday,16254,35,2.15
+Houston Ship Channel,48-201-1039,Deer Park #2,Day type,Weekend,6497,5,0.77

@@ -1,0 +1,9 @@
+site_set,site_group,site_id,local_site_name,n_hours,pct_below_mdl,n_spike_hours,spike_rate_per_1000,n_spike_days,n_check_spike_hours,check_spike_rate_per_1000,max_ppb,pct_spikes_daytime,n_episodes,median_episode_hours,max_episode_hours,n_spike_hours_shared
+Main,Houston other,48-201-0051,Croquet,41997,97.5,225,5.36,104,61,1.45,30.8,95.56,117,1,8,NA
+Main,Houston Ship Channel,48-201-0416,Park Place,40764,97.2,180,4.42,108,27,0.66,18.2,41.11,120,1,5,15
+Main,Houston Ship Channel,48-201-1039,Deer Park #2,40260,64.9,82,2.04,58,8,0.2,31.9,70.73,60,1,3,8
+Main,Houston Ship Channel,48-201-1035,Clinton,40546,99.4,43,1.06,26,10,0.25,94,60.47,26,1,4,9
+Without Deer Park #2 after its move,Houston other,48-201-0051,Croquet,41997,97.5,225,5.36,104,61,1.45,30.8,95.56,117,1,8,NA
+Without Deer Park #2 after its move,Houston Ship Channel,48-201-0416,Park Place,40764,97.2,180,4.42,108,27,0.66,18.2,41.11,120,1,5,15
+Without Deer Park #2 after its move,Houston Ship Channel,48-201-1039,Deer Park #2,35368,66.4,72,2.04,50,8,0.23,31.9,69.44,52,1,3,8
+Without Deer Park #2 after its move,Houston Ship Channel,48-201-1035,Clinton,40546,99.4,43,1.06,26,10,0.25,94,60.47,26,1,4,9

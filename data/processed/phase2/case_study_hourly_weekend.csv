@@ -1,0 +1,505 @@
+site_set,pollutant,site_group,hour_local,n_sites,min_weekend_hours,weekday_ppb,weekend_ppb,weekend_ratio
+Main,Ozone,Houston Ship Channel,0,2,293,19.5,19.67,1.008
+Main,Ozone,Houston Ship Channel,1,2,293,18.07,18.86,1.044
+Main,Ozone,Houston Ship Channel,2,2,293,16.7,17.75,1.063
+Main,Ozone,Houston Ship Channel,3,2,293,14.9,16.38,1.1
+Main,Ozone,Houston Ship Channel,4,2,293,12.78,14.56,1.139
+Main,Ozone,Houston Ship Channel,5,2,293,10.43,13.11,1.257
+Main,Ozone,Houston Ship Channel,6,2,293,10.47,13.61,1.3
+Main,Ozone,Houston Ship Channel,7,2,293,15.62,19.07,1.221
+Main,Ozone,Houston Ship Channel,8,2,293,23.15,26.29,1.136
+Main,Ozone,Houston Ship Channel,9,2,293,30.48,32.61,1.07
+Main,Ozone,Houston Ship Channel,10,2,292,36.81,37.83,1.028
+Main,Ozone,Houston Ship Channel,11,2,292,41.69,41.5,0.996
+Main,Ozone,Houston Ship Channel,12,2,292,44.69,43.21,0.967
+Main,Ozone,Houston Ship Channel,13,2,293,46.07,43.86,0.952
+Main,Ozone,Houston Ship Channel,14,2,293,45.74,43.54,0.952
+Main,Ozone,Houston Ship Channel,15,2,293,44.1,42.13,0.955
+Main,Ozone,Houston Ship Channel,16,2,293,41.3,39.61,0.959
+Main,Ozone,Houston Ship Channel,17,2,293,37.42,36.43,0.974
+Main,Ozone,Houston Ship Channel,18,2,293,32.43,31.92,0.984
+Main,Ozone,Houston Ship Channel,19,2,293,28.23,27.72,0.982
+Main,Ozone,Houston Ship Channel,20,2,293,25.77,25.14,0.975
+Main,Ozone,Houston Ship Channel,21,2,293,23.82,23.48,0.985
+Main,Ozone,Houston Ship Channel,22,2,145,22.48,21.96,0.977
+Main,Ozone,Houston Ship Channel,23,2,256,20.59,20.52,0.996
+Main,Ozone,Houston other,0,2,277,22.97,22.52,0.98
+Main,Ozone,Houston other,1,2,277,21.4,21.43,1.001
+Main,Ozone,Houston other,2,2,277,19.72,20.45,1.037
+Main,Ozone,Houston other,3,2,278,17.93,19.47,1.085
+Main,Ozone,Houston other,4,2,279,15.76,17.89,1.135
+Main,Ozone,Houston other,5,2,279,12.72,15.84,1.245
+Main,Ozone,Houston other,6,2,279,12.25,15.6,1.273
+Main,Ozone,Houston other,7,2,279,17.18,20.69,1.204
+Main,Ozone,Houston other,8,2,279,24.3,27.57,1.135
+Main,Ozone,Houston other,9,2,279,31.64,33.65,1.063
+Main,Ozone,Houston other,10,2,279,38.59,38.97,1.01
+Main,Ozone,Houston other,11,2,279,43.82,42.66,0.973
+Main,Ozone,Houston other,12,2,279,47.12,44.76,0.95
+Main,Ozone,Houston other,13,2,279,48.79,45.87,0.94
+Main,Ozone,Houston other,14,2,279,48.91,46.03,0.941
+Main,Ozone,Houston other,15,2,279,47.95,45.15,0.941
+Main,Ozone,Houston other,16,2,279,45.59,42.92,0.942
+Main,Ozone,Houston other,17,2,279,41.39,39.8,0.962
+Main,Ozone,Houston other,18,2,279,36.22,35.27,0.974
+Main,Ozone,Houston other,19,2,279,31.5,31.01,0.984
+Main,Ozone,Houston other,20,2,279,28.76,28.08,0.977
+Main,Ozone,Houston other,21,2,279,26.84,26.81,0.999
+Main,Ozone,Houston other,22,2,145,25.52,25.15,0.986
+Main,Ozone,Houston other,23,2,243,24.82,24.44,0.985
+Main,Ozone,Dallas-Fort Worth,0,2,295,27.44,28.38,1.034
+Main,Ozone,Dallas-Fort Worth,1,2,296,26.44,27.23,1.03
+Main,Ozone,Dallas-Fort Worth,2,2,296,25.05,26.19,1.046
+Main,Ozone,Dallas-Fort Worth,3,2,296,23.17,24.97,1.078
+Main,Ozone,Dallas-Fort Worth,4,2,296,20.61,23.45,1.138
+Main,Ozone,Dallas-Fort Worth,5,2,296,17.31,21.45,1.239
+Main,Ozone,Dallas-Fort Worth,6,2,296,15.87,20.56,1.296
+Main,Ozone,Dallas-Fort Worth,7,2,296,19.44,23.19,1.193
+Main,Ozone,Dallas-Fort Worth,8,2,296,25.81,28.27,1.095
+Main,Ozone,Dallas-Fort Worth,9,2,296,32.8,34.04,1.038
+Main,Ozone,Dallas-Fort Worth,10,2,296,39.11,39.25,1.004
+Main,Ozone,Dallas-Fort Worth,11,2,296,44.19,43.05,0.974
+Main,Ozone,Dallas-Fort Worth,12,2,296,47.74,45.63,0.956
+Main,Ozone,Dallas-Fort Worth,13,2,296,49.93,47.15,0.944
+Main,Ozone,Dallas-Fort Worth,14,2,296,50.96,47.85,0.939
+Main,Ozone,Dallas-Fort Worth,15,2,296,51.26,48.18,0.94
+Main,Ozone,Dallas-Fort Worth,16,2,296,50.46,47.57,0.943
+Main,Ozone,Dallas-Fort Worth,17,2,296,48,45.69,0.952
+Main,Ozone,Dallas-Fort Worth,18,2,296,43.35,41.73,0.963
+Main,Ozone,Dallas-Fort Worth,19,2,296,37.68,36.74,0.975
+Main,Ozone,Dallas-Fort Worth,20,2,296,33.4,33.06,0.99
+Main,Ozone,Dallas-Fort Worth,21,2,296,31.06,30.84,0.993
+Main,Ozone,Dallas-Fort Worth,22,2,150,29.67,28.8,0.971
+Main,Ozone,Dallas-Fort Worth,23,2,260,28.56,28.51,0.998
+Main,NO2,Houston Ship Channel,0,2,298,7.54,7.36,0.976
+Main,NO2,Houston Ship Channel,1,2,149,7.83,7.22,0.923
+Main,NO2,Houston Ship Channel,2,2,148,8.26,7.35,0.889
+Main,NO2,Houston Ship Channel,3,2,261,9.35,7.13,0.763
+Main,NO2,Houston Ship Channel,4,2,261,11.11,7.99,0.719
+Main,NO2,Houston Ship Channel,5,2,299,13.57,9.07,0.668
+Main,NO2,Houston Ship Channel,6,2,299,14.92,9.64,0.647
+Main,NO2,Houston Ship Channel,7,2,299,14.02,9.09,0.648
+Main,NO2,Houston Ship Channel,8,2,299,11.35,7.07,0.623
+Main,NO2,Houston Ship Channel,9,2,297,8.46,5.2,0.614
+Main,NO2,Houston Ship Channel,10,2,297,6.78,4.1,0.605
+Main,NO2,Houston Ship Channel,11,2,297,5.83,3.61,0.619
+Main,NO2,Houston Ship Channel,12,2,299,5.42,3.45,0.637
+Main,NO2,Houston Ship Channel,13,2,296,5.35,3.38,0.633
+Main,NO2,Houston Ship Channel,14,2,299,5.5,3.34,0.608
+Main,NO2,Houston Ship Channel,15,2,297,5.7,3.7,0.65
+Main,NO2,Houston Ship Channel,16,2,297,5.9,3.92,0.665
+Main,NO2,Houston Ship Channel,17,2,299,6.45,4.49,0.696
+Main,NO2,Houston Ship Channel,18,2,299,7.59,5.61,0.739
+Main,NO2,Houston Ship Channel,19,2,299,8.28,6.75,0.815
+Main,NO2,Houston Ship Channel,20,2,299,8.15,7.22,0.886
+Main,NO2,Houston Ship Channel,21,2,299,8.04,7.28,0.906
+Main,NO2,Houston Ship Channel,22,2,299,7.94,7.03,0.886
+Main,NO2,Houston Ship Channel,23,2,299,7.89,7,0.888
+Main,NO2,Houston other,0,2,272,6.04,6.26,1.036
+Main,NO2,Houston other,1,2,143,6.13,6.04,0.985
+Main,NO2,Houston other,2,2,141,6.86,5.93,0.865
+Main,NO2,Houston other,3,2,243,7.58,5.81,0.767
+Main,NO2,Houston other,4,2,243,9.03,6.19,0.685
+Main,NO2,Houston other,5,2,274,11.96,7.4,0.619
+Main,NO2,Houston other,6,2,275,14.14,8.67,0.613
+Main,NO2,Houston other,7,2,274,13.18,7.73,0.586
+Main,NO2,Houston other,8,2,274,10.38,5.48,0.528
+Main,NO2,Houston other,9,2,276,7.7,4.09,0.532
+Main,NO2,Houston other,10,2,276,5.85,3.14,0.537
+Main,NO2,Houston other,11,2,276,4.61,2.57,0.558
+Main,NO2,Houston other,12,2,276,4.08,2.29,0.562
+Main,NO2,Houston other,13,2,276,3.9,2.2,0.563
+Main,NO2,Houston other,14,2,276,4.06,2.26,0.558
+Main,NO2,Houston other,15,2,276,4.15,2.31,0.557
+Main,NO2,Houston other,16,2,276,4.31,2.53,0.586
+Main,NO2,Houston other,17,2,276,4.84,2.87,0.594
+Main,NO2,Houston other,18,2,276,5.95,3.78,0.635
+Main,NO2,Houston other,19,2,276,6.87,4.92,0.715
+Main,NO2,Houston other,20,2,276,7.08,5.63,0.795
+Main,NO2,Houston other,21,2,276,6.99,5.6,0.801
+Main,NO2,Houston other,22,2,276,6.8,5.54,0.815
+Main,NO2,Houston other,23,2,276,6.51,5.7,0.875
+Main,NO2,Dallas-Fort Worth,0,2,272,5.67,4.95,0.874
+Main,NO2,Dallas-Fort Worth,1,2,137,5.29,4.7,0.889
+Main,NO2,Dallas-Fort Worth,2,2,137,5.11,4.2,0.822
+Main,NO2,Dallas-Fort Worth,3,2,240,5.51,3.93,0.713
+Main,NO2,Dallas-Fort Worth,4,2,239,6.83,4.14,0.606
+Main,NO2,Dallas-Fort Worth,5,2,272,9.27,4.75,0.513
+Main,NO2,Dallas-Fort Worth,6,2,272,10.98,5.3,0.483
+Main,NO2,Dallas-Fort Worth,7,2,272,9.95,4.97,0.499
+Main,NO2,Dallas-Fort Worth,8,2,272,7.92,4.07,0.514
+Main,NO2,Dallas-Fort Worth,9,2,272,5.85,3.2,0.547
+Main,NO2,Dallas-Fort Worth,10,2,272,4.41,2.58,0.586
+Main,NO2,Dallas-Fort Worth,11,2,272,3.32,2.05,0.617
+Main,NO2,Dallas-Fort Worth,12,2,273,2.69,1.7,0.635
+Main,NO2,Dallas-Fort Worth,13,2,272,2.29,1.53,0.668
+Main,NO2,Dallas-Fort Worth,14,2,272,2.14,1.48,0.691
+Main,NO2,Dallas-Fort Worth,15,2,273,2.08,1.37,0.661
+Main,NO2,Dallas-Fort Worth,16,2,273,2.15,1.4,0.652
+Main,NO2,Dallas-Fort Worth,17,2,273,2.55,1.71,0.67
+Main,NO2,Dallas-Fort Worth,18,2,273,4.02,2.94,0.733
+Main,NO2,Dallas-Fort Worth,19,2,272,6.19,4.73,0.764
+Main,NO2,Dallas-Fort Worth,20,2,272,7.49,5.79,0.773
+Main,NO2,Dallas-Fort Worth,21,2,273,7.74,6.17,0.797
+Main,NO2,Dallas-Fort Worth,22,2,272,7.39,6.06,0.821
+Main,NO2,Dallas-Fort Worth,23,2,273,6.44,5.42,0.84
+Without the transition band,Ozone,Houston Ship Channel,0,2,293,19.5,19.67,1.008
+Without the transition band,Ozone,Houston Ship Channel,1,2,293,18.07,18.86,1.044
+Without the transition band,Ozone,Houston Ship Channel,2,2,293,16.7,17.75,1.063
+Without the transition band,Ozone,Houston Ship Channel,3,2,293,14.9,16.38,1.1
+Without the transition band,Ozone,Houston Ship Channel,4,2,293,12.78,14.56,1.139
+Without the transition band,Ozone,Houston Ship Channel,5,2,293,10.43,13.11,1.257
+Without the transition band,Ozone,Houston Ship Channel,6,2,293,10.47,13.61,1.3
+Without the transition band,Ozone,Houston Ship Channel,7,2,293,15.62,19.07,1.221
+Without the transition band,Ozone,Houston Ship Channel,8,2,293,23.15,26.29,1.136
+Without the transition band,Ozone,Houston Ship Channel,9,2,293,30.48,32.61,1.07
+Without the transition band,Ozone,Houston Ship Channel,10,2,292,36.81,37.83,1.028
+Without the transition band,Ozone,Houston Ship Channel,11,2,292,41.69,41.5,0.996
+Without the transition band,Ozone,Houston Ship Channel,12,2,292,44.69,43.21,0.967
+Without the transition band,Ozone,Houston Ship Channel,13,2,293,46.07,43.86,0.952
+Without the transition band,Ozone,Houston Ship Channel,14,2,293,45.74,43.54,0.952
+Without the transition band,Ozone,Houston Ship Channel,15,2,293,44.1,42.13,0.955
+Without the transition band,Ozone,Houston Ship Channel,16,2,293,41.3,39.61,0.959
+Without the transition band,Ozone,Houston Ship Channel,17,2,293,37.42,36.43,0.974
+Without the transition band,Ozone,Houston Ship Channel,18,2,293,32.43,31.92,0.984
+Without the transition band,Ozone,Houston Ship Channel,19,2,293,28.23,27.72,0.982
+Without the transition band,Ozone,Houston Ship Channel,20,2,293,25.77,25.14,0.975
+Without the transition band,Ozone,Houston Ship Channel,21,2,293,23.82,23.48,0.985
+Without the transition band,Ozone,Houston Ship Channel,22,2,145,22.48,21.96,0.977
+Without the transition band,Ozone,Houston Ship Channel,23,2,256,20.59,20.52,0.996
+Without the transition band,Ozone,Houston other,0,1,277,22.46,21.83,0.972
+Without the transition band,Ozone,Houston other,1,1,277,21,20.29,0.966
+Without the transition band,Ozone,Houston other,2,1,277,19.52,19,0.973
+Without the transition band,Ozone,Houston other,3,1,278,17.98,18,1.001
+Without the transition band,Ozone,Houston other,4,1,279,15.85,16.63,1.05
+Without the transition band,Ozone,Houston other,5,1,279,12.49,14.8,1.185
+Without the transition band,Ozone,Houston other,6,1,279,11.96,15.12,1.264
+Without the transition band,Ozone,Houston other,7,1,279,17.68,20.87,1.18
+Without the transition band,Ozone,Houston other,8,1,279,25.49,27.94,1.096
+Without the transition band,Ozone,Houston other,9,1,279,32.65,33.88,1.038
+Without the transition band,Ozone,Houston other,10,1,279,39.17,38.86,0.992
+Without the transition band,Ozone,Houston other,11,1,279,44.02,42.46,0.965
+Without the transition band,Ozone,Houston other,12,1,279,47.28,44.46,0.94
+Without the transition band,Ozone,Houston other,13,1,279,48.71,45.6,0.936
+Without the transition band,Ozone,Houston other,14,1,279,48.88,45.97,0.94
+Without the transition band,Ozone,Houston other,15,1,279,47.85,44.92,0.939
+Without the transition band,Ozone,Houston other,16,1,279,45.79,42.66,0.932
+Without the transition band,Ozone,Houston other,17,1,279,42.13,39.91,0.947
+Without the transition band,Ozone,Houston other,18,1,279,37.3,35.7,0.957
+Without the transition band,Ozone,Houston other,19,1,279,32.45,31.6,0.974
+Without the transition band,Ozone,Houston other,20,1,279,29.51,28.52,0.966
+Without the transition band,Ozone,Houston other,21,1,279,27.17,27.09,0.997
+Without the transition band,Ozone,Houston other,22,1,145,25.5,25.12,0.985
+Without the transition band,Ozone,Houston other,23,1,243,24.33,24.28,0.998
+Without the transition band,Ozone,Dallas-Fort Worth,0,2,295,27.44,28.38,1.034
+Without the transition band,Ozone,Dallas-Fort Worth,1,2,296,26.44,27.23,1.03
+Without the transition band,Ozone,Dallas-Fort Worth,2,2,296,25.05,26.19,1.046
+Without the transition band,Ozone,Dallas-Fort Worth,3,2,296,23.17,24.97,1.078
+Without the transition band,Ozone,Dallas-Fort Worth,4,2,296,20.61,23.45,1.138
+Without the transition band,Ozone,Dallas-Fort Worth,5,2,296,17.31,21.45,1.239
+Without the transition band,Ozone,Dallas-Fort Worth,6,2,296,15.87,20.56,1.296
+Without the transition band,Ozone,Dallas-Fort Worth,7,2,296,19.44,23.19,1.193
+Without the transition band,Ozone,Dallas-Fort Worth,8,2,296,25.81,28.27,1.095
+Without the transition band,Ozone,Dallas-Fort Worth,9,2,296,32.8,34.04,1.038
+Without the transition band,Ozone,Dallas-Fort Worth,10,2,296,39.11,39.25,1.004
+Without the transition band,Ozone,Dallas-Fort Worth,11,2,296,44.19,43.05,0.974
+Without the transition band,Ozone,Dallas-Fort Worth,12,2,296,47.74,45.63,0.956
+Without the transition band,Ozone,Dallas-Fort Worth,13,2,296,49.93,47.15,0.944
+Without the transition band,Ozone,Dallas-Fort Worth,14,2,296,50.96,47.85,0.939
+Without the transition band,Ozone,Dallas-Fort Worth,15,2,296,51.26,48.18,0.94
+Without the transition band,Ozone,Dallas-Fort Worth,16,2,296,50.46,47.57,0.943
+Without the transition band,Ozone,Dallas-Fort Worth,17,2,296,48,45.69,0.952
+Without the transition band,Ozone,Dallas-Fort Worth,18,2,296,43.35,41.73,0.963
+Without the transition band,Ozone,Dallas-Fort Worth,19,2,296,37.68,36.74,0.975
+Without the transition band,Ozone,Dallas-Fort Worth,20,2,296,33.4,33.06,0.99
+Without the transition band,Ozone,Dallas-Fort Worth,21,2,296,31.06,30.84,0.993
+Without the transition band,Ozone,Dallas-Fort Worth,22,2,150,29.67,28.8,0.971
+Without the transition band,Ozone,Dallas-Fort Worth,23,2,260,28.56,28.51,0.998
+Without the transition band,NO2,Houston Ship Channel,0,2,298,7.54,7.36,0.976
+Without the transition band,NO2,Houston Ship Channel,1,2,149,7.83,7.22,0.923
+Without the transition band,NO2,Houston Ship Channel,2,2,148,8.26,7.35,0.889
+Without the transition band,NO2,Houston Ship Channel,3,2,261,9.35,7.13,0.763
+Without the transition band,NO2,Houston Ship Channel,4,2,261,11.11,7.99,0.719
+Without the transition band,NO2,Houston Ship Channel,5,2,299,13.57,9.07,0.668
+Without the transition band,NO2,Houston Ship Channel,6,2,299,14.92,9.64,0.647
+Without the transition band,NO2,Houston Ship Channel,7,2,299,14.02,9.09,0.648
+Without the transition band,NO2,Houston Ship Channel,8,2,299,11.35,7.07,0.623
+Without the transition band,NO2,Houston Ship Channel,9,2,297,8.46,5.2,0.614
+Without the transition band,NO2,Houston Ship Channel,10,2,297,6.78,4.1,0.605
+Without the transition band,NO2,Houston Ship Channel,11,2,297,5.83,3.61,0.619
+Without the transition band,NO2,Houston Ship Channel,12,2,299,5.42,3.45,0.637
+Without the transition band,NO2,Houston Ship Channel,13,2,296,5.35,3.38,0.633
+Without the transition band,NO2,Houston Ship Channel,14,2,299,5.5,3.34,0.608
+Without the transition band,NO2,Houston Ship Channel,15,2,297,5.7,3.7,0.65
+Without the transition band,NO2,Houston Ship Channel,16,2,297,5.9,3.92,0.665
+Without the transition band,NO2,Houston Ship Channel,17,2,299,6.45,4.49,0.696
+Without the transition band,NO2,Houston Ship Channel,18,2,299,7.59,5.61,0.739
+Without the transition band,NO2,Houston Ship Channel,19,2,299,8.28,6.75,0.815
+Without the transition band,NO2,Houston Ship Channel,20,2,299,8.15,7.22,0.886
+Without the transition band,NO2,Houston Ship Channel,21,2,299,8.04,7.28,0.906
+Without the transition band,NO2,Houston Ship Channel,22,2,299,7.94,7.03,0.886
+Without the transition band,NO2,Houston Ship Channel,23,2,299,7.89,7,0.888
+Without the transition band,NO2,Houston other,0,1,272,5.13,5.4,1.052
+Without the transition band,NO2,Houston other,1,1,143,5.01,5.38,1.073
+Without the transition band,NO2,Houston other,2,1,141,5.34,5.15,0.964
+Without the transition band,NO2,Houston other,3,1,243,5.81,4.98,0.857
+Without the transition band,NO2,Houston other,4,1,243,7.23,5.28,0.73
+Without the transition band,NO2,Houston other,5,1,274,10.62,6.37,0.6
+Without the transition band,NO2,Houston other,6,1,275,13.21,7.49,0.567
+Without the transition band,NO2,Houston other,7,1,274,12.18,6.79,0.557
+Without the transition band,NO2,Houston other,8,1,274,9,4.82,0.535
+Without the transition band,NO2,Houston other,9,1,276,6.47,3.64,0.563
+Without the transition band,NO2,Houston other,10,1,276,4.83,2.82,0.585
+Without the transition band,NO2,Houston other,11,1,276,3.62,2.24,0.619
+Without the transition band,NO2,Houston other,12,1,276,3.11,1.98,0.637
+Without the transition band,NO2,Houston other,13,1,276,2.88,1.88,0.654
+Without the transition band,NO2,Houston other,14,1,276,3.02,1.93,0.638
+Without the transition band,NO2,Houston other,15,1,276,3.27,1.93,0.591
+Without the transition band,NO2,Houston other,16,1,276,3.5,2.07,0.59
+Without the transition band,NO2,Houston other,17,1,276,4.01,2.32,0.579
+Without the transition band,NO2,Houston other,18,1,276,5.02,3.14,0.627
+Without the transition band,NO2,Houston other,19,1,276,5.92,4.11,0.694
+Without the transition band,NO2,Houston other,20,1,276,6.08,4.77,0.785
+Without the transition band,NO2,Houston other,21,1,276,6.1,4.83,0.791
+Without the transition band,NO2,Houston other,22,1,276,5.93,4.74,0.8
+Without the transition band,NO2,Houston other,23,1,276,5.59,4.88,0.872
+Without the transition band,NO2,Dallas-Fort Worth,0,2,272,5.67,4.95,0.874
+Without the transition band,NO2,Dallas-Fort Worth,1,2,137,5.29,4.7,0.889
+Without the transition band,NO2,Dallas-Fort Worth,2,2,137,5.11,4.2,0.822
+Without the transition band,NO2,Dallas-Fort Worth,3,2,240,5.51,3.93,0.713
+Without the transition band,NO2,Dallas-Fort Worth,4,2,239,6.83,4.14,0.606
+Without the transition band,NO2,Dallas-Fort Worth,5,2,272,9.27,4.75,0.513
+Without the transition band,NO2,Dallas-Fort Worth,6,2,272,10.98,5.3,0.483
+Without the transition band,NO2,Dallas-Fort Worth,7,2,272,9.95,4.97,0.499
+Without the transition band,NO2,Dallas-Fort Worth,8,2,272,7.92,4.07,0.514
+Without the transition band,NO2,Dallas-Fort Worth,9,2,272,5.85,3.2,0.547
+Without the transition band,NO2,Dallas-Fort Worth,10,2,272,4.41,2.58,0.586
+Without the transition band,NO2,Dallas-Fort Worth,11,2,272,3.32,2.05,0.617
+Without the transition band,NO2,Dallas-Fort Worth,12,2,273,2.69,1.7,0.635
+Without the transition band,NO2,Dallas-Fort Worth,13,2,272,2.29,1.53,0.668
+Without the transition band,NO2,Dallas-Fort Worth,14,2,272,2.14,1.48,0.691
+Without the transition band,NO2,Dallas-Fort Worth,15,2,273,2.08,1.37,0.661
+Without the transition band,NO2,Dallas-Fort Worth,16,2,273,2.15,1.4,0.652
+Without the transition band,NO2,Dallas-Fort Worth,17,2,273,2.55,1.71,0.67
+Without the transition band,NO2,Dallas-Fort Worth,18,2,273,4.02,2.94,0.733
+Without the transition band,NO2,Dallas-Fort Worth,19,2,272,6.19,4.73,0.764
+Without the transition band,NO2,Dallas-Fort Worth,20,2,272,7.49,5.79,0.773
+Without the transition band,NO2,Dallas-Fort Worth,21,2,273,7.74,6.17,0.797
+Without the transition band,NO2,Dallas-Fort Worth,22,2,272,7.39,6.06,0.821
+Without the transition band,NO2,Dallas-Fort Worth,23,2,273,6.44,5.42,0.84
+Without hours after the method change,NO2,Houston Ship Channel,0,2,298,7.54,7.36,0.976
+Without hours after the method change,NO2,Houston Ship Channel,1,2,149,7.83,7.22,0.923
+Without hours after the method change,NO2,Houston Ship Channel,2,2,148,8.26,7.35,0.889
+Without hours after the method change,NO2,Houston Ship Channel,3,2,261,9.35,7.13,0.763
+Without hours after the method change,NO2,Houston Ship Channel,4,2,261,11.11,7.99,0.719
+Without hours after the method change,NO2,Houston Ship Channel,5,2,299,13.57,9.07,0.668
+Without hours after the method change,NO2,Houston Ship Channel,6,2,299,14.92,9.64,0.647
+Without hours after the method change,NO2,Houston Ship Channel,7,2,299,14.02,9.09,0.648
+Without hours after the method change,NO2,Houston Ship Channel,8,2,299,11.35,7.07,0.623
+Without hours after the method change,NO2,Houston Ship Channel,9,2,297,8.46,5.2,0.614
+Without hours after the method change,NO2,Houston Ship Channel,10,2,297,6.78,4.1,0.605
+Without hours after the method change,NO2,Houston Ship Channel,11,2,297,5.83,3.61,0.619
+Without hours after the method change,NO2,Houston Ship Channel,12,2,299,5.42,3.45,0.637
+Without hours after the method change,NO2,Houston Ship Channel,13,2,296,5.35,3.38,0.633
+Without hours after the method change,NO2,Houston Ship Channel,14,2,299,5.5,3.34,0.608
+Without hours after the method change,NO2,Houston Ship Channel,15,2,297,5.7,3.7,0.65
+Without hours after the method change,NO2,Houston Ship Channel,16,2,297,5.9,3.92,0.665
+Without hours after the method change,NO2,Houston Ship Channel,17,2,299,6.45,4.49,0.696
+Without hours after the method change,NO2,Houston Ship Channel,18,2,299,7.59,5.61,0.739
+Without hours after the method change,NO2,Houston Ship Channel,19,2,299,8.28,6.75,0.815
+Without hours after the method change,NO2,Houston Ship Channel,20,2,299,8.15,7.22,0.886
+Without hours after the method change,NO2,Houston Ship Channel,21,2,299,8.04,7.28,0.906
+Without hours after the method change,NO2,Houston Ship Channel,22,2,299,7.94,7.03,0.886
+Without hours after the method change,NO2,Houston Ship Channel,23,2,299,7.89,7,0.888
+Without hours after the method change,NO2,Houston other,0,2,181,6.17,6.46,1.046
+Without hours after the method change,NO2,Houston other,1,2,89,6.25,6.05,0.969
+Without hours after the method change,NO2,Houston other,2,2,91,6.9,5.94,0.861
+Without hours after the method change,NO2,Houston other,3,2,159,7.59,5.77,0.76
+Without hours after the method change,NO2,Houston other,4,2,159,9.03,6.06,0.67
+Without hours after the method change,NO2,Houston other,5,2,181,12.02,7.31,0.608
+Without hours after the method change,NO2,Houston other,6,2,181,14.27,8.48,0.594
+Without hours after the method change,NO2,Houston other,7,2,181,13.4,7.64,0.57
+Without hours after the method change,NO2,Houston other,8,2,180,10.71,5.51,0.514
+Without hours after the method change,NO2,Houston other,9,2,181,8.16,4.35,0.533
+Without hours after the method change,NO2,Houston other,10,2,181,6.26,3.42,0.546
+Without hours after the method change,NO2,Houston other,11,2,181,5.02,2.87,0.572
+Without hours after the method change,NO2,Houston other,12,2,181,4.49,2.57,0.574
+Without hours after the method change,NO2,Houston other,13,2,181,4.34,2.51,0.579
+Without hours after the method change,NO2,Houston other,14,2,181,4.53,2.59,0.572
+Without hours after the method change,NO2,Houston other,15,2,181,4.58,2.62,0.572
+Without hours after the method change,NO2,Houston other,16,2,181,4.66,2.76,0.593
+Without hours after the method change,NO2,Houston other,17,2,181,5.14,3.06,0.595
+Without hours after the method change,NO2,Houston other,18,2,181,6.28,4.05,0.645
+Without hours after the method change,NO2,Houston other,19,2,181,7.03,5.22,0.742
+Without hours after the method change,NO2,Houston other,20,2,181,7.3,5.88,0.806
+Without hours after the method change,NO2,Houston other,21,2,181,7.12,5.79,0.814
+Without hours after the method change,NO2,Houston other,22,2,181,6.9,5.7,0.826
+Without hours after the method change,NO2,Houston other,23,2,181,6.63,5.86,0.883
+Without hours after the method change,NO2,Dallas-Fort Worth,0,2,272,5.67,4.95,0.874
+Without hours after the method change,NO2,Dallas-Fort Worth,1,2,137,5.29,4.7,0.889
+Without hours after the method change,NO2,Dallas-Fort Worth,2,2,137,5.11,4.2,0.822
+Without hours after the method change,NO2,Dallas-Fort Worth,3,2,240,5.51,3.93,0.713
+Without hours after the method change,NO2,Dallas-Fort Worth,4,2,239,6.83,4.14,0.606
+Without hours after the method change,NO2,Dallas-Fort Worth,5,2,272,9.27,4.75,0.513
+Without hours after the method change,NO2,Dallas-Fort Worth,6,2,272,10.98,5.3,0.483
+Without hours after the method change,NO2,Dallas-Fort Worth,7,2,272,9.95,4.97,0.499
+Without hours after the method change,NO2,Dallas-Fort Worth,8,2,272,7.92,4.07,0.514
+Without hours after the method change,NO2,Dallas-Fort Worth,9,2,272,5.85,3.2,0.547
+Without hours after the method change,NO2,Dallas-Fort Worth,10,2,272,4.41,2.58,0.586
+Without hours after the method change,NO2,Dallas-Fort Worth,11,2,272,3.32,2.05,0.617
+Without hours after the method change,NO2,Dallas-Fort Worth,12,2,273,2.69,1.7,0.635
+Without hours after the method change,NO2,Dallas-Fort Worth,13,2,272,2.29,1.53,0.668
+Without hours after the method change,NO2,Dallas-Fort Worth,14,2,272,2.14,1.48,0.691
+Without hours after the method change,NO2,Dallas-Fort Worth,15,2,273,2.08,1.37,0.661
+Without hours after the method change,NO2,Dallas-Fort Worth,16,2,273,2.15,1.4,0.652
+Without hours after the method change,NO2,Dallas-Fort Worth,17,2,273,2.55,1.71,0.67
+Without hours after the method change,NO2,Dallas-Fort Worth,18,2,273,4.02,2.94,0.733
+Without hours after the method change,NO2,Dallas-Fort Worth,19,2,272,6.19,4.73,0.764
+Without hours after the method change,NO2,Dallas-Fort Worth,20,2,272,7.49,5.79,0.773
+Without hours after the method change,NO2,Dallas-Fort Worth,21,2,273,7.74,6.17,0.797
+Without hours after the method change,NO2,Dallas-Fort Worth,22,2,272,7.39,6.06,0.821
+Without hours after the method change,NO2,Dallas-Fort Worth,23,2,273,6.44,5.42,0.84
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,0,2,256,19.66,19.79,1.006
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,1,2,256,18.25,19.04,1.043
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,2,2,255,16.94,17.94,1.059
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,3,2,255,15.18,16.63,1.095
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,4,2,255,13.04,14.83,1.137
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,5,2,256,10.71,13.41,1.251
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,6,2,255,10.77,13.89,1.29
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,7,2,255,15.8,19.27,1.219
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,8,2,256,23.16,26.31,1.136
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,9,2,255,30.36,32.52,1.071
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,10,2,254,36.6,37.68,1.03
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,11,2,254,41.33,41.44,1.003
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,12,2,256,44.29,43.14,0.974
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,13,2,253,45.77,43.8,0.957
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,14,2,256,45.36,43.47,0.958
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,15,2,256,43.74,42.08,0.962
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,16,2,254,41,39.48,0.963
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,17,2,255,37.19,36.33,0.977
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,18,2,256,32.35,31.87,0.985
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,19,2,256,28.13,27.69,0.984
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,20,2,256,25.75,25.1,0.975
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,21,2,256,23.86,23.45,0.983
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,22,2,129,22.52,21.97,0.975
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,23,2,224,20.68,20.61,0.997
+Without Deer Park #2 after its move,Ozone,Houston other,0,2,277,22.97,22.52,0.98
+Without Deer Park #2 after its move,Ozone,Houston other,1,2,277,21.4,21.43,1.001
+Without Deer Park #2 after its move,Ozone,Houston other,2,2,277,19.72,20.45,1.037
+Without Deer Park #2 after its move,Ozone,Houston other,3,2,278,17.93,19.47,1.085
+Without Deer Park #2 after its move,Ozone,Houston other,4,2,279,15.76,17.89,1.135
+Without Deer Park #2 after its move,Ozone,Houston other,5,2,279,12.72,15.84,1.245
+Without Deer Park #2 after its move,Ozone,Houston other,6,2,279,12.25,15.6,1.273
+Without Deer Park #2 after its move,Ozone,Houston other,7,2,279,17.18,20.69,1.204
+Without Deer Park #2 after its move,Ozone,Houston other,8,2,279,24.3,27.57,1.135
+Without Deer Park #2 after its move,Ozone,Houston other,9,2,279,31.64,33.65,1.063
+Without Deer Park #2 after its move,Ozone,Houston other,10,2,279,38.59,38.97,1.01
+Without Deer Park #2 after its move,Ozone,Houston other,11,2,279,43.82,42.66,0.973
+Without Deer Park #2 after its move,Ozone,Houston other,12,2,279,47.12,44.76,0.95
+Without Deer Park #2 after its move,Ozone,Houston other,13,2,279,48.79,45.87,0.94
+Without Deer Park #2 after its move,Ozone,Houston other,14,2,279,48.91,46.03,0.941
+Without Deer Park #2 after its move,Ozone,Houston other,15,2,279,47.95,45.15,0.941
+Without Deer Park #2 after its move,Ozone,Houston other,16,2,279,45.59,42.92,0.942
+Without Deer Park #2 after its move,Ozone,Houston other,17,2,279,41.39,39.8,0.962
+Without Deer Park #2 after its move,Ozone,Houston other,18,2,279,36.22,35.27,0.974
+Without Deer Park #2 after its move,Ozone,Houston other,19,2,279,31.5,31.01,0.984
+Without Deer Park #2 after its move,Ozone,Houston other,20,2,279,28.76,28.08,0.977
+Without Deer Park #2 after its move,Ozone,Houston other,21,2,279,26.84,26.81,0.999
+Without Deer Park #2 after its move,Ozone,Houston other,22,2,145,25.52,25.15,0.986
+Without Deer Park #2 after its move,Ozone,Houston other,23,2,243,24.82,24.44,0.985
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,0,2,295,27.44,28.38,1.034
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,1,2,296,26.44,27.23,1.03
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,2,2,296,25.05,26.19,1.046
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,3,2,296,23.17,24.97,1.078
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,4,2,296,20.61,23.45,1.138
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,5,2,296,17.31,21.45,1.239
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,6,2,296,15.87,20.56,1.296
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,7,2,296,19.44,23.19,1.193
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,8,2,296,25.81,28.27,1.095
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,9,2,296,32.8,34.04,1.038
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,10,2,296,39.11,39.25,1.004
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,11,2,296,44.19,43.05,0.974
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,12,2,296,47.74,45.63,0.956
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,13,2,296,49.93,47.15,0.944
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,14,2,296,50.96,47.85,0.939
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,15,2,296,51.26,48.18,0.94
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,16,2,296,50.46,47.57,0.943
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,17,2,296,48,45.69,0.952
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,18,2,296,43.35,41.73,0.963
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,19,2,296,37.68,36.74,0.975
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,20,2,296,33.4,33.06,0.99
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,21,2,296,31.06,30.84,0.993
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,22,2,150,29.67,28.8,0.971
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,23,2,260,28.56,28.51,0.998
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,0,2,255,7.46,7.3,0.978
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,1,2,131,7.73,7.11,0.919
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,2,2,148,8.13,7.26,0.892
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,3,2,257,9.19,7.05,0.767
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,4,2,257,10.97,7.89,0.719
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,5,2,257,13.38,8.97,0.67
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,6,2,257,14.61,9.52,0.651
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,7,2,257,13.67,8.93,0.653
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,8,2,256,11.09,6.95,0.626
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,9,2,254,8.32,5.14,0.618
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,10,2,254,6.7,4.05,0.605
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,11,2,255,5.77,3.56,0.618
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,12,2,257,5.39,3.41,0.632
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,13,2,254,5.32,3.33,0.627
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,14,2,256,5.46,3.3,0.605
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,15,2,255,5.64,3.65,0.648
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,16,2,255,5.84,3.84,0.658
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,17,2,257,6.42,4.4,0.684
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,18,2,257,7.55,5.54,0.734
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,19,2,257,8.24,6.69,0.812
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,20,2,257,8.11,7.18,0.885
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,21,2,257,8,7.26,0.908
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,22,2,257,7.89,7,0.887
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,23,2,257,7.83,6.98,0.891
+Without Deer Park #2 after its move,NO2,Houston other,0,2,272,6.04,6.26,1.036
+Without Deer Park #2 after its move,NO2,Houston other,1,2,143,6.13,6.04,0.985
+Without Deer Park #2 after its move,NO2,Houston other,2,2,141,6.86,5.93,0.865
+Without Deer Park #2 after its move,NO2,Houston other,3,2,243,7.58,5.81,0.767
+Without Deer Park #2 after its move,NO2,Houston other,4,2,243,9.03,6.19,0.685
+Without Deer Park #2 after its move,NO2,Houston other,5,2,274,11.96,7.4,0.619
+Without Deer Park #2 after its move,NO2,Houston other,6,2,275,14.14,8.67,0.613
+Without Deer Park #2 after its move,NO2,Houston other,7,2,274,13.18,7.73,0.586
+Without Deer Park #2 after its move,NO2,Houston other,8,2,274,10.38,5.48,0.528
+Without Deer Park #2 after its move,NO2,Houston other,9,2,276,7.7,4.09,0.532
+Without Deer Park #2 after its move,NO2,Houston other,10,2,276,5.85,3.14,0.537
+Without Deer Park #2 after its move,NO2,Houston other,11,2,276,4.61,2.57,0.558
+Without Deer Park #2 after its move,NO2,Houston other,12,2,276,4.08,2.29,0.562
+Without Deer Park #2 after its move,NO2,Houston other,13,2,276,3.9,2.2,0.563
+Without Deer Park #2 after its move,NO2,Houston other,14,2,276,4.06,2.26,0.558
+Without Deer Park #2 after its move,NO2,Houston other,15,2,276,4.15,2.31,0.557
+Without Deer Park #2 after its move,NO2,Houston other,16,2,276,4.31,2.53,0.586
+Without Deer Park #2 after its move,NO2,Houston other,17,2,276,4.84,2.87,0.594
+Without Deer Park #2 after its move,NO2,Houston other,18,2,276,5.95,3.78,0.635
+Without Deer Park #2 after its move,NO2,Houston other,19,2,276,6.87,4.92,0.715
+Without Deer Park #2 after its move,NO2,Houston other,20,2,276,7.08,5.63,0.795
+Without Deer Park #2 after its move,NO2,Houston other,21,2,276,6.99,5.6,0.801
+Without Deer Park #2 after its move,NO2,Houston other,22,2,276,6.8,5.54,0.815
+Without Deer Park #2 after its move,NO2,Houston other,23,2,276,6.51,5.7,0.875
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,0,2,272,5.67,4.95,0.874
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,1,2,137,5.29,4.7,0.889
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,2,2,137,5.11,4.2,0.822
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,3,2,240,5.51,3.93,0.713
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,4,2,239,6.83,4.14,0.606
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,5,2,272,9.27,4.75,0.513
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,6,2,272,10.98,5.3,0.483
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,7,2,272,9.95,4.97,0.499
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,8,2,272,7.92,4.07,0.514
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,9,2,272,5.85,3.2,0.547
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,10,2,272,4.41,2.58,0.586
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,11,2,272,3.32,2.05,0.617
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,12,2,273,2.69,1.7,0.635
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,13,2,272,2.29,1.53,0.668
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,14,2,272,2.14,1.48,0.691
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,15,2,273,2.08,1.37,0.661
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,16,2,273,2.15,1.4,0.652
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,17,2,273,2.55,1.71,0.67
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,18,2,273,4.02,2.94,0.733
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,19,2,272,6.19,4.73,0.764
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,20,2,272,7.49,5.79,0.773
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,21,2,273,7.74,6.17,0.797
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,22,2,272,7.39,6.06,0.821
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,23,2,273,6.44,5.42,0.84

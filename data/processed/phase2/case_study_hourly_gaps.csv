@@ -1,0 +1,169 @@
+site_set,pollutant,hour_local,n_paired_hours,gap_ppb,ci_low,ci_high
+Main,Ozone,0,1784,-2.29,-2.72,-1.92
+Main,Ozone,1,1784,-2.22,-2.63,-1.86
+Main,Ozone,2,1784,-2.14,-2.51,-1.79
+Main,Ozone,3,1784,-2.17,-2.54,-1.84
+Main,Ozone,4,1783,-2.15,-2.48,-1.83
+Main,Ozone,5,1784,-1.88,-2.18,-1.57
+Main,Ozone,6,1783,-1.32,-1.66,-0.98
+Main,Ozone,7,1780,-0.85,-1.21,-0.5
+Main,Ozone,8,1777,-0.46,-0.81,-0.12
+Main,Ozone,9,1776,-0.33,-0.66,-0.01
+Main,Ozone,10,1775,-0.69,-1.06,-0.37
+Main,Ozone,11,1775,-0.98,-1.4,-0.6
+Main,Ozone,12,1775,-1.24,-1.76,-0.75
+Main,Ozone,13,1782,-1.5,-2.08,-1.01
+Main,Ozone,14,1784,-1.89,-2.44,-1.41
+Main,Ozone,15,1782,-2.48,-3.03,-1.95
+Main,Ozone,16,1782,-2.96,-3.49,-2.45
+Main,Ozone,17,1784,-2.93,-3.37,-2.48
+Main,Ozone,18,1784,-2.66,-3.08,-2.25
+Main,Ozone,19,1784,-2.17,-2.56,-1.79
+Main,Ozone,20,1784,-1.95,-2.37,-1.58
+Main,Ozone,21,1784,-2.1,-2.53,-1.75
+Main,Ozone,22,1528,-2,-2.42,-1.6
+Main,Ozone,23,1716,-2.84,-3.35,-2.4
+Main,NO2,0,1796,0.9,0.65,1.15
+Main,NO2,1,1540,1.09,0.82,1.35
+Main,NO2,2,1548,0.98,0.72,1.23
+Main,NO2,3,1733,1.01,0.74,1.28
+Main,NO2,4,1733,1.36,1.08,1.66
+Main,NO2,5,1796,1.32,1.03,1.61
+Main,NO2,6,1796,0.81,0.5,1.08
+Main,NO2,7,1789,0.59,0.26,0.9
+Main,NO2,8,1784,0.72,0.37,1.07
+Main,NO2,9,1777,0.76,0.42,1.06
+Main,NO2,10,1773,0.81,0.53,1.05
+Main,NO2,11,1775,1,0.73,1.22
+Main,NO2,12,1780,1.15,0.9,1.37
+Main,NO2,13,1786,1.31,1.09,1.5
+Main,NO2,14,1789,1.43,1.2,1.61
+Main,NO2,15,1790,1.7,1.46,1.91
+Main,NO2,16,1790,1.78,1.54,1.98
+Main,NO2,17,1792,1.9,1.65,2.1
+Main,NO2,18,1794,1.64,1.36,1.9
+Main,NO2,19,1796,1.11,0.82,1.37
+Main,NO2,20,1796,0.81,0.52,1.11
+Main,NO2,21,1796,0.81,0.52,1.07
+Main,NO2,22,1796,0.8,0.53,1.07
+Main,NO2,23,1796,0.82,0.57,1.08
+Without the transition band,Ozone,0,1627,-1.91,NA,NA
+Without the transition band,Ozone,1,1627,-1.81,NA,NA
+Without the transition band,Ozone,2,1627,-1.8,NA,NA
+Without the transition band,Ozone,3,1628,-1.94,NA,NA
+Without the transition band,Ozone,4,1629,-2.12,NA,NA
+Without the transition band,Ozone,5,1629,-1.82,NA,NA
+Without the transition band,Ozone,6,1625,-1.3,NA,NA
+Without the transition band,Ozone,7,1612,-1.31,NA,NA
+Without the transition band,Ozone,8,1590,-1.51,NA,NA
+Without the transition band,Ozone,9,1580,-1.42,NA,NA
+Without the transition band,Ozone,10,1568,-1.47,NA,NA
+Without the transition band,Ozone,11,1580,-1.7,NA,NA
+Without the transition band,Ozone,12,1595,-1.88,NA,NA
+Without the transition band,Ozone,13,1623,-2.06,NA,NA
+Without the transition band,Ozone,14,1630,-2.52,NA,NA
+Without the transition band,Ozone,15,1631,-2.99,NA,NA
+Without the transition band,Ozone,16,1632,-3.6,NA,NA
+Without the transition band,Ozone,17,1634,-3.88,NA,NA
+Without the transition band,Ozone,18,1633,-3.69,NA,NA
+Without the transition band,Ozone,19,1632,-3.05,NA,NA
+Without the transition band,Ozone,20,1636,-2.71,NA,NA
+Without the transition band,Ozone,21,1636,-2.5,NA,NA
+Without the transition band,Ozone,22,1376,-2.07,NA,NA
+Without the transition band,Ozone,23,1548,-2.63,NA,NA
+Without the transition band,NO2,0,1654,1.89,NA,NA
+Without the transition band,NO2,1,1398,2.22,NA,NA
+Without the transition band,NO2,2,1403,2.38,NA,NA
+Without the transition band,NO2,3,1602,2.54,NA,NA
+Without the transition band,NO2,4,1602,3.01,NA,NA
+Without the transition band,NO2,5,1657,2.87,NA,NA
+Without the transition band,NO2,6,1651,2.19,NA,NA
+Without the transition band,NO2,7,1632,1.9,NA,NA
+Without the transition band,NO2,8,1609,2.04,NA,NA
+Without the transition band,NO2,9,1586,2.05,NA,NA
+Without the transition band,NO2,10,1577,1.97,NA,NA
+Without the transition band,NO2,11,1584,2.08,NA,NA
+Without the transition band,NO2,12,1589,2.16,NA,NA
+Without the transition band,NO2,13,1607,2.31,NA,NA
+Without the transition band,NO2,14,1621,2.46,NA,NA
+Without the transition band,NO2,15,1634,2.69,NA,NA
+Without the transition band,NO2,16,1639,2.75,NA,NA
+Without the transition band,NO2,17,1643,2.87,NA,NA
+Without the transition band,NO2,18,1649,2.66,NA,NA
+Without the transition band,NO2,19,1653,2.11,NA,NA
+Without the transition band,NO2,20,1655,1.83,NA,NA
+Without the transition band,NO2,21,1652,1.73,NA,NA
+Without the transition band,NO2,22,1652,1.72,NA,NA
+Without the transition band,NO2,23,1653,1.79,NA,NA
+Without hours after the method change,NO2,0,1773,1.18,NA,NA
+Without hours after the method change,NO2,1,1519,1.41,NA,NA
+Without hours after the method change,NO2,2,1526,1.38,NA,NA
+Without hours after the method change,NO2,3,1712,1.45,NA,NA
+Without hours after the method change,NO2,4,1712,1.83,NA,NA
+Without hours after the method change,NO2,5,1774,1.68,NA,NA
+Without hours after the method change,NO2,6,1771,1.13,NA,NA
+Without hours after the method change,NO2,7,1762,0.87,NA,NA
+Without hours after the method change,NO2,8,1741,0.92,NA,NA
+Without hours after the method change,NO2,9,1729,0.92,NA,NA
+Without hours after the method change,NO2,10,1724,0.97,NA,NA
+Without hours after the method change,NO2,11,1737,1.13,NA,NA
+Without hours after the method change,NO2,12,1751,1.29,NA,NA
+Without hours after the method change,NO2,13,1759,1.45,NA,NA
+Without hours after the method change,NO2,14,1764,1.55,NA,NA
+Without hours after the method change,NO2,15,1764,1.82,NA,NA
+Without hours after the method change,NO2,16,1764,1.93,NA,NA
+Without hours after the method change,NO2,17,1766,2.08,NA,NA
+Without hours after the method change,NO2,18,1769,1.85,NA,NA
+Without hours after the method change,NO2,19,1771,1.36,NA,NA
+Without hours after the method change,NO2,20,1772,1.07,NA,NA
+Without hours after the method change,NO2,21,1771,1.07,NA,NA
+Without hours after the method change,NO2,22,1771,1.08,NA,NA
+Without hours after the method change,NO2,23,1772,1.09,NA,NA
+Without Deer Park #2 after its move,Ozone,0,1783,-2.63,NA,NA
+Without Deer Park #2 after its move,Ozone,1,1783,-2.6,NA,NA
+Without Deer Park #2 after its move,Ozone,2,1783,-2.49,NA,NA
+Without Deer Park #2 after its move,Ozone,3,1783,-2.51,NA,NA
+Without Deer Park #2 after its move,Ozone,4,1782,-2.51,NA,NA
+Without Deer Park #2 after its move,Ozone,5,1783,-2.21,NA,NA
+Without Deer Park #2 after its move,Ozone,6,1780,-1.6,NA,NA
+Without Deer Park #2 after its move,Ozone,7,1777,-1.17,NA,NA
+Without Deer Park #2 after its move,Ozone,8,1771,-0.8,NA,NA
+Without Deer Park #2 after its move,Ozone,9,1772,-0.62,NA,NA
+Without Deer Park #2 after its move,Ozone,10,1771,-0.91,NA,NA
+Without Deer Park #2 after its move,Ozone,11,1772,-1.18,NA,NA
+Without Deer Park #2 after its move,Ozone,12,1773,-1.42,NA,NA
+Without Deer Park #2 after its move,Ozone,13,1781,-1.63,NA,NA
+Without Deer Park #2 after its move,Ozone,14,1783,-2.04,NA,NA
+Without Deer Park #2 after its move,Ozone,15,1781,-2.64,NA,NA
+Without Deer Park #2 after its move,Ozone,16,1781,-3.15,NA,NA
+Without Deer Park #2 after its move,Ozone,17,1782,-3.23,NA,NA
+Without Deer Park #2 after its move,Ozone,18,1783,-3.03,NA,NA
+Without Deer Park #2 after its move,Ozone,19,1783,-2.61,NA,NA
+Without Deer Park #2 after its move,Ozone,20,1783,-2.36,NA,NA
+Without Deer Park #2 after its move,Ozone,21,1783,-2.48,NA,NA
+Without Deer Park #2 after its move,Ozone,22,1527,-2.36,NA,NA
+Without Deer Park #2 after its move,Ozone,23,1715,-3.17,NA,NA
+Without Deer Park #2 after its move,NO2,0,1796,1.11,NA,NA
+Without Deer Park #2 after its move,NO2,1,1538,1.31,NA,NA
+Without Deer Park #2 after its move,NO2,2,1547,1.19,NA,NA
+Without Deer Park #2 after its move,NO2,3,1733,1.24,NA,NA
+Without Deer Park #2 after its move,NO2,4,1733,1.61,NA,NA
+Without Deer Park #2 after its move,NO2,5,1796,1.54,NA,NA
+Without Deer Park #2 after its move,NO2,6,1794,0.93,NA,NA
+Without Deer Park #2 after its move,NO2,7,1785,0.7,NA,NA
+Without Deer Park #2 after its move,NO2,8,1778,0.84,NA,NA
+Without Deer Park #2 after its move,NO2,9,1774,0.9,NA,NA
+Without Deer Park #2 after its move,NO2,10,1770,0.94,NA,NA
+Without Deer Park #2 after its move,NO2,11,1774,1.13,NA,NA
+Without Deer Park #2 after its move,NO2,12,1779,1.28,NA,NA
+Without Deer Park #2 after its move,NO2,13,1785,1.42,NA,NA
+Without Deer Park #2 after its move,NO2,14,1788,1.57,NA,NA
+Without Deer Park #2 after its move,NO2,15,1789,1.85,NA,NA
+Without Deer Park #2 after its move,NO2,16,1789,1.95,NA,NA
+Without Deer Park #2 after its move,NO2,17,1791,2.14,NA,NA
+Without Deer Park #2 after its move,NO2,18,1793,1.97,NA,NA
+Without Deer Park #2 after its move,NO2,19,1796,1.41,NA,NA
+Without Deer Park #2 after its move,NO2,20,1796,1.09,NA,NA
+Without Deer Park #2 after its move,NO2,21,1796,1.05,NA,NA
+Without Deer Park #2 after its move,NO2,22,1796,1.01,NA,NA
+Without Deer Park #2 after its move,NO2,23,1796,1.01,NA,NA

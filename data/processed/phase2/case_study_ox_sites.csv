@@ -1,0 +1,7 @@
+site_group,site_id,local_site_name,n_ozone_hours,n_paired_hours,pct_of_ozone_hours,mean_ozone_ppb,mean_no2_ppb,mean_ox_ppb
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,42109,40701,96.7,27.33,6.81,34.14
+Houston Ship Channel,48-201-1034,Houston East,41454,39836,96.1,24.06,11.25,35.31
+Houston other,48-201-0055,Houston Bayland Park,38572,34959,90.6,28.33,6.85,35.19
+Houston other,48-201-0417,Houston Harvard Street,41044,38439,93.7,27.38,8.98,36.36
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,40557,35327,87.1,31.34,6.25,37.59
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,42088,40192,95.5,29.71,6.1,35.81
