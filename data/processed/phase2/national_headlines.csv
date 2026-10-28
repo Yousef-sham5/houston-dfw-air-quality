@@ -1,0 +1,31 @@
+headline_id,figure,finding,subject,value,unit,source_table
+N01,2A.1,"Change in reporting sites, 2021 to 2025",SO2,-18.1,%,national_sites_by_year
+N02,2A.1,"Change in reporting sites, 2021 to 2025",CO,-17.4,%,national_sites_by_year
+N03,2A.1,"Change in reporting sites, 2021 to 2025",PM2.5,3.9,%,national_sites_by_year
+N04,2A.1,FEM share of PM2.5 instrument-days,2021,79.2,%,national_pm25_methods
+N05,2A.1,FEM share of PM2.5 instrument-days,2025,85.2,%,national_pm25_methods
+N06,2A.1,"FEM minus FRM on the same site-day, median by year",Lowest year,0.3,µg/m³,national_pm25_methods
+N07,2A.1,"FEM minus FRM on the same site-day, median by year",Highest year,0.5,µg/m³,national_pm25_methods
+N08,2A.2,Five-year sites above the standard in 2023,Ozone 8-hour,42.7,% of sites,national_naaqs_screening
+N09,2A.2,Five-year sites above the standard in 2023,PM2.5 annual,39,% of sites,national_naaqs_screening
+N10,2A.2,Ozone sites above the standard over three-year windows,Lowest window,22.8,% of sites,national_design_values
+N11,2A.2,Ozone sites above the standard over three-year windows,Highest window,24.1,% of sites,national_design_values
+N12,2A.3,"Exceedance site-days on labelled event days, 2021 to 2025",PM2.5,39.9,%,national_exceedances_by_year
+N13,2A.3,"Exceedance site-days on labelled event days, 2021 to 2025",Ozone,1.2,%,national_exceedances_by_year
+N14,2A.3,"PM2.5 exceedance site-days on labelled event days, in 2023",PM2.5,68.2,%,national_exceedances_by_year
+N15,2A.3,PM2.5 event-day exceedances that carry EPA's exceptional-event flag,PM2.5,14.4,%,national_exceedances_by_year
+N16,2A.4,Metro rank by exceedance site-days,"Houston, ozone",6,rank of 353 metros with an exceedance,national_metro_ranks
+N17,2A.4,Metro rank by exceedance site-days,"Dallas-Fort Worth, ozone",8,rank of 353 metros with an exceedance,national_metro_ranks
+N18,2A.4,Metro rank by exceedance site-days,"Houston, PM2.5",52,rank of 359 metros with an exceedance,national_metro_ranks
+N19,2A.4,Metro rank by exceedance site-days,"Dallas-Fort Worth, PM2.5",89,rank of 359 metros with an exceedance,national_metro_ranks
+N20,2A.5,"Peak month of the typical year, as peak over low","PM2.5, peak in Jul",1.51,times the lowest month,national_monthly_profile
+N21,2A.5,"Peak month of the typical year, as peak over low","Ozone, peak in Jun",1.58,times the lowest month,national_monthly_profile
+N22,2A.5,"Peak month of the typical year, as peak over low","NO2, peak in Jan",1.75,times the lowest month,national_monthly_profile
+N23,2A.5,"Peak month of the typical year, as peak over low","SO2, peak in Feb",1.25,times the lowest month,national_monthly_profile
+N24,2A.5,"Peak month of the typical year, as peak over low","CO, peak in Dec",1.73,times the lowest month,national_monthly_profile
+N25,2A.6,Highest monthly PM2.5 median,June 2023,12.8,µg/m³,national_monthly_series
+N26,2A.7,"Weekend over weekday, median site, April to October",NO2,0.8048,ratio,national_weekend_summary
+N27,2A.7,"Weekend over weekday, median site, April to October",Ozone,0.9869,ratio,national_weekend_summary
+N28,2A.7,"Weekend ozone against weekdays, metro median",Los Angeles,5,%,national_ozone_weekend_metros
+N29,2A.7,"Weekend ozone against weekdays, metro median",Houston,-4,%,national_ozone_weekend_metros
+N30,2A.7,"Weekend ozone against weekdays, metro median",Dallas-Fort Worth,-4.8,%,national_ozone_weekend_metros

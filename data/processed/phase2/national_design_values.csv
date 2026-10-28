@@ -1,0 +1,16 @@
+pollutant,standard,units_of_measure,window,window_end,n_sites,median_design_value,n_above,pct_above
+PM2.5,24-hour,Micrograms/cubic meter (LC),2021 to 2023,2023,769,21,45,5.9
+PM2.5,24-hour,Micrograms/cubic meter (LC),2022 to 2024,2024,769,20,22,2.9
+PM2.5,24-hour,Micrograms/cubic meter (LC),2023 to 2025,2025,769,20,28,3.6
+PM2.5,Annual,Micrograms/cubic meter (LC),2021 to 2023,2023,768,7.9,171,22.3
+PM2.5,Annual,Micrograms/cubic meter (LC),2022 to 2024,2024,769,7.6,126,16.4
+PM2.5,Annual,Micrograms/cubic meter (LC),2023 to 2025,2025,769,7.7,126,16.4
+Ozone,8-hour,Parts per million,2021 to 2023,2023,964,0.066,223,23.1
+Ozone,8-hour,Parts per million,2022 to 2024,2024,964,0.066,232,24.1
+Ozone,8-hour,Parts per million,2023 to 2025,2025,964,0.066,220,22.8
+NO2,1-hour,Parts per billion,2021 to 2023,2023,312,38,0,0
+NO2,1-hour,Parts per billion,2022 to 2024,2024,312,37.5,0,0
+NO2,1-hour,Parts per billion,2023 to 2025,2025,312,37,0,0
+SO2,1-hour,Parts per billion,2021 to 2023,2023,301,8,12,4
+SO2,1-hour,Parts per billion,2022 to 2024,2024,301,7,11,3.7
+SO2,1-hour,Parts per billion,2023 to 2025,2025,301,6,12,4

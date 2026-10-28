@@ -1,0 +1,223 @@
+comparison,site_set,direction_type,direction,season,n_hours,n_days,ozone_gap_ppb,no2_gap_ppb,ox_gap_ppb,ox_ci_low,ox_ci_high,share_of_ozone_gap_closed
+Ship Channel minus Houston other,Main,Channel or other,From the channel,All year,8936,1047,-1.98,0.51,-1.47,-2.07,-0.94,0.256
+Ship Channel minus Houston other,Main,Channel or other,Other,All year,29088,1728,-1.95,1.35,-0.59,-0.93,-0.28,0.695
+Ship Channel minus Houston other,Main,Channel or other,From the channel,Winter,2082,215,-0.31,0.19,-0.13,-1.09,0.79,0.594
+Ship Channel minus Houston other,Main,Channel or other,Other,Winter,6885,398,-0.66,0.97,0.31,-0.17,0.79,1.474
+Ship Channel minus Houston other,Main,Channel or other,From the channel,Spring,2337,282,-1.37,0.86,-0.5,-1.28,0.25,0.632
+Ship Channel minus Houston other,Main,Channel or other,Other,Spring,7888,448,-1.59,1.58,-0.01,-0.46,0.45,0.996
+Ship Channel minus Houston other,Main,Channel or other,From the channel,Summer,1535,235,-3.29,1.1,-2.19,-3.19,-1.01,0.333
+Ship Channel minus Houston other,Main,Channel or other,Other,Summer,7913,440,-2.43,1.61,-0.82,-1.38,-0.23,0.661
+Ship Channel minus Houston other,Main,Channel or other,From the channel,Autumn,2982,315,-2.69,-0.03,-2.73,-3.82,-1.66,-0.013
+Ship Channel minus Houston other,Main,Channel or other,Other,Autumn,6402,442,-3,1.22,-1.78,-2.44,-1.05,0.406
+Ship Channel minus Houston other,Main,Quadrant,East,All year,8936,1047,-1.98,0.51,-1.47,-2.03,-0.9,0.256
+Ship Channel minus Houston other,Main,Quadrant,North,All year,8592,900,-2.2,1.15,-1.05,-1.52,-0.64,0.522
+Ship Channel minus Houston other,Main,Quadrant,South,All year,17481,1348,-1.94,1.19,-0.75,-1.2,-0.36,0.612
+Ship Channel minus Houston other,Main,Quadrant,West,All year,3015,616,-2.78,1.95,-0.83,-1.56,-0.14,0.701
+Ship Channel minus Houston other,Main,Quadrant,East,Winter,2082,215,-0.31,0.19,-0.13,-1.07,0.84,0.594
+Ship Channel minus Houston other,Main,Quadrant,North,Winter,3088,252,-0.49,0.63,0.14,-0.48,0.78,1.28
+Ship Channel minus Houston other,Main,Quadrant,South,Winter,3100,250,-0.57,0.78,0.21,-0.41,0.85,1.372
+Ship Channel minus Houston other,Main,Quadrant,West,Winter,697,145,-0.8,1.07,0.26,-0.73,1.2,1.329
+Ship Channel minus Houston other,Main,Quadrant,East,Spring,2337,282,-1.37,0.86,-0.5,-1.3,0.3,0.632
+Ship Channel minus Houston other,Main,Quadrant,North,Spring,2030,213,-2.87,1.62,-1.25,-1.97,-0.38,0.564
+Ship Channel minus Houston other,Main,Quadrant,South,Spring,5305,378,-1.16,1.35,0.18,-0.36,0.69,1.157
+Ship Channel minus Houston other,Main,Quadrant,West,Spring,553,126,-2.09,1.94,-0.15,-1.44,1.27,0.928
+Ship Channel minus Houston other,Main,Quadrant,East,Summer,1535,235,-3.29,1.1,-2.19,-3.17,-0.98,0.333
+Ship Channel minus Houston other,Main,Quadrant,North,Summer,723,142,-2.93,2.1,-0.84,-1.89,0.21,0.715
+Ship Channel minus Houston other,Main,Quadrant,South,Summer,6088,420,-2.31,1.41,-0.9,-1.52,-0.18,0.611
+Ship Channel minus Houston other,Main,Quadrant,West,Summer,1102,212,-3.2,2.3,-0.9,-1.56,0.26,0.717
+Ship Channel minus Houston other,Main,Quadrant,East,Autumn,2982,315,-2.69,-0.03,-2.73,-3.91,-1.69,-0.013
+Ship Channel minus Houston other,Main,Quadrant,North,Autumn,2751,293,-2.82,0.79,-2.03,-2.78,-1.17,0.281
+Ship Channel minus Houston other,Main,Quadrant,South,Autumn,2988,300,-3.56,1.02,-2.54,-3.55,-1.47,0.285
+Ship Channel minus Houston other,Main,Quadrant,West,Autumn,663,133,-4.91,2.35,-2.56,-3.89,-0.76,0.479
+Ship Channel minus Houston other,Main,Sector,0,All year,3204,580,-2.68,1.6,-1.08,NA,NA,0.598
+Ship Channel minus Houston other,Main,Sector,120,All year,4007,810,-2.68,1.22,-1.46,NA,NA,0.454
+Ship Channel minus Houston other,Main,Sector,150,All year,7423,1111,-2.11,1.73,-0.38,NA,NA,0.82
+Ship Channel minus Houston other,Main,Sector,180,All year,6408,1022,-1.7,0.85,-0.85,NA,NA,0.502
+Ship Channel minus Houston other,Main,Sector,210,All year,3650,721,-2.22,0.92,-1.3,NA,NA,0.415
+Ship Channel minus Houston other,Main,Sector,240,All year,1417,451,-2.7,1.23,-1.47,NA,NA,0.454
+Ship Channel minus Houston other,Main,Sector,270,All year,757,318,-2.86,2.55,-0.31,NA,NA,0.892
+Ship Channel minus Houston other,Main,Sector,30,All year,3476,680,-1.91,0.18,-1.73,NA,NA,0.094
+Ship Channel minus Houston other,Main,Sector,300,All year,841,281,-2.98,3.51,0.53,NA,NA,1.177
+Ship Channel minus Houston other,Main,Sector,330,All year,1912,417,-2.6,2.94,0.34,NA,NA,1.131
+Ship Channel minus Houston other,Main,Sector,60,All year,2467,642,-0.88,-0.76,-1.64,NA,NA,-0.87
+Ship Channel minus Houston other,Main,Sector,90,All year,2462,661,-1.38,-1.59,-2.97,NA,NA,-1.153
+Ship Channel minus Houston other,Without the transition band,Channel or other,From the channel,All year,4193,706,-3.56,1.41,-2.16,-2.73,-1.66,0.395
+Ship Channel minus Houston other,Without the transition band,Channel or other,Other,All year,28082,1517,-2.35,2.38,0.03,-0.3,0.35,1.015
+Ship Channel minus Houston other,Without the transition band,Channel or other,From the channel,Winter,1121,158,-1.36,0.68,-0.67,-1.28,0.11,0.504
+Ship Channel minus Houston other,Without the transition band,Channel or other,Other,Winter,6873,371,-1.58,2.27,0.69,0.28,1.12,1.434
+Ship Channel minus Houston other,Without the transition band,Channel or other,From the channel,Spring,928,178,-4.11,1.81,-2.29,-2.98,-1.73,0.441
+Ship Channel minus Houston other,Without the transition band,Channel or other,Other,Spring,8047,406,-2.63,2.51,-0.12,-0.51,0.32,0.956
+Ship Channel minus Houston other,Without the transition band,Channel or other,From the channel,Summer,665,134,-5.06,2.49,-2.57,-3.62,-1.24,0.492
+Ship Channel minus Houston other,Without the transition band,Channel or other,Other,Summer,6716,354,-1.71,2.34,0.62,-0.04,1.44,1.363
+Ship Channel minus Houston other,Without the transition band,Channel or other,From the channel,Autumn,1479,236,-3.78,0.97,-2.81,-3.98,-1.86,0.257
+Ship Channel minus Houston other,Without the transition band,Channel or other,Other,Autumn,6446,386,-3.36,2.39,-0.97,-1.76,-0.26,0.71
+Ship Channel minus Houston other,Without the transition band,Quadrant,East,All year,7546,905,-2.86,2.3,-0.56,-1.23,0.08,0.805
+Ship Channel minus Houston other,Without the transition band,Quadrant,North,All year,7632,793,-3.82,2.83,-1,-1.46,-0.57,0.739
+Ship Channel minus Houston other,Without the transition band,Quadrant,South,All year,14633,1149,-1.37,1.87,0.5,0.11,0.9,1.366
+Ship Channel minus Houston other,Without the transition band,Quadrant,West,All year,2464,520,-2.37,2.86,0.48,0.02,0.98,1.204
+Ship Channel minus Houston other,Without the transition band,Quadrant,East,Winter,1807,192,-1.7,2.24,0.53,-0.19,1.43,1.313
+Ship Channel minus Houston other,Without the transition band,Quadrant,North,Winter,2815,231,-2.01,2.04,0.03,-0.39,0.62,1.017
+Ship Channel minus Houston other,Without the transition band,Quadrant,South,Winter,2737,224,-0.53,1.71,1.18,0.72,1.66,3.24
+Ship Channel minus Houston other,Without the transition band,Quadrant,West,Winter,635,134,-1.35,2.07,0.72,0.1,1.46,1.533
+Ship Channel minus Houston other,Without the transition band,Quadrant,East,Spring,1940,242,-2.89,2.61,-0.28,-0.96,0.69,0.903
+Ship Channel minus Houston other,Without the transition band,Quadrant,North,Spring,1849,193,-5.5,3.24,-2.26,-2.97,-1.29,0.589
+Ship Channel minus Houston other,Without the transition band,Quadrant,South,Spring,4671,334,-1.55,2,0.45,0.08,0.88,1.289
+Ship Channel minus Houston other,Without the transition band,Quadrant,West,Spring,515,115,-1.88,2.83,0.95,0.19,1.89,1.504
+Ship Channel minus Houston other,Without the transition band,Quadrant,East,Summer,1264,191,-2.72,2.87,0.14,-1.07,2.28,1.053
+Ship Channel minus Houston other,Without the transition band,Quadrant,North,Summer,595,120,-3.75,4.09,0.34,-0.8,1.33,1.092
+Ship Channel minus Houston other,Without the transition band,Quadrant,South,Summer,4693,333,-1.02,1.98,0.96,0.14,1.93,1.941
+Ship Channel minus Houston other,Without the transition band,Quadrant,West,Summer,829,164,-2.52,3.19,0.67,0.16,1.75,1.267
+Ship Channel minus Houston other,Without the transition band,Quadrant,East,Autumn,2535,280,-3.72,1.7,-2.02,-3.41,-0.75,0.456
+Ship Channel minus Houston other,Without the transition band,Quadrant,North,Autumn,2373,249,-4.24,2.62,-1.62,-2.4,-1.01,0.619
+Ship Channel minus Houston other,Without the transition band,Quadrant,South,Autumn,2532,258,-2.32,1.71,-0.61,-1.57,0.46,0.737
+Ship Channel minus Houston other,Without the transition band,Quadrant,West,Autumn,485,107,-3.95,3.36,-0.6,-1.68,0.71,0.849
+Ship Channel minus Houston other,Without the transition band,Sector,0,All year,2901,518,-4.09,3.32,-0.77,NA,NA,0.812
+Ship Channel minus Houston other,Without the transition band,Sector,120,All year,3353,691,-2.68,2.98,0.3,NA,NA,1.11
+Ship Channel minus Houston other,Without the transition band,Sector,150,All year,6343,935,-1.46,2.64,1.18,NA,NA,1.812
+Ship Channel minus Houston other,Without the transition band,Sector,180,All year,5303,867,-1.01,1.4,0.38,NA,NA,1.378
+Ship Channel minus Houston other,Without the transition band,Sector,210,All year,2987,603,-1.43,1.31,-0.12,NA,NA,0.918
+Ship Channel minus Houston other,Without the transition band,Sector,240,All year,1141,373,-1.82,1.7,-0.12,NA,NA,0.936
+Ship Channel minus Houston other,Without the transition band,Sector,270,All year,633,268,-2.13,3.25,1.13,NA,NA,1.529
+Ship Channel minus Houston other,Without the transition band,Sector,30,All year,3025,593,-3.69,1.64,-2.05,NA,NA,0.444
+Ship Channel minus Houston other,Without the transition band,Sector,300,All year,690,246,-3.66,5.13,1.47,NA,NA,1.402
+Ship Channel minus Houston other,Without the transition band,Sector,330,All year,1706,373,-4.05,4.83,0.78,NA,NA,1.192
+Ship Channel minus Houston other,Without the transition band,Sector,60,All year,2100,549,-3.08,1.03,-2.05,NA,NA,0.335
+Ship Channel minus Houston other,Without the transition band,Sector,90,All year,2093,563,-3.89,0.92,-2.97,NA,NA,0.236
+Ship Channel minus Houston other,Without hours after the method change,Channel or other,From the channel,All year,8672,1021,-2.1,0.9,-1.2,NA,NA,0.43
+Ship Channel minus Houston other,Without hours after the method change,Channel or other,Other,All year,28473,1692,-1.98,1.52,-0.47,NA,NA,0.765
+Ship Channel minus Houston other,Without hours after the method change,Channel or other,From the channel,Winter,2059,213,-0.94,0.84,-0.1,NA,NA,0.891
+Ship Channel minus Houston other,Without hours after the method change,Channel or other,Other,Winter,6834,396,-1.06,1.24,0.18,NA,NA,1.172
+Ship Channel minus Houston other,Without hours after the method change,Channel or other,From the channel,Spring,2234,272,-1.65,1.17,-0.48,NA,NA,0.708
+Ship Channel minus Houston other,Without hours after the method change,Channel or other,Other,Spring,7653,434,-1.94,1.72,-0.22,NA,NA,0.885
+Ship Channel minus Houston other,Without hours after the method change,Channel or other,From the channel,Summer,1479,227,-2.86,1.39,-1.48,NA,NA,0.484
+Ship Channel minus Houston other,Without hours after the method change,Channel or other,Other,Summer,7762,431,-1.97,1.6,-0.38,NA,NA,0.81
+Ship Channel minus Houston other,Without hours after the method change,Channel or other,From the channel,Autumn,2900,309,-2.74,0.36,-2.38,NA,NA,0.131
+Ship Channel minus Houston other,Without hours after the method change,Channel or other,Other,Autumn,6224,431,-2.89,1.48,-1.4,NA,NA,0.515
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,East,All year,8672,1021,-2.1,0.9,-1.2,NA,NA,0.43
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,North,All year,8416,879,-2.61,1.54,-1.07,NA,NA,0.59
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,South,All year,17109,1317,-1.74,1.28,-0.46,NA,NA,0.734
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,West,All year,2948,603,-2.66,2.04,-0.62,NA,NA,0.768
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,East,Winter,2059,213,-0.94,0.84,-0.1,NA,NA,0.891
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,North,Winter,3051,250,-1.06,0.97,-0.08,NA,NA,0.922
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,South,Winter,3086,249,-0.75,1.02,0.27,NA,NA,1.358
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,West,Winter,697,145,-0.98,1.21,0.23,NA,NA,1.235
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,East,Spring,2234,272,-1.65,1.17,-0.48,NA,NA,0.708
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,North,Spring,2022,210,-3.51,1.88,-1.63,NA,NA,0.535
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,South,Spring,5083,363,-1.36,1.43,0.07,NA,NA,1.054
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,West,Spring,548,125,-2.38,2.02,-0.36,NA,NA,0.849
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,East,Summer,1479,227,-2.86,1.39,-1.48,NA,NA,0.484
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,North,Summer,686,136,-2.99,2.61,-0.38,NA,NA,0.872
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,South,Summer,5999,411,-1.73,1.34,-0.39,NA,NA,0.776
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,West,Summer,1077,205,-2.79,2.31,-0.48,NA,NA,0.827
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,East,Autumn,2900,309,-2.74,0.36,-2.38,NA,NA,0.131
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,North,Autumn,2657,283,-3.13,1.27,-1.85,NA,NA,0.407
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,South,Autumn,2941,294,-3.07,1.22,-1.85,NA,NA,0.397
+Ship Channel minus Houston other,Without hours after the method change,Quadrant,West,Autumn,626,128,-4.65,2.59,-2.05,NA,NA,0.559
+Ship Channel minus Houston other,Without hours after the method change,Sector,0,All year,3153,567,-3.04,2.06,-0.97,NA,NA,0.679
+Ship Channel minus Houston other,Without hours after the method change,Sector,120,All year,3876,785,-2.5,1.63,-0.86,NA,NA,0.654
+Ship Channel minus Houston other,Without hours after the method change,Sector,150,All year,7208,1081,-1.87,1.89,0.02,NA,NA,1.012
+Ship Channel minus Houston other,Without hours after the method change,Sector,180,All year,6290,1000,-1.5,0.9,-0.59,NA,NA,0.603
+Ship Channel minus Houston other,Without hours after the method change,Sector,210,All year,3611,709,-1.97,0.87,-1.1,NA,NA,0.441
+Ship Channel minus Houston other,Without hours after the method change,Sector,240,All year,1393,440,-2.45,1.19,-1.26,NA,NA,0.486
+Ship Channel minus Houston other,Without hours after the method change,Sector,270,All year,739,311,-2.66,2.53,-0.13,NA,NA,0.949
+Ship Channel minus Houston other,Without hours after the method change,Sector,30,All year,3377,662,-2.36,0.53,-1.83,NA,NA,0.225
+Ship Channel minus Houston other,Without hours after the method change,Sector,300,All year,816,277,-3.1,3.9,0.8,NA,NA,1.257
+Ship Channel minus Houston other,Without hours after the method change,Sector,330,All year,1886,411,-3.06,3.41,0.35,NA,NA,1.115
+Ship Channel minus Houston other,Without hours after the method change,Sector,60,All year,2386,624,-1.38,-0.45,-1.83,NA,NA,-0.325
+Ship Channel minus Houston other,Without hours after the method change,Sector,90,All year,2410,643,-2.09,-0.94,-3.03,NA,NA,-0.45
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Channel or other,From the channel,All year,8915,1045,-2.38,0.83,-1.55,NA,NA,0.35
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Channel or other,Other,All year,29054,1727,-2.22,1.5,-0.72,NA,NA,0.676
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Channel or other,From the channel,Winter,2081,215,-0.58,0.36,-0.22,NA,NA,0.621
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Channel or other,Other,Winter,6883,398,-0.81,1.02,0.2,NA,NA,1.25
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Channel or other,From the channel,Spring,2337,282,-1.37,0.87,-0.51,NA,NA,0.632
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Channel or other,Other,Spring,7886,448,-1.6,1.59,-0.01,NA,NA,0.992
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Channel or other,From the channel,Summer,1519,233,-3.63,1.61,-2.03,NA,NA,0.442
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Channel or other,Other,Summer,7893,439,-2.72,1.85,-0.87,NA,NA,0.679
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Channel or other,From the channel,Autumn,2978,315,-3.57,0.54,-3.02,NA,NA,0.153
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Channel or other,Other,Autumn,6392,442,-3.61,1.5,-2.11,NA,NA,0.415
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,East,All year,8915,1045,-2.38,0.83,-1.55,NA,NA,0.35
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,North,All year,8587,898,-2.65,1.24,-1.41,NA,NA,0.469
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,South,All year,17453,1347,-2.19,1.4,-0.8,NA,NA,0.637
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,West,All year,3014,616,-3.17,2.16,-1.01,NA,NA,0.681
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,East,Winter,2081,215,-0.58,0.36,-0.22,NA,NA,0.621
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,North,Winter,3086,252,-0.69,0.67,-0.02,NA,NA,0.969
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,South,Winter,3100,250,-0.71,0.88,0.16,NA,NA,1.231
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,West,Winter,697,145,-0.85,1.03,0.18,NA,NA,1.217
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,East,Spring,2337,282,-1.37,0.87,-0.51,NA,NA,0.632
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,North,Spring,2030,213,-2.89,1.62,-1.27,NA,NA,0.561
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,South,Spring,5304,378,-1.18,1.36,0.18,NA,NA,1.152
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,West,Spring,552,126,-2.17,2,-0.17,NA,NA,0.92
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,East,Summer,1519,233,-3.63,1.61,-2.03,NA,NA,0.442
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,North,Summer,722,141,-3.68,2.3,-1.38,NA,NA,0.625
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,South,Summer,6069,419,-2.54,1.68,-0.86,NA,NA,0.66
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,West,Summer,1102,212,-3.71,2.58,-1.14,NA,NA,0.694
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,East,Autumn,2978,315,-3.57,0.54,-3.02,NA,NA,0.153
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,North,Autumn,2749,292,-3.67,0.95,-2.72,NA,NA,0.259
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,South,Autumn,2980,300,-4.21,1.47,-2.74,NA,NA,0.35
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Quadrant,West,Autumn,663,133,-5.79,2.88,-2.91,NA,NA,0.498
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,0,All year,3203,580,-3.03,1.65,-1.38,NA,NA,0.544
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,120,All year,3998,809,-2.99,1.6,-1.39,NA,NA,0.537
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,150,All year,7407,1110,-2.38,2,-0.39,NA,NA,0.838
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,180,All year,6397,1022,-1.93,1.03,-0.9,NA,NA,0.534
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,210,All year,3649,721,-2.45,1.08,-1.37,NA,NA,0.44
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,240,All year,1416,451,-2.98,1.37,-1.62,NA,NA,0.458
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,270,All year,757,318,-3.22,2.72,-0.5,NA,NA,0.844
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,30,All year,3472,678,-2.46,0.26,-2.2,NA,NA,0.106
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,300,All year,841,281,-3.48,3.81,0.33,NA,NA,1.094
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,330,All year,1912,417,-3,3.13,0.12,NA,NA,1.041
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,60,All year,2459,640,-1.44,-0.57,-2.01,NA,NA,-0.392
+Ship Channel minus Houston other,Without Deer Park #2 after its move,Sector,90,All year,2458,659,-1.94,-1.19,-3.13,NA,NA,-0.616
+Ship Channel minus Houston other,Without new wind sensors,Channel or other,From the channel,All year,4936,602,-1.65,-0.33,-1.98,NA,NA,-0.201
+Ship Channel minus Houston other,Without new wind sensors,Channel or other,Other,All year,17538,1029,-1.87,0.8,-1.07,NA,NA,0.426
+Ship Channel minus Houston other,Without new wind sensors,Channel or other,From the channel,Winter,1101,114,0.07,-1.11,-1.04,NA,NA,16.795
+Ship Channel minus Houston other,Without new wind sensors,Channel or other,Other,Winter,4052,232,-0.62,0.41,-0.22,NA,NA,0.653
+Ship Channel minus Houston other,Without new wind sensors,Channel or other,From the channel,Spring,1487,175,-1.45,0.14,-1.31,NA,NA,0.097
+Ship Channel minus Houston other,Without new wind sensors,Channel or other,Other,Spring,4642,267,-1.82,1.09,-0.73,NA,NA,0.598
+Ship Channel minus Houston other,Without new wind sensors,Channel or other,From the channel,Summer,686,131,-2.51,0.33,-2.19,NA,NA,0.131
+Ship Channel minus Houston other,Without new wind sensors,Channel or other,Other,Summer,4973,266,-2.19,1.03,-1.17,NA,NA,0.468
+Ship Channel minus Houston other,Without new wind sensors,Channel or other,From the channel,Autumn,1662,182,-2.3,-0.78,-3.08,NA,NA,-0.337
+Ship Channel minus Houston other,Without new wind sensors,Channel or other,Other,Autumn,3871,264,-2.69,0.62,-2.08,NA,NA,0.229
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,East,All year,4936,602,-1.65,-0.33,-1.98,NA,NA,-0.201
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,North,All year,5172,538,-2.08,0.55,-1.53,NA,NA,0.265
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,South,All year,10363,808,-1.94,0.72,-1.22,NA,NA,0.369
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,West,All year,2003,401,-2.8,1.33,-1.47,NA,NA,0.474
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,East,Winter,1101,114,0.07,-1.11,-1.04,NA,NA,16.795
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,North,Winter,1713,142,-0.61,0.13,-0.48,NA,NA,0.207
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,South,Winter,1910,151,-0.38,0.24,-0.15,NA,NA,0.616
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,West,Winter,429,88,-1.25,0.62,-0.63,NA,NA,0.498
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,East,Spring,1487,175,-1.45,0.14,-1.31,NA,NA,0.097
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,North,Spring,1332,140,-2.94,1.11,-1.83,NA,NA,0.378
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,South,Spring,2966,220,-1.36,0.88,-0.48,NA,NA,0.649
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,West,Spring,344,85,-2.62,1.33,-1.29,NA,NA,0.508
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,East,Summer,686,131,-2.51,0.33,-2.19,NA,NA,0.131
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,North,Summer,468,81,-2.69,1.61,-1.08,NA,NA,0.6
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,South,Summer,3737,253,-2.2,0.83,-1.37,NA,NA,0.376
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,West,Summer,768,147,-2.46,1.49,-0.98,NA,NA,0.604
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,East,Autumn,1662,182,-2.3,-0.78,-3.08,NA,NA,-0.337
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,North,Autumn,1659,175,-2.3,-0.04,-2.35,NA,NA,-0.018
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,South,Autumn,1750,184,-3.55,0.76,-2.79,NA,NA,0.213
+Ship Channel minus Houston other,Without new wind sensors,Quadrant,West,Autumn,462,81,-5.28,1.79,-3.49,NA,NA,0.34
+Ship Channel minus Houston other,Without new wind sensors,Sector,0,All year,2059,372,-2.61,1.2,-1.41,NA,NA,0.458
+Ship Channel minus Houston other,Without new wind sensors,Sector,120,All year,2229,456,-2.49,0.46,-2.03,NA,NA,0.185
+Ship Channel minus Houston other,Without new wind sensors,Sector,150,All year,3835,638,-2.29,1.27,-1.02,NA,NA,0.555
+Ship Channel minus Houston other,Without new wind sensors,Sector,180,All year,4039,630,-1.69,0.42,-1.27,NA,NA,0.248
+Ship Channel minus Houston other,Without new wind sensors,Sector,210,All year,2489,474,-2.22,0.49,-1.73,NA,NA,0.223
+Ship Channel minus Houston other,Without new wind sensors,Sector,240,All year,1005,305,-2.77,0.65,-2.13,NA,NA,0.234
+Ship Channel minus Houston other,Without new wind sensors,Sector,270,All year,504,209,-2.83,2.04,-0.79,NA,NA,0.721
+Ship Channel minus Houston other,Without new wind sensors,Sector,30,All year,2008,400,-1.72,-0.44,-2.15,NA,NA,-0.254
+Ship Channel minus Houston other,Without new wind sensors,Sector,300,All year,494,165,-2.76,2.61,-0.15,NA,NA,0.947
+Ship Channel minus Houston other,Without new wind sensors,Sector,330,All year,1105,249,-2.52,2.36,-0.16,NA,NA,0.938
+Ship Channel minus Houston other,Without new wind sensors,Sector,60,All year,1326,369,-0.59,-1.67,-2.26,NA,NA,-2.833
+Ship Channel minus Houston other,Without new wind sensors,Sector,90,All year,1381,372,-0.66,-2.79,-3.45,NA,NA,-4.216
+Harvard Street minus Bayland Park,Main,Sector,0,All year,2706,481,-2.86,3.12,0.26,-0.53,1.25,NA
+Harvard Street minus Bayland Park,Main,Sector,30,All year,2873,560,-3.2,2.53,-0.68,-1.31,0.1,NA
+Harvard Street minus Bayland Park,Main,Sector,60,All year,1971,510,-3.93,3,-0.93,-1.82,-0.15,NA
+Harvard Street minus Bayland Park,Main,Sector,90,All year,1919,524,-4.87,4.7,-0.17,-1.04,0.58,NA
+Harvard Street minus Bayland Park,Main,Sector,120,All year,3069,648,-0.12,3.09,2.96,2.12,3.79,NA
+Harvard Street minus Bayland Park,Main,Sector,150,All year,5758,869,1.19,1.51,2.7,2.06,3.39,NA
+Harvard Street minus Bayland Park,Main,Sector,180,All year,4908,814,1.14,1.05,2.19,1.44,2.85,NA
+Harvard Street minus Bayland Park,Main,Sector,210,All year,2806,577,1.39,0.75,2.13,1.37,3,NA
+Harvard Street minus Bayland Park,Main,Sector,240,All year,1066,352,1.64,0.87,2.51,1.53,3.7,NA
+Harvard Street minus Bayland Park,Main,Sector,270,All year,575,248,0.96,1.32,2.28,1.26,3.28,NA
+Harvard Street minus Bayland Park,Main,Sector,300,All year,604,223,-1.59,3.46,1.87,0.65,3.18,NA
+Harvard Street minus Bayland Park,Main,Sector,330,All year,1537,348,-2.76,3.47,0.7,-0.16,1.75,NA

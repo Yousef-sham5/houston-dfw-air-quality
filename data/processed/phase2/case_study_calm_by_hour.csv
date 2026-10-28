@@ -1,0 +1,145 @@
+site_set,site_group,hour_local,n_sites,min_wind_hours,low_site_pct,high_site_pct,pct_calm
+Main,Houston Ship Channel,0,4,1635,3.68,18.33,11.34
+Main,Houston Ship Channel,1,4,1635,4.08,18.07,12.3
+Main,Houston Ship Channel,2,4,1634,5.1,18.79,13.74
+Main,Houston Ship Channel,3,4,1632,3.41,19.64,14.42
+Main,Houston Ship Channel,4,4,1633,3.97,18.41,13.69
+Main,Houston Ship Channel,5,4,1633,4.43,20.4,14.41
+Main,Houston Ship Channel,6,4,1632,3.7,14.33,11.04
+Main,Houston Ship Channel,7,4,1630,3.13,8.02,6.09
+Main,Houston Ship Channel,8,4,1630,1.54,3.37,2.55
+Main,Houston Ship Channel,9,4,1632,1.34,2.8,1.96
+Main,Houston Ship Channel,10,4,1631,1.51,2.41,1.83
+Main,Houston Ship Channel,11,4,1633,1.12,2.19,1.53
+Main,Houston Ship Channel,12,4,1633,1.1,1.65,1.35
+Main,Houston Ship Channel,13,4,1634,0.67,1.65,1.24
+Main,Houston Ship Channel,14,4,1635,0.67,2.18,1.28
+Main,Houston Ship Channel,15,4,1635,0.67,1.4,1.04
+Main,Houston Ship Channel,16,4,1633,0.45,1.68,0.92
+Main,Houston Ship Channel,17,4,1633,0.56,2.41,1.24
+Main,Houston Ship Channel,18,4,1636,1.19,4.03,2.21
+Main,Houston Ship Channel,19,4,1638,2.15,5.26,3.3
+Main,Houston Ship Channel,20,4,1638,2.55,7.51,4.28
+Main,Houston Ship Channel,21,4,1638,2.89,10.4,6.04
+Main,Houston Ship Channel,22,4,1638,2.55,13.19,7.44
+Main,Houston Ship Channel,23,4,1637,3.57,15.63,9.8
+Main,Houston other,0,2,1209,13.73,20.86,17.3
+Main,Houston other,1,2,1208,15.89,23.5,19.7
+Main,Houston other,2,2,1205,17.26,24.62,20.94
+Main,Houston other,3,2,1202,17.3,26.76,22.03
+Main,Houston other,4,2,1202,17.14,28.17,22.66
+Main,Houston other,5,2,1202,17.39,29.22,23.3
+Main,Houston other,6,2,1204,12.62,20.23,16.43
+Main,Houston other,7,2,1208,5.88,9.26,7.57
+Main,Houston other,8,2,1217,2.14,3.07,2.61
+Main,Houston other,9,2,1218,1.4,2.63,2.01
+Main,Houston other,10,2,1216,1.23,2.29,1.76
+Main,Houston other,11,2,1215,1.65,2.57,2.11
+Main,Houston other,12,2,1214,1.4,2.07,1.73
+Main,Houston other,13,2,1217,0.82,1.9,1.36
+Main,Houston other,14,2,1219,0.98,1.79,1.39
+Main,Houston other,15,2,1217,0.58,1.45,1.01
+Main,Houston other,16,2,1220,0.66,1.06,0.86
+Main,Houston other,17,2,1221,0.74,1.67,1.21
+Main,Houston other,18,2,1220,1.89,3.68,2.78
+Main,Houston other,19,2,1219,3.28,5.58,4.43
+Main,Houston other,20,2,1219,4.18,7.03,5.61
+Main,Houston other,21,2,1218,5.91,10.76,8.34
+Main,Houston other,22,2,1217,7.89,15.54,11.71
+Main,Houston other,23,2,1213,11.05,18.89,14.97
+Main,Dallas-Fort Worth,0,2,1492,2.08,2.61,2.35
+Main,Dallas-Fort Worth,1,2,1493,1.57,2.81,2.19
+Main,Dallas-Fort Worth,2,2,1492,1.85,2.41,2.13
+Main,Dallas-Fort Worth,3,2,1490,1.8,3.02,2.41
+Main,Dallas-Fort Worth,4,2,1493,1.4,2.95,2.17
+Main,Dallas-Fort Worth,5,2,1493,1.74,2.28,2.01
+Main,Dallas-Fort Worth,6,2,1490,2.13,2.62,2.37
+Main,Dallas-Fort Worth,7,2,1488,1.63,2.76,2.19
+Main,Dallas-Fort Worth,8,2,1487,1.24,2.08,1.66
+Main,Dallas-Fort Worth,9,2,1486,0.67,1.21,0.94
+Main,Dallas-Fort Worth,10,2,1487,0.34,1.41,0.87
+Main,Dallas-Fort Worth,11,2,1487,0.39,1.08,0.73
+Main,Dallas-Fort Worth,12,2,1492,0.45,0.94,0.69
+Main,Dallas-Fort Worth,13,2,1492,0.56,0.74,0.65
+Main,Dallas-Fort Worth,14,2,1494,0.45,1.07,0.76
+Main,Dallas-Fort Worth,15,2,1493,0.45,0.87,0.66
+Main,Dallas-Fort Worth,16,2,1491,0.62,1.34,0.98
+Main,Dallas-Fort Worth,17,2,1490,0.9,1.61,1.25
+Main,Dallas-Fort Worth,18,2,1494,1.46,1.87,1.67
+Main,Dallas-Fort Worth,19,2,1493,1.06,2.14,1.6
+Main,Dallas-Fort Worth,20,2,1493,1.4,2.75,2.07
+Main,Dallas-Fort Worth,21,2,1492,1.46,2.35,1.9
+Main,Dallas-Fort Worth,22,2,1492,1.23,2.61,1.92
+Main,Dallas-Fort Worth,23,2,1492,1.4,2.61,2.01
+Without new wind sensors,Houston Ship Channel,0,4,746,2.81,19.62,11.69
+Without new wind sensors,Houston Ship Channel,1,4,746,3.75,20.62,13.29
+Without new wind sensors,Houston Ship Channel,2,4,746,4.8,21.53,14.62
+Without new wind sensors,Houston Ship Channel,3,4,745,2.94,24.08,15.85
+Without new wind sensors,Houston Ship Channel,4,4,743,3.29,22.41,15
+Without new wind sensors,Houston Ship Channel,5,4,743,3.18,24.58,15.84
+Without new wind sensors,Houston Ship Channel,6,4,742,2.83,17.4,12.09
+Without new wind sensors,Houston Ship Channel,7,4,742,2,8.89,6.04
+Without new wind sensors,Houston Ship Channel,8,4,743,1.41,3.52,2.51
+Without new wind sensors,Houston Ship Channel,9,4,745,1.34,2.68,1.92
+Without new wind sensors,Houston Ship Channel,10,4,745,1.21,2.5,1.75
+Without new wind sensors,Houston Ship Channel,11,4,746,1.12,2.22,1.5
+Without new wind sensors,Houston Ship Channel,12,4,748,1.12,1.66,1.35
+Without new wind sensors,Houston Ship Channel,13,4,747,0.59,1.57,0.97
+Without new wind sensors,Houston Ship Channel,14,4,748,0.67,2.3,1.09
+Without new wind sensors,Houston Ship Channel,15,4,748,0.67,1.38,0.97
+Without new wind sensors,Houston Ship Channel,16,4,746,0.45,1.85,0.86
+Without new wind sensors,Houston Ship Channel,17,4,744,0.56,2.77,1.33
+Without new wind sensors,Houston Ship Channel,18,4,746,1.29,4.98,2.54
+Without new wind sensors,Houston Ship Channel,19,4,748,2.46,6.38,3.92
+Without new wind sensors,Houston Ship Channel,20,4,748,2.81,8.88,4.8
+Without new wind sensors,Houston Ship Channel,21,4,747,2.58,12.09,6.44
+Without new wind sensors,Houston Ship Channel,22,4,747,2.46,14.67,8.23
+Without new wind sensors,Houston Ship Channel,23,4,746,3.04,16.57,10.07
+Without new wind sensors,Houston other,0,2,347,18.44,20.86,19.65
+Without new wind sensors,Houston other,1,2,346,21.39,23.5,22.45
+Without new wind sensors,Houston other,2,2,343,22.16,24.62,23.39
+Without new wind sensors,Houston other,3,2,340,22.35,26.76,24.56
+Without new wind sensors,Houston other,4,2,340,24.12,28.17,26.14
+Without new wind sensors,Houston other,5,2,341,24.93,29.22,27.07
+Without new wind sensors,Houston other,6,2,343,17.78,20.23,19.01
+Without new wind sensors,Houston other,7,2,349,7.16,9.26,8.21
+Without new wind sensors,Houston other,8,2,357,2.8,3.07,2.94
+Without new wind sensors,Houston other,9,2,357,1.12,2.63,1.87
+Without new wind sensors,Houston other,10,2,355,1.41,2.29,1.85
+Without new wind sensors,Houston other,11,2,354,1.41,2.57,1.99
+Without new wind sensors,Houston other,12,2,351,1.42,2.07,1.75
+Without new wind sensors,Houston other,13,2,354,0.85,1.9,1.37
+Without new wind sensors,Houston other,14,2,355,1.13,1.79,1.46
+Without new wind sensors,Houston other,15,2,355,0.85,1.45,1.15
+Without new wind sensors,Houston other,16,2,356,0.28,1.06,0.67
+Without new wind sensors,Houston other,17,2,357,0.84,1.67,1.26
+Without new wind sensors,Houston other,18,2,356,3.09,3.68,3.39
+Without new wind sensors,Houston other,19,2,355,4.79,5.58,5.18
+Without new wind sensors,Houston other,20,2,355,5.92,7.03,6.47
+Without new wind sensors,Houston other,21,2,355,7.32,10.76,9.04
+Without new wind sensors,Houston other,22,2,354,11.02,15.54,13.28
+Without new wind sensors,Houston other,23,2,350,14,18.89,16.45
+Without new wind sensors,Dallas-Fort Worth,0,2,592,2.08,3.72,2.9
+Without new wind sensors,Dallas-Fort Worth,1,2,592,1.57,3.55,2.56
+Without new wind sensors,Dallas-Fort Worth,2,2,592,1.85,3.21,2.53
+Without new wind sensors,Dallas-Fort Worth,3,2,592,1.8,3.72,2.76
+Without new wind sensors,Dallas-Fort Worth,4,2,593,1.4,4.22,2.81
+Without new wind sensors,Dallas-Fort Worth,5,2,592,1.74,3.04,2.39
+Without new wind sensors,Dallas-Fort Worth,6,2,590,2.13,3.73,2.93
+Without new wind sensors,Dallas-Fort Worth,7,2,590,1.63,2.2,1.91
+Without new wind sensors,Dallas-Fort Worth,8,2,589,1.24,2.55,1.89
+Without new wind sensors,Dallas-Fort Worth,9,2,589,0.67,0.85,0.76
+Without new wind sensors,Dallas-Fort Worth,10,2,589,0.34,1.19,0.76
+Without new wind sensors,Dallas-Fort Worth,11,2,587,0.34,0.39,0.37
+Without new wind sensors,Dallas-Fort Worth,12,2,590,0.45,0.85,0.65
+Without new wind sensors,Dallas-Fort Worth,13,2,590,0.56,0.85,0.7
+Without new wind sensors,Dallas-Fort Worth,14,2,592,0.45,1.18,0.82
+Without new wind sensors,Dallas-Fort Worth,15,2,591,0.34,0.45,0.39
+Without new wind sensors,Dallas-Fort Worth,16,2,590,0.62,0.68,0.65
+Without new wind sensors,Dallas-Fort Worth,17,2,590,0.85,0.9,0.87
+Without new wind sensors,Dallas-Fort Worth,18,2,592,1.46,1.86,1.66
+Without new wind sensors,Dallas-Fort Worth,19,2,591,1.06,1.69,1.38
+Without new wind sensors,Dallas-Fort Worth,20,2,591,1.4,2.2,1.8
+Without new wind sensors,Dallas-Fort Worth,21,2,590,1.46,2.03,1.75
+Without new wind sensors,Dallas-Fort Worth,22,2,591,1.23,2.54,1.89
+Without new wind sensors,Dallas-Fort Worth,23,2,591,1.4,2.54,1.97

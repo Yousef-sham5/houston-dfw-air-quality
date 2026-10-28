@@ -1,0 +1,8 @@
+site_group,site_id,local_site_name,km_to_channel,nearest_bearing_deg,channel_sectors,n_channel_sectors,n_spike_hours,n_episodes,pct_spikes_from_channel,channel_ci_low,channel_ci_high,pct_hours_from_channel,pct_spikes_from_southwest,southwest_ci_low,southwest_ci_high,pct_hours_from_southwest
+Houston Ship Channel,48-201-1035,Clinton,0.73,183.43,90; 120; 150; 180; 210; 240; 270; 300,8,41,25,82.93,63.63,100,65.07,31.71,14.99,51.06,19.02
+Houston Ship Channel,48-201-1034,Houston East,3.4,151.2,90; 120; 150; 180; 210; 240; 270,7,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Houston Ship Channel,48-201-0416,Park Place,4.8,22.17,0; 30; 60; 90,4,174,117,77.01,67.63,85.62,30.05,15.52,8.67,22.91,18.49
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,6.94,0.33,0; 30; 60; 90; 300; 330,6,78,57,56.41,42.67,70,37.1,24.36,12.99,36.25,11.98
+Houston other,48-201-0417,Houston Harvard Street,10.28,105.88,90; 120,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Houston other,48-201-0055,Houston Bayland Park,20.67,74.01,60; 90,2,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Houston other,48-201-0051,Houston Croquet,22.15,52.05,60; 90,2,216,115,0.46,0,1.48,15.19,75.46,68.34,81.82,10.99

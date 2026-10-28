@@ -1,0 +1,121 @@
+site_set,measure,level,site_group,site_id,local_site_name,n_hours,n_calm_hours,n_calm_days,pct_calm,mean_calm_ppb,mean_windy_ppb,plain_ratio,calm_minus_windy_ppb,ci_low,ci_high
+Main,Ozone,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,38142,2333,734,6.12,12.66,28.11,0.45,-6.56,-7.95,-5.03
+Main,Ozone,Site,Houston Ship Channel,48-201-1034,Houston East,41032,3646,945,8.89,9.77,25.46,0.384,-7.29,-8.5,-5.89
+Main,Ozone,Site,Houston other,48-201-0055,Houston Bayland Park,27753,1885,545,6.79,10.92,29.6,0.369,-8.98,-10.69,-6.97
+Main,Ozone,Site,Houston other,48-201-0417,Houston Harvard Street,40659,4433,1064,10.9,16.97,28.67,0.592,-3.83,-5.03,-2.62
+Main,Ozone,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,39949,470,276,1.18,21.19,31.44,0.674,-5.8,-7.68,-3.76
+Main,Ozone,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,34617,702,375,2.03,20.17,30.1,0.67,-5.72,-7.12,-3.81
+Without the transition band,Ozone,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,38142,2333,734,6.12,12.66,28.11,0.45,-6.56,NA,NA
+Without the transition band,Ozone,Site,Houston Ship Channel,48-201-1034,Houston East,41032,3646,945,8.89,9.77,25.46,0.384,-7.29,NA,NA
+Without the transition band,Ozone,Site,Houston other,48-201-0055,Houston Bayland Park,27753,1885,545,6.79,10.92,29.6,0.369,-8.98,NA,NA
+Without the transition band,Ozone,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,39949,470,276,1.18,21.19,31.44,0.674,-5.8,NA,NA
+Without the transition band,Ozone,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,34617,702,375,2.03,20.17,30.1,0.67,-5.72,NA,NA
+Without Deer Park #2 after its move,Ozone,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,33151,1982,613,5.98,12.12,28.06,0.432,-7.2,NA,NA
+Without Deer Park #2 after its move,Ozone,Site,Houston Ship Channel,48-201-1034,Houston East,41032,3646,945,8.89,9.77,25.46,0.384,-7.29,NA,NA
+Without Deer Park #2 after its move,Ozone,Site,Houston other,48-201-0055,Houston Bayland Park,27753,1885,545,6.79,10.92,29.6,0.369,-8.98,NA,NA
+Without Deer Park #2 after its move,Ozone,Site,Houston other,48-201-0417,Houston Harvard Street,40659,4433,1064,10.9,16.97,28.67,0.592,-3.83,NA,NA
+Without Deer Park #2 after its move,Ozone,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,39949,470,276,1.18,21.19,31.44,0.674,-5.8,NA,NA
+Without Deer Park #2 after its move,Ozone,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,34617,702,375,2.03,20.17,30.1,0.67,-5.72,NA,NA
+Without new wind sensors,Ozone,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17627,1173,349,6.65,10.94,27.42,0.399,-7.52,NA,NA
+Without new wind sensors,Ozone,Site,Houston Ship Channel,48-201-1034,Houston East,25009,2542,604,10.16,8.32,25.52,0.326,-8.85,NA,NA
+Without new wind sensors,Ozone,Site,Houston other,48-201-0417,Houston Harvard Street,40659,4433,1064,10.9,16.97,28.67,0.592,-3.83,NA,NA
+Without new wind sensors,Ozone,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,39949,470,276,1.18,21.19,31.44,0.674,-5.8,NA,NA
+Without new wind sensors,Ozone,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,14104,290,132,2.06,17.78,29.79,0.597,-5.71,NA,NA
+Main,Ozone,Group,Houston Ship Channel,NA,NA,79174,5979,1056,7.5,11.21,26.79,0.419,-6.94,-8.19,-5.53
+Main,Ozone,Group,Houston other,NA,NA,68412,6318,1108,8.85,13.94,29.14,0.479,-5.1,-6.24,-3.81
+Main,Ozone,Group,Dallas-Fort Worth,NA,NA,74566,1172,526,1.6,20.68,30.77,0.672,-5.63,-6.99,-3.96
+Without the transition band,Ozone,Group,Houston Ship Channel,NA,NA,79174,5979,1056,7.5,11.21,26.79,0.419,-6.94,NA,NA
+Without the transition band,Ozone,Group,Houston other,NA,NA,27753,1885,545,6.79,10.92,29.6,0.369,-8.98,NA,NA
+Without the transition band,Ozone,Group,Dallas-Fort Worth,NA,NA,74566,1172,526,1.6,20.68,30.77,0.672,-5.63,NA,NA
+Without Deer Park #2 after its move,Ozone,Group,Houston Ship Channel,NA,NA,74183,5628,1039,7.43,10.94,26.76,0.409,-7.03,NA,NA
+Without Deer Park #2 after its move,Ozone,Group,Houston other,NA,NA,68412,6318,1108,8.85,13.94,29.14,0.479,-5.1,NA,NA
+Without Deer Park #2 after its move,Ozone,Group,Dallas-Fort Worth,NA,NA,74566,1172,526,1.6,20.68,30.77,0.672,-5.63,NA,NA
+Without new wind sensors,Ozone,Group,Houston Ship Channel,NA,NA,42636,3715,636,8.41,9.63,26.47,0.364,-8.18,NA,NA
+Without new wind sensors,Ozone,Group,Houston other,NA,NA,40659,4433,1064,10.9,16.97,28.67,0.592,-3.83,NA,NA
+Without new wind sensors,Ozone,Group,Dallas-Fort Worth,NA,NA,54053,760,376,1.62,19.48,30.61,0.636,-5.73,NA,NA
+Main,NO2,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,37745,2333,735,6.18,12.96,6.59,1.968,4.76,3.72,5.72
+Main,NO2,Site,Houston Ship Channel,48-201-1034,Houston East,41104,3578,955,8.7,17.48,10.64,1.642,5.5,4.64,6.35
+Main,NO2,Site,Houston other,48-201-0055,Houston Bayland Park,26364,1671,507,6.34,14.6,6.29,2.322,6.01,4.6,7.36
+Main,NO2,Site,Houston other,48-201-0417,Houston Harvard Street,39545,4355,1055,11.01,16.8,8.01,2.096,6.75,5.78,7.78
+Main,NO2,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,35985,394,237,1.09,12.94,6.19,2.09,5.22,4.1,6.72
+Main,NO2,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,34186,679,371,1.99,10.12,5.92,1.71,3.01,2.04,3.82
+Without the transition band,NO2,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,37745,2333,735,6.18,12.96,6.59,1.968,4.76,NA,NA
+Without the transition band,NO2,Site,Houston Ship Channel,48-201-1034,Houston East,41104,3578,955,8.7,17.48,10.64,1.642,5.5,NA,NA
+Without the transition band,NO2,Site,Houston other,48-201-0055,Houston Bayland Park,26364,1671,507,6.34,14.6,6.29,2.322,6.01,NA,NA
+Without the transition band,NO2,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,35985,394,237,1.09,12.94,6.19,2.09,5.22,NA,NA
+Without the transition band,NO2,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,34186,679,371,1.99,10.12,5.92,1.71,3.01,NA,NA
+Without hours after the method change,NO2,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,37745,2333,735,6.18,12.96,6.59,1.968,4.76,NA,NA
+Without hours after the method change,NO2,Site,Houston Ship Channel,48-201-1034,Houston East,41104,3578,955,8.7,17.48,10.64,1.642,5.5,NA,NA
+Without hours after the method change,NO2,Site,Houston other,48-201-0055,Houston Bayland Park,26364,1671,507,6.34,14.6,6.29,2.322,6.01,NA,NA
+Without hours after the method change,NO2,Site,Houston other,48-201-0417,Houston Harvard Street,25989,2754,682,10.6,17.46,8.54,2.044,7.09,NA,NA
+Without hours after the method change,NO2,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,35985,394,237,1.09,12.94,6.19,2.09,5.22,NA,NA
+Without hours after the method change,NO2,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,34186,679,371,1.99,10.12,5.92,1.71,3.01,NA,NA
+Without Deer Park #2 after its move,NO2,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,32962,1991,621,6.04,13.25,6.54,2.027,5.22,NA,NA
+Without Deer Park #2 after its move,NO2,Site,Houston Ship Channel,48-201-1034,Houston East,41104,3578,955,8.7,17.48,10.64,1.642,5.5,NA,NA
+Without Deer Park #2 after its move,NO2,Site,Houston other,48-201-0055,Houston Bayland Park,26364,1671,507,6.34,14.6,6.29,2.322,6.01,NA,NA
+Without Deer Park #2 after its move,NO2,Site,Houston other,48-201-0417,Houston Harvard Street,39545,4355,1055,11.01,16.8,8.01,2.096,6.75,NA,NA
+Without Deer Park #2 after its move,NO2,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,35985,394,237,1.09,12.94,6.19,2.09,5.22,NA,NA
+Without Deer Park #2 after its move,NO2,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,34186,679,371,1.99,10.12,5.92,1.71,3.01,NA,NA
+Without new wind sensors,NO2,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17433,1177,353,6.75,12.23,5.93,2.063,4.86,NA,NA
+Without new wind sensors,NO2,Site,Houston Ship Channel,48-201-1034,Houston East,25000,2486,608,9.94,18.61,10.54,1.765,6.57,NA,NA
+Without new wind sensors,NO2,Site,Houston other,48-201-0417,Houston Harvard Street,39545,4355,1055,11.01,16.8,8.01,2.096,6.75,NA,NA
+Without new wind sensors,NO2,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,35985,394,237,1.09,12.94,6.19,2.09,5.22,NA,NA
+Without new wind sensors,NO2,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13670,282,138,2.06,11.3,6.6,1.71,3.33,NA,NA
+Main,NO2,Group,Houston Ship Channel,NA,NA,78849,5911,1058,7.44,15.22,8.62,1.767,5.2,4.36,5.99
+Main,NO2,Group,Houston other,NA,NA,65909,6026,1098,8.68,15.7,7.15,2.195,6.39,5.43,7.34
+Main,NO2,Group,Dallas-Fort Worth,NA,NA,70171,1073,501,1.54,11.53,6.05,1.904,3.76,2.85,4.51
+Without the transition band,NO2,Group,Houston Ship Channel,NA,NA,78849,5911,1058,7.44,15.22,8.62,1.767,5.2,NA,NA
+Without the transition band,NO2,Group,Houston other,NA,NA,26364,1671,507,6.34,14.6,6.29,2.322,6.01,NA,NA
+Without the transition band,NO2,Group,Dallas-Fort Worth,NA,NA,70171,1073,501,1.54,11.53,6.05,1.904,3.76,NA,NA
+Without hours after the method change,NO2,Group,Houston Ship Channel,NA,NA,78849,5911,1058,7.44,15.22,8.62,1.767,5.2,NA,NA
+Without hours after the method change,NO2,Group,Houston other,NA,NA,52353,4425,959,8.47,16.03,7.42,2.162,6.42,NA,NA
+Without hours after the method change,NO2,Group,Dallas-Fort Worth,NA,NA,70171,1073,501,1.54,11.53,6.05,1.904,3.76,NA,NA
+Without Deer Park #2 after its move,NO2,Group,Houston Ship Channel,NA,NA,74066,5569,1042,7.37,15.37,8.59,1.789,5.24,NA,NA
+Without Deer Park #2 after its move,NO2,Group,Houston other,NA,NA,65909,6026,1098,8.68,15.7,7.15,2.195,6.39,NA,NA
+Without Deer Park #2 after its move,NO2,Group,Dallas-Fort Worth,NA,NA,70171,1073,501,1.54,11.53,6.05,1.904,3.76,NA,NA
+Without new wind sensors,NO2,Group,Houston Ship Channel,NA,NA,42433,3663,637,8.35,15.42,8.23,1.872,6.04,NA,NA
+Without new wind sensors,NO2,Group,Houston other,NA,NA,39545,4355,1055,11.01,16.8,8.01,2.096,6.75,NA,NA
+Without new wind sensors,NO2,Group,Dallas-Fort Worth,NA,NA,49655,676,345,1.58,12.12,6.4,1.894,4.5,NA,NA
+Main,Ox,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,36837,2267,717,6.15,25.58,34.72,0.737,-1.8,-2.96,-0.46
+Main,Ox,Site,Houston Ship Channel,48-201-1034,Houston East,39436,3438,921,8.72,27.2,36.13,0.753,-1.8,-2.81,-0.68
+Main,Ox,Site,Houston other,48-201-0055,Houston Bayland Park,25379,1611,487,6.35,25.68,35.88,0.716,-3.12,-4.4,-1.64
+Main,Ox,Site,Houston other,48-201-0417,Houston Harvard Street,38099,4164,1023,10.93,33.7,36.72,0.918,2.85,1.86,3.86
+Main,Ox,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,34768,386,233,1.11,34.51,37.72,0.915,-0.53,-2.61,1.91
+Main,Ox,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,33044,666,361,2.02,30.77,36.05,0.853,-2.5,-4.02,-0.73
+Without the transition band,Ox,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,36837,2267,717,6.15,25.58,34.72,0.737,-1.8,NA,NA
+Without the transition band,Ox,Site,Houston Ship Channel,48-201-1034,Houston East,39436,3438,921,8.72,27.2,36.13,0.753,-1.8,NA,NA
+Without the transition band,Ox,Site,Houston other,48-201-0055,Houston Bayland Park,25379,1611,487,6.35,25.68,35.88,0.716,-3.12,NA,NA
+Without the transition band,Ox,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,34768,386,233,1.11,34.51,37.72,0.915,-0.53,NA,NA
+Without the transition band,Ox,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,33044,666,361,2.02,30.77,36.05,0.853,-2.5,NA,NA
+Without hours after the method change,Ox,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,36837,2267,717,6.15,25.58,34.72,0.737,-1.8,NA,NA
+Without hours after the method change,Ox,Site,Houston Ship Channel,48-201-1034,Houston East,39436,3438,921,8.72,27.2,36.13,0.753,-1.8,NA,NA
+Without hours after the method change,Ox,Site,Houston other,48-201-0055,Houston Bayland Park,25379,1611,487,6.35,25.68,35.88,0.716,-3.12,NA,NA
+Without hours after the method change,Ox,Site,Houston other,48-201-0417,Houston Harvard Street,25053,2641,660,10.54,32.91,36.56,0.9,2.64,NA,NA
+Without hours after the method change,Ox,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,34768,386,233,1.11,34.51,37.72,0.915,-0.53,NA,NA
+Without hours after the method change,Ox,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,33044,666,361,2.02,30.77,36.05,0.853,-2.5,NA,NA
+Without Deer Park #2 after its move,Ox,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,32152,1929,603,6,25.32,34.61,0.731,-1.94,NA,NA
+Without Deer Park #2 after its move,Ox,Site,Houston Ship Channel,48-201-1034,Houston East,39436,3438,921,8.72,27.2,36.13,0.753,-1.8,NA,NA
+Without Deer Park #2 after its move,Ox,Site,Houston other,48-201-0055,Houston Bayland Park,25379,1611,487,6.35,25.68,35.88,0.716,-3.12,NA,NA
+Without Deer Park #2 after its move,Ox,Site,Houston other,48-201-0417,Houston Harvard Street,38099,4164,1023,10.93,33.7,36.72,0.918,2.85,NA,NA
+Without Deer Park #2 after its move,Ox,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,34768,386,233,1.11,34.51,37.72,0.915,-0.53,NA,NA
+Without Deer Park #2 after its move,Ox,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,33044,666,361,2.02,30.77,36.05,0.853,-2.5,NA,NA
+Without new wind sensors,Ox,Site,Houston Ship Channel,48-201-1039,Houston Deer Park #2,17008,1136,343,6.68,23.02,33.39,0.69,-2.65,NA,NA
+Without new wind sensors,Ox,Site,Houston Ship Channel,48-201-1034,Houston East,24077,2397,589,9.96,26.92,36.14,0.745,-2.33,NA,NA
+Without new wind sensors,Ox,Site,Houston other,48-201-0417,Houston Harvard Street,38099,4164,1023,10.93,33.7,36.72,0.918,2.85,NA,NA
+Without new wind sensors,Ox,Site,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,34768,386,233,1.11,34.51,37.72,0.915,-0.53,NA,NA
+Without new wind sensors,Ox,Site,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,13418,277,129,2.06,29.52,36.55,0.808,-2.29,NA,NA
+Main,Ox,Group,Houston Ship Channel,NA,NA,76273,5705,1039,7.44,26.39,35.43,0.745,-1.75,-2.69,-0.67
+Main,Ox,Group,Houston other,NA,NA,63478,5775,1077,8.64,29.69,36.3,0.818,1.25,0.38,2.14
+Main,Ox,Group,Dallas-Fort Worth,NA,NA,67812,1052,492,1.56,32.64,36.89,0.885,-1.66,-3.08,-0.15
+Without the transition band,Ox,Group,Houston Ship Channel,NA,NA,76273,5705,1039,7.44,26.39,35.43,0.745,-1.75,NA,NA
+Without the transition band,Ox,Group,Houston other,NA,NA,25379,1611,487,6.35,25.68,35.88,0.716,-3.12,NA,NA
+Without the transition band,Ox,Group,Dallas-Fort Worth,NA,NA,67812,1052,492,1.56,32.64,36.89,0.885,-1.66,NA,NA
+Without hours after the method change,Ox,Group,Houston Ship Channel,NA,NA,76273,5705,1039,7.44,26.39,35.43,0.745,-1.75,NA,NA
+Without hours after the method change,Ox,Group,Houston other,NA,NA,50432,4252,935,8.44,29.3,36.22,0.809,0.45,NA,NA
+Without hours after the method change,Ox,Group,Dallas-Fort Worth,NA,NA,67812,1052,492,1.56,32.64,36.89,0.885,-1.66,NA,NA
+Without Deer Park #2 after its move,Ox,Group,Houston Ship Channel,NA,NA,71588,5367,1022,7.36,26.26,35.37,0.742,-1.78,NA,NA
+Without Deer Park #2 after its move,Ox,Group,Houston other,NA,NA,63478,5775,1077,8.64,29.69,36.3,0.818,1.25,NA,NA
+Without Deer Park #2 after its move,Ox,Group,Dallas-Fort Worth,NA,NA,67812,1052,492,1.56,32.64,36.89,0.885,-1.66,NA,NA
+Without new wind sensors,Ox,Group,Houston Ship Channel,NA,NA,41085,3533,622,8.32,24.97,34.76,0.718,-2.17,NA,NA
+Without new wind sensors,Ox,Group,Houston other,NA,NA,38099,4164,1023,10.93,33.7,36.72,0.918,2.85,NA,NA
+Without new wind sensors,Ox,Group,Dallas-Fort Worth,NA,NA,48186,663,334,1.59,32.02,37.14,0.862,-1.18,NA,NA

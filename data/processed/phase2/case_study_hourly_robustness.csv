@@ -1,0 +1,61 @@
+finding_id,figure,finding,site_set,result
+R01,2C.2,Ship Channel NO2 higher at every hour,Main,Holds
+R01,2C.2,Ship Channel NO2 higher at every hour,Without the transition band,Holds
+R01,2C.2,Ship Channel NO2 higher at every hour,Without hours after the method change,Holds
+R01,2C.2,Ship Channel NO2 higher at every hour,Without Deer Park #2 after its move,Holds
+R01,2C.2,Ship Channel NO2 higher at every hour,Without new wind sensors,Does not apply
+R01,2C.2,Ship Channel NO2 higher at every hour,Second seed,Holds
+R02,2C.2,Ship Channel ozone lower at every hour,Main,Holds
+R02,2C.2,Ship Channel ozone lower at every hour,Without the transition band,Holds
+R02,2C.2,Ship Channel ozone lower at every hour,Without hours after the method change,Does not apply
+R02,2C.2,Ship Channel ozone lower at every hour,Without Deer Park #2 after its move,Holds
+R02,2C.2,Ship Channel ozone lower at every hour,Without new wind sensors,Does not apply
+R02,2C.2,Ship Channel ozone lower at every hour,Second seed,Holds
+R03,2C.3,Weekend NO2 falls least at the Ship Channel,Main,Holds
+R03,2C.3,Weekend NO2 falls least at the Ship Channel,Without the transition band,Holds
+R03,2C.3,Weekend NO2 falls least at the Ship Channel,Without hours after the method change,Holds
+R03,2C.3,Weekend NO2 falls least at the Ship Channel,Without Deer Park #2 after its move,Holds
+R03,2C.3,Weekend NO2 falls least at the Ship Channel,Without new wind sensors,Does not apply
+R03,2C.3,Weekend NO2 falls least at the Ship Channel,Second seed,Does not apply
+R04,2C.4,Ox closes at least half the ozone gap,Main,Holds
+R04,2C.4,Ox closes at least half the ozone gap,Without the transition band,Holds
+R04,2C.4,Ox closes at least half the ozone gap,Without hours after the method change,Holds
+R04,2C.4,Ox closes at least half the ozone gap,Without Deer Park #2 after its move,Holds
+R04,2C.4,Ox closes at least half the ozone gap,Without new wind sensors,Does not apply
+R04,2C.4,Ox closes at least half the ozone gap,Second seed,Holds
+R05,2C.5,Croquet's SO2 spikes come by day,Main,Holds
+R05,2C.5,Croquet's SO2 spikes come by day,Without the transition band,Does not apply
+R05,2C.5,Croquet's SO2 spikes come by day,Without hours after the method change,Does not apply
+R05,2C.5,Croquet's SO2 spikes come by day,Without Deer Park #2 after its move,Holds
+R05,2C.5,Croquet's SO2 spikes come by day,Without new wind sensors,Does not apply
+R05,2C.5,Croquet's SO2 spikes come by day,Second seed,Does not apply
+R06,2C.5,Deer Park #2 plumes carry extra NO2,Main,Holds
+R06,2C.5,Deer Park #2 plumes carry extra NO2,Without the transition band,Does not apply
+R06,2C.5,Deer Park #2 plumes carry extra NO2,Without hours after the method change,Does not apply
+R06,2C.5,Deer Park #2 plumes carry extra NO2,Without Deer Park #2 after its move,Does not apply
+R06,2C.5,Deer Park #2 plumes carry extra NO2,Without new wind sensors,Does not apply
+R06,2C.5,Deer Park #2 plumes carry extra NO2,Second seed,Holds
+R07,2C.7,"Calm air: more NO2, less ozone, every site",Main,Holds
+R07,2C.7,"Calm air: more NO2, less ozone, every site",Without the transition band,Holds
+R07,2C.7,"Calm air: more NO2, less ozone, every site",Without hours after the method change,Holds
+R07,2C.7,"Calm air: more NO2, less ozone, every site",Without Deer Park #2 after its move,Holds
+R07,2C.7,"Calm air: more NO2, less ozone, every site",Without new wind sensors,Holds
+R07,2C.7,"Calm air: more NO2, less ozone, every site",Second seed,Holds
+R08,2C.8,NO2 runs highest in east wind,Main,Holds
+R08,2C.8,NO2 runs highest in east wind,Without the transition band,Holds
+R08,2C.8,NO2 runs highest in east wind,Without hours after the method change,Holds
+R08,2C.8,NO2 runs highest in east wind,Without Deer Park #2 after its move,Holds
+R08,2C.8,NO2 runs highest in east wind,Without new wind sensors,Holds
+R08,2C.8,NO2 runs highest in east wind,Second seed,Does not apply
+R09,2C.9,Croquet's SO2 spikes come from the southwest,Main,Holds
+R09,2C.9,Croquet's SO2 spikes come from the southwest,Without the transition band,Does not apply
+R09,2C.9,Croquet's SO2 spikes come from the southwest,Without hours after the method change,Does not apply
+R09,2C.9,Croquet's SO2 spikes come from the southwest,Without Deer Park #2 after its move,Holds
+R09,2C.9,Croquet's SO2 spikes come from the southwest,Without new wind sensors,Holds
+R09,2C.9,Croquet's SO2 spikes come from the southwest,Second seed,Holds
+R10,2C.10,Ox gap wider in wind from the channel,Main,Holds
+R10,2C.10,Ox gap wider in wind from the channel,Without the transition band,Holds
+R10,2C.10,Ox gap wider in wind from the channel,Without hours after the method change,Holds
+R10,2C.10,Ox gap wider in wind from the channel,Without Deer Park #2 after its move,Holds
+R10,2C.10,Ox gap wider in wind from the channel,Without new wind sensors,Holds
+R10,2C.10,Ox gap wider in wind from the channel,Second seed,Holds

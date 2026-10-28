@@ -1,0 +1,41 @@
+site_group,site_id,local_site_name,season,n_wind_hours,pct_calm,pct_calm_old_sensor,pct_calm_new_sensor,sonic_wind_from,mean_speed_ms,median_speed_ms,resultant_from_deg,steadiness,prevailing_sector,pct_prevailing_sector
+Houston Ship Channel,48-201-1035,Clinton,All year,42279,2.53,2.16,2.88,2023-06-16,2.49,2.26,161.7,0.37,150,16.92
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,All year,39218,6.12,6.76,5.59,2023-07-12,2.36,2.11,145.3,0.47,150,18.9
+Houston Ship Channel,48-201-1034,Houston East,All year,42687,8.85,10.15,6.87,2024-01-09,1.87,1.7,127.29,0.3,150,19.78
+Houston Ship Channel,48-201-0416,Park Place,All year,42952,6.63,6.63,NA,NA,2.23,2.06,161.26,0.33,180,22.2
+Houston other,48-201-0055,Houston Bayland Park,All year,29120,6.76,8.89,5.9,2023-08-09,2.6,2.47,127.89,0.42,150,24.01
+Houston other,48-201-0051,Houston Croquet,All year,42960,11.02,11.02,NA,NA,1.85,1.65,147.3,0.34,150,19.39
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,All year,42808,1.18,1.18,NA,NA,3.35,3.09,177.53,0.33,180,21.54
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,All year,35786,2.01,2.08,1.96,2023-07-12,2.47,2.26,152.58,0.36,180,26.39
+Houston Ship Channel,48-201-1035,Clinton,Winter,10396,2.58,2.4,2.76,2023-06-16,2.61,2.47,157.42,0.1,0,15.88
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,Winter,9801,4.48,4.44,4.51,2023-07-12,2.46,2.26,128.83,0.2,330,13.25
+Houston Ship Channel,48-201-1034,Houston East,Winter,10426,6.59,8.6,3.52,2024-01-09,2.23,2.11,75.15,0.11,330,15.55
+Houston Ship Channel,48-201-0416,Park Place,Winter,10481,6.21,6.21,NA,NA,2.43,2.37,115.06,0.08,0,17.76
+Houston other,48-201-0055,Houston Bayland Park,Winter,6468,5.88,6.02,5.83,2023-08-09,2.75,2.73,89.89,0.21,150,15.01
+Houston other,48-201-0051,Houston Croquet,Winter,10357,8.14,8.14,NA,NA,2.16,2.01,90.63,0.11,0,15.85
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,Winter,10075,1.12,1.12,NA,NA,3.56,3.29,241.65,0.17,210,15.72
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,Winter,8245,2.17,2.35,2.06,2023-07-12,2.61,2.37,180.6,0.04,180,19.24
+Houston Ship Channel,48-201-1035,Clinton,Spring,10638,1.67,1.36,2.14,2023-06-16,3.09,2.98,158.72,0.54,150,26.85
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,Spring,8721,3.1,3.02,3.18,2023-07-12,3,2.88,145.24,0.61,150,28.75
+Houston Ship Channel,48-201-1034,Houston East,Spring,10698,6.47,7.78,4.45,2024-01-09,2.23,2.11,134.55,0.47,150,30.84
+Houston Ship Channel,48-201-0416,Park Place,Spring,10845,3.87,3.87,NA,NA,2.65,2.57,159.26,0.48,180,29.43
+Houston other,48-201-0055,Houston Bayland Park,Spring,7075,3.28,4.33,2.61,2023-08-09,3.23,3.14,136.99,0.54,150,34.44
+Houston other,48-201-0051,Houston Croquet,Spring,11015,6.34,6.34,NA,NA,2.25,2.11,149.07,0.49,150,29.03
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,Spring,10843,1.24,1.24,NA,NA,3.84,3.65,171.81,0.36,180,23.01
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,Spring,8821,1.76,1.81,1.7,2023-07-12,2.9,2.73,156.57,0.4,180,27.57
+Houston Ship Channel,48-201-1035,Clinton,Summer,10450,2.95,2.46,3.3,2023-06-16,2.23,2.06,183.13,0.62,210,23.95
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,Summer,9867,6.96,8.73,5.53,2023-07-12,2.15,1.9,166,0.71,180,25.83
+Houston Ship Channel,48-201-1034,Houston East,Summer,10813,10.59,10.17,11.24,2024-01-09,1.44,1.34,159.84,0.53,180,22.47
+Houston Ship Channel,48-201-0416,Park Place,Summer,10847,6.32,6.32,NA,NA,1.99,1.8,185.9,0.67,180,28.65
+Houston other,48-201-0055,Houston Bayland Park,Summer,6874,7.2,10.84,5.61,2023-08-09,2.27,2.11,150.77,0.68,150,28.08
+Houston other,48-201-0051,Houston Croquet,Summer,10788,12.97,12.97,NA,NA,1.53,1.39,173.7,0.68,180,30.15
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,Summer,11012,0.91,0.91,NA,NA,3.08,2.98,171.27,0.64,180,27.7
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,Summer,10015,1.68,2.14,1.32,2023-07-12,2.25,2.16,156.29,0.69,180,36.62
+Houston Ship Channel,48-201-1035,Clinton,Autumn,10795,2.92,2.71,3.06,2023-06-16,2.03,1.75,120.98,0.29,30,19.96
+Houston Ship Channel,48-201-1039,Houston Deer Park #2,Autumn,10829,9.28,11.08,8.07,2023-07-12,1.93,1.7,120.23,0.44,150,16.24
+Houston Ship Channel,48-201-1034,Houston East,Autumn,10750,11.67,14.02,8.17,2024-01-09,1.58,1.44,86.66,0.34,30,16.45
+Houston Ship Channel,48-201-0416,Park Place,Autumn,10779,10.13,10.13,NA,NA,1.86,1.75,105.28,0.25,30,16.71
+Houston other,48-201-0055,Houston Bayland Park,Autumn,8703,9.9,14.65,8.33,2023-08-09,2.24,2.11,99.54,0.41,150,18.59
+Houston other,48-201-0051,Houston Croquet,Autumn,10800,16.61,16.61,NA,NA,1.47,1.34,106.59,0.32,150,16.11
+Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,Autumn,10878,1.44,1.44,NA,NA,2.94,2.62,165.96,0.27,180,19.63
+Dallas-Fort Worth,48-439-3009,Grapevine Fairway,Autumn,8705,2.48,2.11,2.61,2023-07-12,2.14,1.95,133.19,0.33,180,20.13

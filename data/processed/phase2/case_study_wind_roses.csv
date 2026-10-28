@@ -1,0 +1,2206 @@
+level,season,site_group,site_id,local_site_name,n_sites,wind_sector,speed_band,n_hours,pct_of_wind_hours
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,NA,Calm,1069,2.528
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,0,0.5 to 1.5,1629,3.853
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,30,0.5 to 1.5,2868,6.784
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,60,0.5 to 1.5,1595,3.773
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,90,0.5 to 1.5,941,2.226
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,120,0.5 to 1.5,588,1.391
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,150,0.5 to 1.5,338,0.799
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,180,0.5 to 1.5,289,0.684
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,210,0.5 to 1.5,511,1.209
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,240,0.5 to 1.5,878,2.077
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,270,0.5 to 1.5,900,2.129
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,300,0.5 to 1.5,554,1.31
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,330,0.5 to 1.5,925,2.188
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,0,1.5 to 3,1387,3.281
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,30,1.5 to 3,1891,4.473
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,60,1.5 to 3,1070,2.531
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,90,1.5 to 3,687,1.625
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,120,1.5 to 3,2100,4.967
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,150,1.5 to 3,1939,4.586
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,180,1.5 to 3,1110,2.625
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,210,1.5 to 3,2536,5.998
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,240,1.5 to 3,1180,2.791
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,270,1.5 to 3,386,0.913
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,300,1.5 to 3,268,0.634
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,330,1.5 to 3,661,1.563
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,0,3 to 5,992,2.346
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,30,3 to 5,431,1.019
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,60,3 to 5,49,0.116
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,90,3 to 5,22,0.052
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,120,3 to 5,815,1.928
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,150,3 to 5,3941,9.321
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,180,3 to 5,2054,4.858
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,210,3 to 5,2123,5.021
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,240,3 to 5,276,0.653
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,270,3 to 5,47,0.111
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,300,3 to 5,125,0.296
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,330,3 to 5,659,1.559
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,0,5 or more,66,0.156
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,30,5 or more,6,0.014
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,60,5 or more,0,0
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,90,5 or more,1,0.002
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,120,5 or more,31,0.073
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,150,5 or more,754,1.783
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,180,5 or more,1117,2.642
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,210,5 or more,341,0.807
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,240,5 or more,17,0.04
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,270,5 or more,1,0.002
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,300,5 or more,27,0.064
+Site,All year,Houston Ship Channel,48-201-1035,Clinton,1,330,5 or more,84,0.199
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,NA,Calm,2401,6.122
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,0.5 to 1.5,655,1.67
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,0.5 to 1.5,1344,3.427
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,0.5 to 1.5,1299,3.312
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,0.5 to 1.5,1164,2.968
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,0.5 to 1.5,798,2.035
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,0.5 to 1.5,1170,2.983
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,0.5 to 1.5,1122,2.861
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,0.5 to 1.5,978,2.494
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,0.5 to 1.5,696,1.775
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,0.5 to 1.5,576,1.469
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,0.5 to 1.5,410,1.045
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,0.5 to 1.5,607,1.548
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,1.5 to 3,854,2.178
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,1.5 to 3,1228,3.131
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,1.5 to 3,679,1.731
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,1.5 to 3,1592,4.059
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,1.5 to 3,1627,4.149
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,1.5 to 3,2640,6.732
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,1.5 to 3,2059,5.25
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,1.5 to 3,1230,3.136
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,1.5 to 3,570,1.453
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,1.5 to 3,338,0.862
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,1.5 to 3,342,0.872
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,1.5 to 3,974,2.484
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,3 to 5,221,0.564
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,3 to 5,96,0.245
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,3 to 5,51,0.13
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,3 to 5,839,2.139
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,3 to 5,2203,5.617
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,3 to 5,2601,6.632
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,3 to 5,2116,5.395
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,3 to 5,641,1.634
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,3 to 5,164,0.418
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,3 to 5,73,0.186
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,3 to 5,239,0.609
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,3 to 5,739,1.884
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,5 or more,11,0.028
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,5 or more,19,0.048
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,5 or more,0,0
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,5 or more,71,0.181
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,5 or more,372,0.949
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,5 or more,547,1.395
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,5 or more,567,1.446
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,5 or more,119,0.303
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,5 or more,15,0.038
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,5 or more,11,0.028
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,5 or more,67,0.171
+Site,All year,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,5 or more,83,0.212
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,NA,Calm,3779,8.853
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,0,0.5 to 1.5,1330,3.116
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,30,0.5 to 1.5,2208,5.173
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,60,0.5 to 1.5,1485,3.479
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,90,0.5 to 1.5,921,2.158
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,120,0.5 to 1.5,977,2.289
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,150,0.5 to 1.5,1719,4.027
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,180,0.5 to 1.5,1991,4.664
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,210,0.5 to 1.5,971,2.275
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,240,0.5 to 1.5,1003,2.35
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,270,0.5 to 1.5,570,1.335
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,300,0.5 to 1.5,505,1.183
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,330,0.5 to 1.5,1022,2.394
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,0,1.5 to 3,1217,2.851
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,30,1.5 to 3,1563,3.662
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,60,1.5 to 3,1281,3.001
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,90,1.5 to 3,1376,3.223
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,120,1.5 to 3,2306,5.402
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,150,1.5 to 3,4148,9.717
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,180,1.5 to 3,2444,5.725
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,210,1.5 to 3,821,1.923
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,240,1.5 to 3,670,1.57
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,270,1.5 to 3,279,0.654
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,300,1.5 to 3,374,0.876
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,330,1.5 to 3,1096,2.568
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,0,3 to 5,232,0.543
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,30,3 to 5,206,0.483
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,60,3 to 5,122,0.286
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,90,3 to 5,282,0.661
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,120,3 to 5,1300,3.045
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,150,3 to 5,1756,4.114
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,180,3 to 5,648,1.518
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,210,3 to 5,242,0.567
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,240,3 to 5,92,0.216
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,270,3 to 5,49,0.115
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,300,3 to 5,227,0.532
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,330,3 to 5,990,2.319
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,0,5 or more,2,0.005
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,30,5 or more,2,0.005
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,60,5 or more,3,0.007
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,90,5 or more,9,0.021
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,120,5 or more,24,0.056
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,150,5 or more,73,0.171
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,180,5 or more,31,0.073
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,210,5 or more,5,0.012
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,240,5 or more,5,0.012
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,270,5 or more,10,0.023
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,300,5 or more,26,0.061
+Site,All year,Houston Ship Channel,48-201-1034,Houston East,1,330,5 or more,295,0.691
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,NA,Calm,2849,6.633
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,0,0.5 to 1.5,1100,2.561
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,30,0.5 to 1.5,1141,2.656
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,60,0.5 to 1.5,705,1.641
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,90,0.5 to 1.5,847,1.972
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,120,0.5 to 1.5,1065,2.48
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,150,0.5 to 1.5,1310,3.05
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,180,0.5 to 1.5,1398,3.255
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,210,0.5 to 1.5,1603,3.732
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,240,0.5 to 1.5,868,2.021
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,270,0.5 to 1.5,504,1.173
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,300,0.5 to 1.5,375,0.873
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,330,0.5 to 1.5,336,0.782
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,0,1.5 to 3,1663,3.872
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,30,1.5 to 3,2158,5.024
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,60,1.5 to 3,731,1.702
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,90,1.5 to 3,1181,2.75
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,120,1.5 to 3,2080,4.843
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,150,1.5 to 3,2221,5.171
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,180,1.5 to 3,3463,8.062
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,210,1.5 to 3,2187,5.092
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,240,1.5 to 3,773,1.8
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,270,1.5 to 3,359,0.836
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,300,1.5 to 3,349,0.813
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,330,1.5 to 3,461,1.073
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,0,3 to 5,1381,3.215
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,30,3 to 5,766,1.783
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,60,3 to 5,110,0.256
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,90,3 to 5,225,0.524
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,120,3 to 5,898,2.091
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,150,3 to 5,960,2.235
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,180,3 to 5,3543,8.249
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,210,3 to 5,1348,3.138
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,240,3 to 5,291,0.678
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,270,3 to 5,58,0.135
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,300,3 to 5,159,0.37
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,330,3 to 5,439,1.022
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,0,5 or more,111,0.258
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,30,5 or more,18,0.042
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,60,5 or more,0,0
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,90,5 or more,5,0.012
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,120,5 or more,34,0.079
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,150,5 or more,77,0.179
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,180,5 or more,500,1.164
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,210,5 or more,208,0.484
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,240,5 or more,26,0.061
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,270,5 or more,12,0.028
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,300,5 or more,22,0.051
+Site,All year,Houston Ship Channel,48-201-0416,Park Place,1,330,5 or more,34,0.079
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,NA,Calm,1969,6.762
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,0,0.5 to 1.5,448,1.538
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,30,0.5 to 1.5,473,1.624
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,60,0.5 to 1.5,512,1.758
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,90,0.5 to 1.5,636,2.184
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,120,0.5 to 1.5,1064,3.654
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,150,0.5 to 1.5,1009,3.465
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,180,0.5 to 1.5,537,1.844
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,210,0.5 to 1.5,323,1.109
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,240,0.5 to 1.5,246,0.845
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,270,0.5 to 1.5,242,0.831
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,300,0.5 to 1.5,208,0.714
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,330,0.5 to 1.5,301,1.034
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,0,1.5 to 3,853,2.929
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,30,1.5 to 3,918,3.152
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,60,1.5 to 3,994,3.413
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,90,1.5 to 3,863,2.964
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,120,1.5 to 3,1723,5.917
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,150,1.5 to 3,2184,7.5
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,180,1.5 to 3,1182,4.059
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,210,1.5 to 3,476,1.635
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,240,1.5 to 3,258,0.886
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,270,1.5 to 3,218,0.749
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,300,1.5 to 3,229,0.786
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,330,1.5 to 3,408,1.401
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,0,3 to 5,902,3.098
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,30,3 to 5,565,1.94
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,60,3 to 5,486,1.669
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,90,3 to 5,629,2.16
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,120,3 to 5,1303,4.475
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,150,3 to 5,2513,8.63
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,180,3 to 5,1404,4.821
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,210,3 to 5,268,0.92
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,240,3 to 5,33,0.113
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,270,3 to 5,46,0.158
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,300,3 to 5,162,0.556
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,330,3 to 5,533,1.83
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,0,5 or more,105,0.361
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,30,5 or more,28,0.096
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,60,5 or more,17,0.058
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,90,5 or more,78,0.268
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,120,5 or more,183,0.628
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,150,5 or more,814,2.795
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,180,5 or more,429,1.473
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,210,5 or more,33,0.113
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,240,5 or more,4,0.014
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,270,5 or more,14,0.048
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,300,5 or more,121,0.416
+Site,All year,Houston other,48-201-0055,Houston Bayland Park,1,330,5 or more,176,0.604
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,NA,Calm,4734,11.02
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,0,0.5 to 1.5,1057,2.46
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,30,0.5 to 1.5,1235,2.875
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,60,0.5 to 1.5,1477,3.438
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,90,0.5 to 1.5,1525,3.55
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,120,0.5 to 1.5,1838,4.278
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,150,0.5 to 1.5,2074,4.828
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,180,0.5 to 1.5,1904,4.432
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,210,0.5 to 1.5,1221,2.842
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,240,0.5 to 1.5,576,1.341
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,270,0.5 to 1.5,636,1.48
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,300,0.5 to 1.5,551,1.283
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,330,0.5 to 1.5,568,1.322
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,0,1.5 to 3,1271,2.959
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,30,1.5 to 3,1364,3.175
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,60,1.5 to 3,1269,2.954
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,90,1.5 to 3,1241,2.889
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,120,1.5 to 3,1624,3.78
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,150,1.5 to 3,3450,8.031
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,180,1.5 to 3,3365,7.833
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,210,1.5 to 3,1260,2.933
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,240,1.5 to 3,418,0.973
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,270,1.5 to 3,318,0.74
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,300,1.5 to 3,326,0.759
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,330,1.5 to 3,523,1.217
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,0,3 to 5,761,1.771
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,30,3 to 5,310,0.722
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,60,3 to 5,114,0.265
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,90,3 to 5,198,0.461
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,120,3 to 5,201,0.468
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,150,3 to 5,1780,4.143
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,180,3 to 5,1839,4.281
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,210,3 to 5,571,1.329
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,240,3 to 5,105,0.244
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,270,3 to 5,37,0.086
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,300,3 to 5,128,0.298
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,330,3 to 5,568,1.322
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,0,5 or more,51,0.119
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,30,5 or more,9,0.021
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,60,5 or more,3,0.007
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,90,5 or more,0,0
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,120,5 or more,1,0.002
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,150,5 or more,108,0.251
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,180,5 or more,143,0.333
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,210,5 or more,28,0.065
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,240,5 or more,11,0.026
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,270,5 or more,6,0.014
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,300,5 or more,35,0.081
+Site,All year,Houston other,48-201-0051,Houston Croquet,1,330,5 or more,128,0.298
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,NA,Calm,504,1.177
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,0.5 to 1.5,283,0.661
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,0.5 to 1.5,376,0.878
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,0.5 to 1.5,420,0.981
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,0.5 to 1.5,507,1.184
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,0.5 to 1.5,621,1.451
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,0.5 to 1.5,657,1.535
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,0.5 to 1.5,532,1.243
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,0.5 to 1.5,341,0.797
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,0.5 to 1.5,221,0.516
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,0.5 to 1.5,175,0.409
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,0.5 to 1.5,166,0.388
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,0.5 to 1.5,202,0.472
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,1.5 to 3,960,2.243
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,1.5 to 3,810,1.892
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,1.5 to 3,851,1.988
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,1.5 to 3,1316,3.074
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,1.5 to 3,2032,4.747
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,1.5 to 3,2528,5.905
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,1.5 to 3,2714,6.34
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,1.5 to 3,1605,3.749
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,1.5 to 3,799,1.866
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,1.5 to 3,565,1.32
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,1.5 to 3,606,1.416
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,1.5 to 3,852,1.99
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,3 to 5,1156,2.7
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,3 to 5,944,2.205
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,3 to 5,780,1.822
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,3 to 5,653,1.525
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,3 to 5,808,1.887
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,3 to 5,1889,4.413
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,3 to 5,3840,8.97
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,3 to 5,2979,6.959
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,3 to 5,716,1.673
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,3 to 5,269,0.628
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,3 to 5,305,0.712
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,3 to 5,701,1.638
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,5 or more,835,1.951
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,5 or more,457,1.068
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,5 or more,156,0.364
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,5 or more,66,0.154
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,5 or more,54,0.126
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,5 or more,605,1.413
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,5 or more,2026,4.733
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,5 or more,1742,4.069
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,5 or more,279,0.652
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,5 or more,74,0.173
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,5 or more,252,0.589
+Site,All year,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,5 or more,579,1.353
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,NA,Calm,718,2.006
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,0.5 to 1.5,529,1.478
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,0.5 to 1.5,645,1.802
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,0.5 to 1.5,930,2.599
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,0.5 to 1.5,1253,3.501
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,0.5 to 1.5,1112,3.107
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,0.5 to 1.5,1133,3.166
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,0.5 to 1.5,790,2.208
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,0.5 to 1.5,591,1.651
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,0.5 to 1.5,392,1.095
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,0.5 to 1.5,448,1.252
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,0.5 to 1.5,583,1.629
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,0.5 to 1.5,412,1.151
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,1.5 to 3,1101,3.077
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,1.5 to 3,1460,4.08
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,1.5 to 3,863,2.412
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,1.5 to 3,1109,3.099
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,1.5 to 3,1924,5.376
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,1.5 to 3,3495,9.766
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,1.5 to 3,3352,9.367
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,1.5 to 3,753,2.104
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,1.5 to 3,151,0.422
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,1.5 to 3,190,0.531
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,1.5 to 3,640,1.788
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,1.5 to 3,711,1.987
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,3 to 5,876,2.448
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,3 to 5,584,1.632
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,3 to 5,73,0.204
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,3 to 5,148,0.414
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,3 to 5,373,1.042
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,3 to 5,1380,3.856
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,3 to 5,4044,11.301
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,3 to 5,245,0.685
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,3 to 5,28,0.078
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,3 to 5,42,0.117
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,3 to 5,296,0.827
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,3 to 5,679,1.897
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,5 or more,99,0.277
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,5 or more,25,0.07
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,5 or more,0,0
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,5 or more,1,0.003
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,5 or more,4,0.011
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,5 or more,89,0.249
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,5 or more,1070,2.99
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,5 or more,21,0.059
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,5 or more,4,0.011
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,5 or more,8,0.022
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,5 or more,170,0.475
+Site,All year,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,5 or more,242,0.676
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,NA,Calm,268,2.578
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,0,0.5 to 1.5,339,3.261
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,30,0.5 to 1.5,586,5.637
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,60,0.5 to 1.5,329,3.165
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,90,0.5 to 1.5,214,2.058
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,120,0.5 to 1.5,100,0.962
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,150,0.5 to 1.5,51,0.491
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,180,0.5 to 1.5,39,0.375
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,210,0.5 to 1.5,90,0.866
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,240,0.5 to 1.5,163,1.568
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,270,0.5 to 1.5,173,1.664
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,300,0.5 to 1.5,158,1.52
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,330,0.5 to 1.5,295,2.838
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,0,1.5 to 3,603,5.8
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,30,1.5 to 3,563,5.416
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,60,1.5 to 3,292,2.809
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,90,1.5 to 3,227,2.184
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,120,1.5 to 3,536,5.156
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,150,1.5 to 3,260,2.501
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,180,1.5 to 3,176,1.693
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,210,1.5 to 3,381,3.665
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,240,1.5 to 3,278,2.674
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,270,1.5 to 3,99,0.952
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,300,1.5 to 3,78,0.75
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,330,1.5 to 3,256,2.462
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,0,3 to 5,614,5.906
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,30,3 to 5,177,1.703
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,60,3 to 5,16,0.154
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,90,3 to 5,10,0.096
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,120,3 to 5,305,2.934
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,150,3 to 5,552,5.31
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,180,3 to 5,374,3.598
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,210,3 to 5,633,6.089
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,240,3 to 5,119,1.145
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,270,3 to 5,23,0.221
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,300,3 to 5,59,0.568
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,330,3 to 5,317,3.049
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,0,5 or more,52,0.5
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,30,5 or more,6,0.058
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,60,5 or more,0,0
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,90,5 or more,0,0
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,120,5 or more,3,0.029
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,150,5 or more,63,0.606
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,180,5 or more,270,2.597
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,210,5 or more,169,1.626
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,240,5 or more,15,0.144
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,270,5 or more,0,0
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,300,5 or more,25,0.24
+Site,Winter,Houston Ship Channel,48-201-1035,Clinton,1,330,5 or more,40,0.385
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,NA,Calm,439,4.479
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,0.5 to 1.5,192,1.959
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,0.5 to 1.5,410,4.183
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,0.5 to 1.5,284,2.898
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,0.5 to 1.5,280,2.857
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,0.5 to 1.5,189,1.928
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,0.5 to 1.5,225,2.296
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,0.5 to 1.5,187,1.908
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,0.5 to 1.5,173,1.765
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,0.5 to 1.5,140,1.428
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,0.5 to 1.5,101,1.031
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,0.5 to 1.5,102,1.041
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,0.5 to 1.5,201,2.051
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,1.5 to 3,357,3.642
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,1.5 to 3,429,4.377
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,1.5 to 3,183,1.867
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,1.5 to 3,442,4.51
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,1.5 to 3,381,3.887
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,1.5 to 3,513,5.234
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,1.5 to 3,348,3.551
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,1.5 to 3,216,2.204
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,1.5 to 3,128,1.306
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,1.5 to 3,83,0.847
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,1.5 to 3,134,1.367
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,1.5 to 3,496,5.061
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,3 to 5,121,1.235
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,3 to 5,48,0.49
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,3 to 5,34,0.347
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,3 to 5,335,3.418
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,3 to 5,514,5.244
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,3 to 5,277,2.826
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,3 to 5,472,4.816
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,3 to 5,216,2.204
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,3 to 5,47,0.48
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,3 to 5,24,0.245
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,3 to 5,100,1.02
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,3 to 5,492,5.02
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,5 or more,5,0.051
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,5 or more,13,0.133
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,5 or more,0,0
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,5 or more,10,0.102
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,5 or more,53,0.541
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,5 or more,39,0.398
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,5 or more,176,1.796
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,5 or more,84,0.857
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,5 or more,11,0.112
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,5 or more,1,0.01
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,5 or more,45,0.459
+Site,Winter,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,5 or more,51,0.52
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,NA,Calm,687,6.589
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,0,0.5 to 1.5,334,3.204
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,30,0.5 to 1.5,405,3.885
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,60,0.5 to 1.5,222,2.129
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,90,0.5 to 1.5,164,1.573
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,120,0.5 to 1.5,209,2.005
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,150,0.5 to 1.5,201,1.928
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,180,0.5 to 1.5,198,1.899
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,210,0.5 to 1.5,125,1.199
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,240,0.5 to 1.5,151,1.448
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,270,0.5 to 1.5,86,0.825
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,300,0.5 to 1.5,137,1.314
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,330,0.5 to 1.5,308,2.954
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,0,1.5 to 3,538,5.16
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,30,1.5 to 3,526,5.045
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,60,1.5 to 3,369,3.539
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,90,1.5 to 3,399,3.827
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,120,1.5 to 3,459,4.402
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,150,1.5 to 3,647,6.206
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,180,1.5 to 3,608,5.832
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,210,1.5 to 3,250,2.398
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,240,1.5 to 3,167,1.602
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,270,1.5 to 3,68,0.652
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,300,1.5 to 3,118,1.132
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,330,1.5 to 3,453,4.345
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,0,3 to 5,157,1.506
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,30,3 to 5,116,1.113
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,60,3 to 5,82,0.786
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,90,3 to 5,137,1.314
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,120,3 to 5,304,2.916
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,150,3 to 5,253,2.427
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,180,3 to 5,356,3.415
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,210,3 to 5,201,1.928
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,240,3 to 5,64,0.614
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,270,3 to 5,21,0.201
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,300,3 to 5,96,0.921
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,330,3 to 5,577,5.534
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,0,5 or more,2,0.019
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,30,5 or more,2,0.019
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,60,5 or more,1,0.01
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,90,5 or more,4,0.038
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,120,5 or more,4,0.038
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,150,5 or more,7,0.067
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,180,5 or more,15,0.144
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,210,5 or more,5,0.048
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,240,5 or more,5,0.048
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,270,5 or more,0,0
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,300,5 or more,12,0.115
+Site,Winter,Houston Ship Channel,48-201-1034,Houston East,1,330,5 or more,176,1.688
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,NA,Calm,651,6.211
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,0,0.5 to 1.5,265,2.528
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,30,0.5 to 1.5,231,2.204
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,60,0.5 to 1.5,120,1.145
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,90,0.5 to 1.5,168,1.603
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,120,0.5 to 1.5,259,2.471
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,150,0.5 to 1.5,193,1.841
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,180,0.5 to 1.5,258,2.462
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,210,0.5 to 1.5,234,2.233
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,240,0.5 to 1.5,185,1.765
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,270,0.5 to 1.5,101,0.964
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,300,0.5 to 1.5,83,0.792
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,330,0.5 to 1.5,121,1.154
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,0,1.5 to 3,650,6.202
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,30,1.5 to 3,578,5.515
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,60,1.5 to 3,151,1.441
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,90,1.5 to 3,415,3.96
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,120,1.5 to 3,530,5.057
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,150,1.5 to 3,337,3.215
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,180,1.5 to 3,716,6.831
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,210,1.5 to 3,335,3.196
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,240,1.5 to 3,169,1.612
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,270,1.5 to 3,80,0.763
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,300,1.5 to 3,114,1.088
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,330,1.5 to 3,214,2.042
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,0,3 to 5,745,7.108
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,30,3 to 5,290,2.767
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,60,3 to 5,50,0.477
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,90,3 to 5,105,1.002
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,120,3 to 5,233,2.223
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,150,3 to 5,117,1.116
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,180,3 to 5,597,5.696
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,210,3 to 5,357,3.406
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,240,3 to 5,119,1.135
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,270,3 to 5,26,0.248
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,300,3 to 5,72,0.687
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,330,3 to 5,237,2.261
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,0,5 or more,86,0.821
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,30,5 or more,11,0.105
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,60,5 or more,0,0
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,90,5 or more,0,0
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,120,5 or more,4,0.038
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,150,5 or more,2,0.019
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,180,5 or more,89,0.849
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,210,5 or more,123,1.174
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,240,5 or more,19,0.181
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,270,5 or more,1,0.01
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,300,5 or more,13,0.124
+Site,Winter,Houston Ship Channel,48-201-0416,Park Place,1,330,5 or more,27,0.258
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,NA,Calm,380,5.875
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,0,0.5 to 1.5,99,1.531
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,30,0.5 to 1.5,103,1.592
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,60,0.5 to 1.5,95,1.469
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,90,0.5 to 1.5,108,1.67
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,120,0.5 to 1.5,159,2.458
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,150,0.5 to 1.5,184,2.845
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,180,0.5 to 1.5,100,1.546
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,210,0.5 to 1.5,74,1.144
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,240,0.5 to 1.5,53,0.819
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,270,0.5 to 1.5,47,0.727
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,300,0.5 to 1.5,40,0.618
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,330,0.5 to 1.5,97,1.5
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,0,1.5 to 3,271,4.19
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,30,1.5 to 3,249,3.85
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,60,1.5 to 3,208,3.216
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,90,1.5 to 3,177,2.737
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,120,1.5 to 3,268,4.143
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,150,1.5 to 3,374,5.782
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,180,1.5 to 3,237,3.664
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,210,1.5 to 3,88,1.361
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,240,1.5 to 3,55,0.85
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,270,1.5 to 3,35,0.541
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,300,1.5 to 3,53,0.819
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,330,1.5 to 3,145,2.242
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,0,3 to 5,422,6.524
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,30,3 to 5,177,2.737
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,60,3 to 5,134,2.072
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,90,3 to 5,280,4.329
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,120,3 to 5,213,3.293
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,150,3 to 5,321,4.963
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,180,3 to 5,330,5.102
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,210,3 to 5,107,1.654
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,240,3 to 5,12,0.186
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,270,3 to 5,14,0.216
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,300,3 to 5,57,0.881
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,330,3 to 5,242,3.741
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,0,5 or more,74,1.144
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,30,5 or more,10,0.155
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,60,5 or more,4,0.062
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,90,5 or more,18,0.278
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,120,5 or more,15,0.232
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,150,5 or more,35,0.541
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,180,5 or more,130,2.01
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,210,5 or more,27,0.417
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,240,5 or more,2,0.031
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,270,5 or more,1,0.015
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,300,5 or more,53,0.819
+Site,Winter,Houston other,48-201-0055,Houston Bayland Park,1,330,5 or more,91,1.407
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,NA,Calm,843,8.139
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,0,0.5 to 1.5,270,2.607
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,30,0.5 to 1.5,224,2.163
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,60,0.5 to 1.5,273,2.636
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,90,0.5 to 1.5,295,2.848
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,120,0.5 to 1.5,295,2.848
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,150,0.5 to 1.5,349,3.37
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,180,0.5 to 1.5,313,3.022
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,210,0.5 to 1.5,167,1.612
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,240,0.5 to 1.5,145,1.4
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,270,0.5 to 1.5,150,1.448
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,300,0.5 to 1.5,151,1.458
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,330,0.5 to 1.5,154,1.487
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,0,1.5 to 3,628,6.064
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,30,1.5 to 3,426,4.113
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,60,1.5 to 3,412,3.978
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,90,1.5 to 3,474,4.577
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,120,1.5 to 3,323,3.119
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,150,1.5 to 3,578,5.581
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,180,1.5 to 3,676,6.527
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,210,1.5 to 3,222,2.143
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,240,1.5 to 3,126,1.217
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,270,1.5 to 3,93,0.898
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,300,1.5 to 3,94,0.908
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,330,1.5 to 3,208,2.008
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,0,3 to 5,566,5.465
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,30,3 to 5,136,1.313
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,60,3 to 5,62,0.599
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,90,3 to 5,97,0.937
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,120,3 to 5,21,0.203
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,150,3 to 5,271,2.617
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,180,3 to 5,440,4.248
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,210,3 to 5,244,2.356
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,240,3 to 5,69,0.666
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,270,3 to 5,19,0.183
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,300,3 to 5,55,0.531
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,330,3 to 5,275,2.655
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,0,5 or more,44,0.425
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,30,5 or more,6,0.058
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,60,5 or more,0,0
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,90,5 or more,0,0
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,120,5 or more,1,0.01
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,150,5 or more,6,0.058
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,180,5 or more,37,0.357
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,210,5 or more,27,0.261
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,240,5 or more,11,0.106
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,270,5 or more,0,0
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,300,5 or more,21,0.203
+Site,Winter,Houston other,48-201-0051,Houston Croquet,1,330,5 or more,60,0.579
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,NA,Calm,113,1.122
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,0.5 to 1.5,89,0.883
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,0.5 to 1.5,105,1.042
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,0.5 to 1.5,97,0.963
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,0.5 to 1.5,94,0.933
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,0.5 to 1.5,95,0.943
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,0.5 to 1.5,95,0.943
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,0.5 to 1.5,75,0.744
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,0.5 to 1.5,71,0.705
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,0.5 to 1.5,45,0.447
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,0.5 to 1.5,37,0.367
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,0.5 to 1.5,50,0.496
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,0.5 to 1.5,54,0.536
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,1.5 to 3,331,3.285
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,1.5 to 3,220,2.184
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,1.5 to 3,165,1.638
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,1.5 to 3,231,2.293
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,1.5 to 3,227,2.253
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,1.5 to 3,326,3.236
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,1.5 to 3,450,4.467
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,1.5 to 3,396,3.931
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,1.5 to 3,248,2.462
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,1.5 to 3,237,2.352
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,1.5 to 3,250,2.481
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,1.5 to 3,338,3.355
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,3 to 5,473,4.695
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,3 to 5,281,2.789
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,3 to 5,93,0.923
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,3 to 5,49,0.486
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,3 to 5,88,0.873
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,3 to 5,346,3.434
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,3 to 5,702,6.968
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,3 to 5,621,6.164
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,3 to 5,277,2.749
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,3 to 5,124,1.231
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,3 to 5,153,1.519
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,3 to 5,367,3.643
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,5 or more,361,3.583
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,5 or more,172,1.707
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,5 or more,7,0.069
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,5 or more,5,0.05
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,5 or more,0,0
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,5 or more,116,1.151
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,5 or more,293,2.908
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,5 or more,478,4.744
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,5 or more,160,1.588
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,5 or more,38,0.377
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,5 or more,129,1.28
+Site,Winter,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,5 or more,303,3.007
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,NA,Calm,179,2.171
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,0.5 to 1.5,127,1.54
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,0.5 to 1.5,138,1.674
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,0.5 to 1.5,170,2.062
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,0.5 to 1.5,188,2.28
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,0.5 to 1.5,183,2.22
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,0.5 to 1.5,179,2.171
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,0.5 to 1.5,189,2.292
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,0.5 to 1.5,154,1.868
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,0.5 to 1.5,121,1.468
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,0.5 to 1.5,176,2.135
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,0.5 to 1.5,227,2.753
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,0.5 to 1.5,109,1.322
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,1.5 to 3,382,4.633
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,1.5 to 3,347,4.209
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,1.5 to 3,156,1.892
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,1.5 to 3,156,1.892
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,1.5 to 3,274,3.323
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,1.5 to 3,556,6.743
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,1.5 to 3,463,5.616
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,1.5 to 3,205,2.486
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,1.5 to 3,79,0.958
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,1.5 to 3,84,1.019
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,1.5 to 3,311,3.772
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,1.5 to 3,275,3.335
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,3 to 5,456,5.531
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,3 to 5,171,2.074
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,3 to 5,4,0.049
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,3 to 5,14,0.17
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,3 to 5,70,0.849
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,3 to 5,281,3.408
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,3 to 5,656,7.956
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,3 to 5,105,1.273
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,3 to 5,11,0.133
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,3 to 5,22,0.267
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,3 to 5,132,1.601
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,3 to 5,332,4.027
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,5 or more,72,0.873
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,5 or more,12,0.146
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,5 or more,0,0
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,5 or more,0,0
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,5 or more,1,0.012
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,5 or more,16,0.194
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,5 or more,244,2.959
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,5 or more,10,0.121
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,5 or more,3,0.036
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,5 or more,2,0.024
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,5 or more,65,0.788
+Site,Winter,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,5 or more,138,1.674
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,NA,Calm,178,1.673
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,0,0.5 to 1.5,243,2.284
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,30,0.5 to 1.5,456,4.287
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,60,0.5 to 1.5,373,3.506
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,90,0.5 to 1.5,189,1.777
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,120,0.5 to 1.5,92,0.865
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,150,0.5 to 1.5,58,0.545
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,180,0.5 to 1.5,39,0.367
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,210,0.5 to 1.5,69,0.649
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,240,0.5 to 1.5,95,0.893
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,270,0.5 to 1.5,119,1.119
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,300,0.5 to 1.5,76,0.714
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,330,0.5 to 1.5,155,1.457
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,0,1.5 to 3,308,2.895
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,30,1.5 to 3,451,4.24
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,60,1.5 to 3,288,2.707
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,90,1.5 to 3,167,1.57
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,120,1.5 to 3,508,4.775
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,150,1.5 to 3,474,4.456
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,180,1.5 to 3,229,2.153
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,210,1.5 to 3,350,3.29
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,240,1.5 to 3,173,1.626
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,270,1.5 to 3,65,0.611
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,300,1.5 to 3,60,0.564
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,330,1.5 to 3,145,1.363
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,0,3 to 5,184,1.73
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,30,3 to 5,138,1.297
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,60,3 to 5,26,0.244
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,90,3 to 5,2,0.019
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,120,3 to 5,243,2.284
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,150,3 to 5,1730,16.262
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,180,3 to 5,724,6.806
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,210,3 to 5,464,4.362
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,240,3 to 5,66,0.62
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,270,3 to 5,12,0.113
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,300,3 to 5,50,0.47
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,330,3 to 5,250,2.35
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,0,5 or more,11,0.103
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,30,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,60,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,90,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,120,5 or more,18,0.169
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,150,5 or more,546,5.133
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,180,5 or more,660,6.204
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,210,5 or more,124,1.166
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,240,5 or more,2,0.019
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,270,5 or more,1,0.009
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,300,5 or more,1,0.009
+Site,Spring,Houston Ship Channel,48-201-1035,Clinton,1,330,5 or more,26,0.244
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,NA,Calm,270,3.096
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,0.5 to 1.5,76,0.871
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,0.5 to 1.5,185,2.121
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,0.5 to 1.5,219,2.511
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,0.5 to 1.5,193,2.213
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,0.5 to 1.5,143,1.64
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,0.5 to 1.5,202,2.316
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,0.5 to 1.5,136,1.559
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,0.5 to 1.5,101,1.158
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,0.5 to 1.5,61,0.699
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,0.5 to 1.5,54,0.619
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,0.5 to 1.5,54,0.619
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,0.5 to 1.5,101,1.158
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,1.5 to 3,196,2.247
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,1.5 to 3,283,3.245
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,1.5 to 3,159,1.823
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,1.5 to 3,221,2.534
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,1.5 to 3,317,3.635
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,1.5 to 3,729,8.359
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,1.5 to 3,403,4.621
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,1.5 to 3,154,1.766
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,1.5 to 3,42,0.482
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,1.5 to 3,49,0.562
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,1.5 to 3,65,0.745
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,1.5 to 3,192,2.202
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,3 to 5,47,0.539
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,3 to 5,11,0.126
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,3 to 5,8,0.092
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,3 to 5,179,2.053
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,3 to 5,732,8.394
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,3 to 5,1096,12.567
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,3 to 5,594,6.811
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,3 to 5,96,1.101
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,3 to 5,24,0.275
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,3 to 5,17,0.195
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,3 to 5,94,1.078
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,3 to 5,185,2.121
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,5 or more,38,0.436
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,5 or more,229,2.626
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,5 or more,403,4.621
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,5 or more,286,3.279
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,5 or more,30,0.344
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,5 or more,1,0.011
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,5 or more,9,0.103
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,5 or more,14,0.161
+Site,Spring,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,5 or more,23,0.264
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,NA,Calm,692,6.468
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,0,0.5 to 1.5,251,2.346
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,30,0.5 to 1.5,409,3.823
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,60,0.5 to 1.5,324,3.029
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,90,0.5 to 1.5,205,1.916
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,120,0.5 to 1.5,222,2.075
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,150,0.5 to 1.5,356,3.328
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,180,0.5 to 1.5,289,2.701
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,210,0.5 to 1.5,99,0.925
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,240,0.5 to 1.5,108,1.01
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,270,0.5 to 1.5,71,0.664
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,300,0.5 to 1.5,99,0.925
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,330,0.5 to 1.5,177,1.655
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,0,1.5 to 3,295,2.758
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,30,1.5 to 3,323,3.019
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,60,1.5 to 3,263,2.458
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,90,1.5 to 3,345,3.225
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,120,1.5 to 3,713,6.665
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,150,1.5 to 3,1569,14.666
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,180,1.5 to 3,577,5.394
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,210,1.5 to 3,147,1.374
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,240,1.5 to 3,74,0.692
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,270,1.5 to 3,46,0.43
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,300,1.5 to 3,73,0.682
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,330,1.5 to 3,253,2.365
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,0,3 to 5,41,0.383
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,30,3 to 5,43,0.402
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,60,3 to 5,14,0.131
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,90,3 to 5,82,0.766
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,120,3 to 5,602,5.627
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,150,3 to 5,1103,10.31
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,180,3 to 5,219,2.047
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,210,3 to 5,31,0.29
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,240,3 to 5,16,0.15
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,270,3 to 5,18,0.168
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,300,3 to 5,109,1.019
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,330,3 to 5,247,2.309
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,0,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,30,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,60,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,90,5 or more,1,0.009
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,120,5 or more,15,0.14
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,150,5 or more,58,0.542
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,180,5 or more,16,0.15
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,210,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,240,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,270,5 or more,10,0.093
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,300,5 or more,7,0.065
+Site,Spring,Houston Ship Channel,48-201-1034,Houston East,1,330,5 or more,86,0.804
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,NA,Calm,420,3.873
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,0,0.5 to 1.5,201,1.853
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,30,0.5 to 1.5,195,1.798
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,60,0.5 to 1.5,131,1.208
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,90,0.5 to 1.5,197,1.817
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,120,0.5 to 1.5,220,2.029
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,150,0.5 to 1.5,281,2.591
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,180,0.5 to 1.5,237,2.185
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,210,0.5 to 1.5,235,2.167
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,240,0.5 to 1.5,120,1.107
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,270,0.5 to 1.5,71,0.655
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,300,0.5 to 1.5,80,0.738
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,330,0.5 to 1.5,64,0.59
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,0,1.5 to 3,338,3.117
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,30,1.5 to 3,485,4.472
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,60,1.5 to 3,190,1.752
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,90,1.5 to 3,262,2.416
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,120,1.5 to 3,553,5.099
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,150,1.5 to 3,792,7.303
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,180,1.5 to 3,949,8.751
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,210,1.5 to 3,328,3.024
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,240,1.5 to 3,75,0.692
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,270,1.5 to 3,59,0.544
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,300,1.5 to 3,90,0.83
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,330,1.5 to 3,115,1.06
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,0,3 to 5,284,2.619
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,30,3 to 5,199,1.835
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,60,3 to 5,27,0.249
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,90,3 to 5,68,0.627
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,120,3 to 5,407,3.753
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,150,3 to 5,541,4.988
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,180,3 to 5,1547,14.265
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,210,3 to 5,262,2.416
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,240,3 to 5,47,0.433
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,270,3 to 5,13,0.12
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,300,3 to 5,70,0.645
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,330,3 to 5,168,1.549
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,0,5 or more,19,0.175
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,30,5 or more,5,0.046
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,60,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,90,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,120,5 or more,23,0.212
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,150,5 or more,62,0.572
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,180,5 or more,335,3.089
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,210,5 or more,60,0.553
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,240,5 or more,0,0
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,270,5 or more,9,0.083
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,300,5 or more,6,0.055
+Site,Spring,Houston Ship Channel,48-201-0416,Park Place,1,330,5 or more,5,0.046
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,NA,Calm,232,3.279
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,0,0.5 to 1.5,67,0.947
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,30,0.5 to 1.5,74,1.046
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,60,0.5 to 1.5,81,1.145
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,90,0.5 to 1.5,103,1.456
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,120,0.5 to 1.5,208,2.94
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,150,0.5 to 1.5,151,2.134
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,180,0.5 to 1.5,73,1.032
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,210,0.5 to 1.5,44,0.622
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,240,0.5 to 1.5,34,0.481
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,270,0.5 to 1.5,43,0.608
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,300,0.5 to 1.5,37,0.523
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,330,0.5 to 1.5,48,0.678
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,0,1.5 to 3,176,2.488
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,30,1.5 to 3,169,2.389
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,60,1.5 to 3,160,2.261
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,90,1.5 to 3,173,2.445
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,120,1.5 to 3,470,6.643
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,150,1.5 to 3,562,7.943
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,180,1.5 to 3,171,2.417
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,210,1.5 to 3,56,0.792
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,240,1.5 to 3,33,0.466
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,270,1.5 to 3,33,0.466
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,300,1.5 to 3,52,0.735
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,330,1.5 to 3,94,1.329
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,0,3 to 5,180,2.544
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,30,3 to 5,112,1.583
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,60,3 to 5,100,1.413
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,90,3 to 5,113,1.597
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,120,3 to 5,487,6.883
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,150,3 to 5,1040,14.7
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,180,3 to 5,284,4.014
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,210,3 to 5,53,0.749
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,240,3 to 5,8,0.113
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,270,3 to 5,17,0.24
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,300,3 to 5,80,1.131
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,330,3 to 5,180,2.544
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,0,5 or more,10,0.141
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,30,5 or more,10,0.141
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,60,5 or more,1,0.014
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,90,5 or more,22,0.311
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,120,5 or more,103,1.456
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,150,5 or more,604,8.537
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,180,5 or more,197,2.784
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,210,5 or more,3,0.042
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,240,5 or more,2,0.028
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,270,5 or more,12,0.17
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,300,5 or more,46,0.65
+Site,Spring,Houston other,48-201-0055,Houston Bayland Park,1,330,5 or more,67,0.947
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,NA,Calm,698,6.337
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,0,0.5 to 1.5,200,1.816
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,30,0.5 to 1.5,224,2.034
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,60,0.5 to 1.5,366,3.323
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,90,0.5 to 1.5,360,3.268
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,120,0.5 to 1.5,458,4.158
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,150,0.5 to 1.5,447,4.058
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,180,0.5 to 1.5,296,2.687
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,210,0.5 to 1.5,163,1.48
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,240,0.5 to 1.5,66,0.599
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,270,0.5 to 1.5,81,0.735
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,300,0.5 to 1.5,100,0.908
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,330,0.5 to 1.5,129,1.171
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,0,1.5 to 3,249,2.261
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,30,1.5 to 3,338,3.069
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,60,1.5 to 3,285,2.587
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,90,1.5 to 3,292,2.651
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,120,1.5 to 3,556,5.048
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,150,1.5 to 3,1365,12.392
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,180,1.5 to 3,804,7.299
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,210,1.5 to 3,177,1.607
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,240,1.5 to 3,55,0.499
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,270,1.5 to 3,63,0.572
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,300,1.5 to 3,88,0.799
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,330,1.5 to 3,140,1.271
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,0,3 to 5,129,1.171
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,30,3 to 5,100,0.908
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,60,3 to 5,28,0.254
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,90,3 to 5,49,0.445
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,120,3 to 5,128,1.162
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,150,3 to 5,1093,9.923
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,180,3 to 5,771,7
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,210,3 to 5,117,1.062
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,240,3 to 5,18,0.163
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,270,3 to 5,8,0.073
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,300,3 to 5,58,0.527
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,330,3 to 5,236,2.143
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,0,5 or more,7,0.064
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,30,5 or more,3,0.027
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,60,5 or more,0,0
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,90,5 or more,0,0
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,120,5 or more,0,0
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,150,5 or more,90,0.817
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,180,5 or more,105,0.953
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,210,5 or more,1,0.009
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,240,5 or more,0,0
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,270,5 or more,6,0.054
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,300,5 or more,11,0.1
+Site,Spring,Houston other,48-201-0051,Houston Croquet,1,330,5 or more,57,0.517
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,NA,Calm,134,1.236
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,0.5 to 1.5,68,0.627
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,0.5 to 1.5,63,0.581
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,0.5 to 1.5,71,0.655
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,0.5 to 1.5,87,0.802
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,0.5 to 1.5,124,1.144
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,0.5 to 1.5,129,1.19
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,0.5 to 1.5,108,0.996
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,0.5 to 1.5,54,0.498
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,0.5 to 1.5,37,0.341
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,0.5 to 1.5,37,0.341
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,0.5 to 1.5,32,0.295
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,0.5 to 1.5,49,0.452
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,1.5 to 3,193,1.78
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,1.5 to 3,171,1.577
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,1.5 to 3,173,1.595
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,1.5 to 3,294,2.711
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,1.5 to 3,523,4.823
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,1.5 to 3,480,4.427
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,1.5 to 3,428,3.947
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,1.5 to 3,232,2.14
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,1.5 to 3,169,1.559
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,1.5 to 3,119,1.097
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,1.5 to 3,132,1.217
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,1.5 to 3,189,1.743
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,3 to 5,341,3.145
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,3 to 5,256,2.361
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,3 to 5,249,2.296
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,3 to 5,198,1.826
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,3 to 5,318,2.933
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,3 to 5,601,5.543
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,3 to 5,806,7.433
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,3 to 5,551,5.082
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,3 to 5,100,0.922
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,3 to 5,61,0.563
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,3 to 5,86,0.793
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,3 to 5,228,2.103
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,5 or more,256,2.361
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,5 or more,134,1.236
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,5 or more,82,0.756
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,5 or more,26,0.24
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,5 or more,37,0.341
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,5 or more,323,2.979
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,5 or more,1122,10.348
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,5 or more,602,5.552
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,5 or more,49,0.452
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,5 or more,25,0.231
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,5 or more,105,0.968
+Site,Spring,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,5 or more,191,1.762
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,NA,Calm,155,1.757
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,0.5 to 1.5,104,1.179
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,0.5 to 1.5,123,1.394
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,0.5 to 1.5,180,2.041
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,0.5 to 1.5,254,2.879
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,0.5 to 1.5,173,1.961
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,0.5 to 1.5,200,2.267
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,0.5 to 1.5,120,1.36
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,0.5 to 1.5,88,0.998
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,0.5 to 1.5,76,0.862
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,0.5 to 1.5,103,1.168
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,0.5 to 1.5,118,1.338
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,0.5 to 1.5,95,1.077
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,1.5 to 3,270,3.061
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,1.5 to 3,387,4.387
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,1.5 to 3,219,2.483
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,1.5 to 3,232,2.63
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,1.5 to 3,387,4.387
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,1.5 to 3,798,9.047
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,1.5 to 3,451,5.113
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,1.5 to 3,104,1.179
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,1.5 to 3,35,0.397
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,1.5 to 3,51,0.578
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,1.5 to 3,162,1.837
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,1.5 to 3,181,2.052
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,3 to 5,203,2.301
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,3 to 5,217,2.46
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,3 to 5,30,0.34
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,3 to 5,56,0.635
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,3 to 5,139,1.576
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,3 to 5,605,6.859
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,3 to 5,1169,13.252
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,3 to 5,52,0.59
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,3 to 5,15,0.17
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,3 to 5,17,0.193
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,3 to 5,125,1.417
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,3 to 5,220,2.494
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,5 or more,17,0.193
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,5 or more,12,0.136
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,5 or more,0,0
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,5 or more,1,0.011
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,5 or more,2,0.023
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,5 or more,58,0.658
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,5 or more,649,7.357
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,5 or more,8,0.091
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,5 or more,1,0.011
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,5 or more,6,0.068
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,5 or more,89,1.009
+Site,Spring,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,5 or more,64,0.726
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,NA,Calm,308,2.947
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,0,0.5 to 1.5,379,3.627
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,30,0.5 to 1.5,551,5.273
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,60,0.5 to 1.5,301,2.88
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,90,0.5 to 1.5,227,2.172
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,120,0.5 to 1.5,145,1.388
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,150,0.5 to 1.5,139,1.33
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,180,0.5 to 1.5,144,1.378
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,210,0.5 to 1.5,238,2.278
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,240,0.5 to 1.5,411,3.933
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,270,0.5 to 1.5,406,3.885
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,300,0.5 to 1.5,172,1.646
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,330,0.5 to 1.5,193,1.847
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,0,1.5 to 3,55,0.526
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,30,1.5 to 3,173,1.656
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,60,1.5 to 3,143,1.368
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,90,1.5 to 3,111,1.062
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,120,1.5 to 3,424,4.057
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,150,1.5 to 3,567,5.426
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,180,1.5 to 3,497,4.756
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,210,1.5 to 3,1361,13.024
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,240,1.5 to 3,523,5.005
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,270,1.5 to 3,147,1.407
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,300,1.5 to 3,75,0.718
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,330,1.5 to 3,69,0.66
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,0,3 to 5,8,0.077
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,30,3 to 5,3,0.029
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,60,3 to 5,0,0
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,90,3 to 5,4,0.038
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,120,3 to 5,91,0.871
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,150,3 to 5,816,7.809
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,180,3 to 5,709,6.785
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,210,3 to 5,802,7.675
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,240,3 to 5,69,0.66
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,270,3 to 5,4,0.038
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,300,3 to 5,1,0.01
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,330,3 to 5,3,0.029
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,0,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,30,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,60,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,90,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,120,5 or more,4,0.038
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,150,5 or more,55,0.526
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,180,5 or more,94,0.9
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,210,5 or more,28,0.268
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,240,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,270,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,300,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1035,Clinton,1,330,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,NA,Calm,687,6.963
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,0.5 to 1.5,87,0.882
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,0.5 to 1.5,161,1.632
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,0.5 to 1.5,233,2.361
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,0.5 to 1.5,253,2.564
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,0.5 to 1.5,192,1.946
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,0.5 to 1.5,365,3.699
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,0.5 to 1.5,514,5.209
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,0.5 to 1.5,465,4.713
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,0.5 to 1.5,304,3.081
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,0.5 to 1.5,237,2.402
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,0.5 to 1.5,96,0.973
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,0.5 to 1.5,106,1.074
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,1.5 to 3,14,0.142
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,1.5 to 3,61,0.618
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,1.5 to 3,64,0.649
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,1.5 to 3,301,3.051
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,1.5 to 3,347,3.517
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,1.5 to 3,741,7.51
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,1.5 to 3,966,9.79
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,1.5 to 3,656,6.648
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,1.5 to 3,288,2.919
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,1.5 to 3,120,1.216
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,1.5 to 3,41,0.416
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,1.5 to 3,31,0.314
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,3 to 5,1,0.01
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,3 to 5,2,0.02
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,3 to 5,4,0.041
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,3 to 5,122,1.236
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,3 to 5,378,3.831
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,3 to 5,741,7.51
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,3 to 5,820,8.311
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,3 to 5,252,2.554
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,3 to 5,51,0.517
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,3 to 5,12,0.122
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,3 to 5,0,0
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,3 to 5,2,0.02
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,5 or more,6,0.061
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,5 or more,42,0.426
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,5 or more,32,0.324
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,5 or more,71,0.72
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,5 or more,1,0.01
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,NA,Calm,1145,10.589
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,0,0.5 to 1.5,218,2.016
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,30,0.5 to 1.5,447,4.134
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,60,0.5 to 1.5,309,2.858
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,90,0.5 to 1.5,226,2.09
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,120,0.5 to 1.5,259,2.395
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,150,0.5 to 1.5,683,6.316
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,180,0.5 to 1.5,1141,10.552
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,210,0.5 to 1.5,575,5.318
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,240,0.5 to 1.5,557,5.151
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,270,0.5 to 1.5,299,2.765
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,300,0.5 to 1.5,164,1.517
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,330,0.5 to 1.5,214,1.979
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,0,1.5 to 3,33,0.305
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,30,1.5 to 3,143,1.322
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,60,1.5 to 3,215,1.988
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,90,1.5 to 3,260,2.405
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,120,1.5 to 3,431,3.986
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,150,1.5 to 3,1136,10.506
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,180,1.5 to 3,997,9.22
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,210,1.5 to 3,351,3.246
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,240,1.5 to 3,314,2.904
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,270,1.5 to 3,98,0.906
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,300,1.5 to 3,78,0.721
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,330,1.5 to 3,95,0.879
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,0,3 to 5,1,0.009
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,30,3 to 5,3,0.028
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,60,3 to 5,5,0.046
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,90,3 to 5,28,0.259
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,120,3 to 5,142,1.313
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,150,3 to 5,194,1.794
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,180,3 to 5,34,0.314
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,210,3 to 5,1,0.009
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,240,3 to 5,2,0.018
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,270,3 to 5,3,0.028
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,300,3 to 5,3,0.028
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,330,3 to 5,9,0.083
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,0,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,30,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,60,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,90,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,120,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,150,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,180,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,210,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,240,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,270,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,300,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-1034,Houston East,1,330,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,NA,Calm,686,6.324
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,0,0.5 to 1.5,201,1.853
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,30,0.5 to 1.5,239,2.203
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,60,0.5 to 1.5,174,1.604
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,90,0.5 to 1.5,181,1.669
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,120,0.5 to 1.5,230,2.12
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,150,0.5 to 1.5,405,3.734
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,180,0.5 to 1.5,566,5.218
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,210,0.5 to 1.5,763,7.034
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,240,0.5 to 1.5,372,3.43
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,270,0.5 to 1.5,212,1.954
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,300,0.5 to 1.5,118,1.088
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,330,0.5 to 1.5,75,0.691
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,0,1.5 to 3,119,1.097
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,30,1.5 to 3,208,1.918
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,60,1.5 to 3,115,1.06
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,90,1.5 to 3,189,1.742
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,120,1.5 to 3,350,3.227
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,150,1.5 to 3,482,4.444
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,180,1.5 to 3,1261,11.625
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,210,1.5 to 3,1198,11.045
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,240,1.5 to 3,386,3.559
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,270,1.5 to 3,150,1.383
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,300,1.5 to 3,57,0.525
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,330,1.5 to 3,35,0.323
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,0,3 to 5,9,0.083
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,30,3 to 5,23,0.212
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,60,3 to 5,8,0.074
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,90,3 to 5,21,0.194
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,120,3 to 5,81,0.747
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,150,3 to 5,132,1.217
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,180,3 to 5,1060,9.772
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,210,3 to 5,600,5.531
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,240,3 to 5,82,0.756
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,270,3 to 5,9,0.083
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,300,3 to 5,0,0
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,330,3 to 5,1,0.009
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,0,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,30,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,60,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,90,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,120,5 or more,4,0.037
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,150,5 or more,1,0.009
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,180,5 or more,24,0.221
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,210,5 or more,19,0.175
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,240,5 or more,1,0.009
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,270,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,300,5 or more,0,0
+Site,Summer,Houston Ship Channel,48-201-0416,Park Place,1,330,5 or more,0,0
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,NA,Calm,495,7.201
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,0,0.5 to 1.5,80,1.164
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,30,0.5 to 1.5,83,1.207
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,60,0.5 to 1.5,111,1.615
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,90,0.5 to 1.5,163,2.371
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,120,0.5 to 1.5,307,4.466
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,150,0.5 to 1.5,341,4.961
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,180,0.5 to 1.5,231,3.36
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,210,0.5 to 1.5,132,1.92
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,240,0.5 to 1.5,99,1.44
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,270,0.5 to 1.5,95,1.382
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,300,0.5 to 1.5,68,0.989
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,330,0.5 to 1.5,68,0.989
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,0,1.5 to 3,58,0.844
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,30,1.5 to 3,104,1.513
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,60,1.5 to 3,184,2.677
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,90,1.5 to 3,196,2.851
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,120,1.5 to 3,391,5.688
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,150,1.5 to 3,728,10.591
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,180,1.5 to 3,538,7.827
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,210,1.5 to 3,212,3.084
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,240,1.5 to 3,97,1.411
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,270,1.5 to 3,87,1.266
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,300,1.5 to 3,44,0.64
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,330,1.5 to 3,36,0.524
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,0,3 to 5,19,0.276
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,30,3 to 5,20,0.291
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,60,3 to 5,59,0.858
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,90,3 to 5,93,1.353
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,120,3 to 5,232,3.375
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,150,3 to 5,662,9.63
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,180,3 to 5,584,8.496
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,210,3 to 5,54,0.786
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,240,3 to 5,4,0.058
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,270,3 to 5,6,0.087
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,300,3 to 5,5,0.073
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,330,3 to 5,6,0.087
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,0,5 or more,0,0
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,30,5 or more,2,0.029
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,60,5 or more,1,0.015
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,90,5 or more,18,0.262
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,120,5 or more,30,0.436
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,150,5 or more,60,0.873
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,180,5 or more,71,1.033
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,210,5 or more,0,0
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,240,5 or more,0,0
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,270,5 or more,0,0
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,300,5 or more,0,0
+Site,Summer,Houston other,48-201-0055,Houston Bayland Park,1,330,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,NA,Calm,1399,12.968
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,0,0.5 to 1.5,171,1.585
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,30,0.5 to 1.5,204,1.891
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,60,0.5 to 1.5,250,2.317
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,90,0.5 to 1.5,352,3.263
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,120,0.5 to 1.5,511,4.737
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,150,0.5 to 1.5,725,6.72
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,180,0.5 to 1.5,920,8.528
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,210,0.5 to 1.5,653,6.053
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,240,0.5 to 1.5,254,2.354
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,270,0.5 to 1.5,265,2.456
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,300,0.5 to 1.5,161,1.492
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,330,0.5 to 1.5,119,1.103
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,0,1.5 to 3,26,0.241
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,30,1.5 to 3,87,0.806
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,60,1.5 to 3,119,1.103
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,90,1.5 to 3,143,1.326
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,120,1.5 to 3,260,2.41
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,150,1.5 to 3,816,7.564
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,180,1.5 to 3,1444,13.385
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,210,1.5 to 3,668,6.192
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,240,1.5 to 3,141,1.307
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,270,1.5 to 3,94,0.871
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,300,1.5 to 3,66,0.612
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,330,1.5 to 3,39,0.362
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,0,3 to 5,1,0.009
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,30,3 to 5,2,0.019
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,60,3 to 5,1,0.009
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,90,3 to 5,18,0.167
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,120,3 to 5,26,0.241
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,150,3 to 5,221,2.049
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,180,3 to 5,467,4.329
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,210,3 to 5,155,1.437
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,240,3 to 5,5,0.046
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,270,3 to 5,3,0.028
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,300,3 to 5,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,330,3 to 5,2,0.019
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,0,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,30,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,60,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,90,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,120,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,150,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,180,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,210,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,240,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,270,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,300,5 or more,0,0
+Site,Summer,Houston other,48-201-0051,Houston Croquet,1,330,5 or more,0,0
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,NA,Calm,100,0.908
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,0.5 to 1.5,56,0.509
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,0.5 to 1.5,63,0.572
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,0.5 to 1.5,98,0.89
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,0.5 to 1.5,149,1.353
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,0.5 to 1.5,196,1.78
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,0.5 to 1.5,188,1.707
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,0.5 to 1.5,157,1.426
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,0.5 to 1.5,94,0.854
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,0.5 to 1.5,61,0.554
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,0.5 to 1.5,57,0.518
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,0.5 to 1.5,43,0.39
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,0.5 to 1.5,48,0.436
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,1.5 to 3,115,1.044
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,1.5 to 3,124,1.126
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,1.5 to 3,217,1.971
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,1.5 to 3,460,4.177
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,1.5 to 3,661,6.003
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,1.5 to 3,884,8.028
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,1.5 to 3,919,8.345
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,1.5 to 3,472,4.286
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,1.5 to 3,202,1.834
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,1.5 to 3,76,0.69
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,1.5 to 3,56,0.509
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,1.5 to 3,75,0.681
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,3 to 5,41,0.372
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,3 to 5,127,1.153
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,3 to 5,193,1.753
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,3 to 5,252,2.288
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,3 to 5,282,2.561
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,3 to 5,658,5.975
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,3 to 5,1548,14.057
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,3 to 5,1105,10.035
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,3 to 5,214,1.943
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,3 to 5,32,0.291
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,3 to 5,29,0.263
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,3 to 5,20,0.182
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,5 or more,13,0.118
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,5 or more,17,0.154
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,5 or more,25,0.227
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,5 or more,16,0.145
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,5 or more,13,0.118
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,5 or more,126,1.144
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,5 or more,399,3.623
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,5 or more,294,2.67
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,5 or more,29,0.263
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,5 or more,0,0
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,5 or more,1,0.009
+Site,Summer,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,5 or more,7,0.064
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,NA,Calm,168,1.677
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,0.5 to 1.5,119,1.188
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,0.5 to 1.5,160,1.598
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,0.5 to 1.5,227,2.267
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,0.5 to 1.5,340,3.395
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,0.5 to 1.5,363,3.625
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,0.5 to 1.5,447,4.463
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,0.5 to 1.5,309,3.085
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,0.5 to 1.5,199,1.987
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,0.5 to 1.5,113,1.128
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,0.5 to 1.5,84,0.839
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,0.5 to 1.5,59,0.589
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,0.5 to 1.5,49,0.489
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,1.5 to 3,108,1.078
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,1.5 to 3,331,3.305
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,1.5 to 3,253,2.526
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,1.5 to 3,404,4.034
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,1.5 to 3,661,6.6
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,1.5 to 3,1324,13.22
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,1.5 to 3,1694,16.915
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,1.5 to 3,300,2.996
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,1.5 to 3,18,0.18
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,1.5 to 3,28,0.28
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,1.5 to 3,26,0.26
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,1.5 to 3,47,0.469
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,3 to 5,25,0.25
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,3 to 5,75,0.749
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,3 to 5,24,0.24
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,3 to 5,48,0.479
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,3 to 5,104,1.038
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,3 to 5,239,2.386
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,3 to 5,1529,15.267
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,3 to 5,53,0.529
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,3 to 5,0,0
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,3 to 5,0,0
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,3 to 5,4,0.04
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,3 to 5,4,0.04
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,5 or more,1,0.01
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,5 or more,0,0
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,5 or more,0,0
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,5 or more,0,0
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,5 or more,0,0
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,5 or more,3,0.03
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,5 or more,74,0.739
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,5 or more,1,0.01
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,5 or more,0,0
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,5 or more,0,0
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,5 or more,0,0
+Site,Summer,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,NA,Calm,315,2.918
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,0,0.5 to 1.5,668,6.188
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,30,0.5 to 1.5,1275,11.811
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,60,0.5 to 1.5,592,5.484
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,90,0.5 to 1.5,311,2.881
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,120,0.5 to 1.5,251,2.325
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,150,0.5 to 1.5,90,0.834
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,180,0.5 to 1.5,67,0.621
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,210,0.5 to 1.5,114,1.056
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,240,0.5 to 1.5,209,1.936
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,270,0.5 to 1.5,202,1.871
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,300,0.5 to 1.5,148,1.371
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,330,0.5 to 1.5,282,2.612
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,0,1.5 to 3,421,3.9
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,30,1.5 to 3,704,6.522
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,60,1.5 to 3,347,3.214
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,90,1.5 to 3,182,1.686
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,120,1.5 to 3,632,5.855
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,150,1.5 to 3,638,5.91
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,180,1.5 to 3,208,1.927
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,210,1.5 to 3,444,4.113
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,240,1.5 to 3,206,1.908
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,270,1.5 to 3,75,0.695
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,300,1.5 to 3,55,0.509
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,330,1.5 to 3,191,1.769
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,0,3 to 5,186,1.723
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,30,3 to 5,113,1.047
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,60,3 to 5,7,0.065
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,90,3 to 5,6,0.056
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,120,3 to 5,176,1.63
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,150,3 to 5,843,7.809
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,180,3 to 5,247,2.288
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,210,3 to 5,224,2.075
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,240,3 to 5,22,0.204
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,270,3 to 5,8,0.074
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,300,3 to 5,15,0.139
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,330,3 to 5,89,0.824
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,0,5 or more,3,0.028
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,30,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,60,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,90,5 or more,1,0.009
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,120,5 or more,6,0.056
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,150,5 or more,90,0.834
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,180,5 or more,93,0.862
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,210,5 or more,20,0.185
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,240,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,270,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,300,5 or more,1,0.009
+Site,Autumn,Houston Ship Channel,48-201-1035,Clinton,1,330,5 or more,18,0.167
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,NA,Calm,1005,9.281
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,0.5 to 1.5,300,2.77
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,0.5 to 1.5,588,5.43
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,0.5 to 1.5,563,5.199
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,0.5 to 1.5,438,4.045
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,0.5 to 1.5,274,2.53
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,0.5 to 1.5,378,3.491
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,0.5 to 1.5,285,2.632
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,0.5 to 1.5,239,2.207
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,0.5 to 1.5,191,1.764
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,0.5 to 1.5,184,1.699
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,0.5 to 1.5,158,1.459
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,0.5 to 1.5,199,1.838
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,1.5 to 3,287,2.65
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,1.5 to 3,455,4.202
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,1.5 to 3,273,2.521
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,1.5 to 3,628,5.799
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,1.5 to 3,582,5.374
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,1.5 to 3,657,6.067
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,1.5 to 3,342,3.158
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,1.5 to 3,204,1.884
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,1.5 to 3,112,1.034
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,1.5 to 3,86,0.794
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,1.5 to 3,102,0.942
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,1.5 to 3,255,2.355
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,3 to 5,52,0.48
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,3 to 5,35,0.323
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,3 to 5,5,0.046
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,3 to 5,203,1.875
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,3 to 5,579,5.347
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,3 to 5,487,4.497
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,3 to 5,230,2.124
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,3 to 5,77,0.711
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,3 to 5,42,0.388
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,3 to 5,20,0.185
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,3 to 5,45,0.416
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,3 to 5,60,0.554
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,0,5 or more,6,0.055
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,30,5 or more,6,0.055
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,60,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,90,5 or more,17,0.157
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,120,5 or more,48,0.443
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,150,5 or more,73,0.674
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,180,5 or more,34,0.314
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,210,5 or more,4,0.037
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,240,5 or more,3,0.028
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,270,5 or more,1,0.009
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,300,5 or more,8,0.074
+Site,Autumn,Houston Ship Channel,48-201-1039,Houston Deer Park #2,1,330,5 or more,9,0.083
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,NA,Calm,1255,11.674
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,0,0.5 to 1.5,527,4.902
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,30,0.5 to 1.5,947,8.809
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,60,0.5 to 1.5,630,5.86
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,90,0.5 to 1.5,326,3.033
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,120,0.5 to 1.5,287,2.67
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,150,0.5 to 1.5,479,4.456
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,180,0.5 to 1.5,363,3.377
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,210,0.5 to 1.5,172,1.6
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,240,0.5 to 1.5,187,1.74
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,270,0.5 to 1.5,114,1.06
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,300,0.5 to 1.5,105,0.977
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,330,0.5 to 1.5,323,3.005
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,0,1.5 to 3,351,3.265
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,30,1.5 to 3,571,5.312
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,60,1.5 to 3,434,4.037
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,90,1.5 to 3,372,3.46
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,120,1.5 to 3,703,6.54
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,150,1.5 to 3,796,7.405
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,180,1.5 to 3,262,2.437
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,210,1.5 to 3,73,0.679
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,240,1.5 to 3,115,1.07
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,270,1.5 to 3,67,0.623
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,300,1.5 to 3,105,0.977
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,330,1.5 to 3,295,2.744
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,0,3 to 5,33,0.307
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,30,3 to 5,44,0.409
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,60,3 to 5,21,0.195
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,90,3 to 5,35,0.326
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,120,3 to 5,252,2.344
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,150,3 to 5,206,1.916
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,180,3 to 5,39,0.363
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,210,3 to 5,9,0.084
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,240,3 to 5,10,0.093
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,270,3 to 5,7,0.065
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,300,3 to 5,19,0.177
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,330,3 to 5,157,1.46
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,0,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,30,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,60,5 or more,2,0.019
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,90,5 or more,4,0.037
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,120,5 or more,5,0.047
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,150,5 or more,8,0.074
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,180,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,210,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,240,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,270,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,300,5 or more,7,0.065
+Site,Autumn,Houston Ship Channel,48-201-1034,Houston East,1,330,5 or more,33,0.307
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,NA,Calm,1092,10.131
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,0,0.5 to 1.5,433,4.017
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,30,0.5 to 1.5,476,4.416
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,60,0.5 to 1.5,280,2.598
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,90,0.5 to 1.5,301,2.792
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,120,0.5 to 1.5,356,3.303
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,150,0.5 to 1.5,431,3.999
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,180,0.5 to 1.5,337,3.126
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,210,0.5 to 1.5,371,3.442
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,240,0.5 to 1.5,191,1.772
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,270,0.5 to 1.5,120,1.113
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,300,0.5 to 1.5,94,0.872
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,330,0.5 to 1.5,76,0.705
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,0,1.5 to 3,556,5.158
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,30,1.5 to 3,887,8.229
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,60,1.5 to 3,275,2.551
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,90,1.5 to 3,315,2.922
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,120,1.5 to 3,647,6.002
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,150,1.5 to 3,610,5.659
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,180,1.5 to 3,537,4.982
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,210,1.5 to 3,326,3.024
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,240,1.5 to 3,143,1.327
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,270,1.5 to 3,70,0.649
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,300,1.5 to 3,88,0.816
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,330,1.5 to 3,97,0.9
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,0,3 to 5,343,3.182
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,30,3 to 5,254,2.356
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,60,3 to 5,25,0.232
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,90,3 to 5,31,0.288
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,120,3 to 5,177,1.642
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,150,3 to 5,170,1.577
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,180,3 to 5,339,3.145
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,210,3 to 5,129,1.197
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,240,3 to 5,43,0.399
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,270,3 to 5,10,0.093
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,300,3 to 5,17,0.158
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,330,3 to 5,33,0.306
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,0,5 or more,6,0.056
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,30,5 or more,2,0.019
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,60,5 or more,0,0
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,90,5 or more,5,0.046
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,120,5 or more,3,0.028
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,150,5 or more,12,0.111
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,180,5 or more,52,0.482
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,210,5 or more,6,0.056
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,240,5 or more,6,0.056
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,270,5 or more,2,0.019
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,300,5 or more,3,0.028
+Site,Autumn,Houston Ship Channel,48-201-0416,Park Place,1,330,5 or more,2,0.019
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,NA,Calm,862,9.905
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,0,0.5 to 1.5,202,2.321
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,30,0.5 to 1.5,213,2.447
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,60,0.5 to 1.5,225,2.585
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,90,0.5 to 1.5,262,3.01
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,120,0.5 to 1.5,390,4.481
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,150,0.5 to 1.5,333,3.826
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,180,0.5 to 1.5,133,1.528
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,210,0.5 to 1.5,73,0.839
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,240,0.5 to 1.5,60,0.689
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,270,0.5 to 1.5,57,0.655
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,300,0.5 to 1.5,63,0.724
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,330,0.5 to 1.5,88,1.011
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,0,1.5 to 3,348,3.999
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,30,1.5 to 3,396,4.55
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,60,1.5 to 3,442,5.079
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,90,1.5 to 3,317,3.642
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,120,1.5 to 3,594,6.825
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,150,1.5 to 3,520,5.975
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,180,1.5 to 3,236,2.712
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,210,1.5 to 3,120,1.379
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,240,1.5 to 3,73,0.839
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,270,1.5 to 3,63,0.724
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,300,1.5 to 3,80,0.919
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,330,1.5 to 3,133,1.528
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,0,3 to 5,281,3.229
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,30,3 to 5,256,2.942
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,60,3 to 5,193,2.218
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,90,3 to 5,143,1.643
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,120,3 to 5,371,4.263
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,150,3 to 5,490,5.63
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,180,3 to 5,206,2.367
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,210,3 to 5,54,0.62
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,240,3 to 5,9,0.103
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,270,3 to 5,9,0.103
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,300,3 to 5,20,0.23
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,330,3 to 5,105,1.206
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,0,5 or more,21,0.241
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,30,5 or more,6,0.069
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,60,5 or more,11,0.126
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,90,5 or more,20,0.23
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,120,5 or more,35,0.402
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,150,5 or more,115,1.321
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,180,5 or more,31,0.356
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,210,5 or more,3,0.034
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,240,5 or more,0,0
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,270,5 or more,1,0.011
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,300,5 or more,22,0.253
+Site,Autumn,Houston other,48-201-0055,Houston Bayland Park,1,330,5 or more,18,0.207
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,NA,Calm,1794,16.611
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,0,0.5 to 1.5,416,3.852
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,30,0.5 to 1.5,583,5.398
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,60,0.5 to 1.5,588,5.444
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,90,0.5 to 1.5,518,4.796
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,120,0.5 to 1.5,574,5.315
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,150,0.5 to 1.5,553,5.12
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,180,0.5 to 1.5,375,3.472
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,210,0.5 to 1.5,238,2.204
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,240,0.5 to 1.5,111,1.028
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,270,0.5 to 1.5,140,1.296
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,300,0.5 to 1.5,139,1.287
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,330,0.5 to 1.5,166,1.537
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,0,1.5 to 3,368,3.407
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,30,1.5 to 3,513,4.75
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,60,1.5 to 3,453,4.194
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,90,1.5 to 3,332,3.074
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,120,1.5 to 3,485,4.491
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,150,1.5 to 3,691,6.398
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,180,1.5 to 3,441,4.083
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,210,1.5 to 3,193,1.787
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,240,1.5 to 3,96,0.889
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,270,1.5 to 3,68,0.63
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,300,1.5 to 3,78,0.722
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,330,1.5 to 3,136,1.259
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,0,3 to 5,65,0.602
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,30,3 to 5,72,0.667
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,60,3 to 5,23,0.213
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,90,3 to 5,34,0.315
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,120,3 to 5,26,0.241
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,150,3 to 5,195,1.806
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,180,3 to 5,161,1.491
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,210,3 to 5,55,0.509
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,240,3 to 5,13,0.12
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,270,3 to 5,7,0.065
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,300,3 to 5,15,0.139
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,330,3 to 5,55,0.509
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,0,5 or more,0,0
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,30,5 or more,0,0
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,60,5 or more,3,0.028
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,90,5 or more,0,0
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,120,5 or more,0,0
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,150,5 or more,12,0.111
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,180,5 or more,1,0.009
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,210,5 or more,0,0
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,240,5 or more,0,0
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,270,5 or more,0,0
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,300,5 or more,3,0.028
+Site,Autumn,Houston other,48-201-0051,Houston Croquet,1,330,5 or more,11,0.102
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,NA,Calm,157,1.443
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,0.5 to 1.5,70,0.644
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,0.5 to 1.5,145,1.333
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,0.5 to 1.5,154,1.416
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,0.5 to 1.5,177,1.627
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,0.5 to 1.5,206,1.894
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,0.5 to 1.5,245,2.252
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,0.5 to 1.5,192,1.765
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,0.5 to 1.5,122,1.122
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,0.5 to 1.5,78,0.717
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,0.5 to 1.5,44,0.404
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,0.5 to 1.5,41,0.377
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,0.5 to 1.5,51,0.469
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,1.5 to 3,321,2.951
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,1.5 to 3,295,2.712
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,1.5 to 3,296,2.721
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,1.5 to 3,331,3.043
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,1.5 to 3,621,5.709
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,1.5 to 3,838,7.704
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,1.5 to 3,917,8.43
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,1.5 to 3,505,4.642
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,1.5 to 3,180,1.655
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,1.5 to 3,133,1.223
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,1.5 to 3,168,1.544
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,1.5 to 3,250,2.298
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,3 to 5,301,2.767
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,3 to 5,280,2.574
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,3 to 5,245,2.252
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,3 to 5,154,1.416
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,3 to 5,120,1.103
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,3 to 5,284,2.611
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,3 to 5,784,7.207
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,3 to 5,702,6.453
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,3 to 5,125,1.149
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,3 to 5,52,0.478
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,3 to 5,37,0.34
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,3 to 5,86,0.791
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,0,5 or more,205,1.885
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,30,5 or more,134,1.232
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,60,5 or more,42,0.386
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,90,5 or more,19,0.175
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,120,5 or more,4,0.037
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,150,5 or more,40,0.368
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,180,5 or more,212,1.949
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,210,5 or more,368,3.383
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,240,5 or more,41,0.377
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,270,5 or more,11,0.101
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,300,5 or more,17,0.156
+Site,Autumn,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,1,330,5 or more,78,0.717
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,NA,Calm,216,2.481
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,0.5 to 1.5,179,2.056
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,0.5 to 1.5,224,2.573
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,0.5 to 1.5,353,4.055
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,0.5 to 1.5,471,5.411
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,0.5 to 1.5,393,4.515
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,0.5 to 1.5,307,3.527
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,0.5 to 1.5,172,1.976
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,0.5 to 1.5,150,1.723
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,0.5 to 1.5,82,0.942
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,0.5 to 1.5,85,0.976
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,0.5 to 1.5,179,2.056
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,0.5 to 1.5,159,1.827
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,1.5 to 3,341,3.917
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,1.5 to 3,395,4.538
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,1.5 to 3,235,2.7
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,1.5 to 3,317,3.642
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,1.5 to 3,602,6.916
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,1.5 to 3,817,9.385
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,1.5 to 3,744,8.547
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,1.5 to 3,144,1.654
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,1.5 to 3,19,0.218
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,1.5 to 3,27,0.31
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,1.5 to 3,141,1.62
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,1.5 to 3,208,2.389
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,3 to 5,192,2.206
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,3 to 5,121,1.39
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,3 to 5,15,0.172
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,3 to 5,30,0.345
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,3 to 5,60,0.689
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,3 to 5,255,2.929
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,3 to 5,690,7.926
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,3 to 5,35,0.402
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,3 to 5,2,0.023
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,3 to 5,3,0.034
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,3 to 5,35,0.402
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,3 to 5,123,1.413
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,0,5 or more,9,0.103
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,30,5 or more,1,0.011
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,60,5 or more,0,0
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,90,5 or more,0,0
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,120,5 or more,1,0.011
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,150,5 or more,12,0.138
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,180,5 or more,103,1.183
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,210,5 or more,2,0.023
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,240,5 or more,0,0
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,270,5 or more,0,0
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,300,5 or more,16,0.184
+Site,Autumn,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,1,330,5 or more,40,0.46
+"Houston, 6 sites",All year,NA,NA,NA,6,NA,Calm,16801,6.986
+"Houston, 6 sites",All year,NA,NA,NA,6,0,0.5 to 1.5,6219,2.533
+"Houston, 6 sites",All year,NA,NA,NA,6,30,0.5 to 1.5,9269,3.756
+"Houston, 6 sites",All year,NA,NA,NA,6,60,0.5 to 1.5,7073,2.9
+"Houston, 6 sites",All year,NA,NA,NA,6,90,0.5 to 1.5,6034,2.51
+"Houston, 6 sites",All year,NA,NA,NA,6,120,0.5 to 1.5,6330,2.688
+"Houston, 6 sites",All year,NA,NA,NA,6,150,0.5 to 1.5,7620,3.192
+"Houston, 6 sites",All year,NA,NA,NA,6,180,0.5 to 1.5,7241,2.957
+"Houston, 6 sites",All year,NA,NA,NA,6,210,0.5 to 1.5,5607,2.277
+"Houston, 6 sites",All year,NA,NA,NA,6,240,0.5 to 1.5,4267,1.735
+"Houston, 6 sites",All year,NA,NA,NA,6,270,0.5 to 1.5,3428,1.403
+"Houston, 6 sites",All year,NA,NA,NA,6,300,0.5 to 1.5,2603,1.068
+"Houston, 6 sites",All year,NA,NA,NA,6,330,0.5 to 1.5,3759,1.545
+"Houston, 6 sites",All year,NA,NA,NA,6,0,1.5 to 3,7245,3.011
+"Houston, 6 sites",All year,NA,NA,NA,6,30,1.5 to 3,9122,3.77
+"Houston, 6 sites",All year,NA,NA,NA,6,60,1.5 to 3,6024,2.555
+"Houston, 6 sites",All year,NA,NA,NA,6,90,1.5 to 3,6940,2.918
+"Houston, 6 sites",All year,NA,NA,NA,6,120,1.5 to 3,11460,4.843
+"Houston, 6 sites",All year,NA,NA,NA,6,150,1.5 to 3,16582,6.956
+"Houston, 6 sites",All year,NA,NA,NA,6,180,1.5 to 3,13623,5.593
+"Houston, 6 sites",All year,NA,NA,NA,6,210,1.5 to 3,8510,3.453
+"Houston, 6 sites",All year,NA,NA,NA,6,240,1.5 to 3,3869,1.579
+"Houston, 6 sites",All year,NA,NA,NA,6,270,1.5 to 3,1898,0.792
+"Houston, 6 sites",All year,NA,NA,NA,6,300,1.5 to 3,1888,0.79
+"Houston, 6 sites",All year,NA,NA,NA,6,330,1.5 to 3,4123,1.718
+"Houston, 6 sites",All year,NA,NA,NA,6,0,3 to 5,4489,1.923
+"Houston, 6 sites",All year,NA,NA,NA,6,30,3 to 5,2374,1.032
+"Houston, 6 sites",All year,NA,NA,NA,6,60,3 to 5,932,0.454
+"Houston, 6 sites",All year,NA,NA,NA,6,90,3 to 5,2195,0.999
+"Houston, 6 sites",All year,NA,NA,NA,6,120,3 to 5,6720,2.937
+"Houston, 6 sites",All year,NA,NA,NA,6,150,3 to 5,13551,5.846
+"Houston, 6 sites",All year,NA,NA,NA,6,180,3 to 5,11604,4.854
+"Houston, 6 sites",All year,NA,NA,NA,6,210,3 to 5,5193,2.102
+"Houston, 6 sites",All year,NA,NA,NA,6,240,3 to 5,961,0.387
+"Houston, 6 sites",All year,NA,NA,NA,6,270,3 to 5,310,0.132
+"Houston, 6 sites",All year,NA,NA,NA,6,300,3 to 5,1040,0.444
+"Houston, 6 sites",All year,NA,NA,NA,6,330,3 to 5,3928,1.656
+"Houston, 6 sites",All year,NA,NA,NA,6,0,5 or more,346,0.154
+"Houston, 6 sites",All year,NA,NA,NA,6,30,5 or more,82,0.038
+"Houston, 6 sites",All year,NA,NA,NA,6,60,5 or more,23,0.012
+"Houston, 6 sites",All year,NA,NA,NA,6,90,5 or more,164,0.081
+"Houston, 6 sites",All year,NA,NA,NA,6,120,5 or more,645,0.298
+"Houston, 6 sites",All year,NA,NA,NA,6,150,5 or more,2373,1.096
+"Houston, 6 sites",All year,NA,NA,NA,6,180,5 or more,2787,1.188
+"Houston, 6 sites",All year,NA,NA,NA,6,210,5 or more,734,0.297
+"Houston, 6 sites",All year,NA,NA,NA,6,240,5 or more,78,0.032
+"Houston, 6 sites",All year,NA,NA,NA,6,270,5 or more,54,0.024
+"Houston, 6 sites",All year,NA,NA,NA,6,300,5 or more,298,0.141
+"Houston, 6 sites",All year,NA,NA,NA,6,330,5 or more,800,0.347
+"Houston, 6 sites",Winter,NA,NA,NA,6,NA,Calm,3268,5.645
+"Houston, 6 sites",Winter,NA,NA,NA,6,0,0.5 to 1.5,1499,2.515
+"Houston, 6 sites",Winter,NA,NA,NA,6,30,0.5 to 1.5,1959,3.277
+"Houston, 6 sites",Winter,NA,NA,NA,6,60,0.5 to 1.5,1323,2.24
+"Houston, 6 sites",Winter,NA,NA,NA,6,90,0.5 to 1.5,1229,2.102
+"Houston, 6 sites",Winter,NA,NA,NA,6,120,0.5 to 1.5,1211,2.112
+"Houston, 6 sites",Winter,NA,NA,NA,6,150,0.5 to 1.5,1203,2.128
+"Houston, 6 sites",Winter,NA,NA,NA,6,180,0.5 to 1.5,1095,1.869
+"Houston, 6 sites",Winter,NA,NA,NA,6,210,0.5 to 1.5,863,1.47
+"Houston, 6 sites",Winter,NA,NA,NA,6,240,0.5 to 1.5,837,1.405
+"Houston, 6 sites",Winter,NA,NA,NA,6,270,0.5 to 1.5,658,1.11
+"Houston, 6 sites",Winter,NA,NA,NA,6,300,0.5 to 1.5,671,1.124
+"Houston, 6 sites",Winter,NA,NA,NA,6,330,0.5 to 1.5,1176,1.997
+"Houston, 6 sites",Winter,NA,NA,NA,6,0,1.5 to 3,3047,5.176
+"Houston, 6 sites",Winter,NA,NA,NA,6,30,1.5 to 3,2771,4.719
+"Houston, 6 sites",Winter,NA,NA,NA,6,60,1.5 to 3,1615,2.808
+"Houston, 6 sites",Winter,NA,NA,NA,6,90,1.5 to 3,2134,3.632
+"Houston, 6 sites",Winter,NA,NA,NA,6,120,1.5 to 3,2497,4.294
+"Houston, 6 sites",Winter,NA,NA,NA,6,150,1.5 to 3,2709,4.753
+"Houston, 6 sites",Winter,NA,NA,NA,6,180,1.5 to 3,2761,4.683
+"Houston, 6 sites",Winter,NA,NA,NA,6,210,1.5 to 3,1492,2.494
+"Houston, 6 sites",Winter,NA,NA,NA,6,240,1.5 to 3,923,1.544
+"Houston, 6 sites",Winter,NA,NA,NA,6,270,1.5 to 3,458,0.776
+"Houston, 6 sites",Winter,NA,NA,NA,6,300,1.5 to 3,591,1.011
+"Houston, 6 sites",Winter,NA,NA,NA,6,330,1.5 to 3,1772,3.027
+"Houston, 6 sites",Winter,NA,NA,NA,6,0,3 to 5,2625,4.624
+"Houston, 6 sites",Winter,NA,NA,NA,6,30,3 to 5,944,1.687
+"Houston, 6 sites",Winter,NA,NA,NA,6,60,3 to 5,378,0.739
+"Houston, 6 sites",Winter,NA,NA,NA,6,90,3 to 5,964,1.849
+"Houston, 6 sites",Winter,NA,NA,NA,6,120,3 to 5,1590,2.802
+"Houston, 6 sites",Winter,NA,NA,NA,6,150,3 to 5,1791,3.21
+"Houston, 6 sites",Winter,NA,NA,NA,6,180,3 to 5,2569,4.479
+"Houston, 6 sites",Winter,NA,NA,NA,6,210,3 to 5,1758,2.939
+"Houston, 6 sites",Winter,NA,NA,NA,6,240,3 to 5,430,0.704
+"Houston, 6 sites",Winter,NA,NA,NA,6,270,3 to 5,127,0.219
+"Houston, 6 sites",Winter,NA,NA,NA,6,300,3 to 5,439,0.768
+"Houston, 6 sites",Winter,NA,NA,NA,6,330,3 to 5,2140,3.71
+"Houston, 6 sites",Winter,NA,NA,NA,6,0,5 or more,263,0.493
+"Houston, 6 sites",Winter,NA,NA,NA,6,30,5 or more,48,0.088
+"Houston, 6 sites",Winter,NA,NA,NA,6,60,5 or more,5,0.012
+"Houston, 6 sites",Winter,NA,NA,NA,6,90,5 or more,32,0.07
+"Houston, 6 sites",Winter,NA,NA,NA,6,120,5 or more,80,0.148
+"Houston, 6 sites",Winter,NA,NA,NA,6,150,5 or more,152,0.282
+"Houston, 6 sites",Winter,NA,NA,NA,6,180,5 or more,717,1.292
+"Houston, 6 sites",Winter,NA,NA,NA,6,210,5 or more,435,0.73
+"Houston, 6 sites",Winter,NA,NA,NA,6,240,5 or more,63,0.104
+"Houston, 6 sites",Winter,NA,NA,NA,6,270,5 or more,3,0.006
+"Houston, 6 sites",Winter,NA,NA,NA,6,300,5 or more,169,0.327
+"Houston, 6 sites",Winter,NA,NA,NA,6,330,5 or more,445,0.806
+"Houston, 6 sites",Spring,NA,NA,NA,6,NA,Calm,2490,4.121
+"Houston, 6 sites",Spring,NA,NA,NA,6,0,0.5 to 1.5,1038,1.686
+"Houston, 6 sites",Spring,NA,NA,NA,6,30,0.5 to 1.5,1543,2.518
+"Houston, 6 sites",Spring,NA,NA,NA,6,60,0.5 to 1.5,1494,2.454
+"Houston, 6 sites",Spring,NA,NA,NA,6,90,0.5 to 1.5,1247,2.074
+"Houston, 6 sites",Spring,NA,NA,NA,6,120,0.5 to 1.5,1343,2.284
+"Houston, 6 sites",Spring,NA,NA,NA,6,150,0.5 to 1.5,1495,2.495
+"Houston, 6 sites",Spring,NA,NA,NA,6,180,0.5 to 1.5,1070,1.755
+"Houston, 6 sites",Spring,NA,NA,NA,6,210,0.5 to 1.5,711,1.167
+"Houston, 6 sites",Spring,NA,NA,NA,6,240,0.5 to 1.5,484,0.798
+"Houston, 6 sites",Spring,NA,NA,NA,6,270,0.5 to 1.5,439,0.733
+"Houston, 6 sites",Spring,NA,NA,NA,6,300,0.5 to 1.5,446,0.738
+"Houston, 6 sites",Spring,NA,NA,NA,6,330,0.5 to 1.5,674,1.118
+"Houston, 6 sites",Spring,NA,NA,NA,6,0,1.5 to 3,1562,2.628
+"Houston, 6 sites",Spring,NA,NA,NA,6,30,1.5 to 3,2049,3.406
+"Houston, 6 sites",Spring,NA,NA,NA,6,60,1.5 to 3,1345,2.265
+"Houston, 6 sites",Spring,NA,NA,NA,6,90,1.5 to 3,1460,2.473
+"Houston, 6 sites",Spring,NA,NA,NA,6,120,1.5 to 3,3117,5.311
+"Houston, 6 sites",Spring,NA,NA,NA,6,150,1.5 to 3,5491,9.187
+"Houston, 6 sites",Spring,NA,NA,NA,6,180,1.5 to 3,3133,5.106
+"Houston, 6 sites",Spring,NA,NA,NA,6,210,1.5 to 3,1212,1.975
+"Houston, 6 sites",Spring,NA,NA,NA,6,240,1.5 to 3,452,0.743
+"Houston, 6 sites",Spring,NA,NA,NA,6,270,1.5 to 3,315,0.531
+"Houston, 6 sites",Spring,NA,NA,NA,6,300,1.5 to 3,428,0.726
+"Houston, 6 sites",Spring,NA,NA,NA,6,330,1.5 to 3,939,1.598
+"Houston, 6 sites",Spring,NA,NA,NA,6,0,3 to 5,865,1.498
+"Houston, 6 sites",Spring,NA,NA,NA,6,30,3 to 5,603,1.025
+"Houston, 6 sites",Spring,NA,NA,NA,6,60,3 to 5,203,0.397
+"Houston, 6 sites",Spring,NA,NA,NA,6,90,3 to 5,493,0.918
+"Houston, 6 sites",Spring,NA,NA,NA,6,120,3 to 5,2599,4.684
+"Houston, 6 sites",Spring,NA,NA,NA,6,150,3 to 5,6603,11.459
+"Houston, 6 sites",Spring,NA,NA,NA,6,180,3 to 5,4139,6.824
+"Houston, 6 sites",Spring,NA,NA,NA,6,210,3 to 5,1023,1.663
+"Houston, 6 sites",Spring,NA,NA,NA,6,240,3 to 5,179,0.293
+"Houston, 6 sites",Spring,NA,NA,NA,6,270,3 to 5,85,0.151
+"Houston, 6 sites",Spring,NA,NA,NA,6,300,3 to 5,461,0.812
+"Houston, 6 sites",Spring,NA,NA,NA,6,330,3 to 5,1266,2.169
+"Houston, 6 sites",Spring,NA,NA,NA,6,0,5 or more,47,0.081
+"Houston, 6 sites",Spring,NA,NA,NA,6,30,5 or more,18,0.036
+"Houston, 6 sites",Spring,NA,NA,NA,6,60,5 or more,1,0.002
+"Houston, 6 sites",Spring,NA,NA,NA,6,90,5 or more,61,0.126
+"Houston, 6 sites",Spring,NA,NA,NA,6,120,5 or more,388,0.767
+"Houston, 6 sites",Spring,NA,NA,NA,6,150,5 or more,1763,3.37
+"Houston, 6 sites",Spring,NA,NA,NA,6,180,5 or more,1599,2.743
+"Houston, 6 sites",Spring,NA,NA,NA,6,210,5 or more,218,0.352
+"Houston, 6 sites",Spring,NA,NA,NA,6,240,5 or more,5,0.01
+"Houston, 6 sites",Spring,NA,NA,NA,6,270,5 or more,47,0.086
+"Houston, 6 sites",Spring,NA,NA,NA,6,300,5 or more,85,0.173
+"Houston, 6 sites",Spring,NA,NA,NA,6,330,5 or more,264,0.47
+"Houston, 6 sites",Summer,NA,NA,NA,6,NA,Calm,4720,7.832
+"Houston, 6 sites",Summer,NA,NA,NA,6,0,0.5 to 1.5,1136,1.854
+"Houston, 6 sites",Summer,NA,NA,NA,6,30,0.5 to 1.5,1685,2.723
+"Houston, 6 sites",Summer,NA,NA,NA,6,60,0.5 to 1.5,1378,2.273
+"Houston, 6 sites",Summer,NA,NA,NA,6,90,0.5 to 1.5,1402,2.355
+"Houston, 6 sites",Summer,NA,NA,NA,6,120,0.5 to 1.5,1644,2.842
+"Houston, 6 sites",Summer,NA,NA,NA,6,150,0.5 to 1.5,2658,4.46
+"Houston, 6 sites",Summer,NA,NA,NA,6,180,0.5 to 1.5,3516,5.708
+"Houston, 6 sites",Summer,NA,NA,NA,6,210,0.5 to 1.5,2826,4.553
+"Houston, 6 sites",Summer,NA,NA,NA,6,240,0.5 to 1.5,1997,3.232
+"Houston, 6 sites",Summer,NA,NA,NA,6,270,0.5 to 1.5,1514,2.474
+"Houston, 6 sites",Summer,NA,NA,NA,6,300,0.5 to 1.5,779,1.284
+"Houston, 6 sites",Summer,NA,NA,NA,6,330,0.5 to 1.5,775,1.281
+"Houston, 6 sites",Summer,NA,NA,NA,6,0,1.5 to 3,305,0.526
+"Houston, 6 sites",Summer,NA,NA,NA,6,30,1.5 to 3,776,1.306
+"Houston, 6 sites",Summer,NA,NA,NA,6,60,1.5 to 3,840,1.474
+"Houston, 6 sites",Summer,NA,NA,NA,6,90,1.5 to 3,1200,2.073
+"Houston, 6 sites",Summer,NA,NA,NA,6,120,1.5 to 3,2203,3.814
+"Houston, 6 sites",Summer,NA,NA,NA,6,150,1.5 to 3,4470,7.673
+"Houston, 6 sites",Summer,NA,NA,NA,6,180,1.5 to 3,5703,9.434
+"Houston, 6 sites",Summer,NA,NA,NA,6,210,1.5 to 3,4446,7.207
+"Houston, 6 sites",Summer,NA,NA,NA,6,240,1.5 to 3,1749,2.851
+"Houston, 6 sites",Summer,NA,NA,NA,6,270,1.5 to 3,696,1.175
+"Houston, 6 sites",Summer,NA,NA,NA,6,300,1.5 to 3,361,0.605
+"Houston, 6 sites",Summer,NA,NA,NA,6,330,1.5 to 3,305,0.51
+"Houston, 6 sites",Summer,NA,NA,NA,6,0,3 to 5,39,0.077
+"Houston, 6 sites",Summer,NA,NA,NA,6,30,3 to 5,53,0.1
+"Houston, 6 sites",Summer,NA,NA,NA,6,60,3 to 5,77,0.171
+"Houston, 6 sites",Summer,NA,NA,NA,6,90,3 to 5,286,0.541
+"Houston, 6 sites",Summer,NA,NA,NA,6,120,3 to 5,950,1.73
+"Houston, 6 sites",Summer,NA,NA,NA,6,150,3 to 5,2766,5.001
+"Houston, 6 sites",Summer,NA,NA,NA,6,180,3 to 5,3674,6.334
+"Houston, 6 sites",Summer,NA,NA,NA,6,210,3 to 5,1864,2.999
+"Houston, 6 sites",Summer,NA,NA,NA,6,240,3 to 5,213,0.343
+"Houston, 6 sites",Summer,NA,NA,NA,6,270,3 to 5,37,0.064
+"Houston, 6 sites",Summer,NA,NA,NA,6,300,3 to 5,9,0.018
+"Houston, 6 sites",Summer,NA,NA,NA,6,330,3 to 5,23,0.041
+"Houston, 6 sites",Summer,NA,NA,NA,6,0,5 or more,0,0
+"Houston, 6 sites",Summer,NA,NA,NA,6,30,5 or more,2,0.005
+"Houston, 6 sites",Summer,NA,NA,NA,6,60,5 or more,1,0.002
+"Houston, 6 sites",Summer,NA,NA,NA,6,90,5 or more,24,0.054
+"Houston, 6 sites",Summer,NA,NA,NA,6,120,5 or more,80,0.156
+"Houston, 6 sites",Summer,NA,NA,NA,6,150,5 or more,148,0.289
+"Houston, 6 sites",Summer,NA,NA,NA,6,180,5 or more,260,0.479
+"Houston, 6 sites",Summer,NA,NA,NA,6,210,5 or more,48,0.076
+"Houston, 6 sites",Summer,NA,NA,NA,6,240,5 or more,1,0.002
+"Houston, 6 sites",Summer,NA,NA,NA,6,270,5 or more,0,0
+"Houston, 6 sites",Summer,NA,NA,NA,6,300,5 or more,0,0
+"Houston, 6 sites",Summer,NA,NA,NA,6,330,5 or more,0,0
+"Houston, 6 sites",Autumn,NA,NA,NA,6,NA,Calm,6323,10.087
+"Houston, 6 sites",Autumn,NA,NA,NA,6,0,0.5 to 1.5,2546,4.008
+"Houston, 6 sites",Autumn,NA,NA,NA,6,30,0.5 to 1.5,4082,6.385
+"Houston, 6 sites",Autumn,NA,NA,NA,6,60,0.5 to 1.5,2878,4.528
+"Houston, 6 sites",Autumn,NA,NA,NA,6,90,0.5 to 1.5,2156,3.426
+"Houston, 6 sites",Autumn,NA,NA,NA,6,120,0.5 to 1.5,2132,3.437
+"Houston, 6 sites",Autumn,NA,NA,NA,6,150,0.5 to 1.5,2264,3.621
+"Houston, 6 sites",Autumn,NA,NA,NA,6,180,0.5 to 1.5,1560,2.459
+"Houston, 6 sites",Autumn,NA,NA,NA,6,210,0.5 to 1.5,1207,1.891
+"Houston, 6 sites",Autumn,NA,NA,NA,6,240,0.5 to 1.5,949,1.488
+"Houston, 6 sites",Autumn,NA,NA,NA,6,270,0.5 to 1.5,817,1.283
+"Houston, 6 sites",Autumn,NA,NA,NA,6,300,0.5 to 1.5,707,1.115
+"Houston, 6 sites",Autumn,NA,NA,NA,6,330,0.5 to 1.5,1134,1.785
+"Houston, 6 sites",Autumn,NA,NA,NA,6,0,1.5 to 3,2331,3.73
+"Houston, 6 sites",Autumn,NA,NA,NA,6,30,1.5 to 3,3526,5.594
+"Houston, 6 sites",Autumn,NA,NA,NA,6,60,1.5 to 3,2224,3.6
+"Houston, 6 sites",Autumn,NA,NA,NA,6,90,1.5 to 3,2146,3.431
+"Houston, 6 sites",Autumn,NA,NA,NA,6,120,1.5 to 3,3643,5.848
+"Houston, 6 sites",Autumn,NA,NA,NA,6,150,1.5 to 3,3912,6.236
+"Houston, 6 sites",Autumn,NA,NA,NA,6,180,1.5 to 3,2026,3.217
+"Houston, 6 sites",Autumn,NA,NA,NA,6,210,1.5 to 3,1360,2.144
+"Houston, 6 sites",Autumn,NA,NA,NA,6,240,1.5 to 3,745,1.178
+"Houston, 6 sites",Autumn,NA,NA,NA,6,270,1.5 to 3,429,0.686
+"Houston, 6 sites",Autumn,NA,NA,NA,6,300,1.5 to 3,508,0.814
+"Houston, 6 sites",Autumn,NA,NA,NA,6,330,1.5 to 3,1107,1.759
+"Houston, 6 sites",Autumn,NA,NA,NA,6,0,3 to 5,960,1.587
+"Houston, 6 sites",Autumn,NA,NA,NA,6,30,3 to 5,774,1.291
+"Houston, 6 sites",Autumn,NA,NA,NA,6,60,3 to 5,274,0.495
+"Houston, 6 sites",Autumn,NA,NA,NA,6,90,3 to 5,452,0.75
+"Houston, 6 sites",Autumn,NA,NA,NA,6,120,3 to 5,1581,2.578
+"Houston, 6 sites",Autumn,NA,NA,NA,6,150,3 to 5,2391,3.873
+"Houston, 6 sites",Autumn,NA,NA,NA,6,180,3 to 5,1222,1.963
+"Houston, 6 sites",Autumn,NA,NA,NA,6,210,3 to 5,548,0.866
+"Houston, 6 sites",Autumn,NA,NA,NA,6,240,3 to 5,139,0.218
+"Houston, 6 sites",Autumn,NA,NA,NA,6,270,3 to 5,61,0.097
+"Houston, 6 sites",Autumn,NA,NA,NA,6,300,3 to 5,131,0.21
+"Houston, 6 sites",Autumn,NA,NA,NA,6,330,3 to 5,499,0.81
+"Houston, 6 sites",Autumn,NA,NA,NA,6,0,5 or more,36,0.063
+"Houston, 6 sites",Autumn,NA,NA,NA,6,30,5 or more,14,0.024
+"Houston, 6 sites",Autumn,NA,NA,NA,6,60,5 or more,16,0.029
+"Houston, 6 sites",Autumn,NA,NA,NA,6,90,5 or more,47,0.08
+"Houston, 6 sites",Autumn,NA,NA,NA,6,120,5 or more,97,0.163
+"Houston, 6 sites",Autumn,NA,NA,NA,6,150,5 or more,310,0.521
+"Houston, 6 sites",Autumn,NA,NA,NA,6,180,5 or more,211,0.337
+"Houston, 6 sites",Autumn,NA,NA,NA,6,210,5 or more,33,0.052
+"Houston, 6 sites",Autumn,NA,NA,NA,6,240,5 or more,9,0.014
+"Houston, 6 sites",Autumn,NA,NA,NA,6,270,5 or more,4,0.007
+"Houston, 6 sites",Autumn,NA,NA,NA,6,300,5 or more,44,0.076
+"Houston, 6 sites",Autumn,NA,NA,NA,6,330,5 or more,91,0.147

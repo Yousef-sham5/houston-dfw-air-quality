@@ -1,0 +1,50 @@
+cbsa_name,metro_label,is_case_study,n_sites,median_ratio,pct_higher_on_weekends,metro_rank
+"Los Angeles-Long Beach-Anaheim, CA","Los Angeles, CA",FALSE,13,1.0496,84.6,1
+"Salt Lake City, UT","Salt Lake City, UT",FALSE,8,1.0179,100,2
+"Reno, NV","Reno, NV",FALSE,7,1.0105,100,3
+"Detroit-Warren-Dearborn, MI","Detroit, MI",FALSE,6,1.0105,100,4
+"Columbus, OH","Columbus, OH",FALSE,6,1.0069,100,5
+"Las Vegas-Henderson-Paradise, NV","Las Vegas, NV",FALSE,9,1.0057,77.8,6
+"San Diego-Carlsbad, CA","San Diego, CA",FALSE,7,1.0053,57.1,7
+"Cleveland-Elyria, OH","Cleveland, OH",FALSE,8,1.0046,62.5,8
+"Chicago-Naperville-Elgin, IL-IN-WI","Chicago, IL",FALSE,20,1.0045,60,9
+"Cincinnati, OH-KY-IN","Cincinnati, OH",FALSE,9,1.0035,66.7,10
+"Vernal, UT","Vernal, UT",FALSE,5,1.0019,80,11
+"Albuquerque, NM","Albuquerque, NM",FALSE,5,1.0015,60,12
+"Pittsburgh, PA","Pittsburgh, PA",FALSE,6,0.9972,16.7,13
+"Miami-Fort Lauderdale-West Palm Beach, FL","Miami, FL",FALSE,7,0.9968,28.6,14
+"Milwaukee-Waukesha-West Allis, WI","Milwaukee, WI",FALSE,5,0.9967,40,15
+"Baton Rouge, LA","Baton Rouge, LA",FALSE,9,0.9966,44.4,16
+"New Orleans-Metairie, LA","New Orleans, LA",FALSE,5,0.9937,0,17
+"Indianapolis-Carmel-Anderson, IN","Indianapolis, IN",FALSE,10,0.9931,30,18
+"Tucson, AZ","Tucson, AZ",FALSE,8,0.9913,0,19
+"Louisville/Jefferson County, KY-IN","Louisville/Jefferson County, KY",FALSE,6,0.9862,0,20
+"Huntington-Ashland, WV-KY-OH","Huntington, WV",FALSE,5,0.9859,0,21
+"Denver-Aurora-Lakewood, CO","Denver, CO",FALSE,10,0.9854,10,22
+"Santa Maria-Santa Barbara, CA","Santa Maria, CA",FALSE,7,0.9848,0,23
+"Knoxville, TN","Knoxville, TN",FALSE,6,0.9839,0,24
+"Memphis, TN-MS-AR","Memphis, TN",FALSE,5,0.9823,0,25
+"Minneapolis-St. Paul-Bloomington, MN-WI","Minneapolis, MN",FALSE,5,0.9807,20,26
+"New York-Newark-Jersey City, NY-NJ-PA","New York, NY",FALSE,18,0.9787,16.7,27
+"San Luis Obispo-Paso Robles-Arroyo Grande, CA","San Luis Obispo, CA",FALSE,5,0.9778,0,28
+"Riverside-San Bernardino-Ontario, CA","Riverside, CA",FALSE,18,0.9777,22.2,29
+"Bakersfield, CA","Bakersfield, CA",FALSE,7,0.9764,0,30
+"Phoenix-Mesa-Scottsdale, AZ","Phoenix, AZ",FALSE,27,0.975,3.7,31
+"Kansas City, MO-KS","Kansas City, MO",FALSE,8,0.9749,0,32
+"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD","Philadelphia, PA",FALSE,10,0.9747,0,33
+"Fresno, CA","Fresno, CA",FALSE,7,0.9744,0,34
+"Oxnard-Thousand Oaks-Ventura, CA","Oxnard, CA",FALSE,5,0.9743,20,35
+"St. Louis, MO-IL","St. Louis, MO",FALSE,12,0.9731,0,36
+"Beaumont-Port Arthur, TX","Beaumont, TX",FALSE,6,0.9722,0,37
+"Atlanta-Sandy Springs-Roswell, GA","Atlanta, GA",FALSE,8,0.9714,0,38
+"Boston-Cambridge-Newton, MA-NH","Boston, MA",FALSE,9,0.97,11.1,39
+"Baltimore-Columbia-Towson, MD","Baltimore, MD",FALSE,5,0.9696,0,40
+"Nashville-Davidson--Murfreesboro--Franklin, TN","Nashville, TN",FALSE,5,0.9695,0,41
+"Washington-Arlington-Alexandria, DC-VA-MD-WV","Washington, DC",FALSE,15,0.969,0,42
+"Sacramento--Roseville--Arden-Arcade, CA","Sacramento, CA",FALSE,11,0.9681,9.1,43
+"Richmond, VA","Richmond, VA",FALSE,5,0.9673,0,44
+"Houston-The Woodlands-Sugar Land, TX","Houston, TX",TRUE,21,0.9595,0,45
+"Tampa-St. Petersburg-Clearwater, FL","Tampa, FL",FALSE,9,0.9593,0,46
+"Charlotte-Concord-Gastonia, NC-SC","Charlotte, NC",FALSE,7,0.9557,0,47
+"Dallas-Fort Worth-Arlington, TX","Dallas-Fort Worth, TX",TRUE,16,0.9523,0,48
+"Orlando-Kissimmee-Sanford, FL","Orlando, FL",FALSE,5,0.9448,0,49

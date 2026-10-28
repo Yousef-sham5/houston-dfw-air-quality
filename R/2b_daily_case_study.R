@@ -2558,8 +2558,8 @@ replace_own_rows(paired_dictionary, data_dictionary_path, key = "table", col_typ
 
 
 # 8. VALIDATE AND SAVE ----
-# The main ranges rerun with a second seed, every run side by side for each gas, and a final observed / expected /
-# passed table saved as a CSV record
+# The main ranges rerun with a second seed, every run side by side for each gas, a table of the numbers the report quotes,
+# and a final observed / expected / passed table saved as a CSV record
 set.seed(bootstrap_check_seed)
 
 seed_check <- main_differences %>%
@@ -2712,6 +2712,128 @@ stopifnot(
     file.mtime(runs_figure_path) >= save_started - 2
 )
 
+# CSV records for the report: the distance gradients from sections 2 to 4, and one table of the numbers the text quotes,
+# each with its unit, 95% range where there is one, and the record it comes from
+distance_gradients <- bind_rows(
+  mutate(ozone_gradient, pollutant = "Ozone", site_set = "Five-year sites"),
+  mutate(no2_gradient, pollutant = "NO2", measure = "Five-year mean"),
+  no2_leave_one_out %>%
+    mutate(pollutant = "NO2", measure = "Five-year mean", site_set = str_c("With 4-year sites, without ", left_out)) %>%
+    mutate(n_sites = nrow(no2_houston_sites) - 1L),
+  mutate(pm25_gradient, pollutant = "PM2.5", measure = "Five-year mean")
+) %>%
+  mutate(across(c(rho, p_value), \(x) round(x, 3))) %>%
+  select(pollutant, measure, site_set, n_sites, rho, p_value)
+
+paired_headline_rows <- main_overall %>%
+  arrange(contrast, pollutant)
+
+headline_rows <- list(
+  tibble(
+    figure = "2B.1", finding = str_c("Houston sites within ", ship_channel_km, " km of the land-cut channel"), subject = "Ship Channel group",
+    value = n_ship_channel_sites, unit = "sites", ci_low = NA_real_, ci_high = NA_real_, source_table = "case_study_site_inventory"
+  ),
+  tibble(
+    figure = "2B.2", finding = c("Years with the most ozone exceedance days per site", "Years with the fewest ozone exceedance days per site"),
+    subject = c("Dallas-Fort Worth", "Houston Ship Channel"), value = c(dfw_highest_years, ship_channel_lowest_years),
+    unit = str_c("of ", length(study_years), " years"), ci_low = NA_real_, ci_high = NA_real_, source_table = "case_study_ozone_by_group"
+  ),
+  tibble(
+    figure = "2B.3", finding = "Years with the highest NO2", subject = "Houston Ship Channel", value = ship_channel_highest_no2_years,
+    unit = str_c("of ", length(study_years), " years"), ci_low = NA_real_, ci_high = NA_real_, source_table = "case_study_no2_by_group"
+  ),
+  tibble(
+    figure = "2B.3", finding = "Ship Channel lead over Houston other in the median site's mean daily NO2 peak",
+    subject = c("Main", "Without days after method changes"), value = c(main_lead, method_check_lead), unit = "ppb",
+    ci_low = NA_real_, ci_high = NA_real_, source_table = "case_study_no2_by_group"
+  ),
+  tibble(
+    figure = "2B.3", finding = c("Spearman correlation of Houston NO2 with km to the channel", "p-value of that correlation"),
+    subject = "With 4-year sites", value = unname(unlist(no2_gradient[no2_gradient$site_set == "With 4-year sites", c("rho", "p_value")])),
+    unit = c("rho", "p"), ci_low = NA_real_, ci_high = NA_real_, source_table = "case_study_distance_gradients"
+  ),
+  tibble(
+    figure = "2B.4", finding = "Five-year mean of the median site's annual PM2.5", subject = c("Houston other", "Houston Ship Channel"),
+    value = c(houston_other_annual, ship_channel_annual), unit = "µg/m³", ci_low = NA_real_, ci_high = NA_real_,
+    source_table = "case_study_pm25_by_group"
+  ),
+  tibble(
+    figure = "2B.5", finding = "Years in which Croquet has more SO2 spike days than the Ship Channel site average", subject = "Croquet",
+    value = croquet_higher_years, unit = str_c("of ", length(study_years), " years"), ci_low = NA_real_, ci_high = NA_real_,
+    source_table = "case_study_so2_by_group"
+  ),
+  event_reporting_summary %>%
+    filter(event_name == "Hurricane Beryl", in_window) %>%
+    transmute(
+      figure = "2B.6", finding = "Five-year monitors reporting during Hurricane Beryl, mean over the window", subject = as.character(site_group),
+      value = pct_reporting, unit = "% of monitors", ci_low = NA_real_, ci_high = NA_real_, source_table = "case_study_event_reporting"
+    ),
+  tibble(
+    figure = "2B.6", finding = "PM2.5 during Winter Storm Uri against normal", subject = c("Lowest group", "Highest group"),
+    value = range(uri_pm25), unit = "times normal", ci_low = NA_real_, ci_high = NA_real_, source_table = "case_study_event_levels"
+  ),
+  paired_headline_rows %>%
+    transmute(
+      figure = "2B.7", finding = str_c("Median same-day difference, ", contrast), subject = as.character(pollutant), value = median_difference,
+      unit = if_else(pollutant == "PM2.5", "µg/m³", "ppb"), ci_low, ci_high, source_table = "case_study_paired_differences"
+    ),
+  check_tally %>%
+    arrange(contrast, pollutant) %>%
+    transmute(
+      figure = "2B.8", finding = str_c("Runs that keep the main sign with a range clear of zero, ", contrast), subject = as.character(pollutant),
+      value = n_holding, unit = str_c("of ", n_runs, " runs"), ci_low = NA_real_, ci_high = NA_real_,
+      source_table = "case_study_paired_differences"
+    )
+)
+
+daily_headlines <- bind_rows(headline_rows) %>%
+  mutate(headline_id = sprintf("D%02d", row_number())) %>%
+  mutate(across(c(value, ci_low, ci_high), \(x) round(x, 2))) %>%
+  select(headline_id, figure, finding, subject, value, unit, ci_low, ci_high, source_table)
+
+print(daily_headlines, n = Inf, width = Inf)
+
+report_records <- list(
+  case_study_distance_gradients = distance_gradients,
+  case_study_daily_headlines = daily_headlines
+)
+
+stopifnot(
+  "Gradients: 3 ozone measures, 2 NO2 and 2 PM2.5 site sets, and one NO2 row per site left out" =
+    nrow(distance_gradients) == 3 + 2 + 2 + nrow(no2_houston_sites),
+  "Every headline has a value" = !anyNA(daily_headlines$value),
+  "Every headline range holds its value" =
+    all(is.na(daily_headlines$ci_low) | (daily_headlines$ci_low <= daily_headlines$value & daily_headlines$value <= daily_headlines$ci_high)),
+  "Every headline names a saved record" =
+    all(daily_headlines$source_table %in% names(c(inventory_records, ozone_records, no2_records, pm25_records, so2_records, event_records,
+      paired_records, report_records)))
+)
+
+save_records(report_records, records_dir)
+
+report_dictionary <- tribble(
+  ~table,                          ~column,        ~description,
+  "case_study_distance_gradients", "pollutant",    "Ozone, NO2 or PM2.5",
+  "case_study_distance_gradients", "measure",      "Site value set against km to the channel: five-year mean, mean 4th-highest (ozone) or exceedance days (ozone)",
+  "case_study_distance_gradients", "site_set",     "Five-year sites, with the 4-year sites added, or with them and one site left out (NO2)",
+  "case_study_distance_gradients", "n_sites",      "Houston sites in the test",
+  "case_study_distance_gradients", "rho",          "Spearman rank correlation with km to the land-cut channel; below zero means higher nearer the channel",
+  "case_study_distance_gradients", "p_value",      "Two-sided p-value of the Spearman test (normal approximation)",
+  "case_study_daily_headlines",    "headline_id",  "D01 onward, in figure order",
+  "case_study_daily_headlines",    "figure",       "Figure that shows the number",
+  "case_study_daily_headlines",    "finding",      "What the number measures, in plain words",
+  "case_study_daily_headlines",    "subject",      "Group, pollutant, site set or check the number belongs to",
+  "case_study_daily_headlines",    "value",        "The number, rounded to 2 decimals",
+  "case_study_daily_headlines",    "unit",         "Unit of value",
+  "case_study_daily_headlines",    "ci_low",       "Lower end of the 95% range where the record gives one; NA otherwise",
+  "case_study_daily_headlines",    "ci_high",      "Upper end of the 95% range where the record gives one; NA otherwise",
+  "case_study_daily_headlines",    "source_table", "CSV record in data/processed/phase2 the number comes from"
+)
+
+report_dictionary <- document_tables(report_records, report_dictionary)
+
+replace_own_rows(report_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
 # Final validation: inputs, site sets, ranges, findings and saved files
 checkpoint_rows_listed <- input_check$rows[input_check$file == "daily_case_study.rds"]
 
@@ -2760,7 +2882,7 @@ figure_paths <- c(
   so2_figure_path, events_figure_path, paired_figure_path, runs_figure_path
 )
 
-earlier_records <- c(inventory_records, ozone_records, no2_records, pm25_records, so2_records, event_records, paired_records)
+earlier_records <- c(inventory_records, ozone_records, no2_records, pm25_records, so2_records, event_records, paired_records, report_records)
 
 documented_tables <- read_csv(data_dictionary_path, col_types = cols(.default = col_character())) %>%
   distinct(table) %>%

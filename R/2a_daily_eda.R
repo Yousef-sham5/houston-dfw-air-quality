@@ -19,6 +19,11 @@ load_chart_fonts()
 # CONFIG ----
 processed_dir <- here("data", "processed")
 
+# CSV records for the report go to the phase 2 folder; the checkpoint, the dictionary and the manifest stay in data/processed
+records_dir <- file.path(processed_dir, "phase2")
+
+dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
+
 pollutant_levels <- c("PM2.5", "Ozone", "NO2", "SO2", "CO")
 
 # CO stays out of the case-study checkpoint: Harris County has one five-year CO site and Dallas-Fort Worth has none
@@ -685,29 +690,6 @@ stopifnot(
     file.mtime(network_figure_path) >= save_started - 2
 )
 
-# One long table of the yearly results above, saved as a CSV record in section 14
-network_by_year <- bind_rows(
-  transmute(sites_per_year, pollutant = as.character(pollutant), year, metric = "n_sites", value = as.numeric(n_sites)),
-  transmute(pm25_instrument_mix, pollutant = "PM2.5", year, metric = "pct_fem", value = pct_fem),
-  transmute(pm25_instrument_mix, pollutant = "PM2.5", year, metric = "pct_t640", value = pct_t640),
-  transmute(fem_frm_gap_by_year, pollutant = "PM2.5", year, metric = "mean_fem_minus_frm_ugm3", value = mean_gap),
-  transmute(fem_frm_gap_by_year, pollutant = "PM2.5", year, metric = "median_fem_minus_frm_ugm3", value = median_gap),
-  transmute(
-    schedule_mix,
-    pollutant = "PM2.5", year, metric = str_c("pct_site_years_", str_replace_all(schedule, "[ -]", "_")), value = pct_site_years
-  ),
-  transmute(seasonal_ozone, pollutant = "Ozone", year, metric = "pct_seasonal_site_years", value = pct_seasonal)
-)
-
-duplicate_network_rows <- network_by_year %>%
-  count(pollutant, year, metric) %>%
-  filter(n > 1)
-
-stopifnot(
-  "One network row per pollutant, year and metric" = nrow(duplicate_network_rows) == 0,
-  "Every network row has a value" = !anyNA(network_by_year$value)
-)
-
 
 
 # 3. NATIONAL STATISTICS IN NAAQS FORM ----
@@ -1349,9 +1331,13 @@ metro_header <- chart_header(
   )
 )
 
-metro_footer <- chart_footer(str_c(
-  "EPA AQS daily data, all sites, grouped by core-based statistical area. Ranked by exceedance site-days, which rise with\n",
-  "the number of monitors in a metro. Bold names are the two case-study metros. Screening counts, not violations."
+metro_footer <- chart_footer(sprintf(
+  str_c(
+    "EPA AQS daily data, all sites, grouped by core-based statistical area. Ranked by exceedance site-days, which rise with\n",
+    "the number of monitors in a metro. Bold names are the two case-study metros. Screening counts, not violations.\n",
+    "Ranks count only the metros with at least one exceedance site-day: %d for PM2.5 and %d for ozone."
+  ),
+  n_distinct(metro_ranks$cbsa_name[metro_ranks$pollutant == "PM2.5"]), n_distinct(metro_ranks$cbsa_name[metro_ranks$pollutant == "Ozone"])
 ))
 
 metro_figure <- chart_compose(metro_header, metro_panels, metro_footer, ncol = 2)
@@ -1365,25 +1351,6 @@ ggsave(metro_figure_path, metro_figure, width = 6.5, height = 4.8, dpi = 300)
 stopifnot(
   "2a.04_exceedance_metros.png was written (close any viewer of it and rerun this step)" =
     file.mtime(metro_figure_path) >= save_started - 2
-)
-
-# One row per pollutant, state, metro and year, saved as a CSV record in section 14
-exceedances_by_area <- site_day_exceedances %>%
-  summarise(
-    site_days = n(),
-    n_exceedances = sum(is_exceedance),
-    n_event = sum(is_exceedance & event_class == "Event"),
-    n_fireworks = sum(is_exceedance & event_class == "Fireworks"),
-    .by = c(pollutant, state_name, cbsa_name, year)
-  ) %>%
-  mutate(per_1000 = round(1000 * n_exceedances / site_days, 2)) %>%
-  arrange(pollutant, state_name, cbsa_name, year)
-
-stopifnot(
-  "Area counts add up to the national exceedances" = sum(exceedances_by_area$n_exceedances) == nrow(exceedances),
-  "Area site-days add up to every site-day" = sum(exceedances_by_area$site_days) == nrow(site_day_exceedances),
-  "Event and fireworks days never exceed the total" =
-    all(exceedances_by_area$n_event + exceedances_by_area$n_fireworks <= exceedances_by_area$n_exceedances)
 )
 
 rm(site_day_exceedances)
@@ -1790,18 +1757,18 @@ profile_header <- chart_header(
   )
 )
 
-profile_site_counts <- site_calendar_months %>%
+profile_sites <- site_calendar_months %>%
   distinct(pollutant, site_id) %>%
   count(pollutant, name = "n_sites")
 
-profile_site_note <- profile_site_counts %>%
+profile_site_note <- profile_sites %>%
   mutate(label = str_c(pollutant, " ", n_sites)) %>%
   pull(label) %>%
   str_flatten(collapse = ", ")
 
 stopifnot(
   "The typical year uses only the ozone sites that report every winter" =
-    profile_site_counts$n_sites[profile_site_counts$pollutant == "Ozone"] == length(year_round_ozone_ids)
+    profile_sites$n_sites[profile_sites$pollutant == "Ozone"] == length(year_round_ozone_ids)
 )
 
 profile_footer <- chart_footer(sprintf(
@@ -2507,3 +2474,330 @@ stopifnot("Every case-study file is under GitHub's 100 MiB limit" = all(case_stu
 checkpoint_manifest <- replace_own_rows(case_study_manifest, manifest_path, key = "file", col_types = manifest_col_types)
 
 print(checkpoint_manifest, width = Inf)
+
+
+
+# 8. CSV RECORDS FOR THE REPORT ----
+# The national tables behind the main panels of figures 2A.1 to 2A.7 and every national number the docs quote, saved as
+# CSV records with dictionary rows
+pollutant_units <- naaqs %>%
+  distinct(pollutant, units_of_measure)
+
+national_sites_by_year <- sites_per_year %>%
+  left_join(select(five_year_sites, pollutant, n_sites_ever, n_five_year_sites), by = "pollutant", relationship = "many-to-one") %>%
+  left_join(select(site_change, pollutant, pct_change_first_to_last = pct_change), by = "pollutant", relationship = "many-to-one") %>%
+  arrange(pollutant, year)
+
+national_pm25_methods <- pm25_instrument_mix %>%
+  left_join(
+    fem_frm_gap_by_year %>%
+      select(year, n_paired_sites = n_sites, n_paired_days, mean_fem_minus_frm = mean_gap, median_fem_minus_frm = median_gap),
+    by = "year",
+    relationship = "one-to-one"
+  ) %>%
+  arrange(year)
+
+national_naaqs_screening <- naaqs_summary %>%
+  left_join(pollutant_units, by = "pollutant", relationship = "many-to-one") %>%
+  mutate(across(c(median_value, p90_value), \(x) round(x, 4))) %>%
+  select(day_set, pollutant, standard, units_of_measure, year, n_sites, median_value, p90_value, n_above, pct_above)
+
+national_design_values <- design_value_summary %>%
+  left_join(pollutant_units, by = "pollutant", relationship = "many-to-one") %>%
+  mutate(median_design_value = round(median_design_value, 4)) %>%
+  select(pollutant, standard, units_of_measure, window, window_end, n_sites, median_design_value, n_above, pct_above)
+
+five_year_exceedance_rates <- exceedance_rates %>%
+  filter(site_set == "Five-year sites") %>%
+  select(pollutant, year, per_1000_five_year_sites = per_1000)
+
+national_exceedances_by_year <- exceedance_rates %>%
+  filter(site_set == "All sites") %>%
+  select(pollutant, year, site_days, n_exceedances, per_1000) %>%
+  left_join(five_year_exceedance_rates, by = c("pollutant", "year"), relationship = "one-to-one") %>%
+  left_join(
+    exceedances_by_class %>%
+      select(pollutant, year, n_ordinary_days = None, n_event_days = Event, n_fireworks_days = Fireworks, pct_event, pct_fireworks),
+    by = c("pollutant", "year"),
+    relationship = "one-to-one"
+  ) %>%
+  left_join(select(agency_flag_share, pollutant, year, pct_agency_flagged), by = c("pollutant", "year"), relationship = "one-to-one") %>%
+  arrange(pollutant, year)
+
+national_metro_ranks <- metro_ranks %>%
+  mutate(n_metros = n(), .by = pollutant) %>%
+  mutate(pct_event = round(pct_event, 1)) %>%
+  select(
+    pollutant, cbsa_name, metro_label, is_case_study, metro_rank, n_metros, n_exceedance_days, n_ordinary_days = None,
+    n_event_days = Event, n_fireworks_days = Fireworks, pct_event
+  ) %>%
+  arrange(pollutant, metro_rank, cbsa_name)
+
+national_monthly_profile_record <- national_monthly_profile %>%
+  left_join(pollutant_units, by = "pollutant", relationship = "many-to-one") %>%
+  mutate(across(c(median_value, q25_value, q75_value, median_ordinary), \(x) round(x, 4))) %>%
+  select(pollutant, units_of_measure, month, n_sites, median_value, q25_value, q75_value, median_ordinary)
+
+national_monthly_series_record <- national_monthly_series %>%
+  left_join(pollutant_units, by = "pollutant", relationship = "many-to-one") %>%
+  mutate(across(c(median_value, q25_value, q75_value, median_ordinary, event_effect), \(x) round(x, 4))) %>%
+  select(pollutant, units_of_measure, year_month, n_sites, median_value, q25_value, q75_value, median_ordinary, event_effect)
+
+national_weekend_summary <- weekend_summary %>%
+  mutate(across(c(median_ratio, q25_ratio, q75_ratio, median_saturday, median_sunday), \(x) round(x, 4)))
+
+national_ozone_weekend_metros <- ozone_weekend_metros %>%
+  mutate(median_ratio = round(median_ratio, 4)) %>%
+  select(cbsa_name, metro_label, is_case_study, n_sites, median_ratio, pct_higher_on_weekends, metro_rank)
+
+stopifnot(
+  "Sites by year: 5 pollutants by 5 years" = nrow(national_sites_by_year) == length(pollutant_levels) * length(study_years),
+  "PM2.5 methods: one row per year" = nrow(national_pm25_methods) == length(study_years),
+  "Exceedances by year: 5 pollutants by 5 years" = nrow(national_exceedances_by_year) == length(pollutant_levels) * length(study_years),
+  "Every exceedance falls in one class" =
+    all(national_exceedances_by_year$n_ordinary_days + national_exceedances_by_year$n_event_days +
+      national_exceedances_by_year$n_fireworks_days == national_exceedances_by_year$n_exceedances),
+  "Metro ranks keep both case-study metros for both pollutants" = sum(national_metro_ranks$is_case_study) == 4,
+  "Monthly profile: 12 months per pollutant; series: 60" =
+    nrow(national_monthly_profile_record) == 12 * length(pollutant_levels) &&
+    nrow(national_monthly_series_record) == 12 * length(study_years) * length(pollutant_levels)
+)
+
+# Headline numbers: one row per national number the README and methodology quote, with the record it comes from
+screening_share <- function(gas, standard_name, screen_year) {
+  national_naaqs_screening$pct_above[
+    national_naaqs_screening$day_set == "All days" & national_naaqs_screening$pollutant == gas &
+      national_naaqs_screening$standard == standard_name & national_naaqs_screening$year == screen_year
+  ]
+}
+
+metro_rank_of <- function(gas, region_name) {
+  filter(metro_ranks, pollutant == gas, region == region_name)
+}
+
+ozone_metro_change <- function(pattern) {
+  100 * (national_ozone_weekend_metros$median_ratio[str_detect(national_ozone_weekend_metros$cbsa_name, pattern)] - 1)
+}
+
+pm25_event_exceedances <- exceedances %>%
+  filter(pollutant == "PM2.5", event_class == "Event")
+
+pm25_top_month <- national_monthly_series %>%
+  filter(pollutant == "PM2.5") %>%
+  slice_max(median_value, n = 1, with_ties = FALSE)
+
+ozone_design_shares <- national_design_values %>%
+  filter(pollutant == "Ozone")
+
+pm25_2023_events <- filter(national_exceedances_by_year, pollutant == "PM2.5", year == 2023)
+
+network_change <- function(gas) {
+  site_change$pct_change[site_change$pollutant == gas]
+}
+
+screen_year <- 2023
+
+headline_rows <- list(
+  tibble(
+    figure = "2A.1", finding = str_c("Change in reporting sites, ", first_year, " to ", last_year), subject = c("SO2", "CO", "PM2.5"),
+    value = vapply(c("SO2", "CO", "PM2.5"), network_change, numeric(1)), unit = "%", source_table = "national_sites_by_year"
+  ),
+  tibble(
+    figure = "2A.1", finding = "FEM share of PM2.5 instrument-days", subject = c(first_year, last_year),
+    value = national_pm25_methods$pct_fem[national_pm25_methods$year %in% range(study_years)], unit = "%",
+    source_table = "national_pm25_methods"
+  ),
+  tibble(
+    figure = "2A.1", finding = "FEM minus FRM on the same site-day, median by year", subject = c("Lowest year", "Highest year"),
+    value = range(national_pm25_methods$median_fem_minus_frm), unit = "µg/m³", source_table = "national_pm25_methods"
+  ),
+  tibble(
+    figure = "2A.2", finding = str_c("Five-year sites above the standard in ", screen_year), subject = c("Ozone 8-hour", "PM2.5 annual"),
+    value = c(screening_share("Ozone", "8-hour", screen_year), screening_share("PM2.5", "Annual", screen_year)), unit = "% of sites",
+    source_table = "national_naaqs_screening"
+  ),
+  tibble(
+    figure = "2A.2", finding = "Ozone sites above the standard over three-year windows", subject = c("Lowest window", "Highest window"),
+    value = range(ozone_design_shares$pct_above), unit = "% of sites", source_table = "national_design_values"
+  ),
+  tibble(
+    figure = "2A.3", finding = str_c("Exceedance site-days on labelled event days, ", first_year, " to ", last_year), subject = c("PM2.5", "Ozone"),
+    value = round(period_event_shares$pct_event[match(c("PM2.5", "Ozone"), period_event_shares$pollutant)], 1), unit = "%",
+    source_table = "national_exceedances_by_year"
+  ),
+  tibble(
+    figure = "2A.3", finding = "PM2.5 exceedance site-days on labelled event days, in 2023", subject = "PM2.5",
+    value = pm25_2023_events$pct_event, unit = "%", source_table = "national_exceedances_by_year"
+  ),
+  tibble(
+    figure = "2A.3", finding = "PM2.5 event-day exceedances that carry EPA's exceptional-event flag", subject = "PM2.5",
+    value = round(100 * mean(pm25_event_exceedances$is_agency_event_flagged), 1), unit = "%", source_table = "national_exceedances_by_year"
+  ),
+  tibble(
+    figure = "2A.4", finding = "Metro rank by exceedance site-days",
+    subject = c("Houston, ozone", "Dallas-Fort Worth, ozone", "Houston, PM2.5", "Dallas-Fort Worth, PM2.5"),
+    value = c(
+      metro_rank_of("Ozone", "Houston")$metro_rank, metro_rank_of("Ozone", "Dallas-Fort Worth")$metro_rank,
+      metro_rank_of("PM2.5", "Houston")$metro_rank, metro_rank_of("PM2.5", "Dallas-Fort Worth")$metro_rank
+    ),
+    unit = str_c("rank of ", rep(c(
+      n_distinct(metro_ranks$cbsa_name[metro_ranks$pollutant == "Ozone"]), n_distinct(metro_ranks$cbsa_name[metro_ranks$pollutant == "PM2.5"])
+    ), each = 2), " metros with an exceedance"),
+    source_table = "national_metro_ranks"
+  ),
+  tibble(
+    figure = "2A.5", finding = "Peak month of the typical year, as peak over low", subject = str_c(profile_peaks$pollutant, ", peak in ", profile_peaks$peak_month),
+    value = round(profile_peaks$peak_to_trough, 2), unit = "times the lowest month", source_table = "national_monthly_profile"
+  ),
+  tibble(
+    figure = "2A.6", finding = "Highest monthly PM2.5 median",
+    subject = str_c(month.name[month(pm25_top_month$year_month)], " ", year(pm25_top_month$year_month)),
+    value = round(pm25_top_month$median_value, 1), unit = "µg/m³", source_table = "national_monthly_series"
+  ),
+  tibble(
+    figure = "2A.7", finding = "Weekend over weekday, median site, April to October", subject = c("NO2", "Ozone"),
+    value = national_weekend_summary$median_ratio[match(c("NO2", "Ozone"), national_weekend_summary$pollutant)], unit = "ratio",
+    source_table = "national_weekend_summary"
+  ),
+  tibble(
+    figure = "2A.7", finding = "Weekend ozone against weekdays, metro median", subject = c("Los Angeles", "Houston", "Dallas-Fort Worth"),
+    value = round(c(ozone_metro_change("^Los Angeles"), ozone_metro_change("^Houston"), ozone_metro_change("^Dallas")), 1), unit = "%",
+    source_table = "national_ozone_weekend_metros"
+  )
+)
+
+national_headlines <- bind_rows(headline_rows) %>%
+  mutate(headline_id = sprintf("N%02d", row_number())) %>%
+  mutate(value = round(value, 4)) %>%
+  select(headline_id, figure, finding, subject, value, unit, source_table)
+
+print(national_headlines, n = Inf, width = Inf)
+
+national_records <- list(
+  national_sites_by_year = national_sites_by_year,
+  national_pm25_methods = national_pm25_methods,
+  national_naaqs_screening = national_naaqs_screening,
+  national_design_values = national_design_values,
+  national_exceedances_by_year = national_exceedances_by_year,
+  national_metro_ranks = national_metro_ranks,
+  national_monthly_profile = national_monthly_profile_record,
+  national_monthly_series = national_monthly_series_record,
+  national_weekend_summary = national_weekend_summary,
+  national_ozone_weekend_metros = national_ozone_weekend_metros,
+  national_headlines = national_headlines
+)
+
+stopifnot(
+  "Every headline has one value" = !anyNA(national_headlines$value),
+  "Every headline names a saved record" = all(national_headlines$source_table %in% names(national_records)),
+  "The quoted 2023 shares match figure 2A.2: ozone 42.7%, annual PM2.5 39.0%" =
+    screening_share("Ozone", "8-hour", screen_year) == 42.7 && screening_share("PM2.5", "Annual", screen_year) == 39.0
+)
+
+save_records(national_records, records_dir)
+
+national_dictionary <- tribble(
+  ~table,                          ~column,                    ~description,
+  "national_sites_by_year",        "pollutant",                "PM2.5, Ozone, NO2, SO2 or CO",
+  "national_sites_by_year",        "year",                     "Calendar year",
+  "national_sites_by_year",        "n_sites",                  "Sites reporting the pollutant that year",
+  "national_sites_by_year",        "n_sites_ever",             "Sites reporting the pollutant in any study year",
+  "national_sites_by_year",        "n_five_year_sites",        "Sites with all five study years",
+  "national_sites_by_year",        "pct_change_first_to_last", "Change in reporting sites from 2021 to 2025, percent",
+  "national_pm25_methods",         "year",                     "Calendar year",
+  "national_pm25_methods",         "n_instrument_days",        "PM2.5 instrument-days (each monitor's own daily value)",
+  "national_pm25_methods",         "n_fem",                    "Instrument-days on FEM monitors",
+  "national_pm25_methods",         "n_frm",                    "Instrument-days on FRM monitors",
+  "national_pm25_methods",         "n_t640",                   "Instrument-days on Teledyne T640 or T640X monitors (codes 636, 638, 736, 738)",
+  "national_pm25_methods",         "pct_fem",                  "FEM share of instrument-days, percent",
+  "national_pm25_methods",         "pct_t640",                 "T640 share of instrument-days, percent",
+  "national_pm25_methods",         "n_paired_sites",           "Sites with an FEM and an FRM reading on the same day",
+  "national_pm25_methods",         "n_paired_days",            "Site-days with both an FEM and an FRM reading",
+  "national_pm25_methods",         "mean_fem_minus_frm",       "Mean FEM minus FRM on those site-days, µg/m³",
+  "national_pm25_methods",         "median_fem_minus_frm",     "Median FEM minus FRM on those site-days, µg/m³",
+  "national_naaqs_screening",      "day_set",                  "All days, or without event and fireworks days",
+  "national_naaqs_screening",      "pollutant",                "PM2.5, Ozone, NO2, SO2 or CO",
+  "national_naaqs_screening",      "standard",                 "8-hour, 24-hour, Annual or 1-hour",
+  "national_naaqs_screening",      "units_of_measure",         "Units of the values",
+  "national_naaqs_screening",      "year",                     "Calendar year",
+  "national_naaqs_screening",      "n_sites",                  "Five-year sites screened",
+  "national_naaqs_screening",      "median_value",             "Median site value in the standard's form, rounded as the standard specifies",
+  "national_naaqs_screening",      "p90_value",                "90th percentile of the site values",
+  "national_naaqs_screening",      "n_above",                  "Sites above the standard's level",
+  "national_naaqs_screening",      "pct_above",                "Share of sites above the level, percent; a one-year screen, not an EPA design value",
+  "national_design_values",        "pollutant",                "PM2.5, Ozone, NO2 or SO2 (CO is judged one year at a time)",
+  "national_design_values",        "standard",                 "8-hour, 24-hour, Annual or 1-hour",
+  "national_design_values",        "units_of_measure",         "Units of the values",
+  "national_design_values",        "window",                   "The three years averaged",
+  "national_design_values",        "window_end",               "Last year of the window",
+  "national_design_values",        "n_sites",                  "Five-year sites with all three years",
+  "national_design_values",        "median_design_value",      "Median three-year value, rounded as the standard specifies",
+  "national_design_values",        "n_above",                  "Sites above the level",
+  "national_design_values",        "pct_above",                "Share of sites above the level, percent; a screen in design-value form, not EPA's official values",
+  "national_exceedances_by_year",  "pollutant",                "PM2.5, Ozone, NO2, SO2 or CO",
+  "national_exceedances_by_year",  "year",                     "Calendar year",
+  "national_exceedances_by_year",  "site_days",                "Site-days with data, all sites",
+  "national_exceedances_by_year",  "n_exceedances",            "Site-days above the short-term level after rounding; screening counts, not violations",
+  "national_exceedances_by_year",  "per_1000",                 "Exceedance site-days per 1,000 site-days, all sites",
+  "national_exceedances_by_year",  "per_1000_five_year_sites", "The same rate at five-year sites only",
+  "national_exceedances_by_year",  "n_ordinary_days",          "Exceedances on days with no event or fireworks label",
+  "national_exceedances_by_year",  "n_event_days",             "Exceedances on labelled event days (events.csv)",
+  "national_exceedances_by_year",  "n_fireworks_days",         "Exceedances on fireworks days (PM2.5 only)",
+  "national_exceedances_by_year",  "pct_event",                "Share of exceedances on event days, percent; NA when there are none",
+  "national_exceedances_by_year",  "pct_fireworks",            "Share of exceedances on fireworks days, percent; NA when there are none",
+  "national_exceedances_by_year",  "pct_agency_flagged",       "Share of exceedances with EPA's exceptional-event flag, percent; PM2.5 and ozone only",
+  "national_metro_ranks",          "pollutant",                "PM2.5 or Ozone",
+  "national_metro_ranks",          "cbsa_name",                "Core-based statistical area (metro) name",
+  "national_metro_ranks",          "metro_label",              "Short name used in figure 2A.4",
+  "national_metro_ranks",          "is_case_study",            "TRUE for the Houston and Dallas-Fort Worth metros",
+  "national_metro_ranks",          "metro_rank",               "Rank by exceedance site-days (1 is most); ties share the lower rank",
+  "national_metro_ranks",          "n_metros",                 "Metros with at least one exceedance for the pollutant",
+  "national_metro_ranks",          "n_exceedance_days",        "Exceedance site-days summed over the metro's monitors, 2021 to 2025",
+  "national_metro_ranks",          "n_ordinary_days",          "Of these, on ordinary days",
+  "national_metro_ranks",          "n_event_days",             "Of these, on labelled event days",
+  "national_metro_ranks",          "n_fireworks_days",         "Of these, on fireworks days",
+  "national_metro_ranks",          "pct_event",                "Share on labelled event days, percent",
+  "national_monthly_profile",      "pollutant",                "PM2.5, Ozone, NO2, SO2 or CO",
+  "national_monthly_profile",      "units_of_measure",         "Units of the values",
+  "national_monthly_profile",      "month",                    "Calendar month",
+  "national_monthly_profile",      "n_sites",                  "Five-year sites in the month (ozone: sites reporting every winter)",
+  "national_monthly_profile",      "median_value",             "Median across sites of each site's mean for the month over the five years",
+  "national_monthly_profile",      "q25_value",                "25th percentile across sites",
+  "national_monthly_profile",      "q75_value",                "75th percentile across sites",
+  "national_monthly_profile",      "median_ordinary",          "The median using days with no event or fireworks label",
+  "national_monthly_series",       "pollutant",                "PM2.5, Ozone, NO2, SO2 or CO",
+  "national_monthly_series",       "units_of_measure",         "Units of the values",
+  "national_monthly_series",       "year_month",               "First day of the month",
+  "national_monthly_series",       "n_sites",                  "Sites with a complete site-month (75% of expected days)",
+  "national_monthly_series",       "median_value",             "Median across sites of the site-month means",
+  "national_monthly_series",       "q25_value",                "25th percentile across sites",
+  "national_monthly_series",       "q75_value",                "75th percentile across sites",
+  "national_monthly_series",       "median_ordinary",          "The median using days with no event or fireworks label",
+  "national_monthly_series",       "event_effect",             "median_value minus median_ordinary: what labelled days added",
+  "national_weekend_summary",      "pollutant",                "PM2.5, Ozone, NO2, SO2 or CO",
+  "national_weekend_summary",      "n_sites",                  "Five-year sites with a weekday mean above zero",
+  "national_weekend_summary",      "median_ratio",             "Median site weekend over weekday mean, April to October, ordinary days, three holidays left out",
+  "national_weekend_summary",      "q25_ratio",                "25th percentile of the site ratios",
+  "national_weekend_summary",      "q75_ratio",                "75th percentile of the site ratios",
+  "national_weekend_summary",      "median_saturday",          "Median site Saturday over weekday mean",
+  "national_weekend_summary",      "median_sunday",            "Median site Sunday over weekday mean",
+  "national_weekend_summary",      "pct_higher_on_weekends",   "Share of sites with a ratio above 1, percent",
+  "national_ozone_weekend_metros", "cbsa_name",                "Metro with at least 5 five-year ozone sites",
+  "national_ozone_weekend_metros", "metro_label",              "Short name used in figure 2A.7",
+  "national_ozone_weekend_metros", "is_case_study",            "TRUE for the Houston and Dallas-Fort Worth metros",
+  "national_ozone_weekend_metros", "n_sites",                  "Five-year ozone sites in the metro",
+  "national_ozone_weekend_metros", "median_ratio",             "Median site weekend over weekday ozone",
+  "national_ozone_weekend_metros", "pct_higher_on_weekends",   "Share of the metro's sites with weekend ozone higher, percent",
+  "national_ozone_weekend_metros", "metro_rank",               "Rank by median_ratio (1 is the highest)",
+  "national_headlines",            "headline_id",              "N01 onward, in figure order",
+  "national_headlines",            "figure",                   "Figure that shows the number",
+  "national_headlines",            "finding",                  "What the number measures, in plain words",
+  "national_headlines",            "subject",                  "Pollutant, year, metro or other subject of the number",
+  "national_headlines",            "value",                    "The number",
+  "national_headlines",            "unit",                     "Unit of value",
+  "national_headlines",            "source_table",             "CSV record in data/processed/phase2 the number comes from"
+)
+
+national_dictionary <- document_tables(national_records, national_dictionary)
+
+replace_own_rows(national_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))

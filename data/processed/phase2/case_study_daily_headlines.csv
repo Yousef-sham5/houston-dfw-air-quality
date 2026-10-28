@@ -1,0 +1,31 @@
+headline_id,figure,finding,subject,value,unit,ci_low,ci_high,source_table
+D01,2B.1,Houston sites within 7.5 km of the land-cut channel,Ship Channel group,9,sites,NA,NA,case_study_site_inventory
+D02,2B.2,Years with the most ozone exceedance days per site,Dallas-Fort Worth,5,of 5 years,NA,NA,case_study_ozone_by_group
+D03,2B.2,Years with the fewest ozone exceedance days per site,Houston Ship Channel,3,of 5 years,NA,NA,case_study_ozone_by_group
+D04,2B.3,Years with the highest NO2,Houston Ship Channel,5,of 5 years,NA,NA,case_study_no2_by_group
+D05,2B.3,Ship Channel lead over Houston other in the median site's mean daily NO2 peak,Main,1.44,ppb,NA,NA,case_study_no2_by_group
+D06,2B.3,Ship Channel lead over Houston other in the median site's mean daily NO2 peak,Without days after method changes,2.49,ppb,NA,NA,case_study_no2_by_group
+D07,2B.3,Spearman correlation of Houston NO2 with km to the channel,With 4-year sites,-0.72,rho,NA,NA,case_study_distance_gradients
+D08,2B.3,p-value of that correlation,With 4-year sites,0.02,p,NA,NA,case_study_distance_gradients
+D09,2B.4,Five-year mean of the median site's annual PM2.5,Houston other,10.38,µg/m³,NA,NA,case_study_pm25_by_group
+D10,2B.4,Five-year mean of the median site's annual PM2.5,Houston Ship Channel,9.98,µg/m³,NA,NA,case_study_pm25_by_group
+D11,2B.5,Years in which Croquet has more SO2 spike days than the Ship Channel site average,Croquet,5,of 5 years,NA,NA,case_study_so2_by_group
+D12,2B.6,"Five-year monitors reporting during Hurricane Beryl, mean over the window",Houston Ship Channel,19.6,% of monitors,NA,NA,case_study_event_reporting
+D13,2B.6,"Five-year monitors reporting during Hurricane Beryl, mean over the window",Houston other,58.1,% of monitors,NA,NA,case_study_event_reporting
+D14,2B.6,"Five-year monitors reporting during Hurricane Beryl, mean over the window",Dallas-Fort Worth,100,% of monitors,NA,NA,case_study_event_reporting
+D15,2B.6,PM2.5 during Winter Storm Uri against normal,Lowest group,1.2,times normal,NA,NA,case_study_event_levels
+D16,2B.6,PM2.5 during Winter Storm Uri against normal,Highest group,1.57,times normal,NA,NA,case_study_event_levels
+D17,2B.7,"Median same-day difference, Ship Channel minus Houston other",PM2.5,-0.2,µg/m³,-0.4,-0.03,case_study_paired_differences
+D18,2B.7,"Median same-day difference, Ship Channel minus Houston other",Ozone,-0.97,ppb,-1.11,-0.77,case_study_paired_differences
+D19,2B.7,"Median same-day difference, Ship Channel minus Houston other",NO2,1.15,ppb,0.81,1.41,case_study_paired_differences
+D20,2B.7,"Median same-day difference, Ship Channel minus Houston other",SO2,0.13,ppb,0.1,0.2,case_study_paired_differences
+D21,2B.7,"Median same-day difference, Houston minus Dallas-Fort Worth",PM2.5,0.47,µg/m³,0.22,0.73,case_study_paired_differences
+D22,2B.7,"Median same-day difference, Houston minus Dallas-Fort Worth",Ozone,-4,ppb,-4.87,-3.27,case_study_paired_differences
+D23,2B.7,"Median same-day difference, Houston minus Dallas-Fort Worth",NO2,1.77,ppb,1.26,2.26,case_study_paired_differences
+D24,2B.8,"Runs that keep the main sign with a range clear of zero, Ship Channel minus Houston other",PM2.5,3,of 6 runs,NA,NA,case_study_paired_differences
+D25,2B.8,"Runs that keep the main sign with a range clear of zero, Ship Channel minus Houston other",Ozone,6,of 7 runs,NA,NA,case_study_paired_differences
+D26,2B.8,"Runs that keep the main sign with a range clear of zero, Ship Channel minus Houston other",NO2,7,of 7 runs,NA,NA,case_study_paired_differences
+D27,2B.8,"Runs that keep the main sign with a range clear of zero, Ship Channel minus Houston other",SO2,4,of 4 runs,NA,NA,case_study_paired_differences
+D28,2B.8,"Runs that keep the main sign with a range clear of zero, Houston minus Dallas-Fort Worth",PM2.5,6,of 6 runs,NA,NA,case_study_paired_differences
+D29,2B.8,"Runs that keep the main sign with a range clear of zero, Houston minus Dallas-Fort Worth",Ozone,6,of 6 runs,NA,NA,case_study_paired_differences
+D30,2B.8,"Runs that keep the main sign with a range clear of zero, Houston minus Dallas-Fort Worth",NO2,7,of 7 runs,NA,NA,case_study_paired_differences

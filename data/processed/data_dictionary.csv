@@ -528,3 +528,275 @@ case_study_so2_plume_test,n_episodes,integer,Runs of consecutive spike hours amo
 case_study_so2_plume_test,mean_difference_ppb,numeric,"Mean on spike hours minus the spike-free mean at the same hour and month, ppb"
 case_study_so2_plume_test,ci_low,numeric,Lower end of the 95% range from resampling whole episodes
 case_study_so2_plume_test,ci_high,numeric,Upper end of the 95% range from resampling whole episodes
+case_study_wind_sites,site_group,factor,"Case-study group: Houston Ship Channel, Houston other or Dallas-Fort Worth"
+case_study_wind_sites,site_id,character,"AQS site ID of a site with its own wind sensor (Harvard Street, which borrows Croquet's, is left out)"
+case_study_wind_sites,local_site_name,character,Site name given by the reporting agency
+case_study_wind_sites,season,factor,"All year, or a meteorological season (winter is December to February)"
+case_study_wind_sites,n_wind_hours,integer,"Hours with a wind reading outside Uri and Beryl, the wind-spike hour left out"
+case_study_wind_sites,pct_calm,numeric,Share of wind hours that are calm (below 0.5 m/s)
+case_study_wind_sites,pct_calm_old_sensor,numeric,Calm share on the older wind sensor (all hours at sites that never switched)
+case_study_wind_sites,pct_calm_new_sensor,numeric,Calm share on the sonic sensor; NA at sites that never switched
+case_study_wind_sites,sonic_wind_from,Date,First day on the sonic wind sensor; NA at sites that never switched
+case_study_wind_sites,mean_speed_ms,numeric,"Mean wind speed, m/s"
+case_study_wind_sites,median_speed_ms,numeric,"Median wind speed, m/s"
+case_study_wind_sites,resultant_from_deg,numeric,"Direction of the mean wind vector over non-calm hours, degrees the wind comes from, clockwise from north"
+case_study_wind_sites,steadiness,numeric,"Length of the mean wind vector over the mean speed, non-calm hours: 1 one direction, 0 evenly spread"
+case_study_wind_sites,prevailing_sector,numeric,"30-degree sector the wind comes from most often (centre angle), non-calm hours"
+case_study_wind_sites,pct_prevailing_sector,numeric,Share of non-calm hours from the prevailing sector
+case_study_wind_roses,level,character,"Site, or Houston, 6 sites (the six Houston sites with their own wind, each weighted equally)"
+case_study_wind_roses,season,factor,"All year, or a meteorological season (winter is December to February)"
+case_study_wind_roses,site_group,factor,Case-study group; NA for the Houston average
+case_study_wind_roses,site_id,character,AQS site ID; NA for the Houston average
+case_study_wind_roses,local_site_name,character,Site name given by the reporting agency; NA for the Houston average
+case_study_wind_roses,n_sites,integer,Sites behind the row
+case_study_wind_roses,wind_sector,numeric,"30-degree sector the wind comes from (centre angle, 0 is north); NA for calm hours"
+case_study_wind_roses,speed_band,factor,"Calm (below 0.5 m/s), 0.5 to 1.5, 1.5 to 3, 3 to 5 or 5 or more m/s"
+case_study_wind_roses,n_hours,integer,Wind hours in the sector and band (summed over sites for the Houston average)
+case_study_wind_roses,pct_of_wind_hours,numeric,"Share of all wind hours, calm included, so each rose adds up to 100 (site mean for the Houston average)"
+case_study_calm_by_hour,site_set,factor,"Main, or Without new wind sensors (hours on the sonic sensors at the five sites that switched left out)"
+case_study_calm_by_hour,site_group,factor,Case-study group
+case_study_calm_by_hour,hour_local,integer,"Hour of day, local standard time (UTC-6)"
+case_study_calm_by_hour,n_sites,integer,Sites with their own wind sensor in the group
+case_study_calm_by_hour,min_wind_hours,integer,Wind hours at the group's thinnest site at that hour
+case_study_calm_by_hour,low_site_pct,numeric,Lowest site calm share at that hour
+case_study_calm_by_hour,high_site_pct,numeric,Highest site calm share at that hour
+case_study_calm_by_hour,pct_calm,numeric,"Mean of the sites' calm shares at that hour, each site weighted equally"
+case_study_calm_air,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move, without new wind sensors"
+case_study_calm_air,measure,factor,"Ozone, NO2 or Ox (ozone + NO2 on hours with both)"
+case_study_calm_air,level,character,Site or Group
+case_study_calm_air,site_group,factor,Case-study group under that site set
+case_study_calm_air,site_id,character,AQS site ID; NA for group rows
+case_study_calm_air,local_site_name,character,Site name given by the reporting agency; NA for group rows
+case_study_calm_air,n_hours,integer,Ordinary hours with wind (summed over sites for groups)
+case_study_calm_air,n_calm_hours,integer,Calm hours among them
+case_study_calm_air,n_calm_days,integer,Days with at least one compared calm hour
+case_study_calm_air,pct_calm,numeric,Calm hours as a share of hours (mean of sites for groups)
+case_study_calm_air,mean_calm_ppb,numeric,"Plain mean over calm hours, ppb (mean of sites for groups)"
+case_study_calm_air,mean_windy_ppb,numeric,"Plain mean over windy hours, ppb (mean of sites for groups)"
+case_study_calm_air,plain_ratio,numeric,"mean_calm_ppb over mean_windy_ppb, not matched on time of day"
+case_study_calm_air,calm_minus_windy_ppb,numeric,"Each calm hour minus the windy mean at the same site, hour of day and month, averaged by day, then over days, ppb"
+case_study_calm_air,ci_low,numeric,Lower end of the 95% range from the 14-day block bootstrap; main set only
+case_study_calm_air,ci_high,numeric,Upper end of the 95% range from the 14-day block bootstrap; main set only
+case_study_wind_speed_bands,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move, without new wind sensors"
+case_study_wind_speed_bands,measure,factor,"Ozone, NO2 or Ox (ozone + NO2 on hours with both)"
+case_study_wind_speed_bands,level,character,Site or Group
+case_study_wind_speed_bands,site_group,factor,Case-study group under that site set
+case_study_wind_speed_bands,site_id,character,AQS site ID; NA for group rows
+case_study_wind_speed_bands,local_site_name,character,Site name given by the reporting agency; NA for group rows
+case_study_wind_speed_bands,speed_band,factor,"Calm (below 0.5 m/s), 0.5 to 1.5, 1.5 to 3, 3 to 5 or 5 or more m/s"
+case_study_wind_speed_bands,n_sites,integer,Sites behind the row
+case_study_wind_speed_bands,n_hours,integer,Ordinary hours with wind in the band (summed over sites for groups)
+case_study_wind_speed_bands,min_site_hours,integer,Hours at the thinnest site in the band
+case_study_wind_speed_bands,mean_speed_ms,numeric,"Mean wind speed in the band, m/s (mean of sites for groups)"
+case_study_wind_speed_bands,mean_ppb,numeric,"Plain mean in the band, ppb (mean of sites for groups)"
+case_study_wind_speed_bands,difference_from_typical_ppb,numeric,"Mean of each hour minus the site's mean at the same hour of day and month, ppb (mean of sites for groups)"
+case_study_so2_wind_speed,site_set,factor,"Main, Without Deer Park #2 after its move, or Without new wind sensors"
+case_study_so2_wind_speed,site_group,factor,Case-study group: Houston Ship Channel or Houston other
+case_study_so2_wind_speed,site_id,character,AQS site ID: state-county-site
+case_study_so2_wind_speed,local_site_name,character,"Site name, shortened"
+case_study_so2_wind_speed,period,factor,"All hours, Day (9 am to 6 pm) or Night and morning, local standard time"
+case_study_so2_wind_speed,speed_band,factor,"Calm (below 0.5 m/s), 0.5 to 1.5, 1.5 to 3, 3 to 5 or 5 or more m/s"
+case_study_so2_wind_speed,n_hours,integer,Ordinary SO2 hours with wind in the band and period
+case_study_so2_wind_speed,n_spike_hours,integer,Hours at or above 5 ppb
+case_study_so2_wind_speed,mean_speed_ms,numeric,"Mean wind speed in the band, m/s; NA when the band has no hours"
+case_study_so2_wind_speed,spike_rate_per_1000,numeric,"Spike hours per 1,000 hours in the band and period"
+case_study_channel_bearings,site_group,character,Case-study group: Houston Ship Channel or Houston other
+case_study_channel_bearings,site_id,character,AQS site ID of a Houston hourly site
+case_study_channel_bearings,local_site_name,character,Site name given by the reporting agency
+case_study_channel_bearings,km_to_channel,numeric,"Distance to the land-cut Ship Channel in km, from 1c"
+case_study_channel_bearings,nearest_bearing_deg,numeric,"Compass bearing from the site to the nearest point of the channel, degrees clockwise from north"
+case_study_channel_bearings,channel_sectors,character,30-degree wind sectors (centre angles) in which the land-cut channel lies from the site
+case_study_channel_bearings,n_channel_sectors,integer,Number of those sectors
+case_study_channel_bearings,n_spike_hours,integer,SO2 spike hours (5 ppb or more) with a wind direction; NA at sites without SO2
+case_study_channel_bearings,n_episodes,integer,Runs of consecutive spike hours among them
+case_study_channel_bearings,pct_spikes_from_channel,numeric,Share of spike hours with wind from the channel sectors
+case_study_channel_bearings,channel_ci_low,numeric,Lower end of its 95% range from resampling whole episodes
+case_study_channel_bearings,channel_ci_high,numeric,Upper end of its 95% range from resampling whole episodes
+case_study_channel_bearings,pct_hours_from_channel,numeric,Share of all SO2 hours with wind from the channel sectors
+case_study_channel_bearings,pct_spikes_from_southwest,numeric,Share of spike hours with wind from 195 to 255 degrees
+case_study_channel_bearings,southwest_ci_low,numeric,Lower end of its 95% range from resampling whole episodes
+case_study_channel_bearings,southwest_ci_high,numeric,Upper end of its 95% range from resampling whole episodes
+case_study_channel_bearings,pct_hours_from_southwest,numeric,Share of all SO2 hours with wind from 195 to 255 degrees
+case_study_pollution_roses,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move, without new wind sensors"
+case_study_pollution_roses,measure,factor,Ozone or NO2
+case_study_pollution_roses,site_group,factor,Case-study group
+case_study_pollution_roses,site_id,character,AQS site ID: state-county-site
+case_study_pollution_roses,local_site_name,character,Site name given by the reporting agency
+case_study_pollution_roses,wind_sector,numeric,"30-degree sector the wind comes from (centre angle, 0 is north)"
+case_study_pollution_roses,in_channel_direction,logical,TRUE when the land-cut channel lies in this sector from the site
+case_study_pollution_roses,n_hours,integer,Ordinary hours with a wind direction (not calm) in the sector
+case_study_pollution_roses,pct_of_hours,numeric,Share of the site's direction hours in the sector
+case_study_pollution_roses,is_thin_sector,logical,TRUE when the sector has fewer than 200 hours; left blank in figures
+case_study_pollution_roses,mean_ppb,numeric,"Mean in the sector, ppb; NA when the sector has no hours"
+case_study_pollution_roses,typical_ppb,numeric,"Mean of the site's normal hour (same hour of day and month) over the sector's hours, ppb"
+case_study_pollution_roses,ratio_to_typical,numeric,mean_ppb over typical_ppb; above 1 means more than usual with wind from this sector
+case_study_pollution_roses,difference_from_typical_ppb,numeric,mean_ppb minus typical_ppb
+case_study_so2_directions,site_set,factor,"Main, Without Deer Park #2 after its move, or Without new wind sensors"
+case_study_so2_directions,site_group,factor,Case-study group: Houston Ship Channel or Houston other
+case_study_so2_directions,site_id,character,AQS site ID: state-county-site
+case_study_so2_directions,local_site_name,character,"Site name, shortened"
+case_study_so2_directions,period,factor,"All hours, or Day (9 am to 6 pm, local standard time)"
+case_study_so2_directions,wind_sector,numeric,"30-degree sector the wind comes from (centre angle, 0 is north)"
+case_study_so2_directions,n_hours,integer,Ordinary SO2 hours with a wind direction in the sector and period
+case_study_so2_directions,n_spike_hours,integer,Hours at or above 5 ppb
+case_study_so2_directions,spike_rate_per_1000,numeric,"Spike hours per 1,000 hours in the sector"
+case_study_so2_directions,pct_of_spike_hours,numeric,Share of the site's spike hours in the sector
+case_study_so2_directions,pct_of_hours,numeric,Share of the site's hours in the sector
+case_study_so2_directions,in_channel_direction,logical,TRUE when the land-cut channel lies in this sector from the site
+case_study_ox_gap_by_wind,comparison,character,"Ship Channel minus Houston other, or Harvard Street minus Bayland Park"
+case_study_ox_gap_by_wind,site_set,factor,"Main or a check: transition band, method change, Deer Park #2 after its move, without new wind sensors"
+case_study_ox_gap_by_wind,direction_type,character,"Sector (12 of 30 degrees), Quadrant (4 of 90 degrees), or Channel or other"
+case_study_ox_gap_by_wind,direction,character,"Sector centre angle, quadrant name, or From the channel / Other, by the shared Houston wind"
+case_study_ox_gap_by_wind,season,character,"All year, or a meteorological season (winter is December to February)"
+case_study_ox_gap_by_wind,n_hours,integer,Paired hours with a shared wind direction
+case_study_ox_gap_by_wind,n_days,integer,Days with at least one such hour
+case_study_ox_gap_by_wind,ozone_gap_ppb,numeric,"Mean daily ozone difference, ppb"
+case_study_ox_gap_by_wind,no2_gap_ppb,numeric,"Mean daily NO2 difference, ppb"
+case_study_ox_gap_by_wind,ox_gap_ppb,numeric,"Mean daily Ox (ozone + NO2) difference, ppb"
+case_study_ox_gap_by_wind,ox_ci_low,numeric,"Lower end of the 95% range from the 14-day block bootstrap; main set, Harvard check and Harvard rows only"
+case_study_ox_gap_by_wind,ox_ci_high,numeric,"Upper end of the 95% range from the 14-day block bootstrap; main set, Harvard check and Harvard rows only"
+case_study_ox_gap_by_wind,share_of_ozone_gap_closed,numeric,1 minus the Ox gap over the ozone gap; NA for the Harvard Street rows
+case_study_hourly_seed_check,finding_id,character,"Finding the range supports, as in case_study_hourly_robustness"
+case_study_hourly_seed_check,figure,character,Figure that shows the finding
+case_study_hourly_seed_check,item,character,"The range: an hour of day, season, site or comparison"
+case_study_hourly_seed_check,threshold,numeric,"Value the range is judged against: 0, or 50 for the spike shares (in percent)"
+case_study_hourly_seed_check,estimate,numeric,"The main estimate (ppb, or percent for the spike shares)"
+case_study_hourly_seed_check,ci_low,numeric,Lower end of the main 95% range (seed 2026)
+case_study_hourly_seed_check,ci_high,numeric,Upper end of the main 95% range (seed 2026)
+case_study_hourly_seed_check,check_low,numeric,Lower end of the same range redrawn with seed 2027
+case_study_hourly_seed_check,check_high,numeric,Upper end of the same range redrawn with seed 2027
+case_study_hourly_seed_check,main_verdict,character,"Above, Below or Includes the threshold, main range"
+case_study_hourly_seed_check,check_verdict,character,"Above, Below or Includes the threshold, redrawn range"
+case_study_hourly_seed_check,verdict_changes,logical,TRUE when the redrawn range lands on a different side of the threshold
+case_study_hourly_seed_check,shift_share,numeric,Largest move of either end as a share of the main range's width
+case_study_hourly_robustness,finding_id,character,"R01 to R10, one per headline finding"
+case_study_hourly_robustness,figure,character,Figure that shows the finding
+case_study_hourly_robustness,finding,character,The finding in plain words
+case_study_hourly_robustness,site_set,character,"Main, one of the four data checks, or Second seed"
+case_study_hourly_robustness,result,character,"Holds, Fails, or Does not apply (the check removes no hours the finding uses)"
+case_study_hourly_headlines,headline_id,character,"H01 onward, in figure order"
+case_study_hourly_headlines,figure,character,Figure that shows the number
+case_study_hourly_headlines,finding,character,"What the number measures, in plain words"
+case_study_hourly_headlines,subject,character,"Group, site, hour or set the number belongs to"
+case_study_hourly_headlines,value,numeric,"The number, rounded to 2 decimals"
+case_study_hourly_headlines,unit,character,Unit of value
+case_study_hourly_headlines,ci_low,numeric,Lower end of the 95% range where the record gives one; NA otherwise
+case_study_hourly_headlines,ci_high,numeric,Upper end of the 95% range where the record gives one; NA otherwise
+case_study_hourly_headlines,source_table,character,CSV record in data/processed/phase2 the number comes from
+case_study_hourly_validation,check,character,"What 2c section 7 checks: inputs, hour rules, 95% ranges, findings or saved files"
+case_study_hourly_validation,observed,character,Value found in this run
+case_study_hourly_validation,expected,character,Value the check requires
+case_study_hourly_validation,passed,logical,TRUE when observed equals expected; the script stops otherwise
+national_sites_by_year,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+national_sites_by_year,year,numeric,Calendar year
+national_sites_by_year,n_sites,integer,Sites reporting the pollutant that year
+national_sites_by_year,n_sites_ever,integer,Sites reporting the pollutant in any study year
+national_sites_by_year,n_five_year_sites,integer,Sites with all five study years
+national_sites_by_year,pct_change_first_to_last,numeric,"Change in reporting sites from 2021 to 2025, percent"
+national_pm25_methods,year,numeric,Calendar year
+national_pm25_methods,n_instrument_days,integer,PM2.5 instrument-days (each monitor's own daily value)
+national_pm25_methods,n_fem,integer,Instrument-days on FEM monitors
+national_pm25_methods,n_frm,integer,Instrument-days on FRM monitors
+national_pm25_methods,n_t640,integer,"Instrument-days on Teledyne T640 or T640X monitors (codes 636, 638, 736, 738)"
+national_pm25_methods,pct_fem,numeric,"FEM share of instrument-days, percent"
+national_pm25_methods,pct_t640,numeric,"T640 share of instrument-days, percent"
+national_pm25_methods,n_paired_sites,integer,Sites with an FEM and an FRM reading on the same day
+national_pm25_methods,n_paired_days,integer,Site-days with both an FEM and an FRM reading
+national_pm25_methods,mean_fem_minus_frm,numeric,"Mean FEM minus FRM on those site-days, µg/m³"
+national_pm25_methods,median_fem_minus_frm,numeric,"Median FEM minus FRM on those site-days, µg/m³"
+national_naaqs_screening,day_set,character,"All days, or without event and fireworks days"
+national_naaqs_screening,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+national_naaqs_screening,standard,character,"8-hour, 24-hour, Annual or 1-hour"
+national_naaqs_screening,units_of_measure,character,Units of the values
+national_naaqs_screening,year,numeric,Calendar year
+national_naaqs_screening,n_sites,integer,Five-year sites screened
+national_naaqs_screening,median_value,numeric,"Median site value in the standard's form, rounded as the standard specifies"
+national_naaqs_screening,p90_value,numeric,90th percentile of the site values
+national_naaqs_screening,n_above,integer,Sites above the standard's level
+national_naaqs_screening,pct_above,numeric,"Share of sites above the level, percent; a one-year screen, not an EPA design value"
+national_design_values,pollutant,factor,"PM2.5, Ozone, NO2 or SO2 (CO is judged one year at a time)"
+national_design_values,standard,character,"8-hour, 24-hour, Annual or 1-hour"
+national_design_values,units_of_measure,character,Units of the values
+national_design_values,window,character,The three years averaged
+national_design_values,window_end,integer,Last year of the window
+national_design_values,n_sites,integer,Five-year sites with all three years
+national_design_values,median_design_value,numeric,"Median three-year value, rounded as the standard specifies"
+national_design_values,n_above,integer,Sites above the level
+national_design_values,pct_above,numeric,"Share of sites above the level, percent; a screen in design-value form, not EPA's official values"
+national_exceedances_by_year,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+national_exceedances_by_year,year,numeric,Calendar year
+national_exceedances_by_year,site_days,integer,"Site-days with data, all sites"
+national_exceedances_by_year,n_exceedances,integer,"Site-days above the short-term level after rounding; screening counts, not violations"
+national_exceedances_by_year,per_1000,numeric,"Exceedance site-days per 1,000 site-days, all sites"
+national_exceedances_by_year,per_1000_five_year_sites,numeric,The same rate at five-year sites only
+national_exceedances_by_year,n_ordinary_days,integer,Exceedances on days with no event or fireworks label
+national_exceedances_by_year,n_event_days,integer,Exceedances on labelled event days (events.csv)
+national_exceedances_by_year,n_fireworks_days,integer,Exceedances on fireworks days (PM2.5 only)
+national_exceedances_by_year,pct_event,numeric,"Share of exceedances on event days, percent; NA when there are none"
+national_exceedances_by_year,pct_fireworks,numeric,"Share of exceedances on fireworks days, percent; NA when there are none"
+national_exceedances_by_year,pct_agency_flagged,numeric,"Share of exceedances with EPA's exceptional-event flag, percent; PM2.5 and ozone only"
+national_metro_ranks,pollutant,factor,PM2.5 or Ozone
+national_metro_ranks,cbsa_name,character,Core-based statistical area (metro) name
+national_metro_ranks,metro_label,character,Short name used in figure 2A.4
+national_metro_ranks,is_case_study,logical,TRUE for the Houston and Dallas-Fort Worth metros
+national_metro_ranks,metro_rank,integer,Rank by exceedance site-days (1 is most); ties share the lower rank
+national_metro_ranks,n_metros,integer,Metros with at least one exceedance for the pollutant
+national_metro_ranks,n_exceedance_days,integer,"Exceedance site-days summed over the metro's monitors, 2021 to 2025"
+national_metro_ranks,n_ordinary_days,integer,"Of these, on ordinary days"
+national_metro_ranks,n_event_days,integer,"Of these, on labelled event days"
+national_metro_ranks,n_fireworks_days,integer,"Of these, on fireworks days"
+national_metro_ranks,pct_event,numeric,"Share on labelled event days, percent"
+national_monthly_profile,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+national_monthly_profile,units_of_measure,character,Units of the values
+national_monthly_profile,month,ordered,Calendar month
+national_monthly_profile,n_sites,integer,Five-year sites in the month (ozone: sites reporting every winter)
+national_monthly_profile,median_value,numeric,Median across sites of each site's mean for the month over the five years
+national_monthly_profile,q25_value,numeric,25th percentile across sites
+national_monthly_profile,q75_value,numeric,75th percentile across sites
+national_monthly_profile,median_ordinary,numeric,The median using days with no event or fireworks label
+national_monthly_series,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+national_monthly_series,units_of_measure,character,Units of the values
+national_monthly_series,year_month,Date,First day of the month
+national_monthly_series,n_sites,integer,Sites with a complete site-month (75% of expected days)
+national_monthly_series,median_value,numeric,Median across sites of the site-month means
+national_monthly_series,q25_value,numeric,25th percentile across sites
+national_monthly_series,q75_value,numeric,75th percentile across sites
+national_monthly_series,median_ordinary,numeric,The median using days with no event or fireworks label
+national_monthly_series,event_effect,numeric,median_value minus median_ordinary: what labelled days added
+national_weekend_summary,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+national_weekend_summary,n_sites,integer,Five-year sites with a weekday mean above zero
+national_weekend_summary,median_ratio,numeric,"Median site weekend over weekday mean, April to October, ordinary days, three holidays left out"
+national_weekend_summary,q25_ratio,numeric,25th percentile of the site ratios
+national_weekend_summary,q75_ratio,numeric,75th percentile of the site ratios
+national_weekend_summary,median_saturday,numeric,Median site Saturday over weekday mean
+national_weekend_summary,median_sunday,numeric,Median site Sunday over weekday mean
+national_weekend_summary,pct_higher_on_weekends,numeric,"Share of sites with a ratio above 1, percent"
+national_ozone_weekend_metros,cbsa_name,character,Metro with at least 5 five-year ozone sites
+national_ozone_weekend_metros,metro_label,character,Short name used in figure 2A.7
+national_ozone_weekend_metros,is_case_study,logical,TRUE for the Houston and Dallas-Fort Worth metros
+national_ozone_weekend_metros,n_sites,integer,Five-year ozone sites in the metro
+national_ozone_weekend_metros,median_ratio,numeric,Median site weekend over weekday ozone
+national_ozone_weekend_metros,pct_higher_on_weekends,numeric,"Share of the metro's sites with weekend ozone higher, percent"
+national_ozone_weekend_metros,metro_rank,integer,Rank by median_ratio (1 is the highest)
+national_headlines,headline_id,character,"N01 onward, in figure order"
+national_headlines,figure,character,Figure that shows the number
+national_headlines,finding,character,"What the number measures, in plain words"
+national_headlines,subject,character,"Pollutant, year, metro or other subject of the number"
+national_headlines,value,numeric,The number
+national_headlines,unit,character,Unit of value
+national_headlines,source_table,character,CSV record in data/processed/phase2 the number comes from
+case_study_distance_gradients,pollutant,character,"Ozone, NO2 or PM2.5"
+case_study_distance_gradients,measure,character,"Site value set against km to the channel: five-year mean, mean 4th-highest (ozone) or exceedance days (ozone)"
+case_study_distance_gradients,site_set,character,"Five-year sites, with the 4-year sites added, or with them and one site left out (NO2)"
+case_study_distance_gradients,n_sites,integer,Houston sites in the test
+case_study_distance_gradients,rho,numeric,Spearman rank correlation with km to the land-cut channel; below zero means higher nearer the channel
+case_study_distance_gradients,p_value,numeric,Two-sided p-value of the Spearman test (normal approximation)
+case_study_daily_headlines,headline_id,character,"D01 onward, in figure order"
+case_study_daily_headlines,figure,character,Figure that shows the number
+case_study_daily_headlines,finding,character,"What the number measures, in plain words"
+case_study_daily_headlines,subject,character,"Group, pollutant, site set or check the number belongs to"
+case_study_daily_headlines,value,numeric,"The number, rounded to 2 decimals"
+case_study_daily_headlines,unit,character,Unit of value
+case_study_daily_headlines,ci_low,numeric,Lower end of the 95% range where the record gives one; NA otherwise
+case_study_daily_headlines,ci_high,numeric,Upper end of the 95% range where the record gives one; NA otherwise
+case_study_daily_headlines,source_table,character,CSV record in data/processed/phase2 the number comes from

@@ -1,0 +1,625 @@
+site_set,measure,site_group,site_id,local_site_name,wind_sector,in_channel_direction,n_hours,pct_of_hours,is_thin_sector,mean_ppb,typical_ppb,ratio_to_typical,difference_from_typical_ppb
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,0,FALSE,2740,7.33,FALSE,19.45,23.74,0.82,-4.28
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,30,FALSE,3804,10.17,FALSE,19.7,22.74,0.867,-3.03
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,60,FALSE,2740,7.33,FALSE,20.14,23.41,0.86,-3.27
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,90,TRUE,2469,6.6,FALSE,29.33,27.99,1.048,1.34
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,120,TRUE,4360,11.66,FALSE,34.29,30.4,1.128,3.88
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,150,TRUE,7333,19.61,FALSE,28.2,26.67,1.057,1.53
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,180,TRUE,4979,13.32,FALSE,25.4,24,1.058,1.4
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,210,TRUE,1969,5.27,FALSE,26.74,25.3,1.057,1.45
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,240,TRUE,1679,4.49,FALSE,24.74,23.82,1.038,0.91
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,270,TRUE,862,2.31,FALSE,24.59,24.03,1.023,0.55
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,300,FALSE,1108,2.96,FALSE,24.74,25.84,0.958,-1.09
+Main,Ozone,Houston Ship Channel,48-201-1034,Houston East,330,FALSE,3343,8.94,FALSE,21.1,24.04,0.878,-2.94
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,TRUE,1790,5,FALSE,23.83,26.57,0.897,-2.75
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,30,TRUE,2662,7.43,FALSE,24.77,26.59,0.932,-1.82
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,60,TRUE,1991,5.56,FALSE,25.07,25.72,0.975,-0.64
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,90,TRUE,3580,10,FALSE,28.34,27.67,1.024,0.67
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,120,FALSE,4862,13.58,FALSE,35.91,32.38,1.109,3.53
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,150,FALSE,6655,18.58,FALSE,30.55,29.67,1.03,0.88
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,180,FALSE,5611,15.67,FALSE,26.62,27.75,0.959,-1.13
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,210,FALSE,2866,8,FALSE,25.13,25.65,0.98,-0.52
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,240,FALSE,1387,3.87,FALSE,23.95,25.16,0.952,-1.22
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,270,FALSE,953,2.66,FALSE,24.02,24.84,0.967,-0.82
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,300,TRUE,1029,2.87,FALSE,27.17,27.78,0.978,-0.61
+Main,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,330,TRUE,2423,6.77,FALSE,26.15,27.59,0.948,-1.44
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,0,FALSE,2239,8.66,FALSE,26.72,27.79,0.961,-1.07
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,30,FALSE,1928,7.45,FALSE,25.96,26.61,0.975,-0.65
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,60,TRUE,1940,7.5,FALSE,27.68,27.95,0.99,-0.28
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,90,TRUE,2120,8.2,FALSE,29.94,29.22,1.024,0.72
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,120,FALSE,4076,15.76,FALSE,32,29.78,1.075,2.22
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,150,FALSE,6087,23.53,FALSE,30.27,30.82,0.982,-0.55
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,180,FALSE,3329,12.87,FALSE,29.41,30.37,0.969,-0.95
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,210,FALSE,1061,4.1,FALSE,30.91,30.66,1.008,0.25
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,240,FALSE,516,1.99,FALSE,29.03,29.04,1,-0.01
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,270,FALSE,490,1.89,FALSE,29.07,29,1.003,0.08
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,300,FALSE,702,2.71,FALSE,33.8,32.37,1.044,1.43
+Main,Ozone,Houston other,48-201-0055,Houston Bayland Park,330,FALSE,1380,5.33,FALSE,29.16,29.99,0.972,-0.84
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,0,FALSE,3002,8.29,FALSE,23.12,26.09,0.886,-2.98
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,30,FALSE,2816,7.77,FALSE,23.91,26.54,0.901,-2.64
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,60,FALSE,2750,7.59,FALSE,24.87,27.14,0.916,-2.27
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,90,TRUE,2782,7.68,FALSE,26.78,28.18,0.95,-1.4
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,120,TRUE,3461,9.55,FALSE,34.25,30.09,1.138,4.16
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,150,FALSE,7046,19.45,FALSE,31.54,30.07,1.049,1.47
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,180,FALSE,6937,19.15,FALSE,29.06,29.25,0.993,-0.19
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,210,FALSE,2916,8.05,FALSE,30.19,29.08,1.038,1.11
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,240,FALSE,1022,2.82,FALSE,30.12,28.81,1.046,1.32
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,270,FALSE,911,2.51,FALSE,30.85,28.8,1.071,2.05
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,300,FALSE,929,2.56,FALSE,27.4,28.16,0.973,-0.76
+Main,Ozone,Houston other,48-201-0417,Houston Harvard Street,330,FALSE,1654,4.57,FALSE,26.84,28.46,0.943,-1.61
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,FALSE,2950,7.47,FALSE,27.86,29.77,0.936,-1.91
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,30,FALSE,2328,5.9,FALSE,31.29,31.39,0.997,-0.09
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,60,FALSE,2051,5.2,FALSE,34.11,33.44,1.02,0.68
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,90,FALSE,2414,6.11,FALSE,33.97,34.03,0.998,-0.06
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,120,FALSE,3387,8.58,FALSE,32.7,33.61,0.973,-0.91
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,150,FALSE,5459,13.83,FALSE,32.57,33.17,0.982,-0.6
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,180,FALSE,8543,21.64,FALSE,32.41,31.78,1.02,0.63
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,210,FALSE,6062,15.35,FALSE,31.74,29.87,1.063,1.87
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,240,FALSE,1784,4.52,FALSE,29.85,28.48,1.048,1.37
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,270,FALSE,928,2.35,FALSE,27.91,28.53,0.978,-0.62
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,300,FALSE,1257,3.18,FALSE,26.65,28.61,0.931,-1.96
+Main,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,330,FALSE,2316,5.87,FALSE,27.58,29.78,0.926,-2.21
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,FALSE,2624,7.74,FALSE,27.49,28.17,0.976,-0.68
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,30,FALSE,2691,7.93,FALSE,31.73,31.05,1.022,0.68
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,60,FALSE,1832,5.4,FALSE,27.16,29.47,0.922,-2.31
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,90,FALSE,2435,7.18,FALSE,27.98,29.51,0.948,-1.53
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,120,FALSE,3327,9.81,FALSE,32.47,31.33,1.036,1.14
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,150,FALSE,5816,17.15,FALSE,29.62,30.23,0.98,-0.61
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,180,FALSE,8750,25.8,FALSE,32.6,31.78,1.026,0.83
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,210,FALSE,1538,4.53,FALSE,33.06,30.34,1.09,2.72
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,240,FALSE,549,1.62,FALSE,30.6,29.51,1.037,1.09
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,270,FALSE,669,1.97,FALSE,27.57,28.7,0.961,-1.13
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,300,FALSE,1663,4.9,FALSE,24.85,26.12,0.951,-1.27
+Main,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,330,FALSE,2021,5.96,FALSE,25.98,26.7,0.973,-0.73
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,0,FALSE,2676,7.13,FALSE,13.64,11.8,1.156,1.84
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,30,FALSE,3831,10.21,FALSE,14.17,12.11,1.17,2.06
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,60,FALSE,2814,7.5,FALSE,16.04,11.76,1.363,4.27
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,90,TRUE,2501,6.66,FALSE,14.5,10.67,1.359,3.83
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,120,TRUE,4448,11.85,FALSE,11.35,10.09,1.125,1.26
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,150,TRUE,7432,19.8,FALSE,7.27,9.94,0.731,-2.68
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,180,TRUE,4953,13.2,FALSE,5.34,9.69,0.552,-4.34
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,210,TRUE,1946,5.19,FALSE,5.73,9.44,0.607,-3.71
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,240,TRUE,1700,4.53,FALSE,8.03,9.75,0.824,-1.72
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,270,TRUE,873,2.33,FALSE,11.36,10.28,1.105,1.07
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,300,FALSE,1092,2.91,FALSE,14.93,11.09,1.347,3.84
+Main,NO2,Houston Ship Channel,48-201-1034,Houston East,330,FALSE,3260,8.69,FALSE,13.91,11.95,1.164,1.96
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,TRUE,1705,4.81,FALSE,8.82,7.89,1.118,0.93
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,30,TRUE,2617,7.39,FALSE,9.26,7.93,1.168,1.33
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,60,TRUE,1974,5.57,FALSE,10.68,7.68,1.391,3
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,90,TRUE,3585,10.12,FALSE,8.71,7.29,1.194,1.42
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,120,FALSE,4844,13.68,FALSE,6.61,6.08,1.088,0.53
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,150,FALSE,6644,18.76,FALSE,4.4,5.81,0.757,-1.41
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,180,FALSE,5565,15.72,FALSE,3.35,5.69,0.589,-2.34
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,210,FALSE,2823,7.97,FALSE,4.4,5.94,0.74,-1.55
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,240,FALSE,1375,3.88,FALSE,7.05,6.59,1.07,0.46
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,270,FALSE,955,2.7,FALSE,9.35,7.02,1.332,2.33
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,300,TRUE,1013,2.86,FALSE,10.4,7.61,1.367,2.79
+Main,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,330,TRUE,2312,6.53,FALSE,8.76,7.71,1.136,1.05
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,0,FALSE,2149,8.7,FALSE,7.73,7.54,1.026,0.19
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,30,FALSE,1755,7.11,FALSE,9.8,7.66,1.281,2.15
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,60,TRUE,1809,7.33,FALSE,11.72,7.41,1.581,4.31
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,90,TRUE,1983,8.03,FALSE,10.18,6.78,1.501,3.4
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,120,FALSE,3934,15.93,FALSE,6.41,6.19,1.034,0.21
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,150,FALSE,6009,24.33,FALSE,3.62,5.49,0.66,-1.87
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,180,FALSE,3238,13.11,FALSE,3.1,5.31,0.584,-2.21
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,210,FALSE,988,4,FALSE,4.78,5.71,0.837,-0.93
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,240,FALSE,476,1.93,FALSE,6.21,6.31,0.985,-0.09
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,270,FALSE,445,1.8,FALSE,6.69,6.05,1.105,0.64
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,300,FALSE,627,2.54,FALSE,5.79,6.11,0.948,-0.32
+Main,NO2,Houston other,48-201-0055,Houston Bayland Park,330,FALSE,1280,5.18,FALSE,6.8,7.03,0.967,-0.23
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,0,FALSE,2879,8.18,FALSE,9.69,9.67,1.002,0.02
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,30,FALSE,2691,7.65,FALSE,10.63,9.47,1.122,1.15
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,60,FALSE,2661,7.56,FALSE,12.51,9.36,1.336,3.15
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,90,TRUE,2740,7.79,FALSE,14.48,8.8,1.645,5.68
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,120,TRUE,3378,9.6,FALSE,9.54,7.9,1.207,1.64
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,150,FALSE,6842,19.44,FALSE,5.39,7.34,0.735,-1.95
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,180,FALSE,6765,19.22,FALSE,4.19,6.91,0.607,-2.71
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,210,FALSE,2876,8.17,FALSE,4.77,6.73,0.71,-1.95
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,240,FALSE,999,2.84,FALSE,7.29,7.76,0.938,-0.48
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,270,FALSE,896,2.55,FALSE,8.89,7.73,1.151,1.16
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,300,FALSE,876,2.49,FALSE,11.19,8.67,1.29,2.51
+Main,NO2,Houston other,48-201-0417,Houston Harvard Street,330,FALSE,1587,4.51,FALSE,10.23,9.02,1.134,1.21
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,FALSE,2663,7.48,FALSE,6.35,6.93,0.917,-0.58
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,30,FALSE,2212,6.22,FALSE,6.34,6.76,0.937,-0.42
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,60,FALSE,1899,5.34,FALSE,6.25,5.73,1.091,0.52
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,90,FALSE,2168,6.09,FALSE,7.03,5.54,1.27,1.49
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,120,FALSE,3045,8.56,FALSE,7.82,5.75,1.36,2.07
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,150,FALSE,5060,14.22,FALSE,6.45,5.79,1.114,0.66
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,180,FALSE,7835,22.01,FALSE,4.75,5.82,0.817,-1.07
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,210,FALSE,5098,14.32,FALSE,4.6,6.23,0.739,-1.63
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,240,FALSE,1603,4.5,FALSE,7.59,6.85,1.109,0.75
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,270,FALSE,875,2.46,FALSE,8.99,7.12,1.264,1.88
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,300,FALSE,1152,3.24,FALSE,9.3,7.5,1.239,1.79
+Main,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,330,FALSE,1981,5.57,FALSE,7.28,7.11,1.023,0.17
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,FALSE,2517,7.51,FALSE,3.46,6.53,0.53,-3.07
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,30,FALSE,2623,7.83,FALSE,3.4,5.94,0.572,-2.54
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,60,FALSE,1789,5.34,FALSE,6.41,6.08,1.054,0.33
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,90,FALSE,2413,7.2,FALSE,7.8,6.06,1.288,1.74
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,120,FALSE,3277,9.78,FALSE,7.33,5.79,1.266,1.54
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,150,FALSE,5893,17.59,FALSE,8.15,5.92,1.377,2.23
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,180,FALSE,8712,26,FALSE,5.13,5.34,0.962,-0.2
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,210,FALSE,1534,4.58,FALSE,5.95,5.71,1.041,0.23
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,240,FALSE,547,1.63,FALSE,7.67,6.06,1.267,1.62
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,270,FALSE,634,1.89,FALSE,7.99,6.24,1.28,1.75
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,300,FALSE,1596,4.76,FALSE,5.48,6.86,0.799,-1.38
+Main,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,330,FALSE,1972,5.89,FALSE,3.27,6.81,0.481,-3.54
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,0,FALSE,2740,7.33,FALSE,19.45,23.74,0.82,-4.28
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,30,FALSE,3804,10.17,FALSE,19.7,22.74,0.867,-3.03
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,60,FALSE,2740,7.33,FALSE,20.14,23.41,0.86,-3.27
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,90,TRUE,2469,6.6,FALSE,29.33,27.99,1.048,1.34
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,120,TRUE,4360,11.66,FALSE,34.29,30.4,1.128,3.88
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,150,TRUE,7333,19.61,FALSE,28.2,26.67,1.057,1.53
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,180,TRUE,4979,13.32,FALSE,25.4,24,1.058,1.4
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,210,TRUE,1969,5.27,FALSE,26.74,25.3,1.057,1.45
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,240,TRUE,1679,4.49,FALSE,24.74,23.82,1.038,0.91
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,270,TRUE,862,2.31,FALSE,24.59,24.03,1.023,0.55
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,300,FALSE,1108,2.96,FALSE,24.74,25.84,0.958,-1.09
+Without the transition band,Ozone,Houston Ship Channel,48-201-1034,Houston East,330,FALSE,3343,8.94,FALSE,21.1,24.04,0.878,-2.94
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,TRUE,1790,5,FALSE,23.83,26.57,0.897,-2.75
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,30,TRUE,2662,7.43,FALSE,24.77,26.59,0.932,-1.82
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,60,TRUE,1991,5.56,FALSE,25.07,25.72,0.975,-0.64
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,90,TRUE,3580,10,FALSE,28.34,27.67,1.024,0.67
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,120,FALSE,4862,13.58,FALSE,35.91,32.38,1.109,3.53
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,150,FALSE,6655,18.58,FALSE,30.55,29.67,1.03,0.88
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,180,FALSE,5611,15.67,FALSE,26.62,27.75,0.959,-1.13
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,210,FALSE,2866,8,FALSE,25.13,25.65,0.98,-0.52
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,240,FALSE,1387,3.87,FALSE,23.95,25.16,0.952,-1.22
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,270,FALSE,953,2.66,FALSE,24.02,24.84,0.967,-0.82
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,300,TRUE,1029,2.87,FALSE,27.17,27.78,0.978,-0.61
+Without the transition band,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,330,TRUE,2423,6.77,FALSE,26.15,27.59,0.948,-1.44
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,0,FALSE,2239,8.66,FALSE,26.72,27.79,0.961,-1.07
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,30,FALSE,1928,7.45,FALSE,25.96,26.61,0.975,-0.65
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,60,TRUE,1940,7.5,FALSE,27.68,27.95,0.99,-0.28
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,90,TRUE,2120,8.2,FALSE,29.94,29.22,1.024,0.72
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,120,FALSE,4076,15.76,FALSE,32,29.78,1.075,2.22
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,150,FALSE,6087,23.53,FALSE,30.27,30.82,0.982,-0.55
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,180,FALSE,3329,12.87,FALSE,29.41,30.37,0.969,-0.95
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,210,FALSE,1061,4.1,FALSE,30.91,30.66,1.008,0.25
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,240,FALSE,516,1.99,FALSE,29.03,29.04,1,-0.01
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,270,FALSE,490,1.89,FALSE,29.07,29,1.003,0.08
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,300,FALSE,702,2.71,FALSE,33.8,32.37,1.044,1.43
+Without the transition band,Ozone,Houston other,48-201-0055,Houston Bayland Park,330,FALSE,1380,5.33,FALSE,29.16,29.99,0.972,-0.84
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,FALSE,2950,7.47,FALSE,27.86,29.77,0.936,-1.91
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,30,FALSE,2328,5.9,FALSE,31.29,31.39,0.997,-0.09
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,60,FALSE,2051,5.2,FALSE,34.11,33.44,1.02,0.68
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,90,FALSE,2414,6.11,FALSE,33.97,34.03,0.998,-0.06
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,120,FALSE,3387,8.58,FALSE,32.7,33.61,0.973,-0.91
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,150,FALSE,5459,13.83,FALSE,32.57,33.17,0.982,-0.6
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,180,FALSE,8543,21.64,FALSE,32.41,31.78,1.02,0.63
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,210,FALSE,6062,15.35,FALSE,31.74,29.87,1.063,1.87
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,240,FALSE,1784,4.52,FALSE,29.85,28.48,1.048,1.37
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,270,FALSE,928,2.35,FALSE,27.91,28.53,0.978,-0.62
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,300,FALSE,1257,3.18,FALSE,26.65,28.61,0.931,-1.96
+Without the transition band,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,330,FALSE,2316,5.87,FALSE,27.58,29.78,0.926,-2.21
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,FALSE,2624,7.74,FALSE,27.49,28.17,0.976,-0.68
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,30,FALSE,2691,7.93,FALSE,31.73,31.05,1.022,0.68
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,60,FALSE,1832,5.4,FALSE,27.16,29.47,0.922,-2.31
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,90,FALSE,2435,7.18,FALSE,27.98,29.51,0.948,-1.53
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,120,FALSE,3327,9.81,FALSE,32.47,31.33,1.036,1.14
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,150,FALSE,5816,17.15,FALSE,29.62,30.23,0.98,-0.61
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,180,FALSE,8750,25.8,FALSE,32.6,31.78,1.026,0.83
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,210,FALSE,1538,4.53,FALSE,33.06,30.34,1.09,2.72
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,240,FALSE,549,1.62,FALSE,30.6,29.51,1.037,1.09
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,270,FALSE,669,1.97,FALSE,27.57,28.7,0.961,-1.13
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,300,FALSE,1663,4.9,FALSE,24.85,26.12,0.951,-1.27
+Without the transition band,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,330,FALSE,2021,5.96,FALSE,25.98,26.7,0.973,-0.73
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,0,FALSE,2676,7.13,FALSE,13.64,11.8,1.156,1.84
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,30,FALSE,3831,10.21,FALSE,14.17,12.11,1.17,2.06
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,60,FALSE,2814,7.5,FALSE,16.04,11.76,1.363,4.27
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,90,TRUE,2501,6.66,FALSE,14.5,10.67,1.359,3.83
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,120,TRUE,4448,11.85,FALSE,11.35,10.09,1.125,1.26
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,150,TRUE,7432,19.8,FALSE,7.27,9.94,0.731,-2.68
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,180,TRUE,4953,13.2,FALSE,5.34,9.69,0.552,-4.34
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,210,TRUE,1946,5.19,FALSE,5.73,9.44,0.607,-3.71
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,240,TRUE,1700,4.53,FALSE,8.03,9.75,0.824,-1.72
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,270,TRUE,873,2.33,FALSE,11.36,10.28,1.105,1.07
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,300,FALSE,1092,2.91,FALSE,14.93,11.09,1.347,3.84
+Without the transition band,NO2,Houston Ship Channel,48-201-1034,Houston East,330,FALSE,3260,8.69,FALSE,13.91,11.95,1.164,1.96
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,TRUE,1705,4.81,FALSE,8.82,7.89,1.118,0.93
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,30,TRUE,2617,7.39,FALSE,9.26,7.93,1.168,1.33
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,60,TRUE,1974,5.57,FALSE,10.68,7.68,1.391,3
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,90,TRUE,3585,10.12,FALSE,8.71,7.29,1.194,1.42
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,120,FALSE,4844,13.68,FALSE,6.61,6.08,1.088,0.53
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,150,FALSE,6644,18.76,FALSE,4.4,5.81,0.757,-1.41
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,180,FALSE,5565,15.72,FALSE,3.35,5.69,0.589,-2.34
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,210,FALSE,2823,7.97,FALSE,4.4,5.94,0.74,-1.55
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,240,FALSE,1375,3.88,FALSE,7.05,6.59,1.07,0.46
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,270,FALSE,955,2.7,FALSE,9.35,7.02,1.332,2.33
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,300,TRUE,1013,2.86,FALSE,10.4,7.61,1.367,2.79
+Without the transition band,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,330,TRUE,2312,6.53,FALSE,8.76,7.71,1.136,1.05
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,0,FALSE,2149,8.7,FALSE,7.73,7.54,1.026,0.19
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,30,FALSE,1755,7.11,FALSE,9.8,7.66,1.281,2.15
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,60,TRUE,1809,7.33,FALSE,11.72,7.41,1.581,4.31
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,90,TRUE,1983,8.03,FALSE,10.18,6.78,1.501,3.4
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,120,FALSE,3934,15.93,FALSE,6.41,6.19,1.034,0.21
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,150,FALSE,6009,24.33,FALSE,3.62,5.49,0.66,-1.87
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,180,FALSE,3238,13.11,FALSE,3.1,5.31,0.584,-2.21
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,210,FALSE,988,4,FALSE,4.78,5.71,0.837,-0.93
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,240,FALSE,476,1.93,FALSE,6.21,6.31,0.985,-0.09
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,270,FALSE,445,1.8,FALSE,6.69,6.05,1.105,0.64
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,300,FALSE,627,2.54,FALSE,5.79,6.11,0.948,-0.32
+Without the transition band,NO2,Houston other,48-201-0055,Houston Bayland Park,330,FALSE,1280,5.18,FALSE,6.8,7.03,0.967,-0.23
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,FALSE,2663,7.48,FALSE,6.35,6.93,0.917,-0.58
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,30,FALSE,2212,6.22,FALSE,6.34,6.76,0.937,-0.42
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,60,FALSE,1899,5.34,FALSE,6.25,5.73,1.091,0.52
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,90,FALSE,2168,6.09,FALSE,7.03,5.54,1.27,1.49
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,120,FALSE,3045,8.56,FALSE,7.82,5.75,1.36,2.07
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,150,FALSE,5060,14.22,FALSE,6.45,5.79,1.114,0.66
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,180,FALSE,7835,22.01,FALSE,4.75,5.82,0.817,-1.07
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,210,FALSE,5098,14.32,FALSE,4.6,6.23,0.739,-1.63
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,240,FALSE,1603,4.5,FALSE,7.59,6.85,1.109,0.75
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,270,FALSE,875,2.46,FALSE,8.99,7.12,1.264,1.88
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,300,FALSE,1152,3.24,FALSE,9.3,7.5,1.239,1.79
+Without the transition band,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,330,FALSE,1981,5.57,FALSE,7.28,7.11,1.023,0.17
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,FALSE,2517,7.51,FALSE,3.46,6.53,0.53,-3.07
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,30,FALSE,2623,7.83,FALSE,3.4,5.94,0.572,-2.54
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,60,FALSE,1789,5.34,FALSE,6.41,6.08,1.054,0.33
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,90,FALSE,2413,7.2,FALSE,7.8,6.06,1.288,1.74
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,120,FALSE,3277,9.78,FALSE,7.33,5.79,1.266,1.54
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,150,FALSE,5893,17.59,FALSE,8.15,5.92,1.377,2.23
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,180,FALSE,8712,26,FALSE,5.13,5.34,0.962,-0.2
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,210,FALSE,1534,4.58,FALSE,5.95,5.71,1.041,0.23
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,240,FALSE,547,1.63,FALSE,7.67,6.06,1.267,1.62
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,270,FALSE,634,1.89,FALSE,7.99,6.24,1.28,1.75
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,300,FALSE,1596,4.76,FALSE,5.48,6.86,0.799,-1.38
+Without the transition band,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,330,FALSE,1972,5.89,FALSE,3.27,6.81,0.481,-3.54
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,0,FALSE,2676,7.13,FALSE,13.64,11.8,1.156,1.84
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,30,FALSE,3831,10.21,FALSE,14.17,12.11,1.17,2.06
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,60,FALSE,2814,7.5,FALSE,16.04,11.76,1.363,4.27
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,90,TRUE,2501,6.66,FALSE,14.5,10.67,1.359,3.83
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,120,TRUE,4448,11.85,FALSE,11.35,10.09,1.125,1.26
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,150,TRUE,7432,19.8,FALSE,7.27,9.94,0.731,-2.68
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,180,TRUE,4953,13.2,FALSE,5.34,9.69,0.552,-4.34
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,210,TRUE,1946,5.19,FALSE,5.73,9.44,0.607,-3.71
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,240,TRUE,1700,4.53,FALSE,8.03,9.75,0.824,-1.72
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,270,TRUE,873,2.33,FALSE,11.36,10.28,1.105,1.07
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,300,FALSE,1092,2.91,FALSE,14.93,11.09,1.347,3.84
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1034,Houston East,330,FALSE,3260,8.69,FALSE,13.91,11.95,1.164,1.96
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,TRUE,1705,4.81,FALSE,8.82,7.89,1.118,0.93
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,30,TRUE,2617,7.39,FALSE,9.26,7.93,1.168,1.33
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,60,TRUE,1974,5.57,FALSE,10.68,7.68,1.391,3
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,90,TRUE,3585,10.12,FALSE,8.71,7.29,1.194,1.42
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,120,FALSE,4844,13.68,FALSE,6.61,6.08,1.088,0.53
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,150,FALSE,6644,18.76,FALSE,4.4,5.81,0.757,-1.41
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,180,FALSE,5565,15.72,FALSE,3.35,5.69,0.589,-2.34
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,210,FALSE,2823,7.97,FALSE,4.4,5.94,0.74,-1.55
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,240,FALSE,1375,3.88,FALSE,7.05,6.59,1.07,0.46
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,270,FALSE,955,2.7,FALSE,9.35,7.02,1.332,2.33
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,300,TRUE,1013,2.86,FALSE,10.4,7.61,1.367,2.79
+Without hours after the method change,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,330,TRUE,2312,6.53,FALSE,8.76,7.71,1.136,1.05
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,0,FALSE,2149,8.7,FALSE,7.73,7.54,1.026,0.19
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,30,FALSE,1755,7.11,FALSE,9.8,7.66,1.281,2.15
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,60,TRUE,1809,7.33,FALSE,11.72,7.41,1.581,4.31
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,90,TRUE,1983,8.03,FALSE,10.18,6.78,1.501,3.4
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,120,FALSE,3934,15.93,FALSE,6.41,6.19,1.034,0.21
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,150,FALSE,6009,24.33,FALSE,3.62,5.49,0.66,-1.87
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,180,FALSE,3238,13.11,FALSE,3.1,5.31,0.584,-2.21
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,210,FALSE,988,4,FALSE,4.78,5.71,0.837,-0.93
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,240,FALSE,476,1.93,FALSE,6.21,6.31,0.985,-0.09
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,270,FALSE,445,1.8,FALSE,6.69,6.05,1.105,0.64
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,300,FALSE,627,2.54,FALSE,5.79,6.11,0.948,-0.32
+Without hours after the method change,NO2,Houston other,48-201-0055,Houston Bayland Park,330,FALSE,1280,5.18,FALSE,6.8,7.03,0.967,-0.23
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,0,FALSE,2129,9.16,FALSE,9.96,10.09,0.987,-0.13
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,30,FALSE,1739,7.48,FALSE,11.01,9.8,1.123,1.21
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,60,FALSE,1568,6.75,FALSE,13.69,9.83,1.394,3.87
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,90,TRUE,1704,7.33,FALSE,15.5,9.47,1.636,6.02
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,120,TRUE,2132,9.18,FALSE,10.28,8.63,1.192,1.65
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,150,FALSE,4430,19.07,FALSE,5.92,7.96,0.745,-2.03
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,180,FALSE,4569,19.66,FALSE,4.61,7.4,0.623,-2.79
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,210,FALSE,1871,8.05,FALSE,5.52,7.23,0.763,-1.71
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,240,FALSE,724,3.12,FALSE,7.99,8.29,0.964,-0.3
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,270,FALSE,607,2.61,FALSE,9.7,8.17,1.187,1.53
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,300,FALSE,620,2.67,FALSE,11.5,9.2,1.251,2.3
+Without hours after the method change,NO2,Houston other,48-201-0417,Houston Harvard Street,330,FALSE,1142,4.91,FALSE,10.46,9.49,1.102,0.97
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,FALSE,2663,7.48,FALSE,6.35,6.93,0.917,-0.58
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,30,FALSE,2212,6.22,FALSE,6.34,6.76,0.937,-0.42
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,60,FALSE,1899,5.34,FALSE,6.25,5.73,1.091,0.52
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,90,FALSE,2168,6.09,FALSE,7.03,5.54,1.27,1.49
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,120,FALSE,3045,8.56,FALSE,7.82,5.75,1.36,2.07
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,150,FALSE,5060,14.22,FALSE,6.45,5.79,1.114,0.66
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,180,FALSE,7835,22.01,FALSE,4.75,5.82,0.817,-1.07
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,210,FALSE,5098,14.32,FALSE,4.6,6.23,0.739,-1.63
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,240,FALSE,1603,4.5,FALSE,7.59,6.85,1.109,0.75
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,270,FALSE,875,2.46,FALSE,8.99,7.12,1.264,1.88
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,300,FALSE,1152,3.24,FALSE,9.3,7.5,1.239,1.79
+Without hours after the method change,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,330,FALSE,1981,5.57,FALSE,7.28,7.11,1.023,0.17
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,FALSE,2517,7.51,FALSE,3.46,6.53,0.53,-3.07
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,30,FALSE,2623,7.83,FALSE,3.4,5.94,0.572,-2.54
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,60,FALSE,1789,5.34,FALSE,6.41,6.08,1.054,0.33
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,90,FALSE,2413,7.2,FALSE,7.8,6.06,1.288,1.74
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,120,FALSE,3277,9.78,FALSE,7.33,5.79,1.266,1.54
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,150,FALSE,5893,17.59,FALSE,8.15,5.92,1.377,2.23
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,180,FALSE,8712,26,FALSE,5.13,5.34,0.962,-0.2
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,210,FALSE,1534,4.58,FALSE,5.95,5.71,1.041,0.23
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,240,FALSE,547,1.63,FALSE,7.67,6.06,1.267,1.62
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,270,FALSE,634,1.89,FALSE,7.99,6.24,1.28,1.75
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,300,FALSE,1596,4.76,FALSE,5.48,6.86,0.799,-1.38
+Without hours after the method change,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,330,FALSE,1972,5.89,FALSE,3.27,6.81,0.481,-3.54
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,0,FALSE,2740,7.33,FALSE,19.45,23.74,0.82,-4.28
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,30,FALSE,3804,10.17,FALSE,19.7,22.74,0.867,-3.03
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,60,FALSE,2740,7.33,FALSE,20.14,23.41,0.86,-3.27
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,90,TRUE,2469,6.6,FALSE,29.33,27.99,1.048,1.34
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,120,TRUE,4360,11.66,FALSE,34.29,30.4,1.128,3.88
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,150,TRUE,7333,19.61,FALSE,28.2,26.67,1.057,1.53
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,180,TRUE,4979,13.32,FALSE,25.4,24,1.058,1.4
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,210,TRUE,1969,5.27,FALSE,26.74,25.3,1.057,1.45
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,240,TRUE,1679,4.49,FALSE,24.74,23.82,1.038,0.91
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,270,TRUE,862,2.31,FALSE,24.59,24.03,1.023,0.55
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,300,FALSE,1108,2.96,FALSE,24.74,25.84,0.958,-1.09
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1034,Houston East,330,FALSE,3343,8.94,FALSE,21.1,24.04,0.878,-2.94
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,TRUE,1656,5.31,FALSE,24.05,26.62,0.903,-2.57
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,30,TRUE,2344,7.52,FALSE,24.8,26.71,0.929,-1.91
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,60,TRUE,1783,5.72,FALSE,23.92,25.03,0.956,-1.11
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,90,TRUE,3277,10.51,FALSE,28.05,27.31,1.027,0.74
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,120,FALSE,4412,14.16,FALSE,35.44,31.87,1.112,3.58
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,150,FALSE,5829,18.7,FALSE,30.04,29.33,1.024,0.72
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,180,FALSE,4584,14.71,FALSE,27.02,28.02,0.964,-1
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,210,FALSE,2227,7.14,FALSE,25.54,26.15,0.977,-0.61
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,240,FALSE,1117,3.58,FALSE,24.18,25.5,0.948,-1.31
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,270,FALSE,780,2.5,FALSE,24.33,25.08,0.97,-0.75
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,300,TRUE,930,2.98,FALSE,27.4,27.85,0.984,-0.45
+Without Deer Park #2 after its move,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,330,TRUE,2230,7.15,FALSE,26.22,27.68,0.947,-1.46
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,0,FALSE,2239,8.66,FALSE,26.72,27.79,0.961,-1.07
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,30,FALSE,1928,7.45,FALSE,25.96,26.61,0.975,-0.65
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,60,TRUE,1940,7.5,FALSE,27.68,27.95,0.99,-0.28
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,90,TRUE,2120,8.2,FALSE,29.94,29.22,1.024,0.72
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,120,FALSE,4076,15.76,FALSE,32,29.78,1.075,2.22
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,150,FALSE,6087,23.53,FALSE,30.27,30.82,0.982,-0.55
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,180,FALSE,3329,12.87,FALSE,29.41,30.37,0.969,-0.95
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,210,FALSE,1061,4.1,FALSE,30.91,30.66,1.008,0.25
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,240,FALSE,516,1.99,FALSE,29.03,29.04,1,-0.01
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,270,FALSE,490,1.89,FALSE,29.07,29,1.003,0.08
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,300,FALSE,702,2.71,FALSE,33.8,32.37,1.044,1.43
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0055,Houston Bayland Park,330,FALSE,1380,5.33,FALSE,29.16,29.99,0.972,-0.84
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,0,FALSE,3002,8.29,FALSE,23.12,26.09,0.886,-2.98
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,30,FALSE,2816,7.77,FALSE,23.91,26.54,0.901,-2.64
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,60,FALSE,2750,7.59,FALSE,24.87,27.14,0.916,-2.27
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,90,TRUE,2782,7.68,FALSE,26.78,28.18,0.95,-1.4
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,120,TRUE,3461,9.55,FALSE,34.25,30.09,1.138,4.16
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,150,FALSE,7046,19.45,FALSE,31.54,30.07,1.049,1.47
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,180,FALSE,6937,19.15,FALSE,29.06,29.25,0.993,-0.19
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,210,FALSE,2916,8.05,FALSE,30.19,29.08,1.038,1.11
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,240,FALSE,1022,2.82,FALSE,30.12,28.81,1.046,1.32
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,270,FALSE,911,2.51,FALSE,30.85,28.8,1.071,2.05
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,300,FALSE,929,2.56,FALSE,27.4,28.16,0.973,-0.76
+Without Deer Park #2 after its move,Ozone,Houston other,48-201-0417,Houston Harvard Street,330,FALSE,1654,4.57,FALSE,26.84,28.46,0.943,-1.61
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,FALSE,2950,7.47,FALSE,27.86,29.77,0.936,-1.91
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,30,FALSE,2328,5.9,FALSE,31.29,31.39,0.997,-0.09
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,60,FALSE,2051,5.2,FALSE,34.11,33.44,1.02,0.68
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,90,FALSE,2414,6.11,FALSE,33.97,34.03,0.998,-0.06
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,120,FALSE,3387,8.58,FALSE,32.7,33.61,0.973,-0.91
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,150,FALSE,5459,13.83,FALSE,32.57,33.17,0.982,-0.6
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,180,FALSE,8543,21.64,FALSE,32.41,31.78,1.02,0.63
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,210,FALSE,6062,15.35,FALSE,31.74,29.87,1.063,1.87
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,240,FALSE,1784,4.52,FALSE,29.85,28.48,1.048,1.37
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,270,FALSE,928,2.35,FALSE,27.91,28.53,0.978,-0.62
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,300,FALSE,1257,3.18,FALSE,26.65,28.61,0.931,-1.96
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,330,FALSE,2316,5.87,FALSE,27.58,29.78,0.926,-2.21
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,FALSE,2624,7.74,FALSE,27.49,28.17,0.976,-0.68
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,30,FALSE,2691,7.93,FALSE,31.73,31.05,1.022,0.68
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,60,FALSE,1832,5.4,FALSE,27.16,29.47,0.922,-2.31
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,90,FALSE,2435,7.18,FALSE,27.98,29.51,0.948,-1.53
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,120,FALSE,3327,9.81,FALSE,32.47,31.33,1.036,1.14
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,150,FALSE,5816,17.15,FALSE,29.62,30.23,0.98,-0.61
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,180,FALSE,8750,25.8,FALSE,32.6,31.78,1.026,0.83
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,210,FALSE,1538,4.53,FALSE,33.06,30.34,1.09,2.72
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,240,FALSE,549,1.62,FALSE,30.6,29.51,1.037,1.09
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,270,FALSE,669,1.97,FALSE,27.57,28.7,0.961,-1.13
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,300,FALSE,1663,4.9,FALSE,24.85,26.12,0.951,-1.27
+Without Deer Park #2 after its move,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,330,FALSE,2021,5.96,FALSE,25.98,26.7,0.973,-0.73
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,0,FALSE,2676,7.13,FALSE,13.64,11.8,1.156,1.84
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,30,FALSE,3831,10.21,FALSE,14.17,12.11,1.17,2.06
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,60,FALSE,2814,7.5,FALSE,16.04,11.76,1.363,4.27
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,90,TRUE,2501,6.66,FALSE,14.5,10.67,1.359,3.83
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,120,TRUE,4448,11.85,FALSE,11.35,10.09,1.125,1.26
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,150,TRUE,7432,19.8,FALSE,7.27,9.94,0.731,-2.68
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,180,TRUE,4953,13.2,FALSE,5.34,9.69,0.552,-4.34
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,210,TRUE,1946,5.19,FALSE,5.73,9.44,0.607,-3.71
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,240,TRUE,1700,4.53,FALSE,8.03,9.75,0.824,-1.72
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,270,TRUE,873,2.33,FALSE,11.36,10.28,1.105,1.07
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,300,FALSE,1092,2.91,FALSE,14.93,11.09,1.347,3.84
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1034,Houston East,330,FALSE,3260,8.69,FALSE,13.91,11.95,1.164,1.96
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,TRUE,1576,5.09,FALSE,8.6,7.8,1.104,0.81
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,30,TRUE,2306,7.45,FALSE,8.91,7.74,1.151,1.17
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,60,TRUE,1772,5.72,FALSE,10.73,7.58,1.415,3.15
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,90,TRUE,3284,10.6,FALSE,8.63,7.2,1.198,1.43
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,120,FALSE,4403,14.22,FALSE,6.54,6.05,1.082,0.5
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,150,FALSE,5843,18.87,FALSE,4.25,5.71,0.743,-1.47
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,180,FALSE,4585,14.8,FALSE,3.29,5.69,0.579,-2.4
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,210,FALSE,2235,7.22,FALSE,4.39,5.88,0.747,-1.49
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,240,FALSE,1114,3.6,FALSE,7.1,6.51,1.091,0.59
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,270,FALSE,793,2.56,FALSE,9.1,6.91,1.316,2.18
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,300,TRUE,926,2.99,FALSE,10.06,7.54,1.335,2.53
+Without Deer Park #2 after its move,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,330,TRUE,2134,6.89,FALSE,8.46,7.64,1.108,0.82
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,0,FALSE,2149,8.7,FALSE,7.73,7.54,1.026,0.19
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,30,FALSE,1755,7.11,FALSE,9.8,7.66,1.281,2.15
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,60,TRUE,1809,7.33,FALSE,11.72,7.41,1.581,4.31
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,90,TRUE,1983,8.03,FALSE,10.18,6.78,1.501,3.4
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,120,FALSE,3934,15.93,FALSE,6.41,6.19,1.034,0.21
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,150,FALSE,6009,24.33,FALSE,3.62,5.49,0.66,-1.87
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,180,FALSE,3238,13.11,FALSE,3.1,5.31,0.584,-2.21
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,210,FALSE,988,4,FALSE,4.78,5.71,0.837,-0.93
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,240,FALSE,476,1.93,FALSE,6.21,6.31,0.985,-0.09
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,270,FALSE,445,1.8,FALSE,6.69,6.05,1.105,0.64
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,300,FALSE,627,2.54,FALSE,5.79,6.11,0.948,-0.32
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0055,Houston Bayland Park,330,FALSE,1280,5.18,FALSE,6.8,7.03,0.967,-0.23
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,0,FALSE,2879,8.18,FALSE,9.69,9.67,1.002,0.02
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,30,FALSE,2691,7.65,FALSE,10.63,9.47,1.122,1.15
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,60,FALSE,2661,7.56,FALSE,12.51,9.36,1.336,3.15
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,90,TRUE,2740,7.79,FALSE,14.48,8.8,1.645,5.68
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,120,TRUE,3378,9.6,FALSE,9.54,7.9,1.207,1.64
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,150,FALSE,6842,19.44,FALSE,5.39,7.34,0.735,-1.95
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,180,FALSE,6765,19.22,FALSE,4.19,6.91,0.607,-2.71
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,210,FALSE,2876,8.17,FALSE,4.77,6.73,0.71,-1.95
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,240,FALSE,999,2.84,FALSE,7.29,7.76,0.938,-0.48
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,270,FALSE,896,2.55,FALSE,8.89,7.73,1.151,1.16
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,300,FALSE,876,2.49,FALSE,11.19,8.67,1.29,2.51
+Without Deer Park #2 after its move,NO2,Houston other,48-201-0417,Houston Harvard Street,330,FALSE,1587,4.51,FALSE,10.23,9.02,1.134,1.21
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,FALSE,2663,7.48,FALSE,6.35,6.93,0.917,-0.58
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,30,FALSE,2212,6.22,FALSE,6.34,6.76,0.937,-0.42
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,60,FALSE,1899,5.34,FALSE,6.25,5.73,1.091,0.52
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,90,FALSE,2168,6.09,FALSE,7.03,5.54,1.27,1.49
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,120,FALSE,3045,8.56,FALSE,7.82,5.75,1.36,2.07
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,150,FALSE,5060,14.22,FALSE,6.45,5.79,1.114,0.66
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,180,FALSE,7835,22.01,FALSE,4.75,5.82,0.817,-1.07
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,210,FALSE,5098,14.32,FALSE,4.6,6.23,0.739,-1.63
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,240,FALSE,1603,4.5,FALSE,7.59,6.85,1.109,0.75
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,270,FALSE,875,2.46,FALSE,8.99,7.12,1.264,1.88
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,300,FALSE,1152,3.24,FALSE,9.3,7.5,1.239,1.79
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,330,FALSE,1981,5.57,FALSE,7.28,7.11,1.023,0.17
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,FALSE,2517,7.51,FALSE,3.46,6.53,0.53,-3.07
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,30,FALSE,2623,7.83,FALSE,3.4,5.94,0.572,-2.54
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,60,FALSE,1789,5.34,FALSE,6.41,6.08,1.054,0.33
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,90,FALSE,2413,7.2,FALSE,7.8,6.06,1.288,1.74
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,120,FALSE,3277,9.78,FALSE,7.33,5.79,1.266,1.54
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,150,FALSE,5893,17.59,FALSE,8.15,5.92,1.377,2.23
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,180,FALSE,8712,26,FALSE,5.13,5.34,0.962,-0.2
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,210,FALSE,1534,4.58,FALSE,5.95,5.71,1.041,0.23
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,240,FALSE,547,1.63,FALSE,7.67,6.06,1.267,1.62
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,270,FALSE,634,1.89,FALSE,7.99,6.24,1.28,1.75
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,300,FALSE,1596,4.76,FALSE,5.48,6.86,0.799,-1.38
+Without Deer Park #2 after its move,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,330,FALSE,1972,5.89,FALSE,3.27,6.81,0.481,-3.54
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,0,FALSE,1563,6.96,FALSE,20.2,24.48,0.825,-4.28
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,30,FALSE,1908,8.49,FALSE,20.77,23.85,0.871,-3.08
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,60,FALSE,1440,6.41,FALSE,19.86,22.79,0.872,-2.93
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,90,TRUE,1413,6.29,FALSE,27.8,26.97,1.031,0.83
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,120,TRUE,2506,11.15,FALSE,35.36,30.86,1.146,4.5
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,150,TRUE,4112,18.3,FALSE,28.34,26.85,1.056,1.49
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,180,TRUE,3551,15.81,FALSE,24.59,23.57,1.043,1.02
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,210,TRUE,1438,6.4,FALSE,26.33,25.77,1.022,0.56
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,240,TRUE,1195,5.32,FALSE,24.67,23.83,1.035,0.84
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,270,TRUE,547,2.43,FALSE,25.31,24.33,1.04,0.98
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,300,FALSE,676,3.01,FALSE,25.03,26.2,0.956,-1.16
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1034,Houston East,330,FALSE,2118,9.43,FALSE,20.66,23.95,0.863,-3.29
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,TRUE,869,5.28,FALSE,23.85,26.57,0.898,-2.72
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,30,TRUE,1287,7.82,FALSE,24.98,27,0.925,-2.02
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,60,TRUE,960,5.83,FALSE,24.1,24.68,0.977,-0.58
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,90,TRUE,1718,10.44,FALSE,30.27,28.11,1.077,2.15
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,120,FALSE,2381,14.47,FALSE,35.69,31.48,1.134,4.21
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,150,FALSE,2838,17.25,FALSE,27.7,27.58,1.005,0.13
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,180,FALSE,2376,14.44,FALSE,25.59,26.68,0.959,-1.09
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,210,FALSE,1222,7.43,FALSE,24.33,25.35,0.96,-1.02
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,240,FALSE,612,3.72,FALSE,22.73,24.86,0.914,-2.13
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,270,FALSE,427,2.6,FALSE,23.49,24.42,0.962,-0.93
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,300,TRUE,512,3.11,FALSE,26.95,27.75,0.971,-0.8
+Without new wind sensors,Ozone,Houston Ship Channel,48-201-1039,Houston Deer Park #2,330,TRUE,1252,7.61,FALSE,25.04,27.15,0.922,-2.11
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,0,FALSE,693,9.57,FALSE,27.04,28.41,0.952,-1.37
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,30,FALSE,533,7.36,FALSE,25.13,25.76,0.975,-0.63
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,60,TRUE,417,5.76,FALSE,28.9,28.1,1.029,0.8
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,90,TRUE,493,6.81,FALSE,33.44,30.16,1.109,3.28
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,120,FALSE,1027,14.18,FALSE,33.99,30.22,1.125,3.77
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,150,FALSE,1657,22.88,FALSE,29.07,30.1,0.966,-1.03
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,180,FALSE,1063,14.68,FALSE,26.93,28.83,0.934,-1.9
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,210,FALSE,370,5.11,FALSE,27.61,29.23,0.945,-1.62
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,240,FALSE,151,2.09,TRUE,24.69,26.64,0.927,-1.95
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,270,FALSE,179,2.47,TRUE,27.02,27.28,0.99,-0.26
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,300,FALSE,265,3.66,FALSE,35.06,33.03,1.061,2.03
+Without new wind sensors,Ozone,Houston other,48-201-0055,Houston Bayland Park,330,FALSE,394,5.44,FALSE,29.12,30.14,0.966,-1.02
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,0,FALSE,3002,8.29,FALSE,23.12,26.09,0.886,-2.98
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,30,FALSE,2816,7.77,FALSE,23.91,26.54,0.901,-2.64
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,60,FALSE,2750,7.59,FALSE,24.87,27.14,0.916,-2.27
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,90,TRUE,2782,7.68,FALSE,26.78,28.18,0.95,-1.4
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,120,TRUE,3461,9.55,FALSE,34.25,30.09,1.138,4.16
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,150,FALSE,7046,19.45,FALSE,31.54,30.07,1.049,1.47
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,180,FALSE,6937,19.15,FALSE,29.06,29.25,0.993,-0.19
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,210,FALSE,2916,8.05,FALSE,30.19,29.08,1.038,1.11
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,240,FALSE,1022,2.82,FALSE,30.12,28.81,1.046,1.32
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,270,FALSE,911,2.51,FALSE,30.85,28.8,1.071,2.05
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,300,FALSE,929,2.56,FALSE,27.4,28.16,0.973,-0.76
+Without new wind sensors,Ozone,Houston other,48-201-0417,Houston Harvard Street,330,FALSE,1654,4.57,FALSE,26.84,28.46,0.943,-1.61
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,FALSE,2950,7.47,FALSE,27.86,29.77,0.936,-1.91
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,30,FALSE,2328,5.9,FALSE,31.29,31.39,0.997,-0.09
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,60,FALSE,2051,5.2,FALSE,34.11,33.44,1.02,0.68
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,90,FALSE,2414,6.11,FALSE,33.97,34.03,0.998,-0.06
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,120,FALSE,3387,8.58,FALSE,32.7,33.61,0.973,-0.91
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,150,FALSE,5459,13.83,FALSE,32.57,33.17,0.982,-0.6
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,180,FALSE,8543,21.64,FALSE,32.41,31.78,1.02,0.63
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,210,FALSE,6062,15.35,FALSE,31.74,29.87,1.063,1.87
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,240,FALSE,1784,4.52,FALSE,29.85,28.48,1.048,1.37
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,270,FALSE,928,2.35,FALSE,27.91,28.53,0.978,-0.62
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,300,FALSE,1257,3.18,FALSE,26.65,28.61,0.931,-1.96
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,330,FALSE,2316,5.87,FALSE,27.58,29.78,0.926,-2.21
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,FALSE,1041,7.54,FALSE,28.17,28.73,0.981,-0.56
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,30,FALSE,1014,7.34,FALSE,31.72,30.51,1.039,1.2
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,60,FALSE,661,4.79,FALSE,26.37,29.03,0.909,-2.65
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,90,FALSE,923,6.68,FALSE,27.3,29.07,0.939,-1.77
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,120,FALSE,1181,8.55,FALSE,32.64,31.43,1.039,1.22
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,150,FALSE,2248,16.27,FALSE,29.81,30.35,0.982,-0.54
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,180,FALSE,3806,27.55,FALSE,31.54,30.69,1.028,0.86
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,210,FALSE,654,4.73,FALSE,31.41,29.72,1.057,1.69
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,240,FALSE,302,2.19,FALSE,30.72,28.57,1.075,2.14
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,270,FALSE,391,2.83,FALSE,25.1,28.07,0.894,-2.96
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,300,FALSE,804,5.82,FALSE,25.26,26.83,0.941,-1.57
+Without new wind sensors,Ozone,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,330,FALSE,789,5.71,FALSE,27.62,27.71,0.997,-0.09
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,0,FALSE,1513,6.72,FALSE,12.97,11.79,1.1,1.18
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,30,FALSE,1925,8.55,FALSE,14.07,11.85,1.188,2.22
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,60,FALSE,1470,6.53,FALSE,16.29,11.82,1.378,4.47
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,90,TRUE,1429,6.35,FALSE,15.08,10.93,1.38,4.15
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,120,TRUE,2562,11.38,FALSE,11.95,10.18,1.174,1.77
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,150,TRUE,4175,18.54,FALSE,7.81,10.07,0.776,-2.26
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,180,TRUE,3541,15.73,FALSE,5.4,9.44,0.572,-4.04
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,210,TRUE,1429,6.35,FALSE,5.69,9.13,0.624,-3.43
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,240,TRUE,1201,5.33,FALSE,8.16,9.53,0.857,-1.37
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,270,TRUE,549,2.44,FALSE,11.46,10.24,1.118,1.21
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,300,FALSE,661,2.94,FALSE,15.1,11.05,1.367,4.05
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1034,Houston East,330,FALSE,2059,9.15,FALSE,13.84,11.99,1.155,1.86
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,0,TRUE,793,4.88,FALSE,8.29,6.99,1.185,1.29
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,30,TRUE,1252,7.7,FALSE,8.98,6.89,1.303,2.09
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,60,TRUE,949,5.84,FALSE,10.17,6.99,1.455,3.18
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,90,TRUE,1718,10.57,FALSE,7.62,6.38,1.195,1.25
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,120,FALSE,2381,14.65,FALSE,5.72,5.37,1.065,0.35
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,150,FALSE,2852,17.54,FALSE,3.24,5.19,0.625,-1.95
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,180,FALSE,2372,14.59,FALSE,2.75,5.1,0.539,-2.35
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,210,FALSE,1219,7.5,FALSE,4.13,5.29,0.781,-1.16
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,240,FALSE,615,3.78,FALSE,6.43,5.88,1.094,0.55
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,270,FALSE,433,2.66,FALSE,7.73,6.18,1.252,1.55
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,300,TRUE,510,3.14,FALSE,8.5,7.13,1.192,1.37
+Without new wind sensors,NO2,Houston Ship Channel,48-201-1039,Houston Deer Park #2,330,TRUE,1162,7.15,FALSE,8.41,7.38,1.14,1.04
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,0,FALSE,620,9.76,FALSE,7.14,7.15,0.998,-0.01
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,30,FALSE,432,6.8,FALSE,10.75,7.35,1.463,3.4
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,60,TRUE,334,5.26,FALSE,12.09,6.65,1.818,5.44
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,90,TRUE,400,6.3,FALSE,10.01,5.81,1.721,4.19
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,120,FALSE,931,14.66,FALSE,6.1,5.81,1.049,0.29
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,150,FALSE,1505,23.69,FALSE,3.53,5.68,0.621,-2.15
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,180,FALSE,976,15.37,FALSE,2.98,5.31,0.562,-2.33
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,210,FALSE,308,4.85,FALSE,5.48,5.6,0.979,-0.12
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,240,FALSE,131,2.06,TRUE,6.53,5.61,1.163,0.91
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,270,FALSE,153,2.41,TRUE,6.68,6.06,1.103,0.62
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,300,FALSE,221,3.48,FALSE,5.04,5.99,0.841,-0.95
+Without new wind sensors,NO2,Houston other,48-201-0055,Houston Bayland Park,330,FALSE,341,5.37,FALSE,7.85,6.89,1.139,0.96
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,0,FALSE,2879,8.18,FALSE,9.69,9.67,1.002,0.02
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,30,FALSE,2691,7.65,FALSE,10.63,9.47,1.122,1.15
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,60,FALSE,2661,7.56,FALSE,12.51,9.36,1.336,3.15
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,90,TRUE,2740,7.79,FALSE,14.48,8.8,1.645,5.68
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,120,TRUE,3378,9.6,FALSE,9.54,7.9,1.207,1.64
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,150,FALSE,6842,19.44,FALSE,5.39,7.34,0.735,-1.95
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,180,FALSE,6765,19.22,FALSE,4.19,6.91,0.607,-2.71
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,210,FALSE,2876,8.17,FALSE,4.77,6.73,0.71,-1.95
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,240,FALSE,999,2.84,FALSE,7.29,7.76,0.938,-0.48
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,270,FALSE,896,2.55,FALSE,8.89,7.73,1.151,1.16
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,300,FALSE,876,2.49,FALSE,11.19,8.67,1.29,2.51
+Without new wind sensors,NO2,Houston other,48-201-0417,Houston Harvard Street,330,FALSE,1587,4.51,FALSE,10.23,9.02,1.134,1.21
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,0,FALSE,2663,7.48,FALSE,6.35,6.93,0.917,-0.58
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,30,FALSE,2212,6.22,FALSE,6.34,6.76,0.937,-0.42
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,60,FALSE,1899,5.34,FALSE,6.25,5.73,1.091,0.52
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,90,FALSE,2168,6.09,FALSE,7.03,5.54,1.27,1.49
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,120,FALSE,3045,8.56,FALSE,7.82,5.75,1.36,2.07
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,150,FALSE,5060,14.22,FALSE,6.45,5.79,1.114,0.66
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,180,FALSE,7835,22.01,FALSE,4.75,5.82,0.817,-1.07
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,210,FALSE,5098,14.32,FALSE,4.6,6.23,0.739,-1.63
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,240,FALSE,1603,4.5,FALSE,7.59,6.85,1.109,0.75
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,270,FALSE,875,2.46,FALSE,8.99,7.12,1.264,1.88
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,300,FALSE,1152,3.24,FALSE,9.3,7.5,1.239,1.79
+Without new wind sensors,NO2,Dallas-Fort Worth,48-113-0087,Dallas Redbird Airport Executive,330,FALSE,1981,5.57,FALSE,7.28,7.11,1.023,0.17
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,0,FALSE,941,7.03,FALSE,4.16,7.11,0.585,-2.95
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,30,FALSE,981,7.33,FALSE,4.11,6.55,0.628,-2.43
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,60,FALSE,644,4.81,FALSE,7.32,6.53,1.121,0.79
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,90,FALSE,911,6.8,FALSE,8.42,6.4,1.316,2.02
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,120,FALSE,1150,8.59,FALSE,7.35,6.09,1.207,1.26
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,150,FALSE,2216,16.55,FALSE,8.52,6.48,1.316,2.04
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,180,FALSE,3716,27.76,FALSE,5.97,6.27,0.952,-0.3
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,210,FALSE,643,4.8,FALSE,7.16,6.71,1.067,0.45
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,240,FALSE,305,2.28,FALSE,8.23,7.11,1.156,1.11
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,270,FALSE,377,2.82,FALSE,9.49,7.29,1.302,2.2
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,300,FALSE,777,5.8,FALSE,6.49,7.78,0.834,-1.29
+Without new wind sensors,NO2,Dallas-Fort Worth,48-439-3009,Grapevine Fairway,330,FALSE,727,5.43,FALSE,3.91,7.34,0.532,-3.44

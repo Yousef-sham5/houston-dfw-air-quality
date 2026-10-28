@@ -1,0 +1,713 @@
+pollutant,cbsa_name,metro_label,is_case_study,metro_rank,n_metros,n_exceedance_days,n_ordinary_days,n_event_days,n_fireworks_days,pct_event
+PM2.5,"Bakersfield, CA","Bakersfield, CA",FALSE,1,359,261,257,0,4,0
+PM2.5,"Fresno, CA","Fresno, CA",FALSE,2,359,257,247,6,4,2.3
+PM2.5,"Fairbanks, AK","Fairbanks, AK",FALSE,3,359,215,190,0,25,0
+PM2.5,"Chicago-Naperville-Elgin, IL-IN-WI","Chicago, IL",FALSE,4,359,191,33,154,4,80.6
+PM2.5,"Minneapolis-St. Paul-Bloomington, MN-WI","Minneapolis, MN",FALSE,5,359,188,64,124,0,66
+PM2.5,"Detroit-Warren-Dearborn, MI","Detroit, MI",FALSE,6,359,175,23,143,9,81.7
+PM2.5,"Riverside-San Bernardino-Ontario, CA","Riverside, CA",FALSE,7,359,144,124,0,20,0
+PM2.5,"Hanford-Corcoran, CA","Hanford, CA",FALSE,8,359,139,137,2,0,1.4
+PM2.5,"Salt Lake City, UT","Salt Lake City, UT",FALSE,9,359,137,98,31,8,22.6
+PM2.5,"Los Angeles-Long Beach-Anaheim, CA","Los Angeles, CA",FALSE,10,359,132,94,11,27,8.3
+PM2.5,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD","Philadelphia, PA",FALSE,11,359,127,21,106,0,83.5
+PM2.5,"Eugene, OR","Eugene, OR",FALSE,12,359,123,94,28,1,22.8
+PM2.5,"Reno, NV","Reno, NV",FALSE,12,359,123,87,36,0,29.3
+PM2.5,"Bishop, CA","Bishop, CA",FALSE,14,359,115,111,3,1,2.6
+PM2.5,"Visalia-Porterville, CA","Visalia, CA",FALSE,15,359,110,108,1,1,0.9
+PM2.5,"Seattle-Tacoma-Bellevue, WA","Seattle, WA",FALSE,16,359,100,62,27,11,27
+PM2.5,"Duluth, MN-WI","Duluth, MN",FALSE,17,359,95,41,54,0,56.8
+PM2.5,"Phoenix-Mesa-Scottsdale, AZ","Phoenix, AZ",FALSE,18,359,93,63,0,30,0
+PM2.5,"Bismarck, ND","Bismarck, ND",FALSE,19,359,88,50,38,0,43.2
+PM2.5,"Las Cruces, NM","Las Cruces, NM",FALSE,20,359,86,86,0,0,0
+PM2.5,"Brownsville-Harlingen, TX","Brownsville, TX",FALSE,21,359,85,81,4,0,4.7
+PM2.5,"Sacramento--Roseville--Arden-Arcade, CA","Sacramento, CA",FALSE,22,359,78,71,7,0,9
+PM2.5,"Pittsburgh, PA","Pittsburgh, PA",FALSE,23,359,77,13,62,2,80.5
+PM2.5,"New York-Newark-Jersey City, NY-NJ-PA","New York, NY",FALSE,24,359,75,1,69,5,92
+PM2.5,"Cincinnati, OH-KY-IN","Cincinnati, OH",FALSE,25,359,72,7,56,9,77.8
+PM2.5,"Yakima, WA","Yakima, WA",FALSE,26,359,71,49,22,0,31
+PM2.5,"Las Vegas-Henderson-Paradise, NV","Las Vegas, NV",FALSE,27,359,69,18,45,6,65.2
+PM2.5,"Indianapolis-Carmel-Anderson, IN","Indianapolis, IN",FALSE,28,359,68,31,27,10,39.7
+PM2.5,"El Paso, TX","El Paso, TX",FALSE,29,359,66,64,2,0,3
+PM2.5,"Modesto, CA","Modesto, CA",FALSE,29,359,66,64,2,0,3
+PM2.5,"Washington-Arlington-Alexandria, DC-VA-MD-WV","Washington, DC",FALSE,31,359,65,1,41,23,63.1
+PM2.5,"Milwaukee-Waukesha-West Allis, WI","Milwaukee, WI",FALSE,32,359,62,5,57,0,91.9
+PM2.5,"Missoula, MT","Missoula, MT",FALSE,33,359,60,50,10,0,16.7
+PM2.5,"Klamath Falls, OR","Klamath Falls, OR",FALSE,34,359,57,47,9,1,15.8
+PM2.5,"Spokane-Spokane Valley, WA","Spokane, WA",FALSE,34,359,57,25,32,0,56.1
+PM2.5,"Brainerd, MN","Brainerd, MN",FALSE,36,359,52,20,32,0,61.5
+PM2.5,"Helena, MT","Helena, MT",FALSE,37,359,47,32,15,0,31.9
+PM2.5,"Minot, ND","Minot, ND",FALSE,37,359,47,28,19,0,40.4
+PM2.5,"Stockton-Lodi, CA","Stockton, CA",FALSE,39,359,46,44,2,0,4.3
+PM2.5,"Merced, CA","Merced, CA",FALSE,40,359,43,41,2,0,4.7
+PM2.5,"Cleveland-Elyria, OH","Cleveland, OH",FALSE,41,359,42,7,34,1,81
+PM2.5,"Denver-Aurora-Lakewood, CO","Denver, CO",FALSE,41,359,42,10,32,0,76.2
+PM2.5,"McAllen-Edinburg-Mission, TX","McAllen, TX",FALSE,43,359,41,41,0,0,0
+PM2.5,"Gardnerville Ranchos, NV","Gardnerville Ranchos, NV",FALSE,44,359,39,31,8,0,20.5
+PM2.5,"Fargo, ND-MN","Fargo, ND",FALSE,45,359,38,21,17,0,44.7
+PM2.5,"St. Louis, MO-IL","St. Louis, MO",FALSE,45,359,38,5,32,1,84.2
+PM2.5,"Boise City, ID","Boise City, ID",FALSE,47,359,37,30,6,1,16.2
+PM2.5,"Carson City, NV","Carson City, NV",FALSE,48,359,36,25,11,0,30.6
+PM2.5,"San Antonio-New Braunfels, TX","San Antonio, TX",FALSE,48,359,36,35,0,1,0
+PM2.5,"Butte-Silver Bow, MT","Butte, MT",FALSE,50,359,35,26,8,1,22.9
+PM2.5,"El Centro, CA","El Centro, CA",FALSE,50,359,35,35,0,0,0
+PM2.5,"Houston-The Woodlands-Sugar Land, TX","Houston, TX",TRUE,52,359,34,25,1,8,2.9
+PM2.5,"Bemidji, MN","Bemidji, MN",FALSE,53,359,31,15,16,0,51.6
+PM2.5,"Grand Rapids-Wyoming, MI","Grand Rapids, MI",FALSE,54,359,30,4,25,1,83.3
+PM2.5,"Kansas City, MO-KS","Kansas City, MO",FALSE,54,359,30,7,21,2,70
+PM2.5,"Dickinson, ND","Dickinson, ND",FALSE,56,359,28,14,14,0,50
+PM2.5,"Truckee-Grass Valley, CA","Truckee, CA",FALSE,56,359,28,27,1,0,3.6
+PM2.5,"Eau Claire, WI","Eau Claire, WI",FALSE,58,359,27,14,13,0,48.1
+PM2.5,"Logan, UT-ID","Logan, UT",FALSE,58,359,27,21,6,0,22.2
+PM2.5,"Louisville/Jefferson County, KY-IN","Louisville/Jefferson County, KY",FALSE,58,359,27,8,16,3,59.3
+PM2.5,"Medford, OR","Medford, OR",FALSE,58,359,27,21,6,0,22.2
+PM2.5,"Red Bluff, CA","Red Bluff, CA",FALSE,58,359,27,26,1,0,3.7
+PM2.5,"Madison, WI","Madison, WI",FALSE,63,359,26,5,21,0,80.8
+PM2.5,"Madera, CA","Madera, CA",FALSE,64,359,25,24,1,0,4
+PM2.5,"Sheridan, WY","Sheridan, WY",FALSE,64,359,25,22,3,0,12
+PM2.5,"Knoxville, TN","Knoxville, TN",FALSE,66,359,24,7,15,2,62.5
+PM2.5,"Marshall, MN","Marshall, MN",FALSE,66,359,24,13,11,0,45.8
+PM2.5,"Grants Pass, OR","Grants Pass, OR",FALSE,68,359,23,18,4,1,17.4
+PM2.5,"Green Bay, WI","Green Bay, WI",FALSE,68,359,23,9,14,0,60.9
+PM2.5,"Omaha-Council Bluffs, NE-IA","Omaha, NE",FALSE,68,359,23,1,21,1,91.3
+PM2.5,"Springfield, MA","Springfield, MA",FALSE,68,359,23,0,23,0,100
+PM2.5,"Youngstown-Warren-Boardman, OH-PA","Youngstown, OH",FALSE,68,359,23,1,19,3,82.6
+PM2.5,"Prineville, OR","Prineville, OR",FALSE,73,359,22,15,6,1,27.3
+PM2.5,"Appleton, WI","Appleton, WI",FALSE,74,359,21,7,14,0,66.7
+PM2.5,"Kalispell, MT","Kalispell, MT",FALSE,74,359,21,12,9,0,42.9
+PM2.5,"Lancaster, PA","Lancaster, PA",FALSE,74,359,21,6,15,0,71.4
+PM2.5,"Miami, OK","Miami, OK",FALSE,74,359,21,17,4,0,19
+PM2.5,"Ogden-Clearfield, UT","Ogden, UT",FALSE,74,359,21,13,8,0,38.1
+PM2.5,"Rapid City, SD","Rapid City, SD",FALSE,74,359,21,7,14,0,66.7
+PM2.5,"San Francisco-Oakland-Hayward, CA","San Francisco, CA",FALSE,74,359,21,18,3,0,14.3
+PM2.5,"St. Cloud, MN","St. Cloud, MN",FALSE,74,359,21,6,15,0,71.4
+PM2.5,"Allentown-Bethlehem-Easton, PA-NJ","Allentown, PA",FALSE,82,359,20,1,19,0,95
+PM2.5,"Baltimore-Columbia-Towson, MD","Baltimore, MD",FALSE,82,359,20,2,18,0,90
+PM2.5,"Bend-Redmond, OR","Bend, OR",FALSE,82,359,20,20,0,0,0
+PM2.5,"Boston-Cambridge-Newton, MA-NH","Boston, MA",FALSE,82,359,20,6,14,0,70
+PM2.5,"Buffalo-Cheektowaga-Niagara Falls, NY","Buffalo, NY",FALSE,82,359,20,4,15,1,75
+PM2.5,"Pittsfield, MA","Pittsfield, MA",FALSE,82,359,20,1,19,0,95
+PM2.5,"San Diego-Carlsbad, CA","San Diego, CA",FALSE,82,359,20,18,0,2,0
+PM2.5,"Albuquerque, NM","Albuquerque, NM",FALSE,89,359,19,10,7,2,36.8
+PM2.5,"Corpus Christi, TX","Corpus Christi, TX",FALSE,89,359,19,18,1,0,5.3
+PM2.5,"Dallas-Fort Worth-Arlington, TX","Dallas-Fort Worth, TX",TRUE,89,359,19,10,9,0,47.4
+PM2.5,"Providence-Warwick, RI-MA","Providence, RI",FALSE,89,359,19,1,18,0,94.7
+PM2.5,"Ukiah, CA","Ukiah, CA",FALSE,89,359,19,19,0,0,0
+PM2.5,"Aberdeen, SD","Aberdeen, SD",FALSE,94,359,18,6,12,0,66.7
+PM2.5,"Hartford-West Hartford-East Hartford, CT","Hartford, CT",FALSE,94,359,18,0,18,0,100
+PM2.5,"New Haven-Milford, CT","New Haven, CT",FALSE,94,359,18,0,18,0,100
+PM2.5,"Rochester, MN","Rochester, MN",FALSE,94,359,18,6,12,0,66.7
+PM2.5,"Toledo, OH","Toledo, OH",FALSE,94,359,18,11,7,0,38.9
+PM2.5,"Columbus, GA-AL","Columbus, GA",FALSE,99,359,17,14,2,1,11.8
+PM2.5,"Harrisburg-Carlisle, PA","Harrisburg, PA",FALSE,99,359,17,2,15,0,88.2
+PM2.5,"Wichita, KS","Wichita, KS",FALSE,99,359,17,7,10,0,58.8
+PM2.5,"Winston-Salem, NC","Winston, NC",FALSE,99,359,17,5,12,0,70.6
+PM2.5,"Billings, MT","Billings, MT",FALSE,103,359,16,9,6,1,37.5
+PM2.5,"Chico, CA","Chico, CA",FALSE,103,359,16,15,1,0,6.2
+PM2.5,"Rochester, NY","Rochester, NY",FALSE,103,359,16,2,14,0,87.5
+PM2.5,"Beaver Dam, WI","Beaver Dam, WI",FALSE,106,359,15,2,13,0,86.7
+PM2.5,"Davenport-Moline-Rock Island, IA-IL","Davenport, IA",FALSE,106,359,15,2,13,0,86.7
+PM2.5,"Dayton, OH","Dayton, OH",FALSE,106,359,15,0,14,1,93.3
+PM2.5,"Des Moines-West Des Moines, IA","Des Moines, IA",FALSE,106,359,15,1,14,0,93.3
+PM2.5,"Gillette, WY","Gillette, WY",FALSE,106,359,15,11,4,0,26.7
+PM2.5,"Jackson, WY-ID","Jackson, WY",FALSE,106,359,15,12,3,0,20
+PM2.5,"Lansing-East Lansing, MI","Lansing, MI",FALSE,106,359,15,0,14,1,93.3
+PM2.5,"Miami-Fort Lauderdale-West Palm Beach, FL","Miami, FL",FALSE,106,359,15,9,0,6,0
+PM2.5,"Atlanta-Sandy Springs-Roswell, GA","Atlanta, GA",FALSE,114,359,14,3,10,1,71.4
+PM2.5,"Austin-Round Rock, TX","Austin, TX",FALSE,114,359,14,12,1,1,7.1
+PM2.5,"Baraboo, WI","Baraboo, WI",FALSE,114,359,14,3,11,0,78.6
+PM2.5,"Bridgeport-Stamford-Norwalk, CT","Bridgeport, CT",FALSE,114,359,14,0,14,0,100
+PM2.5,"Brookings, SD","Brookings, SD",FALSE,114,359,14,4,10,0,71.4
+PM2.5,"Charlotte-Concord-Gastonia, NC-SC","Charlotte, NC",FALSE,114,359,14,0,13,1,92.9
+PM2.5,"Columbus, OH","Columbus, OH",FALSE,114,359,14,3,11,0,78.6
+PM2.5,"Elkhart-Goshen, IN","Elkhart, IN",FALSE,114,359,14,9,5,0,35.7
+PM2.5,"Mankato-North Mankato, MN","Mankato, MN",FALSE,114,359,14,4,10,0,71.4
+PM2.5,"Ponca City, OK","Ponca City, OK",FALSE,114,359,14,12,2,0,14.3
+PM2.5,"Richmond, VA","Richmond, VA",FALSE,114,359,14,0,14,0,100
+PM2.5,"Watertown, SD","Watertown, SD",FALSE,114,359,14,4,10,0,71.4
+PM2.5,"Yuba City, CA","Yuba City, CA",FALSE,114,359,14,11,1,2,7.1
+PM2.5,"Albany, GA","Albany, GA",FALSE,127,359,13,12,1,0,7.7
+PM2.5,"Ellensburg, WA","Ellensburg, WA",FALSE,127,359,13,4,9,0,69.2
+PM2.5,"Gettysburg, PA","Gettysburg, PA",FALSE,127,359,13,4,9,0,69.2
+PM2.5,"Kalamazoo-Portage, MI","Kalamazoo, MI",FALSE,127,359,13,2,11,0,84.6
+PM2.5,"Laredo, TX","Laredo, TX",FALSE,127,359,13,13,0,0,0
+PM2.5,"Marquette, MI","Marquette, MI",FALSE,127,359,13,6,7,0,53.8
+PM2.5,"Nogales, AZ","Nogales, AZ",FALSE,127,359,13,10,0,3,0
+PM2.5,"Portland-Vancouver-Hillsboro, OR-WA","Portland, OR",FALSE,127,359,13,9,4,0,30.8
+PM2.5,"Portsmouth, OH","Portsmouth, OH",FALSE,127,359,13,2,11,0,84.6
+PM2.5,"Scranton--Wilkes-Barre--Hazleton, PA","Scranton, PA",FALSE,127,359,13,2,11,0,84.6
+PM2.5,"Trenton, NJ","Trenton, NJ",FALSE,127,359,13,0,13,0,100
+PM2.5,"Tulsa, OK","Tulsa, OK",FALSE,127,359,13,8,4,1,30.8
+PM2.5,"Adrian, MI","Adrian, MI",FALSE,139,359,12,0,12,0,100
+PM2.5,"Ann Arbor, MI","Ann Arbor, MI",FALSE,139,359,12,0,12,0,100
+PM2.5,"Boulder, CO","Boulder, CO",FALSE,139,359,12,5,7,0,58.3
+PM2.5,"Burlington-South Burlington, VT","Burlington, VT",FALSE,139,359,12,2,10,0,83.3
+PM2.5,"Canton-Massillon, OH","Canton, OH",FALSE,139,359,12,1,11,0,91.7
+PM2.5,"Dover, DE","Dover, DE",FALSE,139,359,12,4,8,0,66.7
+PM2.5,"Sioux Falls, SD","Sioux Falls, SD",FALSE,139,359,12,2,10,0,83.3
+PM2.5,"Vermillion, SD","Vermillion, SD",FALSE,139,359,12,4,8,0,66.7
+PM2.5,"Albany-Schenectady-Troy, NY","Albany, NY",FALSE,147,359,11,1,10,0,90.9
+PM2.5,"Chattanooga, TN-GA","Chattanooga, TN",FALSE,147,359,11,7,4,0,36.4
+PM2.5,"Corning, NY","Corning, NY",FALSE,147,359,11,1,10,0,90.9
+PM2.5,"Eureka-Arcata-Fortuna, CA","Eureka, CA",FALSE,147,359,11,11,0,0,0
+PM2.5,"Greeley, CO","Greeley, CO",FALSE,147,359,11,6,5,0,45.5
+PM2.5,"Provo-Orem, UT","Provo, UT",FALSE,147,359,11,6,5,0,45.5
+PM2.5,"Riverton, WY","Riverton, WY",FALSE,147,359,11,4,7,0,63.6
+PM2.5,"Rockford, IL","Rockford, IL",FALSE,147,359,11,2,9,0,81.8
+PM2.5,"Weirton-Steubenville, WV-OH","Weirton, WV",FALSE,147,359,11,2,9,0,81.8
+PM2.5,"Fort Wayne, IN","Fort Wayne, IN",FALSE,156,359,10,3,7,0,70
+PM2.5,"Havre, MT","Havre, MT",FALSE,156,359,10,5,5,0,50
+PM2.5,"Kingsville, TX","Kingsville, TX",FALSE,156,359,10,9,1,0,10
+PM2.5,"Oklahoma City, OK","Oklahoma City, OK",FALSE,156,359,10,2,8,0,80
+PM2.5,"Pierre, SD","Pierre, SD",FALSE,156,359,10,0,10,0,100
+PM2.5,"Platteville, WI","Platteville, WI",FALSE,156,359,10,2,8,0,80
+PM2.5,"Redding, CA","Redding, CA",FALSE,156,359,10,10,0,0,0
+PM2.5,"South Bend-Mishawaka, IN-MI","South Bend, IN",FALSE,156,359,10,3,7,0,70
+PM2.5,"Topeka, KS","Topeka, KS",FALSE,156,359,10,3,7,0,70
+PM2.5,"Torrington, CT","Torrington, CT",FALSE,156,359,10,0,10,0,100
+PM2.5,"Wausau, WI","Wausau, WI",FALSE,156,359,10,1,9,0,90
+PM2.5,"Augusta-Richmond County, GA-SC","Augusta, GA",FALSE,167,359,9,7,0,2,0
+PM2.5,"Bay City, MI","Bay City, MI",FALSE,167,359,9,1,8,0,88.9
+PM2.5,"Bennington, VT","Bennington, VT",FALSE,167,359,9,0,9,0,100
+PM2.5,"Cedar Rapids, IA","Cedar Rapids, IA",FALSE,167,359,9,1,8,0,88.9
+PM2.5,"Clinton, IA","Clinton, IA",FALSE,167,359,9,2,7,0,77.8
+PM2.5,"Hobbs, NM","Hobbs, NM",FALSE,167,359,9,9,0,0,0
+PM2.5,"McAlester, OK","McAlester, OK",FALSE,167,359,9,7,2,0,22.2
+PM2.5,"Syracuse, NY","Syracuse, NY",FALSE,167,359,9,1,8,0,88.9
+PM2.5,"Akron, OH","Akron, OH",FALSE,175,359,8,1,6,1,75
+PM2.5,"Anchorage, AK","Anchorage, AK",FALSE,175,359,8,5,0,3,0
+PM2.5,"Bartlesville, OK","Bartlesville, OK",FALSE,175,359,8,5,3,0,37.5
+PM2.5,"Bloomington, IL","Bloomington, IL",FALSE,175,359,8,2,6,0,75
+PM2.5,"Bloomington, IN","Bloomington, IN",FALSE,175,359,8,1,7,0,87.5
+PM2.5,"Huntington-Ashland, WV-KY-OH","Huntington, WV",FALSE,175,359,8,1,7,0,87.5
+PM2.5,"Indiana, PA","Indiana, PA",FALSE,175,359,8,0,8,0,100
+PM2.5,"Lebanon, PA","Lebanon, PA",FALSE,175,359,8,0,8,0,100
+PM2.5,"Marshall, TX","Marshall, TX",FALSE,175,359,8,8,0,0,0
+PM2.5,"Muscatine, IA","Muscatine, IA",FALSE,175,359,8,0,8,0,100
+PM2.5,"San Jose-Sunnyvale-Santa Clara, CA","San Jose, CA",FALSE,175,359,8,6,2,0,25
+PM2.5,"York-Hanover, PA","York, PA",FALSE,175,359,8,0,8,0,100
+PM2.5,"Altoona, PA","Altoona, PA",FALSE,187,359,7,0,7,0,100
+PM2.5,"Champaign-Urbana, IL","Champaign, IL",FALSE,187,359,7,0,7,0,100
+PM2.5,"Decatur, IL","Decatur, IL",FALSE,187,359,7,2,5,0,71.4
+PM2.5,"Flint, MI","Flint, MI",FALSE,187,359,7,0,5,2,71.4
+PM2.5,"Grand Island, NE","Grand Island, NE",FALSE,187,359,7,0,7,0,100
+PM2.5,"Greenfield Town, MA","Greenfield Town, MA",FALSE,187,359,7,0,7,0,100
+PM2.5,"Hagerstown-Martinsburg, MD-WV","Hagerstown, MD",FALSE,187,359,7,0,7,0,100
+PM2.5,"Iowa City, IA","Iowa City, IA",FALSE,187,359,7,1,6,0,85.7
+PM2.5,"La Crosse-Onalaska, WI-MN","La Crosse, WI",FALSE,187,359,7,4,3,0,42.9
+PM2.5,"New Castle, IN","New Castle, IN",FALSE,187,359,7,2,5,0,71.4
+PM2.5,"Raleigh, NC","Raleigh, NC",FALSE,187,359,7,0,7,0,100
+PM2.5,"Reading, PA","Reading, PA",FALSE,187,359,7,0,7,0,100
+PM2.5,"Springfield, IL","Springfield, IL",FALSE,187,359,7,1,6,0,85.7
+PM2.5,"Springfield, OH","Springfield, OH",FALSE,187,359,7,0,7,0,100
+PM2.5,"State College, PA","State College, PA",FALSE,187,359,7,0,7,0,100
+PM2.5,"Winchester, VA-WV","Winchester, VA",FALSE,187,359,7,2,5,0,71.4
+PM2.5,"Yuma, AZ","Yuma, AZ",FALSE,187,359,7,7,0,0,0
+PM2.5,"Atlantic City-Hammonton, NJ","Atlantic City, NJ",FALSE,204,359,6,2,4,0,66.7
+PM2.5,"Baton Rouge, LA","Baton Rouge, LA",FALSE,204,359,6,6,0,0,0
+PM2.5,"Beaumont-Port Arthur, TX","Beaumont, TX",FALSE,204,359,6,6,0,0,0
+PM2.5,"Bellingham, WA","Bellingham, WA",FALSE,204,359,6,4,2,0,33.3
+PM2.5,"Birmingham-Hoover, AL","Birmingham, AL",FALSE,204,359,6,4,2,0,33.3
+PM2.5,"Bozeman, MT","Bozeman, MT",FALSE,204,359,6,4,2,0,33.3
+PM2.5,"Cadillac, MI","Cadillac, MI",FALSE,204,359,6,1,5,0,83.3
+PM2.5,"Charlottesville, VA","Charlottesville, VA",FALSE,204,359,6,1,5,0,83.3
+PM2.5,"Cheyenne, WY","Cheyenne, WY",FALSE,204,359,6,1,5,0,83.3
+PM2.5,"Lima, OH","Lima, OH",FALSE,204,359,6,1,5,0,83.3
+PM2.5,"Manchester-Nashua, NH","Manchester, NH",FALSE,204,359,6,1,5,0,83.3
+PM2.5,"Michigan City-La Porte, IN","Michigan City, IN",FALSE,204,359,6,3,3,0,50
+PM2.5,"Nashville-Davidson--Murfreesboro--Franklin, TN","Nashville, TN",FALSE,204,359,6,4,0,2,0
+PM2.5,"Norwich-New London, CT","Norwich, CT",FALSE,204,359,6,1,5,0,83.3
+PM2.5,"Portland-South Portland, ME","Portland, ME",FALSE,204,359,6,3,3,0,50
+PM2.5,"Roanoke, VA","Roanoke, VA",FALSE,204,359,6,0,6,0,100
+PM2.5,"Sioux City, IA-NE-SD","Sioux City, IA",FALSE,204,359,6,2,4,0,66.7
+PM2.5,"St. Joseph, MO-KS","St. Joseph, MO",FALSE,204,359,6,3,3,0,50
+PM2.5,"Vineland-Bridgeton, NJ","Vineland, NJ",FALSE,204,359,6,2,4,0,66.7
+PM2.5,"Wheeling, WV-OH","Wheeling, WV",FALSE,204,359,6,1,5,0,83.3
+PM2.5,"Beatrice, NE","Beatrice, NE",FALSE,224,359,5,1,4,0,80
+PM2.5,"Bremerton-Silverdale, WA","Bremerton, WA",FALSE,224,359,5,2,3,0,60
+PM2.5,"Clarksville, TN-KY","Clarksville, TN",FALSE,224,359,5,0,3,2,60
+PM2.5,"Erie, PA","Erie, PA",FALSE,224,359,5,2,3,0,60
+PM2.5,"Holland, MI","Holland, MI",FALSE,224,359,5,0,5,0,100
+PM2.5,"Keene, NH","Keene, NH",FALSE,224,359,5,0,5,0,100
+PM2.5,"Kokomo, IN","Kokomo, IN",FALSE,224,359,5,0,5,0,100
+PM2.5,"Lafayette-West Lafayette, IN","Lafayette, IN",FALSE,224,359,5,0,5,0,100
+PM2.5,"Lubbock, TX","Lubbock, TX",FALSE,224,359,5,4,1,0,20
+PM2.5,"Macon, GA","Macon, GA",FALSE,224,359,5,3,2,0,40
+PM2.5,"Memphis, TN-MS-AR","Memphis, TN",FALSE,224,359,5,5,0,0,0
+PM2.5,"Oxnard-Thousand Oaks-Ventura, CA","Oxnard, CA",FALSE,224,359,5,5,0,0,0
+PM2.5,"Salisbury, MD-DE","Salisbury, MD",FALSE,224,359,5,1,4,0,80
+PM2.5,"Tampa-St. Petersburg-Clearwater, FL","Tampa, FL",FALSE,224,359,5,2,0,3,0
+PM2.5,"Terre Haute, IN","Terre Haute, IN",FALSE,224,359,5,0,3,2,60
+PM2.5,"Valdosta, GA","Valdosta, GA",FALSE,224,359,5,4,1,0,20
+PM2.5,"Worcester, MA-CT","Worcester, MA",FALSE,224,359,5,1,4,0,80
+PM2.5,"Amarillo, TX","Amarillo, TX",FALSE,241,359,4,4,0,0,0
+PM2.5,"Ardmore, OK","Ardmore, OK",FALSE,241,359,4,2,2,0,50
+PM2.5,"Cambridge, MD","Cambridge, MD",FALSE,241,359,4,0,4,0,100
+PM2.5,"Casper, WY","Casper, WY",FALSE,241,359,4,2,2,0,50
+PM2.5,"Claremont-Lebanon, NH-VT","Claremont, NH",FALSE,241,359,4,0,4,0,100
+PM2.5,"Columbia, SC","Columbia, SC",FALSE,241,359,4,3,1,0,25
+PM2.5,"Glenwood Springs, CO","Glenwood Springs, CO",FALSE,241,359,4,2,2,0,50
+PM2.5,"Johnstown, PA","Johnstown, PA",FALSE,241,359,4,0,4,0,100
+PM2.5,"Kingsport-Bristol-Bristol, TN-VA","Kingsport, TN",FALSE,241,359,4,0,4,0,100
+PM2.5,"Middlesborough, KY","Middlesborough, KY",FALSE,241,359,4,1,3,0,75
+PM2.5,"Mount Vernon, IL","Mount Vernon, IL",FALSE,241,359,4,2,2,0,50
+PM2.5,"New Orleans-Metairie, LA","New Orleans, LA",FALSE,241,359,4,0,0,4,0
+PM2.5,"Paducah, KY-IL","Paducah, KY",FALSE,241,359,4,3,1,0,25
+PM2.5,"Peoria, IL","Peoria, IL",FALSE,241,359,4,0,4,0,100
+PM2.5,"Rutland, VT","Rutland, VT",FALSE,241,359,4,0,4,0,100
+PM2.5,"San Juan-Carolina-Caguas, PR","San Juan, PR",FALSE,241,359,4,3,0,1,0
+PM2.5,"Vernal, UT","Vernal, UT",FALSE,241,359,4,0,4,0,100
+PM2.5,"Athens-Clarke County, GA","Athens, GA",FALSE,258,359,3,1,2,0,66.7
+PM2.5,"Bowling Green, KY","Bowling Green, KY",FALSE,258,359,3,1,2,0,66.7
+PM2.5,"Cedar City, UT","Cedar City, UT",FALSE,258,359,3,1,2,0,66.7
+PM2.5,"Colorado Springs, CO","Colorado Springs, CO",FALSE,258,359,3,0,3,0,100
+PM2.5,"Columbus, IN","Columbus, IN",FALSE,258,359,3,0,3,0,100
+PM2.5,"Durham-Chapel Hill, NC","Durham, NC",FALSE,258,359,3,0,3,0,100
+PM2.5,"Fayetteville, NC","Fayetteville, NC",FALSE,258,359,3,1,1,1,33.3
+PM2.5,"Fort Collins, CO","Fort Collins, CO",FALSE,258,359,3,2,1,0,33.3
+PM2.5,"Fort Dodge, IA","Fort Dodge, IA",FALSE,258,359,3,0,3,0,100
+PM2.5,"Gainesville, GA","Gainesville, GA",FALSE,258,359,3,0,3,0,100
+PM2.5,"Grand Junction, CO","Grand Junction, CO",FALSE,258,359,3,1,2,0,66.7
+PM2.5,"Greensboro-High Point, NC","Greensboro, NC",FALSE,258,359,3,0,3,0,100
+PM2.5,"Harrisonburg, VA","Harrisonburg, VA",FALSE,258,359,3,1,2,0,66.7
+PM2.5,"Hickory-Lenoir-Morganton, NC","Hickory, NC",FALSE,258,359,3,0,3,0,100
+PM2.5,"Houma-Thibodaux, LA","Houma, LA",FALSE,258,359,3,3,0,0,0
+PM2.5,"Lexington-Fayette, KY","Lexington, KY",FALSE,258,359,3,1,2,0,66.7
+PM2.5,"Mount Vernon-Anacortes, WA","Mount Vernon, WA",FALSE,258,359,3,3,0,0,0
+PM2.5,"Owensboro, KY","Owensboro, KY",FALSE,258,359,3,1,2,0,66.7
+PM2.5,"Sayre, PA","Sayre, PA",FALSE,258,359,3,0,3,0,100
+PM2.5,"Texarkana, TX-AR","Texarkana, TX",FALSE,258,359,3,2,1,0,33.3
+PM2.5,"Virginia Beach-Norfolk-Newport News, VA-NC","Virginia Beach, VA",FALSE,258,359,3,0,3,0,100
+PM2.5,"Warner Robins, GA","Warner Robins, GA",FALSE,258,359,3,2,1,0,33.3
+PM2.5,"Warren, PA","Warren, PA",FALSE,258,359,3,1,2,0,66.7
+PM2.5,"Alexandria, LA","Alexandria, LA",FALSE,281,359,2,2,0,0,0
+PM2.5,"Athens, TN","Athens, TN",FALSE,281,359,2,0,2,0,100
+PM2.5,"Charleston, WV","Charleston, WV",FALSE,281,359,2,0,2,0,100
+PM2.5,"Corsicana, TX","Corsicana, TX",FALSE,281,359,2,1,1,0,50
+PM2.5,"Douglas, GA","Douglas, GA",FALSE,281,359,2,2,0,0,0
+PM2.5,"Dyersburg, TN","Dyersburg, TN",FALSE,281,359,2,2,0,0,0
+PM2.5,"Eagle Pass, TX","Eagle Pass, TX",FALSE,281,359,2,2,0,0,0
+PM2.5,"East Stroudsburg, PA","East Stroudsburg, PA",FALSE,281,359,2,0,2,0,100
+PM2.5,"Elizabethtown-Fort Knox, KY","Elizabethtown, KY",FALSE,281,359,2,0,2,0,100
+PM2.5,"Evansville, IN-KY","Evansville, IN",FALSE,281,359,2,1,1,0,50
+PM2.5,"Fort Smith, AR-OK","Fort Smith, AR",FALSE,281,359,2,1,1,0,50
+PM2.5,"Greenville, NC","Greenville, NC",FALSE,281,359,2,1,1,0,50
+PM2.5,"Greenville-Anderson-Mauldin, SC","Greenville, SC",FALSE,281,359,2,0,2,0,100
+PM2.5,"Hattiesburg, MS","Hattiesburg, MS",FALSE,281,359,2,2,0,0,0
+PM2.5,"Jackson, MS","Jackson, MS",FALSE,281,359,2,2,0,0,0
+PM2.5,"Jackson, TN","Jackson, TN",FALSE,281,359,2,2,0,0,0
+PM2.5,"Jacksonville, FL","Jacksonville, FL",FALSE,281,359,2,2,0,0,0
+PM2.5,"Kahului-Wailuku-Lahaina, HI","Kahului, HI",FALSE,281,359,2,0,0,2,0
+PM2.5,"Laconia, NH","Laconia, NH",FALSE,281,359,2,0,2,0,100
+PM2.5,"Lake Charles, LA","Lake Charles, LA",FALSE,281,359,2,2,0,0,0
+PM2.5,"Laramie, WY","Laramie, WY",FALSE,281,359,2,0,2,0,100
+PM2.5,"Lawton, OK","Lawton, OK",FALSE,281,359,2,0,2,0,100
+PM2.5,"Lewiston-Auburn, ME","Lewiston, ME",FALSE,281,359,2,0,2,0,100
+PM2.5,"Lynchburg, VA","Lynchburg, VA",FALSE,281,359,2,0,2,0,100
+PM2.5,"Myrtle Beach-Conway-North Myrtle Beach, SC-NC","Myrtle Beach, SC",FALSE,281,359,2,2,0,0,0
+PM2.5,"Odessa, TX","Odessa, TX",FALSE,281,359,2,1,1,0,50
+PM2.5,"Orlando-Kissimmee-Sanford, FL","Orlando, FL",FALSE,281,359,2,0,0,2,0
+PM2.5,"Rock Springs, WY","Rock Springs, WY",FALSE,281,359,2,1,1,0,50
+PM2.5,"Santa Cruz-Watsonville, CA","Santa Cruz, CA",FALSE,281,359,2,2,0,0,0
+PM2.5,"Santa Rosa, CA","Santa Rosa, CA",FALSE,281,359,2,2,0,0,0
+PM2.5,"Somerset, KY","Somerset, KY",FALSE,281,359,2,0,2,0,100
+PM2.5,"Spartanburg, SC","Spartanburg, SC",FALSE,281,359,2,0,2,0,100
+PM2.5,"St. George, UT","St. George, UT",FALSE,281,359,2,0,2,0,100
+PM2.5,"Tucson, AZ","Tucson, AZ",FALSE,281,359,2,2,0,0,0
+PM2.5,"Tuscaloosa, AL","Tuscaloosa, AL",FALSE,281,359,2,2,0,0,0
+PM2.5,"Vallejo-Fairfield, CA","Vallejo, CA",FALSE,281,359,2,2,0,0,0
+PM2.5,"Williamsport, PA","Williamsport, PA",FALSE,281,359,2,1,1,0,50
+PM2.5,"Wilmington, NC","Wilmington, NC",FALSE,281,359,2,2,0,0,0
+PM2.5,"Athens, OH","Athens, OH",FALSE,319,359,1,0,1,0,100
+PM2.5,"Brunswick, GA","Brunswick, GA",FALSE,319,359,1,1,0,0,0
+PM2.5,"Clarksburg, WV","Clarksburg, WV",FALSE,319,359,1,0,1,0,100
+PM2.5,"Clearlake, CA","Clearlake, CA",FALSE,319,359,1,1,0,0,0
+PM2.5,"Cleveland, MS","Cleveland, MS",FALSE,319,359,1,1,0,0,0
+PM2.5,"College Station-Bryan, TX","College Station, TX",FALSE,319,359,1,1,0,0,0
+PM2.5,"Cookeville, TN","Cookeville, TN",FALSE,319,359,1,0,1,0,100
+PM2.5,"Deltona-Daytona Beach-Ormond Beach, FL","Deltona, FL",FALSE,319,359,1,1,0,0,0
+PM2.5,"El Dorado, AR","El Dorado, AR",FALSE,319,359,1,1,0,0,0
+PM2.5,"Fairmont, WV","Fairmont, WV",FALSE,319,359,1,0,1,0,100
+PM2.5,"Florence, SC","Florence, SC",FALSE,319,359,1,0,1,0,100
+PM2.5,"Gainesville, FL","Gainesville, FL",FALSE,319,359,1,1,0,0,0
+PM2.5,"Gulfport-Biloxi-Pascagoula, MS","Gulfport, MS",FALSE,319,359,1,1,0,0,0
+PM2.5,"Huntsville, AL","Huntsville, AL",FALSE,319,359,1,0,1,0,100
+PM2.5,"Jamestown-Dunkirk-Fredonia, NY","Jamestown, NY",FALSE,319,359,1,0,1,0,100
+PM2.5,"Jasper, IN","Jasper, IN",FALSE,319,359,1,0,1,0,100
+PM2.5,"Juneau, AK","Juneau, AK",FALSE,319,359,1,0,0,1,0
+PM2.5,"Killeen-Temple, TX","Killeen, TX",FALSE,319,359,1,1,0,0,0
+PM2.5,"Lafayette, LA","Lafayette, LA",FALSE,319,359,1,1,0,0,0
+PM2.5,"Lakeland-Winter Haven, FL","Lakeland, FL",FALSE,319,359,1,0,0,1,0
+PM2.5,"Lincoln, NE","Lincoln, NE",FALSE,319,359,1,0,1,0,100
+PM2.5,"Little Rock-North Little Rock-Conway, AR","Little Rock, AR",FALSE,319,359,1,1,0,0,0
+PM2.5,"Monroe, LA","Monroe, LA",FALSE,319,359,1,1,0,0,0
+PM2.5,"Morgantown, WV","Morgantown, WV",FALSE,319,359,1,0,1,0,100
+PM2.5,"Muncie, IN","Muncie, IN",FALSE,319,359,1,0,1,0,100
+PM2.5,"North Port-Sarasota-Bradenton, FL","North Port, FL",FALSE,319,359,1,1,0,0,0
+PM2.5,"Palm Bay-Melbourne-Titusville, FL","Palm Bay, FL",FALSE,319,359,1,1,0,0,0
+PM2.5,"Parkersburg-Vienna, WV","Parkersburg, WV",FALSE,319,359,1,0,1,0,100
+PM2.5,"Pensacola-Ferry Pass-Brent, FL","Pensacola, FL",FALSE,319,359,1,1,0,0,0
+PM2.5,"Port St. Lucie, FL","Port St. Lucie, FL",FALSE,319,359,1,1,0,0,0
+PM2.5,"Pueblo, CO","Pueblo, CO",FALSE,319,359,1,0,1,0,100
+PM2.5,"Roanoke Rapids, NC","Roanoke Rapids, NC",FALSE,319,359,1,0,1,0,100
+PM2.5,"Salinas, CA","Salinas, CA",FALSE,319,359,1,1,0,0,0
+PM2.5,"Santa Fe, NM","Santa Fe, NM",FALSE,319,359,1,0,1,0,100
+PM2.5,"Savannah, GA","Savannah, GA",FALSE,319,359,1,1,0,0,0
+PM2.5,"Scottsbluff, NE","Scottsbluff, NE",FALSE,319,359,1,0,1,0,100
+PM2.5,"Springfield, MO","Springfield, MO",FALSE,319,359,1,0,1,0,100
+PM2.5,"Tallahassee, FL","Tallahassee, FL",FALSE,319,359,1,1,0,0,0
+PM2.5,"Taos, NM","Taos, NM",FALSE,319,359,1,0,1,0,100
+PM2.5,"Urban Honolulu, HI","Urban Honolulu, HI",FALSE,319,359,1,0,0,1,0
+PM2.5,"Waterloo-Cedar Falls, IA","Waterloo, IA",FALSE,319,359,1,0,1,0,100
+Ozone,"Riverside-San Bernardino-Ontario, CA","Riverside, CA",FALSE,1,353,4688,4688,0,0,0
+Ozone,"Phoenix-Mesa-Scottsdale, AZ","Phoenix, AZ",FALSE,2,353,1889,1889,0,0,0
+Ozone,"Los Angeles-Long Beach-Anaheim, CA","Los Angeles, CA",FALSE,3,353,1585,1585,0,0,0
+Ozone,"Bakersfield, CA","Bakersfield, CA",FALSE,4,353,1097,1097,0,0,0
+Ozone,"Visalia-Porterville, CA","Visalia, CA",FALSE,5,353,941,941,0,0,0
+Ozone,"Houston-The Woodlands-Sugar Land, TX","Houston, TX",TRUE,6,353,882,881,1,0,0.1
+Ozone,"Denver-Aurora-Lakewood, CO","Denver, CO",FALSE,7,353,790,790,0,0,0
+Ozone,"Dallas-Fort Worth-Arlington, TX","Dallas-Fort Worth, TX",TRUE,8,353,771,771,0,0,0
+Ozone,"Fresno, CA","Fresno, CA",FALSE,9,353,697,697,0,0,0
+Ozone,"Chicago-Naperville-Elgin, IL-IN-WI","Chicago, IL",FALSE,10,353,610,583,27,0,4.4
+Ozone,"Salt Lake City, UT","Salt Lake City, UT",FALSE,11,353,487,487,0,0,0
+Ozone,"Las Vegas-Henderson-Paradise, NV","Las Vegas, NV",FALSE,12,353,357,357,0,0,0
+Ozone,"Sacramento--Roseville--Arden-Arcade, CA","Sacramento, CA",FALSE,13,353,341,341,0,0,0
+Ozone,"New York-Newark-Jersey City, NY-NJ-PA","New York, NY",FALSE,14,353,338,315,23,0,6.8
+Ozone,"St. Louis, MO-IL","St. Louis, MO",FALSE,15,353,271,264,7,0,2.6
+Ozone,"Fort Collins, CO","Fort Collins, CO",FALSE,16,353,213,213,0,0,0
+Ozone,"San Diego-Carlsbad, CA","San Diego, CA",FALSE,17,353,208,208,0,0,0
+Ozone,"Bridgeport-Stamford-Norwalk, CT","Bridgeport, CT",FALSE,18,353,201,201,0,0,0
+Ozone,"Carlsbad-Artesia, NM","Carlsbad, NM",FALSE,19,353,187,187,0,0,0
+Ozone,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD","Philadelphia, PA",FALSE,20,353,180,170,10,0,5.6
+Ozone,"El Centro, CA","El Centro, CA",FALSE,21,353,167,167,0,0,0
+Ozone,"Greeley, CO","Greeley, CO",FALSE,22,353,166,166,0,0,0
+Ozone,"Vernal, UT","Vernal, UT",FALSE,23,353,153,153,0,0,0
+Ozone,"Milwaukee-Waukesha-West Allis, WI","Milwaukee, WI",FALSE,24,353,150,142,8,0,5.3
+Ozone,"Cincinnati, OH-KY-IN","Cincinnati, OH",FALSE,25,353,147,139,8,0,5.4
+Ozone,"Las Cruces, NM","Las Cruces, NM",FALSE,26,353,130,130,0,0,0
+Ozone,"Modesto, CA","Modesto, CA",FALSE,26,353,130,130,0,0,0
+Ozone,"Reno, NV","Reno, NV",FALSE,28,353,121,121,0,0,0
+Ozone,"Washington-Arlington-Alexandria, DC-VA-MD-WV","Washington, DC",FALSE,29,353,119,119,0,0,0
+Ozone,"El Paso, TX","El Paso, TX",FALSE,30,353,117,117,0,0,0
+Ozone,"Louisville/Jefferson County, KY-IN","Louisville/Jefferson County, KY",FALSE,31,353,112,106,6,0,5.4
+Ozone,"Oklahoma City, OK","Oklahoma City, OK",FALSE,32,353,108,108,0,0,0
+Ozone,"Baton Rouge, LA","Baton Rouge, LA",FALSE,33,353,102,102,0,0,0
+Ozone,"Kansas City, MO-KS","Kansas City, MO",FALSE,33,353,102,101,1,0,1
+Ozone,"Baltimore-Columbia-Towson, MD","Baltimore, MD",FALSE,35,353,99,99,0,0,0
+Ozone,"Madera, CA","Madera, CA",FALSE,36,353,98,98,0,0,0
+Ozone,"Detroit-Warren-Dearborn, MI","Detroit, MI",FALSE,37,353,96,83,13,0,13.5
+Ozone,"Ogden-Clearfield, UT","Ogden, UT",FALSE,37,353,96,96,0,0,0
+Ozone,"Hanford-Corcoran, CA","Hanford, CA",FALSE,39,353,95,95,0,0,0
+Ozone,"Atlanta-Sandy Springs-Roswell, GA","Atlanta, GA",FALSE,40,353,94,94,0,0,0
+Ozone,"Cleveland-Elyria, OH","Cleveland, OH",FALSE,41,353,90,83,7,0,7.8
+Ozone,"Memphis, TN-MS-AR","Memphis, TN",FALSE,42,353,88,88,0,0,0
+Ozone,"San Antonio-New Braunfels, TX","San Antonio, TX",FALSE,43,353,85,85,0,0,0
+Ozone,"Indianapolis-Carmel-Anderson, IN","Indianapolis, IN",FALSE,44,353,83,75,8,0,9.6
+Ozone,"Albuquerque, NM","Albuquerque, NM",FALSE,45,353,81,81,0,0,0
+Ozone,"Tulsa, OK","Tulsa, OK",FALSE,46,353,79,79,0,0,0
+Ozone,"Merced, CA","Merced, CA",FALSE,47,353,73,73,0,0,0
+Ozone,"Payson, AZ","Payson, AZ",FALSE,47,353,73,73,0,0,0
+Ozone,"Hartford-West Hartford-East Hartford, CT","Hartford, CT",FALSE,49,353,69,69,0,0,0
+Ozone,"Colorado Springs, CO","Colorado Springs, CO",FALSE,50,353,68,68,0,0,0
+Ozone,"Minneapolis-St. Paul-Bloomington, MN-WI","Minneapolis, MN",FALSE,51,353,67,67,0,0,0
+Ozone,"New Haven-Milford, CT","New Haven, CT",FALSE,52,353,63,63,0,0,0
+Ozone,"Oxnard-Thousand Oaks-Ventura, CA","Oxnard, CA",FALSE,52,353,63,63,0,0,0
+Ozone,"Tucson, AZ","Tucson, AZ",FALSE,52,353,63,63,0,0,0
+Ozone,"Boise City, ID","Boise City, ID",FALSE,55,353,60,60,0,0,0
+Ozone,"Omaha-Council Bluffs, NE-IA","Omaha, NE",FALSE,56,353,55,55,0,0,0
+Ozone,"Providence-Warwick, RI-MA","Providence, RI",FALSE,56,353,55,55,0,0,0
+Ozone,"Boulder, CO","Boulder, CO",FALSE,58,353,54,54,0,0,0
+Ozone,"Ardmore, OK","Ardmore, OK",FALSE,59,353,53,53,0,0,0
+Ozone,"Sheboygan, WI","Sheboygan, WI",FALSE,60,353,52,49,3,0,5.8
+Ozone,"Truckee-Grass Valley, CA","Truckee, CA",FALSE,60,353,52,52,0,0,0
+Ozone,"Toledo, OH","Toledo, OH",FALSE,62,353,49,41,8,0,16.3
+Ozone,"Pittsburgh, PA","Pittsburgh, PA",FALSE,63,353,47,35,12,0,25.5
+Ozone,"Racine, WI","Racine, WI",FALSE,64,353,46,44,2,0,4.3
+Ozone,"South Bend-Mishawaka, IN-MI","South Bend, IN",FALSE,64,353,46,41,5,0,10.9
+Ozone,"Peoria, IL","Peoria, IL",FALSE,66,353,44,40,4,0,9.1
+Ozone,"Davenport-Moline-Rock Island, IA-IL","Davenport, IA",FALSE,67,353,43,39,4,0,9.3
+Ozone,"Nashville-Davidson--Murfreesboro--Franklin, TN","Nashville, TN",FALSE,67,353,43,43,0,0,0
+Ozone,"Red Bluff, CA","Red Bluff, CA",FALSE,67,353,43,43,0,0,0
+Ozone,"Provo-Orem, UT","Provo, UT",FALSE,70,353,42,42,0,0,0
+Ozone,"Evansville, IN-KY","Evansville, IN",FALSE,71,353,41,36,5,0,12.2
+Ozone,"Beaumont-Port Arthur, TX","Beaumont, TX",FALSE,72,353,40,40,0,0,0
+Ozone,"Boston-Cambridge-Newton, MA-NH","Boston, MA",FALSE,72,353,40,40,0,0,0
+Ozone,"Holland, MI","Holland, MI",FALSE,74,353,39,38,1,0,2.6
+Ozone,"Farmington, NM","Farmington, NM",FALSE,75,353,38,38,0,0,0
+Ozone,"Madison, WI","Madison, WI",FALSE,75,353,38,33,5,0,13.2
+Ozone,"Bishop, CA","Bishop, CA",FALSE,77,353,36,36,0,0,0
+Ozone,"Dayton, OH","Dayton, OH",FALSE,77,353,36,32,4,0,11.1
+Ozone,"Grand Rapids-Wyoming, MI","Grand Rapids, MI",FALSE,77,353,36,33,3,0,8.3
+Ozone,"Michigan City-La Porte, IN","Michigan City, IN",FALSE,80,353,34,33,1,0,2.9
+Ozone,"Trenton, NJ","Trenton, NJ",FALSE,80,353,34,34,0,0,0
+Ozone,"Birmingham-Hoover, AL","Birmingham, AL",FALSE,82,353,33,33,0,0,0
+Ozone,"Muskegon, MI","Muskegon, MI",FALSE,83,353,32,30,2,0,6.2
+Ozone,"San Luis Obispo-Paso Robles-Arroyo Grande, CA","San Luis Obispo, CA",FALSE,83,353,32,32,0,0,0
+Ozone,"Austin-Round Rock, TX","Austin, TX",FALSE,85,353,28,28,0,0,0
+Ozone,"Columbus, OH","Columbus, OH",FALSE,85,353,28,27,1,0,3.6
+Ozone,"Rock Springs, WY","Rock Springs, WY",FALSE,87,353,27,27,0,0,0
+Ozone,"Tampa-St. Petersburg-Clearwater, FL","Tampa, FL",FALSE,87,353,27,27,0,0,0
+Ozone,"Youngstown-Warren-Boardman, OH-PA","Youngstown, OH",FALSE,87,353,27,22,5,0,18.5
+Ozone,"Charlotte-Concord-Gastonia, NC-SC","Charlotte, NC",FALSE,90,353,26,26,0,0,0
+Ozone,"Norwich-New London, CT","Norwich, CT",FALSE,90,353,26,26,0,0,0
+Ozone,"San Francisco-Oakland-Hayward, CA","San Francisco, CA",FALSE,90,353,26,26,0,0,0
+Ozone,"Glenwood Springs, CO","Glenwood Springs, CO",FALSE,93,353,25,25,0,0,0
+Ozone,"Janesville-Beloit, WI","Janesville, WI",FALSE,93,353,25,22,3,0,12
+Ozone,"Killeen-Temple, TX","Killeen, TX",FALSE,93,353,25,25,0,0,0
+Ozone,"Green Bay, WI","Green Bay, WI",FALSE,96,353,24,21,3,0,12.5
+Ozone,"Rapid City, SD","Rapid City, SD",FALSE,96,353,24,24,0,0,0
+Ozone,"Seattle-Tacoma-Bellevue, WA","Seattle, WA",FALSE,96,353,24,24,0,0,0
+Ozone,"Sioux Falls, SD","Sioux Falls, SD",FALSE,96,353,24,24,0,0,0
+Ozone,"Whitewater-Elkhorn, WI","Whitewater, WI",FALSE,96,353,24,22,2,0,8.3
+Ozone,"Akron, OH","Akron, OH",FALSE,101,353,23,21,2,0,8.7
+Ozone,"Flint, MI","Flint, MI",FALSE,101,353,23,19,4,0,17.4
+Ozone,"New Orleans-Metairie, LA","New Orleans, LA",FALSE,101,353,23,23,0,0,0
+Ozone,"Portland-South Portland, ME","Portland, ME",FALSE,101,353,23,23,0,0,0
+Ozone,"Reading, PA","Reading, PA",FALSE,101,353,23,20,3,0,13
+Ozone,"San Jose-Sunnyvale-Santa Clara, CA","San Jose, CA",FALSE,101,353,23,23,0,0,0
+Ozone,"Wichita, KS","Wichita, KS",FALSE,101,353,23,23,0,0,0
+Ozone,"Yuba City, CA","Yuba City, CA",FALSE,101,353,23,23,0,0,0
+Ozone,"Cedar Rapids, IA","Cedar Rapids, IA",FALSE,109,353,22,20,2,0,9.1
+Ozone,"Niles-Benton Harbor, MI","Niles, MI",FALSE,109,353,22,21,1,0,4.5
+Ozone,"Springfield, IL","Springfield, IL",FALSE,111,353,21,20,1,0,4.8
+Ozone,"Torrington, CT","Torrington, CT",FALSE,111,353,21,21,0,0,0
+Ozone,"Laramie, WY","Laramie, WY",FALSE,113,353,20,20,0,0,0
+Ozone,"Redding, CA","Redding, CA",FALSE,113,353,20,20,0,0,0
+Ozone,"Rockford, IL","Rockford, IL",FALSE,113,353,20,17,3,0,15
+Ozone,"Champaign-Urbana, IL","Champaign, IL",FALSE,116,353,19,18,1,0,5.3
+Ozone,"Hobbs, NM","Hobbs, NM",FALSE,116,353,19,19,0,0,0
+Ozone,"Manitowoc, WI","Manitowoc, WI",FALSE,116,353,19,18,1,0,5.3
+Ozone,"Decatur, IL","Decatur, IL",FALSE,119,353,18,17,1,0,5.6
+Ozone,"Bismarck, ND","Bismarck, ND",FALSE,120,353,17,17,0,0,0
+Ozone,"Canton-Massillon, OH","Canton, OH",FALSE,120,353,17,13,4,0,23.5
+Ozone,"Watertown-Fort Atkinson, WI","Watertown, WI",FALSE,120,353,17,15,2,0,11.8
+Ozone,"Ann Arbor, MI","Ann Arbor, MI",FALSE,123,353,16,13,3,0,18.8
+Ozone,"Paducah, KY-IL","Paducah, KY",FALSE,123,353,16,16,0,0,0
+Ozone,"Portland-Vancouver-Hillsboro, OR-WA","Portland, OR",FALSE,123,353,16,16,0,0,0
+Ozone,"Allentown-Bethlehem-Easton, PA-NJ","Allentown, PA",FALSE,126,353,15,14,1,0,6.7
+Ozone,"Baraboo, WI","Baraboo, WI",FALSE,126,353,15,14,1,0,6.7
+Ozone,"Beaver Dam, WI","Beaver Dam, WI",FALSE,126,353,15,13,2,0,13.3
+Ozone,"Bloomington, IL","Bloomington, IL",FALSE,126,353,15,13,2,0,13.3
+Ozone,"Kokomo, IN","Kokomo, IN",FALSE,126,353,15,14,1,0,6.7
+Ozone,"Sierra Vista-Douglas, AZ","Sierra Vista, AZ",FALSE,126,353,15,15,0,0,0
+Ozone,"Springfield, MA","Springfield, MA",FALSE,126,353,15,15,0,0,0
+Ozone,"Ashtabula, OH","Ashtabula, OH",FALSE,133,353,14,14,0,0,0
+Ozone,"Cadillac, MI","Cadillac, MI",FALSE,133,353,14,12,2,0,14.3
+Ozone,"Casper, WY","Casper, WY",FALSE,133,353,14,14,0,0,0
+Ozone,"Cheyenne, WY","Cheyenne, WY",FALSE,133,353,14,14,0,0,0
+Ozone,"Lawton, OK","Lawton, OK",FALSE,133,353,14,14,0,0,0
+Ozone,"Owensboro, KY","Owensboro, KY",FALSE,133,353,14,12,2,0,14.3
+Ozone,"Harrisburg-Carlisle, PA","Harrisburg, PA",FALSE,139,353,13,10,3,0,23.1
+Ozone,"Waco, TX","Waco, TX",FALSE,139,353,13,13,0,0,0
+Ozone,"Clinton, IA","Clinton, IA",FALSE,141,353,12,11,1,0,8.3
+Ozone,"Des Moines-West Des Moines, IA","Des Moines, IA",FALSE,141,353,12,12,0,0,0
+Ozone,"Fayetteville-Springdale-Rogers, AR-MO","Fayetteville, AR",FALSE,141,353,12,12,0,0,0
+Ozone,"Gillette, WY","Gillette, WY",FALSE,141,353,12,12,0,0,0
+Ozone,"Little Rock-North Little Rock-Conway, AR","Little Rock, AR",FALSE,141,353,12,12,0,0,0
+Ozone,"Quincy, IL-MO","Quincy, IL",FALSE,141,353,12,11,1,0,8.3
+Ozone,"Springfield, OH","Springfield, OH",FALSE,141,353,12,11,1,0,8.3
+Ozone,"Wilmington, OH","Wilmington, OH",FALSE,141,353,12,11,1,0,8.3
+Ozone,"Effingham, IL","Effingham, IL",FALSE,149,353,11,10,1,0,9.1
+Ozone,"Fallon, NV","Fallon, NV",FALSE,149,353,11,11,0,0,0
+Ozone,"Fort Wayne, IN","Fort Wayne, IN",FALSE,149,353,11,9,2,0,18.2
+Ozone,"Jamestown-Dunkirk-Fredonia, NY","Jamestown, NY",FALSE,149,353,11,10,1,0,9.1
+Ozone,"Knoxville, TN","Knoxville, TN",FALSE,149,353,11,11,0,0,0
+Ozone,"Lake Charles, LA","Lake Charles, LA",FALSE,149,353,11,11,0,0,0
+Ozone,"Laredo, TX","Laredo, TX",FALSE,149,353,11,11,0,0,0
+Ozone,"Miami, OK","Miami, OK",FALSE,149,353,11,11,0,0,0
+Ozone,"Mount Vernon, IL","Mount Vernon, IL",FALSE,149,353,11,10,1,0,9.1
+Ozone,"Riverton, WY","Riverton, WY",FALSE,149,353,11,11,0,0,0
+Ozone,"Stockton-Lodi, CA","Stockton, CA",FALSE,149,353,11,11,0,0,0
+Ozone,"Tyler, TX","Tyler, TX",FALSE,149,353,11,11,0,0,0
+Ozone,"Watertown, SD","Watertown, SD",FALSE,149,353,11,11,0,0,0
+Ozone,"Amarillo, TX","Amarillo, TX",FALSE,162,353,10,10,0,0,0
+Ozone,"Barnstable Town, MA","Barnstable Town, MA",FALSE,162,353,10,10,0,0,0
+Ozone,"Bloomington, IN","Bloomington, IN",FALSE,162,353,10,10,0,0,0
+Ozone,"Cambridge, MD","Cambridge, MD",FALSE,162,353,10,10,0,0,0
+Ozone,"McAlester, OK","McAlester, OK",FALSE,162,353,10,10,0,0,0
+Ozone,"Pueblo, CO","Pueblo, CO",FALSE,162,353,10,10,0,0,0
+Ozone,"Rochester, MN","Rochester, MN",FALSE,162,353,10,9,1,0,10
+Ozone,"Sonora, CA","Sonora, CA",FALSE,162,353,10,10,0,0,0
+Ozone,"Vermillion, SD","Vermillion, SD",FALSE,162,353,10,10,0,0,0
+Ozone,"Vincennes, IN","Vincennes, IN",FALSE,162,353,10,9,1,0,10
+Ozone,"Yuma, AZ","Yuma, AZ",FALSE,162,353,10,10,0,0,0
+Ozone,"Buffalo-Cheektowaga-Niagara Falls, NY","Buffalo, NY",FALSE,173,353,9,9,0,0,0
+Ozone,"Carson City, NV","Carson City, NV",FALSE,173,353,9,9,0,0,0
+Ozone,"Chico, CA","Chico, CA",FALSE,173,353,9,9,0,0,0
+Ozone,"Gulfport-Biloxi-Pascagoula, MS","Gulfport, MS",FALSE,173,353,9,9,0,0,0
+Ozone,"Lansing-East Lansing, MI","Lansing, MI",FALSE,173,353,9,6,3,0,33.3
+Ozone,"Terre Haute, IN","Terre Haute, IN",FALSE,173,353,9,8,1,0,11.1
+Ozone,"Vineyard Haven, MA","Vineyard Haven, MA",FALSE,173,353,9,9,0,0,0
+Ozone,"Waterloo-Cedar Falls, IA","Waterloo, IA",FALSE,173,353,9,9,0,0,0
+Ozone,"Wausau, WI","Wausau, WI",FALSE,173,353,9,8,1,0,11.1
+Ozone,"Appleton, WI","Appleton, WI",FALSE,182,353,8,7,1,0,12.5
+Ozone,"Columbus, IN","Columbus, IN",FALSE,182,353,8,7,1,0,12.5
+Ozone,"Corsicana, TX","Corsicana, TX",FALSE,182,353,8,8,0,0,0
+Ozone,"Dover, DE","Dover, DE",FALSE,182,353,8,8,0,0,0
+Ozone,"Eau Claire, WI","Eau Claire, WI",FALSE,182,353,8,7,1,0,12.5
+Ozone,"Elko, NV","Elko, NV",FALSE,182,353,8,8,0,0,0
+Ozone,"Fernley, NV","Fernley, NV",FALSE,182,353,8,8,0,0,0
+Ozone,"Grand Junction, CO","Grand Junction, CO",FALSE,182,353,8,8,0,0,0
+Ozone,"Lebanon, PA","Lebanon, PA",FALSE,182,353,8,8,0,0,0
+Ozone,"Salem, OR","Salem, OR",FALSE,182,353,8,8,0,0,0
+Ozone,"Springfield, MO","Springfield, MO",FALSE,182,353,8,8,0,0,0
+Ozone,"St. Cloud, MN","St. Cloud, MN",FALSE,182,353,8,8,0,0,0
+Ozone,"Topeka, KS","Topeka, KS",FALSE,182,353,8,8,0,0,0
+Ozone,"Traverse City, MI","Traverse City, MI",FALSE,182,353,8,7,1,0,12.5
+Ozone,"Weirton-Steubenville, WV-OH","Weirton, WV",FALSE,182,353,8,7,1,0,12.5
+Ozone,"Winston-Salem, NC","Winston, NC",FALSE,182,353,8,8,0,0,0
+Ozone,"Worcester, MA-CT","Worcester, MA",FALSE,182,353,8,8,0,0,0
+Ozone,"Bartlesville, OK","Bartlesville, OK",FALSE,199,353,7,7,0,0,0
+Ozone,"Brookings, SD","Brookings, SD",FALSE,199,353,7,7,0,0,0
+Ozone,"Chattanooga, TN-GA","Chattanooga, TN",FALSE,199,353,7,7,0,0,0
+Ozone,"Durango, CO","Durango, CO",FALSE,199,353,7,7,0,0,0
+Ozone,"Flagstaff, AZ","Flagstaff, AZ",FALSE,199,353,7,7,0,0,0
+Ozone,"Hagerstown-Martinsburg, MD-WV","Hagerstown, MD",FALSE,199,353,7,7,0,0,0
+Ozone,"Kalamazoo-Portage, MI","Kalamazoo, MI",FALSE,199,353,7,5,2,0,28.6
+Ozone,"La Crosse-Onalaska, WI-MN","La Crosse, WI",FALSE,199,353,7,6,1,0,14.3
+Ozone,"Lafayette-West Lafayette, IN","Lafayette, IN",FALSE,199,353,7,7,0,0,0
+Ozone,"Ludington, MI","Ludington, MI",FALSE,199,353,7,6,1,0,14.3
+Ozone,"Muncie, IN","Muncie, IN",FALSE,199,353,7,6,1,0,14.3
+Ozone,"Orlando-Kissimmee-Sanford, FL","Orlando, FL",FALSE,199,353,7,7,0,0,0
+Ozone,"Price, UT","Price, UT",FALSE,199,353,7,7,0,0,0
+Ozone,"Richmond, VA","Richmond, VA",FALSE,199,353,7,7,0,0,0
+Ozone,"Scottsbluff, NE","Scottsbluff, NE",FALSE,199,353,7,7,0,0,0
+Ozone,"Spartanburg, SC","Spartanburg, SC",FALSE,199,353,7,7,0,0,0
+Ozone,"Vineland-Bridgeton, NJ","Vineland, NJ",FALSE,199,353,7,7,0,0,0
+Ozone,"Asheville, NC","Asheville, NC",FALSE,216,353,6,6,0,0,0
+Ozone,"Berlin, NH-VT","Berlin, NH",FALSE,216,353,6,6,0,0,0
+Ozone,"Brainerd, MN","Brainerd, MN",FALSE,216,353,6,6,0,0,0
+Ozone,"Corpus Christi, TX","Corpus Christi, TX",FALSE,216,353,6,6,0,0,0
+Ozone,"Dickinson, ND","Dickinson, ND",FALSE,216,353,6,6,0,0,0
+Ozone,"Gettysburg, PA","Gettysburg, PA",FALSE,216,353,6,4,2,0,33.3
+Ozone,"Lafayette, LA","Lafayette, LA",FALSE,216,353,6,6,0,0,0
+Ozone,"Lancaster, PA","Lancaster, PA",FALSE,216,353,6,3,3,0,50
+Ozone,"Minot, ND","Minot, ND",FALSE,216,353,6,6,0,0,0
+Ozone,"Rochester, NY","Rochester, NY",FALSE,216,353,6,6,0,0,0
+Ozone,"St. Joseph, MO-KS","St. Joseph, MO",FALSE,216,353,6,6,0,0,0
+Ozone,"Wabash, IN","Wabash, IN",FALSE,216,353,6,6,0,0,0
+Ozone,"Adrian, MI","Adrian, MI",FALSE,228,353,5,4,1,0,20
+Ozone,"Bowling Green, KY","Bowling Green, KY",FALSE,228,353,5,5,0,0,0
+Ozone,"Dalton, GA","Dalton, GA",FALSE,228,353,5,5,0,0,0
+Ozone,"Fargo, ND-MN","Fargo, ND",FALSE,228,353,5,5,0,0,0
+Ozone,"Fond du Lac, WI","Fond du Lac, WI",FALSE,228,353,5,4,1,0,20
+Ozone,"Indiana, PA","Indiana, PA",FALSE,228,353,5,4,1,0,20
+Ozone,"Kennewick-Richland, WA","Kennewick, WA",FALSE,228,353,5,5,0,0,0
+Ozone,"Lima, OH","Lima, OH",FALSE,228,353,5,3,2,0,40
+Ozone,"Marshall, MN","Marshall, MN",FALSE,228,353,5,5,0,0,0
+Ozone,"Mount Vernon, OH","Mount Vernon, OH",FALSE,228,353,5,5,0,0,0
+Ozone,"Red Wing, MN","Red Wing, MN",FALSE,228,353,5,5,0,0,0
+Ozone,"Scranton--Wilkes-Barre--Hazleton, PA","Scranton, PA",FALSE,228,353,5,3,2,0,40
+Ozone,"St. George, UT","St. George, UT",FALSE,228,353,5,5,0,0,0
+Ozone,"Vallejo-Fairfield, CA","Vallejo, CA",FALSE,228,353,5,5,0,0,0
+Ozone,"York-Hanover, PA","York, PA",FALSE,228,353,5,4,1,0,20
+Ozone,"Albany-Schenectady-Troy, NY","Albany, NY",FALSE,243,353,4,2,2,0,50
+Ozone,"Bemidji, MN","Bemidji, MN",FALSE,243,353,4,4,0,0,0
+Ozone,"Columbia, MO","Columbia, MO",FALSE,243,353,4,4,0,0,0
+Ozone,"Columbia, SC","Columbia, SC",FALSE,243,353,4,4,0,0,0
+Ozone,"East Stroudsburg, PA","East Stroudsburg, PA",FALSE,243,353,4,3,1,0,25
+Ozone,"Elkhart-Goshen, IN","Elkhart, IN",FALSE,243,353,4,4,0,0,0
+Ozone,"Espa¤ola, NM","Espa¤ola, NM",FALSE,243,353,4,4,0,0,0
+Ozone,"Huntsville, AL","Huntsville, AL",FALSE,243,353,4,4,0,0,0
+Ozone,"Jacksonville, FL","Jacksonville, FL",FALSE,243,353,4,4,0,0,0
+Ozone,"Jefferson City, MO","Jefferson City, MO",FALSE,243,353,4,4,0,0,0
+Ozone,"Joplin, MO","Joplin, MO",FALSE,243,353,4,4,0,0,0
+Ozone,"Lexington-Fayette, KY","Lexington, KY",FALSE,243,353,4,2,2,0,50
+Ozone,"Logan, UT-ID","Logan, UT",FALSE,243,353,4,4,0,0,0
+Ozone,"Longview, TX","Longview, TX",FALSE,243,353,4,4,0,0,0
+Ozone,"Macon, GA","Macon, GA",FALSE,243,353,4,4,0,0,0
+Ozone,"Manchester-Nashua, NH","Manchester, NH",FALSE,243,353,4,4,0,0,0
+Ozone,"Medford, OR","Medford, OR",FALSE,243,353,4,4,0,0,0
+Ozone,"Miami-Fort Lauderdale-West Palm Beach, FL","Miami, FL",FALSE,243,353,4,4,0,0,0
+Ozone,"Parkersburg-Vienna, WV","Parkersburg, WV",FALSE,243,353,4,4,0,0,0
+Ozone,"Shreveport-Bossier City, LA","Shreveport, LA",FALSE,243,353,4,4,0,0,0
+Ozone,"State College, PA","State College, PA",FALSE,243,353,4,4,0,0,0
+Ozone,"Virginia Beach-Norfolk-Newport News, VA-NC","Virginia Beach, VA",FALSE,243,353,4,4,0,0,0
+Ozone,"Williamsport, PA","Williamsport, PA",FALSE,243,353,4,3,1,0,25
+Ozone,"Altoona, PA","Altoona, PA",FALSE,266,353,3,2,1,0,33.3
+Ozone,"Cedar City, UT","Cedar City, UT",FALSE,266,353,3,3,0,0,0
+Ozone,"Clarksville, TN-KY","Clarksville, TN",FALSE,266,353,3,3,0,0,0
+Ozone,"Cleveland, MS","Cleveland, MS",FALSE,266,353,3,3,0,0,0
+Ozone,"Duluth, MN-WI","Duluth, MN",FALSE,266,353,3,3,0,0,0
+Ozone,"Elizabethtown-Fort Knox, KY","Elizabethtown, KY",FALSE,266,353,3,2,1,0,33.3
+Ozone,"Erie, PA","Erie, PA",FALSE,266,353,3,3,0,0,0
+Ozone,"Eugene, OR","Eugene, OR",FALSE,266,353,3,3,0,0,0
+Ozone,"Greensboro-High Point, NC","Greensboro, NC",FALSE,266,353,3,3,0,0,0
+Ozone,"Hermiston-Pendleton, OR","Hermiston, OR",FALSE,266,353,3,3,0,0,0
+Ozone,"Mayaguez, PR","Mayaguez, PR",FALSE,266,353,3,3,0,0,0
+Ozone,"McAllen-Edinburg-Mission, TX","McAllen, TX",FALSE,266,353,3,3,0,0,0
+Ozone,"Morristown, TN","Morristown, TN",FALSE,266,353,3,3,0,0,0
+Ozone,"New Castle, PA","New Castle, PA",FALSE,266,353,3,2,1,0,33.3
+Ozone,"Ocala, FL","Ocala, FL",FALSE,266,353,3,3,0,0,0
+Ozone,"Oxford, NC","Oxford, NC",FALSE,266,353,3,3,0,0,0
+Ozone,"Raleigh, NC","Raleigh, NC",FALSE,266,353,3,3,0,0,0
+Ozone,"Salisbury, MD-DE","Salisbury, MD",FALSE,266,353,3,3,0,0,0
+Ozone,"Santa Fe, NM","Santa Fe, NM",FALSE,266,353,3,3,0,0,0
+Ozone,"Sheridan, WY","Sheridan, WY",FALSE,266,353,3,3,0,0,0
+Ozone,"Spokane-Spokane Valley, WA","Spokane, WA",FALSE,266,353,3,3,0,0,0
+Ozone,"Syracuse, NY","Syracuse, NY",FALSE,266,353,3,2,1,0,33.3
+Ozone,"Wheeling, WV-OH","Wheeling, WV",FALSE,266,353,3,3,0,0,0
+Ozone,"Athens-Clarke County, GA","Athens, GA",FALSE,289,353,2,2,0,0,0
+Ozone,"Bangor, ME","Bangor, ME",FALSE,289,353,2,2,0,0,0
+Ozone,"Burlington-South Burlington, VT","Burlington, VT",FALSE,289,353,2,2,0,0,0
+Ozone,"Chambersburg-Waynesboro, PA","Chambersburg, PA",FALSE,289,353,2,1,1,0,50
+Ozone,"Charleston-North Charleston, SC","Charleston, SC",FALSE,289,353,2,2,0,0,0
+Ozone,"Columbus, GA-AL","Columbus, GA",FALSE,289,353,2,2,0,0,0
+Ozone,"Decatur, AL","Decatur, AL",FALSE,289,353,2,2,0,0,0
+Ozone,"Fayetteville, NC","Fayetteville, NC",FALSE,289,353,2,2,0,0,0
+Ozone,"Fort Payne, AL","Fort Payne, AL",FALSE,289,353,2,2,0,0,0
+Ozone,"Greenfield Town, MA","Greenfield Town, MA",FALSE,289,353,2,2,0,0,0
+Ozone,"Greenville-Anderson-Mauldin, SC","Greenville, SC",FALSE,289,353,2,2,0,0,0
+Ozone,"Heber, UT","Heber, UT",FALSE,289,353,2,2,0,0,0
+Ozone,"Helena, MT","Helena, MT",FALSE,289,353,2,2,0,0,0
+Ozone,"Jackson, MS","Jackson, MS",FALSE,289,353,2,2,0,0,0
+Ozone,"Johnstown, PA","Johnstown, PA",FALSE,289,353,2,2,0,0,0
+Ozone,"Kinston, NC","Kinston, NC",FALSE,289,353,2,2,0,0,0
+Ozone,"Lincoln, NE","Lincoln, NE",FALSE,289,353,2,2,0,0,0
+Ozone,"Marietta, OH","Marietta, OH",FALSE,289,353,2,2,0,0,0
+Ozone,"Morehead City, NC","Morehead City, NC",FALSE,289,353,2,2,0,0,0
+Ozone,"Morgantown, WV","Morgantown, WV",FALSE,289,353,2,2,0,0,0
+Ozone,"North Port-Sarasota-Bradenton, FL","North Port, FL",FALSE,289,353,2,2,0,0,0
+Ozone,"Pensacola-Ferry Pass-Brent, FL","Pensacola, FL",FALSE,289,353,2,2,0,0,0
+Ozone,"Pittsfield, MA","Pittsfield, MA",FALSE,289,353,2,2,0,0,0
+Ozone,"Prescott, AZ","Prescott, AZ",FALSE,289,353,2,2,0,0,0
+Ozone,"Rockland, ME","Rockland, ME",FALSE,289,353,2,2,0,0,0
+Ozone,"Santa Maria-Santa Barbara, CA","Santa Maria, CA",FALSE,289,353,2,2,0,0,0
+Ozone,"Sevierville, TN","Sevierville, TN",FALSE,289,353,2,2,0,0,0
+Ozone,"Sioux City, IA-NE-SD","Sioux City, IA",FALSE,289,353,2,2,0,0,0
+Ozone,"Tupelo, MS","Tupelo, MS",FALSE,289,353,2,2,0,0,0
+Ozone,"Victoria, TX","Victoria, TX",FALSE,289,353,2,2,0,0,0
+Ozone,"Winchester, VA-WV","Winchester, VA",FALSE,289,353,2,2,0,0,0
+Ozone,"Ada, OK","Ada, OK",FALSE,320,353,1,1,0,0,0
+Ozone,"Atlantic City-Hammonton, NJ","Atlantic City, NJ",FALSE,320,353,1,1,0,0,0
+Ozone,"Bend-Redmond, OR","Bend, OR",FALSE,320,353,1,1,0,0,0
+Ozone,"Bennington, VT","Bennington, VT",FALSE,320,353,1,1,0,0,0
+Ozone,"Billings, MT","Billings, MT",FALSE,320,353,1,1,0,0,0
+Ozone,"Blacksburg-Christiansburg-Radford, VA","Blacksburg, VA",FALSE,320,353,1,1,0,0,0
+Ozone,"Brownsville-Harlingen, TX","Brownsville, TX",FALSE,320,353,1,1,0,0,0
+Ozone,"Cape Coral-Fort Myers, FL","Cape Coral, FL",FALSE,320,353,1,1,0,0,0
+Ozone,"Concord, NH","Concord, NH",FALSE,320,353,1,1,0,0,0
+Ozone,"Corning, NY","Corning, NY",FALSE,320,353,1,1,0,0,0
+Ozone,"Durham-Chapel Hill, NC","Durham, NC",FALSE,320,353,1,1,0,0,0
+Ozone,"Fort Smith, AR-OK","Fort Smith, AR",FALSE,320,353,1,1,0,0,0
+Ozone,"Harrison, AR","Harrison, AR",FALSE,320,353,1,1,0,0,0
+Ozone,"Harrisonburg, VA","Harrisonburg, VA",FALSE,320,353,1,1,0,0,0
+Ozone,"Hickory-Lenoir-Morganton, NC","Hickory, NC",FALSE,320,353,1,1,0,0,0
+Ozone,"Houma-Thibodaux, LA","Houma, LA",FALSE,320,353,1,1,0,0,0
+Ozone,"Idaho Falls, ID","Idaho Falls, ID",FALSE,320,353,1,1,0,0,0
+Ozone,"Ithaca, NY","Ithaca, NY",FALSE,320,353,1,1,0,0,0
+Ozone,"Jackson, WY-ID","Jackson, WY",FALSE,320,353,1,1,0,0,0
+Ozone,"Keene, NH","Keene, NH",FALSE,320,353,1,1,0,0,0
+Ozone,"Lakeland-Winter Haven, FL","Lakeland, FL",FALSE,320,353,1,1,0,0,0
+Ozone,"Lawrence, KS","Lawrence, KS",FALSE,320,353,1,1,0,0,0
+Ozone,"Marshall, TX","Marshall, TX",FALSE,320,353,1,1,0,0,0
+Ozone,"Middlesborough, KY","Middlesborough, KY",FALSE,320,353,1,1,0,0,0
+Ozone,"Mobile, AL","Mobile, AL",FALSE,320,353,1,1,0,0,0
+Ozone,"Panama City, FL","Panama City, FL",FALSE,320,353,1,1,0,0,0
+Ozone,"Ruidoso, NM","Ruidoso, NM",FALSE,320,353,1,1,0,0,0
+Ozone,"Savannah, GA","Savannah, GA",FALSE,320,353,1,1,0,0,0
+Ozone,"Sayre, PA","Sayre, PA",FALSE,320,353,1,1,0,0,0
+Ozone,"Sebring, FL","Sebring, FL",FALSE,320,353,1,1,0,0,0
+Ozone,"Show Low, AZ","Show Low, AZ",FALSE,320,353,1,1,0,0,0
+Ozone,"St. Marys, PA","St. Marys, PA",FALSE,320,353,1,1,0,0,0
+Ozone,"Tallahassee, FL","Tallahassee, FL",FALSE,320,353,1,1,0,0,0
+Ozone,"Watertown-Fort Drum, NY","Watertown, NY",FALSE,320,353,1,1,0,0,0

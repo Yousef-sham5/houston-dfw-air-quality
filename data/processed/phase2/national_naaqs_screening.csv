@@ -1,0 +1,61 @@
+day_set,pollutant,standard,units_of_measure,year,n_sites,median_value,p90_value,n_above,pct_above
+All days,PM2.5,24-hour,Micrograms/cubic meter (LC),2021,769,21,36,86,11.2
+All days,PM2.5,24-hour,Micrograms/cubic meter (LC),2022,769,18,29,28,3.6
+All days,PM2.5,24-hour,Micrograms/cubic meter (LC),2023,769,24,34,63,8.2
+All days,PM2.5,24-hour,Micrograms/cubic meter (LC),2024,769,17,28,34,4.4
+All days,PM2.5,24-hour,Micrograms/cubic meter (LC),2025,769,19,34,60,7.8
+All days,PM2.5,Annual,Micrograms/cubic meter (LC),2021,768,8.1,10.5,213,27.7
+All days,PM2.5,Annual,Micrograms/cubic meter (LC),2022,769,7.3,9.4,98,12.7
+All days,PM2.5,Annual,Micrograms/cubic meter (LC),2023,769,8.5,10.6,300,39
+All days,PM2.5,Annual,Micrograms/cubic meter (LC),2024,769,7,9.2,87,11.3
+All days,PM2.5,Annual,Micrograms/cubic meter (LC),2025,769,7.3,9.4,103,13.4
+All days,Ozone,8-hour,Parts per million,2021,964,0.065,0.078,226,23.4
+All days,Ozone,8-hour,Parts per million,2022,964,0.064,0.074,191,19.8
+All days,Ozone,8-hour,Parts per million,2023,964,0.069,0.079,412,42.7
+All days,Ozone,8-hour,Parts per million,2024,964,0.066,0.078,249,25.8
+All days,Ozone,8-hour,Parts per million,2025,964,0.065,0.074,158,16.4
+All days,NO2,1-hour,Parts per billion,2021,312,38,52,0,0
+All days,NO2,1-hour,Parts per billion,2022,312,38.5,52,0,0
+All days,NO2,1-hour,Parts per billion,2023,312,38,51.9,0,0
+All days,NO2,1-hour,Parts per billion,2024,312,36.5,51,0,0
+All days,NO2,1-hour,Parts per billion,2025,312,36,50,1,0.3
+All days,SO2,1-hour,Parts per billion,2021,301,8,50,14,4.7
+All days,SO2,1-hour,Parts per billion,2022,301,7,50,13,4.3
+All days,SO2,1-hour,Parts per billion,2023,301,7,47,14,4.7
+All days,SO2,1-hour,Parts per billion,2024,301,6,50,13,4.3
+All days,SO2,1-hour,Parts per billion,2025,301,6,45,8,2.7
+All days,CO,8-hour,Parts per million,2021,135,1,2,0,0
+All days,CO,8-hour,Parts per million,2022,135,1,2,0,0
+All days,CO,8-hour,Parts per million,2023,135,1,2,0,0
+All days,CO,8-hour,Parts per million,2024,135,1,2,0,0
+All days,CO,8-hour,Parts per million,2025,135,1,2,0,0
+Without event and fireworks days,PM2.5,24-hour,Micrograms/cubic meter (LC),2021,769,20,33,65,8.5
+Without event and fireworks days,PM2.5,24-hour,Micrograms/cubic meter (LC),2022,769,18,28,25,3.3
+Without event and fireworks days,PM2.5,24-hour,Micrograms/cubic meter (LC),2023,769,20,28,21,2.7
+Without event and fireworks days,PM2.5,24-hour,Micrograms/cubic meter (LC),2024,769,17,27,26,3.4
+Without event and fireworks days,PM2.5,24-hour,Micrograms/cubic meter (LC),2025,769,18,25,8,1
+Without event and fireworks days,PM2.5,Annual,Micrograms/cubic meter (LC),2021,768,8,10.2,196,25.5
+Without event and fireworks days,PM2.5,Annual,Micrograms/cubic meter (LC),2022,769,7.2,9.3,92,12
+Without event and fireworks days,PM2.5,Annual,Micrograms/cubic meter (LC),2023,769,7.9,9.9,184,23.9
+Without event and fireworks days,PM2.5,Annual,Micrograms/cubic meter (LC),2024,769,7,9.12,86,11.2
+Without event and fireworks days,PM2.5,Annual,Micrograms/cubic meter (LC),2025,769,7,9.1,80,10.4
+Without event and fireworks days,Ozone,8-hour,Parts per million,2021,964,0.065,0.078,226,23.4
+Without event and fireworks days,Ozone,8-hour,Parts per million,2022,964,0.064,0.074,191,19.8
+Without event and fireworks days,Ozone,8-hour,Parts per million,2023,964,0.069,0.079,385,39.9
+Without event and fireworks days,Ozone,8-hour,Parts per million,2024,964,0.066,0.078,249,25.8
+Without event and fireworks days,Ozone,8-hour,Parts per million,2025,964,0.065,0.074,158,16.4
+Without event and fireworks days,NO2,1-hour,Parts per billion,2021,312,38,52,0,0
+Without event and fireworks days,NO2,1-hour,Parts per billion,2022,312,38.5,52,0,0
+Without event and fireworks days,NO2,1-hour,Parts per billion,2023,312,38,51.9,0,0
+Without event and fireworks days,NO2,1-hour,Parts per billion,2024,312,36,51,0,0
+Without event and fireworks days,NO2,1-hour,Parts per billion,2025,312,36,50,1,0.3
+Without event and fireworks days,SO2,1-hour,Parts per billion,2021,301,8,50,14,4.7
+Without event and fireworks days,SO2,1-hour,Parts per billion,2022,301,7,50,13,4.3
+Without event and fireworks days,SO2,1-hour,Parts per billion,2023,301,7,47,14,4.7
+Without event and fireworks days,SO2,1-hour,Parts per billion,2024,301,6,50,13,4.3
+Without event and fireworks days,SO2,1-hour,Parts per billion,2025,301,6,45,8,2.7
+Without event and fireworks days,CO,8-hour,Parts per million,2021,135,1,2,0,0
+Without event and fireworks days,CO,8-hour,Parts per million,2022,135,1,2,0,0
+Without event and fireworks days,CO,8-hour,Parts per million,2023,135,1,2,0,0
+Without event and fireworks days,CO,8-hour,Parts per million,2024,135,1,2,0,0
+Without event and fireworks days,CO,8-hour,Parts per million,2025,135,1,2,0,0

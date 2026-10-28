@@ -1,0 +1,20 @@
+check,observed,expected,passed
+Pollutant-hours in hourly_case_study.rds against the manifest,661545,661545,TRUE
+Site-hours in hourly_weather.rds against the manifest,390791,390791,TRUE
+Duplicate monitor-hours,0,0,TRUE
+Houston sites whose group differs from 1c,0,0,TRUE
+"Ordinary hours (valid day, no Uri, Beryl or wildfire flag)",649365,649365,TRUE
+Ordinary hours with a usable wind direction,559229,559229,TRUE
+"Main-set hours with every group reporting, lowest share under 95%",0,0,TRUE
+Main 95% ranges that leave out their own estimate,0,0,TRUE
+Second-seed ranges whose verdict changes,0,0,TRUE
+Second-seed ranges whose ends move over 10% of their width,0,0,TRUE
+Finding and check pairs that fail,0,0,TRUE
+Headlines whose source table is not saved,0,0,TRUE
+2c figures on disk,11,11,TRUE
+Saved 2c tables without data dictionary rows (this table aside),0,0,TRUE
+Saved 2c tables at or over the GitHub limit,0,0,TRUE
+Monitors and sites,"16 monitors, 9 sites","16 monitors, 9 sites",TRUE
+"Main monitors per group: ozone, NO2, SO2",2/2/2/2/2/2/3/1,2/2/2/2/2/2/3/1,TRUE
+Houston other site in the transition band,48-201-0417,48-201-0417,TRUE
+Sites that sit out a check for lack of data,48-201-0055,48-201-0055,TRUE

@@ -1,0 +1,18 @@
+pollutant,measure,site_set,n_sites,rho,p_value
+Ozone,Five-year mean,Five-year sites,16,0.315,0.235
+Ozone,Mean 4th-highest,Five-year sites,16,0.047,0.863
+Ozone,Exceedance days,Five-year sites,16,0.003,0.991
+NO2,Five-year mean,Five-year sites,7,-0.536,0.215
+NO2,Five-year mean,With 4-year sites,10,-0.721,0.019
+NO2,Five-year mean,"With 4-year sites, without Houston Aldine",9,-0.667,0.05
+NO2,Five-year mean,"With 4-year sites, without Houston Bayland Park",9,-0.667,0.05
+NO2,Five-year mean,"With 4-year sites, without Park Place",9,-0.717,0.03
+NO2,Five-year mean,"With 4-year sites, without Houston Harvard Street",9,-0.817,0.007
+NO2,Five-year mean,"With 4-year sites, without Lynchburg Ferry",9,-0.833,0.005
+NO2,Five-year mean,"With 4-year sites, without Houston East",9,-0.683,0.042
+NO2,Five-year mean,"With 4-year sites, without Houston Deer Park #2",9,-0.75,0.02
+NO2,Five-year mean,"With 4-year sites, without Channelview",9,-0.733,0.025
+NO2,Five-year mean,"With 4-year sites, without Northwest Harris County",9,-0.617,0.077
+NO2,Five-year mean,"With 4-year sites, without Clinton",9,-0.683,0.042
+PM2.5,Five-year mean,Five-year sites,4,0.2,0.8
+PM2.5,Five-year mean,With 4-year sites,7,-0.214,0.645

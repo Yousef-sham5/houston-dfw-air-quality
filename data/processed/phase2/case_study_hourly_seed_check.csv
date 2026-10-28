@@ -1,0 +1,68 @@
+finding_id,figure,item,threshold,estimate,ci_low,ci_high,check_low,check_high,main_verdict,check_verdict,verdict_changes,shift_share
+R02,2C.2,Ozone at 0:00,0,-2.285,-2.721,-1.919,-2.701,-1.915,Below,Below,FALSE,0.025
+R02,2C.2,Ozone at 1:00,0,-2.223,-2.627,-1.862,-2.606,-1.872,Below,Below,FALSE,0.027
+R02,2C.2,Ozone at 2:00,0,-2.138,-2.511,-1.789,-2.476,-1.784,Below,Below,FALSE,0.048
+R02,2C.2,Ozone at 3:00,0,-2.173,-2.538,-1.837,-2.51,-1.848,Below,Below,FALSE,0.04
+R02,2C.2,Ozone at 4:00,0,-2.152,-2.485,-1.833,-2.492,-1.81,Below,Below,FALSE,0.036
+R02,2C.2,Ozone at 5:00,0,-1.879,-2.175,-1.575,-2.177,-1.576,Below,Below,FALSE,0.003
+R02,2C.2,Ozone at 6:00,0,-1.316,-1.658,-0.976,-1.653,-0.953,Below,Below,FALSE,0.034
+R02,2C.2,Ozone at 7:00,0,-0.848,-1.211,-0.496,-1.179,-0.497,Below,Below,FALSE,0.045
+R02,2C.2,Ozone at 8:00,0,-0.464,-0.814,-0.125,-0.793,-0.136,Below,Below,FALSE,0.031
+R02,2C.2,Ozone at 9:00,0,-0.334,-0.663,-0.014,-0.667,-0.013,Below,Below,FALSE,0.006
+R02,2C.2,Ozone at 10:00,0,-0.694,-1.06,-0.371,-1.048,-0.364,Below,Below,FALSE,0.018
+R02,2C.2,Ozone at 11:00,0,-0.977,-1.401,-0.601,-1.394,-0.596,Below,Below,FALSE,0.008
+R02,2C.2,Ozone at 12:00,0,-1.238,-1.764,-0.75,-1.767,-0.764,Below,Below,FALSE,0.015
+R02,2C.2,Ozone at 13:00,0,-1.504,-2.083,-1.011,-2.059,-1.003,Below,Below,FALSE,0.022
+R02,2C.2,Ozone at 14:00,0,-1.887,-2.436,-1.413,-2.424,-1.375,Below,Below,FALSE,0.037
+R02,2C.2,Ozone at 15:00,0,-2.482,-3.029,-1.949,-3.017,-1.97,Below,Below,FALSE,0.019
+R02,2C.2,Ozone at 16:00,0,-2.956,-3.494,-2.451,-3.465,-2.479,Below,Below,FALSE,0.028
+R02,2C.2,Ozone at 17:00,0,-2.93,-3.375,-2.478,-3.374,-2.513,Below,Below,FALSE,0.039
+R02,2C.2,Ozone at 18:00,0,-2.658,-3.08,-2.251,-3.056,-2.251,Below,Below,FALSE,0.03
+R02,2C.2,Ozone at 19:00,0,-2.169,-2.556,-1.788,-2.555,-1.795,Below,Below,FALSE,0.01
+R02,2C.2,Ozone at 20:00,0,-1.947,-2.368,-1.585,-2.361,-1.563,Below,Below,FALSE,0.027
+R02,2C.2,Ozone at 21:00,0,-2.099,-2.534,-1.748,-2.54,-1.717,Below,Below,FALSE,0.039
+R02,2C.2,Ozone at 22:00,0,-2.001,-2.416,-1.602,-2.491,-1.621,Below,Below,FALSE,0.091
+R02,2C.2,Ozone at 23:00,0,-2.838,-3.353,-2.397,-3.322,-2.395,Below,Below,FALSE,0.033
+R01,2C.2,NO2 at 0:00,0,0.901,0.654,1.151,0.642,1.138,Above,Above,FALSE,0.026
+R01,2C.2,NO2 at 1:00,0,1.087,0.817,1.346,0.804,1.351,Above,Above,FALSE,0.025
+R01,2C.2,NO2 at 2:00,0,0.976,0.717,1.225,0.729,1.213,Above,Above,FALSE,0.025
+R01,2C.2,NO2 at 3:00,0,1.011,0.739,1.285,0.753,1.246,Above,Above,FALSE,0.072
+R01,2C.2,NO2 at 4:00,0,1.356,1.08,1.658,1.092,1.629,Above,Above,FALSE,0.049
+R01,2C.2,NO2 at 5:00,0,1.317,1.028,1.611,1.039,1.582,Above,Above,FALSE,0.051
+R01,2C.2,NO2 at 6:00,0,0.807,0.497,1.078,0.494,1.077,Above,Above,FALSE,0.006
+R01,2C.2,NO2 at 7:00,0,0.594,0.263,0.904,0.253,0.894,Above,Above,FALSE,0.016
+R01,2C.2,NO2 at 8:00,0,0.721,0.372,1.066,0.352,1.046,Above,Above,FALSE,0.03
+R01,2C.2,NO2 at 9:00,0,0.761,0.418,1.062,0.416,1.074,Above,Above,FALSE,0.02
+R01,2C.2,NO2 at 10:00,0,0.812,0.532,1.05,0.529,1.055,Above,Above,FALSE,0.01
+R01,2C.2,NO2 at 11:00,0,0.998,0.732,1.221,0.725,1.229,Above,Above,FALSE,0.015
+R01,2C.2,NO2 at 12:00,0,1.147,0.902,1.368,0.895,1.372,Above,Above,FALSE,0.015
+R01,2C.2,NO2 at 13:00,0,1.31,1.091,1.497,1.086,1.512,Above,Above,FALSE,0.038
+R01,2C.2,NO2 at 14:00,0,1.435,1.204,1.612,1.202,1.63,Above,Above,FALSE,0.044
+R01,2C.2,NO2 at 15:00,0,1.704,1.464,1.906,1.461,1.908,Above,Above,FALSE,0.007
+R01,2C.2,NO2 at 16:00,0,1.776,1.544,1.976,1.52,1.972,Above,Above,FALSE,0.055
+R01,2C.2,NO2 at 17:00,0,1.902,1.653,2.1,1.633,2.093,Above,Above,FALSE,0.044
+R01,2C.2,NO2 at 18:00,0,1.644,1.361,1.902,1.344,1.888,Above,Above,FALSE,0.031
+R01,2C.2,NO2 at 19:00,0,1.106,0.817,1.373,0.801,1.384,Above,Above,FALSE,0.029
+R01,2C.2,NO2 at 20:00,0,0.811,0.52,1.105,0.504,1.086,Above,Above,FALSE,0.032
+R01,2C.2,NO2 at 21:00,0,0.807,0.516,1.067,0.491,1.096,Above,Above,FALSE,0.053
+R01,2C.2,NO2 at 22:00,0,0.804,0.528,1.071,0.516,1.076,Above,Above,FALSE,0.022
+R01,2C.2,NO2 at 23:00,0,0.823,0.571,1.081,0.544,1.085,Above,Above,FALSE,0.053
+R04,2C.4,"Ox gap, All year",0,-0.909,-1.244,-0.582,-1.272,-0.57,Below,Below,FALSE,0.043
+R04,2C.4,"Ox gap, Winter",0,0.05,-0.458,0.557,-0.446,0.535,Includes,Includes,FALSE,0.022
+R06,2C.5,Deer Park #2 plume NO2,0,7.49,5.07,10.04,4.875,10.25,Above,Above,FALSE,0.042
+R07,2C.7,"Ozone, Dallas Redbird",0,-5.797,-7.675,-3.757,-7.741,-3.79,Below,Below,FALSE,0.017
+R07,2C.7,"Ozone, Bayland Park",0,-8.98,-10.694,-6.971,-10.605,-6.985,Below,Below,FALSE,0.024
+R07,2C.7,"Ozone, Harvard Street",0,-3.833,-5.034,-2.623,-5.076,-2.573,Below,Below,FALSE,0.021
+R07,2C.7,"Ozone, Houston East",0,-7.292,-8.5,-5.886,-8.497,-5.94,Below,Below,FALSE,0.021
+R07,2C.7,"Ozone, Deer Park #2",0,-6.565,-7.953,-5.026,-7.901,-4.841,Below,Below,FALSE,0.063
+R07,2C.7,"Ozone, Grapevine Fairway",0,-5.725,-7.119,-3.815,-7.231,-3.768,Below,Below,FALSE,0.034
+R07,2C.7,"NO2, Dallas Redbird",0,5.219,4.102,6.718,4.076,6.664,Above,Above,FALSE,0.021
+R07,2C.7,"NO2, Bayland Park",0,6.006,4.597,7.358,4.72,7.407,Above,Above,FALSE,0.044
+R07,2C.7,"NO2, Harvard Street",0,6.754,5.776,7.785,5.75,7.774,Above,Above,FALSE,0.013
+R07,2C.7,"NO2, Houston East",0,5.501,4.643,6.354,4.674,6.353,Above,Above,FALSE,0.018
+R07,2C.7,"NO2, Deer Park #2",0,4.761,3.724,5.716,3.669,5.706,Above,Above,FALSE,0.027
+R07,2C.7,"NO2, Grapevine Fairway",0,3.012,2.041,3.817,2.066,3.835,Above,Above,FALSE,0.014
+R09,2C.9,"Croquet, share from the southwest",50,75.463,68.341,81.822,69.058,82.193,Above,Above,FALSE,0.053
+R09,2C.9,"Park Place, share from the channel side",50,77.011,67.629,85.621,68.535,85.279,Above,Above,FALSE,0.05
+R10,2C.10,"Channel wind, with Harvard Street",0,-1.475,-2.069,-0.939,-2.079,-0.906,Below,Below,FALSE,0.029
+R10,2C.10,"Channel wind, without Harvard Street",0,-2.155,-2.732,-1.656,-2.751,-1.652,Below,Below,FALSE,0.018

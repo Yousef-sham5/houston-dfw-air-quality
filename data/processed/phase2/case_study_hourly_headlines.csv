@@ -1,0 +1,31 @@
+headline_id,figure,finding,subject,value,unit,ci_low,ci_high,source_table
+H01,2C.1,Hours in which every group reports together,All groups,95,% of hours,NA,NA,case_study_hourly_inventory
+H02,2C.2,"Widest Ship Channel minus Houston other NO2 gap, by hour",17:00,1.9,ppb,1.65,2.1,case_study_hourly_gaps
+H03,2C.2,"Widest Ship Channel minus Houston other ozone gap, by hour",16:00,-2.96,ppb,-3.49,-2.45,case_study_hourly_gaps
+H04,2C.3,"Weekend against weekday NO2, 6 to 8 am, April to October",Houston Ship Channel,-35.95,%,NA,NA,case_study_hourly_cycle_checks
+H05,2C.3,"Weekend against weekday NO2, 6 to 8 am, April to October",Houston other,-41.95,%,NA,NA,case_study_hourly_cycle_checks
+H06,2C.3,"Weekend against weekday NO2, 6 to 8 am, April to October",Dallas-Fort Worth,-50.29,%,NA,NA,case_study_hourly_cycle_checks
+H07,2C.4,"Ship Channel minus Houston other ozone, over the year",Main,-1.9,ppb,-2.25,-1.6,case_study_ox_checks
+H08,2C.4,"Share of the ozone gap that Ox closes, over the year",Main,52.1,%,NA,NA,case_study_ox_checks
+H09,2C.4,"Share of the ozone gap that Ox closes, over the year",Without Harvard Street,98.6,%,NA,NA,case_study_ox_checks
+H10,2C.4,"Share of the ozone gap that Ox closes, winter",Main,109.3,%,NA,NA,case_study_ox_checks
+H11,2C.5,Croquet SO2 spike hours from 9 am to 6 pm,Croquet,95.56,% of spike hours,NA,NA,case_study_so2_spike_sites
+H12,2C.5,Croquet summer spike rate over the next highest season,Croquet,4.06,times,NA,NA,case_study_so2_spike_profiles
+H13,2C.5,Extra NO2 in Deer Park #2 SO2 spike hours,Deer Park #2,7.49,ppb,5.07,10.04,case_study_so2_plume_test
+H14,2C.6,Share of hours that are calm,Houston Ship Channel,6.03,% of wind hours,NA,NA,case_study_wind_sites
+H15,2C.6,Share of hours that are calm,Houston other,8.89,% of wind hours,NA,NA,case_study_wind_sites
+H16,2C.6,Share of hours that are calm,Dallas-Fort Worth,1.59,% of wind hours,NA,NA,case_study_wind_sites
+H17,2C.7,Calm minus windy hours at the same hour and month,"NO2, every site",3.01,"ppb, smallest site",NA,NA,case_study_calm_air
+H18,2C.7,Calm minus windy hours at the same hour and month,"Ozone, every site",-3.83,"ppb, smallest site",NA,NA,case_study_calm_air
+H19,2C.7,Share of the ozone lost in calm air that shows up as NO2,Lowest group,70.52,%,NA,NA,case_study_calm_air
+H20,2C.8,"NO2 in the wind direction with the most, against usual",Houston East,1.36,times usual,NA,NA,case_study_pollution_roses
+H21,2C.8,"NO2 in the wind direction with the most, against usual",Deer Park #2,1.39,times usual,NA,NA,case_study_pollution_roses
+H22,2C.8,"NO2 in the wind direction with the most, against usual",Bayland Park,1.58,times usual,NA,NA,case_study_pollution_roses
+H23,2C.8,"NO2 in the wind direction with the most, against usual",Harvard Street,1.64,times usual,NA,NA,case_study_pollution_roses
+H24,2C.9,Croquet SO2 spike hours from the southwest,Croquet,75.46,% of spike hours,68.34,81.82,case_study_channel_bearings
+H25,2C.9,Park Place SO2 spike hours from the channel side,Park Place,77.01,% of spike hours,67.63,85.62,case_study_channel_bearings
+H26,2C.9,Croquet hours with wind from the southwest,Croquet,10.99,% of hours,NA,NA,case_study_channel_bearings
+H27,2C.9,Park Place hours with wind from the channel side,Park Place,30.05,% of hours,NA,NA,case_study_channel_bearings
+H28,2C.10,"Ship Channel minus Houston other Ox, by wind","Channel wind, without Harvard Street",-2.16,ppb,-2.73,-1.66,case_study_ox_gap_by_wind
+H29,2C.10,"Ship Channel minus Houston other Ox, by wind","Other wind, without Harvard Street",0.03,ppb,-0.3,0.35,case_study_ox_gap_by_wind
+H30,2C.11,Headline findings that hold under every check that applies,All findings,10,of 10,NA,NA,case_study_hourly_robustness
