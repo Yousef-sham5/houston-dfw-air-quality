@@ -420,8 +420,8 @@ stopifnot(
 
 km_per_lon_degree <- function(lat) 111.32 * cos(lat * pi / 180)
 
-draw_region_map <- function(region_name, bar_km = 10) {
-  frame <- filter(map_frames, region == region_name)
+draw_region_map <- function(region_name, bar_km = 10, frames = map_frames) {
+  frame <- filter(frames, region == region_name)
   region_sites <- filter(map_sites, region == region_name)
   region_landmarks <- filter(map_landmarks, region == region_name)
   bar_start <- frame$lon_min + 0.03
@@ -499,4 +499,60 @@ ggsave(site_map_path, site_map, width = 6.5, height = 5.4, dpi = 300)
 stopifnot(
   "case_study_sites.png was written (close any viewer of it and rerun this step)" =
     file.mtime(site_map_path) >= save_started - 2
+)
+
+# Narrow version for a half-width report column: the two maps stacked at one shared scale, in frames trimmed to
+# the sites and their labels
+narrow_frames <- tribble(
+  ~region,             ~lon_min, ~lon_max, ~lat_min, ~lat_max,
+  "Houston",           -95.585,  -95.035,  29.525,   29.895,
+  "Dallas-Fort Worth", -97.150,  -96.710,  32.635,   33.060
+)
+
+narrow_frame_km <- narrow_frames %>%
+  mutate(width_km = (lon_max - lon_min) * km_per_lon_degree((lat_min + lat_max) / 2)) %>%
+  mutate(height_km = (lat_max - lat_min) * 111.32)
+
+sites_outside_narrow_frame <- map_sites %>%
+  inner_join(narrow_frames, by = "region", relationship = "many-to-one") %>%
+  filter(!between(longitude, lon_min, lon_max) | !between(latitude, lat_min, lat_max))
+
+stopifnot(
+  "Every region has a narrow frame" = setequal(narrow_frames$region, map_frames$region),
+  "Every site sits inside its narrow frame" = nrow(sites_outside_narrow_frame) == 0,
+  "Houston is the wider narrow frame, so it sets the shared scale" =
+    narrow_frame_km$width_km[narrow_frame_km$region == "Houston"] > narrow_frame_km$width_km[narrow_frame_km$region == "Dallas-Fort Worth"]
+)
+
+narrow_map_header <- chart_header(
+  "FIGURE 1C.1  /  CASE-STUDY SITES",
+  "Nine monitoring sites",
+  str_c("16 hourly monitors in three groups. Ship Channel\nsites are within ", ship_channel_km, " km of the land-cut channel.")
+)
+
+narrow_map_footer <- chart_footer("EPA AQS site coordinates. Both maps use the same\nscale. Crosses mark landmarks for orientation.")
+
+narrow_houston_map <- draw_region_map("Houston", frames = narrow_frames) +
+  guides(fill = guide_legend(nrow = 2)) +
+  theme(plot.margin = margin(0, 0, 10, 0))
+
+narrow_dfw_map <- draw_region_map("Dallas-Fort Worth", frames = narrow_frames) +
+  theme(plot.margin = margin(0, 0, 10, 0))
+
+narrow_map <- wrap_plots(narrow_map_header, narrow_houston_map, narrow_dfw_map, narrow_map_footer, ncol = 1) +
+  plot_layout(heights = grid::unit(
+    c(attr(narrow_map_header, "height_pt"), narrow_frame_km$height_km[match(c("Houston", "Dallas-Fort Worth"), narrow_frame_km$region)], attr(narrow_map_footer, "height_pt")),
+    c("pt", "null", "null", "pt")
+  )) +
+  plot_annotation(theme = theme(plot.margin = margin(4, 2, 4, 2), plot.background = element_rect(fill = "white", colour = NA)))
+
+narrow_map_path <- here("figures", "phase1", "case_study_sites_narrow.png")
+
+narrow_save_started <- Sys.time()
+
+ggsave(narrow_map_path, narrow_map, width = 3.2, height = 7.6, dpi = 300)
+
+stopifnot(
+  "case_study_sites_narrow.png was written (close any viewer of it and rerun this step)" =
+    file.mtime(narrow_map_path) >= narrow_save_started - 2
 )
