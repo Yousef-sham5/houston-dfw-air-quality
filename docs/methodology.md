@@ -153,7 +153,7 @@ Ox closes at least half the gap under every check, consistent with fresh NO usin
 **Wind and calm air (section 5, figures 2C.6 and 2C.7):** wind statistics use the 8 sites with their own sensor, outside Uri and Beryl. Each calm hour is compared with windy hours at the same site, hour of day and month, so time of day and season cancel out.
 - **Wind:** south or south-southeast is the most common direction at every site. Houston's summer wind comes from the south in 54% of hours; its winter wind splits between north (32%) and south (30%).
 - **Calm:** 6.0% of hours at the Ship Channel, 8.9% in Houston other and 1.6% in Dallas–Fort Worth. In both Houston groups over half of the calm hours fall from midnight to 6 am.
-- **Calm against windy:** calm hours carry 3.0 to 6.8 ppb more NO₂ and 3.8 to 9.0 ppb less ozone at every site, each range clear of zero. In every group at least 71% of the lost ozone shows up as NO₂, consistent with NO using up ozone in still air.
+- **Calm against windy:** calm hours carry 3.0 to 6.8 ppb more NO₂ and 3.8 to 9.0 ppb less ozone at every site, each range clear of zero. In every group at least 70% of the lost ozone shows up as NO₂, consistent with NO using up ozone in still air.
 - **SO₂:** by day, spikes come most in calm or light wind (under 1.5 m/s) and never above 5 m/s.
 - **Sensor check:** the new sonic sensors read fewer calm hours at three sites (Bayland Park 8.9% to 5.9%, Houston East 10.2% to 6.9%, Deer Park #2 6.8% to 5.6%). Every result holds without them. Bayland Park sits out this check, since its old sensor covers only about a year.
 

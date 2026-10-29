@@ -2206,6 +2206,7 @@ group_label_data <- tibble(
 
 scatter_panel <- ggplot(no2_ozone_ratios, aes(NO2, Ozone)) +
   geom_hline(yintercept = 1, colour = chart_ink[["primary"]], linewidth = 0.35) +
+  geom_vline(xintercept = 1, colour = chart_ink[["primary"]], linewidth = 0.35) +
   geom_point(data = filter(no2_ozone_ratios, is.na(site_group)), colour = chart_fills[["other"]], size = 0.9, alpha = 0.7) +
   geom_point(data = filter(no2_ozone_ratios, !is.na(site_group)), aes(fill = site_group), shape = 21, colour = "white", stroke = 0.4, size = 2) +
   geom_text(

@@ -602,6 +602,7 @@ chart_sizes <- c(
 # Call once before drawing. Registers the bundled font files, then checks that each name resolves to them rather than
 # to a fallback. Registered fonts only draw on ragg devices: ggsave() uses ragg, and RStudio needs Graphics backend AGG
 load_chart_fonts <- function() {
+  stopifnot("ragg is installed, since the bundled fonts only draw on ragg devices" = requireNamespace("ragg", quietly = TRUE))
   font_files <- c(
     title_plain = here("fonts", "inter-tight", "InterTight-SemiBold.ttf"),
     title_bold  = here("fonts", "inter-tight", "InterTight-Bold.ttf"),

@@ -70,7 +70,7 @@ Data come from the [EPA AirData download page](https://aqs.epa.gov/aqsweb/airdat
 
 1. **Daily Data:** the 2021–2025 zips for 88101 (PM2.5), 44201 (ozone), 42602 (NO₂), 42401 (SO₂) and 42101 (CO), unzipped into `data/raw/daily/`.
 2. **Hourly Data:** the 2021–2025 Criteria Gases zips for 44201, 42602 and 42401 into `data/raw/hourly/`, and the Meteorological `hourly_WIND` and `hourly_TEMP` zips into `data/raw/weather/`. Leave both zipped.
-3. Open `EPA AQS Project.Rproj`, run `R/0_setup.R` once and restart R.
+3. Open `EPA AQS Project.Rproj`, run `R/0_setup.R` once and restart R. For the exact package versions used (R 4.6.1), run `renv::restore()` as well; they are listed in `renv.lock`.
 4. Source the scripts in order: `1a`, `1b`, `1c`, `1d`, `1e`, `2a`, `2b`, `2c`. The first runs of `1d` and `1e` take 10 to 15 minutes each; later runs reuse a cache.
 
 Chart fonts are bundled in `fonts/`. To see them in RStudio's Plots pane, set Tools → Global Options → General → Graphics → Backend to AGG.
@@ -116,6 +116,7 @@ EPA AQS Project/
 ├── docs/                   # GitHub Pages output and methodology.md
 ├── EPA AQS Project.Rproj
 ├── LICENSE                 # MIT
+├── renv.lock               # package versions used
 └── README.md
 ```
 

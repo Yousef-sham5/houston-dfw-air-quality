@@ -13,7 +13,7 @@ if (length(missing_pkgs) > 0) {
   install.packages(missing_pkgs)
 }
 
-min_versions <- c(dplyr = "1.2.0", tidyr = "1.3.0", ggplot2 = "3.5.0", systemfonts = "1.2.0")
+min_versions <- c(dplyr = "1.2.0", tidyr = "1.3.0", ggplot2 = "3.5.0", systemfonts = "1.2.0", patchwork = "1.2.0")
 
 outdated_pkgs <- names(min_versions)[
   vapply(names(min_versions), \(pkg) packageVersion(pkg) < min_versions[[pkg]], logical(1))
