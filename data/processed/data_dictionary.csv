@@ -800,3 +800,151 @@ case_study_daily_headlines,unit,character,Unit of value
 case_study_daily_headlines,ci_low,numeric,Lower end of the 95% range where the record gives one; NA otherwise
 case_study_daily_headlines,ci_high,numeric,Upper end of the 95% range where the record gives one; NA otherwise
 case_study_daily_headlines,source_table,character,CSV record in data/processed/phase2 the number comes from
+distribution_site_inventory,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+distribution_site_inventory,site_id,character,AQS site ID: state-county-site
+distribution_site_inventory,local_site_name,character,Site name given by the reporting agency; can be NA
+distribution_site_inventory,state_name,character,State or territory name
+distribution_site_inventory,cbsa_name,character,Core-based statistical area; NA for sites outside one
+distribution_site_inventory,site_group,factor,"Case-study group for five-year Harris, Dallas and Tarrant sites; NA elsewhere"
+distribution_site_inventory,n_site_days,integer,"Site-days with data, collocated instruments averaged"
+distribution_site_inventory,min_days_in_year,integer,Fewest site-days in any study year
+distribution_site_inventory,sampling_schedule,character,"Daily, 1-in-3, 1-in-6 or Irregular from the median gap; Changed if years differ"
+distribution_site_inventory,schedules_by_year,character,"Schedule in each year, 2021 to 2025"
+distribution_site_inventory,is_year_round,logical,TRUE with December or January data in every year; FALSE for seasonal monitors
+distribution_site_inventory,method_codes,character,AQS method codes used at the site during 2021 to 2025
+distribution_site_inventory,has_method_change,logical,TRUE when the set of method codes differs between years
+distribution_site_inventory,n_mdl_values,integer,Distinct federal detection limits among the site's methods
+distribution_site_inventory,federal_mdl_min,numeric,"Lowest federal detection limit of the site's methods, in original units"
+distribution_site_inventory,federal_mdl_max,numeric,"Highest federal detection limit of the site's methods, in original units"
+distribution_site_inventory,pct_collocated_days,numeric,% of site-days averaged over more than one instrument
+distribution_site_inventory,pct_fem_days,numeric,% of site-days with at least one FEM instrument
+distribution_site_inventory,pct_t640_days,numeric,% of site-days with a T640 or T640X PM2.5 monitor
+distribution_site_inventory,pct_at_or_below_zero,numeric,% of site-days at or below zero; these take half the detection limit in the fits
+distribution_site_inventory,pct_below_mdl,numeric,% of site-days below the federal detection limit
+distribution_site_inventory,pct_positive_under_substitute,numeric,% of site-days above zero but below the substituted value
+distribution_site_inventory,pct_event_days,numeric,% of site-days in an events.csv window
+distribution_site_inventory,pct_fireworks_days,numeric,% of site-days in a fireworks window (PM2.5 only)
+distribution_site_inventory,n_distinct_values,integer,Distinct positive instrument readings before collocated averaging
+distribution_site_inventory,value_step,numeric,Measurement step: smallest gap between distinct positive readings
+distribution_site_inventory,is_near_zero_site,logical,TRUE when 25% or more of site-days are at or below zero
+distribution_site_inventory,in_transition_band,logical,TRUE for Houston other sites 7.5 to 15 km from the channel
+distribution_site_inventory,sensitivity_left_out,character,Whole site or Days after the method change in the checks; else NA
+distribution_site_inventory,is_near_road,logical,TRUE for the near-road case-study sites; NA outside the case study
+distribution_site_inventory,has_relocation,logical,"TRUE for Houston Deer Park #2, which moved on 2025-05-30"
+distribution_summary,scope,factor,National (all five-year sites) or Case study (five-year sites per group)
+distribution_summary,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO; CO is national only"
+distribution_summary,site_group,factor,Case-study group; NA in national rows
+distribution_summary,site_set,factor,"All days, Ordinary days (no event or fireworks days), or a check run on ordinary days"
+distribution_summary,units_of_measure,character,Units of the values in the row
+distribution_summary,n_sites,integer,Sites in the row
+distribution_summary,n_near_zero_sites,integer,Sites in the row with 25% or more of their days at or below zero
+distribution_summary,n_site_days,integer,"Site-days in the row; nearby days are linked, so this overstates independent values"
+distribution_summary,mean,numeric,Pooled mean of the reported values; NA for case-study rows with near-zero sites
+distribution_summary,sd,numeric,Pooled standard deviation; NA for case-study rows with near-zero sites
+distribution_summary,min,numeric,Lowest reported value
+distribution_summary,q1,numeric,25th percentile
+distribution_summary,median,numeric,50th percentile
+distribution_summary,q3,numeric,75th percentile
+distribution_summary,p98,numeric,98th percentile of all site-days pooled; not a NAAQS-form value
+distribution_summary,p99,numeric,99th percentile of all site-days pooled; not a NAAQS-form value
+distribution_summary,max,numeric,Highest reported value
+distribution_summary,skewness,numeric,Pooled skewness (moments package); 0 for a normal curve
+distribution_summary,kurtosis,numeric,"Pooled kurtosis (moments package, Pearson form); 3 for a normal curve"
+distribution_summary,median_site_mean,numeric,Median across sites of each site's own mean
+distribution_summary,median_site_sd,numeric,Median across sites of each site's own standard deviation
+distribution_summary,median_site_skewness,numeric,Median across sites of each site's own skewness
+distribution_summary,pct_variance_between_sites,numeric,% of pooled variance from differences between site means; NA with one site
+distribution_summary,pct_at_or_below_zero,numeric,% of site-days at or below zero
+distribution_summary,pct_event_days,numeric,% of site-days in an events.csv window
+distribution_summary,pct_fireworks_days,numeric,% of site-days in a fireworks window (PM2.5 only)
+distribution_shape_sites,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+distribution_shape_sites,site_id,character,AQS site ID; five-year sites outside the near-zero rule
+distribution_shape_sites,local_site_name,character,Site name given by the reporting agency; can be NA
+distribution_shape_sites,state_name,character,State or territory name
+distribution_shape_sites,region,character,"West (Census West region) or East (every other state or territory), for the PM2.5 check"
+distribution_shape_sites,site_group,factor,Case-study group; NA outside the case study
+distribution_shape_sites,n_days,integer,Ordinary days at the site
+distribution_shape_sites,pct_filled_in,numeric,"At this site: % of days at or below zero, filled in with half the detection limit"
+distribution_shape_sites,pct_top_value,numeric,At this site: % of days on the most common value
+distribution_shape_sites,skewness,numeric,At this site: skewness of the fitting values; 0 for a normal curve
+distribution_shape_sites,kurtosis,numeric,At this site: kurtosis of the fitting values (Pearson form); 3 for a normal curve
+distribution_shape_sites,log_skewness,numeric,At this site: skewness after taking logs; 0 for a lognormal curve
+distribution_shape_sites,log_kurtosis,numeric,At this site: kurtosis after taking logs; 3 for a lognormal curve
+distribution_shape_sites,log_quantile_skew,numeric,"At this site: (P90 + P10 - 2 x P50) / (P90 - P10) of the logs; 0 when symmetric, and a few extreme days cannot drive it"
+distribution_shape_sites,spread_factor,numeric,At this site: exp(SD of the logs): how many times above or below its typical level a site usually swings
+distribution_shape_sites,p99_over_normal,numeric,At this site: actual 99th percentile / the 99th percentile of a normal curve with the same mean and SD
+distribution_shape_sites,p99_over_lognormal,numeric,At this site: actual 99th percentile / the 99th percentile of a lognormal curve with the same log mean and SD
+distribution_shape_sites,p05_over_lognormal,numeric,At this site: actual 5th percentile / the 5th percentile of a lognormal curve with the same log mean and SD
+distribution_shape_sites,pct_days_off_lognormal,numeric,At this site: % of days the site's own lognormal curve puts in the wrong quarter-log2 bin
+distribution_shape_sites,mean_miss_normal,numeric,Mean miss in SDs across nine percentiles from the site's normal curve
+distribution_shape_sites,mean_miss_lognormal,numeric,Mean miss in SDs across nine percentiles from the site's lognormal curve
+distribution_shape_sites,largest_miss_normal,numeric,Largest miss in SDs at any of the nine percentiles from the normal curve
+distribution_shape_sites,largest_miss_lognormal,numeric,Largest miss in SDs at any of the nine percentiles from the lognormal curve
+distribution_shape_sites,normal_p01_is_negative,logical,TRUE when a normal curve with the site's mean and SD puts P1 below zero
+distribution_shape_summary,scope,factor,National (all sites outside the near-zero rule) or Case study (per group)
+distribution_shape_summary,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO; CO is national only"
+distribution_shape_summary,site_group,factor,Case-study group; NA in national rows
+distribution_shape_summary,site_set,factor,"Ordinary days (main run), All days, or a check run on ordinary days"
+distribution_shape_summary,n_sites,integer,Sites in the row
+distribution_shape_summary,n_site_days,integer,Site-days in the row
+distribution_shape_summary,pct_sites_log_nearer_symmetry,numeric,% of sites whose skew is closer to zero after taking logs
+distribution_shape_summary,pct_sites_normal_p01_negative,numeric,% of sites where a normal curve puts the 1st percentile below zero
+distribution_shape_summary,pct_sites_lognormal_closer,numeric,% of sites with a smaller mean miss from a lognormal than from a normal curve
+distribution_shape_summary,pct_sites_lognormal_close,numeric,% of sites where no percentile misses the lognormal by more than 0.25 SDs
+distribution_shape_summary,pct_sites_normal_close,numeric,% of sites where no percentile misses the normal curve by more than 0.25 SDs
+distribution_shape_summary,skewness_median,numeric,Median across sites of skewness of the fitting values; 0 for a normal curve
+distribution_shape_summary,skewness_q1,numeric,25th percentile across sites of skewness of the fitting values; 0 for a normal curve
+distribution_shape_summary,skewness_q3,numeric,75th percentile across sites of skewness of the fitting values; 0 for a normal curve
+distribution_shape_summary,kurtosis_median,numeric,Median across sites of kurtosis of the fitting values (Pearson form); 3 for a normal curve
+distribution_shape_summary,kurtosis_q1,numeric,25th percentile across sites of kurtosis of the fitting values (Pearson form); 3 for a normal curve
+distribution_shape_summary,kurtosis_q3,numeric,75th percentile across sites of kurtosis of the fitting values (Pearson form); 3 for a normal curve
+distribution_shape_summary,log_skewness_median,numeric,Median across sites of skewness after taking logs; 0 for a lognormal curve
+distribution_shape_summary,log_skewness_q1,numeric,25th percentile across sites of skewness after taking logs; 0 for a lognormal curve
+distribution_shape_summary,log_skewness_q3,numeric,75th percentile across sites of skewness after taking logs; 0 for a lognormal curve
+distribution_shape_summary,log_kurtosis_median,numeric,Median across sites of kurtosis after taking logs; 3 for a lognormal curve
+distribution_shape_summary,log_kurtosis_q1,numeric,25th percentile across sites of kurtosis after taking logs; 3 for a lognormal curve
+distribution_shape_summary,log_kurtosis_q3,numeric,75th percentile across sites of kurtosis after taking logs; 3 for a lognormal curve
+distribution_shape_summary,log_quantile_skew_median,numeric,"Median across sites of (P90 + P10 - 2 x P50) / (P90 - P10) of the logs; 0 when symmetric, and a few extreme days cannot drive it"
+distribution_shape_summary,log_quantile_skew_q1,numeric,"25th percentile across sites of (P90 + P10 - 2 x P50) / (P90 - P10) of the logs; 0 when symmetric, and a few extreme days cannot drive it"
+distribution_shape_summary,log_quantile_skew_q3,numeric,"75th percentile across sites of (P90 + P10 - 2 x P50) / (P90 - P10) of the logs; 0 when symmetric, and a few extreme days cannot drive it"
+distribution_shape_summary,spread_factor_median,numeric,Median across sites of exp(SD of the logs): how many times above or below its typical level a site usually swings
+distribution_shape_summary,spread_factor_q1,numeric,25th percentile across sites of exp(SD of the logs): how many times above or below its typical level a site usually swings
+distribution_shape_summary,spread_factor_q3,numeric,75th percentile across sites of exp(SD of the logs): how many times above or below its typical level a site usually swings
+distribution_shape_summary,p99_over_normal_median,numeric,Median across sites of actual 99th percentile / the 99th percentile of a normal curve with the same mean and SD
+distribution_shape_summary,p99_over_normal_q1,numeric,25th percentile across sites of actual 99th percentile / the 99th percentile of a normal curve with the same mean and SD
+distribution_shape_summary,p99_over_normal_q3,numeric,75th percentile across sites of actual 99th percentile / the 99th percentile of a normal curve with the same mean and SD
+distribution_shape_summary,p99_over_lognormal_median,numeric,Median across sites of actual 99th percentile / the 99th percentile of a lognormal curve with the same log mean and SD
+distribution_shape_summary,p99_over_lognormal_q1,numeric,25th percentile across sites of actual 99th percentile / the 99th percentile of a lognormal curve with the same log mean and SD
+distribution_shape_summary,p99_over_lognormal_q3,numeric,75th percentile across sites of actual 99th percentile / the 99th percentile of a lognormal curve with the same log mean and SD
+distribution_shape_summary,p05_over_lognormal_median,numeric,Median across sites of actual 5th percentile / the 5th percentile of a lognormal curve with the same log mean and SD
+distribution_shape_summary,p05_over_lognormal_q1,numeric,25th percentile across sites of actual 5th percentile / the 5th percentile of a lognormal curve with the same log mean and SD
+distribution_shape_summary,p05_over_lognormal_q3,numeric,75th percentile across sites of actual 5th percentile / the 5th percentile of a lognormal curve with the same log mean and SD
+distribution_shape_summary,pct_days_off_lognormal_median,numeric,Median across sites of % of days the site's own lognormal curve puts in the wrong quarter-log2 bin
+distribution_shape_summary,pct_days_off_lognormal_q1,numeric,25th percentile across sites of % of days the site's own lognormal curve puts in the wrong quarter-log2 bin
+distribution_shape_summary,pct_days_off_lognormal_q3,numeric,75th percentile across sites of % of days the site's own lognormal curve puts in the wrong quarter-log2 bin
+distribution_shape_summary,pct_top_value_median,numeric,Median across sites of % of days on the most common value
+distribution_shape_summary,pct_top_value_q1,numeric,25th percentile across sites of % of days on the most common value
+distribution_shape_summary,pct_top_value_q3,numeric,75th percentile across sites of % of days on the most common value
+distribution_shape_summary,pct_filled_in_median,numeric,"Median across sites of % of days at or below zero, filled in with half the detection limit"
+distribution_shape_summary,pct_filled_in_q1,numeric,"25th percentile across sites of % of days at or below zero, filled in with half the detection limit"
+distribution_shape_summary,pct_filled_in_q3,numeric,"75th percentile across sites of % of days at or below zero, filled in with half the detection limit"
+distribution_qq_points,scope,factor,National or Case study; main run on ordinary days
+distribution_qq_points,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO; CO is national only"
+distribution_qq_points,site_group,factor,Case-study group; NA in national rows
+distribution_qq_points,reference,character,Normal (plain values) or Lognormal (logs of the values)
+distribution_qq_points,percentile,numeric,Percentile compared
+distribution_qq_points,theoretical_z,numeric,SDs from the mean that a perfect curve puts this percentile
+distribution_qq_points,n_sites,integer,Sites summarised
+distribution_qq_points,median_observed_z,numeric,Median across sites of the SDs from the mean this percentile actually sits
+distribution_qq_points,q1_observed_z,numeric,25th percentile across sites of those SDs
+distribution_qq_points,q3_observed_z,numeric,75th percentile across sites of those SDs
+distribution_shape_histograms,scope,factor,National or Case study; main run on ordinary days
+distribution_shape_histograms,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO; CO is national only"
+distribution_shape_histograms,site_group,factor,Case-study group; NA in national rows
+distribution_shape_histograms,n_sites,integer,Sites summarised; each counts once
+distribution_shape_histograms,bin,numeric,Lower edge of the bin in log2 of value / site median
+distribution_shape_histograms,ratio_lower,numeric,Lower edge of the bin as a multiple of the site median
+distribution_shape_histograms,ratio_upper,numeric,Upper edge of the bin as a multiple of the site median
+distribution_shape_histograms,is_open_ended,logical,"TRUE for the two end bins, which also hold days beyond them"
+distribution_shape_histograms,pct_of_days,numeric,"% of days in the bin, averaged across sites"
+distribution_shape_histograms,pct_lognormal,numeric,"% of days each site's own lognormal curve puts in the bin, averaged across sites"

@@ -1,0 +1,271 @@
+scope,pollutant,site_group,reference,percentile,theoretical_z,n_sites,median_observed_z,q1_observed_z,q3_observed_z
+National,PM2.5,NA,Lognormal,1,-2.326,769,-2.505,-2.783,-2.311
+National,PM2.5,NA,Lognormal,5,-1.645,769,-1.637,-1.7,-1.576
+National,PM2.5,NA,Lognormal,10,-1.282,769,-1.23,-1.269,-1.189
+National,PM2.5,NA,Lognormal,25,-0.6745,769,-0.6244,-0.6672,-0.5684
+National,PM2.5,NA,Lognormal,50,0,769,0.01653,-0.02077,0.06538
+National,PM2.5,NA,Lognormal,75,0.6745,769,0.649,0.6145,0.679
+National,PM2.5,NA,Lognormal,90,1.282,769,1.233,1.164,1.277
+National,PM2.5,NA,Lognormal,95,1.645,769,1.593,1.498,1.664
+National,PM2.5,NA,Lognormal,99,2.326,769,2.267,2.116,2.436
+National,PM2.5,NA,Normal,1,-2.326,769,-1.337,-1.464,-1.182
+National,PM2.5,NA,Normal,5,-1.645,769,-1.12,-1.205,-0.9953
+National,PM2.5,NA,Normal,10,-1.282,769,-0.9723,-1.037,-0.8737
+National,PM2.5,NA,Normal,25,-0.6745,769,-0.6687,-0.7022,-0.61240000000000006
+National,PM2.5,NA,Normal,50,0,769,-0.2133,-0.2458,-0.1805
+National,PM2.5,NA,Normal,75,0.6745,769,0.4141,0.3102,0.4744
+National,PM2.5,NA,Normal,90,1.282,769,1.21,1.095,1.275
+National,PM2.5,NA,Normal,95,1.645,769,1.834,1.736,1.913
+National,PM2.5,NA,Normal,99,2.326,769,3.417,3.208,3.691
+National,Ozone,NA,Lognormal,1,-2.326,964,-2.826,-3.005,-2.652
+National,Ozone,NA,Lognormal,5,-1.645,964,-1.746,-1.822,-1.672
+National,Ozone,NA,Lognormal,10,-1.282,964,-1.269,-1.326,-1.213
+National,Ozone,NA,Lognormal,25,-0.6745,964,-0.5782,-0.6266,-0.531
+National,Ozone,NA,Lognormal,50,0,964,0.1025,0.06332,0.1367
+National,Ozone,NA,Lognormal,75,0.6745,964,0.6969,0.6678,0.7269
+National,Ozone,NA,Lognormal,90,1.282,964,1.166,1.12,1.21
+National,Ozone,NA,Lognormal,95,1.645,964,1.418,1.36,1.488
+National,Ozone,NA,Lognormal,99,2.326,964,1.864,1.767,1.994
+National,Ozone,NA,Normal,1,-2.326,964,-2.173,-2.309,-2.05
+National,Ozone,NA,Normal,5,-1.645,964,-1.574,-1.646,-1.51
+National,Ozone,NA,Normal,10,-1.282,964,-1.249,-1.295,-1.206
+National,Ozone,NA,Normal,25,-0.6745,964,-0.6921,-0.7267,-0.6558
+National,Ozone,NA,Normal,50,0,964,-0.03276,-0.07294,0.007852
+National,Ozone,NA,Normal,75,0.6745,964,0.6655,0.626,0.7032
+National,Ozone,NA,Normal,90,1.282,964,1.297,1.256,1.335
+National,Ozone,NA,Normal,95,1.645,964,1.677,1.614,1.737
+National,Ozone,NA,Normal,99,2.326,964,2.407,2.273,2.581
+National,NO2,NA,Lognormal,1,-2.326,311,-2.642,-2.914,-2.436
+National,NO2,NA,Lognormal,5,-1.645,311,-1.769,-1.859,-1.687
+National,NO2,NA,Lognormal,10,-1.282,311,-1.329,-1.383,-1.272
+National,NO2,NA,Lognormal,25,-0.6745,311,-0.632,-0.6768,-0.5609
+National,NO2,NA,Lognormal,50,0,311,0.09838,0.03838,0.1602
+National,NO2,NA,Lognormal,75,0.6745,311,0.7242,0.6801,0.7699
+National,NO2,NA,Lognormal,90,1.282,311,1.201,1.127,1.266
+National,NO2,NA,Lognormal,95,1.645,311,1.438,1.329,1.534
+National,NO2,NA,Lognormal,99,2.326,311,1.778,1.65,1.961
+National,NO2,NA,Normal,1,-2.326,311,-1.527,-1.789,-1.313
+National,NO2,NA,Normal,5,-1.645,311,-1.318,-1.473,-1.16
+National,NO2,NA,Normal,10,-1.282,311,-1.149,-1.241,-1.035
+National,NO2,NA,Normal,25,-0.6745,311,-0.7466,-0.789,-0.7002
+National,NO2,NA,Normal,50,0,311,-0.1686,-0.2388,-0.07456
+National,NO2,NA,Normal,75,0.6745,311,0.6249,0.5217,0.6863
+National,NO2,NA,Normal,90,1.282,311,1.369,1.277,1.433
+National,NO2,NA,Normal,95,1.645,311,1.822,1.714,1.931
+National,NO2,NA,Normal,99,2.326,311,2.653,2.456,3.039
+National,SO2,NA,Lognormal,1,-2.326,249,-2.125,-2.539,-1.775
+National,SO2,NA,Lognormal,5,-1.645,249,-1.639,-1.828,-1.406
+National,SO2,NA,Lognormal,10,-1.282,249,-1.263,-1.432,-1.112
+National,SO2,NA,Lognormal,25,-0.6745,249,-0.6538,-0.7542,-0.5679
+National,SO2,NA,Lognormal,50,0,249,0.01426,-0.0843,0.109
+National,SO2,NA,Lognormal,75,0.6745,249,0.6831,0.6188,0.7529
+National,SO2,NA,Lognormal,90,1.282,249,1.245,1.147,1.364
+National,SO2,NA,Lognormal,95,1.645,249,1.586,1.443,1.728
+National,SO2,NA,Lognormal,99,2.326,249,2.188,1.949,2.427
+National,SO2,NA,Normal,1,-2.326,249,-0.7632,-1.037,-0.5548
+National,SO2,NA,Normal,5,-1.645,249,-0.71,-0.9595,-0.5406
+National,SO2,NA,Normal,10,-1.282,249,-0.6796,-0.8595,-0.521
+National,SO2,NA,Normal,25,-0.6745,249,-0.5647,-0.6506,-0.4642
+National,SO2,NA,Normal,50,0,249,-0.2734,-0.3519,-0.2035
+National,SO2,NA,Normal,75,0.6745,249,0.203,0.06532,0.351
+National,SO2,NA,Normal,90,1.282,249,1.008,0.8012,1.165
+National,SO2,NA,Normal,95,1.645,249,1.697,1.406,1.924
+National,SO2,NA,Normal,99,2.326,249,3.645,3.102,4.107
+National,CO,NA,Lognormal,1,-2.326,132,-2.176,-2.578,-1.569
+National,CO,NA,Lognormal,5,-1.645,132,-1.472,-1.868,-1.136
+National,CO,NA,Lognormal,10,-1.282,132,-1.15,-1.433,-0.9014
+National,CO,NA,Lognormal,25,-0.6745,132,-0.6383,-0.8392,-0.4115
+National,CO,NA,Lognormal,50,0,132,-0.01622,-0.1227,0.1337
+National,CO,NA,Lognormal,75,0.6745,132,0.6443,0.5227,0.7442
+National,CO,NA,Lognormal,90,1.282,132,1.232,1.1,1.368
+National,CO,NA,Lognormal,95,1.645,132,1.592,1.438,1.748
+National,CO,NA,Lognormal,99,2.326,132,2.169,1.953,2.498
+National,CO,NA,Normal,1,-2.326,132,-1.379,-1.637,-1.13
+National,CO,NA,Normal,5,-1.645,132,-1.096,-1.365,-0.9298
+National,CO,NA,Normal,10,-1.282,132,-0.966,-1.111,-0.8419
+National,CO,NA,Normal,25,-0.6745,132,-0.6765,-0.8359,-0.5192
+National,CO,NA,Normal,50,0,132,-0.233,-0.3203,-0.08717
+National,CO,NA,Normal,75,0.6745,132,0.4435,0.2941,0.5847
+National,CO,NA,Normal,90,1.282,132,1.264,1.067,1.441
+National,CO,NA,Normal,95,1.645,132,1.885,1.671,2.015
+National,CO,NA,Normal,99,2.326,132,3.101,2.821,3.405
+Case study,PM2.5,Houston Ship Channel,Lognormal,1,-2.326,3,-2.434,-2.483,-2.341
+Case study,PM2.5,Houston Ship Channel,Lognormal,5,-1.645,3,-1.645,-1.715,-1.645
+Case study,PM2.5,Houston Ship Channel,Lognormal,10,-1.282,3,-1.257,-1.263,-1.241
+Case study,PM2.5,Houston Ship Channel,Lognormal,25,-0.6745,3,-0.6414,-0.649,-0.6068
+Case study,PM2.5,Houston Ship Channel,Lognormal,50,0,3,0.01904,0.01366,0.04491
+Case study,PM2.5,Houston Ship Channel,Lognormal,75,0.6745,3,0.6437,0.6433,0.6461
+Case study,PM2.5,Houston Ship Channel,Lognormal,90,1.282,3,1.254,1.219,1.274
+Case study,PM2.5,Houston Ship Channel,Lognormal,95,1.645,3,1.545,1.498,1.563
+Case study,PM2.5,Houston Ship Channel,Lognormal,99,2.326,3,2.353,2.304,2.433
+Case study,PM2.5,Houston Ship Channel,Normal,1,-2.326,3,-1.525,-1.552,-1.441
+Case study,PM2.5,Houston Ship Channel,Normal,5,-1.645,3,-1.226,-1.273,-1.192
+Case study,PM2.5,Houston Ship Channel,Normal,10,-1.282,3,-1.047,-1.061,-1.014
+Case study,PM2.5,Houston Ship Channel,Normal,25,-0.6745,3,-0.6683,-0.6776,-0.6649
+Case study,PM2.5,Houston Ship Channel,Normal,50,0,3,-0.1697,-0.1858,-0.1536
+Case study,PM2.5,Houston Ship Channel,Normal,75,0.6745,3,0.4542,0.4386,0.464
+Case study,PM2.5,Houston Ship Channel,Normal,90,1.282,3,1.24,1.228,1.258
+Case study,PM2.5,Houston Ship Channel,Normal,95,1.645,3,1.689,1.671,1.719
+Case study,PM2.5,Houston Ship Channel,Normal,99,2.326,3,3.335,3.297,3.576
+Case study,PM2.5,Houston other,Lognormal,1,-2.326,1,-2.466,-2.466,-2.466
+Case study,PM2.5,Houston other,Lognormal,5,-1.645,1,-1.685,-1.685,-1.685
+Case study,PM2.5,Houston other,Lognormal,10,-1.282,1,-1.268,-1.268,-1.268
+Case study,PM2.5,Houston other,Lognormal,25,-0.6745,1,-0.6089,-0.6089,-0.6089
+Case study,PM2.5,Houston other,Lognormal,50,0,1,0.04975,0.04975,0.04975
+Case study,PM2.5,Houston other,Lognormal,75,0.6745,1,0.6724,0.6724,0.6724
+Case study,PM2.5,Houston other,Lognormal,90,1.282,1,1.163,1.163,1.163
+Case study,PM2.5,Houston other,Lognormal,95,1.645,1,1.502,1.502,1.502
+Case study,PM2.5,Houston other,Lognormal,99,2.326,1,2.166,2.166,2.166
+Case study,PM2.5,Houston other,Normal,1,-2.326,1,-1.583,-1.583,-1.583
+Case study,PM2.5,Houston other,Normal,5,-1.645,1,-1.292,-1.292,-1.292
+Case study,PM2.5,Houston other,Normal,10,-1.282,1,-1.092,-1.092,-1.092
+Case study,PM2.5,Houston other,Normal,25,-0.6745,1,-0.6898,-0.6898,-0.6898
+Case study,PM2.5,Houston other,Normal,50,0,1,-0.1542,-0.1542,-0.1542
+Case study,PM2.5,Houston other,Normal,75,0.6745,1,0.5154,0.5154,0.5154
+Case study,PM2.5,Houston other,Normal,90,1.282,1,1.187,1.187,1.187
+Case study,PM2.5,Houston other,Normal,95,1.645,1,1.743,1.743,1.743
+Case study,PM2.5,Houston other,Normal,99,2.326,1,3.102,3.102,3.102
+Case study,PM2.5,Dallas-Fort Worth,Lognormal,1,-2.326,3,-2.836,-2.84,-2.697
+Case study,PM2.5,Dallas-Fort Worth,Lognormal,5,-1.645,3,-1.681,-1.685,-1.675
+Case study,PM2.5,Dallas-Fort Worth,Lognormal,10,-1.282,3,-1.184,-1.188,-1.181
+Case study,PM2.5,Dallas-Fort Worth,Lognormal,25,-0.6745,3,-0.5774,-0.5964,-0.5596
+Case study,PM2.5,Dallas-Fort Worth,Lognormal,50,0,3,0.03772,0.02862,0.03962
+Case study,PM2.5,Dallas-Fort Worth,Lognormal,75,0.6745,3,0.6615,0.66,0.668
+Case study,PM2.5,Dallas-Fort Worth,Lognormal,90,1.282,3,1.173,1.155,1.177
+Case study,PM2.5,Dallas-Fort Worth,Lognormal,95,1.645,3,1.481,1.461,1.534
+Case study,PM2.5,Dallas-Fort Worth,Lognormal,99,2.326,3,2.293,2.256,2.307
+Case study,PM2.5,Dallas-Fort Worth,Normal,1,-2.326,3,-1.563,-1.6,-1.501
+Case study,PM2.5,Dallas-Fort Worth,Normal,5,-1.645,3,-1.245,-1.255,-1.213
+Case study,PM2.5,Dallas-Fort Worth,Normal,10,-1.282,3,-1.032,-1.034,-1.004
+Case study,PM2.5,Dallas-Fort Worth,Normal,25,-0.6745,3,-0.6662,-0.6695,-0.6639
+Case study,PM2.5,Dallas-Fort Worth,Normal,50,0,3,-0.2,-0.2031,-0.1853
+Case study,PM2.5,Dallas-Fort Worth,Normal,75,0.6745,3,0.4814,0.4723,0.4858
+Case study,PM2.5,Dallas-Fort Worth,Normal,90,1.282,3,1.185,1.166,1.196
+Case study,PM2.5,Dallas-Fort Worth,Normal,95,1.645,3,1.734,1.723,1.799
+Case study,PM2.5,Dallas-Fort Worth,Normal,99,2.326,3,3.55,3.521,3.585
+Case study,Ozone,Houston Ship Channel,Lognormal,1,-2.326,6,-2.812,-2.909,-2.735
+Case study,Ozone,Houston Ship Channel,Lognormal,5,-1.645,6,-1.592,-1.646,-1.556
+Case study,Ozone,Houston Ship Channel,Lognormal,10,-1.282,6,-1.156,-1.18,-1.146
+Case study,Ozone,Houston Ship Channel,Lognormal,25,-0.6745,6,-0.6535,-0.665,-0.6236
+Case study,Ozone,Houston Ship Channel,Lognormal,50,0,6,-0.00565,-0.0129,0.01423
+Case study,Ozone,Houston Ship Channel,Lognormal,75,0.6745,6,0.7097,0.7083,0.7162
+Case study,Ozone,Houston Ship Channel,Lognormal,90,1.282,6,1.244,1.231,1.259
+Case study,Ozone,Houston Ship Channel,Lognormal,95,1.645,6,1.539,1.507,1.551
+Case study,Ozone,Houston Ship Channel,Lognormal,99,2.326,6,1.997,1.994,2.061
+Case study,Ozone,Houston Ship Channel,Normal,1,-2.326,6,-1.821,-1.849,-1.8
+Case study,Ozone,Houston Ship Channel,Normal,5,-1.645,6,-1.324,-1.36,-1.292
+Case study,Ozone,Houston Ship Channel,Normal,10,-1.282,6,-1.088,-1.094,-1.077
+Case study,Ozone,Houston Ship Channel,Normal,25,-0.6745,6,-0.741,-0.7501,-0.7239
+Case study,Ozone,Houston Ship Channel,Normal,50,0,6,-0.1917,-0.2014,-0.1803
+Case study,Ozone,Houston Ship Channel,Normal,75,0.6745,6,0.61,0.5946,0.6118
+Case study,Ozone,Houston Ship Channel,Normal,90,1.282,6,1.362,1.35,1.388
+Case study,Ozone,Houston Ship Channel,Normal,95,1.645,6,1.864,1.85,1.883
+Case study,Ozone,Houston Ship Channel,Normal,99,2.326,6,2.828,2.774,2.937
+Case study,Ozone,Houston other,Lognormal,1,-2.326,10,-2.671,-2.866,-2.595
+Case study,Ozone,Houston other,Lognormal,5,-1.645,10,-1.574,-1.624,-1.498
+Case study,Ozone,Houston other,Lognormal,10,-1.282,10,-1.206,-1.22,-1.188
+Case study,Ozone,Houston other,Lognormal,25,-0.6745,10,-0.6355,-0.6456,-0.5969
+Case study,Ozone,Houston other,Lognormal,50,0,10,0.004595,-0.01601,0.04518
+Case study,Ozone,Houston other,Lognormal,75,0.6745,10,0.7085,0.696,0.7343
+Case study,Ozone,Houston other,Lognormal,90,1.282,10,1.232,1.216,1.25
+Case study,Ozone,Houston other,Lognormal,95,1.645,10,1.518,1.501,1.535
+Case study,Ozone,Houston other,Lognormal,99,2.326,10,1.974,1.968,2.021
+Case study,Ozone,Houston other,Normal,1,-2.326,10,-1.829,-1.848,-1.775
+Case study,Ozone,Houston other,Normal,5,-1.645,10,-1.339,-1.365,-1.288
+Case study,Ozone,Houston other,Normal,10,-1.282,10,-1.122,-1.134,-1.115
+Case study,Ozone,Houston other,Normal,25,-0.6745,10,-0.7216,-0.7431,-0.7126
+Case study,Ozone,Houston other,Normal,50,0,10,-0.1693,-0.2002,-0.1478
+Case study,Ozone,Houston other,Normal,75,0.6745,10,0.6079,0.5959,0.6466
+Case study,Ozone,Houston other,Normal,90,1.282,10,1.369,1.354,1.414
+Case study,Ozone,Houston other,Normal,95,1.645,10,1.862,1.816,1.877
+Case study,Ozone,Houston other,Normal,99,2.326,10,2.782,2.735,2.81
+Case study,Ozone,Dallas-Fort Worth,Lognormal,1,-2.326,6,-2.737,-2.841,-2.727
+Case study,Ozone,Dallas-Fort Worth,Lognormal,5,-1.645,6,-1.663,-1.674,-1.634
+Case study,Ozone,Dallas-Fort Worth,Lognormal,10,-1.282,6,-1.112,-1.163,-1.105
+Case study,Ozone,Dallas-Fort Worth,Lognormal,25,-0.6745,6,-0.5489,-0.5547,-0.5418
+Case study,Ozone,Dallas-Fort Worth,Lognormal,50,0,6,0.07136,0.04918,0.08134
+Case study,Ozone,Dallas-Fort Worth,Lognormal,75,0.6745,6,0.6679,0.6559,0.6817
+Case study,Ozone,Dallas-Fort Worth,Lognormal,90,1.282,6,1.141,1.134,1.146
+Case study,Ozone,Dallas-Fort Worth,Lognormal,95,1.645,6,1.389,1.367,1.403
+Case study,Ozone,Dallas-Fort Worth,Lognormal,99,2.326,6,1.829,1.8,1.835
+Case study,Ozone,Dallas-Fort Worth,Normal,1,-2.326,6,-1.999,-2.054,-1.992
+Case study,Ozone,Dallas-Fort Worth,Normal,5,-1.645,6,-1.493,-1.499,-1.465
+Case study,Ozone,Dallas-Fort Worth,Normal,10,-1.282,6,-1.16,-1.176,-1.141
+Case study,Ozone,Dallas-Fort Worth,Normal,25,-0.6745,6,-0.702,-0.7097,-0.6931
+Case study,Ozone,Dallas-Fort Worth,Normal,50,0,6,-0.105,-0.1212,-0.09726
+Case study,Ozone,Dallas-Fort Worth,Normal,75,0.6745,6,0.6309,0.6153,0.6491
+Case study,Ozone,Dallas-Fort Worth,Normal,90,1.282,6,1.337,1.319,1.344
+Case study,Ozone,Dallas-Fort Worth,Normal,95,1.645,6,1.743,1.71,1.769
+Case study,Ozone,Dallas-Fort Worth,Normal,99,2.326,6,2.586,2.553,2.625
+Case study,NO2,Houston Ship Channel,Lognormal,1,-2.326,4,-2.552,-2.723,-2.508
+Case study,NO2,Houston Ship Channel,Lognormal,5,-1.645,4,-1.832,-1.838,-1.806
+Case study,NO2,Houston Ship Channel,Lognormal,10,-1.282,4,-1.367,-1.402,-1.32
+Case study,NO2,Houston Ship Channel,Lognormal,25,-0.6745,4,-0.6561,-0.6725,-0.622
+Case study,NO2,Houston Ship Channel,Lognormal,50,0,4,0.1318,0.1048,0.1548
+Case study,NO2,Houston Ship Channel,Lognormal,75,0.6745,4,0.7619,0.7558,0.7656
+Case study,NO2,Houston Ship Channel,Lognormal,90,1.282,4,1.179,1.13,1.219
+Case study,NO2,Houston Ship Channel,Lognormal,95,1.645,4,1.387,1.309,1.442
+Case study,NO2,Houston Ship Channel,Lognormal,99,2.326,4,1.768,1.655,1.825
+Case study,NO2,Houston Ship Channel,Normal,1,-2.326,4,-1.527,-1.589,-1.465
+Case study,NO2,Houston Ship Channel,Normal,5,-1.645,4,-1.328,-1.366,-1.296
+Case study,NO2,Houston Ship Channel,Normal,10,-1.282,4,-1.153,-1.2,-1.126
+Case study,NO2,Houston Ship Channel,Normal,25,-0.6745,4,-0.8055,-0.8181,-0.7882
+Case study,NO2,Houston Ship Channel,Normal,50,0,4,-0.1785,-0.1877,-0.1526
+Case study,NO2,Houston Ship Channel,Normal,75,0.6745,4,0.6508,0.6004,0.7099
+Case study,NO2,Houston Ship Channel,Normal,90,1.282,4,1.405,1.378,1.42
+Case study,NO2,Houston Ship Channel,Normal,95,1.645,4,1.833,1.769,1.877
+Case study,NO2,Houston Ship Channel,Normal,99,2.326,4,2.726,2.518,2.898
+Case study,NO2,Houston other,Lognormal,1,-2.326,3,-2.671,-2.743,-2.617
+Case study,NO2,Houston other,Lognormal,5,-1.645,3,-1.814,-1.837,-1.8
+Case study,NO2,Houston other,Lognormal,10,-1.282,3,-1.359,-1.388,-1.332
+Case study,NO2,Houston other,Lognormal,25,-0.6745,3,-0.6131,-0.643,-0.6043
+Case study,NO2,Houston other,Lognormal,50,0,3,0.10780000000000001,0.09729,0.1433
+Case study,NO2,Houston other,Lognormal,75,0.6745,3,0.8232,0.797,0.8233
+Case study,NO2,Houston other,Lognormal,90,1.282,3,1.174,1.144,1.197
+Case study,NO2,Houston other,Lognormal,95,1.645,3,1.348,1.308,1.369
+Case study,NO2,Houston other,Lognormal,99,2.326,3,1.605,1.54,1.637
+Case study,NO2,Houston other,Normal,1,-2.326,3,-1.507,-1.574,-1.457
+Case study,NO2,Houston other,Normal,5,-1.645,3,-1.351,-1.362,-1.307
+Case study,NO2,Houston other,Normal,10,-1.282,3,-1.181,-1.2,-1.154
+Case study,NO2,Houston other,Normal,25,-0.6745,3,-0.8189,-0.8254,-0.7962
+Case study,NO2,Houston other,Normal,50,0,3,-0.1843,-0.2029,-0.1662
+Case study,NO2,Houston other,Normal,75,0.6745,3,0.7156,0.7076,0.7534
+Case study,NO2,Houston other,Normal,90,1.282,3,1.414,1.399,1.45
+Case study,NO2,Houston other,Normal,95,1.645,3,1.779,1.767,1.834
+Case study,NO2,Houston other,Normal,99,2.326,3,2.476,2.4,2.519
+Case study,NO2,Dallas-Fort Worth,Lognormal,1,-2.326,4,-2.511,-2.682,-2.303
+Case study,NO2,Dallas-Fort Worth,Lognormal,5,-1.645,4,-1.707,-1.735,-1.689
+Case study,NO2,Dallas-Fort Worth,Lognormal,10,-1.282,4,-1.339,-1.404,-1.276
+Case study,NO2,Dallas-Fort Worth,Lognormal,25,-0.6745,4,-0.7027,-0.7418,-0.6638
+Case study,NO2,Dallas-Fort Worth,Lognormal,50,0,4,0.0757,0.065310000000000007,0.1007
+Case study,NO2,Dallas-Fort Worth,Lognormal,75,0.6745,4,0.8028,0.7836,0.808
+Case study,NO2,Dallas-Fort Worth,Lognormal,90,1.282,4,1.253,1.226,1.266
+Case study,NO2,Dallas-Fort Worth,Lognormal,95,1.645,4,1.443,1.404,1.463
+Case study,NO2,Dallas-Fort Worth,Lognormal,99,2.326,4,1.693,1.636,1.74
+Case study,NO2,Dallas-Fort Worth,Normal,1,-2.326,4,-1.365,-1.426,-1.329
+Case study,NO2,Dallas-Fort Worth,Normal,5,-1.645,4,-1.215,-1.257,-1.192
+Case study,NO2,Dallas-Fort Worth,Normal,10,-1.282,4,-1.085,-1.144,-1.054
+Case study,NO2,Dallas-Fort Worth,Normal,25,-0.6745,4,-0.828,-0.8519,-0.7936
+Case study,NO2,Dallas-Fort Worth,Normal,50,0,4,-0.24,-0.2669,-0.1923
+Case study,NO2,Dallas-Fort Worth,Normal,75,0.6745,4,0.6459,0.6188,0.6765
+Case study,NO2,Dallas-Fort Worth,Normal,90,1.282,4,1.498,1.464,1.51
+Case study,NO2,Dallas-Fort Worth,Normal,95,1.645,4,1.927,1.856,1.971
+Case study,NO2,Dallas-Fort Worth,Normal,99,2.326,4,2.611,2.528,2.667
+Case study,SO2,Houston Ship Channel,Lognormal,1,-2.326,1,-1.345,-1.345,-1.345
+Case study,SO2,Houston Ship Channel,Lognormal,5,-1.645,1,-1.345,-1.345,-1.345
+Case study,SO2,Houston Ship Channel,Lognormal,10,-1.282,1,-1.345,-1.345,-1.345
+Case study,SO2,Houston Ship Channel,Lognormal,25,-0.6745,1,-0.8037,-0.8037,-0.8037
+Case study,SO2,Houston Ship Channel,Lognormal,50,0,1,0.05429,0.05429,0.05429
+Case study,SO2,Houston Ship Channel,Lognormal,75,0.6745,1,0.8203,0.8203,0.8203
+Case study,SO2,Houston Ship Channel,Lognormal,90,1.282,1,1.337,1.337,1.337
+Case study,SO2,Houston Ship Channel,Lognormal,95,1.645,1,1.574,1.574,1.574
+Case study,SO2,Houston Ship Channel,Lognormal,99,2.326,1,2.016,2.016,2.016
+Case study,SO2,Houston Ship Channel,Normal,1,-2.326,1,-0.6328,-0.6328,-0.6328
+Case study,SO2,Houston Ship Channel,Normal,5,-1.645,1,-0.6328,-0.6328,-0.6328
+Case study,SO2,Houston Ship Channel,Normal,10,-1.282,1,-0.6328,-0.6328,-0.6328
+Case study,SO2,Houston Ship Channel,Normal,25,-0.6745,1,-0.5751,-0.5751,-0.5751
+Case study,SO2,Houston Ship Channel,Normal,50,0,1,-0.3443,-0.3443,-0.3443
+Case study,SO2,Houston Ship Channel,Normal,75,0.6745,1,0.2329,0.2329,0.2329
+Case study,SO2,Houston Ship Channel,Normal,90,1.282,1,1.099,1.099,1.099
+Case study,SO2,Houston Ship Channel,Normal,95,1.645,1,1.733,1.733,1.733
+Case study,SO2,Houston Ship Channel,Normal,99,2.326,1,3.58,3.58,3.58
