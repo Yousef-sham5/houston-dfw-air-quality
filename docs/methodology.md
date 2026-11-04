@@ -1,6 +1,6 @@
 # Methodology
 
-October 28, 2026 · Yousef Shamsaldeen
+November 4, 2026 · Yousef Shamsaldeen
 
 **Phase 1** builds three cleaned datasets:
 - national daily data (`1a`, `1b`)
@@ -8,6 +8,8 @@ October 28, 2026 · Yousef Shamsaldeen
 - hourly weather for their 9 sites (`1e`)
 
 **Phase 2** explores them in `2a` (national), `2b` (daily case study) and `2c` (hourly case study).
+
+**Phase 3** describes their distributions in `3_distributions`. Sections 1 to 4 are done; tails, extreme values and a worked design value are planned.
 
 Every column is read with an explicit type, and named assertions stop a script when an assumption fails.
 
@@ -171,11 +173,46 @@ The gap left after section 3 appears in wind from the channel, consistent with o
 
 **Validation (section 7, figure 2C.11):** the 67 headline 95% ranges were redrawn with a second seed; none changed its verdict, and no end moved more than 9.1% of its range. All ten headline findings hold under every check that applies. The numbers the report quotes are saved in `case_study_hourly_headlines.csv`, and all 19 checks in `case_study_hourly_validation.csv` pass.
 
+## Distributions (3_distributions, in progress)
+
+**Fit table (section 1):** five-year sites give 4,016,891 site-days after collocated instruments are averaged. Values at or below zero take half the method's federal detection limit in a fitting copy, and the reported value stays beside it. Sites with at least 25% of days at or below zero (52 SO₂, 3 CO, 1 NO₂) stay out of the fits, leaving 2,425. Fits use ordinary days, and `distribution_site_inventory.csv` records each site's schedule, method changes and limits.
+
+**Pooled numbers (section 2):** pooling mixes sites, so each row also gives the typical site. SO₂'s pooled skew is 20.2 against 3.89 at the typical site, and 50.4% of NO₂'s variance lies between sites.
+
+**Shape (section 3, figures 3.1 and 3.2):** each site's percentiles are compared with its own normal and lognormal curves. A lognormal is closer at 97% of PM2.5, 96% of SO₂ and 81% of CO sites, and a normal curve at 82% of ozone sites. NO₂ splits, at 61% lognormal.
+
+**Fits (section 4, figure 3.3):** lognormal, gamma and Weibull curves are fitted per site on value / site mean and ranked by AIC (2k − 2 ln L). Every curve has k = 2, so the ranking rests on the likelihood alone. A normal curve is fitted beside them as a reference. `fitdistrplus` fits the main run, and a faster maximum-likelihood fit handles checks and resamples and must match it within 0.001 AIC.
+
+| Ordinary days | Sites | Lognormal | Gamma | Weibull | Normal wins if allowed | AIC gap 10+ | Scaled gap 10+ | Winner holds |
+|---|---|---|---|---|---|---|---|---|
+| PM2.5 | 769 | 522 | 232 | 15 | 0 | 91.8% | 72.8% | 69.2% |
+| Ozone | 964 | 22 | 421 | 521 | 525 | 87.7% | 36.1% | 55.6% |
+| NO₂ | 311 | 66 | 125 | 120 | 13 | 87.8% | 63.3% | 60.6% |
+| SO₂ | 249 | 188 | 53 | 8 | 0 | 96.4% | 79.5% | 78.2% |
+| CO | 132 | 82 | 41 | 9 | 4 | 89.4% | 65.2% | 77.0% |
+
+- **Certainty:** nearby days are linked. Effective days are n(1 − r) / (1 + r), where r is the correlation of logs on consecutive days, and the scaled gap is the AIC gap × effective days / n. A winner holds when it is kept in at least 90% of 100 two-week block resamples, run at 100 random sites per pollutant plus every case-study site.
+- **Seasons:** ozone's leading curve is gamma in warm months (476 of 964 sites) and Weibull in cool months (427 of the 615 year-round sites). NO₂ moves the same way (143 and 199 of 311). Allowing the normal curve, case-study ozone goes normal at 21 of 22 sites in cool months and gamma at 20 in warm months. Section 3's warm-month lognormal at 15 of 16 Houston sites compares it with the normal curve only; with gamma included, gamma wins 14 of those 16.
+- **Censored checks:** a day below a limit counts only as somewhere below it. Censoring days at or below zero keeps the winner at 95.2% of SO₂ and 96.2% of CO sites. Censoring every reading below the limit keeps it at 72.3% and 75.8%. Treating CO readings as rounded intervals also keeps it at 75.8%.
+- **Deer Park #2 SO₂:** the main fit picks a lognormal whose P99 runs 49% high (actual / fitted = 0.673), and resampling calls that win clear. With the 22.9% of days below the limit censored, a Weibull curve wins by an AIC gap of 24.2, with a ratio of 0.98. The main win is consistent with fitting the pile of low readings.
+- **Dallas–Fort Worth ozone:** its year-round split of 3 gamma and 3 Weibull sites moves to 4 and 2 once readings below 5 ppb are censored, so that split is fragile.
+- **PM2.5 monitors:** at 67 sites with at least 365 ordinary days each side, a lognormal wins 95.5% of fits on a T640 alone and 46.3% on other monitors. At 228 sites with no T640, split at the typical switch date (2023-02-18), it falls from 51.3% to 36.0%. That is consistent with an instrument effect, and the cause is not confirmed.
+- **Group spread:** the spread factor is exp(SD of logs), compared per site since winner labels are unstable. 95% ranges come from 1,000 resamples of the same 14-day date blocks at every site, since sites share weather; a second seed moved no end more than 8.8% of its range.
+
+| Ozone spread factor (median) | Ship Channel | Houston other | Dallas–Fort Worth | Gaps to Dallas–Fort Worth (95% range) |
+|---|---|---|---|---|
+| Warm months | 1.47 | 1.46 | 1.34 | +0.134 (0.092 to 0.168), +0.124 (0.081 to 0.159) |
+| Cool months | 1.46 | 1.46 | 1.46 | −0.003 (−0.115 to 0.103), 0.000 (−0.122 to 0.106) |
+
+The warm-month gap is consistent with Houston swinging between cleaner Gulf air and stagnant days, which is not tested here.
+
+**Validation:** a separate base R recomputation, kept outside the repo, matched every saved fit within rounding, including the censored fits, resampled shares and group ranges. Records are saved as `distribution_*.csv`.
+
 ## Saved files
 
 - **`data/processed/`:** the `.rds` checkpoints that later scripts read, `data_dictionary.csv` (every saved column) and `checkpoint_manifest.csv` (the size and MD5 of each checkpoint).
-- **`data/processed/phase1/` and `phase2/`:** the CSV records from each script, readable on GitHub.
-- **`figures/`:** every figure, numbered in order (`2a.01` to `2c.11`) and sized for a 6.5-inch report page.
+- **`data/processed/phase1/`, `phase2/` and `phase3/`:** the CSV records from each script, readable on GitHub.
+- **`figures/`:** every figure, numbered in order (`2a.01` to `3.03`) and sized for a 6.5-inch report page.
 
 ## Known limits
 
@@ -185,6 +222,8 @@ The gap left after section 3 appears in wind from the channel, consistent with o
 - **Weather gaps:** wind is missing for 474 days at Bayland Park, 314 at Grapevine and 161 at Deer Park #2, and Harvard Street's weather is borrowed from neighbours.
 - **Direction is a pointer:** each wind direction also brings its own kind of air (north wind often follows a cold front), so a direction points toward a source without proving it.
 - **Two monitor changes:** Deer Park #2 moved in 2025, and Harvard Street NO₂ changed method. Both are flagged and checked, not adjusted.
+- **Curves are relative:** a winner can still miss its tail. The AIC winner is also closest at P99 at 60% to 81% of sites, depending on the pollutant, and a year-round curve blends two seasons.
+- **Detection limits:** the censored checks use method-wide federal limits, which can differ from a monitor's actual limit.
 - **No ozone on December 31** in the daily table, an EPA file artifact. The hourly table has these days.
 
 ## Sources

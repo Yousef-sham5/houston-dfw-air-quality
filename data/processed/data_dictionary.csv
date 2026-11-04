@@ -948,3 +948,103 @@ distribution_shape_histograms,ratio_upper,numeric,Upper edge of the bin as a mul
 distribution_shape_histograms,is_open_ended,logical,"TRUE for the two end bins, which also hold days beyond them"
 distribution_shape_histograms,pct_of_days,numeric,"% of days in the bin, averaged across sites"
 distribution_shape_histograms,pct_lognormal,numeric,"% of days each site's own lognormal curve puts in the bin, averaged across sites"
+distribution_fits,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+distribution_fits,site_id,character,AQS site ID; five-year sites outside the near-zero rule
+distribution_fits,local_site_name,character,Site name given by the reporting agency; can be NA
+distribution_fits,state_name,character,State or territory name
+distribution_fits,region,character,West (Census West region) or East (every other state or territory)
+distribution_fits,site_group,factor,Case-study group; NA outside the case study
+distribution_fits,site_set,factor,Ordinary days (main run) or a check; the 2b checks list only the sites they change
+distribution_fits,n_days,integer,Days fitted
+distribution_fits,aic_lognormal,numeric,AIC of the lognormal curve on value / site mean; compare within a site and check only
+distribution_fits,aic_gamma,numeric,AIC of the gamma curve on value / site mean; compare within a site and check only
+distribution_fits,aic_weibull,numeric,AIC of the Weibull curve on value / site mean; compare within a site and check only
+distribution_fits,aic_normal,numeric,"AIC of the normal curve on value / site mean, the reference beside the contest"
+distribution_fits,winner,character,"Lowest AIC among lognormal, gamma and Weibull"
+distribution_fits,winner_with_normal,character,Lowest AIC once the normal curve may compete
+distribution_fits,aic_gap,numeric,"AIC of the runner-up minus AIC of the winner, among the three curves"
+distribution_fits,lag1_correlation,numeric,Correlation of log values on consecutive calendar days; main run only; NA below 30 pairs
+distribution_fits,effective_days,numeric,"n x (1 - r) / (1 + r), at most n: independent days after links; main run only"
+distribution_fits,scaled_aic_gap,numeric,aic_gap x effective_days / n_days; main run only
+distribution_fits,winner_kept_share,numeric,Share of 100 two-week block resamples that keep the winner; NA when not resampled
+distribution_fits,winner_status,character,"Clear (share of 0.9 or more), No clear winner, or Not resampled"
+distribution_fits,spread_factor,numeric,exp(fitted SD of the logs): the usual multiple a site swings above or below its typical level
+distribution_fits,gamma_shape,numeric,Fitted gamma shape; below 1 means most days sit near the floor
+distribution_fits,weibull_shape,numeric,"Fitted Weibull shape; below 1 means most days sit near the floor, about 3.6 is nearly symmetric"
+distribution_fits,p99_over_lognormal,numeric,"Actual P99 / the fitted lognormal's P99; below 1, the curve overpredicts; NA below 200 days"
+distribution_fits,p99_over_gamma,numeric,Actual P99 / the fitted gamma's P99; NA below 200 days
+distribution_fits,p99_over_weibull,numeric,Actual P99 / the fitted Weibull's P99; NA below 200 days
+distribution_fits,p99_over_normal,numeric,Actual P99 / the fitted normal's P99; NA below 200 days
+distribution_fits,p99_over_winner,numeric,Actual P99 / the winner's P99; NA below 200 days
+distribution_fits,p05_over_winner,numeric,Actual P5 / the winner's P5; NA below 200 days
+distribution_fits,closest_at_p99,character,The curve of the three closest to the actual P99; NA below 200 days
+distribution_fits,ks_statistic,numeric,Kolmogorov-Smirnov distance from the winner; a statistic only: ties and links break its p-value
+distribution_fits,anderson_darling,numeric,Anderson-Darling statistic against the winner; a statistic only: ties and links break its p-value
+distribution_fit_summary,scope,factor,National (all sites outside the near-zero rule) or Case study (per group)
+distribution_fit_summary,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO; CO is national only"
+distribution_fit_summary,site_group,factor,Case-study group; NA in national rows
+distribution_fit_summary,site_set,factor,Ordinary days (main run) or a check; a check that changes nothing has no row
+distribution_fit_summary,n_sites,integer,Sites in the row
+distribution_fit_summary,n_site_days,integer,Site-days in the row
+distribution_fit_summary,wins_lognormal,integer,Sites where a lognormal wins among the three curves
+distribution_fit_summary,wins_gamma,integer,Sites where a gamma curve wins among the three curves
+distribution_fit_summary,wins_weibull,integer,Sites where a Weibull curve wins among the three curves
+distribution_fit_summary,wins_with_normal_lognormal,integer,Sites where a lognormal wins once the normal curve may compete
+distribution_fit_summary,wins_with_normal_gamma,integer,Sites where a gamma curve wins once the normal curve may compete
+distribution_fit_summary,wins_with_normal_weibull,integer,Sites where a Weibull curve wins once the normal curve may compete
+distribution_fit_summary,wins_with_normal_normal,integer,Sites where the normal curve wins once it may compete
+distribution_fit_summary,median_aic_gap,numeric,Median across sites of the AIC gap between winner and runner-up
+distribution_fit_summary,pct_sites_gap_decisive,numeric,% of sites with an AIC gap of 10 or more
+distribution_fit_summary,median_lag1_correlation,numeric,Median across sites of the day-to-day correlation of logs; main run only
+distribution_fit_summary,median_effective_days,numeric,Median across sites of the independent days after links; main run only
+distribution_fit_summary,median_scaled_aic_gap,numeric,Median across sites of the AIC gap scaled to those days; main run only
+distribution_fit_summary,pct_sites_scaled_gap_decisive,numeric,% of sites with a scaled AIC gap of 10 or more; main run only
+distribution_fit_summary,n_sites_resampled,integer,Sites whose winner was resampled
+distribution_fit_summary,pct_resampled_clear,numeric,% of resampled sites that keep their winner in at least 90% of resamples
+distribution_fit_summary,median_winner_kept_share,numeric,"Median share of resamples keeping the winner, across resampled sites"
+distribution_fit_summary,spread_factor_median,numeric,Median across sites of the spread factor
+distribution_fit_summary,spread_factor_q1,numeric,25th percentile across sites of the spread factor
+distribution_fit_summary,spread_factor_q3,numeric,75th percentile across sites of the spread factor
+distribution_fit_summary,gamma_shape_median,numeric,Median across sites of the fitted gamma shape
+distribution_fit_summary,weibull_shape_median,numeric,Median across sites of the fitted Weibull shape
+distribution_fit_summary,n_sites_with_tail,integer,"Sites with 200 or more days, whose tail ratios are read"
+distribution_fit_summary,p99_over_lognormal_median,numeric,Median across sites of actual P99 / the lognormal's P99
+distribution_fit_summary,p99_over_gamma_median,numeric,Median across sites of actual P99 / the gamma's P99
+distribution_fit_summary,p99_over_weibull_median,numeric,Median across sites of actual P99 / the Weibull's P99
+distribution_fit_summary,p99_over_normal_median,numeric,Median across sites of actual P99 / the normal's P99
+distribution_fit_summary,p99_over_winner_median,numeric,Median across sites of actual P99 / the winner's P99
+distribution_fit_summary,p99_over_winner_q1,numeric,25th percentile across sites of actual P99 / the winner's P99
+distribution_fit_summary,p99_over_winner_q3,numeric,75th percentile across sites of actual P99 / the winner's P99
+distribution_fit_summary,p05_over_winner_median,numeric,Median across sites of actual P5 / the winner's P5
+distribution_fit_summary,pct_sites_winner_closest_at_p99,numeric,% of sites where the AIC winner is also the closest of the three at P99
+distribution_fit_summary,ks_statistic_median,numeric,Median across sites of the Kolmogorov-Smirnov distance from the winner
+distribution_fit_summary,anderson_darling_median,numeric,Median across sites of the Anderson-Darling statistic against the winner
+distribution_fit_checks,check,factor,"Censored (below-limit and rounding checks), Instrument (PM2.5 T640) or Group spread"
+distribution_fit_checks,version,character,"The censoring rule, the side of the instrument comparison, or the season of the group gap"
+distribution_fit_checks,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+distribution_fit_checks,site_id,character,AQS site ID; NA in Group spread rows
+distribution_fit_checks,local_site_name,character,Site name given by the reporting agency; can be NA
+distribution_fit_checks,site_group,factor,Case-study group; NA outside the case study
+distribution_fit_checks,comparison,character,Which group is subtracted from which; Group spread rows only
+distribution_fit_checks,n_days,integer,Days fitted; NA in Group spread rows
+distribution_fit_checks,pct_censored,numeric,% of days counted as below a limit; Censored rows only
+distribution_fit_checks,pct_warm_days,numeric,% of days from April to October; Instrument rows only
+distribution_fit_checks,aic_lognormal,numeric,AIC of the lognormal curve; compare within a site and version only
+distribution_fit_checks,aic_gamma,numeric,AIC of the gamma curve; compare within a site and version only
+distribution_fit_checks,aic_weibull,numeric,AIC of the Weibull curve; compare within a site and version only
+distribution_fit_checks,winner,character,Lowest AIC among the three curves under this version
+distribution_fit_checks,main_winner,character,The site's winner in the main run; Censored rows only
+distribution_fit_checks,is_same_winner,logical,TRUE when the censored winner equals the main winner; Censored rows only
+distribution_fit_checks,aic_gap,numeric,AIC of the runner-up minus AIC of the winner under this version
+distribution_fit_checks,spread_factor,numeric,exp(fitted SD of the logs) under this version
+distribution_fit_checks,main_spread_factor,numeric,The site's spread factor in the main run; Censored rows only
+distribution_fit_checks,p99_over_lognormal,numeric,"Actual P99 / the lognormal's P99 under this version; below 1, the curve overpredicts"
+distribution_fit_checks,p99_over_winner,numeric,Actual P99 / the winner's P99 under this version
+distribution_fit_checks,spread_first_group,numeric,Median site spread factor of the first group named in comparison
+distribution_fit_checks,spread_second_group,numeric,Median site spread factor of the second group named in comparison
+distribution_fit_checks,spread_gap,numeric,spread_first_group minus spread_second_group
+distribution_fit_checks,gap_low,numeric,"2.5th percentile of the gap across 1,000 same-date two-week block resamples"
+distribution_fit_checks,gap_high,numeric,97.5th percentile of the gap across those resamples
+distribution_fit_checks,gap_low_check_seed,numeric,gap_low under the second seed
+distribution_fit_checks,gap_high_check_seed,numeric,gap_high under the second seed
+distribution_fit_checks,seed_shift_share,numeric,"Largest move of either end between seeds, as a share of the range's width"
