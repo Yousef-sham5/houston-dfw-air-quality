@@ -231,6 +231,229 @@ stopifnot(
   "Each group-range pollutant is in the case study" = all(group_range_pollutants %in% pollutant_levels)
 )
 
+# Section 5: how each short-term standard rounds a daily value before comparing it with the limit, copied from 2a.
+# first_counted is the lowest reading that counts as above the limit
+short_term_limits <- tribble(
+  ~pollutant, ~limit, ~digits, ~rounding,
+  "PM2.5",    35,     0,       "half up",
+  "Ozone",    0.070,  3,       "truncate",
+  "NO2",      100,    0,       "half up",
+  "SO2",      75,     0,       "half up",
+  "CO",       9,      0,       "half up"
+) %>%
+  mutate(first_counted = if_else(rounding == "truncate", limit + 10^-digits, limit + 0.5 * 10^-digits))
+
+tail_percentiles <- c("P98" = 0.98, "P99" = 0.99)
+
+tail_test_levels <- c("Limit", names(tail_percentiles))
+
+# A single site is judged only with this many actual days, since 2 expected against 1 actual is mostly chance
+min_judged_days <- 10
+
+# A curve is close at a site when expected / actual sits between 1 / 1.25 and 1.25
+close_tail_ratio <- 1.25
+
+# Share of each row's actual days held by its busiest sites
+n_top_tail_sites <- 10
+
+# Resamples behind the ozone tail ranges. Their ends need more draws than section 4's spread gaps to settle within the seed tolerance
+tail_range_reps <- 2000
+
+# The slowest steps save their results here, which git leaves out. TRUE recomputes them all and replaces what is saved
+cache_dir <- here("data", "distribution_cache")
+
+rerun_cached_steps <- FALSE
+
+stopifnot(
+  "Every pollutant has a short-term limit" = setequal(short_term_limits$pollutant, pollutant_levels),
+  "Ozone counts from 0.071 ppm and PM2.5 from 35.5" =
+    isTRUE(all.equal(short_term_limits$first_counted[short_term_limits$pollutant == "Ozone"], 0.071)) &&
+    short_term_limits$first_counted[short_term_limits$pollutant == "PM2.5"] == 35.5,
+  "Tail percentiles rise and stay inside the curve" = !is.unsorted(tail_percentiles) && all(between(tail_percentiles, 0.5, 1)),
+  "The closeness ratio is above 1" = close_tail_ratio > 1
+)
+
+
+
+# FIGURE STYLE ----
+# Phase 3 figures are laid out like a journal's: boxed panels, plain axes and a caption underneath. These settings replace
+# utils.R's for this script only, so other phases keep their look
+stopifnot("Arial is installed, since Phase 3 figures use it" = str_detect(systemfonts::match_fonts("Arial")$path, regex("arial", ignore_case = TRUE)))
+
+chart_fonts[] <- "Arial"
+
+chart_ink[c("primary", "secondary", "muted", "grid", "axis")] <- c("#000000", "#333333", "#666666", "#EBEBEB", "#999999")
+
+chart_fills[c("accent", "other", "band")] <- c("#2B5F86", "#B8B8B8", "#F2F2F2")
+
+site_group_colours[] <- c("#D55E00", "#0072B2", "#009E73")
+
+site_group_shapes <- c("Houston Ship Channel" = 16, "Houston other" = 15, "Dallas-Fort Worth" = 17)
+
+chart_sizes[c("key", "label")] <- c(7, 6.5)
+
+caption_points <- 7
+
+caption_line_points <- 8.6
+
+# Printed width a caption line may fill: 6.5 inches less the figure margins
+caption_width_points <- 448
+
+panel_label <- function(panel_number, panel_name) sprintf("(%s) %s", letters[panel_number], panel_name)
+
+theme_paper <- function() {
+  theme_bw(base_size = 8, base_family = chart_fonts[["text"]]) +
+    theme(
+      text = element_text(colour = chart_ink[["primary"]]),
+      plot.background = element_rect(fill = "white", colour = NA),
+      plot.margin = margin(0, 8, 10, 0),
+      plot.title = element_text(size = 8, face = "bold", hjust = 0, margin = margin(b = 1)),
+      plot.subtitle = element_text(size = 7, colour = chart_ink[["secondary"]], hjust = 0, margin = margin(b = 3)),
+      panel.border = element_rect(colour = chart_ink[["primary"]], linewidth = 0.4, fill = NA),
+      panel.grid.major = element_line(colour = chart_ink[["grid"]], linewidth = 0.2),
+      panel.grid.minor = element_blank(),
+      axis.ticks = element_line(colour = chart_ink[["primary"]], linewidth = 0.3),
+      axis.ticks.length = unit(2, "pt"),
+      axis.text = element_text(colour = chart_ink[["primary"]], size = 6.5),
+      axis.title = element_text(size = 7),
+      strip.background = element_blank(),
+      strip.text = element_text(size = 7),
+      legend.position = "top",
+      legend.justification = "left",
+      legend.direction = "horizontal",
+      legend.title = element_blank(),
+      legend.text = element_text(size = 6.5),
+      legend.key.size = unit(8, "pt"),
+      legend.margin = margin(0, 0, 2, 0)
+    )
+}
+
+# The figure number is bold and the caption runs on after it, so the first line is drawn in two pieces. Grid spaces lines at 1.2 x
+# lineheight x font size
+# Lines break where the printed text would pass the caption width, measured in the caption's own font
+caption_lines <- function(figure_label, caption_text) {
+  text_width <- \(x, weight = "normal") systemfonts::string_width(x, family = chart_fonts[["text"]], weight = weight, size = caption_points, res = 72)
+  room <- caption_width_points - text_width(str_c(figure_label, " "), "bold")
+  lines <- character(0)
+  current <- ""
+  for (word in str_split_1(caption_text, " ")) {
+    candidate <- if (current == "") word else str_c(current, " ", word)
+    if (current != "" && text_width(candidate) > room) {
+      lines <- c(lines, current)
+      current <- word
+      room <- caption_width_points
+    } else {
+      current <- candidate
+    }
+  }
+  c(lines, current)
+}
+
+figure_caption <- function(figure_label, caption_text) {
+  lines <- caption_lines(figure_label, caption_text)
+  stopifnot("Every caption has text" = nzchar(lines[1]))
+  label_grob <- grid::textGrob(
+    figure_label, x = grid::unit(0, "pt"), y = grid::unit(1, "npc"), just = c("left", "top"),
+    gp = grid::gpar(fontfamily = chart_fonts[["text"]], fontface = "bold", fontsize = caption_points)
+  )
+  text_gp <- grid::gpar(fontfamily = chart_fonts[["text"]], fontsize = caption_points, lineheight = caption_line_points / (1.2 * caption_points))
+  first_line <- grid::textGrob(
+    str_c(" ", lines[1]), x = grid::grobWidth(label_grob), y = grid::unit(1, "npc"), just = c("left", "top"), gp = text_gp
+  )
+  other_lines <- grid::textGrob(
+    str_c(lines[-1], collapse = "\n"), x = grid::unit(0, "pt"), y = grid::unit(1, "npc") - grid::unit(caption_line_points, "pt"),
+    just = c("left", "top"), gp = text_gp
+  )
+  caption <- patchwork::wrap_elements(full = grid::grobTree(label_grob, first_line, other_lines)) + theme(plot.margin = margin(0, 0, 0, 0))
+  attr(caption, "height_pt") <- caption_line_points * length(lines) + 3
+  caption
+}
+
+# One key row per value of row, centred. Marks: square, point (pch in shape; 21 to 25 are outlined), line, thick, dashed,
+# tick (a vertical bar) and range (a line through a point)
+key_row_points <- 12
+
+figure_key <- function(key) {
+  if (!"row" %in% names(key)) key$row <- 1
+  if (!"shape" %in% names(key)) key$shape <- 16
+  key_rows <- split(key, key$row)
+  row_grobs <- lapply(seq_along(key_rows), \(r) {
+    items <- key_rows[[r]]
+    y <- grid::unit(1, "npc") - grid::unit((r - 0.5) * key_row_points, "pt")
+    item_x <- grid::unit(0, "pt")
+    parts <- list()
+    for (i in seq_len(nrow(items))) {
+      left <- item_x
+      right <- item_x + grid::unit(12, "pt")
+      centre <- item_x + grid::unit(6, "pt")
+      line_at <- \(lwd, lty = "solid") {
+        grid::segmentsGrob(left, y, right, y, gp = grid::gpar(col = items$colour[i], lwd = lwd, lty = lty, lineend = "butt"))
+      }
+      point_at <- \(x) grid::pointsGrob(
+        x, y, pch = items$shape[i], size = grid::unit(5, "pt"),
+        gp = if (items$shape[i] >= 21) {
+          grid::gpar(col = chart_ink[["primary"]], fill = items$colour[i], lwd = 0.8)
+        } else {
+          grid::gpar(col = items$colour[i])
+        }
+      )
+      mark <- switch(
+        items$mark[i],
+        square = list(grid::rectGrob(
+          centre, y, width = grid::unit(7, "pt"), height = grid::unit(7, "pt"), gp = grid::gpar(fill = items$colour[i], col = NA)
+        )),
+        point = list(point_at(centre)),
+        line = list(line_at(1.3)),
+        thick = list(line_at(3)),
+        dashed = list(line_at(1, "22")),
+        tick = list(grid::segmentsGrob(
+          centre, y - grid::unit(4, "pt"), centre, y + grid::unit(4, "pt"), gp = grid::gpar(col = items$colour[i], lwd = 1.6)
+        )),
+        range = list(line_at(1.1), point_at(centre))
+      )
+      stopifnot("Every key mark is a known kind" = !is.null(mark))
+      label <- grid::textGrob(
+        items$label[i], x = item_x + grid::unit(16, "pt"), y = y, just = c("left", "centre"),
+        gp = grid::gpar(fontfamily = chart_fonts[["text"]], fontsize = chart_sizes[["key"]], col = chart_ink[["primary"]])
+      )
+      parts <- c(parts, mark, list(label))
+      item_x <- item_x + grid::unit(16, "pt") + grid::grobWidth(label) + grid::unit(16, "pt")
+    }
+    grid::gTree(children = do.call(grid::gList, parts), vp = grid::viewport(x = 0.5, width = item_x - grid::unit(16, "pt")))
+  })
+  key_row <- patchwork::wrap_elements(full = do.call(grid::grobTree, row_grobs)) + theme(plot.margin = margin(0, 0, 0, 0))
+  attr(key_row, "height_pt") <- key_row_points * length(key_rows) + 2
+  key_row
+}
+
+# Panels in rows of ncol, then the key, then the caption. Flat grid, for the reason given at chart_compose() in utils.R
+figure_compose <- function(panels, key, figure_label, caption_text, ncol = 2, row_weights = NULL) {
+  n_rows <- ceiling(length(panels) / ncol)
+  weights <- if (is.null(row_weights)) rep(1, n_rows) else row_weights
+  key_row <- figure_key(key)
+  caption <- figure_caption(figure_label, caption_text)
+  panel_letters <- LETTERS[seq_along(panels)]
+  panel_rows <- vapply(seq_len(n_rows), \(r) {
+    row_letters <- panel_letters[(r - 1) * ncol + seq_len(ncol)]
+    paste(ifelse(is.na(row_letters), "#", row_letters), collapse = "")
+  }, character(1))
+  design <- paste(
+    c(panel_rows, strrep(LETTERS[length(panels) + 1], ncol), strrep(LETTERS[length(panels) + 2], ncol)),
+    collapse = "\n"
+  )
+  wrap_plots(c(panels, list(key_row, caption)), design = design) +
+    plot_layout(heights = grid::unit(c(weights, attr(key_row, "height_pt") + 4, attr(caption, "height_pt")), c(rep("null", n_rows), "pt", "pt"))) +
+    plot_annotation(theme = theme(plot.margin = margin(8, 8, 6, 8), plot.background = element_rect(fill = "white", colour = NA)))
+}
+
+save_figure <- function(figure, file_name, height) {
+  path <- file.path(figures_dir, file_name)
+  started <- Sys.time()
+  ggsave(path, figure, width = 6.5, height = height, dpi = 300)
+  stopifnot("Each figure was written (close any viewer of it and rerun this step)" = file.mtime(path) >= started - 2)
+  invisible(path)
+}
+
 
 
 # 1. FIT TABLE AND DATA NUANCES ----
@@ -1243,7 +1466,7 @@ ratio_breaks <- c(-4, -2, 0, 2, 4)
 
 ratio_labels <- c("1/16", "1/4", "1", "4", "16")
 
-national_panel_names <- c("PM2.5" = "PM2.5", "Ozone" = "OZONE", "NO2" = "NO2", "SO2" = "SO2", "CO" = "CO")
+national_panel_names <- c("PM2.5" = "PM2.5", "Ozone" = "Ozone", "NO2" = "NO2", "SO2" = "SO2", "CO" = "CO")
 
 # The Q-Q panels plot the miss from a perfect fit in SDs, so the small gaps at each percentile can be read
 miss_breaks <- c(-1, 0, 1)
@@ -1266,7 +1489,7 @@ national_shape_histogram_panel <- function(pollutant_name, panel_number) {
 
   ggplot(bars, aes(bin_mid, pct_of_days)) +
     geom_col(width = shape_bin_width * 0.86, fill = chart_fills[["accent"]]) +
-    geom_line(aes(y = pct_lognormal), colour = chart_ink[["primary"]], linewidth = 0.45, linetype = "22") +
+    geom_line(aes(y = pct_lognormal), colour = chart_ink[["primary"]], linewidth = 0.45) +
     scale_x_continuous(
       breaks = ratio_breaks,
       labels = ratio_labels,
@@ -1275,12 +1498,12 @@ national_shape_histogram_panel <- function(pollutant_name, panel_number) {
     ) +
     scale_y_continuous(breaks = breaks_pretty(n = 3), labels = \(x) str_c(x, "%"), expand = expansion(mult = c(0, 0.08))) +
     labs(
-      title = sprintf("%02d  %s", panel_number, national_panel_names[[pollutant_name]]),
+      title = panel_label(panel_number, national_panel_names[[pollutant_name]]),
       subtitle = sprintf("Typical site: %.1f%% off lognormal", gap),
       x = NULL,
       y = NULL
     ) +
-    theme_aqs()
+    theme_paper()
 }
 
 national_qq_panel <- function(pollutant_name, panel_number) {
@@ -1306,19 +1529,25 @@ national_qq_panel <- function(pollutant_name, panel_number) {
     scale_x_continuous(breaks = qnorm(figure_percentiles / 100), labels = str_c("P", figure_percentiles)) +
     scale_y_continuous(breaks = miss_breaks, labels = miss_labels) +
     coord_cartesian(ylim = miss_limits) +
-    labs(title = sprintf("%02d  %s", panel_number, national_panel_names[[pollutant_name]]), subtitle = closer_label, x = NULL, y = NULL) +
-    theme_aqs()
+    labs(title = panel_label(panel_number, national_panel_names[[pollutant_name]]), subtitle = closer_label, x = NULL, y = NULL) +
+    theme_paper()
 }
 
-national_shape_panels <- unlist(
-  lapply(seq_along(pollutant_levels), \(i) list(
-    national_shape_histogram_panel(pollutant_levels[i], 2 * i - 1),
-    national_qq_panel(pollutant_levels[i], 2 * i)
-  )),
-  recursive = FALSE
-)
+log_suited_pollutants <- c("PM2.5", "SO2", "CO")
 
-# The title and subtitle must hold under every national check, site by site
+near_normal_pollutants <- c("Ozone", "NO2")
+
+national_shape_panels <- function(pollutant_names) {
+  unlist(
+    lapply(seq_along(pollutant_names), \(i) list(
+      national_shape_histogram_panel(pollutant_names[i], 2 * i - 1),
+      national_qq_panel(pollutant_names[i], 2 * i)
+    )),
+    recursive = FALSE
+  )
+}
+
+# The caption must hold under every national check, site by site
 national_check_rows <- shape_summary %>%
   filter(scope == "National")
 
@@ -1332,48 +1561,61 @@ no2_check_rows <- national_check_rows %>%
   filter(pollutant == "NO2")
 
 stopifnot(
-  "A lognormal is closer and logs bring skew nearer zero at 75% of PM2.5, SO2 and CO sites under every check, as the title says" =
+  "A lognormal is closer and logs bring skew nearer zero at 75% of PM2.5, SO2 and CO sites under every check, as the caption says" =
     all(log_suited_rows$pct_sites_lognormal_closer >= 75) && all(log_suited_rows$pct_sites_log_nearer_symmetry >= 75),
-  "A normal curve is closer at three in four ozone sites under every check, as the subtitle says" =
+  "A normal curve is closer at three in four ozone sites under every check, as the caption says" =
     all(ozone_check_rows$pct_sites_lognormal_closer <= 25),
-  "NO2 sites split between the two curves under every check, as the subtitle says" =
+  "NO2 sites split between the two curves under every check, as the caption says" =
     all(between(no2_check_rows$pct_sites_lognormal_closer, 50, 75))
 )
 
-national_shape_header <- chart_header(
-  sprintf("FIGURE 3.1  /  SHAPE OF THE DAILY VALUES  /  %s FIVE-YEAR SITES", comma(sum(national_main_shapes$n_sites))),
-  "A log scale suits PM2.5, SO2 and CO best",
-  str_c(
-    "Ozone sits closer to a normal curve, and NO2 sites split between the two.\n",
-    "Left: days against each site's median. Right: how far each percentile misses each curve."
-  ),
-  key = tribble(
-    ~mark,    ~colour,                 ~label,
-    "square", chart_fills[["accent"]], "Days (left), lognormal miss (right)",
-    "square", chart_ink[["muted"]],    "Normal miss (right)",
-    "bar",    chart_ink[["primary"]],  "Dashed: lognormal (left), perfect fit (right)"
+national_shape_key <- tribble(
+  ~mark,    ~colour,                 ~label,
+  "square", chart_fills[["accent"]], "Days around the site median",
+  "line",   chart_ink[["primary"]],  "Lognormal curve",
+  "range",  chart_fills[["accent"]], "Lognormal miss",
+  "range",  chart_ink[["muted"]],    "Normal miss",
+  "dashed", chart_ink[["primary"]],  "Perfect fit"
+)
+
+national_shape_method <- str_c(
+  "Left: days against each site's median, on a log scale. Right: how far each percentile misses each curve, as the median and middle half ",
+  "across sites of the miss in SDs; above zero, the actual percentile runs higher. EPA AQS, ordinary days, values at or below zero at half the ",
+  "detection limit, near-zero sites left out. Each site counts once."
+)
+
+sites_for <- function(pollutant_names) comma(sum(national_main_shapes$n_sites[national_main_shapes$pollutant %in% pollutant_names]))
+
+log_suited_figure <- figure_compose(
+  national_shape_panels(log_suited_pollutants),
+  national_shape_key,
+  "Figure 3.1.",
+  sprintf(
+    str_c(
+      "A log scale suits PM2.5, SO2 and CO best (%s five-year sites). %s End bars hold days beyond 1/16 and 16 times the median. SO2 and CO ",
+      "report in coarse steps, which widens their misses."
+    ),
+    sites_for(log_suited_pollutants),
+    national_shape_method
   )
 )
 
-national_shape_footer <- chart_footer(str_c(
-  "EPA AQS, ordinary days, values at or below zero at half the detection limit, near-zero sites left out. Each site counts\n",
-  "once. Right: median and middle half across sites of the miss in SDs; above zero, the actual percentile runs higher.\n",
-  "End bars hold days beyond 1/16 and 16 times the median. SO2 and CO report in coarse steps, which widens their misses."
-))
-
-national_shape_figure <- chart_compose(national_shape_header, national_shape_panels, national_shape_footer)
+near_normal_figure <- figure_compose(
+  national_shape_panels(near_normal_pollutants),
+  national_shape_key,
+  "Figure 3.2.",
+  sprintf(
+    "Ozone sits closer to a normal curve, and NO2 sites split between the two (%s five-year sites). %s",
+    sites_for(near_normal_pollutants),
+    national_shape_method
+  )
+)
 
 dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
 
-national_shape_path <- file.path(figures_dir, "3.01_shape.png")
+save_figure(log_suited_figure, "3.01_shape_log_scale.png", 5.6)
 
-save_started <- Sys.time()
-
-ggsave(national_shape_path, national_shape_figure, width = 6.5, height = 9.4, dpi = 300)
-
-stopifnot(
-  "3.01_shape.png was written (close any viewer of it and rerun this step)" = file.mtime(national_shape_path) >= save_started - 2
-)
+save_figure(near_normal_figure, "3.02_shape_ozone_no2.png", 4.2)
 
 # Figure 3.2: the same shape by case-study group. One curve per group, since the groups overlap
 case_histogram_panel <- function(pollutant_name, panel_number, panel_name) {
@@ -1391,8 +1633,8 @@ case_histogram_panel <- function(pollutant_name, panel_number, panel_name) {
       expand = expansion(mult = c(0, 0.08)),
       limits = c(0, NA)
     ) +
-    labs(title = sprintf("%02d  %s", panel_number, panel_name), subtitle = "Around site median", x = NULL, y = NULL) +
-    theme_aqs()
+    labs(title = panel_label(panel_number, panel_name), subtitle = "Around site median", x = NULL, y = NULL) +
+    theme_paper()
 }
 
 case_qq_panel <- function(pollutant_name, reference_name, panel_number, panel_name) {
@@ -1408,29 +1650,27 @@ case_qq_panel <- function(pollutant_name, reference_name, panel_number, panel_na
     scale_y_continuous(breaks = miss_breaks, labels = miss_labels) +
     coord_cartesian(ylim = miss_limits) +
     labs(
-      title = sprintf("%02d  %s", panel_number, panel_name),
+      title = panel_label(panel_number, panel_name),
       subtitle = str_c("Against ", str_to_lower(reference_name)),
       x = NULL,
       y = NULL
     ) +
-    theme_aqs()
+    theme_paper()
 }
 
-case_panel_names <- c("PM2.5" = "PM2.5", "Ozone" = "OZONE", "NO2" = "NO2", "SO2" = "SO2, DEER PARK #2")
+case_panel_names <- c("PM2.5" = "PM2.5", "Ozone" = "Ozone", "NO2" = "NO2", "SO2" = "SO2, Deer Park #2")
 
-case_shape_panels <- unlist(
-  lapply(seq_along(case_panel_names), \(i) {
-    pollutant_name <- names(case_panel_names)[i]
-    list(
-      case_histogram_panel(pollutant_name, 3 * i - 2, case_panel_names[[i]]),
-      case_qq_panel(pollutant_name, "Lognormal", 3 * i - 1, case_panel_names[[i]]),
-      case_qq_panel(pollutant_name, "Normal", 3 * i, case_panel_names[[i]])
-    )
-  }),
+case_histogram_panels <- lapply(seq_along(case_panel_names), \(i) case_histogram_panel(names(case_panel_names)[i], i, case_panel_names[[i]]))
+
+case_qq_panels <- unlist(
+  lapply(seq_along(case_panel_names), \(i) list(
+    case_qq_panel(names(case_panel_names)[i], "Lognormal", 2 * i - 1, case_panel_names[[i]]),
+    case_qq_panel(names(case_panel_names)[i], "Normal", 2 * i, case_panel_names[[i]])
+  )),
   recursive = FALSE
 )
 
-# The title must hold under every check. A check that leaves a group unchanged has no row, so that group keeps its main row
+# The caption must hold under every check. A check that leaves a group unchanged has no row, so that group keeps its main row
 group_shape_range <- function(check_name) {
   check_rows <- shape_summary %>%
     filter(scope == "Case study", pollutant != "SO2", site_set == check_name)
@@ -1519,16 +1759,16 @@ bind_rows(
   print()
 
 stopifnot(
-  "Spread factors and quantile skews sit close across the groups under every check, as the title says" =
+  "Spread factors and quantile skews sit close across the groups under every check, as the caption says" =
     all(group_shape_ranges$spread_ratio < 1.15) && all(group_shape_ranges$quantile_skew_range < 0.15),
-  "A normal curve is closer at every case-study ozone site in the cool season, as the subtitle says" = sum(ozone_cool$n_lognormal_closer) == 0,
-  "A lognormal is closer at most Houston ozone sites in the warm season, as the subtitle says" =
+  "A normal curve is closer at every case-study ozone site in the cool season, as the caption says" = sum(ozone_cool$n_lognormal_closer) == 0,
+  "A lognormal is closer at most Houston ozone sites in the warm season, as the caption says" =
     sum(houston_warm$n_lognormal_closer) / sum(houston_warm$n_sites) > 0.75,
-  "Dallas-Fort Worth ozone splits in the warm season, as the subtitle says" = dfw_warm$n_lognormal_closer == dfw_warm$n_sites / 2,
+  "Dallas-Fort Worth ozone splits in the warm season, as the caption says" = dfw_warm$n_lognormal_closer == dfw_warm$n_sites / 2,
   "Year-round, a lognormal is closer at every Houston ozone site and at no Dallas-Fort Worth site" =
     all(houston_year_round$n_lognormal_closer == houston_year_round$n_sites) && dfw_year_round$n_lognormal_closer == 0,
   "Every case-study ozone monitor has the detection limit in CONFIG" = all(ozone_case_days$federal_mdl == very_low_ozone_ppm),
-  "Readings below the limit are a tiny share of Dallas-Fort Worth ozone and halve its log skew gap to Houston, as the footer says" =
+  "Readings below the limit are a tiny share of Dallas-Fort Worth ozone and halve its log skew gap to Houston, as the caption says" =
     nrow(dfw_very_low_days) / sum(ozone_case_days$site_group == "Dallas-Fort Worth") < 0.005 &&
     all(dfw_ozone_log_skew < houston_ozone_log_skew - 0.5) &&
     mean(houston_ozone_trimmed_skew) - dfw_ozone_trimmed_skew <= 0.6 * (mean(houston_ozone_log_skew) - dfw_ozone_log_skew)
@@ -1548,54 +1788,55 @@ stopifnot(
     isTRUE(all.equal(deer_park_so2_top$value_fit, mdl_fraction * unique(deer_park_so2_days$federal_mdl)))
 )
 
-case_shape_header <- chart_header(
-  "FIGURE 3.2  /  CASE-STUDY SHAPE  /  FIVE-YEAR SITES",
-  "The three groups have similar shapes",
+case_group_lines <- tribble(
+  ~mark,  ~colour,                                      ~label,
+  "line", site_group_colours[["Houston Ship Channel"]], "Ship Channel",
+  "line", site_group_colours[["Houston other"]],        "Houston other",
+  "line", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth"
+)
+
+case_shape_figure <- figure_compose(
+  case_histogram_panels,
+  case_group_lines,
+  "Figure 3.3.",
   sprintf(
     str_c(
-      "Spread and middle-range skew sit close in each pollutant. Ozone's closest curve shifts with the\n",
-      "season: normal in cool months at all %d sites, lognormal in warm months at %d of %d Houston\n",
-      "sites, and an even split in Dallas-Fort Worth."
+      "The three groups have similar shapes: spread and middle-range skew sit close in each pollutant. Days against each site's median, on a ",
+      "log scale. Five-year sites: PM2.5 %s, ozone %s, NO2 %s (Ship Channel/Houston other/Dallas-Fort Worth). Houston other PM2.5 is Aldine ",
+      "alone. SO2 is Deer Park #2 alone, with %.1f%% of days at %.1f ppb, half its detection limit. Dallas-Fort Worth ozone's log skew of %.2f ",
+      "leans on %d readings on %d dates below the %.0f ppb limit. EPA AQS, ordinary days."
     ),
-    sum(ozone_cool$n_sites), sum(houston_warm$n_lognormal_closer), sum(houston_warm$n_sites)
-  ),
-  key = tribble(
-    ~mark,    ~colour,                                      ~label,
-    "square", site_group_colours[["Houston Ship Channel"]], "Ship Channel",
-    "square", site_group_colours[["Houston other"]],        "Houston other",
-    "square", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth",
-    "bar",    chart_ink[["primary"]],                       "Dashed: a perfect fit"
+    str_c(case_main_shapes$n_sites[case_main_shapes$pollutant == "PM2.5"], collapse = "/"),
+    str_c(case_main_shapes$n_sites[case_main_shapes$pollutant == "Ozone"], collapse = "/"),
+    str_c(case_main_shapes$n_sites[case_main_shapes$pollutant == "NO2"], collapse = "/"),
+    100 * deer_park_so2_top$n / nrow(deer_park_so2_days),
+    deer_park_so2_top$value_fit,
+    dfw_ozone_log_skew,
+    nrow(dfw_very_low_days),
+    n_distinct(dfw_very_low_days$date_local),
+    1000 * very_low_ozone_ppm
   )
 )
 
-case_shape_footer <- chart_footer(sprintf(
-  str_c(
-    "EPA AQS, ordinary days, five-year sites: PM2.5 %s, ozone %s, NO2 %s in the order of the key. Houston\n",
-    "other PM2.5 is Aldine alone. SO2 is Deer Park #2 alone, with %.1f%% of days at %.1f ppb, half its detection limit.\n",
-    "Dallas-Fort Worth ozone's log skew of %.2f leans on %d readings on %d dates below the %.0f ppb limit. Q-Q: miss in SDs."
-  ),
-  str_c(case_main_shapes$n_sites[case_main_shapes$pollutant == "PM2.5"], collapse = "/"),
-  str_c(case_main_shapes$n_sites[case_main_shapes$pollutant == "Ozone"], collapse = "/"),
-  str_c(case_main_shapes$n_sites[case_main_shapes$pollutant == "NO2"], collapse = "/"),
-  100 * deer_park_so2_top$n / nrow(deer_park_so2_days),
-  deer_park_so2_top$value_fit,
-  dfw_ozone_log_skew,
-  nrow(dfw_very_low_days),
-  n_distinct(dfw_very_low_days$date_local),
-  1000 * very_low_ozone_ppm
-))
-
-case_shape_figure <- chart_compose(case_shape_header, case_shape_panels, case_shape_footer, ncol = 3)
-
-case_shape_path <- file.path(figures_dir, "3.02_case_study_shape.png")
-
-save_started <- Sys.time()
-
-ggsave(case_shape_path, case_shape_figure, width = 6.5, height = 8.6, dpi = 300)
-
-stopifnot(
-  "3.02_case_study_shape.png was written (close any viewer of it and rerun this step)" = file.mtime(case_shape_path) >= save_started - 2
+case_qq_figure <- figure_compose(
+  case_qq_panels,
+  bind_rows(mutate(case_group_lines, mark = "range"), tibble(mark = "dashed", colour = chart_ink[["primary"]], label = "Perfect fit")),
+  "Figure 3.4.",
+  sprintf(
+    str_c(
+      "Each percentile's miss from a lognormal (left) and a normal curve (right), in SDs, by group; above zero, the actual percentile runs ",
+      "higher. Ozone's closest curve shifts with the season: normal in cool months at all %d sites, lognormal in warm months at %d of %d Houston ",
+      "sites, and an even split in Dallas-Fort Worth. Same sites as Figure 3.3. EPA AQS, ordinary days."
+    ),
+    sum(ozone_cool$n_sites),
+    sum(houston_warm$n_lognormal_closer),
+    sum(houston_warm$n_sites)
+  )
 )
+
+save_figure(case_shape_figure, "3.03_case_study_shape.png", 4.6)
+
+save_figure(case_qq_figure, "3.04_case_study_qq.png", 7.4)
 
 # Four CSV records: one row per site, medians under each check, and the numbers behind both figures
 shape_site_record <- site_shapes %>%
@@ -1723,6 +1964,31 @@ invisible(gc())
 
 
 # 4. FITTED CURVES ----
+# A slow step reuses its saved result only while its days, settings and code match the ones that made it. Anything else recomputes
+step_fingerprint <- function(data, settings, code) {
+  tools::md5sum(bytes = serialize(
+    list(data = data, settings = settings, code = lapply(code, deparse), r_version = R.version.string),
+    NULL,
+    version = 2
+  ))
+}
+
+cached_step <- function(step_name, data, settings, code, compute) {
+  fingerprint <- step_fingerprint(data, settings, code)
+  cache_path <- file.path(cache_dir, str_c(step_name, ".rds"))
+  saved <- if (!rerun_cached_steps && file.exists(cache_path)) read_rds(cache_path) else NULL
+  if (identical(saved$fingerprint, fingerprint)) {
+    cat("Reused the saved result:", step_name, "\n")
+    return(saved$result)
+  }
+  result <- compute()
+  dir.create(cache_dir, recursive = TRUE, showWarnings = FALSE)
+  partial_path <- str_c(cache_path, ".partial")
+  write_rds(list(fingerprint = fingerprint, result = result), partial_path, compress = "gz")
+  stopifnot("The saved result replaces the old one" = file.rename(partial_path, cache_path))
+  result
+}
+
 # Each site's values are divided by their mean first, so parameters carry no units and compare across sites. AIC then
 # compares curves within one site and one check
 fast_curve_parameters <- function(values) {
@@ -1896,7 +2162,13 @@ stopifnot(
 
 main_fit_started <- Sys.time()
 
-main_site_fits <- fit_sites(ordinary_fit_days, "Ordinary days", package_curve_parameters)
+main_site_fits <- cached_step(
+  "main_fits",
+  select(ordinary_fit_days, pollutant, site_id, value_fit),
+  list(min_shape_days, min_tail_days, contest_curves, fitdist_names, curve_parameter_count, fit_relative_tolerance, packageVersion("fitdistrplus")),
+  list(fit_sites, package_curve_parameters, describe_site_fit, curve_log_likelihoods, curve_quantiles, curve_probabilities),
+  \() fit_sites(ordinary_fit_days, "Ordinary days", package_curve_parameters)
+)
 
 cat("Main fits with fitdistrplus, seconds:", round(as.numeric(difftime(Sys.time(), main_fit_started, units = "secs"))), "\n")
 
@@ -1974,12 +2246,6 @@ resample_keys <- bind_rows(national_sample, case_resample_sites) %>%
   distinct() %>%
   arrange(site_set, pollutant, site_id)
 
-resample_values <- list(
-  "Ordinary days" = split(ordinary_fit_days$value_fit, str_c(ordinary_fit_days$pollutant, "|", ordinary_fit_days$site_id)),
-  "Warm season" = split(warm_fit_days$value_fit, str_c(warm_fit_days$pollutant, "|", warm_fit_days$site_id)),
-  "Cool season" = split(cool_fit_days$value_fit, str_c(cool_fit_days$pollutant, "|", cool_fit_days$site_id))
-)
-
 contest_winner <- function(values) {
   names(which.max(curve_log_likelihoods(fast_curve_parameters(values))[contest_curves]))
 }
@@ -1999,12 +2265,29 @@ winner_kept_share <- function(values) {
 
 resample_started <- Sys.time()
 
-set.seed(stability_seed)
-
-resample_keys <- resample_keys %>%
-  mutate(winner_kept_share = vapply(seq_len(n()), \(i) {
-    winner_kept_share(resample_values[[site_set[i]]][[str_c(pollutant[i], "|", site_id[i])]])
-  }, numeric(1)))
+resample_keys <- cached_step(
+  "winner_resamples",
+  list(
+    select(ordinary_fit_days, pollutant, site_id, value_fit),
+    select(warm_fit_days, pollutant, site_id, value_fit),
+    select(cool_fit_days, pollutant, site_id, value_fit),
+    resample_keys
+  ),
+  list(stability_seed, stability_reps, stability_block_days, contest_curves, weibull_step_tolerance),
+  list(contest_winner, winner_kept_share, fast_curve_parameters, curve_log_likelihoods),
+  \() {
+    resample_values <- list(
+      "Ordinary days" = split(ordinary_fit_days$value_fit, str_c(ordinary_fit_days$pollutant, "|", ordinary_fit_days$site_id)),
+      "Warm season" = split(warm_fit_days$value_fit, str_c(warm_fit_days$pollutant, "|", warm_fit_days$site_id)),
+      "Cool season" = split(cool_fit_days$value_fit, str_c(cool_fit_days$pollutant, "|", cool_fit_days$site_id))
+    )
+    set.seed(stability_seed)
+    resample_keys %>%
+      mutate(winner_kept_share = vapply(seq_len(n()), \(i) {
+        winner_kept_share(resample_values[[site_set[i]]][[str_c(pollutant[i], "|", site_id[i])]])
+      }, numeric(1)))
+  }
+)
 
 cat("Resampling winners, seconds:", round(as.numeric(difftime(Sys.time(), resample_started, units = "secs"))), "\n")
 
@@ -2024,7 +2307,6 @@ site_fits <- site_fits %>%
     relationship = "many-to-one"
   )
 
-rm(resample_values)
 invisible(gc())
 
 stopifnot(
@@ -2095,8 +2377,17 @@ national_fit_sets <- list(
   "SO2 sites with a lower limit" = filter(ordinary_site_fits, pollutant == "SO2", federal_mdl_max < coarse_so2_limit)
 )
 
+# National resampling shares count only the random sample. Case-study sites were chosen, so counting them would tilt the shares
+random_sample_only <- function(fits) {
+  fits %>%
+    left_join(mutate(national_sample, in_random_sample = TRUE), by = c("pollutant", "site_id", "site_set"), relationship = "one-to-one") %>%
+    mutate(winner_status = if_else(coalesce(in_random_sample, FALSE), winner_status, "Not resampled")) %>%
+    mutate(winner_kept_share = if_else(coalesce(in_random_sample, FALSE), winner_kept_share, NA_real_)) %>%
+    select(-in_random_sample)
+}
+
 national_fit_summary <- bind_rows(Map(
-  \(fits, site_set) mutate(summarise_fits(fits, "pollutant"), site_set = site_set),
+  \(fits, site_set) mutate(summarise_fits(random_sample_only(fits), "pollutant"), site_set = site_set),
   national_fit_sets,
   names(national_fit_sets)
 )) %>%
@@ -2305,14 +2596,26 @@ censored_days <- ordinary_fit_days %>%
 
 censored_started <- Sys.time()
 
-censored_fits <- bind_rows(
-  fit_censored_versions(censored_days, "At or below zero censored"),
-  fit_censored_versions(censored_days, "Readings below the limit censored"),
-  fit_censored_versions(filter(censored_days, pollutant %in% rounded_pollutants), "Rounded readings"),
-  fit_censored_versions(
-    semi_join(filter(ordinary_fit_days, pollutant == "Ozone"), filter(case_site_flags, pollutant == "Ozone"), by = c("pollutant", "site_id")),
-    "Case-study ozone below the limit censored",
-    ozone_limit_row
+case_ozone_fit_days <- ordinary_fit_days %>%
+  filter(pollutant == "Ozone") %>%
+  semi_join(filter(case_site_flags, pollutant == "Ozone"), by = c("pollutant", "site_id"))
+
+censored_fits <- cached_step(
+  "censored_fits",
+  list(censored_days, case_ozone_fit_days),
+  list(
+    contest_curves, fitdist_names, curve_parameter_count, fit_relative_tolerance, weibull_step_tolerance, rounded_pollutants,
+    packageVersion("fitdistrplus")
+  ),
+  list(
+    fit_censored_versions, censored_site_row, ozone_limit_row, censored_data, curve_starts, fit_rounded_curve, interval_log_probability,
+    fast_curve_parameters, describe_site_fit
+  ),
+  \() bind_rows(
+    fit_censored_versions(censored_days, "At or below zero censored"),
+    fit_censored_versions(censored_days, "Readings below the limit censored"),
+    fit_censored_versions(filter(censored_days, pollutant %in% rounded_pollutants), "Rounded readings"),
+    fit_censored_versions(case_ozone_fit_days, "Case-study ozone below the limit censored", ozone_limit_row)
   )
 )
 
@@ -2584,7 +2887,7 @@ season_labels <- c("Ordinary days" = "Year", "Warm season" = "Warm", "Cool seaso
 
 curve_labels <- c("lognormal" = "Lognormal", "gamma" = "Gamma", "weibull" = "Weibull", "normal" = "Normal")
 
-curve_fills <- c("Lognormal" = chart_fills[["accent"]], "Gamma" = "#7fbcc1", "Weibull" = chart_fills[["other"]], "Normal" = chart_ink[["secondary"]])
+curve_fills <- c("Lognormal" = chart_fills[["accent"]], "Gamma" = "#8DB6D4", "Weibull" = chart_fills[["other"]], "Normal" = chart_ink[["secondary"]])
 
 curve_text <- c("Lognormal" = "white", "Gamma" = chart_ink[["primary"]], "Weibull" = chart_ink[["primary"]], "Normal" = "white")
 
@@ -2612,8 +2915,8 @@ winner_panel <- function(show_normal, panel_number, panel_title, panel_subtitle)
     scale_fill_manual(values = curve_fills, guide = "none") +
     scale_colour_manual(values = curve_text, guide = "none") +
     scale_x_continuous(breaks = c(0, 50, 100), labels = \(x) str_c(x, "%"), expand = expansion(mult = c(0, 0.01))) +
-    labs(title = sprintf("%02d  %s", panel_number, panel_title), subtitle = panel_subtitle, x = NULL, y = NULL) +
-    theme_aqs() +
+    labs(title = panel_label(panel_number, panel_title), subtitle = panel_subtitle, x = NULL, y = NULL) +
+    theme_paper() +
     theme(
       panel.grid.major.y = element_blank(),
       panel.spacing = unit(5, "pt"),
@@ -2636,7 +2939,7 @@ group_axis_labels <- c("Houston Ship Channel" = "Ship Channel", "Houston other" 
 spread_limits <- c(min(ozone_spread_sites$spread_factor) - 0.01, max(ozone_spread_sites$spread_factor) + 0.06)
 
 spread_panel <- function(site_set_name, panel_number, panel_title, panel_subtitle) {
-  ggplot(filter(ozone_spread_sites, site_set == site_set_name), aes(spread_factor, site_group, colour = site_group)) +
+  ggplot(filter(ozone_spread_sites, site_set == site_set_name), aes(spread_factor, site_group, colour = site_group, shape = site_group)) +
     geom_point(size = 1.5, alpha = 0.7) +
     geom_point(
       data = filter(ozone_spread_medians, site_set == site_set_name),
@@ -2654,10 +2957,11 @@ spread_panel <- function(site_set_name, panel_number, panel_title, panel_subtitl
       hjust = 1
     ) +
     scale_colour_manual(values = site_group_colours, guide = "none") +
+    scale_shape_manual(values = site_group_shapes, guide = "none") +
     scale_y_discrete(labels = group_axis_labels, expand = expansion(add = 0.75)) +
     scale_x_continuous(limits = spread_limits, breaks = c(1.35, 1.45, 1.55)) +
-    labs(title = sprintf("%02d  %s", panel_number, panel_title), subtitle = panel_subtitle, x = "Spread factor", y = NULL) +
-    theme_aqs() +
+    labs(title = panel_label(panel_number, panel_title), subtitle = panel_subtitle, x = "Spread factor", y = NULL) +
+    theme_paper() +
     theme(panel.grid.major.y = element_blank(), panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25))
 }
 
@@ -2673,16 +2977,15 @@ winner_certainty <- national_main_fits %>%
   mutate(measure = factor(measure, levels = certainty_levels)) %>%
   mutate(pollutant = factor(pollutant, levels = rev(pollutant_levels)))
 
-certainty_colours <- c("AIC gap 10+" = chart_fills[["other"]], "Scaled gap 10+" = "#7fbcc1", "Holds" = chart_fills[["accent"]])
+certainty_colours <- c("AIC gap 10+" = "white", "Scaled gap 10+" = chart_fills[["other"]], "Holds" = chart_ink[["primary"]])
 
 certainty_panel <- ggplot(winner_certainty, aes(pct_of_sites, pollutant)) +
   geom_line(aes(group = pollutant), colour = chart_ink[["axis"]], linewidth = 0.4) +
-  geom_point(aes(colour = measure), size = 2) +
-  scale_colour_manual(values = certainty_colours, name = NULL) +
+  geom_point(aes(fill = measure), shape = 21, size = 2, colour = chart_ink[["primary"]], stroke = 0.4) +
+  scale_fill_manual(values = certainty_colours, guide = "none") +
   scale_x_continuous(limits = c(0, 100), breaks = c(0, 50, 100), labels = \(x) str_c(x, "%"), expand = expansion(mult = c(0.01, 0.03))) +
-  labs(title = "05  % OF SITES", subtitle = "AIC gaps overstate the certainty", x = NULL, y = NULL) +
-  theme_aqs() +
-  theme(legend.key.size = unit(7, "pt"), legend.text = element_text(size = chart_sizes[["axis"]]), legend.margin = margin(0, 0, 1, 0))
+  labs(title = panel_label(3, "% of sites"), subtitle = "AIC gaps overstate the certainty", x = NULL, y = NULL) +
+  theme_paper()
 
 instrument_panel_data <- instrument_summary %>%
   mutate(group = if_else(version %in% c("T640 alone", "Without T640"), "With a T640", "Without one")) %>%
@@ -2711,23 +3014,23 @@ instrument_panel <- ggplot(instrument_panel_data, aes(pct_lognormal, side, fill 
     hjust = -0.2
   ) +
   facet_grid(rows = vars(group), scales = "free_y", space = "free_y") +
-  scale_fill_manual(values = c("TRUE" = chart_fills[["accent"]], "FALSE" = chart_fills[["other"]]), guide = "none") +
+  scale_fill_manual(values = c("TRUE" = chart_ink[["secondary"]], "FALSE" = chart_fills[["other"]]), guide = "none") +
   scale_y_discrete(labels = instrument_side_labels) +
   scale_x_continuous(limits = c(0, 118), breaks = c(0, 50, 100), labels = \(x) str_c(x, "%"), expand = expansion(mult = 0)) +
   labs(
-    title = sprintf("06  PM2.5: %d T640 SITES, %d OTHERS", instrument_site_counts$n_sites[1], instrument_site_counts$n_sites[2]),
+    title = panel_label(4, sprintf("PM2.5: %d T640 sites, %d others", instrument_site_counts$n_sites[1], instrument_site_counts$n_sites[2])),
     subtitle = "Lognormal wins, same sites",
     x = NULL,
     y = NULL
   ) +
-  theme_aqs() +
+  theme_paper() +
   theme(
     panel.grid.major.y = element_blank(),
     panel.spacing = unit(9, "pt"),
     strip.text.y = element_blank()
   )
 
-# The title and subtitle must hold under every national check, site by site
+# The caption must hold under every national check, site by site
 national_fit_checks <- fit_summary %>%
   filter(scope == "National")
 
@@ -2768,31 +3071,31 @@ warm_ozone_gaps_to_dfw <- warm_ozone_check_gaps %>%
   filter(site_group != "Dallas-Fort Worth")
 
 resampled_main_shares <- national_main_fits %>%
-  summarise(all_resampled = all(n_sites_resampled >= stability_sample_sites))
+  summarise(all_resampled = all(n_sites_resampled == stability_sample_sites))
 
 stopifnot(
-  "SO2 and CO lean lognormal under every check, as the subtitle says" =
+  "SO2 and CO lean lognormal under every check, as the caption says" =
     all(log_led_rows$wins_lognormal > log_led_rows$wins_gamma & log_led_rows$wins_lognormal > log_led_rows$wins_weibull),
-  "Ozone leans normal under every check once it may compete, as the subtitle says" =
+  "Ozone leans normal under every check once it may compete, as the caption says" =
     all(ozone_fit_rows$wins_with_normal_normal > ozone_fit_rows$wins_with_normal_gamma &
       ozone_fit_rows$wins_with_normal_normal > ozone_fit_rows$wins_with_normal_weibull &
       ozone_fit_rows$wins_with_normal_normal > ozone_fit_rows$wins_with_normal_lognormal),
-  "The leading curve changes with the pollutant, as the title says" =
+  "The leading curve changes with the pollutant, as the caption says" =
     plurality_winner("SO2", "Ordinary days") != plurality_winner("Ozone", "Ordinary days"),
-  "The leading curve changes with the season for ozone and NO2, as the title says" =
+  "The leading curve changes with the season for ozone and NO2, as the caption says" =
     plurality_winner("Ozone", "Warm season") != plurality_winner("Ozone", "Cool season") &&
     plurality_winner("NO2", "Warm season") != plurality_winner("NO2", "Cool season"),
-  "AIC gaps overstate certainty at every pollutant, as panel 05 says" =
+  "AIC gaps overstate certainty at every pollutant, as panel (c) says" =
     all(national_main_fits$pct_resampled_clear < national_main_fits$pct_sites_gap_decisive),
-  "Every pollutant has at least the sampled sites resampled" = resampled_main_shares$all_resampled,
-  "Inside one site, lognormal wins far more often on a T640, as the subtitle says" =
+  "National resampling shares rest on the random sample alone" = resampled_main_shares$all_resampled,
+  "Inside one site, lognormal wins far more often on a T640, as the caption says" =
     t640_row$pct_lognormal >= without_t640_row$pct_lognormal + 30,
   "Sites without a T640 show no such rise over the same dates" = control_after_row$pct_lognormal <= control_before_row$pct_lognormal,
   "Both sides of the T640 comparison span a mix of seasons" = all(between(instrument_summary$median_pct_warm_days, 50, 65)),
-  "Houston's warm-season ozone spread sits above Dallas-Fort Worth's with ranges above zero, as the subtitle says" =
+  "Houston's warm-season ozone spread sits above Dallas-Fort Worth's with ranges above zero, as the caption says" =
     all(warm_ozone_gaps$gap_low > 0) && nrow(warm_ozone_gaps) == 2,
-  "The warm-season gap holds under every check, as the subtitle says" = all(warm_ozone_gaps_to_dfw$gap_to_dfw > 0.05),
-  "Cool-season ozone spreads match, with ranges that reach zero, as the subtitle says" =
+  "The warm-season gap holds under every check, as the caption says" = all(warm_ozone_gaps_to_dfw$gap_to_dfw > 0.05),
+  "Cool-season ozone spreads match, with ranges that reach zero, as the caption says" =
     all(cool_ozone_gaps$gap_low < 0 & cool_ozone_gaps$gap_high > 0) && all(abs(cool_ozone_gaps$spread_gap) < 0.02) && nrow(cool_ozone_gaps) == 2,
   "The Deer Park #2 main fit picks a lognormal that overshoots P99" =
     ordinary_site_fits$winner[ordinary_site_fits$pollutant == "SO2" & ordinary_site_fits$site_id == deer_park_id] == "lognormal" &&
@@ -2802,70 +3105,86 @@ stopifnot(
     between(deer_park_fits$p99_over_winner[deer_park_fits$version == "Readings below the limit censored"], 0.95, 1.05)
 )
 
-fit_figure_panels <- list(
-  winner_panel(FALSE, 1, "THREE CURVES", "SO2 and CO lean lognormal"),
-  winner_panel(TRUE, 2, "WITH THE NORMAL ALLOWED", "Ozone leans normal"),
-  spread_panel(
-    "Warm season",
-    3,
-    "OZONE, WARM MONTHS",
-    sprintf("Houston wider by %.2f to %.2f", min(warm_ozone_gaps$spread_gap), max(warm_ozone_gaps$spread_gap))
+national_fit_figure <- figure_compose(
+  list(
+    winner_panel(FALSE, 1, "Three curves", "SO2 and CO lean lognormal"),
+    winner_panel(TRUE, 2, "With the normal curve allowed", "Ozone leans normal"),
+    certainty_panel,
+    instrument_panel
   ),
-  spread_panel("Cool season", 4, "OZONE, COOL MONTHS", "The three groups match"),
-  certainty_panel,
-  instrument_panel
+  tribble(
+    ~mark,    ~colour,                    ~label,                 ~shape, ~row,
+    "square", curve_fills[["Lognormal"]], "Lognormal",            16,     1,
+    "square", curve_fills[["Gamma"]],     "Gamma",                16,     1,
+    "square", curve_fills[["Weibull"]],   "Weibull",              16,     1,
+    "square", curve_fills[["Normal"]],    "Normal",               16,     1,
+    "point",  certainty_colours[[1]],     "(c) AIC gap 10+",      21,     2,
+    "point",  certainty_colours[[2]],     "(c) Scaled gap 10+",   21,     2,
+    "point",  certainty_colours[[3]],     "(c) Winner holds",     21,     2,
+    "square", chart_ink[["secondary"]],   "(d) T640 alone",       16,     2
+  ),
+  "Figure 3.5.",
+  sprintf(
+    str_c(
+      "The best curve shifts with pollutant and season (%s five-year sites). SO2 and CO lean lognormal, and ozone leans normal once that curve ",
+      "may compete. AIC gaps overstate how sure each win is, and PM2.5's lean tracks T640 monitors. Winner: lowest AIC per site. EPA AQS, ",
+      "ordinary days, near-zero sites left out; cool-season ozone on year-round sites. (c): a gap of 10 or more, the same scaled for linked ",
+      "days, and winners kept in 90%%+ of %d two-week block resamples (%d random sites per pollutant). (d): lognormal wins on each side of a ",
+      "monitor change, at sites with a T640 and, split at %s, at sites without one."
+    ),
+    comma(national_main_fits %>% pull(n_sites) %>% sum()),
+    stability_reps,
+    stability_sample_sites,
+    format(typical_switch_date, "%Y-%m-%d")
+  ),
+  row_weights = c(1.75, 1)
 )
 
-fit_figure_header <- chart_header(
-  sprintf("FIGURE 3.3  /  FITTED CURVES  /  %s FIVE-YEAR SITES", comma(national_main_fits %>% pull(n_sites) %>% sum())),
-  "The best curve shifts with pollutant and season",
-  str_c(
-    "SO2 and CO lean lognormal, and ozone leans normal once that curve may compete. PM2.5's lean\n",
-    "tracks T640 monitors. In warm months Houston's ozone swings wider than Dallas-Fort Worth's."
+ship_channel_spread_gap <- warm_ozone_gaps %>%
+  filter(comparison == "Ship Channel minus Dallas-Fort Worth")
+
+houston_other_spread_gap <- warm_ozone_gaps %>%
+  filter(comparison == "Houston other minus Dallas-Fort Worth")
+
+stopifnot("One warm-month spread gap per Houston group" = nrow(ship_channel_spread_gap) == 1 && nrow(houston_other_spread_gap) == 1)
+
+ozone_spread_figure <- figure_compose(
+  list(
+    spread_panel(
+      "Warm season",
+      1,
+      "Ozone, warm months",
+      sprintf("Houston wider by %.2f to %.2f", min(warm_ozone_gaps$spread_gap), max(warm_ozone_gaps$spread_gap))
+    ),
+    spread_panel("Cool season", 2, "Ozone, cool months", "The three groups match")
   ),
-  key = tribble(
-    ~mark,    ~colour,                ~label,
-    "square", curve_fills[["Lognormal"]], "Lognormal",
-    "square", curve_fills[["Gamma"]],     "Gamma",
-    "square", curve_fills[["Weibull"]],   "Weibull",
-    "square", curve_fills[["Normal"]],    "Normal",
-    "bar",    chart_ink[["primary"]],     "Group median (panels 03, 04)"
+  tribble(
+    ~mark,   ~colour,                                      ~label,              ~shape,
+    "point", site_group_colours[["Houston Ship Channel"]], "Ship Channel site",  site_group_shapes[["Houston Ship Channel"]],
+    "point", site_group_colours[["Houston other"]],        "Houston other site", site_group_shapes[["Houston other"]],
+    "point", site_group_colours[["Dallas-Fort Worth"]],    "DFW site",           site_group_shapes[["Dallas-Fort Worth"]],
+    "tick",  chart_ink[["primary"]],                       "Group median",       16
+  ),
+  "Figure 3.6.",
+  sprintf(
+    str_c(
+      "In warm months Houston's ozone swings wider than Dallas-Fort Worth's, and cool months match. Spread factor: exp(SD of logged daily ",
+      "values) per site. Warm-month gaps to Dallas-Fort Worth: Ship Channel +%.2f (95%% range %.2f to %.2f), Houston other +%.2f (%.2f to %.2f), ",
+      "from %s same-date two-week block resamples. EPA AQS, ordinary days; cool-season ozone on year-round sites."
+    ),
+    ship_channel_spread_gap$spread_gap,
+    ship_channel_spread_gap$gap_low,
+    ship_channel_spread_gap$gap_high,
+    houston_other_spread_gap$spread_gap,
+    houston_other_spread_gap$gap_low,
+    houston_other_spread_gap$gap_high,
+    comma(group_range_reps)
   )
 )
 
-fit_figure_footer <- chart_footer(sprintf(
-  str_c(
-    "EPA AQS, ordinary days, near-zero sites left out; cool ozone on year-round sites. Winner: lowest AIC per site.\n",
-    "05: scaled for linked days; holds: winner kept in 90%%+ of %d two-week block resamples, %d sampled sites each.\n",
-    "03, 04: dots are sites; gap ranges %.2f to %.2f and %.2f to %.2f from %s resamples. 06: split at %s."
-  ),
-  stability_reps,
-  stability_sample_sites,
-  warm_ozone_gaps$gap_low[1],
-  warm_ozone_gaps$gap_high[1],
-  warm_ozone_gaps$gap_low[2],
-  warm_ozone_gaps$gap_high[2],
-  comma(group_range_reps),
-  format(typical_switch_date, "%Y-%m-%d")
-))
+save_figure(national_fit_figure, "3.05_fits.png", 6.6)
 
-fit_figure <- chart_compose(fit_figure_header, fit_figure_panels, fit_figure_footer) +
-  plot_layout(
-    heights = grid::unit(
-      c(attr(fit_figure_header, "height_pt"), 1.75, 1, 1, attr(fit_figure_footer, "height_pt")),
-      c("pt", "null", "null", "null", "pt")
-    )
-  )
-
-fit_figure_path <- file.path(figures_dir, "3.03_fits.png")
-
-save_started <- Sys.time()
-
-ggsave(fit_figure_path, fit_figure, width = 6.5, height = 9.4, dpi = 300)
-
-stopifnot(
-  "3.03_fits.png was written (close any viewer of it and rerun this step)" = file.mtime(fit_figure_path) >= save_started - 2
-)
+save_figure(ozone_spread_figure, "3.06_ozone_spread.png", 2.7)
 
 # Three CSV records: one row per site and check, medians under each check, and the censored, instrument and group checks
 aic_columns <- c("aic_lognormal", "aic_gamma", "aic_weibull", "aic_normal", "aic_gap", "scaled_aic_gap")
@@ -2984,8 +3303,8 @@ fit_dictionary <- bind_rows(
     "distribution_fit_summary", "median_effective_days",           "Median across sites of the independent days after links; main run only",
     "distribution_fit_summary", "median_scaled_aic_gap",           "Median across sites of the AIC gap scaled to those days; main run only",
     "distribution_fit_summary", "pct_sites_scaled_gap_decisive",   "% of sites with a scaled AIC gap of 10 or more; main run only",
-    "distribution_fit_summary", "n_sites_resampled",               "Sites whose winner was resampled",
-    "distribution_fit_summary", "pct_resampled_clear",             "% of resampled sites that keep their winner in at least 90% of resamples",
+    "distribution_fit_summary", "n_sites_resampled",               "Sites whose winner was resampled; national rows count only the random sample",
+    "distribution_fit_summary", "pct_resampled_clear",             "% of resampled sites keeping their winner in 90%+ of runs; national: random 100",
     "distribution_fit_summary", "median_winner_kept_share",        "Median share of resamples keeping the winner, across resampled sites",
     "distribution_fit_summary", "spread_factor_median",            "Median across sites of the spread factor",
     "distribution_fit_summary", "spread_factor_q1",                "25th percentile across sites of the spread factor",
@@ -3054,4 +3373,1128 @@ national_main_fits %>%
 
 rm(fit_source_days, ordinary_fit_days, warm_fit_days, cool_fit_days, pm25_days, t640_side_days, control_days, instrument_side_days, instrument_pieces)
 rm(censored_days, group_range_days, group_range_sets, warm_ozone_days, warm_ozone_all_days, warm_ozone_check_days)
+invisible(gc())
+
+
+
+# 5. TAILS ----
+# Each curve is fitted to a site's days and then asked how many of those same days sit above a level, so this tests fit and
+# forecasts nothing. Expected days = days measured x the curve's share above the level
+tail_curves <- names(fitdist_names)
+
+curve_shares_above <- function(scaled_cut, parameters) {
+  c(
+    lognormal = plnorm(scaled_cut, parameters$meanlog, parameters$sdlog, lower.tail = FALSE),
+    gamma = pgamma(scaled_cut, parameters$gamma_shape, rate = parameters$gamma_rate, lower.tail = FALSE),
+    weibull = pweibull(scaled_cut, parameters$weibull_shape, parameters$weibull_scale, lower.tail = FALSE),
+    normal = if (is.null(parameters$normal_sd)) NA_real_ else pnorm(scaled_cut, parameters$normal_mean, parameters$normal_sd, lower.tail = FALSE)
+  )
+}
+
+# Readings sit on a grid of measurement steps and a curve is smooth. A reading of 0.071 stands for the curve's stretch from
+# 0.0705 to 0.0715, so a curve is read halfway between the last day left out and the first day counted
+percentile_boundary <- function(values, cut) {
+  above <- values[values > cut]
+  below <- values[values <= cut]
+  if (length(above) == 0 || length(below) == 0) {
+    return(cut)
+  }
+  (max(below) + min(above)) / 2
+}
+
+limit_rows <- split(short_term_limits, short_term_limits$pollutant)
+
+days_above_limit <- function(values, limit_row) {
+  rounded <- if (limit_row$rounding == "truncate") truncate_to(values, limit_row$digits) else round_half_up(values, limit_row$digits)
+  sum(rounded > limit_row$limit)
+}
+
+# One row per test at one site: the limit, then each percentile of the site's own days
+site_tail_rows <- function(values, value_step, limit_row, parameters, winner, half_step = TRUE) {
+  n_days <- length(values)
+  percentile_cuts <- quantile(values, tail_percentiles, names = FALSE)
+  curve_cuts <- c(
+    if (half_step) limit_row$first_counted - value_step / 2 else limit_row$first_counted,
+    if (half_step) vapply(percentile_cuts, \(cut) percentile_boundary(values, cut), numeric(1)) else percentile_cuts
+  )
+  expected <- t(vapply(curve_cuts, \(cut) n_days * curve_shares_above(cut / mean(values), parameters), numeric(length(tail_curves))))
+  actual <- c(days_above_limit(values, limit_row), vapply(percentile_cuts, \(cut) sum(values > cut), numeric(1)))
+  closest <- vapply(seq_along(actual), \(i) {
+    if (actual[i] == 0) NA_character_ else names(which.min(abs(log(expected[i, contest_curves] / actual[i]))))
+  }, character(1))
+  winner_expected <- expected[, winner]
+  tibble(
+    test = tail_test_levels,
+    cut_value = c(limit_row$first_counted, percentile_cuts),
+    curve_cut = curve_cuts,
+    n_days = n_days,
+    actual_days = actual,
+    expected_lognormal = expected[, "lognormal"],
+    expected_gamma = expected[, "gamma"],
+    expected_weibull = expected[, "weibull"],
+    expected_normal = expected[, "normal"],
+    winner = winner,
+    expected_winner = winner_expected,
+    closest_curve = closest
+  )
+}
+
+site_step_lookup <- setNames(fit_site_inventory$value_step, str_c(fit_site_inventory$pollutant, "|", fit_site_inventory$site_id))
+
+fit_tail_sites <- function(site_days, site_set, half_step = TRUE) {
+  kept_days <- site_days %>%
+    filter(n() >= min_shape_days, .by = c(pollutant, site_id))
+
+  site_values <- split(kept_days$value_fit, str_c(kept_days$pollutant, "|", kept_days$site_id))
+
+  site_rows <- lapply(setNames(names(site_values), names(site_values)), \(site_key) {
+    parameters <- fast_curve_parameters(site_values[[site_key]])
+    site_tail_rows(
+      site_values[[site_key]],
+      site_step_lookup[[site_key]],
+      limit_rows[[str_extract(site_key, "^[^|]+")]],
+      parameters,
+      names(which.max(curve_log_likelihoods(parameters)[contest_curves])),
+      half_step
+    )
+  })
+
+  bind_rows(site_rows, .id = "site_key") %>%
+    separate_wider_delim(site_key, "|", names = c("pollutant", "site_id")) %>%
+    mutate(pollutant = factor(pollutant, levels = pollutant_levels)) %>%
+    mutate(site_set = site_set)
+}
+
+tail_source_days <- fit_days %>%
+  select(pollutant, site_id, date_local, month, event_class, is_at_or_below_zero, value_fit) %>%
+  semi_join(filter(shape_site_flags, !is_near_zero_site), by = c("pollutant", "site_id"))
+
+tail_ordinary_days <- tail_source_days %>%
+  filter(event_class == "None")
+
+# The same 2a rounding gives the same count from the reported value and from the fitting value, which differ only at or below zero
+limit_count_check <- fit_days %>%
+  inner_join(short_term_limits, by = "pollutant", relationship = "many-to-one") %>%
+  mutate(value_rounded = if_else(rounding == "truncate", truncate_to(value, digits), round_half_up(value, digits))) %>%
+  mutate(is_above = value_rounded > limit) %>%
+  mutate(is_above_by_first_counted = value >= first_counted - 1e-9)
+
+tail_started <- Sys.time()
+
+tail_test_results <- cached_step(
+  "tail_tests",
+  select(tail_source_days, pollutant, site_id, month, event_class, is_at_or_below_zero, value_fit),
+  list(
+    site_step_lookup, short_term_limits, tail_percentiles, tail_test_levels, tail_curves, contest_curves, min_shape_days, weibull_step_tolerance,
+    warm_months
+  ),
+  list(
+    fit_tail_sites, site_tail_rows, curve_shares_above, percentile_boundary, days_above_limit, fast_curve_parameters, curve_log_likelihoods,
+    truncate_to, round_half_up
+  ),
+  \() list(
+    site_rows = bind_rows(
+      fit_tail_sites(tail_ordinary_days, "Ordinary days"),
+      fit_tail_sites(tail_source_days, "All days"),
+      fit_tail_sites(filter(tail_ordinary_days, pollutant == "Ozone", month %in% warm_months), "Warm season")
+    ),
+    check_rows = bind_rows(
+      fit_tail_sites(filter(tail_ordinary_days, !is_at_or_below_zero), "Without values at or below zero"),
+      fit_tail_sites(tail_ordinary_days, "Without the half-step", half_step = FALSE)
+    )
+  )
+)
+
+tail_site_rows <- tail_test_results$site_rows
+
+tail_check_rows <- tail_test_results$check_rows
+
+cat("Tail tests, seconds:", round(as.numeric(difftime(Sys.time(), tail_started, units = "secs"))), "\n")
+
+tail_winner_check <- tail_site_rows %>%
+  distinct(pollutant, site_id, site_set, winner) %>%
+  inner_join(
+    select(site_fits, pollutant, site_id, site_set, fit_winner = winner),
+    by = c("pollutant", "site_id", "site_set"),
+    relationship = "one-to-one"
+  )
+
+tail_percentile_rows <- tail_site_rows %>%
+  filter(test != "Limit", site_set == "Ordinary days", n_days >= min_tail_days)
+
+tail_site_flags <- shape_site_flags %>%
+  select(pollutant, site_id, local_site_name, state_name, site_group, region, is_year_round, has_method_change, sampling_schedule, federal_mdl_max)
+
+add_tail_flags <- function(tail_rows) {
+  tail_rows %>%
+    left_join(tail_site_flags, by = c("pollutant", "site_id"), relationship = "many-to-one") %>%
+    mutate(is_judged = actual_days >= min_judged_days & n_days >= min_tail_days)
+}
+
+tail_site_rows <- add_tail_flags(tail_site_rows)
+
+tail_check_rows <- add_tail_flags(tail_check_rows)
+
+stopifnot(
+  "The limit rule and the first counted value pick the same days" = all(limit_count_check$is_above == limit_count_check$is_above_by_first_counted),
+  "Limit counts on all days match the 2a rounding" =
+    sum(tail_site_rows$actual_days[tail_site_rows$test == "Limit" & tail_site_rows$site_set == "All days"]) ==
+      sum(semi_join(limit_count_check, filter(shape_site_flags, !is_near_zero_site), by = c("pollutant", "site_id"))$is_above),
+  "Tail tests use the winner section 4 named at every site" =
+    nrow(tail_winner_check) == n_distinct(tail_site_rows$pollutant, tail_site_rows$site_id, tail_site_rows$site_set) &&
+    all(tail_winner_check$winner == tail_winner_check$fit_winner),
+  "Every test has a row per site and set" = !anyDuplicated(select(tail_site_rows, pollutant, site_id, site_set, test)),
+  "Expected days stay between 0 and the days measured" =
+    all(between(tail_site_rows$expected_winner, 0, tail_site_rows$n_days)) && !anyNA(tail_site_rows$expected_normal),
+  "Each curve is read at a positive value" = all(tail_percentile_rows$curve_cut > 0),
+  "Percentile tests count about the share they should" =
+    all(tail_percentile_rows$actual_days <= (1 - tail_percentiles[tail_percentile_rows$test]) * tail_percentile_rows$n_days + 1)
+)
+
+rm(limit_count_check)
+invisible(gc())
+
+# Totals show whether a curve gets the overall count right. Misses of opposite sign cancel in a total, so the typical judged
+# site and the share of judged sites within 25% sit beside it
+summarise_tails <- function(tail_rows, group_cols) {
+  tail_rows %>%
+    summarise(
+      n_sites = n(),
+      n_site_days = sum(n_days),
+      n_actual_days = sum(actual_days),
+      pct_days_above = 100 * sum(actual_days) / sum(n_days),
+      n_sites_with_actual_days = sum(actual_days > 0),
+      pct_actual_in_top_sites =
+        if (n() > n_top_tail_sites) 100 * sum(sort(actual_days, decreasing = TRUE)[seq_len(n_top_tail_sites)]) / sum(actual_days) else NA_real_,
+      across(starts_with("expected_"), sum, .names = "total_{.col}"),
+      across(
+        starts_with("expected_"),
+        \(x) sum(x) / sum(actual_days),
+        .names = "ratio_total_{str_remove(.col, 'expected_')}"
+      ),
+      n_judged_sites = sum(is_judged),
+      across(
+        starts_with("expected_"),
+        \(x) median((x / actual_days)[is_judged]),
+        .names = "median_ratio_{str_remove(.col, 'expected_')}"
+      ),
+      q1_ratio_winner = quantile((expected_winner / actual_days)[is_judged], 0.25, names = FALSE, na.rm = TRUE),
+      q3_ratio_winner = quantile((expected_winner / actual_days)[is_judged], 0.75, names = FALSE, na.rm = TRUE),
+      across(
+        starts_with("expected_"),
+        \(x) 100 * mean(between((x / actual_days)[is_judged], 1 / close_tail_ratio, close_tail_ratio)),
+        .names = "pct_within_25_{str_remove(.col, 'expected_')}"
+      ),
+      pct_closest_lognormal = 100 * mean(closest_curve[is_judged] == "lognormal"),
+      pct_closest_gamma = 100 * mean(closest_curve[is_judged] == "gamma"),
+      pct_closest_weibull = 100 * mean(closest_curve[is_judged] == "weibull"),
+      pct_winner_closest = 100 * mean(closest_curve[is_judged] == winner[is_judged]),
+      .by = all_of(group_cols)
+    ) %>%
+    mutate(across(where(is.double), \(x) if_else(is.nan(x) | is.infinite(x), NA_real_, x)))
+}
+
+tail_ordinary_rows <- tail_site_rows %>%
+  filter(site_set == "Ordinary days")
+
+national_tail_sets <- list(
+  "Ordinary days" = tail_ordinary_rows,
+  "All days" = filter(tail_site_rows, site_set == "All days"),
+  "Warm season" = filter(tail_site_rows, site_set == "Warm season"),
+  "Without values at or below zero" = filter(tail_check_rows, site_set == "Without values at or below zero"),
+  "Year-round sites" = filter(tail_ordinary_rows, is_year_round),
+  "Sites on daily sampling" = filter(tail_ordinary_rows, sampling_schedule == "Daily"),
+  "Sites without a method change" = filter(tail_ordinary_rows, !has_method_change),
+  "Sites with a method change" = filter(tail_ordinary_rows, has_method_change),
+  "Western PM2.5 sites" = filter(tail_ordinary_rows, pollutant == "PM2.5", region == "West"),
+  "Eastern PM2.5 sites" = filter(tail_ordinary_rows, pollutant == "PM2.5", region == "East"),
+  "SO2 sites with a lower limit" = filter(tail_ordinary_rows, pollutant == "SO2", federal_mdl_max < coarse_so2_limit)
+)
+
+national_tail_summary <- bind_rows(Map(
+  \(tail_rows, site_set) mutate(summarise_tails(tail_rows, c("pollutant", "test")), site_set = site_set),
+  national_tail_sets,
+  names(national_tail_sets)
+)) %>%
+  drop_unchanged_checks(c("pollutant", "test"), kept_sets = "Ordinary days") %>%
+  bind_rows(mutate(
+    summarise_tails(filter(tail_check_rows, site_set == "Without the half-step"), c("pollutant", "test")),
+    site_set = "Without the half-step"
+  )) %>%
+  mutate(scope = "National")
+
+# The same by case-study group, with the checks 2b runs. Warm-month ozone leads, so it runs each check too
+case_tail_source <- tail_site_rows %>%
+  filter(!is.na(site_group))
+
+case_warm_ozone_days <- case_fit_source %>%
+  filter(pollutant == "Ozone", month %in% warm_months)
+
+case_warm_ozone_limit_days <- case_warm_ozone_days %>%
+  summarise(n_above = days_above_limit(value_fit, limit_rows[["Ozone"]]), .by = c(site_group, site_id))
+
+busiest_warm_ozone_sites <- case_warm_ozone_limit_days %>%
+  slice_max(n_above, n = 1, with_ties = FALSE, by = site_group)
+
+case_tail_check_days <- list(
+  "Without the transition band" = filter(case_fit_source, !in_transition_band),
+  "Without days after method changes" =
+    filter(case_fit_source, !(coalesce(sensitivity_left_out == "Days after the method change", FALSE) & is_post_method_change)),
+  "Without whole-site checks" = filter(case_fit_source, !coalesce(sensitivity_left_out == "Whole site", FALSE)),
+  "Without Deer Park #2 after its move" = filter(case_fit_source, !is_post_relocation)
+)
+
+warm_ozone_tail_check_days <- list(
+  "Warm season, all days" = filter(case_fit_days, pollutant == "Ozone", month %in% warm_months),
+  "Warm season, without readings below the limit" = filter(case_warm_ozone_days, !is_below_mdl),
+  "Warm season, without the transition band" = filter(case_warm_ozone_days, !in_transition_band),
+  "Warm season, without days after method changes" =
+    filter(case_warm_ozone_days, !(coalesce(sensitivity_left_out == "Days after the method change", FALSE) & is_post_method_change)),
+  "Warm season, without Deer Park #2 after its move" = filter(case_warm_ozone_days, !is_post_relocation),
+  "Warm season, without each group's busiest site" = anti_join(case_warm_ozone_days, busiest_warm_ozone_sites, by = "site_id")
+)
+
+fit_case_tail_sets <- function(day_sets) {
+  bind_rows(Map(
+    \(site_days, site_set) fit_tail_sites(site_days, site_set),
+    day_sets,
+    names(day_sets)
+  )) %>%
+    add_tail_flags()
+}
+
+case_check_tail_rows <- fit_case_tail_sets(c(case_tail_check_days, warm_ozone_tail_check_days))
+
+case_tail_rows <- bind_rows(
+  case_tail_source,
+  filter(tail_check_rows, !is.na(site_group), site_set == "Without values at or below zero"),
+  filter(case_check_tail_rows, !str_starts(site_set, "Warm season"))
+)
+
+case_group_test_cols <- c("pollutant", "site_group", "test")
+
+case_tail_summary <- case_tail_rows %>%
+  summarise_tails(c(case_group_test_cols, "site_set")) %>%
+  drop_unchanged_checks(case_group_test_cols, kept_sets = "Ordinary days") %>%
+  bind_rows(summarise_tails(filter(case_check_tail_rows, str_starts(site_set, "Warm season")), c(case_group_test_cols, "site_set"))) %>%
+  bind_rows(summarise_tails(
+    filter(tail_check_rows, !is.na(site_group), site_set == "Without the half-step"),
+    c(case_group_test_cols, "site_set")
+  )) %>%
+  mutate(scope = "Case study")
+
+tail_summary_set_levels <- c(shape_summary_set_levels, "Without the half-step", names(warm_ozone_tail_check_days))
+
+tail_summary <- bind_rows(national_tail_summary, case_tail_summary) %>%
+  mutate(scope = factor(scope, levels = c("National", "Case study"))) %>%
+  mutate(site_set = factor(site_set, levels = tail_summary_set_levels)) %>%
+  mutate(test = factor(test, levels = tail_test_levels)) %>%
+  arrange(scope, pollutant, site_group, site_set, test) %>%
+  select(scope, pollutant, site_group, site_set, test, everything())
+
+print(as.data.frame(tail_summary %>%
+  filter(scope == "National", site_set %in% c("Ordinary days", "All days", "Warm season")) %>%
+  select(
+    pollutant, site_set, test, n_sites, n_actual_days, starts_with("ratio_total_"), n_judged_sites, median_ratio_winner,
+    pct_within_25_winner, pct_winner_closest
+  ) %>%
+  mutate(across(where(is.double), \(x) signif(x, 3)))))
+
+national_tail_counts <- tail_summary %>%
+  filter(scope == "National", site_set == "Ordinary days") %>%
+  left_join(eligible_site_counts, by = "pollutant", relationship = "many-to-one")
+
+stopifnot(
+  "Each check names a set the table knows" = !anyNA(tail_summary$site_set),
+  "Each national main row covers every site" = all(national_tail_counts$n_sites == national_tail_counts$n),
+  "Forty-one case-study sites are tested: PM2.5 7, ozone 22, NO2 11, SO2 1" =
+    sum(tail_summary$n_sites[tail_summary$scope == "Case study" & tail_summary$site_set == "Ordinary days" & tail_summary$test == "Limit"]) == 41
+)
+
+# Ranges for warm-month and year-round ozone at the limit, in Houston and Dallas-Fort Worth. Bad days arrive in runs and sites
+# share weather, so one resample draws the same two-week blocks of dates at every site and refits every curve. Each site keeps
+# its named winner, since a winner that switched inside a resample would give a range with two humps
+range_tail_curves <- c(tail_curves, "winner")
+
+prepare_tail_range_days <- function(site_days) {
+  all_dates <- sort(unique(site_days$date_local))
+  site_pieces <- split(site_days, site_days$site_id)
+  list(
+    n_dates = length(all_dates),
+    sites = lapply(names(site_pieces), \(site_id) {
+      piece <- site_pieces[[site_id]]
+      list(
+        values = piece$value_fit,
+        date_index = match(piece$date_local, all_dates),
+        group = as.character(first(piece$site_group)),
+        curve_cut = limit_rows[["Ozone"]]$first_counted - site_step_lookup[[str_c("Ozone|", site_id)]] / 2,
+        winner = names(which.max(curve_log_likelihoods(fast_curve_parameters(piece$value_fit))[contest_curves]))
+      )
+    })
+  )
+}
+
+group_tail_totals <- function(range_days, date_weights = NULL) {
+  site_totals <- t(vapply(range_days$sites, \(site) {
+    values <- if (is.null(date_weights)) site$values else rep(site$values, date_weights[site$date_index])
+    stopifnot("Every site keeps days in each resample" = length(values) >= min_shape_days)
+    parameters <- fast_curve_parameters(values)
+    expected <- length(values) * curve_shares_above(site$curve_cut / mean(values), parameters)
+    c(days = length(values), actual = days_above_limit(values, limit_rows[["Ozone"]]), expected, winner = expected[[site$winner]])
+  }, numeric(2 + length(range_tail_curves))))
+  rowsum(site_totals, vapply(range_days$sites, \(site) site$group, character(1)), reorder = TRUE)
+}
+
+tail_range_measures <- function(totals) {
+  ratios <- totals[, range_tail_curves, drop = FALSE] / totals[, "actual"]
+  shares <- 100 * totals[, "actual"] / totals[, "days"]
+  ratio_names <- str_c(rep(colnames(ratios), each = nrow(ratios)), "|", rep(rownames(ratios), times = ncol(ratios)))
+  c(setNames(shares, str_c("Days above the limit, %|", rownames(totals))), setNames(as.vector(ratios), ratio_names))
+}
+
+group_tail_ranges <- function(site_days, set_name, seed) {
+  range_days <- prepare_tail_range_days(site_days)
+  block_starts <- seq_len(range_days$n_dates - stability_block_days + 1)
+  n_blocks <- ceiling(range_days$n_dates / stability_block_days)
+  block_offsets <- seq_len(stability_block_days) - 1
+  point_estimate <- tail_range_measures(group_tail_totals(range_days))
+  set.seed(seed)
+  resampled <- t(vapply(seq_len(tail_range_reps), \(rep) {
+    picked <- sample(block_starts, n_blocks, replace = TRUE)
+    chosen <- as.vector(outer(block_offsets, picked, `+`))[seq_len(range_days$n_dates)]
+    tail_range_measures(group_tail_totals(range_days, tabulate(chosen, range_days$n_dates)))
+  }, numeric(length(point_estimate))))
+  colnames(resampled) <- names(point_estimate)
+  measure_levels <- unique(str_extract(names(point_estimate), "^[^|]+"))
+  group_rows <- tibble(measure_key = names(point_estimate)) %>%
+    separate_wider_delim(measure_key, "|", names = c("measure", "site_group"), cols_remove = FALSE) %>%
+    mutate(estimate = unname(point_estimate[measure_key])) %>%
+    mutate(range_low = apply(resampled[, measure_key, drop = FALSE], 2, quantile, 0.025, names = FALSE)) %>%
+    mutate(range_high = apply(resampled[, measure_key, drop = FALSE], 2, quantile, 0.975, names = FALSE)) %>%
+    mutate(reference = if_else(measure == first(measure_levels), NA_real_, 1)) %>%
+    select(-measure_key)
+  gap_rows <- bind_rows(lapply(seq_len(nrow(group_gap_comparisons)), \(i) {
+    first_group <- group_gap_comparisons$first_group[i]
+    second_group <- group_gap_comparisons$second_group[i]
+    gaps <- resampled[, str_c(measure_levels, "|", first_group), drop = FALSE] - resampled[, str_c(measure_levels, "|", second_group), drop = FALSE]
+    tibble(
+      measure = measure_levels,
+      comparison = group_gap_comparisons$comparison[i],
+      estimate = unname(point_estimate[str_c(measure_levels, "|", first_group)] - point_estimate[str_c(measure_levels, "|", second_group)]),
+      range_low = apply(gaps, 2, quantile, 0.025, names = FALSE),
+      range_high = apply(gaps, 2, quantile, 0.975, names = FALSE),
+      reference = 0
+    )
+  }))
+  bind_rows(group_rows, gap_rows) %>%
+    mutate(site_set = set_name)
+}
+
+tail_range_sets <- list(
+  "Warm season" = case_warm_ozone_days,
+  "Ordinary days" = filter(case_fit_source, pollutant == "Ozone")
+)
+
+tail_range_rows <- function(seed) {
+  bind_rows(Map(\(site_days, set_name) group_tail_ranges(site_days, set_name, seed), tail_range_sets, names(tail_range_sets)))
+}
+
+ranges_started <- Sys.time()
+
+tail_range_results <- cached_step(
+  "tail_ranges",
+  lapply(tail_range_sets, \(site_days) select(site_days, site_id, site_group, date_local, value_fit)),
+  list(
+    group_range_seed, group_range_check_seed, tail_range_reps, stability_block_days, min_shape_days, range_tail_curves, tail_curves, contest_curves,
+    site_step_lookup, limit_rows[["Ozone"]], group_gap_comparisons, weibull_step_tolerance
+  ),
+  list(
+    tail_range_rows, group_tail_ranges, prepare_tail_range_days, group_tail_totals, tail_range_measures, curve_shares_above, days_above_limit,
+    fast_curve_parameters, curve_log_likelihoods, truncate_to, round_half_up
+  ),
+  \() list(main = tail_range_rows(group_range_seed), check = tail_range_rows(group_range_check_seed))
+)
+
+tail_ranges <- tail_range_results$main
+
+tail_ranges_check <- tail_range_results$check %>%
+  select(site_set, measure, site_group, comparison, range_low_check_seed = range_low, range_high_check_seed = range_high)
+
+cat("Tail ranges, seconds:", round(as.numeric(difftime(Sys.time(), ranges_started, units = "secs"))), "\n")
+
+tail_ranges <- tail_ranges %>%
+  left_join(tail_ranges_check, by = c("site_set", "measure", "site_group", "comparison"), relationship = "one-to-one") %>%
+  mutate(seed_shift_share = pmax(abs(range_low - range_low_check_seed), abs(range_high - range_high_check_seed)) / (range_high - range_low)) %>%
+  mutate(is_clear_of_reference = range_low > reference | range_high < reference) %>%
+  mutate(pollutant = factor("Ozone", levels = pollutant_levels)) %>%
+  mutate(test = "Limit")
+
+print(as.data.frame(mutate(tail_ranges, across(where(is.double), \(x) round(x, 3))) %>%
+  select(site_set, measure, site_group, comparison, estimate, range_low, range_high, seed_shift_share, is_clear_of_reference)))
+
+cat("Largest seed shift in the tail ranges:", round(max(tail_ranges$seed_shift_share), 3), "\n")
+
+stopifnot(
+  "Both seeds give the same tail ranges within the tolerance" = all(tail_ranges$seed_shift_share <= group_range_seed_tolerance),
+  "Thirty-six range rows for each ozone set" = nrow(tail_ranges) == 36 * length(tail_range_sets)
+)
+
+# The whole warm-month ozone tail by group: the share of days above each value, against each curve
+tail_curve_values <- seq(0.055, 0.1, by = 0.001)
+
+warm_ozone_pieces <- split(case_warm_ozone_days, case_warm_ozone_days$site_id)
+
+warm_ozone_curves <- bind_rows(lapply(warm_ozone_pieces, \(piece) {
+  values <- piece$value_fit
+  parameters <- fast_curve_parameters(values)
+  site_step <- site_step_lookup[[str_c("Ozone|", first(piece$site_id))]]
+  expected <- t(vapply(tail_curve_values, \(value) {
+    length(values) * curve_shares_above((value - site_step / 2) / mean(values), parameters)
+  }, numeric(length(tail_curves))))
+  tibble(
+    site_group = as.character(first(piece$site_group)),
+    value_ppm = tail_curve_values,
+    n_days = length(values),
+    actual_days = vapply(tail_curve_values, \(value) sum(values >= value - 1e-9), numeric(1)),
+    expected_lognormal = expected[, "lognormal"],
+    expected_gamma = expected[, "gamma"],
+    expected_weibull = expected[, "weibull"],
+    expected_normal = expected[, "normal"]
+  )
+})) %>%
+  summarise(
+    n_site_days = sum(n_days),
+    n_actual_days = sum(actual_days),
+    pct_actual = 100 * sum(actual_days) / sum(n_days),
+    pct_lognormal = 100 * sum(expected_lognormal) / sum(n_days),
+    pct_gamma = 100 * sum(expected_gamma) / sum(n_days),
+    pct_weibull = 100 * sum(expected_weibull) / sum(n_days),
+    pct_normal = 100 * sum(expected_normal) / sum(n_days),
+    .by = c(site_group, value_ppm)
+  ) %>%
+  mutate(site_group = factor(site_group, levels = names(site_group_colours))) %>%
+  arrange(site_group, value_ppm)
+
+warm_ozone_limit_rows <- case_tail_summary %>%
+  filter(pollutant == "Ozone", site_set == "Warm season", test == "Limit") %>%
+  mutate(site_group = as.character(site_group))
+
+warm_ozone_curves_at_limit <- warm_ozone_curves %>%
+  filter(abs(value_ppm - limit_rows[["Ozone"]]$first_counted) < 1e-9) %>%
+  mutate(site_group = as.character(site_group)) %>%
+  inner_join(warm_ozone_limit_rows, by = "site_group", relationship = "one-to-one", suffix = c("", "_summary")) %>%
+  mutate(gamma_days_gap = abs(pct_gamma * n_site_days / 100 - total_expected_gamma))
+
+stopifnot(
+  "The tail curves match the limit test" =
+    all(warm_ozone_curves_at_limit$n_actual_days == warm_ozone_curves_at_limit$n_actual_days_summary) &&
+    all(warm_ozone_curves_at_limit$gamma_days_gap < 1e-6) &&
+    nrow(warm_ozone_curves_at_limit) == 3,
+  "A site's share of days above a value falls as the value rises" =
+    all(with(warm_ozone_curves, ave(pct_actual, site_group, FUN = \(x) c(0, diff(x)))) <= 0)
+)
+
+# Deer Park #2 with its below-limit readings censored, read at the same levels as the main fit. The fits repeat section 4's,
+# which kept only their AIC and P99
+deer_park_tail_days <- tail_ordinary_days %>%
+  filter(pollutant == "SO2", site_id == deer_park_id) %>%
+  left_join(
+    select(fit_days, pollutant, site_id, date_local, value, federal_mdl),
+    by = c("pollutant", "site_id", "date_local"),
+    relationship = "one-to-one"
+  )
+
+deer_park_censored <- censored_data(deer_park_tail_days, "Readings below the limit censored") %>%
+  mutate(left = round(left, 10)) %>%
+  mutate(right = round(right, 10)) %>%
+  count(left, right, name = "n_days") %>%
+  as.data.frame()
+
+deer_park_starts <- curve_starts(fast_curve_parameters(deer_park_tail_days$value_fit))
+
+deer_park_curve_fits <- lapply(setNames(contest_curves, contest_curves), \(curve) {
+  withCallingHandlers(
+    fitdistrplus::fitdistcens(
+      deer_park_censored[, c("left", "right")],
+      fitdist_names[[curve]],
+      start = deer_park_starts[[curve]],
+      weights = deer_park_censored$n_days,
+      calcvcov = FALSE,
+      control = list(reltol = fit_relative_tolerance)
+    ),
+    warning = \(w) if (str_detect(conditionMessage(w), "default initial values")) invokeRestart("muffleWarning")
+  )
+})
+
+deer_park_censored_row <- deer_park_fits %>%
+  filter(version == "Readings below the limit censored")
+
+deer_park_parameters <- list(
+  meanlog = deer_park_curve_fits$lognormal$estimate[["meanlog"]],
+  sdlog = deer_park_curve_fits$lognormal$estimate[["sdlog"]],
+  gamma_shape = deer_park_curve_fits$gamma$estimate[["shape"]],
+  gamma_rate = deer_park_curve_fits$gamma$estimate[["rate"]],
+  weibull_shape = deer_park_curve_fits$weibull$estimate[["shape"]],
+  weibull_scale = deer_park_curve_fits$weibull$estimate[["scale"]]
+)
+
+deer_park_tail_rows <- site_tail_rows(
+  deer_park_tail_days$value_fit,
+  site_step_lookup[[str_c("SO2|", deer_park_id)]],
+  limit_rows[["SO2"]],
+  deer_park_parameters,
+  deer_park_censored_row$winner
+) %>%
+  mutate(pollutant = factor("SO2", levels = pollutant_levels)) %>%
+  mutate(site_id = deer_park_id) %>%
+  mutate(site_set = "Readings below the limit censored") %>%
+  add_tail_flags()
+
+deer_park_tail_view <- tail_ordinary_rows %>%
+  filter(pollutant == "SO2", site_id == deer_park_id) %>%
+  bind_rows(deer_park_tail_rows) %>%
+  select(site_set, test, cut_value, curve_cut, n_days, actual_days, starts_with("expected_"), winner, closest_curve)
+
+print(as.data.frame(mutate(deer_park_tail_view, across(where(is.double), \(x) signif(x, 4)))))
+
+stopifnot(
+  "The Deer Park #2 refit matches section 4's AIC on every curve" =
+    abs(deer_park_curve_fits$lognormal$aic - deer_park_censored_row$aic_lognormal) < fit_agreement_tolerance &&
+    abs(deer_park_curve_fits$gamma$aic - deer_park_censored_row$aic_gamma) < fit_agreement_tolerance &&
+    abs(deer_park_curve_fits$weibull$aic - deer_park_censored_row$aic_weibull) < fit_agreement_tolerance,
+  "Deer Park #2 reads below the limit on more than a fifth of days" = deer_park_censored_row$pct_censored > 20
+)
+
+# Figure 3.4: how close each curve gets at the high end, nationally. Figure 3.5: the same for Houston and Dallas-Fort Worth
+national_tail_main <- tail_summary %>%
+  filter(scope == "National", site_set == "Ordinary days")
+
+tail_curve_colours <- curve_fills
+
+tail_ratio_breaks <- c(0.1, 0.25, 0.5, 1, 2, 4)
+
+tail_ratio_labels <- c("0.1", "0.25", "0.5", "1", "2", "4")
+
+tail_ratios_long <- function(summary_rows) {
+  summary_rows %>%
+    select(row_label, starts_with("ratio_total_")) %>%
+    pivot_longer(starts_with("ratio_total_"), names_to = "curve", names_prefix = "ratio_total_", values_to = "ratio")
+}
+
+tail_ratio_panel <- function(summary_rows, panel_number, panel_title, panel_subtitle) {
+  ratios <- tail_ratios_long(summary_rows)
+  curve_ratios <- ratios %>%
+    filter(curve != "winner") %>%
+    mutate(curve = curve_labels[curve])
+  winner_ratios <- ratios %>%
+    filter(curve == "winner")
+  ggplot(curve_ratios, aes(ratio, row_label)) +
+    geom_vline(xintercept = 1, colour = chart_ink[["axis"]], linewidth = 0.4) +
+    geom_line(aes(group = row_label), colour = chart_ink[["grid"]], linewidth = 0.5) +
+    geom_point(aes(colour = curve), size = 2, alpha = 0.95) +
+    geom_point(data = winner_ratios, shape = "|", size = 5, colour = chart_ink[["primary"]]) +
+    scale_colour_manual(values = tail_curve_colours, guide = "none") +
+    scale_x_log10(limits = c(0.05, 4.5), breaks = tail_ratio_breaks, labels = tail_ratio_labels) +
+    labs(title = panel_label(panel_number, panel_title), subtitle = panel_subtitle, x = "Expected / actual days", y = NULL) +
+    theme_paper() +
+    theme(panel.grid.major.y = element_blank(), panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25))
+}
+
+p99_national_rows <- national_tail_main %>%
+  filter(test == "P99") %>%
+  mutate(row_label = factor(pollutant, levels = rev(pollutant_levels)))
+
+limit_row_levels <- c("Ozone", "Ozone, warm", "PM2.5", "PM2.5, all days")
+
+limit_national_rows <- tail_summary %>%
+  filter(scope == "National", test == "Limit", pollutant %in% c("Ozone", "PM2.5"), site_set %in% c("Ordinary days", "Warm season", "All days")) %>%
+  filter(!(pollutant == "Ozone" & site_set == "All days")) %>%
+  mutate(row_name = case_when(
+    pollutant == "Ozone" & site_set == "Warm season" ~ "Ozone, warm",
+    pollutant == "PM2.5" & site_set == "All days" ~ "PM2.5, all days",
+    .default = as.character(pollutant)
+  )) %>%
+  mutate(row_name = factor(row_name, levels = limit_row_levels)) %>%
+  arrange(row_name) %>%
+  mutate(row_text = sprintf("%s\n%s days", row_name, comma(n_actual_days))) %>%
+  mutate(row_label = factor(row_text, levels = rev(row_text)))
+
+typical_site_rows <- p99_national_rows %>%
+  mutate(row_label = factor(sprintf("%s (%d)", pollutant, n_judged_sites), levels = rev(sprintf("%s (%d)", pollutant, n_judged_sites))))
+
+typical_site_panel <- ggplot(typical_site_rows, aes(median_ratio_winner, row_label)) +
+  geom_vline(xintercept = 1, colour = chart_ink[["axis"]], linewidth = 0.4) +
+  geom_segment(aes(x = q1_ratio_winner, xend = q3_ratio_winner, yend = row_label), colour = chart_fills[["other"]], linewidth = 2.2) +
+  geom_point(shape = "|", size = 5, colour = chart_ink[["primary"]]) +
+  geom_text(
+    aes(x = q3_ratio_winner, label = sprintf("%.2f", median_ratio_winner)),
+    family = chart_fonts[["mono"]],
+    size = chart_sizes[["label"]] / .pt,
+    colour = chart_ink[["primary"]],
+    hjust = -0.25
+  ) +
+  scale_x_log10(limits = c(0.4, 3.6), breaks = c(0.5, 1, 2), labels = c("0.5", "1", "2")) +
+  labs(
+    title = panel_label(3, "Each site, top 1%"),
+    subtitle = "The winner at the typical site",
+    x = "Expected / actual, middle half of sites",
+    y = NULL
+  ) +
+  theme_paper() +
+  theme(panel.grid.major.y = element_blank(), panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25))
+
+within_levels <- c("lognormal" = "Logn.", "gamma" = "Gamma", "weibull" = "Weib.", "normal" = "Norm.", "winner" = "Winner")
+
+within_table <- p99_national_rows %>%
+  select(pollutant, starts_with("pct_within_25_")) %>%
+  pivot_longer(starts_with("pct_within_25_"), names_to = "curve", names_prefix = "pct_within_25_", values_to = "pct_within") %>%
+  mutate(curve = factor(within_levels[curve], levels = within_levels)) %>%
+  mutate(pollutant = factor(pollutant, levels = rev(pollutant_levels)))
+
+within_panel <- ggplot(within_table, aes(curve, pollutant, fill = pct_within)) +
+  geom_tile(colour = "white", linewidth = 0.8) +
+  geom_text(
+    aes(label = sprintf("%.0f", pct_within)),
+    family = chart_fonts[["mono"]],
+    size = chart_sizes[["label"]] / .pt,
+    colour = chart_ink[["primary"]]
+  ) +
+  scale_fill_gradient(low = chart_fills[["band"]], high = chart_fills[["accent"]], limits = c(0, 60), guide = "none") +
+  scale_x_discrete(position = "top", expand = expansion(add = 0)) +
+  scale_y_discrete(expand = expansion(add = 0)) +
+  labs(title = panel_label(4, "% of sites within 25%, top 1%"), subtitle = "Few sites land close", x = NULL, y = NULL) +
+  theme_paper() +
+  theme(panel.grid = element_blank())
+
+# The caption must hold under every national check
+national_p99_checks <- tail_summary %>%
+  filter(scope == "National", test == "P99")
+
+national_limit_checks <- tail_summary %>%
+  filter(scope == "National", test == "Limit")
+
+pm25_limit_main <- limit_national_rows %>%
+  filter(row_name == "PM2.5")
+
+pm25_limit_all <- limit_national_rows %>%
+  filter(row_name == "PM2.5, all days")
+
+ozone_limit_main <- limit_national_rows %>%
+  filter(row_name == "Ozone")
+
+ozone_p99_row <- p99_national_rows %>%
+  filter(pollutant == "Ozone")
+
+pm25_p99_row <- p99_national_rows %>%
+  filter(pollutant == "PM2.5")
+
+no2_p99_row <- p99_national_rows %>%
+  filter(pollutant == "NO2")
+
+stopifnot(
+  "Under half of judged sites sit within 25% at P99 under every check, as the caption says" = all(national_p99_checks$pct_within_25_winner < 50),
+  "Ozone's total lands near 1 while its typical site spreads wide, as the caption says" =
+    abs(ozone_p99_row$ratio_total_winner - 1) < 0.15 && ozone_p99_row$q1_ratio_winner < 0.75 && ozone_p99_row$q3_ratio_winner > 1.25,
+  "PM2.5's winner runs short at P99 under every check, as the caption says" =
+    all(national_p99_checks$ratio_total_winner[national_p99_checks$pollutant == "PM2.5"] < 1),
+  "NO2's winner runs long at P99 under every check, as the caption says" =
+    all(national_p99_checks$ratio_total_winner[national_p99_checks$pollutant == "NO2"] > 1.25),
+  "The lognormal overcounts ozone at the limit under every check, as panel (b) shows" =
+    all(national_limit_checks$ratio_total_lognormal[national_limit_checks$pollutant == "Ozone"] > 1.5),
+  "Events add PM2.5 limit days the curves miss, as panel (b) shows" =
+    pm25_limit_all$n_actual_days > pm25_limit_main$n_actual_days && pm25_limit_all$ratio_total_winner < pm25_limit_main$ratio_total_winner
+)
+
+national_tail_figure <- figure_compose(
+  list(
+    tail_ratio_panel(p99_national_rows, 1, "All sites, top 1%", "Totals, by curve"),
+    tail_ratio_panel(limit_national_rows, 2, "All sites, at the limit", "Totals, by curve"),
+    typical_site_panel,
+    within_panel
+  ),
+  tribble(
+    ~mark,   ~colour,                           ~label,
+    "point", tail_curve_colours[["Lognormal"]], "Lognormal",
+    "point", tail_curve_colours[["Gamma"]],     "Gamma",
+    "point", tail_curve_colours[["Weibull"]],   "Weibull",
+    "point", tail_curve_colours[["Normal"]],    "Normal",
+    "tick",  chart_ink[["primary"]],            "Each site's AIC winner",
+    "thick", chart_fills[["other"]],            "(c) Middle half of sites"
+  ),
+  "Figure 3.7.",
+  sprintf(
+    str_c(
+      "Winning curves miss the top 1%% at most sites (%s five-year sites). The winner lands within 25%% at %.0f%% to %.0f%% of judged sites. ",
+      "Totals look better, since high and low misses cancel: ozone totals %.2f, with the middle half of sites from %.2f to %.2f. PM2.5's winner ",
+      "runs short (%.2f) and NO2's runs long (%.2f). EPA AQS, ordinary days unless shown; near-zero sites left out. Curves are tested on the days ",
+      "they were fitted to. Expected: days x the curve's share above the level. Limit: ozone from 0.071 ppm, PM2.5 from 35.5 µg/m³. Top 1%%: days ",
+      "above each site's own P99. Judged sites hold %d+ actual days and %d+ days; counts in brackets in (c)."
+    ),
+    comma(sum(p99_national_rows$n_sites)),
+    min(p99_national_rows$pct_within_25_winner),
+    max(p99_national_rows$pct_within_25_winner),
+    ozone_p99_row$ratio_total_winner,
+    ozone_p99_row$q1_ratio_winner,
+    ozone_p99_row$q3_ratio_winner,
+    pm25_p99_row$ratio_total_winner,
+    no2_p99_row$ratio_total_winner,
+    min_judged_days,
+    min_tail_days
+  )
+)
+
+save_figure(national_tail_figure, "3.07_tails.png", 7)
+
+group_axis_order <- names(site_group_colours)
+
+warm_curve_lines <- warm_ozone_curves %>%
+  select(site_group, value_ppm, starts_with("pct_")) %>%
+  pivot_longer(starts_with("pct_"), names_to = "series", names_prefix = "pct_", values_to = "pct_of_days") %>%
+  filter(pct_of_days > 0) %>%
+  mutate(series = if_else(series == "actual", "Actual", curve_labels[series])) %>%
+  mutate(series = factor(series, levels = c(curve_labels, "Actual")))
+
+warm_tail_y_limits <- c(0.03, 40)
+
+warm_limit_shares <- warm_ozone_limit_rows %>%
+  select(site_group, pct_days_above)
+
+warm_tail_panel <- function(group_name, panel_number, panel_title) {
+  group_lines <- warm_curve_lines %>%
+    filter(site_group == group_name)
+  group_share <- warm_limit_shares$pct_days_above[warm_limit_shares$site_group == group_name]
+  ggplot(group_lines, aes(value_ppm, pct_of_days, colour = series, linewidth = series)) +
+    geom_vline(xintercept = limit_rows[["Ozone"]]$first_counted, colour = chart_ink[["axis"]], linewidth = 0.4, linetype = "22") +
+    geom_line() +
+    scale_colour_manual(values = c(tail_curve_colours, "Actual" = site_group_colours[[group_name]]), guide = "none") +
+    scale_linewidth_manual(values = c("Lognormal" = 0.55, "Gamma" = 0.55, "Weibull" = 0.55, "Normal" = 0.55, "Actual" = 0.9), guide = "none") +
+    scale_x_continuous(limits = c(0.055, 0.1), breaks = c(0.06, 0.08, 0.1), labels = c("0.06", "0.08", "0.10")) +
+    scale_y_log10(
+      limits = warm_tail_y_limits,
+      breaks = c(0.1, 1, 10),
+      labels = c("0.1%", "1%", "10%"),
+      oob = oob_keep
+    ) +
+    coord_cartesian(ylim = warm_tail_y_limits) +
+    labs(
+      title = panel_label(panel_number, panel_title),
+      subtitle = sprintf("%.1f%% over the limit", group_share),
+      x = "Ozone, ppm",
+      y = NULL
+    ) +
+    theme_paper() +
+    theme(panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25))
+}
+
+range_ratio_rows <- function(set_name) {
+  tail_ranges %>%
+    filter(site_set == set_name, !is.na(site_group), measure %in% names(curve_labels)) %>%
+    mutate(curve = factor(curve_labels[measure], levels = rev(curve_labels))) %>%
+    mutate(site_group = factor(site_group, levels = rev(group_axis_order)))
+}
+
+tail_range_panel <- function(set_name, panel_number, panel_title, panel_subtitle) {
+  ggplot(range_ratio_rows(set_name), aes(estimate, curve, colour = site_group, shape = site_group)) +
+    geom_vline(xintercept = 1, colour = chart_ink[["axis"]], linewidth = 0.4) +
+    geom_linerange(aes(xmin = range_low, xmax = range_high), position = position_dodge(width = 0.7), linewidth = 0.5) +
+    geom_point(position = position_dodge(width = 0.7), size = 1.5) +
+    scale_colour_manual(values = site_group_colours, guide = "none") +
+    scale_shape_manual(values = site_group_shapes, guide = "none") +
+    scale_x_log10(limits = c(0.28, 2.8), breaks = c(0.5, 1, 2), labels = c("0.5", "1", "2")) +
+    labs(title = panel_label(panel_number, panel_title), subtitle = panel_subtitle, x = "Expected / actual days", y = NULL) +
+    theme_paper() +
+    theme(panel.grid.major.y = element_blank(), panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25))
+}
+
+deer_park_panel_rows <- deer_park_tail_view %>%
+  filter(test != "Limit") %>%
+  mutate(fit = if_else(site_set == "Ordinary days", "Main fit", "Censored fit")) %>%
+  mutate(fit = factor(fit, levels = c("Censored fit", "Main fit"))) %>%
+  mutate(ratio = expected_winner / actual_days) %>%
+  mutate(test = factor(test, levels = c("P99", "P98")))
+
+deer_park_panel <- ggplot(deer_park_panel_rows, aes(ratio, test, colour = fit)) +
+  geom_vline(xintercept = 1, colour = chart_ink[["axis"]], linewidth = 0.4) +
+  geom_point(position = position_dodge(width = 0.76), size = 2) +
+  geom_text(
+    aes(label = sprintf("%s %.2f", if_else(fit == "Main fit", "Main", "Cens."), ratio)),
+    position = position_dodge(width = 0.76),
+    family = chart_fonts[["mono"]],
+    size = chart_sizes[["label"]] / .pt,
+    hjust = -0.18
+  ) +
+  scale_colour_manual(values = c("Main fit" = chart_fills[["accent"]], "Censored fit" = chart_ink[["muted"]]), guide = "none") +
+  scale_x_continuous(limits = c(0.8, 3.6), breaks = c(1, 2, 3)) +
+  labs(title = panel_label(3, "Deer Park #2 SO2"), subtitle = "Censoring lands closer", x = "Expected / actual days", y = NULL) +
+  theme_paper() +
+  theme(panel.grid.major.y = element_blank(), panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25))
+
+warm_group_rows <- tail_ranges %>%
+  filter(site_set == "Warm season", !is.na(site_group))
+
+warm_gamma_rows <- warm_group_rows %>%
+  filter(measure == "gamma")
+
+warm_lognormal_rows <- warm_group_rows %>%
+  filter(measure == "lognormal")
+
+warm_normal_rows <- warm_group_rows %>%
+  filter(measure == "normal")
+
+warm_check_rows <- case_tail_summary %>%
+  filter(pollutant == "Ozone", test == "Limit", str_starts(site_set, "Warm season"))
+
+warm_top_rows <- case_tail_summary %>%
+  filter(pollutant == "Ozone", test == "P99", site_set == "Warm season")
+
+year_gamma_rows <- tail_ranges %>%
+  filter(site_set == "Ordinary days", !is.na(site_group), measure == "gamma")
+
+year_gamma_dfw <- year_gamma_rows %>%
+  filter(site_group == "Dallas-Fort Worth")
+
+year_curve_tops <- tail_ranges %>%
+  filter(site_set == "Ordinary days", !is.na(site_group), measure %in% names(curve_labels)) %>%
+  slice_max(estimate, n = 1, by = measure)
+
+deer_park_main_rows <- deer_park_panel_rows %>%
+  filter(fit == "Main fit") %>%
+  arrange(test)
+
+deer_park_censored_rows <- deer_park_panel_rows %>%
+  filter(fit == "Censored fit") %>%
+  arrange(test)
+
+stopifnot(
+  "Gamma's warm-month range reaches 1 in all three groups, as the caption says" =
+    all(warm_gamma_rows$range_low < 1 & warm_gamma_rows$range_high > 1) && nrow(warm_gamma_rows) == 3,
+  "Gamma stays within a quarter of the actual days under every warm-month check, as the caption says" =
+    all(between(warm_check_rows$ratio_total_gamma, 1, close_tail_ratio)),
+  "The lognormal overcounts warm-month ozone in all three groups, with ranges above 1, as the caption says" =
+    all(warm_lognormal_rows$range_low > 1) && nrow(warm_lognormal_rows) == 3,
+  "The normal undercounts warm-month ozone in all three groups, with ranges below 1, as the caption says" =
+    all(warm_normal_rows$range_high < 1) && nrow(warm_normal_rows) == 3,
+  "Gamma overshoots the top 1% of warm days in all three groups, as the caption says" = all(warm_top_rows$ratio_total_gamma > close_tail_ratio),
+  "Year-round gamma overcounts only in Dallas-Fort Worth, as panel (b) shows" =
+    year_gamma_dfw$range_low > 1 && all(year_gamma_rows$range_low[year_gamma_rows$site_group != "Dallas-Fort Worth"] < 1),
+  "Dallas-Fort Worth runs highest on every curve year-round, as panel (b) says" = all(year_curve_tops$site_group == "Dallas-Fort Worth"),
+  "Censoring lands closer at Deer Park #2 at both percentiles, as panel (c) says" =
+    all(abs(log(deer_park_censored_rows$ratio)) < abs(log(deer_park_main_rows$ratio)))
+)
+
+warm_tail_figure <- figure_compose(
+  list(
+    warm_tail_panel("Houston Ship Channel", 1, "Ship Channel, warm"),
+    warm_tail_panel("Houston other", 2, "Houston other, warm"),
+    warm_tail_panel("Dallas-Fort Worth", 3, "DFW, warm")
+  ),
+  tribble(
+    ~mark,    ~colour,                           ~label,
+    "line",   tail_curve_colours[["Lognormal"]], "Lognormal",
+    "line",   tail_curve_colours[["Gamma"]],     "Gamma",
+    "line",   tail_curve_colours[["Weibull"]],   "Weibull",
+    "line",   tail_curve_colours[["Normal"]],    "Normal",
+    "thick",  chart_ink[["primary"]],            "Actual days, in the group's colour",
+    "dashed", chart_ink[["axis"]],               "Limit"
+  ),
+  "Figure 3.8.",
+  sprintf(
+    str_c(
+      "Warm-month ozone: the share of days above each level, actual and by curve, for each group (%d ozone sites). Gamma sits closest near the ",
+      "limit, and higher up it overcounts the top 1%% of warm days by %.0f%% to %.0f%%. Curves are fitted per site and pooled by group. ",
+      "Dashed line: ",
+      "0.071 ppm, the first reading above the limit. EPA AQS, ordinary days; warm is April to October."
+    ),
+    sum(warm_ozone_limit_rows$n_sites),
+    100 * (min(warm_top_rows$ratio_total_gamma) - 1),
+    100 * (max(warm_top_rows$ratio_total_gamma) - 1)
+  ),
+  ncol = 3
+)
+
+case_limit_figure <- figure_compose(
+  list(
+    tail_range_panel("Warm season", 1, "At the limit, warm", "Gamma reaches 1"),
+    tail_range_panel("Ordinary days", 2, "At the limit, year", "DFW runs higher"),
+    deer_park_panel
+  ),
+  tribble(
+    ~mark,   ~colour,                                      ~label,             ~shape,                                       ~row,
+    "range", site_group_colours[["Houston Ship Channel"]], "Ship Channel",     site_group_shapes[["Houston Ship Channel"]], 1,
+    "range", site_group_colours[["Houston other"]],        "Houston other",    site_group_shapes[["Houston other"]],        1,
+    "range", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth", site_group_shapes[["Dallas-Fort Worth"]],   1,
+    "point", chart_fills[["accent"]],                      "(c) Main fit",     16,                                          1,
+    "point", chart_ink[["muted"]],                         "(c) Censored fit", 16,                                          1
+  ),
+  "Figure 3.9.",
+  sprintf(
+    str_c(
+      "Gamma tracks warm-month ozone at the limit. (a) In warm months its count runs %.0f%% to %.0f%% high in all three groups, with ranges that ",
+      "reach 1; the lognormal runs high and the normal runs low, with ranges clear of 1. (b) Year-round, Dallas-Fort Worth runs highest on every ",
+      "curve. (c) Deer Park #2 SO2: censoring below-limit readings (%.1f%% of days) moves the winner from lognormal to Weibull and lands closer at ",
+      "P98 and P99 (%d and %d actual days). Lines are 95%% ranges from %s same-date two-week block resamples, curves refitted. ",
+      "EPA AQS, ordinary days."
+    ),
+    100 * (min(warm_gamma_rows$estimate) - 1),
+    100 * (max(warm_gamma_rows$estimate) - 1),
+    deer_park_censored_row$pct_censored,
+    deer_park_main_rows$actual_days[deer_park_main_rows$test == "P98"],
+    deer_park_main_rows$actual_days[deer_park_main_rows$test == "P99"],
+    comma(tail_range_reps)
+  ),
+  ncol = 3
+)
+
+save_figure(warm_tail_figure, "3.08_warm_ozone_tails.png", 3)
+
+save_figure(case_limit_figure, "3.09_case_study_limit.png", 3.3)
+
+# Four CSV records: one row per site, set and test; medians and totals under each check; the ozone ranges; the warm-month curves
+tail_site_record <- bind_rows(tail_site_rows, deer_park_tail_rows) %>%
+  mutate(site_set = factor(site_set, levels = c(tail_summary_set_levels, "Readings below the limit censored"))) %>%
+  mutate(test = factor(test, levels = tail_test_levels)) %>%
+  select(
+    pollutant, site_id, local_site_name, state_name, region, site_group, site_set, test, n_days, cut_value, curve_cut, actual_days,
+    expected_lognormal, expected_gamma, expected_weibull, expected_normal, winner, expected_winner, closest_curve, is_judged
+  ) %>%
+  arrange(pollutant, site_id, site_set, test) %>%
+  mutate(actual_days = as.integer(actual_days)) %>%
+  mutate(across(where(is.double), \(x) signif(x, 4)))
+
+tail_range_record <- tail_ranges %>%
+  mutate(site_set = factor(site_set, levels = names(tail_range_sets))) %>%
+  select(
+    pollutant, test, site_set, measure, site_group, comparison, estimate, range_low, range_high, reference, is_clear_of_reference,
+    range_low_check_seed, range_high_check_seed, seed_shift_share
+  ) %>%
+  arrange(site_set, measure, site_group, comparison) %>%
+  mutate(across(where(is.double), \(x) signif(x, 4)))
+
+stopifnot(
+  "Every site record row has a set, a test and a winner" =
+    !anyNA(tail_site_record$site_set) && !anyNA(tail_site_record$test) && !anyNA(tail_site_record$winner),
+  "Three tests for each site and set" = all(count(tail_site_record, pollutant, site_id, site_set)$n == length(tail_test_levels)),
+  "Every range row names a group or a comparison" = all(is.na(tail_range_record$site_group) != is.na(tail_range_record$comparison)),
+  "Every summary row names its check and test" = !anyNA(tail_summary$site_set) && !anyNA(tail_summary$test)
+)
+
+tail_records <- list(
+  distribution_tail_sites = tail_site_record,
+  distribution_tail_summary = tail_summary %>%
+    mutate(n_actual_days = as.integer(n_actual_days)) %>%
+    mutate(across(where(is.double), \(x) signif(x, 4))),
+  distribution_tail_ranges = tail_range_record,
+  distribution_tail_curves = warm_ozone_curves %>%
+    mutate(n_actual_days = as.integer(n_actual_days)) %>%
+    mutate(across(where(is.double), \(x) signif(x, 4)))
+)
+
+save_records(tail_records, records_dir)
+
+tail_curve_descriptions <- c(
+  "lognormal" = "the lognormal curve",
+  "gamma" = "the gamma curve",
+  "weibull" = "the Weibull curve",
+  "normal" = "the normal curve",
+  "winner" = "each site's AIC winner"
+)
+
+tail_summary_curve_rows <- bind_rows(lapply(names(tail_curve_descriptions), \(curve) {
+  tibble(
+    table = "distribution_tail_summary",
+    column = str_c(c("total_expected_", "ratio_total_", "median_ratio_", "pct_within_25_"), curve),
+    description = str_c(
+      c(
+        "Days expected above the level, summed across sites, from ",
+        "Total expected days / actual days, from ",
+        "Median across judged sites of expected / actual days, from ",
+        "% of judged sites with expected / actual between 0.8 and 1.25, from "
+      ),
+      tail_curve_descriptions[[curve]]
+    )
+  )
+}))
+
+tail_dictionary <- bind_rows(
+  tribble(
+    ~table,                     ~column,            ~description,
+    "distribution_tail_sites", "pollutant",         "PM2.5, Ozone, NO2, SO2 or CO",
+    "distribution_tail_sites", "site_id",           "AQS site ID; five-year sites outside the near-zero rule",
+    "distribution_tail_sites", "local_site_name",   "Site name given by the reporting agency; can be NA",
+    "distribution_tail_sites", "state_name",        "State or territory name",
+    "distribution_tail_sites", "region",            "West (Census West region) or East (every other state or territory)",
+    "distribution_tail_sites", "site_group",        "Case-study group; NA outside the case study",
+    "distribution_tail_sites", "site_set",          "Ordinary days, All days, Warm season (ozone) or Deer Park #2's censored fit",
+    "distribution_tail_sites", "test",              "Limit (the short-term standard), P98 or P99 (the site's own percentile)",
+    "distribution_tail_sites", "n_days",            "Days measured in this set",
+    "distribution_tail_sites", "cut_value",         "Limit: lowest reading above it after 2a's rounding. P98, P99: the site's percentile",
+    "distribution_tail_sites", "curve_cut",         "Where curves are read: half a step below a limit, or midway between days beside a percentile",
+    "distribution_tail_sites", "actual_days",       "Days above the level",
+    "distribution_tail_sites", "expected_lognormal", "n_days x the lognormal curve's share above curve_cut",
+    "distribution_tail_sites", "expected_gamma",    "n_days x the gamma curve's share above curve_cut",
+    "distribution_tail_sites", "expected_weibull",  "n_days x the Weibull curve's share above curve_cut",
+    "distribution_tail_sites", "expected_normal",   "n_days x the normal curve's share above curve_cut; NA in the censored fit",
+    "distribution_tail_sites", "winner",            "The lowest-AIC curve of the three in this set, as in distribution_fits",
+    "distribution_tail_sites", "expected_winner",   "Expected days from the site's winner",
+    "distribution_tail_sites", "closest_curve",     "The curve of the three closest to actual_days, on a log scale; NA with no actual days",
+    "distribution_tail_sites", "is_judged",         "TRUE when the site has 10+ actual days and 200+ days, so its own ratio is read",
+    "distribution_tail_summary", "scope",           "National (all sites outside the near-zero rule) or Case study (per group)",
+    "distribution_tail_summary", "pollutant",       "PM2.5, Ozone, NO2, SO2 or CO; CO is national only",
+    "distribution_tail_summary", "site_group",      "Case-study group; NA in national rows",
+    "distribution_tail_summary", "site_set",        "Ordinary days (main run) or a check; a check that changes no days has no row",
+    "distribution_tail_summary", "test",            "Limit, P98 or P99",
+    "distribution_tail_summary", "n_sites",         "Sites in the row",
+    "distribution_tail_summary", "n_site_days",     "Site-days in the row",
+    "distribution_tail_summary", "n_actual_days",   "Site-days above the level",
+    "distribution_tail_summary", "pct_days_above",  "n_actual_days / n_site_days x 100",
+    "distribution_tail_summary", "n_sites_with_actual_days", "Sites with at least one day above the level",
+    "distribution_tail_summary", "pct_actual_in_top_sites", "% of actual days held by the 10 busiest sites; NA with 10 sites or fewer",
+    "distribution_tail_summary", "n_judged_sites",  "Sites with 10+ actual days and 200+ days",
+    "distribution_tail_summary", "q1_ratio_winner", "25th percentile across judged sites of expected / actual days, from the winner",
+    "distribution_tail_summary", "q3_ratio_winner", "75th percentile across judged sites of expected / actual days, from the winner",
+    "distribution_tail_summary", "pct_closest_lognormal", "% of judged sites where the lognormal is the closest of the three",
+    "distribution_tail_summary", "pct_closest_gamma", "% of judged sites where the gamma curve is the closest of the three",
+    "distribution_tail_summary", "pct_closest_weibull", "% of judged sites where the Weibull curve is the closest of the three",
+    "distribution_tail_summary", "pct_winner_closest", "% of judged sites where the AIC winner is also the closest of the three"
+  ),
+  tail_summary_curve_rows,
+  tribble(
+    ~table,                      ~column,                 ~description,
+    "distribution_tail_ranges", "pollutant",              "Ozone: the ranges cover case-study ozone only",
+    "distribution_tail_ranges", "test",                   "Limit: days from 0.071 ppm",
+    "distribution_tail_ranges", "site_set",               "Warm season or Ordinary days (year-round)",
+    "distribution_tail_ranges", "measure",                "Days above the limit, %, or a curve's expected / actual days (winner: each site's own)",
+    "distribution_tail_ranges", "site_group",             "Case-study group; NA in comparison rows",
+    "distribution_tail_ranges", "comparison",             "Which group is subtracted from which; NA in group rows",
+    "distribution_tail_ranges", "estimate",               "The measure, or the gap in the measure between the two groups",
+    "distribution_tail_ranges", "range_low",              "2.5th percentile across 2,000 same-date two-week block resamples, curves refitted",
+    "distribution_tail_ranges", "range_high",             "97.5th percentile across those resamples",
+    "distribution_tail_ranges", "reference",              "1 for a group's ratio, 0 for a gap; NA for a group's share of days",
+    "distribution_tail_ranges", "is_clear_of_reference",  "TRUE when the range leaves out the reference; NA without one",
+    "distribution_tail_ranges", "range_low_check_seed",   "range_low under the second seed",
+    "distribution_tail_ranges", "range_high_check_seed",  "range_high under the second seed",
+    "distribution_tail_ranges", "seed_shift_share",       "Largest move of either end between seeds, as a share of the range's width",
+    "distribution_tail_curves", "site_group",             "Case-study group",
+    "distribution_tail_curves", "value_ppm",              "Warm-month ozone value, in ppm",
+    "distribution_tail_curves", "n_site_days",            "Warm-month ordinary site-days in the group",
+    "distribution_tail_curves", "n_actual_days",          "Site-days at or above value_ppm",
+    "distribution_tail_curves", "pct_actual",             "n_actual_days / n_site_days x 100",
+    "distribution_tail_curves", "pct_lognormal",          "% of site-days each site's lognormal puts above value_ppm less half a step, pooled",
+    "distribution_tail_curves", "pct_gamma",              "% of site-days each site's gamma curve puts above value_ppm less half a step, pooled",
+    "distribution_tail_curves", "pct_weibull",            "% of site-days each site's Weibull curve puts above value_ppm less half a step, pooled",
+    "distribution_tail_curves", "pct_normal",             "% of site-days each site's normal curve puts above value_ppm less half a step, pooled"
+  )
+)
+
+# Stops on a saved column without a description, or a description of a column that was not saved
+tail_dictionary <- document_tables(tail_records, tail_dictionary)
+
+replace_own_rows(tail_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
+national_tail_main %>%
+  select(pollutant, test, n_sites, n_actual_days, starts_with("ratio_total_"), n_judged_sites, median_ratio_winner, pct_within_25_winner) %>%
+  mutate(across(where(is.double), \(x) signif(x, 3))) %>%
+  print(n = Inf, width = Inf)
+
+rm(tail_source_days, tail_ordinary_days, case_warm_ozone_days, warm_ozone_tail_check_days, case_tail_check_days, tail_range_sets, warm_ozone_pieces)
 invisible(gc())

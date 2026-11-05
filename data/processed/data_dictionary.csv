@@ -999,8 +999,8 @@ distribution_fit_summary,median_lag1_correlation,numeric,Median across sites of 
 distribution_fit_summary,median_effective_days,numeric,Median across sites of the independent days after links; main run only
 distribution_fit_summary,median_scaled_aic_gap,numeric,Median across sites of the AIC gap scaled to those days; main run only
 distribution_fit_summary,pct_sites_scaled_gap_decisive,numeric,% of sites with a scaled AIC gap of 10 or more; main run only
-distribution_fit_summary,n_sites_resampled,integer,Sites whose winner was resampled
-distribution_fit_summary,pct_resampled_clear,numeric,% of resampled sites that keep their winner in at least 90% of resamples
+distribution_fit_summary,n_sites_resampled,integer,Sites whose winner was resampled; national rows count only the random sample
+distribution_fit_summary,pct_resampled_clear,numeric,% of resampled sites keeping their winner in 90%+ of runs; national: random 100
 distribution_fit_summary,median_winner_kept_share,numeric,"Median share of resamples keeping the winner, across resampled sites"
 distribution_fit_summary,spread_factor_median,numeric,Median across sites of the spread factor
 distribution_fit_summary,spread_factor_q1,numeric,25th percentile across sites of the spread factor
@@ -1048,3 +1048,84 @@ distribution_fit_checks,gap_high,numeric,97.5th percentile of the gap across tho
 distribution_fit_checks,gap_low_check_seed,numeric,gap_low under the second seed
 distribution_fit_checks,gap_high_check_seed,numeric,gap_high under the second seed
 distribution_fit_checks,seed_shift_share,numeric,"Largest move of either end between seeds, as a share of the range's width"
+distribution_tail_sites,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO"
+distribution_tail_sites,site_id,character,AQS site ID; five-year sites outside the near-zero rule
+distribution_tail_sites,local_site_name,character,Site name given by the reporting agency; can be NA
+distribution_tail_sites,state_name,character,State or territory name
+distribution_tail_sites,region,character,West (Census West region) or East (every other state or territory)
+distribution_tail_sites,site_group,factor,Case-study group; NA outside the case study
+distribution_tail_sites,site_set,factor,"Ordinary days, All days, Warm season (ozone) or Deer Park #2's censored fit"
+distribution_tail_sites,test,factor,"Limit (the short-term standard), P98 or P99 (the site's own percentile)"
+distribution_tail_sites,n_days,integer,Days measured in this set
+distribution_tail_sites,cut_value,numeric,"Limit: lowest reading above it after 2a's rounding. P98, P99: the site's percentile"
+distribution_tail_sites,curve_cut,numeric,"Where curves are read: half a step below a limit, or midway between days beside a percentile"
+distribution_tail_sites,actual_days,integer,Days above the level
+distribution_tail_sites,expected_lognormal,numeric,n_days x the lognormal curve's share above curve_cut
+distribution_tail_sites,expected_gamma,numeric,n_days x the gamma curve's share above curve_cut
+distribution_tail_sites,expected_weibull,numeric,n_days x the Weibull curve's share above curve_cut
+distribution_tail_sites,expected_normal,numeric,n_days x the normal curve's share above curve_cut; NA in the censored fit
+distribution_tail_sites,winner,character,"The lowest-AIC curve of the three in this set, as in distribution_fits"
+distribution_tail_sites,expected_winner,numeric,Expected days from the site's winner
+distribution_tail_sites,closest_curve,character,"The curve of the three closest to actual_days, on a log scale; NA with no actual days"
+distribution_tail_sites,is_judged,logical,"TRUE when the site has 10+ actual days and 200+ days, so its own ratio is read"
+distribution_tail_summary,scope,factor,National (all sites outside the near-zero rule) or Case study (per group)
+distribution_tail_summary,pollutant,factor,"PM2.5, Ozone, NO2, SO2 or CO; CO is national only"
+distribution_tail_summary,site_group,factor,Case-study group; NA in national rows
+distribution_tail_summary,site_set,factor,Ordinary days (main run) or a check; a check that changes no days has no row
+distribution_tail_summary,test,factor,"Limit, P98 or P99"
+distribution_tail_summary,n_sites,integer,Sites in the row
+distribution_tail_summary,n_site_days,integer,Site-days in the row
+distribution_tail_summary,n_actual_days,integer,Site-days above the level
+distribution_tail_summary,pct_days_above,numeric,n_actual_days / n_site_days x 100
+distribution_tail_summary,n_sites_with_actual_days,integer,Sites with at least one day above the level
+distribution_tail_summary,pct_actual_in_top_sites,numeric,% of actual days held by the 10 busiest sites; NA with 10 sites or fewer
+distribution_tail_summary,total_expected_lognormal,numeric,"Days expected above the level, summed across sites, from the lognormal curve"
+distribution_tail_summary,total_expected_gamma,numeric,"Days expected above the level, summed across sites, from the gamma curve"
+distribution_tail_summary,total_expected_weibull,numeric,"Days expected above the level, summed across sites, from the Weibull curve"
+distribution_tail_summary,total_expected_normal,numeric,"Days expected above the level, summed across sites, from the normal curve"
+distribution_tail_summary,total_expected_winner,numeric,"Days expected above the level, summed across sites, from each site's AIC winner"
+distribution_tail_summary,ratio_total_lognormal,numeric,"Total expected days / actual days, from the lognormal curve"
+distribution_tail_summary,ratio_total_gamma,numeric,"Total expected days / actual days, from the gamma curve"
+distribution_tail_summary,ratio_total_weibull,numeric,"Total expected days / actual days, from the Weibull curve"
+distribution_tail_summary,ratio_total_normal,numeric,"Total expected days / actual days, from the normal curve"
+distribution_tail_summary,ratio_total_winner,numeric,"Total expected days / actual days, from each site's AIC winner"
+distribution_tail_summary,n_judged_sites,integer,Sites with 10+ actual days and 200+ days
+distribution_tail_summary,median_ratio_lognormal,numeric,"Median across judged sites of expected / actual days, from the lognormal curve"
+distribution_tail_summary,median_ratio_gamma,numeric,"Median across judged sites of expected / actual days, from the gamma curve"
+distribution_tail_summary,median_ratio_weibull,numeric,"Median across judged sites of expected / actual days, from the Weibull curve"
+distribution_tail_summary,median_ratio_normal,numeric,"Median across judged sites of expected / actual days, from the normal curve"
+distribution_tail_summary,median_ratio_winner,numeric,"Median across judged sites of expected / actual days, from each site's AIC winner"
+distribution_tail_summary,q1_ratio_winner,numeric,"25th percentile across judged sites of expected / actual days, from the winner"
+distribution_tail_summary,q3_ratio_winner,numeric,"75th percentile across judged sites of expected / actual days, from the winner"
+distribution_tail_summary,pct_within_25_lognormal,numeric,"% of judged sites with expected / actual between 0.8 and 1.25, from the lognormal curve"
+distribution_tail_summary,pct_within_25_gamma,numeric,"% of judged sites with expected / actual between 0.8 and 1.25, from the gamma curve"
+distribution_tail_summary,pct_within_25_weibull,numeric,"% of judged sites with expected / actual between 0.8 and 1.25, from the Weibull curve"
+distribution_tail_summary,pct_within_25_normal,numeric,"% of judged sites with expected / actual between 0.8 and 1.25, from the normal curve"
+distribution_tail_summary,pct_within_25_winner,numeric,"% of judged sites with expected / actual between 0.8 and 1.25, from each site's AIC winner"
+distribution_tail_summary,pct_closest_lognormal,numeric,% of judged sites where the lognormal is the closest of the three
+distribution_tail_summary,pct_closest_gamma,numeric,% of judged sites where the gamma curve is the closest of the three
+distribution_tail_summary,pct_closest_weibull,numeric,% of judged sites where the Weibull curve is the closest of the three
+distribution_tail_summary,pct_winner_closest,numeric,% of judged sites where the AIC winner is also the closest of the three
+distribution_tail_ranges,pollutant,factor,Ozone: the ranges cover case-study ozone only
+distribution_tail_ranges,test,character,Limit: days from 0.071 ppm
+distribution_tail_ranges,site_set,factor,Warm season or Ordinary days (year-round)
+distribution_tail_ranges,measure,character,"Days above the limit, %, or a curve's expected / actual days (winner: each site's own)"
+distribution_tail_ranges,site_group,character,Case-study group; NA in comparison rows
+distribution_tail_ranges,comparison,character,Which group is subtracted from which; NA in group rows
+distribution_tail_ranges,estimate,numeric,"The measure, or the gap in the measure between the two groups"
+distribution_tail_ranges,range_low,numeric,"2.5th percentile across 2,000 same-date two-week block resamples, curves refitted"
+distribution_tail_ranges,range_high,numeric,97.5th percentile across those resamples
+distribution_tail_ranges,reference,numeric,"1 for a group's ratio, 0 for a gap; NA for a group's share of days"
+distribution_tail_ranges,is_clear_of_reference,logical,TRUE when the range leaves out the reference; NA without one
+distribution_tail_ranges,range_low_check_seed,numeric,range_low under the second seed
+distribution_tail_ranges,range_high_check_seed,numeric,range_high under the second seed
+distribution_tail_ranges,seed_shift_share,numeric,"Largest move of either end between seeds, as a share of the range's width"
+distribution_tail_curves,site_group,factor,Case-study group
+distribution_tail_curves,value_ppm,numeric,"Warm-month ozone value, in ppm"
+distribution_tail_curves,n_site_days,integer,Warm-month ordinary site-days in the group
+distribution_tail_curves,n_actual_days,integer,Site-days at or above value_ppm
+distribution_tail_curves,pct_actual,numeric,n_actual_days / n_site_days x 100
+distribution_tail_curves,pct_lognormal,numeric,"% of site-days each site's lognormal puts above value_ppm less half a step, pooled"
+distribution_tail_curves,pct_gamma,numeric,"% of site-days each site's gamma curve puts above value_ppm less half a step, pooled"
+distribution_tail_curves,pct_weibull,numeric,"% of site-days each site's Weibull curve puts above value_ppm less half a step, pooled"
+distribution_tail_curves,pct_normal,numeric,"% of site-days each site's normal curve puts above value_ppm less half a step, pooled"
