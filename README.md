@@ -2,7 +2,7 @@
 
 This project uses R to clean, explore and model five years of air quality data from the EPA's Air Quality System (AQS) for PM2.5, ozone, NO₂, SO₂ and CO. The national daily data hold 8.9 million records, 5.56 million after cleaning. Hourly pollutant and weather data cover 16 case-study monitors in Houston and Dallas–Fort Worth (661,545 monitor-hours).
 
-**Status:** Phases 1 and 2 are complete. Phase 3 is under way: shape, curve fits and tails are done, and extreme values and a worked design value are next. 35 figures so far.
+**Status:** Phases 1 and 2 are complete. Phase 3 is under way: shape, curve fits and tails are done, and extreme values and a worked design value are next. 40 figures so far.
 
 ## Research question
 
@@ -52,7 +52,7 @@ Two ozone and NO₂ sites per group; for SO₂, three Ship Channel sites and Cro
 - **Calm air:** Houston is calm 4 to 6 times as often as Dallas–Fort Worth. At the same hour and month, calm hours carry 3.0 to 6.8 ppb more NO₂ and 3.8 to 9.0 ppb less ozone.
 - **Wind directions:** NO₂ runs highest in east wind at all four Houston sites. Croquet's SO₂ spikes come from the southwest (75% of spikes from 11% of its hours), away from the channel; Park Place's come from the channel side (77% from 30%).
 - **The rest of the ozone gap:** without Harvard Street, the Ox gap is −2.2 ppb in wind from the channel and about zero otherwise, consistent with ozone forming in channel air as it crosses Houston.
-- **Checks:** all ten headline findings hold under every check that applies and with a second random seed (figure 2C.11).
+- **Checks:** all ten headline findings hold under every check that applies and with a second random seed (figure 2C.12).
 
 ## Early findings (Phase 3, distributions so far)
 
@@ -84,7 +84,7 @@ Data come from the [EPA AirData download page](https://aqs.epa.gov/aqsweb/airdat
 3. Open `EPA AQS Project.Rproj`, run `R/0_setup.R` once and restart R. `renv::restore()` gives the exact package versions (R 4.6.1).
 4. Source the scripts in order: `1a`, `1b`, `1c`, `1d`, `1e`, `2a`, `2b`, `2c`, `3_distributions`. The first runs of `1d` and `1e` take 10 to 15 minutes each, and later runs reuse a cache. `3_distributions` takes about 35 to 45 minutes, then about 10 to 13 once its slowest steps reuse saved results.
 
-Chart fonts are in `fonts/`, and Phase 3 figures use Arial; RStudio's Plots pane needs its Graphics Backend set to AGG.
+The figures use Arial; RStudio's Plots pane needs its Graphics Backend set to AGG. `fonts/` holds the report's fonts (Inter and IBM Plex Mono).
 
 ## Repository structure (so far)
 
@@ -106,9 +106,9 @@ EPA AQS Project/
 ├── R/                      # scripts, run in order, and utils.R
 ├── figures/                # numbered, one folder per phase
 │   ├── phase1/             # case-study site map
-│   ├── phase2/             # 2a.01_ to 2a.07_, 2b.01_ to 2b.08_, 2c.01_ to 2c.11_
+│   ├── phase2/             # 2a.01_ to 2a.10_, 2b.01_ to 2b.08_, 2c.01_ to 2c.12_
 │   └── phase3/             # 3.01_ to 3.09_
-├── fonts/                  # chart fonts and their licences
+├── fonts/                  # report fonts and their licences
 ├── docs/                   # GitHub Pages output and methodology.md
 ├── renv.lock               # package versions used
 └── README.md

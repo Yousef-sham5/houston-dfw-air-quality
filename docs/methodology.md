@@ -152,13 +152,13 @@ Ox closes at least half the gap under every check, consistent with fresh NO usin
 - **Short and local:** spikes last a median of one hour, and 16 of 289 Ship Channel spike hours hit two sites at once, consistent with separate local plumes.
 - **Deer Park #2 plume test:** on spike hours, NO₂ is 7.5 ppb above normal (+5.1 to +10.0). At night ozone dips 3.4 ppb, but that range just reaches zero.
 
-**Wind and calm air (section 5, figures 2C.6 and 2C.7):** wind statistics use the 8 sites with their own sensor, outside Uri and Beryl. Each calm hour is compared with windy hours at the same site, hour of day and month.
+**Wind and calm air (section 5, figures 2C.6 to 2C.8):** wind statistics use the 8 sites with their own sensor, outside Uri and Beryl. Each calm hour is compared with windy hours at the same site, hour of day and month.
 - **Calm:** 6.0% of hours at the Ship Channel, 8.9% in Houston other and 1.6% in Dallas–Fort Worth.
 - **Calm against windy:** calm hours carry 3.0 to 6.8 ppb more NO₂ and 3.8 to 9.0 ppb less ozone at every site, each range clear of zero. In every group at least 70% of the lost ozone shows up as NO₂, consistent with NO using up ozone in still air.
 - **SO₂:** by day, spikes come most in calm or light wind (under 1.5 m/s) and never above 5 m/s.
 - **Sensor check:** new sonic sensors read fewer calm hours at three sites (Bayland Park 8.9% to 5.9%, Houston East 10.2% to 6.9%, Deer Park #2 6.8% to 5.6%). Every result holds without them, though Bayland Park sits out, since its old sensor covers about a year.
 
-**Source directions (section 6, figures 2C.8 to 2C.10):** channel directions come from the same USACE sections as the site groups.
+**Source directions (section 6, figures 2C.9 to 2C.11):** channel directions come from the same USACE sections as the site groups.
 - **NO₂:** at all four Houston NO₂ sites, NO₂ runs 1.4 to 1.6 times its usual level in wind from 60° to 90°.
 - **SO₂:** 75% of Croquet's spike hours (68% to 82%) come from 195° to 255°, a direction that brings 11% of its hours and points away from the channel. 77% of Park Place's (68% to 86%) come from the channel side, which brings 30% of its hours.
 - **Ox gap by wind:** one Houston wind per hour, the vector mean of the 6 Houston sensors. Wind from the channel covers 45° to 135°, where the channel lies from Bayland Park and Harvard Street.
@@ -170,7 +170,7 @@ Ox closes at least half the gap under every check, consistent with fresh NO usin
 
 The gap left after section 3 appears in wind from the channel, consistent with ozone forming in channel air as it crosses Houston. A first split by compass quarter put north, not east, widest without Harvard Street, so the test uses the channel's own directions. Harvard Street has 2 to 3 ppb more Ox than Bayland Park in most south and west winds, so its extra Ox is not tied to the channel.
 
-**Validation (section 7, figure 2C.11):** a second seed changed none of the 67 headline ranges' verdicts and moved no end more than 9.1% of its range. All ten headline findings hold under every check that applies. Quoted numbers are in `case_study_hourly_headlines.csv`, and all 19 checks in `case_study_hourly_validation.csv` pass.
+**Validation (section 7, figure 2C.12):** a second seed changed none of the 67 headline ranges' verdicts and moved no end more than 9.1% of its range. All ten headline findings hold under every check that applies. Quoted numbers are in `case_study_hourly_headlines.csv`, and all 19 checks in `case_study_hourly_validation.csv` pass.
 
 ## Distributions (3_distributions, in progress)
 
@@ -240,7 +240,7 @@ The warm-month gap is consistent with Houston swinging between cleaner Gulf air 
 - **`data/processed/`:** the `.rds` checkpoints that later scripts read, `data_dictionary.csv` (every saved column) and `checkpoint_manifest.csv` (the size and MD5 of each checkpoint).
 - **`data/processed/phase1/`, `phase2/` and `phase3/`:** the CSV records from each script, readable on GitHub.
 - **`data/distribution_cache/`:** not tracked. The slowest `3_distributions` steps reuse results saved here while their days, settings and code are unchanged. `rerun_cached_steps <- TRUE` recomputes them.
-- **`figures/`:** every figure, numbered in order (`2a.01` to `3.09`) and sized for a 6.5-inch report page. Phase 3 figures put their finding and notes in a caption under the panels.
+- **`figures/`:** every figure, numbered in order (`2a.01` to `3.09`) and sized for a 6.5-inch report page. All figures show lettered panels with their measure and sample size, a key and a short source note; the report text gives each finding.
 
 ## Known limits
 

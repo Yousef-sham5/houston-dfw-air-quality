@@ -11,7 +11,30 @@ library(here)
 
 source(here("R", "utils.R")) # study_years, region_lookup, read_events(), naaqs_statistics(), monthly_profile(), save helpers, chart theme
 
-load_chart_fonts()
+
+
+# FIGURE STYLE ----
+# 2b figures are laid out like a journal's, with the tagged-figure helpers in utils.R and the findings left to the
+# report text. These settings replace utils.R's chart colours and fonts for this script only
+stopifnot("Arial is installed, since 2b figures use it" = str_detect(systemfonts::match_fonts("Arial")$path, regex("arial", ignore_case = TRUE)))
+
+chart_fonts[] <- "Arial"
+
+chart_ink[c("primary", "secondary", "muted", "grid", "axis")] <- c("#000000", "#333333", "#666666", "#EBEBEB", "#999999")
+
+chart_fills[c("accent", "other", "band")] <- c("#1D5D9B", "#B5B5B5", "#F2F2F2")
+
+# A warm second colour for labelled events, as in 2a
+chart_warm <- c(line = "#E3872D", text = "#B9621A", band = "#FCEEDF")
+
+site_group_colours[] <- c("#D55E00", "#0072B2", "#009E73")
+
+chart_sizes[c("key", "label")] <- c(7, 6.5)
+
+figures_dir <- here("figures", "phase2")
+
+# Short notes under single panels
+panel_note_text <- element_text(colour = chart_ink[["secondary"]], size = 6.5, hjust = 0, margin = margin(t = 4))
 
 
 
@@ -86,7 +109,7 @@ near_road_ids <- c(
 # Distance of every Harris site to the land-cut Ship Channel, its group and its group under the memo list, from 1c
 harris_groups_path <- here("data", "reference", "harris_site_channel_distance.csv")
 
-# The distance rule set in 1c, repeated for figure 2B.01 and checked against 1c's groups in section 1. Houston other
+# The distance rule set in 1c, repeated for figure 2B.1 and checked against 1c's groups in section 1. Houston other
 # sites in the transition band sit nearer the channel than the rest and are left out in one check
 ship_channel_km <- 7.5
 
@@ -519,6 +542,29 @@ stopifnot(
   "Every group reports on at least 95% of days for each pollutant" = all(same_day_coverage$days_every_group >= 0.95 * study_days)
 )
 
+# A site's marker: its group's shape, open for a second meaning such as four of five years
+site_marker <- function(site_group, is_open) {
+  unname(if_else(is_open, site_group_open_shapes[as.character(site_group)], site_group_shapes[as.character(site_group)]))
+}
+
+# Figure keys name each group with its five-year site count for the pollutant
+group_short_names <- c("Houston Ship Channel" = "Ship Channel", "Houston other" = "Houston other", "Dallas-Fort Worth" = "Dallas-Fort Worth")
+
+group_key <- function(pollutant_name, mark = "point", key_row = 1) {
+  counts <- site_inventory %>%
+    filter(analysis_role == "Main", pollutant == pollutant_name) %>%
+    distinct(site_id, site_group) %>%
+    count(site_group)
+  stopifnot("Every group in a key has sites" = all(counts$n > 0))
+  tibble(
+    mark = mark,
+    colour = unname(site_group_colours[as.character(counts$site_group)]),
+    label = str_c(group_short_names[as.character(counts$site_group)], " (", counts$n, if_else(counts$n == 1, " site)", " sites)")),
+    shape = unname(site_group_shapes[as.character(counts$site_group)]),
+    row = key_row
+  )
+}
+
 # Figure 2B.1: when each site reported, where methods changed, and how far each Houston site sits from the Ship Channel
 short_site_name <- function(local_site_name) {
   local_site_name %>%
@@ -570,8 +616,8 @@ timeline_panel <- ggplot(coverage_runs) +
     expand = expansion(mult = 0.01)
   ) +
   scale_y_discrete(labels = \(x) str_remove(x, "^[^|]*\\|")) +
-  labs(title = "01  DATA COVERAGE", subtitle = "Days reported by each site", x = NULL, y = NULL) +
-  theme_aqs() +
+  labs(title = panel_label(1, "Data coverage"), subtitle = "Days reported by each site", x = NULL, y = NULL) +
+  theme_paper() +
   theme(
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
@@ -595,22 +641,22 @@ transition_names <- as.character(distance_plot$short_name[distance_plot$in_trans
 distance_panel <- ggplot(distance_plot, aes(km_to_channel, short_name)) +
   annotate("rect", xmin = ship_channel_km, xmax = transition_km, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
   annotate(
-    "text", x = ship_channel_km, y = -Inf, label = str_c(ship_channel_km, " KM"), hjust = -0.12, vjust = -0.8,
+    "text", x = ship_channel_km, y = -Inf, label = str_c(ship_channel_km, " km"), hjust = -0.12, vjust = -0.8,
     family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_ink[["muted"]]
   ) +
-  geom_point(aes(colour = site_group), size = 1.7) +
+  geom_point(aes(colour = site_group, shape = site_group), size = 1.8) +
   geom_text(
     aes(label = km_label), hjust = -0.45,
     family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_ink[["muted"]]
   ) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
-  scale_x_continuous(limits = c(0, 55), breaks = seq(0, 50, 10), expand = expansion(mult = c(0, 0.02))) +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
+  scale_x_continuous(limits = c(0, 78), breaks = seq(0, 60, 20), expand = expansion(mult = c(0.04, 0))) +
   scale_y_discrete(
     labels = \(labels) parse(text = if_else(labels %in% transition_names, sprintf('bold("%s")', labels), sprintf('"%s"', labels)))
   ) +
-  labs(title = "02  DISTANCE", subtitle = "Km to the land-cut Ship Channel", x = NULL, y = NULL) +
-  coord_cartesian(clip = "off") +
-  theme_aqs() +
+  labs(title = panel_label(2, "Distance"), subtitle = "Km to the land-cut Ship Channel", x = NULL, y = NULL) +
+  theme_paper() +
   theme(
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
@@ -620,50 +666,35 @@ distance_panel <- ggplot(distance_plot, aes(km_to_channel, short_name)) +
 paired_pollutants <- same_day_coverage %>%
   filter(n_groups == 3)
 
-sites_header <- chart_header(
-  sprintf("FIGURE 2B.1  /  CASE-STUDY SITES  /  %s TO %s", min(study_years), max(study_years)),
-  sprintf("Nine sites sit within %s km of the Ship Channel", ship_channel_km),
-  sprintf(
-    str_c(
-      "They form the Ship Channel group; the nearest other site, %s, is %.1f km away.\n",
-      "All three groups report on %s to %s of %s days for PM2.5, ozone and NO2."
-    ),
-    short_site_name(nearest_other_site$local_site_name), nearest_other_site$km_to_channel,
-    comma(min(paired_pollutants$days_every_group)), comma(max(paired_pollutants$days_every_group)), comma(study_days)
-  ),
-  key = tribble(
-    ~mark,    ~colour,                                     ~label,
-    "square", site_group_colours[["Houston Ship Channel"]], "Ship Channel",
-    "square", site_group_colours[["Houston other"]],        "Houston other",
-    "square", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth",
-    "square", chart_fills[["other"]],                       "4-year check"
-  )
-)
-
-sites_footer <- chart_footer(str_c(
-  "EPA AQS daily data, Harris, Dallas and Tarrant counties. Panel 01: five-year sites and the 4-year checks; bars\n",
-  "break at gaps over ", long_gap_days, " days, black ticks mark a new method and teal ticks the Deer Park #2 move. Panel 02:\n",
-  "distance to the land-cut channel (USACE). Bold sites in the shaded ", transition_band, " band are left out in one check."
-))
-
 stopifnot(
   "Three groups report together for PM2.5, ozone and NO2" = setequal(as.character(paired_pollutants$pollutant), c("PM2.5", "Ozone", "NO2"))
 )
 
-sites_figure <- chart_compose(sites_header, list(timeline_panel, distance_panel), sites_footer, widths = c(1.6, 1))
-
-dir.create(here("figures", "phase2"), recursive = TRUE, showWarnings = FALSE)
-
-sites_figure_path <- here("figures", "phase2", "2b.01_sites.png")
-
-save_started <- Sys.time()
-
-ggsave(sites_figure_path, sites_figure, width = 6.5, height = 9.4, dpi = 300)
-
-stopifnot(
-  "2b.01_sites.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(sites_figure_path) >= save_started - 2
+sites_figure <- tagged_figure(
+  list(timeline_panel, distance_panel),
+  tribble(
+    ~mark,    ~colour,                                     ~label,              ~row,
+    "square", site_group_colours[["Houston Ship Channel"]], "Ship Channel",      1,
+    "square", site_group_colours[["Houston other"]],        "Houston other",     1,
+    "square", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth", 1,
+    "square", chart_fills[["other"]],                       "4-year check",      2,
+    "tick",   chart_ink[["primary"]],                       "New method",        2,
+    "tick",   chart_fills[["accent"]],                      "Deer Park #2 move", 2
+  ),
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, %s to %s, Harris, Dallas and Tarrant counties. (a) Five-year sites and the 4-year checks; bars break ",
+      "at gaps over %d days. (b) Distance to the land-cut channel (USACE); bold: sites in the shaded %s band, left out in one check."
+    ),
+    min(study_years), max(study_years), long_gap_days, transition_band
+  ),
+  free_panels = 2,
+  widths = c(1.6, 1)
 )
+
+dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
+
+sites_figure_path <- save_figure(sites_figure, "2b.01_sites.png", 8.6)
 
 # The inventory is saved now as a CSV record, so it can be opened while later sections are built
 inventory_records <- list(
@@ -838,10 +869,10 @@ event_day_exceedances <- ozone_days %>%
 cat("Ozone exceedance site-days:", sum(ozone_days$is_exceedance), " on event days:", event_day_exceedances, "\n")
 
 stopifnot(
-  "Dallas-Fort Worth has the most exceedance days per site in every year, as the figure title says" =
+  "Dallas-Fort Worth has the most exceedance days per site in every year" =
     dfw_highest_years == length(study_years),
-  "The Ship Channel has the fewest in 3 of 5 years, as the subtitle says" = ship_channel_lowest_years == 3,
-  "No ozone exceedance falls on an event day, as the subtitle says" = event_day_exceedances == 0,
+  "The Ship Channel has the fewest in 3 of 5 years" = ship_channel_lowest_years == 3,
+  "No ozone exceedance falls on an event day" = event_day_exceedances == 0,
   "Each check keeps every group" = all(count(ozone_by_group, site_set, year)$n == 3)
 )
 
@@ -875,7 +906,7 @@ print(houston_july_dip)
 
 stopifnot(
   "Twelve months per group" = all(count(ozone_monthly_profile, site_group)$n == 12),
-  "Both Houston groups dip in July below June and August, as the subtitle says" =
+  "Both Houston groups dip in July below June and August" =
     all(houston_july_dip$july < houston_july_dip$june & houston_july_dip$july < houston_july_dip$august)
 )
 
@@ -935,8 +966,8 @@ stopifnot(
   "Every Houston ozone site has a distance" = !anyNA(ozone_houston_sites$km_to_channel)
 )
 
-# Figure 2B.02: exceedance days by year, the typical year, the standard and the distance gradient
-year_axis <- scale_x_continuous(breaks = study_years, expand = expansion(mult = c(0.06, 0.1)))
+# Figure 2B.2: exceedance days by year, the typical year, the standard and the distance gradient
+year_axis <- scale_x_continuous(breaks = study_years, expand = expansion(mult = c(0.06, 0.16)))
 
 main_ozone_by_group <- ozone_by_group %>%
   filter(site_set == "Main") %>%
@@ -944,86 +975,69 @@ main_ozone_by_group <- ozone_by_group %>%
 
 exceedance_panel <- ggplot(main_ozone_by_group, aes(year, days_per_site, colour = site_group)) +
   geom_line(linewidth = 0.7) +
-  geom_point(size = 1.3) +
+  geom_point(aes(shape = site_group), size = 1.5) +
   lapply(names(site_group_colours), \(group) {
     chart_end_label(
       filter(main_ozone_by_group, site_group == group, year == max(year)), "year", "days_per_site", "label",
-      colour = site_group_colours[[group]], hjust = -0.35, vjust = 0.5
+      colour = site_group_colours[[group]], hjust = -0.35, vjust = 0.5, shape = site_group_shapes[[group]]
     )
   }) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
   year_axis +
   scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.08))) +
-  coord_cartesian(clip = "off") +
-  labs(title = "01  EXCEEDANCE DAYS", subtitle = "Days above 0.070 ppm per site per year", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(1, "Exceedance days"), subtitle = "Days above 0.070 ppm per site per year", x = NULL, y = NULL) +
+  theme_paper()
 
 typical_year_panel <- ggplot(ozone_monthly_profile, aes(month, median_value, colour = site_group, group = site_group)) +
   geom_line(linewidth = 0.7) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_x_discrete(labels = \(x) str_sub(x, 1, 1)) +
   scale_y_continuous(breaks = seq(0.02, 0.06, 0.01), labels = label_number(accuracy = 0.01)) +
-  labs(title = "02  TYPICAL YEAR", subtitle = "Monthly mean of daily peaks (ppm)", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(2, "Typical year"), subtitle = "Monthly mean of daily peaks (ppm)", x = NULL, y = NULL) +
+  theme_paper()
 
 standard_panel <- ggplot(ozone_fourth_highest, aes(year, value_rounded, colour = site_group)) +
   geom_hline(yintercept = ozone_level, colour = chart_ink[["primary"]], linewidth = 0.4, linetype = "22") +
-  geom_point(position = position_dodge(width = 0.6), size = 1.1, alpha = 0.85) +
+  geom_point(aes(shape = site_group), position = position_dodge(width = 0.6), size = 1.2, alpha = 0.85) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
   scale_x_continuous(breaks = study_years) +
   scale_y_continuous(labels = label_number(accuracy = 0.01)) +
-  labs(title = "03  STANDARD", subtitle = "4th-highest day per site and year (ppm)", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(3, "Standard"), subtitle = "4th-highest day per site and year (ppm)", x = NULL, y = NULL) +
+  theme_paper()
 
 gradient_label <- ozone_gradient %>%
   filter(measure == "Five-year mean") %>%
-  mutate(label = sprintf("SPEARMAN %.2f  /  P = %.2f  /  %d SITES", rho, p_value, n_sites))
+  mutate(label = sprintf("Spearman \u03c1 %s, p = %.2f, %d sites", minus_sign(sprintf("%.2f", rho)), p_value, n_sites))
 
 gradient_panel <- ggplot(ozone_houston_sites, aes(km_to_channel, mean_ppm, colour = site_group)) +
   annotate("rect", xmin = ship_channel_km, xmax = transition_km, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
   annotate(
-    "text", x = Inf, y = Inf, label = gradient_label$label, hjust = 1, vjust = 1.6,
+    "text", x = Inf, y = Inf, label = gradient_label$label, hjust = 1.03, vjust = 1.6,
     family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_ink[["secondary"]]
   ) +
-  geom_point(size = 1.8) +
+  geom_point(aes(shape = site_group), size = 1.9) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
   scale_x_continuous(breaks = seq(0, 50, 10)) +
   scale_y_continuous(breaks = seq(0.030, 0.044, 0.002), labels = label_number(accuracy = 0.001), expand = expansion(mult = c(0.08, 0.22))) +
-  labs(title = "04  DISTANCE", subtitle = "Five-year mean (ppm) by km to the channel", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(4, "Distance"), subtitle = "Five-year mean (ppm) by km to the channel", x = NULL, y = NULL) +
+  theme_paper()
 
-ozone_header <- chart_header(
-  sprintf("FIGURE 2B.2  /  OZONE  /  %s TO %s", min(study_years), max(study_years)),
-  "DFW tops ozone exceedance days in every year",
-  str_c(
-    "The Ship Channel has the fewest in 3 of 5 years, consistent with fresh NO using up ozone near its\n",
-    "sources. Both Houston groups dip in July, and no exceedance falls on an event day."
-  ),
-  key = tribble(
-    ~mark, ~colour,                                     ~label,
-    "dot", site_group_colours[["Houston Ship Channel"]], "Ship Channel",
-    "dot", site_group_colours[["Houston other"]],        "Houston other",
-    "dot", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth"
+ozone_figure <- tagged_figure(
+  list(exceedance_panel, typical_year_panel, standard_panel, gradient_panel),
+  group_key("Ozone"),
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, %s to %s, five-year ozone sites. Exceedance: an 8-hour peak, truncated to 3 decimals, above 0.070 ppm. ",
+      "(c) Dashed line: the 0.070 ppm standard. (d) Houston sites; shaded: %s from the channel."
+    ),
+    min(study_years), max(study_years), transition_band
   )
 )
 
-ozone_footer <- chart_footer(str_c(
-  "EPA AQS daily data, five-year ozone sites (6, 10 and 6). A day exceeds when its 8-hour peak, truncated to 3 decimals,\n",
-  "is above 0.070 ppm. Panel 03: the dashed line is the 0.070 standard. Panel 04: Houston sites; the band is ", transition_band, "."
-))
-
-ozone_figure <- chart_compose(ozone_header, list(exceedance_panel, typical_year_panel, standard_panel, gradient_panel), ozone_footer)
-
-ozone_figure_path <- here("figures", "phase2", "2b.02_ozone.png")
-
-save_started <- Sys.time()
-
-ggsave(ozone_figure_path, ozone_figure, width = 6.5, height = 6.4, dpi = 300)
-
-stopifnot(
-  "2b.02_ozone.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(ozone_figure_path) >= save_started - 2
-)
+ozone_figure_path <- save_figure(ozone_figure, "2b.02_ozone.png", 5.6)
 
 # CSV records: one row per site and year, and one per group, year and check
 ozone_site_years <- ozone_days %>%
@@ -1146,8 +1160,8 @@ main_lead <- no2_ship_channel_lead$lead_ppb[no2_ship_channel_lead$site_set == "M
 method_check_lead <- no2_ship_channel_lead$lead_ppb[no2_ship_channel_lead$site_set == "Without days after method changes"]
 
 stopifnot(
-  "The Ship Channel has the highest NO2 in every year, as the figure title says" = ship_channel_highest_no2_years == length(study_years),
-  "The Ship Channel lead widens without the days after method changes, as the subtitle says" = method_check_lead > main_lead,
+  "The Ship Channel has the highest NO2 in every year" = ship_channel_highest_no2_years == length(study_years),
+  "The Ship Channel lead widens without the days after method changes" = method_check_lead > main_lead,
   "Each check keeps every group" = all(count(no2_by_group, site_set, year)$n == 3)
 )
 
@@ -1162,7 +1176,7 @@ no2_p98 %>%
 
 stopifnot(
   "One 98th-percentile value per five-year site-year" = nrow(no2_p98) == 11 * length(study_years),
-  "Every site-year stays below the 100 ppb standard, as the subtitle says" = !any(no2_p98$is_above)
+  "Every site-year stays below the 100 ppb standard" = !any(no2_p98$is_above)
 )
 
 # Season: the typical year by group, and winter against summer with the partial winters left out
@@ -1243,88 +1257,72 @@ main_no2_by_group <- no2_by_group %>%
 
 no2_year_panel <- ggplot(main_no2_by_group, aes(year, median_site_mean_ppb, colour = site_group)) +
   geom_line(linewidth = 0.7) +
-  geom_point(size = 1.3) +
+  geom_point(aes(shape = site_group), size = 1.5) +
   lapply(names(site_group_colours), \(group) {
     chart_end_label(
       filter(main_no2_by_group, site_group == group, year == max(year)), "year", "median_site_mean_ppb", "label",
-      colour = site_group_colours[[group]], hjust = -0.35, vjust = 0.5
+      colour = site_group_colours[[group]], hjust = -0.35, vjust = 0.5, shape = site_group_shapes[[group]]
     )
   }) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
   year_axis +
-  coord_cartesian(clip = "off") +
-  labs(title = "01  LEVEL", subtitle = "Mean daily peak, median site (ppb)", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(1, "Level"), subtitle = "Mean daily peak, median site (ppb)", x = NULL, y = NULL) +
+  theme_paper()
 
 no2_typical_year_panel <- ggplot(no2_monthly_profile, aes(month, median_value, colour = site_group, group = site_group)) +
   geom_line(linewidth = 0.7) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_x_discrete(labels = \(x) str_sub(x, 1, 1)) +
-  labs(title = "02  TYPICAL YEAR", subtitle = "Monthly mean of daily peaks (ppb)", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(2, "Typical year"), subtitle = "Monthly mean of daily peaks (ppb)", x = NULL, y = NULL) +
+  theme_paper()
 
 no2_standard_panel <- ggplot(no2_p98, aes(year, value_rounded, colour = site_group)) +
   geom_hline(yintercept = no2_level, colour = chart_ink[["primary"]], linewidth = 0.4, linetype = "22") +
-  geom_point(position = position_dodge(width = 0.6), size = 1.1, alpha = 0.85) +
+  geom_point(aes(shape = site_group), position = position_dodge(width = 0.6), size = 1.2, alpha = 0.85) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
   scale_x_continuous(breaks = study_years) +
   scale_y_continuous(limits = c(0, no2_level * 1.05), breaks = seq(0, 100, 25)) +
-  labs(title = "03  STANDARD", subtitle = "98th-percentile day per site and year (ppb)", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(3, "Standard"), subtitle = "98th-percentile day per site and year (ppb)", x = NULL, y = NULL) +
+  theme_paper()
 
 no2_gradient_label <- no2_gradient %>%
-  mutate(label = sprintf("%s: SPEARMAN %.2f  /  P = %.2f", if_else(site_set == "Five-year sites", "5-YEAR", "WITH 4-YEAR"), rho, p_value)) %>%
+  mutate(label = sprintf(
+    "%s: Spearman \u03c1 %s, p = %.2f", if_else(site_set == "Five-year sites", "Five-year", "With 4-year"), minus_sign(sprintf("%.2f", rho)), p_value
+  )) %>%
   summarise(label = str_c(label, collapse = "\n"))
 
 no2_gradient_panel <- ggplot(no2_houston_sites, aes(km_to_channel, mean_ppb, colour = site_group)) +
   annotate("rect", xmin = ship_channel_km, xmax = transition_km, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
   annotate(
-    "text", x = Inf, y = Inf, label = no2_gradient_label$label, hjust = 1, vjust = 1.6,
+    "text", x = Inf, y = Inf, label = no2_gradient_label$label, hjust = 1.03, vjust = 1.6,
     family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_ink[["secondary"]]
   ) +
-  geom_point(aes(shape = is_five_year), size = 1.8, stroke = 0.9) +
-  scale_shape_manual(values = c(`TRUE` = 16, `FALSE` = 1), guide = "none") +
+  geom_point(aes(shape = site_marker(site_group, !is_five_year)), size = 1.9, stroke = 0.9) +
+  scale_shape_identity() +
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_x_continuous(breaks = seq(0, 50, 10)) +
   scale_y_continuous(breaks = seq(8, 28, 4), expand = expansion(mult = c(0.08, 0.25))) +
-  labs(title = "04  DISTANCE", subtitle = "Mean (ppb) by km to the channel", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(4, "Distance"), subtitle = "Mean (ppb) by km to the channel", x = NULL, y = NULL) +
+  theme_paper()
 
-no2_header <- chart_header(
-  sprintf("FIGURE 2B.3  /  NO2  /  %s TO %s", min(study_years), max(study_years)),
-  "Ship Channel NO2 is highest in every year",
-  sprintf(
-    str_c(
-      "Its lead over Houston other grows from %.1f to %.1f ppb without the days after two method changes.\n",
-      "Every site stays far below the 100 ppb standard, and winter runs %.1f to %.1f times summer."
-    ),
-    main_lead, method_check_lead, min(no2_season_ratio$winter_to_summer), max(no2_season_ratio$winter_to_summer)
+no2_figure <- tagged_figure(
+  list(no2_year_panel, no2_typical_year_panel, no2_standard_panel, no2_gradient_panel),
+  bind_rows(
+    group_key("NO2"),
+    tibble(mark = "point", colour = chart_ink[["primary"]], label = "(d) Open marker: four of five years", shape = 1, row = 1)
   ),
-  key = tribble(
-    ~mark, ~colour,                                     ~label,
-    "dot", site_group_colours[["Houston Ship Channel"]], "Ship Channel",
-    "dot", site_group_colours[["Houston other"]],        "Houston other",
-    "dot", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth"
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, %s to %s, five-year NO2 sites. Daily peak: highest 1-hour value. (c) Dashed line: the 100 ppb standard. ",
+      "(d) Houston sites; shaded: %s from the channel."
+    ),
+    min(study_years), max(study_years), transition_band
   )
 )
 
-no2_footer <- chart_footer(str_c(
-  "EPA AQS daily data, five-year NO2 sites (4, 3 and 4). Daily peak: highest 1-hour value. Panel 03: the dashed line is the\n",
-  "100 ppb standard. Panel 04: Houston sites, hollow points have four of five years; the band is ", transition_band, "."
-))
-
-no2_figure <- chart_compose(no2_header, list(no2_year_panel, no2_typical_year_panel, no2_standard_panel, no2_gradient_panel), no2_footer)
-
-no2_figure_path <- here("figures", "phase2", "2b.03_no2.png")
-
-save_started <- Sys.time()
-
-ggsave(no2_figure_path, no2_figure, width = 6.5, height = 6.4, dpi = 300)
-
-stopifnot(
-  "2b.03_no2.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(no2_figure_path) >= save_started - 2
-)
+no2_figure_path <- save_figure(no2_figure, "2b.03_no2.png", 5.6)
 
 # CSV records: one row per site and year, and one per group, year and check
 no2_site_years <- no2_site_year_means %>%
@@ -1447,9 +1445,9 @@ four_year_sites_per_group <- pm25_site_sets %>%
   count(site_group)
 
 stopifnot(
-  "All seven five-year PM2.5 sites were above the annual level in 2023, as the figure title says" =
+  "All seven five-year PM2.5 sites were above the annual level in 2023" =
     sum(main_annual$year == 2023 & main_annual$is_above) == 7,
-  "The Ship Channel is not above Houston other on the annual mean, as the subtitle says" = ship_channel_annual <= houston_other_annual,
+  "The Ship Channel is not above Houston other on the annual mean" = ship_channel_annual <= houston_other_annual,
   "The four-year set gives 4, 3 and 5 PM2.5 sites" = identical(four_year_sites_per_group$n, c(4L, 3L, 5L))
 )
 
@@ -1470,7 +1468,7 @@ print(head(pm25_high_dates, 8))
 
 top_five_date_days <- sum(head(pm25_high_dates$n_sites, 5))
 
-stopifnot("Five dates hold at least half of the site-days above 35 µg/m³, as the subtitle says" = top_five_date_days >= nrow(pm25_high_days) / 2)
+stopifnot("Five dates hold at least half of the site-days above 35 µg/m³" = top_five_date_days >= nrow(pm25_high_days) / 2)
 
 # Season: the typical year by group
 pm25_site_calendar_months <- daily_case_study_months %>%
@@ -1543,25 +1541,25 @@ pm25_annual_panel <- ggplot(main_pm25_annual, aes(year, median_value, colour = s
     colour = chart_ink[["primary"]], linewidth = 0.4, linetype = "22"
   ) +
   geom_line(linewidth = 0.7) +
-  geom_point(size = 1.3) +
+  geom_point(aes(shape = site_group), size = 1.5) +
   lapply(names(site_group_colours), \(group) {
     chart_end_label(
       filter(main_pm25_annual, site_group == group, year == max(year)), "year", "median_value", "label",
-      colour = site_group_colours[[group]], hjust = -0.35, vjust = 0.5
+      colour = site_group_colours[[group]], hjust = -0.35, vjust = 0.5, shape = site_group_shapes[[group]]
     )
   }) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
   year_axis +
-  coord_cartesian(clip = "off") +
-  labs(title = "01  ANNUAL MEAN", subtitle = "Median site (µg/m³); dashed line 9.0", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(1, "Annual mean"), subtitle = "Median site (µg/m³); dashed line 9.0", x = NULL, y = NULL) +
+  theme_paper()
 
 pm25_typical_year_panel <- ggplot(pm25_monthly_profile, aes(month, median_value, colour = site_group, group = site_group)) +
   geom_line(linewidth = 0.7) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_x_discrete(labels = \(x) str_sub(x, 1, 1)) +
-  labs(title = "02  TYPICAL YEAR", subtitle = "Monthly mean of daily means (µg/m³)", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(2, "Typical year"), subtitle = "Monthly mean of daily means (µg/m³)", x = NULL, y = NULL) +
+  theme_paper()
 
 day_class_labels <- c(None = "Ordinary", Event = "Event", Fireworks = "Fireworks")
 
@@ -1585,67 +1583,55 @@ pm25_high_panel <- ggplot(pm25_high_plot, aes(group_label, n_site_days, fill = d
     family = chart_fonts[["mono"]], size = chart_sizes[["label"]] / .pt, colour = chart_ink[["secondary"]]
   ) +
   scale_fill_manual(
-    values = c(Ordinary = chart_fills[["accent"]], Event = chart_fills[["other"]], Fireworks = "#dcdbd4"),
-    breaks = c("Ordinary", "Event", "Fireworks"), name = NULL
+    values = c(Ordinary = chart_fills[["accent"]], Event = chart_warm[["line"]], Fireworks = chart_fills[["other"]]),
+    guide = "none"
   ) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
-  labs(title = "03  DAYS ABOVE 35", subtitle = "Site-days above the 24-hour level", x = NULL, y = NULL) +
-  theme_aqs() +
+  labs(title = panel_label(3, "Days above 35"), subtitle = "Site-days above the 24-hour level", x = NULL, y = NULL) +
+  theme_paper() +
   theme(axis.text.x = element_text(family = chart_fonts[["text"]], colour = chart_ink[["secondary"]], size = 7))
 
 pm25_gradient_label <- pm25_gradient %>%
-  mutate(label = sprintf("%s: SPEARMAN %.2f  /  P = %.2f", if_else(site_set == "Five-year sites", "5-YEAR", "WITH 4-YEAR"), rho, p_value)) %>%
+  mutate(label = sprintf(
+    "%s: Spearman \u03c1 %s, p = %.2f", if_else(site_set == "Five-year sites", "Five-year", "With 4-year"), minus_sign(sprintf("%.2f", rho)), p_value
+  )) %>%
   summarise(label = str_c(label, collapse = "\n"))
 
 pm25_gradient_panel <- ggplot(pm25_houston_sites, aes(km_to_channel, mean_ugm3, colour = site_group)) +
   annotate("rect", xmin = ship_channel_km, xmax = transition_km, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
   annotate(
-    "text", x = Inf, y = Inf, label = pm25_gradient_label$label, hjust = 1, vjust = 1.6,
+    "text", x = Inf, y = Inf, label = pm25_gradient_label$label, hjust = 1.03, vjust = 1.6,
     family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_ink[["secondary"]]
   ) +
-  geom_point(aes(shape = is_five_year), size = 1.8, stroke = 0.9) +
-  scale_shape_manual(values = c(`TRUE` = 16, `FALSE` = 1), guide = "none") +
+  geom_point(aes(shape = site_marker(site_group, !is_five_year)), size = 1.9, stroke = 0.9) +
+  scale_shape_identity() +
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_x_continuous(breaks = seq(0, 40, 10)) +
   scale_y_continuous(expand = expansion(mult = c(0.08, 0.9))) +
-  labs(title = "04  DISTANCE", subtitle = "Mean (µg/m³) by km to the channel", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(4, "Distance"), subtitle = "Mean (µg/m³) by km to the channel", x = NULL, y = NULL) +
+  theme_paper()
 
-pm25_header <- chart_header(
-  sprintf("FIGURE 2B.4  /  PM2.5  /  %s TO %s", min(study_years), max(study_years)),
-  "All PM2.5 sites topped the annual level in 2023",
-  sprintf(
-    str_c(
-      "Houston other averages %.1f µg/m³ and the Ship Channel %.1f, consistent with regional PM2.5.\n",
-      "%d of the %d site-days above 35 µg/m³ fall on five dates."
-    ),
-    houston_other_annual, ship_channel_annual, top_five_date_days, nrow(pm25_high_days)
+pm25_figure <- tagged_figure(
+  list(pm25_annual_panel, pm25_typical_year_panel, pm25_high_panel, pm25_gradient_panel),
+  bind_rows(
+    group_key("PM2.5"),
+    tribble(
+      ~mark,    ~colour,                   ~label,                ~shape, ~row,
+      "square", chart_fills[["accent"]],  "(c) Ordinary days",   16,     2,
+      "square", chart_warm[["line"]],     "(c) Event days",      16,     2,
+      "square", chart_fills[["other"]],   "(c) Fireworks days",  16,     2
+    )
   ),
-  key = tribble(
-    ~mark, ~colour,                                     ~label,
-    "dot", site_group_colours[["Houston Ship Channel"]], "Ship Channel",
-    "dot", site_group_colours[["Houston other"]],        "Houston other",
-    "dot", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth"
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, %s to %s, five-year PM2.5 sites. Annual mean: the mean of the four quarterly means, rounded to 0.1. ",
+      "(d) Houston sites; open markers have four of five years; shaded: %s from the channel."
+    ),
+    min(study_years), max(study_years), transition_band
   )
 )
 
-pm25_footer <- chart_footer(str_c(
-  "EPA AQS daily data, five-year PM2.5 sites (3, 1 and 3). Annual mean: mean of the four quarterly means, rounded to 0.1.\n",
-  "Panel 04: Houston sites, hollow points have four of five years; the band is ", transition_band, "."
-))
-
-pm25_figure <- chart_compose(pm25_header, list(pm25_annual_panel, pm25_typical_year_panel, pm25_high_panel, pm25_gradient_panel), pm25_footer)
-
-pm25_figure_path <- here("figures", "phase2", "2b.04_pm25.png")
-
-save_started <- Sys.time()
-
-ggsave(pm25_figure_path, pm25_figure, width = 6.5, height = 6.4, dpi = 300)
-
-stopifnot(
-  "2b.04_pm25.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(pm25_figure_path) >= save_started - 2
-)
+pm25_figure_path <- save_figure(pm25_figure, "2b.04_pm25.png", 5.75)
 
 # CSV records: one row per site and year (five-year and four-year sites), and one per check, standard, group and year
 pm25_site_years <- bind_rows(pm25_days, pm25_four_year_days) %>%
@@ -1775,9 +1761,9 @@ so2_check_years <- so2_by_group %>%
 print(so2_check_years)
 
 stopifnot(
-  "Park Place and Croquet have the most spike days, as the figure title says" =
+  "Park Place and Croquet have the most spike days" =
     setequal(head(so2_site_totals$local_site_name, 2), c("Park Place", "Houston Croquet")),
-  "Croquet has more spike days than the Ship Channel site average in every year, as the subtitle says" =
+  "Croquet has more spike days than the Ship Channel site average in every year" =
     croquet_higher_years == length(study_years),
   "Every check keeps Croquet above the Ship Channel average in every year" = all(so2_check_years$years_croquet_higher == length(study_years))
 )
@@ -1796,7 +1782,7 @@ croquet_top_season <- so2_seasons %>%
   filter(local_site_name == "Houston Croquet") %>%
   slice_max(pct_spike_days, n = 1, with_ties = FALSE)
 
-stopifnot("Croquet spikes most in summer, as the subtitle says" = croquet_top_season$season == "Summer")
+stopifnot("Croquet spikes most in summer" = croquet_top_season$season == "Summer")
 
 # Weekdays against weekends, the follow-up to 2a's weekend drop at the Ship Channel (Monday to Friday against
 # Saturday and Sunday, all months)
@@ -1822,7 +1808,7 @@ print(so2_days_above_level)
 stopifnot(
   "One 99th-percentile value per five-year site-year" = nrow(so2_p99) == 4 * length(study_years),
   "No site-year is above the 75 ppb standard" = !any(so2_p99$is_above),
-  "Only one day is above 75 ppb, as the subtitle says" = nrow(so2_days_above_level) == 1
+  "Only one day is above 75 ppb" = nrow(so2_days_above_level) == 1
 )
 
 # Clinton's baseline drifts low (Phase 1): the share of its days that peak below the 2 ppb detection limit, by year
@@ -1852,8 +1838,8 @@ so2_total_panel <- ggplot(so2_short_names, aes(n_spike_days, short_name, fill = 
   ) +
   scale_fill_manual(values = site_group_colours, guide = "none") +
   scale_x_continuous(expand = expansion(mult = c(0, 0.18))) +
-  labs(title = "01  SPIKE DAYS", subtitle = "Days at or above 5 ppb, 2021 to 2025", x = NULL, y = NULL) +
-  theme_aqs() +
+  labs(title = panel_label(1, "Spike days"), subtitle = "Days at or above 5 ppb, 2021 to 2025", x = NULL, y = NULL) +
+  theme_paper() +
   theme(
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
@@ -1866,19 +1852,19 @@ main_so2_by_group <- so2_by_group %>%
 
 so2_year_panel <- ggplot(main_so2_by_group, aes(year, spike_days_per_site, colour = site_group)) +
   geom_line(linewidth = 0.7) +
-  geom_point(size = 1.3) +
+  geom_point(aes(shape = site_group), size = 1.5) +
   lapply(c("Houston Ship Channel", "Houston other"), \(group) {
     chart_end_label(
       filter(main_so2_by_group, site_group == group, year == max(year)), "year", "spike_days_per_site", "label",
-      colour = site_group_colours[[group]], hjust = -0.35, vjust = 0.5
+      colour = site_group_colours[[group]], hjust = -0.35, vjust = 0.5, shape = site_group_shapes[[group]]
     )
   }) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
   year_axis +
   scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.08))) +
-  coord_cartesian(clip = "off") +
-  labs(title = "02  BY YEAR", subtitle = "Spike days per site", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(2, "By year"), subtitle = "Spike days per site", x = NULL, y = NULL) +
+  theme_paper()
 
 so2_season_by_group <- so2_days %>%
   filter(is_full_season) %>%
@@ -1886,52 +1872,37 @@ so2_season_by_group <- so2_days %>%
 
 so2_season_panel <- ggplot(so2_season_by_group, aes(season, pct_spike_days, colour = site_group, group = site_group)) +
   geom_line(linewidth = 0.7) +
-  geom_point(size = 1.3) +
+  geom_point(aes(shape = site_group), size = 1.5) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
   scale_y_continuous(limits = c(0, 15), breaks = seq(0, 15, 5), labels = label_number(suffix = "%"), expand = expansion(mult = c(0, 0.04))) +
-  labs(title = "03  SEASON", subtitle = "Share of days that spike", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(3, "Season"), subtitle = "Share of days that spike", x = NULL, y = NULL) +
+  theme_paper()
 
 so2_standard_panel <- ggplot(so2_p99, aes(year, value_rounded, colour = site_group)) +
   geom_hline(yintercept = so2_level, colour = chart_ink[["primary"]], linewidth = 0.4, linetype = "22") +
-  geom_point(position = position_dodge(width = 0.5), size = 1.3, alpha = 0.85) +
+  geom_point(aes(shape = site_group), position = position_dodge(width = 0.5), size = 1.4, alpha = 0.85) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
   scale_x_continuous(breaks = study_years) +
   scale_y_continuous(limits = c(0, so2_level * 1.05), breaks = seq(0, 75, 25)) +
-  labs(title = "04  STANDARD", subtitle = "99th-percentile day per site and year (ppb)", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(title = panel_label(4, "Standard"), subtitle = "99th-percentile day per site and year (ppb)", x = NULL, y = NULL) +
+  theme_paper()
 
-so2_header <- chart_header(
-  sprintf("FIGURE 2B.5  /  SO2  /  %s TO %s", min(study_years), max(study_years)),
-  "SO2 spikes most at Park Place and Croquet",
-  str_c(
-    "Croquet, 22 km from the channel, has more spike days than the Ship Channel average in every year,\n",
-    "mostly in summer, consistent with an unidentified nearby source. Only one day tops 75 ppb."
+so2_figure <- tagged_figure(
+  list(so2_total_panel, so2_year_panel, so2_season_panel, so2_standard_panel),
+  group_key("SO2"),
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, %s to %s, five-year SO2 sites; Dallas-Fort Worth has none. Spike: a daily 1-hour peak at or above 5 ppb. ",
+      "Clinton reads below the 2 ppb detection limit on most days, so its count may run low. (d) Dashed line: 75 ppb."
+    ),
+    min(study_years), max(study_years)
   ),
-  key = tribble(
-    ~mark, ~colour,                                     ~label,
-    "dot", site_group_colours[["Houston Ship Channel"]], "Ship Channel (3 sites)",
-    "dot", site_group_colours[["Houston other"]],        "Houston other (Croquet)"
-  )
+  free_panels = 1
 )
 
-so2_footer <- chart_footer(str_c(
-  "EPA AQS daily data, five-year SO2 sites; Dallas-Fort Worth has none. Spike: daily 1-hour peak at or above 5 ppb. Clinton\n",
-  "reads below the 2 ppb detection limit on most days and drifts lower, so its count may run low. Dashed line: 75 ppb."
-))
-
-so2_figure <- chart_compose(so2_header, list(free(so2_total_panel), so2_year_panel, so2_season_panel, so2_standard_panel), so2_footer)
-
-so2_figure_path <- here("figures", "phase2", "2b.05_so2.png")
-
-save_started <- Sys.time()
-
-ggsave(so2_figure_path, so2_figure, width = 6.5, height = 6.2, dpi = 300)
-
-stopifnot(
-  "2b.05_so2.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(so2_figure_path) >= save_started - 2
-)
+so2_figure_path <- save_figure(so2_figure, "2b.05_so2.png", 5.4)
 
 # CSV records: one row per site and year, and one per group, year and check
 so2_site_years <- so2_spikes_by_site %>%
@@ -2091,29 +2062,36 @@ ship_channel_beryl_reporting <- event_reporting_summary %>%
   pull(pct_reporting)
 
 stopifnot(
-  "Fewer than half of the Ship Channel monitors reported during Beryl, as the figure title says" = ship_channel_beryl_reporting < 50,
+  "Fewer than half of the Ship Channel monitors reported during Beryl" = ship_channel_beryl_reporting < 50,
   "Dallas-Fort Worth kept reporting through Beryl" =
     event_reporting_summary$pct_reporting[event_reporting_summary$event_name == "Hurricane Beryl" &
       event_reporting_summary$site_group == "Dallas-Fort Worth" & event_reporting_summary$in_window] >= 90,
-  "PM2.5 rose above normal in every group during Uri, as the subtitle says" = all(uri_pm25 > 1),
-  "Houston NO2 fell below normal during Uri, as the subtitle says" = all(uri_houston_no2 < 1),
-  "Houston NO2 rose above normal during Beryl, as the subtitle says" = all(beryl_houston_no2 > 1)
+  "PM2.5 rose above normal in every group during Uri" = all(uri_pm25 > 1),
+  "Houston NO2 fell below normal during Uri" = all(uri_houston_no2 < 1),
+  "Houston NO2 rose above normal during Beryl" = all(beryl_houston_no2 > 1)
 )
 
 # Figure 2B.6: monitors reporting and levels against normal, for each event
 reporting_panel <- function(event, kicker) {
   window <- filter(event_windows, event_name == event)
   ggplot(filter(event_reporting, event_name == event), aes(date_local, pct_reporting, colour = site_group)) +
-    annotate("rect", xmin = window$start_date - 0.5, xmax = window$end_date + 0.5, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
+    annotate("rect", xmin = window$start_date - 0.5, xmax = window$end_date + 0.5, ymin = -Inf, ymax = Inf, fill = chart_warm[["band"]]) +
     geom_line(linewidth = 0.7) +
     scale_colour_manual(values = site_group_colours, guide = "none") +
     scale_x_date(date_breaks = "1 week", labels = \(x) str_c(month.abb[month(x)], " ", day(x))) +
     scale_y_continuous(limits = c(0, 100), labels = label_number(suffix = "%")) +
     labs(title = kicker, subtitle = "Five-year monitors reporting each day", x = NULL, y = NULL) +
-    theme_aqs()
+    theme_paper()
 }
 
 level_colours <- c(site_group_colours, "North Loop (near-road)" = chart_ink[["primary"]])
+
+# Group markers in the level panels, with North Loop as a diamond; open when one site or none reported
+level_marker <- function(level_group, is_thin) {
+  solid <- c(site_group_shapes, "North Loop (near-road)" = 18)
+  open <- c(site_group_open_shapes, "North Loop (near-road)" = 5)
+  unname(if_else(is_thin, open[as.character(level_group)], solid[as.character(level_group)]))
+}
 
 level_panel <- function(event, kicker) {
   panel_data <- event_levels %>%
@@ -2123,13 +2101,13 @@ level_panel <- function(event, kicker) {
     mutate(y = gas_index + 0.16 * offset)
   ggplot(panel_data, aes(ratio_normal, y, colour = level_group)) +
     geom_vline(xintercept = 1, colour = chart_ink[["axis"]], linewidth = 0.4) +
-    geom_point(aes(shape = is_thin), size = 2, stroke = 0.9) +
-    scale_shape_manual(values = c(`FALSE` = 16, `TRUE` = 1), guide = "none") +
+    geom_point(aes(shape = level_marker(level_group, is_thin)), size = 2, stroke = 0.9) +
+    scale_shape_identity() +
     scale_colour_manual(values = level_colours, guide = "none") +
     scale_x_continuous(trans = "log2", limits = c(0.5, 3.2), breaks = c(0.5, 1, 2), labels = c("0.5x", "1x", "2x")) +
-    scale_y_continuous(breaks = 1:3, labels = c("NO2", "Ozone", "PM2.5"), expand = expansion(add = 0.4)) +
+    scale_y_continuous(breaks = 1:3, labels = pretty_text(c("NO2", "Ozone", "PM2.5")), expand = expansion(add = 0.4)) +
     labs(title = kicker, subtitle = "Median during the event against normal", x = NULL, y = NULL) +
-    theme_aqs() +
+    theme_paper() +
     theme(
       panel.grid.major.y = element_blank(),
       panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
@@ -2137,57 +2115,37 @@ level_panel <- function(event, kicker) {
     )
 }
 
-events_header <- chart_header(
-  sprintf("FIGURE 2B.6  /  EVENTS  /  URI %s AND BERYL %s", year(event_windows$start_date[1]), year(event_windows$start_date[2])),
-  "Beryl knocked out most Ship Channel monitors",
-  sprintf(
-    str_c(
-      "During Uri, PM2.5 ran %.1f to %.1f times normal and Houston NO2 fell. During Beryl, Houston NO2\n",
-      "ran about %.1f times normal at the few sites still on, consistent with generators and disrupted traffic."
-    ),
-    min(uri_pm25), max(uri_pm25), mean(beryl_houston_no2)
-  ),
-  key = tribble(
-    ~mark, ~colour,                                     ~label,
-    "dot", site_group_colours[["Houston Ship Channel"]], "Ship Channel",
-    "dot", site_group_colours[["Houston other"]],        "Houston other",
-    "dot", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth",
-    "dot", chart_ink[["primary"]],                       "North Loop NO2 (near-road)"
-  )
-)
-
 events_monitor_note <- monitors_per_group %>%
-  mutate(label = str_c(site_group, " ", n_monitors)) %>%
+  mutate(label = str_c(group_short_names[as.character(site_group)], " ", n_monitors)) %>%
   pull(label) %>%
   str_flatten(collapse = ", ")
 
-events_footer <- chart_footer(str_c(
-  "EPA AQS daily data. Five-year monitors (site and gas): ", events_monitor_note, ".\n",
-  "Shaded: the events.csv window. Normal: the same dates in the other four years. Hollow points: one site or none\n",
-  "on most event days. SO2 sits near zero and is left out of the level panels."
-))
-
-events_figure <- chart_compose(
-  events_header,
+events_figure <- tagged_figure(
   list(
-    reporting_panel("Winter Storm Uri", "01  URI: MONITORS"),
-    level_panel("Winter Storm Uri", "02  URI: LEVELS"),
-    reporting_panel("Hurricane Beryl", "03  BERYL: MONITORS"),
-    level_panel("Hurricane Beryl", "04  BERYL: LEVELS")
+    reporting_panel("Winter Storm Uri", panel_label(1, "Uri: monitors")),
+    level_panel("Winter Storm Uri", panel_label(2, "Uri: levels")),
+    reporting_panel("Hurricane Beryl", panel_label(3, "Beryl: monitors")),
+    level_panel("Hurricane Beryl", panel_label(4, "Beryl: levels"))
   ),
-  events_footer
+  tribble(
+    ~mark,    ~colour,                                     ~label,                            ~shape, ~row,
+    "range",  site_group_colours[["Houston Ship Channel"]], "Ship Channel",                    16,     1,
+    "range",  site_group_colours[["Houston other"]],        "Houston other",                   15,     1,
+    "range",  site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth",               17,     1,
+    "square", chart_warm[["band"]],                         "Event window",                    16,     1,
+    "point",  chart_ink[["primary"]],                       "North Loop NO2 (near-road)",      18,     2,
+    "point",  chart_ink[["primary"]],                       "Open marker: one site or none on most days", 1, 2
+  ),
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data; five-year monitors (site and gas): %s. Shaded: the events.csv window. Normal: the same dates in the ",
+      "other four years. SO2 sits near zero and is left out of (b) and (d)."
+    ),
+    events_monitor_note
+  )
 )
 
-events_figure_path <- here("figures", "phase2", "2b.06_events.png")
-
-save_started <- Sys.time()
-
-ggsave(events_figure_path, events_figure, width = 6.5, height = 6.4, dpi = 300)
-
-stopifnot(
-  "2b.06_events.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(events_figure_path) >= save_started - 2
-)
+events_figure_path <- save_figure(events_figure, "2b.06_events.png", 5.6)
 
 # CSV records: daily reporting shares and the level ratios
 event_records <- list(
@@ -2407,9 +2365,9 @@ no2_years <- paired_results %>%
   filter(site_set == "Main", period_type == "Year", contrast == contrast_levels[1], pollutant == "NO2")
 
 stopifnot(
-  "Ship Channel NO2 is above Houston other on the same day, with a range above zero, as the figure title says" = ship_channel_no2$ci_low > 0,
-  "Ship Channel ozone is below Houston other, with a range below zero, as the subtitle says" = ship_channel_ozone$ci_high < 0,
-  "Houston ozone is below Dallas-Fort Worth, with a range below zero, as the subtitle says" = houston_dfw_ozone$ci_high < 0,
+  "Ship Channel NO2 is above Houston other on the same day, with a range above zero" = ship_channel_no2$ci_low > 0,
+  "Ship Channel ozone is below Houston other, with a range below zero" = ship_channel_ozone$ci_high < 0,
+  "Houston ozone is below Dallas-Fort Worth, with a range below zero" = houston_dfw_ozone$ci_high < 0,
   "Ship Channel NO2 stays above zero under every check" = all(no2_checks$ci_low > 0),
   "Ship Channel NO2 is higher in every year" = all(no2_years$median_difference > 0)
 )
@@ -2417,7 +2375,7 @@ stopifnot(
 # Figure 2B.7: main differences, the Ship Channel against Houston other by season, by check and by year
 gas_colours <- c(NO2 = chart_fills[["accent"]], Ozone = chart_ink[["primary"]], SO2 = chart_ink[["muted"]], PM2.5 = chart_fills[["other"]])
 
-contrast_short <- c("Ship Channel minus Houston other" = "SC - OTHER", "Houston minus Dallas-Fort Worth" = "HOU - DFW")
+contrast_short <- c("Ship Channel minus Houston other" = "SC \u2212 Houston other", "Houston minus Dallas-Fort Worth" = "Houston \u2212 DFW")
 
 forest_theme <- theme(
   panel.grid.major.y = element_blank(),
@@ -2426,7 +2384,7 @@ forest_theme <- theme(
 )
 
 main_plot <- main_overall %>%
-  mutate(row_label = str_c(pollutant, "  ", contrast_short[as.character(contrast)])) %>%
+  mutate(row_label = str_c(pretty_text(as.character(pollutant)), ", ", contrast_short[as.character(contrast)])) %>%
   arrange(contrast, pollutant) %>%
   mutate(row_label = factor(row_label, levels = rev(row_label)))
 
@@ -2435,8 +2393,9 @@ main_panel <- ggplot(main_plot, aes(median_difference, row_label, colour = pollu
   geom_errorbar(aes(xmin = ci_low, xmax = ci_high), orientation = "y", width = 0, linewidth = 0.9) +
   geom_point(size = 1.9) +
   scale_colour_manual(values = gas_colours, guide = "none") +
-  labs(title = "01  MAIN RESULT", subtitle = "Median same-day difference, 95% range", x = NULL, y = NULL) +
-  theme_aqs() +
+  scale_x_continuous(labels = label_number(style_negative = "minus")) +
+  labs(title = panel_label(1, "Main result"), subtitle = "Median same-day difference, 95% range", x = NULL, y = NULL) +
+  theme_paper() +
   forest_theme
 
 season_plot <- paired_results %>%
@@ -2448,8 +2407,9 @@ season_panel <- ggplot(season_plot, aes(period, median_difference, colour = poll
   geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0, linewidth = 0.9, position = position_dodge(width = 0.5)) +
   geom_point(size = 1.7, position = position_dodge(width = 0.5)) +
   scale_colour_manual(values = gas_colours, guide = "none") +
-  labs(title = "02  BY SEASON", subtitle = "SC minus Houston other (ppb)", x = NULL, y = NULL) +
-  theme_aqs()
+  scale_y_continuous(labels = label_number(style_negative = "minus")) +
+  labs(title = panel_label(2, "By season"), subtitle = "SC minus Houston other (ppb)", x = NULL, y = NULL) +
+  theme_paper()
 
 check_labels <- c(
   "Main" = "Main",
@@ -2472,8 +2432,9 @@ check_panel <- ggplot(check_plot, aes(median_difference, check, colour = polluta
   geom_errorbar(aes(xmin = ci_low, xmax = ci_high), orientation = "y", width = 0, linewidth = 0.9) +
   geom_point(size = 1.7) +
   scale_colour_manual(values = gas_colours, guide = "none") +
-  labs(title = "03  BY CHECK", subtitle = "SC minus Houston other (ppb)", x = NULL, y = NULL) +
-  theme_aqs() +
+  scale_x_continuous(labels = label_number(style_negative = "minus")) +
+  labs(title = panel_label(3, "By check"), subtitle = "SC minus Houston other (ppb)", x = NULL, y = NULL) +
+  theme_paper() +
   forest_theme
 
 year_plot <- paired_results %>%
@@ -2486,47 +2447,30 @@ year_panel <- ggplot(year_plot, aes(period, median_difference, colour = pollutan
   geom_point(size = 1.7, position = position_dodge(width = 0.4)) +
   scale_colour_manual(values = gas_colours, guide = "none") +
   scale_x_continuous(breaks = study_years) +
-  labs(title = "04  BY YEAR", subtitle = "SC minus Houston other (ppb)", x = NULL, y = NULL) +
-  theme_aqs()
+  scale_y_continuous(labels = label_number(style_negative = "minus")) +
+  labs(title = panel_label(4, "By year"), subtitle = "SC minus Houston other (ppb)", x = NULL, y = NULL) +
+  theme_paper()
 
-paired_header <- chart_header(
-  sprintf("FIGURE 2B.7  /  SAME-DAY DIFFERENCES  /  %s TO %s", min(study_years), max(study_years)),
-  "Same-day NO2 is higher at the Ship Channel",
-  sprintf(
-    str_c(
-      "Median gap %+.2f ppb (95%% range %+.2f to %+.2f) against Houston other; ozone is %.2f ppb lower,\n",
-      "consistent with fresh NO using up ozone near its sources. Houston ozone runs %.1f ppb below DFW."
-    ),
-    ship_channel_no2$median_difference, ship_channel_no2$ci_low, ship_channel_no2$ci_high,
-    abs(ship_channel_ozone$median_difference), abs(houston_dfw_ozone$median_difference)
+paired_figure <- tagged_figure(
+  list(main_panel, season_panel, check_panel, year_panel),
+  tribble(
+    ~mark,   ~colour,                ~label,
+    "range", gas_colours[["NO2"]],   "NO2",
+    "range", gas_colours[["Ozone"]], "Ozone",
+    "range", gas_colours[["SO2"]],   "SO2",
+    "range", gas_colours[["PM2.5"]], "PM2.5"
   ),
-  key = tribble(
-    ~mark, ~colour,                ~label,
-    "dot", gas_colours[["NO2"]],   "NO2",
-    "dot", gas_colours[["Ozone"]], "Ozone",
-    "dot", gas_colours[["SO2"]],   "SO2",
-    "dot", gas_colours[["PM2.5"]], "PM2.5"
-  )
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, %s to %s, five-year sites. Group value: the mean of the sites reporting that day; gases in ppb, PM2.5 ",
+      "in \u00b5g/m\u00b3. 95%% ranges: %s resamples of %d-day blocks. (c) Every check from sections 2 to 7."
+    ),
+    min(study_years), max(study_years), comma(bootstrap_reps), bootstrap_block_days
+  ),
+  free_panels = c(1, 3)
 )
 
-paired_footer <- chart_footer(str_c(
-  "EPA AQS daily data, five-year sites. Group value: mean of the sites reporting that day. Gases in ppb, PM2.5 in µg/m³.\n",
-  "95% ranges: ", format(bootstrap_reps, big.mark = ","), " resamples of ", bootstrap_block_days, "-day blocks, since nearby days are linked. ",
-  "Panel 03: every check from sections 2 to 7."
-))
-
-paired_figure <- chart_compose(paired_header, list(free(main_panel), season_panel, free(check_panel), year_panel), paired_footer)
-
-paired_figure_path <- here("figures", "phase2", "2b.07_paired.png")
-
-save_started <- Sys.time()
-
-ggsave(paired_figure_path, paired_figure, width = 6.5, height = 6.6, dpi = 300)
-
-stopifnot(
-  "2b.07_paired.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(paired_figure_path) >= save_started - 2
-)
+paired_figure_path <- save_figure(paired_figure, "2b.07_paired.png", 5.8)
 
 # CSV record: every summary row (overall for each check, by season and by year for the main set)
 paired_records <- list(
@@ -2626,14 +2570,14 @@ so2_main_difference <- run_results %>%
 stopifnot(
   "No run reverses a main result with a range clear of zero, so grey in figure 2B.8 means the range includes zero" =
     all(check_tally$n_holding + check_tally$n_crossing_zero == check_tally$n_runs),
-  "Ship Channel NO2 stays higher in every run, as the figure title says" = no2_tally$main_sign > 0 && no2_tally$n_holding == no2_tally$n_runs,
-  "Ship Channel SO2 stays higher in every run, as the subtitle says" = so2_tally$main_sign > 0 && so2_tally$n_holding == so2_tally$n_runs,
-  "The SO2 gap is under a tenth of the detection limit, as the subtitle says" = so2_main_difference < so2_detection_limit_ppb / 10,
-  "Ship Channel ozone stays lower in every run but the memo-list groups, as the subtitle says" =
+  "Ship Channel NO2 stays higher in every run" = no2_tally$main_sign > 0 && no2_tally$n_holding == no2_tally$n_runs,
+  "Ship Channel SO2 stays higher in every run" = so2_tally$main_sign > 0 && so2_tally$n_holding == so2_tally$n_runs,
+  "The SO2 gap is under a tenth of the detection limit" = so2_main_difference < so2_detection_limit_ppb / 10,
+  "Ship Channel ozone stays lower in every run but the memo-list groups" =
     ozone_tally$main_sign < 0 && ozone_tally$runs_not_holding == "Memo-list groups",
-  "PM2.5 ranges include zero in at least half the runs, as the subtitle says" = pm25_tally$n_crossing_zero >= pm25_tally$n_runs / 2,
+  "PM2.5 ranges include zero in at least half the runs" = pm25_tally$n_crossing_zero >= pm25_tally$n_runs / 2,
   "Houston minus Dallas-Fort Worth holds in every run for every gas" = all(houston_dfw_tally$n_holding == houston_dfw_tally$n_runs),
-  "Only the PM2.5 Ship Channel range changes its verdict with a second seed, as the footer says" =
+  "Only the PM2.5 Ship Channel range changes its verdict with a second seed" =
     seed_verdict_changes == "PM2.5, Ship Channel minus Houston other"
 )
 
@@ -2654,63 +2598,44 @@ run_panel <- function(gas, number) {
     geom_errorbar(aes(xmin = ci_low, xmax = ci_high), orientation = "y", width = 0, linewidth = 0.9) +
     geom_point(size = 1.7) +
     scale_colour_manual(values = run_colours, guide = "none") +
-    scale_x_continuous(breaks = breaks_pretty(n = 3)) +
+    scale_x_continuous(breaks = breaks_pretty(n = 3), labels = label_number(style_negative = "minus")) +
     scale_y_discrete(drop = FALSE) +
     labs(
-      title = str_c(number, "  ", str_to_upper(gas)),
+      title = panel_label(number, gas),
       subtitle = sprintf("%s in %d of %d runs", if_else(tally$main_sign > 0, "Higher", "Lower"), tally$n_holding, tally$n_runs),
       x = NULL,
       y = NULL
     ) +
-    theme_aqs() +
+    theme_paper() +
     forest_theme
 }
 
-no2_run_panel <- run_panel("NO2", "01")
+no2_run_panel <- run_panel("NO2", 1)
 
-ozone_run_panel <- run_panel("Ozone", "02")
+ozone_run_panel <- run_panel("Ozone", 2)
 
-so2_run_panel <- run_panel("SO2", "03")
+so2_run_panel <- run_panel("SO2", 3)
 
-pm25_run_panel <- run_panel("PM2.5", "04")
+pm25_run_panel <- run_panel("PM2.5", 4)
 
-runs_header <- chart_header(
-  sprintf("FIGURE 2B.8  /  EVERY CHECK  /  %s TO %s", min(study_years), max(study_years)),
-  "Ship Channel NO2 holds up under every check",
-  sprintf(
-    str_c(
-      "SO2 is higher in all %d runs, by %.2f ppb, well under the %d ppb detection limit at 3 of 4 sites.\n",
-      "Ozone is lower in %d of %d runs (not the memo-list groups); PM2.5 ranges include zero in %d of %d."
-    ),
-    so2_tally$n_runs, so2_main_difference, so2_detection_limit_ppb, ozone_tally$n_holding, ozone_tally$n_runs,
-    pm25_tally$n_crossing_zero, pm25_tally$n_runs
+runs_figure <- tagged_figure(
+  list(no2_run_panel, ozone_run_panel, so2_run_panel, pm25_run_panel),
+  tribble(
+    ~mark,    ~colour,                 ~label,
+    "range",  run_colours[["TRUE"]],   "Same sign as the main result, range clear of zero",
+    "range",  run_colours[["FALSE"]],  "Range includes zero",
+    "dashed", chart_fills[["accent"]], "Main result"
   ),
-  key = tribble(
-    ~mark, ~colour,                ~label,
-    "dot", run_colours[["TRUE"]],  "Same sign as the main result, range clear of zero",
-    "dot", run_colours[["FALSE"]], "Range includes zero"
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, %s to %s, five-year sites; Ship Channel minus Houston other on the same day. A run is the main site set ",
+      "or one check. 95%% ranges: %s resamples of %d-day blocks. Empty rows: the check does not apply or changes nothing."
+    ),
+    min(study_years), max(study_years), comma(bootstrap_reps), bootstrap_block_days
   )
 )
 
-runs_footer <- chart_footer(str_c(
-  "EPA AQS daily data, five-year sites, same-day differences. A run is the main site set or one check from sections\n",
-  "2 to 7. Gases in ppb, PM2.5 in µg/m³. 95% ranges: ", format(bootstrap_reps, big.mark = ","), " resamples of ",
-  bootstrap_block_days, "-day blocks. ",
-  "Dashed line: the main result.\nEmpty rows: the check does not apply or changes nothing. With a second seed, the PM2.5 main range reaches zero."
-))
-
-runs_figure <- chart_compose(runs_header, list(no2_run_panel, ozone_run_panel, so2_run_panel, pm25_run_panel), runs_footer)
-
-runs_figure_path <- here("figures", "phase2", "2b.08_checks.png")
-
-save_started <- Sys.time()
-
-ggsave(runs_figure_path, runs_figure, width = 6.5, height = 6.4, dpi = 300)
-
-stopifnot(
-  "2b.08_checks.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(runs_figure_path) >= save_started - 2
-)
+runs_figure_path <- save_figure(runs_figure, "2b.08_checks.png", 5.6)
 
 # CSV records for the report: the distance gradients from sections 2 to 4, and one table of the numbers the text quotes,
 # each with its unit, 95% range where there is one, and the record it comes from

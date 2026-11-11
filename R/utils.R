@@ -506,10 +506,10 @@ manifest_col_types <- cols(
   under_github_limit = col_logical()
 )
 
-# Every script that saves files shares data_dictionary.csv, and 1a, 1d, 1e and 2a share checkpoint_manifest.csv. Each replaces only its own rows
-# (matched on key: table or file) and keeps the rows the others wrote, so rerunning one script never removes
-# another's rows. Replaced rows keep their place in the file; a script writing for the first time adds its rows
-# at the end. Returns the whole updated file
+# Every script that saves files shares data_dictionary.csv, and 1a, 1d, 1e and 2a share checkpoint_manifest.csv.
+# Each replaces only its own rows (matched on key: table or file) and keeps the rows the others wrote, so rerunning
+# one script never removes another's rows. Replaced rows keep their place in the file; a script writing for the
+# first time adds its rows at the end. Returns the whole updated file
 replace_own_rows <- function(new_rows, path, key, col_types) {
   if (!file.exists(path)) {
     write_csv(new_rows, path)
@@ -538,9 +538,9 @@ replace_own_rows <- function(new_rows, path, key, col_types) {
 
 
 
-# CHART THEME ----
-# Shared look for every figure: white background, faint horizontal grid, quiet axes, numbers in a monospace face.
-# Text uses these ink colours; data colours are kept for the marks
+# CHART COLOURS, FONTS AND SIZES ----
+# Base values for the figure helpers below. Each figure script sets its own fonts and colours in its FIGURE STYLE
+# section before drawing. Text uses the ink colours; data colours are kept for the marks
 chart_ink <- c(
   primary   = "#0b0b0b",
   secondary = "#52514e",
@@ -549,7 +549,7 @@ chart_ink <- c(
   axis      = "#c3c2b7"
 )
 
-# National figures: one teal accent for the series the title is about, grey for the rest, and a light band for a
+# National figures: one accent for the series a panel is about, grey for the rest, and a light band for a
 # highlighted period. Case-study figures use site_group_colours instead
 chart_fills <- c(
   accent = "#0e7c86",
@@ -564,27 +564,18 @@ site_group_colours <- c(
   "Dallas-Fort Worth"    = "#1baf7a"
 )
 
-# Typefaces, bundled in fonts/ under the SIL Open Font Licence: Inter Tight SemiBold for titles, Inter for text and
-# IBM Plex Mono for numbers and small labels. The "AQS" names keep them apart from any installed copy, which
-# systemfonts would refuse to shadow
-chart_fonts <- c(
-  title = "AQS Inter Tight",
-  text  = "AQS Inter",
-  mono  = "AQS Plex Mono"
-)
+# One marker shape per group in every figure, so the groups read without colour too: a circle, a square and a triangle.
+# Solid marks are the main reading; the open version of the same shape carries a second meaning, such as a site with
+# four of five years or weekend hours
+site_group_shapes <- c("Houston Ship Channel" = 16, "Houston other" = 15, "Dallas-Fort Worth" = 17)
 
-# Vertical spacing in points, shared by every figure so headers, panels and footers keep the same rhythm
-chart_spacing <- c(
-  kicker_to_title    = 8,
-  title_to_subtitle  = 5,
-  subtitle_to_key    = 10,
-  subtitle_to_rule   = 12,
-  rule_to_panels     = 18,
-  panel_kicker_gap   = 3,
-  panel_title_gap    = 10,
-  panel_row_gap      = 18,
-  panels_to_footer   = 0,
-  footer_rule_to_text = 7
+site_group_open_shapes <- c("Houston Ship Channel" = 1, "Houston other" = 0, "Dallas-Fort Worth" = 2)
+
+# Every figure draws in Arial, checked at the top of each figure script
+chart_fonts <- c(
+  title = "Arial",
+  text  = "Arial",
+  mono  = "Arial"
 )
 
 # Text sizes in points
@@ -599,211 +590,204 @@ chart_sizes <- c(
   footer      = 6.6
 )
 
-# Call once before drawing. Registers the bundled font files, then checks that each name resolves to them rather than
-# to a fallback. Registered fonts only draw on ragg devices: ggsave() uses ragg, and RStudio needs Graphics backend AGG
-load_chart_fonts <- function() {
-  stopifnot("ragg is installed, since the bundled fonts only draw on ragg devices" = requireNamespace("ragg", quietly = TRUE))
-  font_files <- c(
-    title_plain = here("fonts", "inter-tight", "InterTight-SemiBold.ttf"),
-    title_bold  = here("fonts", "inter-tight", "InterTight-Bold.ttf"),
-    text_plain  = here("fonts", "inter", "Inter-Regular.ttf"),
-    text_bold   = here("fonts", "inter", "Inter-SemiBold.ttf"),
-    text_italic = here("fonts", "inter", "Inter-Italic.ttf"),
-    text_bolditalic = here("fonts", "inter", "Inter-SemiBoldItalic.ttf"),
-    mono_plain  = here("fonts", "ibm-plex-mono", "IBMPlexMono-Regular.ttf"),
-    mono_bold   = here("fonts", "ibm-plex-mono", "IBMPlexMono-Medium.ttf")
-  )
-  stopifnot("Chart font files are in fonts/" = all(file.exists(font_files)))
-  systemfonts::register_font(chart_fonts[["title"]], plain = font_files[["title_plain"]], bold = font_files[["title_bold"]])
-  systemfonts::register_font(
-    chart_fonts[["text"]],
-    plain = font_files[["text_plain"]],
-    bold = font_files[["text_bold"]],
-    italic = font_files[["text_italic"]],
-    bolditalic = font_files[["text_bolditalic"]]
-  )
-  systemfonts::register_font(chart_fonts[["mono"]], plain = font_files[["mono_plain"]], bold = font_files[["mono_bold"]])
-  resolved <- c(
-    title = systemfonts::match_fonts(chart_fonts[["title"]])$path,
-    text = systemfonts::match_fonts(chart_fonts[["text"]])$path,
-    mono = systemfonts::match_fonts(chart_fonts[["mono"]])$path
-  )
-  stopifnot(
-    "Each chart font resolves to its bundled file" =
-      identical(normalizePath(unname(resolved)), normalizePath(unname(font_files[c("title_plain", "text_plain", "mono_plain")])))
-  )
-}
-
-# Add to any ggplot with + theme_aqs(). The plot title is styled as a small teal kicker ("01  SITES REPORTING") and
-# the subtitle as the panel title. Needs ggplot2 loaded by the calling script
-theme_aqs <- function(base_size = 9) {
-  theme_minimal(base_size = base_size, base_family = chart_fonts[["text"]]) +
-    theme(
-      text = element_text(colour = chart_ink[["secondary"]]),
-      plot.background = element_rect(fill = "white", colour = NA),
-      panel.background = element_rect(fill = "white", colour = NA),
-      plot.margin = margin(0, 14, chart_spacing[["panel_row_gap"]], 0),
-      plot.title.position = "plot",
-      plot.caption.position = "plot",
-      plot.title = element_text(
-        family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["kicker"]],
-        margin = margin(b = chart_spacing[["panel_kicker_gap"]])
-      ),
-      plot.subtitle = element_text(
-        family = chart_fonts[["title"]], colour = chart_ink[["primary"]], size = chart_sizes[["panel_title"]],
-        margin = margin(b = chart_spacing[["panel_title_gap"]])
-      ),
-      plot.caption = element_text(colour = chart_ink[["muted"]], size = chart_sizes[["footer"]], hjust = 0, margin = margin(t = 12)),
-      panel.grid.major = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
-      panel.grid.major.x = element_blank(),
-      panel.grid.minor = element_blank(),
-      panel.spacing = unit(22, "pt"),
-      axis.line = element_blank(),
-      axis.ticks = element_blank(),
-      axis.text = element_text(family = chart_fonts[["mono"]], colour = chart_ink[["muted"]], size = chart_sizes[["axis"]]),
-      axis.title = element_text(colour = chart_ink[["secondary"]], size = rel(0.9)),
-      axis.title.x = element_text(margin = margin(t = 8)),
-      axis.title.y = element_text(margin = margin(r = 8)),
-      legend.position = "top",
-      legend.justification = "left",
-      legend.location = "plot",
-      legend.direction = "horizontal",
-      legend.title = element_text(colour = chart_ink[["muted"]], size = rel(0.85)),
-      legend.text = element_text(colour = chart_ink[["secondary"]], size = rel(0.9)),
-      legend.key.size = unit(10, "pt"),
-      legend.margin = margin(0, 0, 4, 0),
-      strip.text = element_text(
-        family = chart_fonts[["title"]], colour = chart_ink[["primary"]], size = rel(1.05), hjust = 0, margin = margin(b = 8)
-      ),
-      strip.background = element_blank()
-    )
-}
-
-# Top row of a figure: a teal monospace kicker, the title, an optional grey subtitle (use "\n" to break lines), an
-# optional key and a hairline rule. The key is a table with columns mark ("dot", "square" or "bar"), colour and label,
-# drawn as one row under the subtitle. Its height is fixed in points from chart_spacing, so chart_compose() can give it
-# exactly that space. Its own plot margin is zero, since a margin on a full-width row would widen the edges of every panel
-chart_header <- function(kicker, title, subtitle = NULL, key = NULL) {
-  line_pt <- function(size, lines = 1, leading = 1.25) size * (1 + leading * (lines - 1))
-  subtitle_lines <- if (is.null(subtitle)) 0 else lengths(strsplit(subtitle, "\n"))
-  title_top <- line_pt(chart_sizes[["kicker"]]) + chart_spacing[["kicker_to_title"]]
-  subtitle_top <- title_top + line_pt(chart_sizes[["title"]]) + chart_spacing[["title_to_subtitle"]]
-  text_bottom <- if (subtitle_lines == 0) title_top + line_pt(chart_sizes[["title"]]) else
-    subtitle_top + line_pt(chart_sizes[["subtitle"]], subtitle_lines)
-  key_top <- text_bottom + chart_spacing[["subtitle_to_key"]]
-  if (!is.null(key)) {
-    text_bottom <- key_top + chart_sizes[["key"]]
-  }
-  rule_y <- text_bottom + chart_spacing[["subtitle_to_rule"]]
-  text_grob <- function(label, top, family, size, colour) {
-    grid::textGrob(
-      label, x = grid::unit(0, "pt"), y = grid::unit(1, "npc") - grid::unit(top, "pt"), just = c("left", "top"),
-      gp = grid::gpar(fontfamily = family, fontsize = size, col = colour, lineheight = 1.25)
-    )
-  }
-  header_parts <- list(
-    text_grob(kicker, 0, chart_fonts[["mono"]], chart_sizes[["kicker"]], chart_fills[["accent"]]),
-    text_grob(title, title_top, chart_fonts[["title"]], chart_sizes[["title"]], chart_ink[["primary"]]),
-    grid::segmentsGrob(
-      x0 = grid::unit(0, "npc"), x1 = grid::unit(1, "npc"),
-      y0 = grid::unit(1, "npc") - grid::unit(rule_y, "pt"), y1 = grid::unit(1, "npc") - grid::unit(rule_y, "pt"),
-      gp = grid::gpar(col = chart_ink[["primary"]], lwd = 0.6)
-    )
-  )
-  if (subtitle_lines > 0) {
-    header_parts <- c(header_parts, list(
-      text_grob(subtitle, subtitle_top, chart_fonts[["text"]], chart_sizes[["subtitle"]], chart_ink[["secondary"]])
-    ))
-  }
-  if (!is.null(key)) {
-    header_parts <- c(header_parts, chart_key_parts(key, key_top))
-  }
-  header <- patchwork::wrap_elements(full = do.call(grid::grobTree, header_parts)) + theme(plot.margin = margin(0, 0, 0, 0))
-  attr(header, "height_pt") <- rule_y + chart_spacing[["rule_to_panels"]]
-  header
-}
-
-# The key row of chart_header(): each item is a mark (a dot, or a short vertical bar for a range) and its label, set one
-# after another from the left edge. Positions are grid units, so each label's width is measured in its own font
-chart_key_parts <- function(key, top) {
-  key_y <- grid::unit(1, "npc") - grid::unit(top + chart_sizes[["key"]] / 2, "pt")
-  item_x <- grid::unit(0, "pt")
-  parts <- list()
-  for (i in seq_len(nrow(key))) {
-    mark_x <- item_x + grid::unit(3, "pt")
-    mark <- if (key$mark[i] == "dot") {
-      grid::pointsGrob(mark_x, key_y, pch = 16, size = grid::unit(7, "pt"), gp = grid::gpar(col = key$colour[i]))
-    } else if (key$mark[i] == "square") {
-      grid::rectGrob(mark_x, key_y, width = grid::unit(7, "pt"), height = grid::unit(7, "pt"), gp = grid::gpar(fill = key$colour[i], col = NA))
-    } else {
-      grid::segmentsGrob(
-        mark_x, key_y - grid::unit(4, "pt"), mark_x, key_y + grid::unit(4, "pt"),
-        gp = grid::gpar(col = key$colour[i], lwd = 1.8, lineend = "butt")
-      )
-    }
-    label <- grid::textGrob(
-      key$label[i], x = item_x + grid::unit(11, "pt"), y = key_y, just = c("left", "centre"),
-      gp = grid::gpar(fontfamily = chart_fonts[["text"]], fontsize = chart_sizes[["key"]], col = chart_ink[["secondary"]])
-    )
-    parts <- c(parts, list(mark, label))
-    item_x <- item_x + grid::unit(11, "pt") + grid::grobWidth(label) + grid::unit(20, "pt")
-  }
-  parts
-}
-
-# Bottom row of a figure: a hairline rule, a teal "SOURCE" label and the source note (use "\n" to break lines)
-chart_footer <- function(note) {
-  note_lines <- lengths(strsplit(note, "\n"))
-  text_top <- chart_spacing[["panels_to_footer"]] + chart_spacing[["footer_rule_to_text"]]
-  footer_parts <- list(
-    grid::segmentsGrob(
-      x0 = grid::unit(0, "npc"), x1 = grid::unit(1, "npc"),
-      y0 = grid::unit(1, "npc") - grid::unit(chart_spacing[["panels_to_footer"]], "pt"),
-      y1 = grid::unit(1, "npc") - grid::unit(chart_spacing[["panels_to_footer"]], "pt"),
-      gp = grid::gpar(col = chart_ink[["axis"]], lwd = 0.5)
-    ),
-    grid::textGrob(
-      "SOURCE", x = grid::unit(0, "pt"), y = grid::unit(1, "npc") - grid::unit(text_top, "pt"), just = c("left", "top"),
-      gp = grid::gpar(fontfamily = chart_fonts[["mono"]], fontsize = chart_sizes[["kicker"]] - 0.5, col = chart_fills[["accent"]])
-    ),
-    grid::textGrob(
-      note, x = grid::unit(42, "pt"), y = grid::unit(1, "npc") - grid::unit(text_top, "pt"), just = c("left", "top"),
-      gp = grid::gpar(fontfamily = chart_fonts[["text"]], fontsize = chart_sizes[["footer"]], col = chart_ink[["muted"]], lineheight = 1.35)
-    )
-  )
-  footer <- patchwork::wrap_elements(full = do.call(grid::grobTree, footer_parts)) + theme(plot.margin = margin(0, 0, 0, 0))
-  attr(footer, "height_pt") <- text_top + chart_sizes[["footer"]] * (1 + 1.35 * (note_lines - 1)) + 4
-  footer
-}
-
-# Lays out a figure as one flat grid: the header across the top, the panels in rows of ncol, and the footer across the
-# bottom. Header and footer get their exact heights and the panels share the rest. A flat grid is used because
-# patchwork gives nested layouts their own default margin, which would break the shared spacing
-chart_compose <- function(header, panels, footer, ncol = 2, widths = NULL) {
-  n_rows <- ceiling(length(panels) / ncol)
-  panel_letters <- LETTERS[seq_along(panels) + 1]
-  panel_rows <- vapply(seq_len(n_rows), \(r) {
-    row_letters <- panel_letters[(r - 1) * ncol + seq_len(ncol)]
-    paste(ifelse(is.na(row_letters), "#", row_letters), collapse = "")
-  }, character(1))
-  design <- paste(c(strrep("A", ncol), panel_rows, strrep(LETTERS[length(panels) + 2], ncol)), collapse = "\n")
-  row_heights <- grid::unit(
-    c(attr(header, "height_pt"), rep(1, n_rows), attr(footer, "height_pt")),
-    c("pt", rep("null", n_rows), "pt")
-  )
-  wrap_plots(c(list(header), panels, list(footer)), design = design) +
-    plot_layout(heights = row_heights, widths = widths) +
-    plot_annotation(theme = theme(plot.margin = margin(22, 22, 14, 22), plot.background = element_rect(fill = "white", colour = NA)))
-}
-
-# End-of-line marker: a dot with a white ring and a monospace value beside it. Needs ggplot2 loaded
-chart_end_label <- function(data, x, y, label, colour = chart_fills[["accent"]], hjust = 1, vjust = -1.1) {
+# End-of-line marker: a dot with a white ring and its value beside it; shape takes a group's marker. Needs ggplot2
+# loaded
+chart_end_label <- function(data, x, y, label, colour = chart_fills[["accent"]], hjust = 1, vjust = -1.1, shape = 19) {
   list(
-    geom_point(data = data, mapping = aes(.data[[x]], .data[[y]]), inherit.aes = FALSE, size = 1.9, colour = "white"),
-    geom_point(data = data, mapping = aes(.data[[x]], .data[[y]]), inherit.aes = FALSE, size = 1.2, colour = colour),
+    geom_point(data = data, mapping = aes(.data[[x]], .data[[y]]), inherit.aes = FALSE, size = 1.9, colour = "white", shape = shape),
+    geom_point(data = data, mapping = aes(.data[[x]], .data[[y]]), inherit.aes = FALSE, size = 1.2, colour = colour, shape = shape),
     geom_text(
       data = data, mapping = aes(.data[[x]], .data[[y]], label = .data[[label]]), inherit.aes = FALSE,
       family = chart_fonts[["mono"]], size = chart_sizes[["label"]] / .pt, colour = colour, hjust = hjust, vjust = vjust
     )
   )
+}
+
+
+
+# JOURNAL FIGURE STYLE ----
+# Figures laid out like a journal's: boxed panels tagged a, b and so on, a key and a short source line under the
+# panels, and no caption, since the report text gives each finding. A script that uses them first sets chart_fonts
+# and the colour palettes above to its own values. Needs ggplot2, patchwork and stringr loaded by the calling script
+
+# Printed width a source line may fill: 6.5 inches less the figure margins
+caption_width_points <- 448
+
+panel_label <- function(panel_number, panel_name) sprintf("(%s) %s", letters[panel_number], panel_name)
+
+theme_paper <- function() {
+  theme_bw(base_size = 8, base_family = chart_fonts[["text"]]) +
+    theme(
+      text = element_text(colour = chart_ink[["primary"]]),
+      plot.background = element_rect(fill = "white", colour = NA),
+      plot.margin = margin(0, 8, 10, 0),
+      plot.title = element_text(size = 8, face = "bold", hjust = 0, margin = margin(b = 1)),
+      plot.subtitle = element_text(size = 7, colour = chart_ink[["secondary"]], hjust = 0, margin = margin(b = 3)),
+      panel.border = element_rect(colour = chart_ink[["primary"]], linewidth = 0.4, fill = NA),
+      panel.grid.major = element_line(colour = chart_ink[["grid"]], linewidth = 0.2),
+      panel.grid.minor = element_blank(),
+      axis.ticks = element_line(colour = chart_ink[["primary"]], linewidth = 0.3),
+      axis.ticks.length = unit(2, "pt"),
+      axis.text = element_text(colour = chart_ink[["primary"]], size = 6.5),
+      axis.title = element_text(size = 7),
+      strip.background = element_blank(),
+      strip.text = element_text(size = 7),
+      legend.position = "top",
+      legend.justification = "left",
+      legend.direction = "horizontal",
+      legend.title = element_blank(),
+      legend.text = element_text(size = 6.5),
+      legend.key.size = unit(8, "pt"),
+      legend.margin = margin(0, 0, 2, 0)
+    )
+}
+
+# One key row per value of row, centred. Marks: square, point (pch in shape; 21 to 25 are outlined), line, thick, dashed,
+# tick (a vertical bar) and range (a line through a point)
+key_row_points <- 12
+
+figure_key <- function(key) {
+  if (!"row" %in% names(key)) key$row <- 1
+  if (!"shape" %in% names(key)) key$shape <- 16
+  key_rows <- split(key, key$row)
+  row_grobs <- lapply(seq_along(key_rows), \(r) {
+    items <- key_rows[[r]]
+    y <- grid::unit(1, "npc") - grid::unit((r - 0.5) * key_row_points, "pt")
+    item_x <- grid::unit(0, "pt")
+    parts <- list()
+    for (i in seq_len(nrow(items))) {
+      left <- item_x
+      right <- item_x + grid::unit(12, "pt")
+      centre <- item_x + grid::unit(6, "pt")
+      line_at <- \(lwd, lty = "solid") {
+        grid::segmentsGrob(left, y, right, y, gp = grid::gpar(col = items$colour[i], lwd = lwd, lty = lty, lineend = "butt"))
+      }
+      point_at <- \(x) grid::pointsGrob(
+        x, y, pch = items$shape[i], size = grid::unit(5, "pt"),
+        gp = if (items$shape[i] >= 21) {
+          grid::gpar(col = chart_ink[["primary"]], fill = items$colour[i], lwd = 0.8)
+        } else {
+          grid::gpar(col = items$colour[i])
+        }
+      )
+      mark <- switch(
+        items$mark[i],
+        square = list(grid::rectGrob(
+          centre, y, width = grid::unit(7, "pt"), height = grid::unit(7, "pt"), gp = grid::gpar(fill = items$colour[i], col = NA)
+        )),
+        point = list(point_at(centre)),
+        line = list(line_at(1.3)),
+        thick = list(line_at(3)),
+        dashed = list(line_at(1, "22")),
+        tick = list(grid::segmentsGrob(
+          centre, y - grid::unit(4, "pt"), centre, y + grid::unit(4, "pt"), gp = grid::gpar(col = items$colour[i], lwd = 1.6)
+        )),
+        range = list(line_at(1.1), point_at(centre))
+      )
+      stopifnot("Every key mark is a known kind" = !is.null(mark))
+      label <- grid::textGrob(
+        items$label[i], x = item_x + grid::unit(16, "pt"), y = y, just = c("left", "centre"),
+        gp = grid::gpar(fontfamily = chart_fonts[["text"]], fontsize = chart_sizes[["key"]], col = chart_ink[["primary"]])
+      )
+      parts <- c(parts, mark, list(label))
+      item_x <- item_x + grid::unit(16, "pt") + grid::grobWidth(label) + grid::unit(16, "pt")
+    }
+    grid::gTree(children = do.call(grid::gList, parts), vp = grid::viewport(x = 0.5, width = item_x - grid::unit(16, "pt")))
+  })
+  key_row <- patchwork::wrap_elements(full = do.call(grid::grobTree, row_grobs)) + theme(plot.margin = margin(0, 0, 0, 0))
+  attr(key_row, "height_pt") <- key_row_points * length(key_rows) + 2
+  key_row
+}
+
+# Text the reader sees: chemical formulas with subscripts, and true minus signs on negative numbers
+pretty_text <- function(x) str_replace_all(x, c("NO2" = "NO₂", "SO2" = "SO₂"))
+
+minus_sign <- function(x) str_replace(x, "^-", "−")
+
+# The panel letter moves out of the title into a bold blue tag on the title line, and the subtitle turns italic. A figure
+# with one panel has no letter, and boxed = FALSE leaves round panels such as wind roses without a frame
+tag_panel <- function(panel, panel_number, show_tag = TRUE, boxed = TRUE) {
+  panel_labs <- get_labs(panel)
+  title <- panel_labs$title
+  if (show_tag) {
+    stopifnot("Each panel title starts with its own letter, in order" = str_starts(title, fixed(sprintf("(%s) ", letters[panel_number]))))
+  }
+  text_labs <- lapply(Filter(is.character, panel_labs[c("subtitle", "caption")]), pretty_text)
+  panel +
+    do.call(labs, c(list(title = pretty_text(str_remove(title, "^\\([a-z]\\) ")), tag = if (show_tag) letters[panel_number] else NULL), text_labs)) +
+    theme(
+      plot.tag = element_text(face = "bold", colour = chart_fills[["accent"]], size = 11, hjust = 0, vjust = 1),
+      plot.tag.position = c(0, 1),
+      plot.tag.location = "plot",
+      plot.title.position = "plot",
+      plot.title = element_text(size = 8.5, face = "bold", hjust = 0, margin = margin(t = 1, b = 1, l = 12)),
+      plot.subtitle = element_text(size = 7, face = "italic", colour = chart_ink[["secondary"]], hjust = 0, margin = margin(b = 3, l = 12)),
+      panel.border = if (boxed) element_rect(colour = "#3A3A3A", linewidth = 0.35, fill = NA) else element_blank()
+    )
+}
+
+# A one or two line source note in small grey type, broken where the printed line would pass the figure width
+source_points <- 6.5
+
+source_line_points <- 7.8
+
+source_row <- function(note, width_points = caption_width_points) {
+  text_width <- \(x) systemfonts::string_width(x, family = chart_fonts[["text"]], size = source_points, res = 72)
+  lines <- character(0)
+  current <- ""
+  for (word in str_split_1(pretty_text(note), " ")) {
+    candidate <- if (current == "") word else str_c(current, " ", word)
+    if (current != "" && text_width(candidate) > width_points) {
+      lines <- c(lines, current)
+      current <- word
+    } else {
+      current <- candidate
+    }
+  }
+  lines <- c(lines, current)
+  stopifnot("A source note runs to two lines at most" = length(lines) <= 2)
+  row <- wrap_elements(full = grid::textGrob(
+    str_c(lines, collapse = "\n"), x = grid::unit(0, "pt"), y = grid::unit(1, "npc"), just = c("left", "top"),
+    gp = grid::gpar(
+      fontfamily = chart_fonts[["text"]], fontsize = source_points, col = chart_ink[["secondary"]],
+      lineheight = source_line_points / (1.2 * source_points)
+    )
+  )) +
+    theme(plot.margin = margin(0, 0, 0, 0))
+  attr(row, "height_pt") <- source_line_points * length(lines) + 2
+  row
+}
+
+# Tagged panels in rows of ncol, then the key if there is one, then the source note. There is no caption: the report text
+# gives each finding. Panels listed in free_panels keep their own axis widths; widths sets the column widths
+tagged_figure <- function(panels, key = NULL, source_note, ncol = 2, row_weights = NULL, free_panels = integer(0), widths = NULL,
+                          width_points = caption_width_points, boxed = TRUE) {
+  tagged <- lapply(seq_along(panels), \(i) tag_panel(panels[[i]], i, show_tag = length(panels) > 1, boxed = boxed))
+  tagged[free_panels] <- lapply(tagged[free_panels], free)
+  n_rows <- ceiling(length(panels) / ncol)
+  weights <- if (is.null(row_weights)) rep(1, n_rows) else row_weights
+  panel_letters <- LETTERS[seq_along(panels)]
+  panel_rows <- vapply(seq_len(n_rows), \(r) {
+    row_letters <- panel_letters[(r - 1) * ncol + seq_len(ncol)]
+    paste(ifelse(is.na(row_letters), "#", row_letters), collapse = "")
+  }, character(1))
+  bottom_rows <- list(source_row(source_note, width_points))
+  if (!is.null(key)) {
+    key$label <- pretty_text(key$label)
+    bottom_rows <- c(list(figure_key(key)), bottom_rows)
+  }
+  bottom_heights <- vapply(bottom_rows, \(row) attr(row, "height_pt"), numeric(1)) + c(rep(4, length(bottom_rows) - 1), 0)
+  design <- paste(c(panel_rows, strrep(LETTERS[length(panels) + seq_along(bottom_rows)], ncol)), collapse = "\n")
+  wrap_plots(c(tagged, bottom_rows), design = design) +
+    plot_layout(heights = grid::unit(c(weights, bottom_heights), c(rep("null", n_rows), rep("pt", length(bottom_rows)))), widths = widths) +
+    plot_annotation(theme = theme(plot.margin = margin(8, 8, 6, 8), plot.background = element_rect(fill = "white", colour = NA)))
+}
+
+# Saves at the report text width and checks the write, since ragg only warns when a viewer or OneDrive holds the file
+save_figure <- function(figure, file_name, height, directory = figures_dir) {
+  path <- file.path(directory, file_name)
+  started <- Sys.time()
+  ggsave(path, figure, width = 6.5, height = height, dpi = 300)
+  stopifnot("Each figure was written (close any viewer of it and rerun this step)" = file.mtime(path) >= started - 2)
+  invisible(path)
 }

@@ -1,6 +1,7 @@
 # SETUP ----
 library(dplyr)
 library(readr)
+library(tidyr)
 library(stringr)
 library(lubridate)
 library(ggplot2)
@@ -353,7 +354,7 @@ write_csv(case_study_sites, here("data", "reference", "case_study_sites.csv"))
 
 
 # 8. MAP PICKED SITES ----
-# Visual check that each group sits where expected
+# Visual check that each group sits where expected, laid out like a journal figure: boxed maps, a key and a caption
 # One row per site, labelled with a short name and the pollutants picked there
 pollutant_symbols <- c(Ozone = "O₃", NO2 = "NO₂", SO2 = "SO₂")
 
@@ -366,14 +367,16 @@ map_sites <- case_study_sites %>%
   )) %>%
   group_by(site_id, region, site_group, local_site_name, latitude, longitude) %>%
   summarise(
-    pollutants = str_flatten(sort(unique(pollutant_symbol)), collapse = " · "),
+    pollutants = str_flatten(sort(unique(pollutant_symbol)), collapse = ", "),
     .groups = "drop"
   ) %>%
   mutate(site_label = str_remove(local_site_name, " Airport Executive$")) %>%
   mutate(site_label = if_else(site_label == "Houston East", site_label, str_remove(site_label, "^Houston "))) %>%
   mutate(label_side = case_when(
-    site_label %in% c("Clinton", "Grapevine Fairway") ~ "right",
-    site_label %in% c("Park Place", "Deer Park #2") ~ "below",
+    site_label %in% c("Grapevine Fairway", "Houston East", "Park Place", "Bayland Park") ~ "right",
+    site_label == "Harvard Street" ~ "left",
+    site_label == "Deer Park #2" ~ "below",
+    site_label == "Clinton" ~ "above, west",
     .default = "above"
   ))
 
@@ -382,21 +385,25 @@ label_offsets <- tribble(
   ~label_side, ~name_dx, ~name_dy, ~name_hjust, ~name_vjust, ~pollutant_dx, ~pollutant_dy, ~pollutant_hjust, ~pollutant_vjust,
   "above",     0,        0.036,    0.5,         0,           0,             0.017,         0.5,              0,
   "below",     0,        -0.017,   0.5,         1,           0,             -0.036,        0.5,              1,
-  "right",     0.025,    0.003,    0,           0,           0.025,         -0.004,        0,                1
+  "right",     0.018,    0.003,    0,           0,           0.018,         -0.004,        0,                1,
+  "left",      -0.018,   0.003,    1,           0,           -0.018,        -0.004,        1,                1,
+  "above, west", -0.008, 0.036,    0.5,         0,           -0.004,        0.017,         0.5,              0
 )
 
 map_sites <- map_sites %>%
   left_join(label_offsets, by = "label_side", relationship = "many-to-one")
 
-# Text sizes in mm (1 mm is about 2.85 pt); none prints below 7 pt
-map_text_mm <- c(region = 3.8, site = 2.8, detail = 2.5)
+# Text sizes in mm (1 mm is about 2.85 pt); none prints below 6 pt. The half-width map uses the smaller set
+map_text_mm <- c(site = 2.5, detail = 2.25)
+
+narrow_text_mm <- c(site = 2.3, detail = 2.1)
 
 # Reference points for orientation only
 map_landmarks <- tribble(
-  ~region,             ~landmark,          ~latitude, ~longitude,
-  "Houston",           "Downtown",         29.7604,   -95.3698,
-  "Dallas-Fort Worth", "Downtown Dallas",  32.7767,   -96.7970,
-  "Dallas-Fort Worth", "DFW Airport",      32.8998,   -97.0403
+  ~region,             ~landmark,          ~latitude, ~longitude, ~label_dx, ~label_hjust,
+  "Houston",           "Downtown",         29.7604,   -95.3698,   -0.004,    1,
+  "Dallas-Fort Worth", "Downtown Dallas",  32.7767,   -96.7970,   0,         0.5,
+  "Dallas-Fort Worth", "DFW Airport",      32.8998,   -97.0403,   0,         0.5
 )
 
 # Both frames span 0.46 degrees of latitude, so the two maps share one scale
@@ -415,74 +422,173 @@ stopifnot(
   "Every region has a map frame" = all(map_sites$region %in% map_frames$region),
   "Every site sits inside its map frame" = nrow(sites_outside_frame) == 0,
   "Both frames span the same latitude" = n_distinct(round(map_frames$lat_max - map_frames$lat_min, 6)) == 1,
-  "Every site has label offsets" = !anyNA(map_sites$name_dx)
+  "Every site has label offsets" = !anyNA(map_sites$name_dx),
+  "The caption's counts match the picks: nine sites, 16 monitors" = nrow(map_sites) == 9 && nrow(case_study_sites) == 16
 )
 
 km_per_lon_degree <- function(lat) 111.32 * cos(lat * pi / 180)
 
-draw_region_map <- function(region_name, bar_km = 10, frames = map_frames) {
+# Distance from a point to the nearest land-cut edge, on section 3's flat map. The shaded zone uses it, so the zone's
+# edge is the Ship Channel cutoff
+km_to_channel_edges <- function(longitude, latitude) {
+  point_x <- longitude * km_per_lon_degree_houston
+  point_y <- latitude * km_per_lat_degree
+  dx <- channel_edges$x1 - channel_edges$x0
+  dy <- channel_edges$y1 - channel_edges$y0
+  t <- pmin(pmax(((point_x - channel_edges$x0) * dx + (point_y - channel_edges$y0) * dy) / (dx^2 + dy^2), 0), 1)
+  min(sqrt((point_x - channel_edges$x0 - t * dx)^2 + (point_y - channel_edges$y0 - t * dy)^2))
+}
+
+houston_map_distances <- map_sites %>%
+  filter(region == "Houston") %>%
+  mutate(km_from_edges = mapply(km_to_channel_edges, longitude, latitude)) %>%
+  inner_join(channel_distances, by = "site_id", relationship = "one-to-one")
+
+stopifnot(
+  "The zone's distances match section 3's at every Houston map site" =
+    all(abs(houston_map_distances$km_from_edges - houston_map_distances$km_to_channel) < 1e-6 | houston_map_distances$km_to_channel == 0),
+  "The zone's edge splits the Houston groups" =
+    all((houston_map_distances$km_from_edges <= ship_channel_km) == (houston_map_distances$site_group == "Houston Ship Channel"))
+)
+
+houston_frame <- map_frames %>%
+  filter(region == "Houston")
+
+zone_longitudes <- seq(houston_frame$lon_min - 0.02, houston_frame$lon_max + 0.02, length.out = 330)
+
+zone_latitudes <- seq(houston_frame$lat_min - 0.02, houston_frame$lat_max + 0.02, length.out = 280)
+
+zone_grid <- expand_grid(longitude = zone_longitudes, latitude = zone_latitudes) %>%
+  mutate(km = mapply(km_to_channel_edges, longitude, latitude))
+
+stopifnot("Latitude varies fastest in the grid, so each matrix column is one longitude" = identical(zone_grid$latitude[1:2], zone_latitudes[1:2]))
+
+# Map colours: the Okabe-Ito group colours used in every figure, a steel blue for water and a darker orange for the cutoff
+map_font <- "Arial"
+
+stopifnot("Arial is installed, since the maps use it" = str_detect(systemfonts::match_fonts(map_font)$path, regex("arial", ignore_case = TRUE)))
+
+# The tagged-figure helpers in utils.R draw the panel letters, key and source line in these fonts and colours
+chart_fonts[] <- map_font
+
+chart_ink[c("primary", "secondary", "muted", "grid", "axis")] <- c("#000000", "#333333", "#666666", "#EBEBEB", "#999999")
+
+chart_fills[c("accent", "other", "band")] <- c("#1D5D9B", "#B5B5B5", "#F2F2F2")
+
+chart_sizes[c("key", "label")] <- c(7, 6.5)
+
+map_group_fills <- c("Houston Ship Channel" = "#D55E00", "Houston other" = "#0072B2", "Dallas-Fort Worth" = "#009E73")
+
+channel_blue <- "#2B5F86"
+
+zone_ink <- "#A8501A"
+
+zone_matrix <- matrix(zone_grid$km, nrow = length(zone_latitudes))
+
+zone_raster <- as.raster(ifelse(zone_matrix[rev(seq_along(zone_latitudes)), ] <= ship_channel_km, "#D55E0014", "#FFFFFF00"))
+
+stopifnot(
+  "Every map group has a fill and a shape" =
+    setequal(names(map_group_fills), map_sites$site_group) && identical(names(map_group_fills), names(site_group_shapes))
+)
+
+degree_breaks <- function(low, high, step) seq(ceiling(round(low / step, 6)) * step, floor(round(high / step, 6)) * step, by = step)
+
+draw_region_map <- function(region_name, panel_label, frames = map_frames, text_mm = map_text_mm, degree_step = 0.1, bar_km = 10) {
   frame <- filter(frames, region == region_name)
   region_sites <- filter(map_sites, region == region_name)
   region_landmarks <- filter(map_landmarks, region == region_name)
-  bar_start <- frame$lon_min + 0.03
+  bar_start <- frame$lon_min + 0.025
   bar_end <- bar_start + bar_km / km_per_lon_degree((frame$lat_min + frame$lat_max) / 2)
-  bar_y <- frame$lat_min + 0.03
-
-  region_map <- ggplot() +
-    annotate("text", x = (frame$lon_min + frame$lon_max) / 2, y = frame$lat_max - 0.025, label = region_name, family = chart_fonts[["title"]], fontface = "bold", size = map_text_mm[["region"]], colour = chart_ink[["primary"]], hjust = 0.5, vjust = 1) +
-    annotate("segment", x = bar_start, xend = bar_end, y = bar_y, yend = bar_y, colour = chart_ink[["secondary"]], linewidth = 0.5) +
-    annotate("segment", x = c(bar_start, bar_end), xend = c(bar_start, bar_end), y = bar_y - 0.008, yend = bar_y + 0.008, colour = chart_ink[["secondary"]], linewidth = 0.5) +
-    annotate("text", x = (bar_start + bar_end) / 2, y = bar_y + 0.024, label = str_c(bar_km, " km"), family = chart_fonts[["text"]], size = map_text_mm[["detail"]], colour = chart_ink[["secondary"]]) +
-    geom_point(data = region_landmarks, aes(longitude, latitude), shape = 3, size = 1.8, stroke = 0.6, colour = chart_ink[["muted"]]) +
-    geom_text(data = region_landmarks, aes(longitude, latitude, label = landmark), family = chart_fonts[["text"]], fontface = "italic", size = map_text_mm[["detail"]], colour = chart_ink[["muted"]], vjust = 1, nudge_y = -0.015) +
-    geom_point(data = region_sites, aes(longitude, latitude, fill = site_group), shape = 21, size = 3.6, colour = "white", stroke = 1.1, show.legend = TRUE) +
-    geom_text(data = region_sites, aes(longitude + name_dx, latitude + name_dy, label = site_label, hjust = name_hjust, vjust = name_vjust), family = chart_fonts[["text"]], fontface = "bold", size = map_text_mm[["site"]], colour = chart_ink[["primary"]]) +
-    geom_text(data = region_sites, aes(longitude + pollutant_dx, latitude + pollutant_dy, label = pollutants, hjust = pollutant_hjust, vjust = pollutant_vjust), family = chart_fonts[["text"]], size = map_text_mm[["detail"]], colour = chart_ink[["secondary"]]) +
-    scale_fill_manual(values = site_group_colours, breaks = names(site_group_colours), limits = names(site_group_colours), name = NULL) +
-    coord_quickmap(xlim = c(frame$lon_min, frame$lon_max), ylim = c(frame$lat_min, frame$lat_max), expand = FALSE) +
-    labs(x = NULL, y = NULL) +
-    theme_aqs(base_size = 10) +
-    theme(
-      panel.background = element_rect(fill = "#f6f5f0", colour = NA),
-      panel.grid.major = element_line(colour = "#e8e6de", linewidth = 0.3),
-      panel.grid.major.x = element_line(colour = "#e8e6de", linewidth = 0.3),
-      axis.text = element_blank(),
-      legend.text = element_text(size = 9, margin = margin(l = 3, r = 12)),
-      legend.margin = margin(0, 0, 0, 0),
-      legend.box.spacing = unit(8, "pt"),
-      plot.margin = margin(0, 10, chart_spacing[["panel_row_gap"]], 0)
-    )
-
-  # The group legend sits above the Houston map only, so the two maps keep the same top edge
+  bar_y <- frame$lat_min + 0.022
+  region_map <- ggplot()
   if (region_name == "Houston") {
     region_map <- region_map +
-      annotate("text", x = frame$lon_max - 0.015, y = 29.6, label = "Galveston Bay →", family = chart_fonts[["text"]], fontface = "italic", size = map_text_mm[["detail"]], colour = chart_ink[["muted"]], hjust = 1)
-  } else {
-    region_map <- region_map +
-      theme(legend.position = "none")
+      annotation_raster(zone_raster, min(zone_longitudes), max(zone_longitudes), min(zone_latitudes), max(zone_latitudes), interpolate = TRUE) +
+      geom_contour(
+        data = zone_grid, aes(longitude, latitude, z = km), breaks = ship_channel_km, colour = zone_ink, linewidth = 0.3, linetype = "22"
+      ) +
+      geom_polygon(data = channel_vertices, aes(longitude, latitude, group = section), fill = channel_blue, colour = channel_blue, linewidth = 0.15) +
+      annotate("text", x = -95.125, y = 29.718, label = "Ship Channel", family = map_font, fontface = "italic", size = text_mm[["detail"]],
+        colour = channel_blue) +
+      annotate("text", x = -95.275, y = 29.835, label = str_c(ship_channel_km, " km from channel"), family = map_font,
+        size = text_mm[["detail"]], colour = zone_ink)
   }
-
-  region_map
+  region_map +
+    annotate("segment", x = bar_start, xend = bar_end, y = bar_y, yend = bar_y, colour = "black", linewidth = 0.4) +
+    annotate(
+      "segment", x = c(bar_start, bar_end), xend = c(bar_start, bar_end), y = bar_y - 0.005, yend = bar_y + 0.005, colour = "black",
+      linewidth = 0.4
+    ) +
+    annotate("text", x = (bar_start + bar_end) / 2, y = bar_y + 0.017, label = str_c(bar_km, " km"), family = map_font, size = text_mm[["detail"]]) +
+    geom_point(data = region_landmarks, aes(longitude, latitude), shape = 3, size = 1.3, stroke = 0.35, colour = "grey40") +
+    geom_text(
+      data = region_landmarks, aes(longitude + label_dx, latitude - 0.012, label = landmark, hjust = label_hjust), family = map_font,
+      fontface = "italic", size = text_mm[["detail"]], colour = "grey40", vjust = 1
+    ) +
+    geom_point(
+      data = region_sites, aes(longitude, latitude, colour = site_group, shape = site_group), size = 2.3,
+      show.legend = TRUE
+    ) +
+    geom_text(
+      data = region_sites, aes(longitude + name_dx, latitude + name_dy, label = site_label, hjust = name_hjust, vjust = name_vjust),
+      family = map_font, size = text_mm[["site"]]
+    ) +
+    geom_text(
+      data = region_sites,
+      aes(longitude + pollutant_dx, latitude + pollutant_dy, label = pollutants, hjust = pollutant_hjust, vjust = pollutant_vjust),
+      family = map_font, size = text_mm[["detail"]], colour = "grey30"
+    ) +
+    scale_colour_manual(values = map_group_fills, limits = names(map_group_fills), guide = "none") +
+    scale_shape_manual(values = site_group_shapes, limits = names(site_group_shapes), guide = "none") +
+    scale_x_continuous(breaks = degree_breaks(frame$lon_min, frame$lon_max, degree_step), labels = \(x) sprintf("%.1f°W", -x), expand = c(0, 0)) +
+    scale_y_continuous(breaks = degree_breaks(frame$lat_min, frame$lat_max, 0.1), labels = \(y) sprintf("%.1f°N", y), expand = c(0, 0)) +
+    coord_quickmap(xlim = c(frame$lon_min, frame$lon_max), ylim = c(frame$lat_min, frame$lat_max), expand = FALSE) +
+    labs(
+      x = NULL,
+      y = NULL,
+      title = panel_label,
+      subtitle = sprintf("%d sites, %d hourly monitors", nrow(region_sites), sum(case_study_sites$region == region_name))
+    ) +
+    theme_bw(base_size = 8, base_family = map_font) +
+    theme(
+      panel.grid.major = element_line(colour = "grey92", linewidth = 0.2),
+      panel.grid.minor = element_blank(),
+      panel.border = element_rect(colour = "black", linewidth = 0.4, fill = NA),
+      axis.ticks = element_line(colour = "black", linewidth = 0.3),
+      axis.ticks.length = unit(2, "pt"),
+      axis.text = element_text(colour = "black", size = 6.5),
+      plot.title = element_text(size = 8, face = "bold", hjust = 0, margin = margin(b = 3)),
+      plot.margin = margin(2, 6, 2, 2),
+      legend.position = "bottom",
+      legend.direction = "horizontal",
+      legend.text = element_text(size = 7, margin = margin(l = 2, r = 10)),
+      legend.margin = margin(0, 0, 0, 0),
+      legend.key.size = unit(9, "pt")
+    )
 }
 
 # Panel widths in km, so both maps keep the same scale side by side
 frame_widths_km <- map_frames %>%
   mutate(width_km = (lon_max - lon_min) * km_per_lon_degree((lat_min + lat_max) / 2))
 
-load_chart_fonts()
-
-site_map_header <- chart_header(
-  "FIGURE 1C.1  /  CASE-STUDY SITES  /  HARRIS, DALLAS AND TARRANT COUNTIES",
-  "Nine monitoring sites in Houston and DFW",
-  str_c("16 hourly monitors in three groups. Ship Channel sites are within ", ship_channel_km, " km of the land-cut channel.")
+map_key <- tribble(
+  ~mark,    ~colour,                                   ~label,                    ~shape,                                     ~row,
+  "point",  map_group_fills[["Houston Ship Channel"]], "Houston Ship Channel",    site_group_shapes[["Houston Ship Channel"]]  , 1,
+  "point",  map_group_fills[["Houston other"]],        "Houston other",           site_group_shapes[["Houston other"]]  ,        1,
+  "point",  map_group_fills[["Dallas-Fort Worth"]],    "Dallas-Fort Worth",       site_group_shapes[["Dallas-Fort Worth"]]  ,    1,
+  "line",   channel_blue,                              "Land-cut Ship Channel",   16,                                         2,
+  "dashed", zone_ink,                                  "7.5 km from the channel", 16,                                         2,
+  "point",  "grey40",                                  "Landmark",                3,                                          2
 )
 
-site_map_footer <- chart_footer("EPA AQS site coordinates. Both maps use the same scale. Crosses mark landmarks for orientation.")
-
-site_map <- chart_compose(
-  site_map_header,
-  list(draw_region_map("Houston"), draw_region_map("Dallas-Fort Worth")),
-  site_map_footer,
+site_map <- tagged_figure(
+  list(draw_region_map("Houston", "(a) Houston"), draw_region_map("Dallas-Fort Worth", "(b) Dallas-Fort Worth")),
+  map_key,
+  source_note = str_c(
+    "Source: EPA AQS site coordinates; land-cut Houston Ship Channel from the USACE National Channel Framework. Shaded: within ",
+    ship_channel_km, " km of the channel, the Ship Channel cutoff. Both maps share one scale."
+  ),
   widths = frame_widths_km$width_km[match(c("Houston", "Dallas-Fort Worth"), frame_widths_km$region)]
 )
 
@@ -493,7 +599,7 @@ site_map_path <- here("figures", "phase1", "case_study_sites.png")
 save_started <- Sys.time()
 
 # Saved at the report text width, so the sizes above are the printed sizes
-ggsave(site_map_path, site_map, width = 6.5, height = 5.4, dpi = 300)
+ggsave(site_map_path, site_map, width = 6.5, height = 4.3, dpi = 300)
 
 # ragg only warns when the file is locked (an open viewer or OneDrive syncing), so check the write
 stopifnot(
@@ -502,11 +608,11 @@ stopifnot(
 )
 
 # Narrow version for a half-width report column: the two maps stacked at one shared scale, in frames trimmed to
-# the sites and their labels
+# the sites and their labels. Both frames are the same width in km, so the stacked maps line up
 narrow_frames <- tribble(
   ~region,             ~lon_min, ~lon_max, ~lat_min, ~lat_max,
-  "Houston",           -95.585,  -95.035,  29.525,   29.895,
-  "Dallas-Fort Worth", -97.150,  -96.710,  32.635,   33.060
+  "Houston",           -95.585,  -95.060,  29.525,   29.895,
+  "Dallas-Fort Worth", -97.201,  -96.658,  32.635,   33.060
 )
 
 narrow_frame_km <- narrow_frames %>%
@@ -520,37 +626,26 @@ sites_outside_narrow_frame <- map_sites %>%
 stopifnot(
   "Every region has a narrow frame" = setequal(narrow_frames$region, map_frames$region),
   "Every site sits inside its narrow frame" = nrow(sites_outside_narrow_frame) == 0,
-  "Houston is the wider narrow frame, so it sets the shared scale" =
-    narrow_frame_km$width_km[narrow_frame_km$region == "Houston"] > narrow_frame_km$width_km[narrow_frame_km$region == "Dallas-Fort Worth"]
+  "Both narrow frames are the same width in km, so the stacked maps line up" = diff(range(narrow_frame_km$width_km)) < 0.1
 )
 
-narrow_map_header <- chart_header(
-  "FIGURE 1C.1  /  CASE-STUDY SITES",
-  "Nine monitoring sites",
-  str_c("16 hourly monitors in three groups. Ship Channel\nsites are within ", ship_channel_km, " km of the land-cut channel.")
+narrow_map <- tagged_figure(
+  list(
+    draw_region_map("Houston", "(a) Houston", frames = narrow_frames, text_mm = narrow_text_mm, degree_step = 0.2),
+    draw_region_map("Dallas-Fort Worth", "(b) Dallas-Fort Worth", frames = narrow_frames, text_mm = narrow_text_mm, degree_step = 0.2)
+  ),
+  mutate(map_key, row = c(1, 1, 2, 2, 3, 3)),
+  source_note = str_c("Source: EPA AQS site coordinates; USACE channel. Shaded: within ", ship_channel_km, " km of the channel."),
+  ncol = 1,
+  row_weights = narrow_frame_km$height_km[match(c("Houston", "Dallas-Fort Worth"), narrow_frame_km$region)],
+  width_points = 214
 )
-
-narrow_map_footer <- chart_footer("EPA AQS site coordinates. Both maps use the same\nscale. Crosses mark landmarks for orientation.")
-
-narrow_houston_map <- draw_region_map("Houston", frames = narrow_frames) +
-  guides(fill = guide_legend(nrow = 2)) +
-  theme(plot.margin = margin(0, 0, 10, 0))
-
-narrow_dfw_map <- draw_region_map("Dallas-Fort Worth", frames = narrow_frames) +
-  theme(plot.margin = margin(0, 0, 10, 0))
-
-narrow_map <- wrap_plots(narrow_map_header, narrow_houston_map, narrow_dfw_map, narrow_map_footer, ncol = 1) +
-  plot_layout(heights = grid::unit(
-    c(attr(narrow_map_header, "height_pt"), narrow_frame_km$height_km[match(c("Houston", "Dallas-Fort Worth"), narrow_frame_km$region)], attr(narrow_map_footer, "height_pt")),
-    c("pt", "null", "null", "pt")
-  )) +
-  plot_annotation(theme = theme(plot.margin = margin(4, 2, 4, 2), plot.background = element_rect(fill = "white", colour = NA)))
 
 narrow_map_path <- here("figures", "phase1", "case_study_sites_narrow.png")
 
 narrow_save_started <- Sys.time()
 
-ggsave(narrow_map_path, narrow_map, width = 3.2, height = 7.6, dpi = 300)
+ggsave(narrow_map_path, narrow_map, width = 3.2, height = 6.75, dpi = 300)
 
 stopifnot(
   "case_study_sites_narrow.png was written (close any viewer of it and rerun this step)" =

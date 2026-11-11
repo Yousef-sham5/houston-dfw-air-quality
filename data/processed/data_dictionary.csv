@@ -737,7 +737,7 @@ national_exceedances_by_year,pct_fireworks,numeric,"Share of exceedances on fire
 national_exceedances_by_year,pct_agency_flagged,numeric,"Share of exceedances with EPA's exceptional-event flag, percent; PM2.5 and ozone only"
 national_metro_ranks,pollutant,factor,PM2.5 or Ozone
 national_metro_ranks,cbsa_name,character,Core-based statistical area (metro) name
-national_metro_ranks,metro_label,character,Short name used in figure 2A.4
+national_metro_ranks,metro_label,character,Short name used in figure 2A.5
 national_metro_ranks,is_case_study,logical,TRUE for the Houston and Dallas-Fort Worth metros
 national_metro_ranks,metro_rank,integer,Rank by exceedance site-days (1 is most); ties share the lower rank
 national_metro_ranks,n_metros,integer,Metros with at least one exceedance for the pollutant
@@ -772,7 +772,7 @@ national_weekend_summary,median_saturday,numeric,Median site Saturday over weekd
 national_weekend_summary,median_sunday,numeric,Median site Sunday over weekday mean
 national_weekend_summary,pct_higher_on_weekends,numeric,"Share of sites with a ratio above 1, percent"
 national_ozone_weekend_metros,cbsa_name,character,Metro with at least 5 five-year ozone sites
-national_ozone_weekend_metros,metro_label,character,Short name used in figure 2A.7
+national_ozone_weekend_metros,metro_label,character,Short name used in figure 2A.10
 national_ozone_weekend_metros,is_case_study,logical,TRUE for the Houston and Dallas-Fort Worth metros
 national_ozone_weekend_metros,n_sites,integer,Five-year ozone sites in the metro
 national_ozone_weekend_metros,median_ratio,numeric,Median site weekend over weekday ozone

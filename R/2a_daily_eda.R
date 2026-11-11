@@ -12,7 +12,30 @@ library(here)
 
 source(here("R", "utils.R")) # study_years, region_lookup, read helpers, naaqs_statistics(), monthly_profile(), save helpers, chart theme
 
-load_chart_fonts()
+
+
+# FIGURE STYLE ----
+# 2a figures are laid out like a journal's, with the tagged-figure helpers in utils.R and the findings left to the report
+# text. These settings replace utils.R's chart colours and fonts for this script only
+stopifnot("Arial is installed, since 2a figures use it" = str_detect(systemfonts::match_fonts("Arial")$path, regex("arial", ignore_case = TRUE)))
+
+chart_fonts[] <- "Arial"
+
+chart_ink[c("primary", "secondary", "muted", "grid", "axis")] <- c("#000000", "#333333", "#666666", "#EBEBEB", "#999999")
+
+chart_fills[c("accent", "other", "band")] <- c("#1D5D9B", "#B5B5B5", "#F2F2F2")
+
+# A warm second colour for the series each panel compares against the blue one: T640 monitors, event days, ozone
+chart_warm <- c(line = "#E3872D", text = "#B9621A", band = "#FCEEDF")
+
+site_group_colours[] <- c("#D55E00", "#0072B2", "#009E73")
+
+chart_sizes[c("key", "label")] <- c(7, 6.5)
+
+figures_dir <- here("figures", "phase2")
+
+# Short notes under single panels, such as a share of sites
+panel_note_text <- element_text(colour = chart_ink[["secondary"]], size = 6.5, hjust = 0, margin = margin(t = 4))
 
 
 
@@ -268,7 +291,7 @@ single_instrument_days <- daily_instruments %>%
   mutate(is_agency_event_flagged = event_type == "Included") %>%
   select(site_day_id, all_of(site_day_columns), method_types, value, is_agency_event_flagged)
 
-# Collocated instruments are averaged per site and day (decision P13). A day with both kinds reads "FEM+FRM".
+# Collocated instruments are averaged per site and day. A day with both kinds reads "FEM+FRM".
 # rowsum() totals each site-day's readings and counts in one pass, where a grouped summarise() takes about a minute
 collocated_rows <- daily_instruments %>%
   filter(n_instruments > 1)
@@ -565,7 +588,7 @@ stopifnot(
   "No five-year case-study ozone site is seasonal" = all(case_study_ozone_site_years$has_winter_data)
 )
 
-# Four-panel figure of the site, monitor-mix, sampling and FEM minus FRM results. Teal marks the series each panel is
+# Four-panel figure of the site, monitor-mix, sampling and FEM minus FRM results. Blue marks the series each panel is
 # about and grey the rest
 year_scale <- scale_x_continuous(breaks = study_years)
 
@@ -574,8 +597,18 @@ share_scale <- scale_y_continuous(labels = label_number(suffix = "%"), limits = 
 site_change_plot <- site_change %>%
   mutate(pollutant = reorder(pollutant, pct_change)) %>%
   mutate(is_large_drop = pct_change <= -10) %>%
-  mutate(label = sprintf("%+.1f%%", pct_change)) %>%
+  mutate(label = minus_sign(sprintf("%+.1f%%", pct_change))) %>%
   mutate(label_hjust = if_else(pct_change > 0, -0.3, 1.3))
+
+last_year_sites <- sites_per_year %>%
+  filter(year == last_year)
+
+change_labels <- setNames(
+  str_c(pretty_text(as.character(last_year_sites$pollutant)), " (", comma(last_year_sites$n_sites), ")"),
+  as.character(last_year_sites$pollutant)
+)
+
+stopifnot("Every pollutant in panel (a) has a site count" = all(as.character(site_change_plot$pollutant) %in% names(change_labels)))
 
 change_panel <- ggplot(site_change_plot, aes(pct_change, pollutant)) +
   geom_col(aes(fill = is_large_drop), width = 0.42) +
@@ -583,13 +616,21 @@ change_panel <- ggplot(site_change_plot, aes(pct_change, pollutant)) +
   geom_text(aes(label = label, hjust = label_hjust, colour = is_large_drop), family = chart_fonts[["mono"]], size = chart_sizes[["label"]] / .pt) +
   scale_fill_manual(values = c(`TRUE` = chart_fills[["accent"]], `FALSE` = chart_fills[["other"]]), guide = "none") +
   scale_colour_manual(values = c(`TRUE` = chart_fills[["accent"]], `FALSE` = chart_ink[["muted"]]), guide = "none") +
-  scale_x_continuous(labels = label_number(suffix = "%"), breaks = c(-20, -10, 0), expand = expansion(mult = c(0.42, 0.42))) +
-  labs(title = "01  SITES REPORTING", subtitle = str_c("Change in sites, ", first_year, " to ", last_year), x = NULL, y = NULL) +
-  theme_aqs() +
+  scale_x_continuous(labels = \(x) minus_sign(str_c(x, "%")), breaks = c(-20, -10, 0), expand = expansion(mult = c(0.42, 0.42))) +
+  scale_y_discrete(labels = \(x) change_labels[x]) +
+  labs(
+    title = panel_label(1, "Sites reporting"),
+    subtitle = str_c("Change in sites, ", first_year, " to ", last_year),
+    caption = str_c("Sites reporting in ", last_year, " in brackets"),
+    x = NULL,
+    y = NULL
+  ) +
+  theme_paper() +
   theme(
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
-    axis.text.y = element_text(family = chart_fonts[["text"]], colour = chart_ink[["secondary"]], size = 8)
+    axis.text.y = element_text(family = chart_fonts[["text"]], colour = chart_ink[["secondary"]], size = 7),
+    plot.caption = panel_note_text
   )
 
 instrument_mix_plot <- pm25_instrument_mix %>%
@@ -603,12 +644,19 @@ instrument_mix_ends <- instrument_mix_plot %>%
 mix_panel <- ggplot(instrument_mix_plot, aes(year, pct, colour = share)) +
   geom_line(linewidth = 0.7) +
   chart_end_label(filter(instrument_mix_ends, share == "FEM"), "year", "pct", "label") +
-  chart_end_label(filter(instrument_mix_ends, share == "T640"), "year", "pct", "label", colour = chart_ink[["muted"]]) +
-  scale_colour_manual(values = c(FEM = chart_fills[["accent"]], T640 = chart_fills[["other"]]), guide = "none") +
+  chart_end_label(filter(instrument_mix_ends, share == "T640"), "year", "pct", "label", colour = chart_warm[["text"]]) +
+  scale_colour_manual(values = c(FEM = chart_fills[["accent"]], T640 = chart_warm[["line"]]), guide = "none") +
   year_scale +
   share_scale +
-  labs(title = "02  INSTRUMENT MIX", subtitle = "Share of PM2.5 instrument-days", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(
+    title = panel_label(2, "Instrument mix"),
+    subtitle = "Share of PM2.5 instrument-days",
+    caption = "The T640 is one FEM model, so it also counts in FEM",
+    x = NULL,
+    y = NULL
+  ) +
+  theme_paper() +
+  theme(plot.caption = panel_note_text)
 
 daily_schedule_plot <- schedule_mix %>%
   filter(schedule == "daily") %>%
@@ -620,13 +668,20 @@ schedule_panel <- ggplot(daily_schedule_plot, aes(year, pct_site_years)) +
   chart_end_label(filter(daily_schedule_plot, year == max(year)), "year", "pct_site_years", "label") +
   year_scale +
   share_scale +
-  labs(title = "03  SAMPLING", subtitle = "PM2.5 site-years sampled every day", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(
+    title = panel_label(3, "Sampling"),
+    subtitle = "PM2.5 site-years sampled every day",
+    caption = sprintf("%s PM2.5 site-years in %s", comma(schedule_site_years$n_site_years[schedule_site_years$year == last_year]), last_year),
+    x = NULL,
+    y = NULL
+  ) +
+  theme_paper() +
+  theme(plot.caption = panel_note_text)
 
 gap_by_day_type <- fem_frm_gap_by_event %>%
   filter(event_class != "Fireworks") %>%
   mutate(day_type = if_else(event_class == "Event", "Event days", "Ordinary days")) %>%
-  mutate(label = str_c(if_else(day_type == "Event days", "EVENT ", "ORDINARY "), sprintf("%+.1f", median_gap)))
+  mutate(label = str_c(if_else(day_type == "Event days", "Event ", "Ordinary "), sprintf("%+.1f", median_gap)))
 
 gap_ends <- gap_by_day_type %>%
   filter(year == max(year))
@@ -638,57 +693,42 @@ smoke_year <- gap_by_day_type %>%
 stopifnot("The widest event-day gap falls in 2023, the Canadian smoke year the band labels" = identical(smoke_year$year, 2023))
 
 gap_panel <- ggplot(gap_by_day_type, aes(year, median_gap, colour = day_type)) +
-  annotate("rect", xmin = smoke_year$year - 0.5, xmax = smoke_year$year + 0.5, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
+  annotate("rect", xmin = smoke_year$year - 0.5, xmax = smoke_year$year + 0.5, ymin = -Inf, ymax = Inf, fill = chart_warm[["band"]]) +
   annotate(
-    "text", x = smoke_year$year, y = Inf, label = "SMOKE YEAR", vjust = 1.6,
-    family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_ink[["muted"]]
+    "text", x = smoke_year$year, y = Inf, label = "Smoke year", vjust = 1.6,
+    family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_warm[["text"]]
   ) +
   geom_hline(yintercept = 0, colour = chart_ink[["axis"]], linewidth = 0.35) +
   geom_line(linewidth = 0.7) +
-  chart_end_label(filter(gap_ends, day_type == "Event days"), "year", "median_gap", "label") +
-  chart_end_label(filter(gap_ends, day_type == "Ordinary days"), "year", "median_gap", "label", colour = chart_ink[["muted"]]) +
-  scale_colour_manual(values = c("Event days" = chart_fills[["accent"]], "Ordinary days" = chart_fills[["other"]]), guide = "none") +
+  chart_end_label(filter(gap_ends, day_type == "Event days"), "year", "median_gap", "label", colour = chart_warm[["text"]]) +
+  chart_end_label(filter(gap_ends, day_type == "Ordinary days"), "year", "median_gap", "label") +
+  scale_colour_manual(values = c("Event days" = chart_warm[["line"]], "Ordinary days" = chart_fills[["accent"]]), guide = "none") +
   year_scale +
   scale_y_continuous(limits = c(0, ceiling(max(gap_by_day_type$median_gap)) + 0.6), breaks = 0:5) +
-  labs(title = "04  MONITOR GAP", subtitle = "FEM reading above FRM, µg/m³", x = NULL, y = NULL) +
-  theme_aqs()
+  labs(
+    title = panel_label(4, "Monitor gap"),
+    subtitle = "FEM reading above FRM, µg/m³",
+    caption = sprintf("Median of %s site-days with both monitors", comma(sum(gap_by_day_type$n_paired_days))),
+    x = NULL,
+    y = NULL
+  ) +
+  theme_paper() +
+  theme(plot.caption = panel_note_text)
 
-ordinary_gap_range <- range(gap_by_day_type$median_gap[gap_by_day_type$day_type == "Ordinary days"])
-
-event_gap_range <- range(gap_by_day_type$median_gap[gap_by_day_type$day_type == "Event days"])
-
-network_header <- chart_header(
-  sprintf("FIGURE 2A.1  /  NATIONAL MONITORING NETWORK  /  %s TO %s", first_year, last_year),
-  "SO2 and CO sites fell as PM2.5 went automated",
-  sprintf(
+network_figure <- tagged_figure(
+  list(change_panel, mix_panel, schedule_panel, gap_panel),
+  source_note = sprintf(
     str_c(
-      "Automated FEM monitors read %.1f to %.1f µg/m³ above FRM filter samplers on ordinary days\n",
-      "and %.1f to %.1f µg/m³ above them on smoke, dust and storm days."
+      "Source: EPA AQS daily data, %s to %s, all sites, after Phase 1 cleaning. Event days are the labelled smoke, dust and storm ",
+      "windows in events.csv; fireworks days are not shown."
     ),
-    ordinary_gap_range[1], ordinary_gap_range[2], event_gap_range[1], event_gap_range[2]
+    first_year, last_year
   )
 )
 
-network_footer <- chart_footer(sprintf(
-  "EPA AQS daily data, %s to %s, after Phase 1 cleaning. Monitor gap: median of %s site-days with both\nmonitors. T640 is one FEM model. %s",
-  first_year, last_year, format(sum(gap_by_day_type$n_paired_days), big.mark = ","),
-  "Event days are events.csv windows; fireworks days are not shown."
-))
+dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
 
-network_figure <- chart_compose(network_header, list(change_panel, mix_panel, schedule_panel, gap_panel), network_footer)
-
-dir.create(here("figures", "phase2"), recursive = TRUE, showWarnings = FALSE)
-
-network_figure_path <- here("figures", "phase2", "2a.01_network.png")
-
-save_started <- Sys.time()
-
-ggsave(network_figure_path, network_figure, width = 6.5, height = 6.4, dpi = 300)
-
-stopifnot(
-  "2a.01_network.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(network_figure_path) >= save_started - 2
-)
+save_figure(network_figure, "2a.01_network.png", 5.15)
 
 
 
@@ -818,8 +858,8 @@ design_value_summary %>%
   ) %>%
   print(n = Inf)
 
-# Six-panel figure of each site's value divided by its standard's level, so 1.0 is the standard in every panel.
-# Teal shows the median and middle half of sites with all days, grey the median without event and fireworks days
+# Two three-panel figures of each site's value divided by its standard's level, so 1.0 is the standard in every panel.
+# Blue shows the median and middle half of sites with all days, grey the median without event and fireworks days
 naaqs_ratios <- naaqs_site_year %>%
   mutate(ratio = value_rounded / level) %>%
   summarise(
@@ -830,17 +870,18 @@ naaqs_ratios <- naaqs_site_year %>%
     .by = c(day_set, pollutant, standard, year)
   )
 
+# Figure 2A.2 holds the standards sites come near and figure 2A.3 the ones they sit far below
 naaqs_panel_order <- tribble(
-  ~pollutant, ~standard, ~statistic,
-  "Ozone",    "8-hour",  "4TH-HIGHEST DAY",
-  "PM2.5",    "24-hour", "98TH PERCENTILE DAY",
-  "PM2.5",    "Annual",  "MEAN OF QUARTERS",
-  "NO2",      "1-hour",  "98TH PERCENTILE DAY",
-  "SO2",      "1-hour",  "99TH PERCENTILE DAY",
-  "CO",       "8-hour",  "2ND-HIGHEST DAY"
+  ~pollutant, ~standard, ~statistic,            ~near_standard,
+  "Ozone",    "8-hour",  "4th-highest day",     TRUE,
+  "PM2.5",    "24-hour", "98th percentile day", TRUE,
+  "PM2.5",    "Annual",  "Mean of quarters",    TRUE,
+  "NO2",      "1-hour",  "98th percentile day", FALSE,
+  "SO2",      "1-hour",  "99th percentile day", FALSE,
+  "CO",       "8-hour",  "2nd-highest day",     FALSE
 ) %>%
-  mutate(panel_title = str_c(pollutant, " ", standard)) %>%
-  mutate(kicker = sprintf("%02d  %s", row_number(), statistic))
+  mutate(panel_title = str_c(pollutant, " ", if_else(standard == "Annual", "annual", standard))) %>%
+  mutate(panel_number = row_number(), .by = near_standard)
 
 stopifnot(
   "The panel order covers every standard once" =
@@ -857,7 +898,7 @@ naaqs_panel <- function(panel_pollutant, panel_standard) {
   ggplot(all_days, aes(year, median_ratio)) +
     geom_hline(yintercept = 1, colour = chart_ink[["primary"]], linewidth = 0.35) +
     annotate(
-      "text", x = max(study_years) + 0.3, y = 1, label = "STANDARD", hjust = 1, vjust = -0.7,
+      "text", x = max(study_years) + 0.3, y = 1, label = "Standard", hjust = 1, vjust = -0.7,
       family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 1) / .pt, colour = chart_ink[["muted"]]
     ) +
     geom_segment(aes(xend = year, y = q25_ratio, yend = q75_ratio), colour = chart_fills[["accent"]], linewidth = 0.6, alpha = 0.45) +
@@ -866,30 +907,32 @@ naaqs_panel <- function(panel_pollutant, panel_standard) {
     year_scale +
     scale_y_continuous(limits = c(0, ratio_limit), breaks = seq(0, ratio_limit, 0.5), labels = label_number(accuracy = 0.1)) +
     labs(
-      title = panel_labels$kicker,
-      subtitle = panel_labels$panel_title,
-      caption = sprintf("%.1f%% OF SITES ABOVE IN %d", final_year$pct_above, final_year$year),
+      title = panel_label(panel_labels$panel_number, panel_labels$panel_title),
+      subtitle = sprintf("%s, %s sites", panel_labels$statistic, comma(naaqs_site_counts$n_sites[naaqs_site_counts$pollutant == panel_pollutant])),
+      caption = sprintf("%.1f%% of sites above in %d", final_year$pct_above, final_year$year),
       x = NULL,
-      y = NULL
+      y = if (panel_labels$panel_number == 1) "Site value \u00f7 standard" else NULL
     ) +
-    theme_aqs() +
+    theme_paper() +
     theme(
       axis.text.x = element_text(size = chart_sizes[["axis"]] - 0.6),
-      plot.caption = element_text(
-        family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["label"]] - 0.5,
-        hjust = 0, margin = margin(t = 6)
-      )
+      plot.caption = panel_note_text
     )
 }
 
-naaqs_panels <- Map(naaqs_panel, as.character(naaqs_panel_order$pollutant), naaqs_panel_order$standard)
+near_standard_rows <- naaqs_panel_order %>%
+  filter(near_standard)
 
-worst_year <- naaqs_summary %>%
-  filter(day_set == "All days", pollutant == "Ozone") %>%
-  slice_max(pct_above, n = 1)
+far_below_rows <- naaqs_panel_order %>%
+  filter(!near_standard)
 
-worst_year_pm25 <- naaqs_summary %>%
-  filter(day_set == "All days", pollutant == "PM2.5", standard == "Annual", year == worst_year$year)
+near_standard_panels <- Map(naaqs_panel, as.character(near_standard_rows$pollutant), near_standard_rows$standard)
+
+far_below_panels <- Map(naaqs_panel, as.character(far_below_rows$pollutant), far_below_rows$standard)
+
+far_below_ratios <- naaqs_ratios %>%
+  filter(day_set == "All days") %>%
+  semi_join(far_below_rows, by = c("pollutant", "standard"))
 
 most_missed <- naaqs_summary %>%
   filter(day_set == "All days") %>%
@@ -897,55 +940,43 @@ most_missed <- naaqs_summary %>%
   slice_max(mean_pct_above, n = 2)
 
 stopifnot(
-  "Ozone and annual PM2.5 are the two most-missed standards, as the title says" =
-    setequal(str_c(most_missed$pollutant, most_missed$standard), c("Ozone8-hour", "PM2.5Annual"))
+  "Ozone and annual PM2.5 are the two most-missed standards" =
+    setequal(str_c(most_missed$pollutant, most_missed$standard), c("Ozone8-hour", "PM2.5Annual")),
+  "NO2, SO2 and CO stay under half their standards at the median site every year" =
+    all(far_below_ratios$median_ratio < 0.5)
 )
 
-naaqs_header <- chart_header(
-  "FIGURE 2A.2  /  NAAQS SCREENING  /  FIVE-YEAR SITES",
-  "Ozone and annual PM2.5 are missed most often",
-  sprintf(
-    str_c(
-      "Each site's value for the year divided by the standard's level, so 1.0 is the standard. In %d,\n",
-      "%.1f%% of ozone sites and %.1f%% of sites on the annual PM2.5 standard were above it."
-    ),
-    worst_year$year, worst_year$pct_above, worst_year_pm25$pct_above
+naaqs_key <- tribble(
+  ~mark,   ~colour,                                ~label,
+  "point", chart_fills[["accent"]],                "Median site",
+  "tick",  alpha(chart_fills[["accent"]], 0.45),   "Middle half of sites",
+  "point", chart_fills[["other"]],                 "Median without event and fireworks days",
+  "line",  chart_ink[["primary"]],                 "Standard"
+)
+
+near_standard_figure <- tagged_figure(
+  near_standard_panels,
+  naaqs_key,
+  source_note = sprintf(
+    "Source: EPA AQS daily data, %s to %s, sites with data in all five years. Single-year screening values, not EPA design values.",
+    first_year, last_year
   ),
-  key = tribble(
-    ~mark, ~colour,                          ~label,
-    "dot", chart_fills[["accent"]],          "Median site",
-    "bar", alpha(chart_fills[["accent"]], 0.45), "Middle half of sites",
-    "dot", chart_fills[["other"]],           "Median without event and fireworks days"
-  )
+  ncol = 3
 )
 
-naaqs_site_note <- naaqs_site_counts %>%
-  arrange(pollutant) %>%
-  mutate(label = str_c(pollutant, " ", format(n_sites, big.mark = ","))) %>%
-  pull(label) %>%
-  str_flatten(collapse = ", ")
-
-naaqs_footer <- chart_footer(sprintf(
-  str_c(
-    "EPA AQS daily data, %s to %s. Single-year screening values for five-year sites, not EPA design values.\n",
-    "The year's value: ozone's 4th-highest day, CO's 2nd-highest, or the 98th or 99th percentile day for PM2.5, NO2 and SO2.\n",
-    "Five-year sites: %s."
+far_below_figure <- tagged_figure(
+  far_below_panels,
+  naaqs_key,
+  source_note = sprintf(
+    "Source: EPA AQS daily data, %s to %s, sites with data in all five years. Single-year screening values, not EPA design values.",
+    first_year, last_year
   ),
-  first_year, last_year, naaqs_site_note
-))
-
-naaqs_figure <- chart_compose(naaqs_header, naaqs_panels, naaqs_footer, ncol = 3)
-
-naaqs_figure_path <- here("figures", "phase2", "2a.02_naaqs_form.png")
-
-save_started <- Sys.time()
-
-ggsave(naaqs_figure_path, naaqs_figure, width = 6.5, height = 6.2, dpi = 300)
-
-stopifnot(
-  "2a.02_naaqs_form.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(naaqs_figure_path) >= save_started - 2
+  ncol = 3
 )
+
+save_figure(near_standard_figure, "2a.02_naaqs_near_standard.png", 3.05)
+
+save_figure(far_below_figure, "2a.03_naaqs_far_below.png", 3.05)
 
 rm(naaqs_site_days, pm25_plain_annual)
 invisible(gc())
@@ -1094,13 +1125,13 @@ stopifnot(
 )
 
 # Three-panel figure of exceedance days per 1,000 site-days, split into ordinary, event and fireworks days
-day_class_fills <- c(None = chart_fills[["accent"]], Event = chart_fills[["other"]], Fireworks = "#dcdbd4")
+day_class_fills <- c(None = chart_fills[["accent"]], Event = chart_warm[["line"]], Fireworks = chart_fills[["other"]])
 
 figure_pollutants <- tribble(
-  ~pollutant, ~kicker,                ~panel_title,
-  "PM2.5",    "01  PM2.5 24-HOUR",    "Days above 35 µg/m³",
-  "Ozone",    "02  OZONE 8-HOUR",     "Days above 0.070 ppm",
-  "SO2",      "03  SO2 1-HOUR",       "Days above 75 ppb"
+  ~pollutant, ~panel_name,      ~panel_title,
+  "PM2.5",    "PM2.5 24-hour",  "Days above 35 µg/m³",
+  "Ozone",    "Ozone 8-hour",   "Days above 0.070 ppm",
+  "SO2",      "SO2 1-hour",     "Days above 75 ppb"
 )
 
 class_rates <- exceedances_by_class %>%
@@ -1124,9 +1155,9 @@ exceedance_panel <- function(panel_pollutant) {
     filter(pollutant == panel_pollutant) %>%
     slice_max(pct_event, n = 1, with_ties = FALSE)
   panel_caption <- if (peak_event_year$pct_event == 0) {
-    "NONE ON EVENT DAYS"
+    "None on event days"
   } else {
-    sprintf("%.1f%% ON EVENT DAYS IN %d", peak_event_year$pct_event, peak_event_year$year)
+    sprintf("%.1f%% on event days in %d", peak_event_year$pct_event, peak_event_year$year)
   }
   ggplot(panel_data, aes(year, class_per_1000, fill = event_class)) +
     geom_col(width = 0.55, colour = "white", linewidth = 0.3) +
@@ -1137,70 +1168,52 @@ exceedance_panel <- function(panel_pollutant) {
     scale_fill_manual(values = day_class_fills, guide = "none") +
     year_scale +
     scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
-    labs(title = panel_labels$kicker, subtitle = panel_labels$panel_title, caption = panel_caption, x = NULL, y = NULL) +
-    theme_aqs() +
+    labs(
+      title = panel_label(match(panel_pollutant, figure_pollutants$pollutant), panel_labels$panel_name),
+      subtitle = panel_labels$panel_title,
+      caption = panel_caption,
+      x = NULL,
+      y = if (panel_pollutant == figure_pollutants$pollutant[1]) "Per 1,000 site-days" else NULL
+    ) +
+    theme_paper() +
     theme(
       axis.text.x = element_text(size = chart_sizes[["axis"]] - 0.6),
-      plot.caption = element_text(
-        family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["label"]] - 0.5,
-        hjust = 0, margin = margin(t = 6)
-      )
+      plot.caption = panel_note_text
     )
 }
 
 exceedance_panels <- lapply(figure_pollutants$pollutant, exceedance_panel)
 
-pm25_peak <- exceedances_by_class %>%
-  filter(pollutant == "PM2.5") %>%
-  slice_max(pct_event, n = 1, with_ties = FALSE)
-
-ozone_same_year <- filter(exceedances_by_class, pollutant == "Ozone", year == pm25_peak$year)
-
 period_event_shares <- exceedances_by_class %>%
   summarise(pct_event = 100 * sum(Event) / sum(total), .by = pollutant)
 
 stopifnot(
-  "Events hold over a third of all PM2.5 exceedances, as the title says" =
+  "Events hold over a third of all PM2.5 exceedances" =
     period_event_shares$pct_event[period_event_shares$pollutant == "PM2.5"] > 33,
   "Events hold under a twentieth of all ozone exceedances" =
     period_event_shares$pct_event[period_event_shares$pollutant == "Ozone"] < 5
 )
 
-exceedance_header <- chart_header(
-  "FIGURE 2A.3  /  EXCEEDANCE DAYS  /  ALL SITES",
-  "Event days hold over a third of PM2.5 exceedances",
-  sprintf(
+exceedance_figure <- tagged_figure(
+  exceedance_panels,
+  source_note = sprintf(
     str_c(
-      "Days above each standard out of every 1,000 site-days. In %d, %.1f%% of PM2.5 exceedance\n",
-      "days fell on labelled smoke, dust or storm days, against %.1f%% of ozone exceedance days."
+      "Source: EPA AQS daily data, %s to %s, every site reporting that year. Screening counts, not violations: the standards allow ",
+      "some days above the level. Event days: events.csv."
     ),
-    pm25_peak$year, pm25_peak$pct_event, ozone_same_year$pct_event
+    first_year, last_year
   ),
-  key = tribble(
+  tribble(
     ~mark,    ~colour,                       ~label,
     "square", day_class_fills[["None"]],      "Ordinary days",
     "square", day_class_fills[["Event"]],     "Event days (smoke, dust, storms)",
     "square", day_class_fills[["Fireworks"]], "Fireworks days"
-  )
+  ),
+  ncol = 3
 )
 
-exceedance_footer <- chart_footer(sprintf(
-  "EPA AQS daily data, %s to %s, all sites. Screening counts: daily values rounded as each standard specifies and\n%s",
-  first_year, last_year, "compared with its level. The standards allow some days above the level, so these are not violations."
-))
+save_figure(exceedance_figure, "2a.04_exceedances.png", 3.25)
 
-exceedance_figure <- chart_compose(exceedance_header, exceedance_panels, exceedance_footer, ncol = 3)
-
-exceedance_figure_path <- here("figures", "phase2", "2a.03_exceedances.png")
-
-save_started <- Sys.time()
-
-ggsave(exceedance_figure_path, exceedance_figure, width = 6.5, height = 4.6, dpi = 300)
-
-stopifnot(
-  "2a.03_exceedances.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(exceedance_figure_path) >= save_started - 2
-)
 
 # Two-panel figure of the 10 metros with the most exceedance days for PM2.5 and ozone, split into ordinary, event and
 # fireworks days, with the ranks of the two case-study metros
@@ -1238,15 +1251,28 @@ print(top_10_metros %>% select(pollutant, metro_rank, metro_label, n_exceedance_
 
 print(case_study_metro_ranks)
 
-# 1ST, 2ND, 3RD, 4TH ... with 11TH to 13TH as exceptions
+# Sites per metro and pollutant, shown in brackets beside each name since totals grow with the number of sites
+metro_site_counts <- daily_sites %>%
+  filter(!is.na(cbsa_name)) %>%
+  distinct(pollutant, cbsa_name, site_id) %>%
+  count(pollutant, cbsa_name, name = "n_metro_sites")
+
+top_metro_site_counts <- top_10_metros %>%
+  left_join(metro_site_counts, by = c("pollutant", "cbsa_name"), relationship = "one-to-one")
+
+stopifnot("Every top-10 metro has a site count" = !anyNA(top_metro_site_counts$n_metro_sites))
+
+# 1st, 2nd, 3rd, 4th ... with 11th to 13th as exceptions
 ordinal_label <- function(n) {
-  suffix <- if_else(n %% 100 %in% 11:13, "TH", c("TH", "ST", "ND", "RD", rep("TH", 6))[n %% 10 + 1])
+  suffix <- if_else(n %% 100 %in% 11:13, "th", c("th", "st", "nd", "rd", rep("th", 6))[n %% 10 + 1])
   str_c(n, suffix)
 }
 
-metro_panel <- function(panel_pollutant, kicker, panel_title) {
+metro_panel <- function(panel_pollutant, panel_name, panel_title) {
   panel_data <- top_10_metros %>%
     filter(pollutant == panel_pollutant) %>%
+    left_join(metro_site_counts, by = c("pollutant", "cbsa_name"), relationship = "one-to-one") %>%
+    mutate(metro_label = str_c(metro_label, " (", n_metro_sites, ")")) %>%
     mutate(metro_label = reorder(metro_label, n_exceedance_days)) %>%
     pivot_longer(c(None, Event, Fireworks), names_to = "event_class", values_to = "n_class") %>%
     mutate(event_class = factor(event_class, levels = c("Fireworks", "Event", "None")))
@@ -1256,7 +1282,7 @@ metro_panel <- function(panel_pollutant, kicker, panel_title) {
   label_gap <- x_limit * 0.015
   panel_ranks <- filter(case_study_metro_ranks, pollutant == panel_pollutant)
   panel_caption <- sprintf(
-    "HOUSTON %s, DFW %s OF %d METROS",
+    "Houston %s, DFW %s of %d metros",
     ordinal_label(panel_ranks$metro_rank[panel_ranks$region == "Houston"]),
     ordinal_label(panel_ranks$metro_rank[panel_ranks$region == "Dallas-Fort Worth"]),
     n_distinct(metro_ranks$cbsa_name[metro_ranks$pollutant == panel_pollutant])
@@ -1270,7 +1296,7 @@ metro_panel <- function(panel_pollutant, kicker, panel_title) {
     ) +
     geom_text(
       data = filter(panel_totals, is_case_study),
-      aes(n_exceedance_days + label_gap, metro_label, label = str_c(comma(n_exceedance_days), "  CASE STUDY")),
+      aes(n_exceedance_days + label_gap, metro_label, label = str_c(comma(n_exceedance_days), "  case study")),
       inherit.aes = FALSE, hjust = 0, family = chart_fonts[["mono"]], size = chart_sizes[["label"]] / .pt,
       colour = chart_fills[["accent"]]
     ) +
@@ -1279,51 +1305,38 @@ metro_panel <- function(panel_pollutant, kicker, panel_title) {
       labels %in% case_study_labels, sprintf('bold("%s")', labels), sprintf('"%s"', labels)
     ))) +
     scale_x_continuous(labels = label_number(scale_cut = cut_short_scale()), n.breaks = 4, limits = c(0, x_limit), expand = c(0, 0)) +
-    labs(title = kicker, subtitle = panel_title, caption = panel_caption, x = NULL, y = NULL) +
-    theme_aqs() +
+    labs(title = panel_name, subtitle = panel_title, caption = panel_caption, x = NULL, y = NULL) +
+    theme_paper() +
     theme(
       panel.grid.major.y = element_blank(),
       panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
       axis.text.y = element_text(family = chart_fonts[["text"]], colour = chart_ink[["secondary"]], size = 7.5),
-      plot.caption = element_text(
-        family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["label"]] - 0.5,
-        hjust = 0, margin = margin(t = 6)
-      )
+      plot.caption = panel_note_text
     )
 }
 
 metro_panels <- list(
-  metro_panel("PM2.5", "01  PM2.5 24-HOUR", "Site-days above 35 µg/m³"),
-  metro_panel("Ozone", "02  OZONE 8-HOUR", "Site-days above 0.070 ppm")
+  metro_panel("PM2.5", panel_label(1, "PM2.5 24-hour"), "Site-days above 35 µg/m³, sites in brackets"),
+  metro_panel("Ozone", panel_label(2, "Ozone 8-hour"), "Site-days above 0.070 ppm, sites in brackets")
 )
 
 top_metro_each <- top_10_metros %>%
   filter(metro_rank == 1)
 
-most_event_metro <- top_10_metros %>%
-  filter(pollutant == "PM2.5") %>%
-  slice_max(pct_event, n = 1, with_ties = FALSE)
-
-most_local_metro <- top_10_metros %>%
-  filter(pollutant == "PM2.5") %>%
-  slice_min(pct_event, n = 1, with_ties = FALSE)
-
 stopifnot(
-  "A California metro tops both lists, as the title says" = all(str_detect(top_metro_each$cbsa_name, ", CA"))
+  "A California metro tops both lists" = all(str_detect(top_metro_each$cbsa_name, ", CA"))
 )
 
-metro_header <- chart_header(
-  "FIGURE 2A.4  /  WHERE EXCEEDANCES CLUSTER  /  METRO AREAS",
-  "California metros top both lists",
-  sprintf(
+metro_figure <- tagged_figure(
+  metro_panels,
+  source_note = sprintf(
     str_c(
-      "Site-days above each standard, summed over each metro's monitors, %s to %s. In %s,\n",
-      "%.0f%% of PM2.5 exceedance site-days were event days; in %s, %.0f%% were ordinary."
+      "Source: EPA AQS daily data, %s to %s, all sites, by core-based statistical area. Totals grow with the number of sites in a ",
+      "metro. Screening counts, not violations. Bold: the two case-study metros."
     ),
-    first_year, last_year, most_event_metro$metro_label, most_event_metro$pct_event,
-    most_local_metro$metro_label, 100 - most_local_metro$pct_event
+    first_year, last_year
   ),
-  key = tribble(
+  tribble(
     ~mark,    ~colour,                       ~label,
     "square", day_class_fills[["None"]],      "Ordinary days",
     "square", day_class_fills[["Event"]],     "Event days (smoke, dust, storms)",
@@ -1331,27 +1344,7 @@ metro_header <- chart_header(
   )
 )
 
-metro_footer <- chart_footer(sprintf(
-  str_c(
-    "EPA AQS daily data, all sites, grouped by core-based statistical area. Ranked by exceedance site-days, which rise with\n",
-    "the number of monitors in a metro. Bold names are the two case-study metros. Screening counts, not violations.\n",
-    "Ranks count only the metros with at least one exceedance site-day: %d for PM2.5 and %d for ozone."
-  ),
-  n_distinct(metro_ranks$cbsa_name[metro_ranks$pollutant == "PM2.5"]), n_distinct(metro_ranks$cbsa_name[metro_ranks$pollutant == "Ozone"])
-))
-
-metro_figure <- chart_compose(metro_header, metro_panels, metro_footer, ncol = 2)
-
-metro_figure_path <- here("figures", "phase2", "2a.04_exceedance_metros.png")
-
-save_started <- Sys.time()
-
-ggsave(metro_figure_path, metro_figure, width = 6.5, height = 4.8, dpi = 300)
-
-stopifnot(
-  "2a.04_exceedance_metros.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(metro_figure_path) >= save_started - 2
-)
+save_figure(metro_figure, "2a.05_exceedance_metros.png", 3.45)
 
 rm(site_day_exceedances)
 invisible(gc())
@@ -1634,19 +1627,19 @@ stopifnot(
     nrow(filter(season_medians, season != "Winter")) == length(pollutant_levels) * 3 * length(study_years)
 )
 
-# Six-panel figure of the typical year: one panel per pollutant with the median site and the middle half of sites, and
-# a sixth panel with the share of sites peaking in each month
+# Two figures of the typical year, one per pollutant with the median site and the middle half of sites: the summer peaks
+# with the share of sites peaking in each month, then the winter peaks
 band_alpha <- 0.18
 
 month_scale <- scale_x_continuous(breaks = 1:12, labels = str_sub(month.abb, 1, 1), expand = expansion(add = 0.4))
 
 profile_panel_labels <- tribble(
-  ~pollutant, ~kicker,                ~panel_title,     ~digits,
-  "PM2.5",    "01  DAILY MEAN",       "PM2.5 (µg/m³)",  1,
-  "Ozone",    "02  DAILY MAX 8-HOUR", "Ozone (ppm)",    3,
-  "NO2",      "03  DAILY MAX 1-HOUR", "NO2 (ppb)",      1,
-  "SO2",      "04  DAILY MAX 1-HOUR", "SO2 (ppb)",      2,
-  "CO",       "05  DAILY MAX 8-HOUR", "CO (ppm)",       2
+  ~pollutant, ~statistic,         ~panel_title,     ~digits, ~panel_number,
+  "PM2.5",    "Daily mean",       "PM2.5 (µg/m³)",  1,       1,
+  "Ozone",    "Daily max 8-hour", "Ozone (ppm)",    3,       2,
+  "NO2",      "Daily max 1-hour", "NO2 (ppb)",      1,       1,
+  "SO2",      "Daily max 1-hour", "SO2 (ppb)",      2,       2,
+  "CO",       "Daily max 8-hour", "CO (ppm)",       2,       3
 ) %>%
   mutate(pollutant = factor(pollutant, levels = pollutant_levels))
 
@@ -1673,20 +1666,20 @@ profile_panel <- function(panel_pollutant) {
     expand_limits(y = 0) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.12))) +
     labs(
-      title = panel_labels$kicker,
-      subtitle = panel_labels$panel_title,
+      title = panel_label(panel_labels$panel_number, panel_labels$panel_title),
+      subtitle = sprintf(
+        "%s, %s sites", panel_labels$statistic,
+        comma(n_distinct(site_calendar_months$site_id[site_calendar_months$pollutant == panel_pollutant]))
+      ),
       caption = sprintf(
-        "PEAK %s, %.1f× THE %s LOW", toupper(panel_peak$peak_month), panel_peak$peak_to_trough, toupper(panel_peak$trough_month)
+        "Peak %s, %.1f× the %s low", as.character(panel_peak$peak_month), panel_peak$peak_to_trough, as.character(panel_peak$trough_month)
       ),
       x = NULL,
       y = NULL
     ) +
-    theme_aqs() +
+    theme_paper() +
     theme(
-      plot.caption = element_text(
-        family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["label"]] - 0.5,
-        hjust = 0, margin = margin(t = 6)
-      )
+      plot.caption = panel_note_text
     )
 }
 
@@ -1701,104 +1694,104 @@ peak_tile_data <- peak_month_shares %>%
 peak_tile_panel <- ggplot(peak_tile_data, aes(month_number, pollutant, fill = pct_sites)) +
   geom_tile(colour = "white", linewidth = 0.6) +
   geom_text(aes(label = label, colour = pct_sites >= 25), family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.5) / .pt) +
-  scale_fill_gradient(low = chart_fills[["band"]], high = chart_fills[["accent"]], limits = c(0, NA), guide = "none") +
+  scale_fill_gradient(low = chart_fills[["band"]], high = chart_fills[["accent"]], limits = c(0, NA), name = "% of sites") +
+  guides(fill = guide_colourbar(title = "% of\nsites")) +
   scale_colour_manual(values = c(`TRUE` = "white", `FALSE` = chart_ink[["primary"]]), guide = "none") +
   scale_x_continuous(breaks = 1:12, labels = str_sub(month.abb, 1, 1), expand = c(0, 0)) +
-  scale_y_discrete(limits = rev(pollutant_levels)) +
+  scale_y_discrete(limits = rev(pollutant_levels), labels = pretty_text) +
   labs(
-    title = "06  PEAK MONTH",
+    title = panel_label(3, "Peak month"),
     subtitle = "Share of sites peaking (%)",
-    caption = sprintf("%.0f%% OF %s SITES PEAK IN %s", top_peak_share$pct_sites, top_peak_share$pollutant, toupper(top_peak_share$month)),
+    caption = sprintf("%.0f%% of %s sites peak in %s", top_peak_share$pct_sites, top_peak_share$pollutant, as.character(top_peak_share$month)),
     x = NULL,
     y = NULL
   ) +
-  theme_aqs() +
+  theme_paper() +
   theme(
     panel.grid.major = element_blank(),
     axis.text.y = element_text(family = chart_fonts[["text"]], colour = chart_ink[["secondary"]], size = 7),
-    plot.caption = element_text(
-      family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["label"]] - 0.5,
-      hjust = 0, margin = margin(t = 6)
-    )
+    plot.caption = panel_note_text,
+    legend.position = "right",
+    legend.direction = "vertical",
+    legend.justification = "center",
+    legend.title = element_text(size = 6.5, colour = chart_ink[["secondary"]], margin = margin(b = 3)),
+    legend.text = element_text(size = 6),
+    legend.key.width = unit(5, "pt"),
+    legend.key.height = unit(13, "pt"),
+    legend.margin = margin(l = 2)
   )
 
-profile_panels <- c(lapply(profile_panel_labels$pollutant, profile_panel), list(peak_tile_panel))
+summer_profile_panels <- c(lapply(c("PM2.5", "Ozone"), profile_panel), list(peak_tile_panel))
+
+winter_profile_panels <- lapply(c("NO2", "SO2", "CO"), profile_panel)
+
+so2_peak <- profile_peaks %>%
+  filter(pollutant == "SO2")
 
 winter_months <- month_seasons$month[month_seasons$season == "Winter"]
 
 summer_months <- month_seasons$month[month_seasons$season == "Summer"]
 
 stopifnot(
-  "NO2 and CO peak in winter, as the title says" =
-    all(profile_peaks$peak_month[profile_peaks$pollutant %in% c("NO2", "CO")] %in% winter_months),
-  "Ozone and PM2.5 peak in summer, as the title and subtitle say" =
+  "NO2, SO2 and CO peak in winter" =
+    all(profile_peaks$peak_month[profile_peaks$pollutant %in% c("NO2", "SO2", "CO")] %in% winter_months),
+  "SO2 has the smallest seasonal swing" = so2_peak$peak_to_trough == min(profile_peaks$peak_to_trough),
+  "Ozone and PM2.5 peak in summer" =
     all(profile_peaks$peak_month[profile_peaks$pollutant %in% c("Ozone", "PM2.5")] %in% summer_months)
-)
-
-pm25_peak_profile <- national_monthly_profile %>%
-  filter(pollutant == "PM2.5", month == profile_peaks$peak_month[profile_peaks$pollutant == "PM2.5"])
-
-profile_header <- chart_header(
-  "FIGURE 2A.5  /  THE TYPICAL YEAR  /  FIVE-YEAR SITES",
-  "NO2 and CO peak in winter, ozone in summer",
-  sprintf(
-    str_c(
-      "Median of each site's monthly mean over %s to %s, with the middle half of sites shaded. In %s,\n",
-      "the PM2.5 median is %.1f µg/m³ with all days and %.1f without event and fireworks days."
-    ),
-    first_year, last_year, month.name[as.integer(pm25_peak_profile$month)], pm25_peak_profile$median_value,
-    pm25_peak_profile$median_ordinary
-  ),
-  key = tribble(
-    ~mark,    ~colour,                                    ~label,
-    "dot",    chart_fills[["accent"]],                    "Median site",
-    "square", alpha(chart_fills[["accent"]], band_alpha), "Middle half of sites",
-    "dot",    chart_fills[["other"]],                     "PM2.5 median without event and fireworks days"
-  )
 )
 
 profile_sites <- site_calendar_months %>%
   distinct(pollutant, site_id) %>%
   count(pollutant, name = "n_sites")
 
-profile_site_note <- profile_sites %>%
-  mutate(label = str_c(pollutant, " ", n_sites)) %>%
-  pull(label) %>%
-  str_flatten(collapse = ", ")
-
 stopifnot(
   "The typical year uses only the ozone sites that report every winter" =
     profile_sites$n_sites[profile_sites$pollutant == "Ozone"] == length(year_round_ozone_ids)
 )
 
-profile_footer <- chart_footer(sprintf(
-  str_c(
-    "EPA AQS daily data, five-year sites: %s. Ozone uses only the sites that\n",
-    "report every winter. Site-months need 75%% of their expected days. Ozone has no December 31 rows. Peak month:\n",
-    "the calendar month with a site's highest mean."
-  ),
-  profile_site_note
-))
-
-profile_figure <- chart_compose(profile_header, profile_panels, profile_footer, ncol = 3)
-
-profile_figure_path <- here("figures", "phase2", "2a.05_monthly_profile.png")
-
-save_started <- Sys.time()
-
-ggsave(profile_figure_path, profile_figure, width = 6.5, height = 6.0, dpi = 300)
-
-stopifnot(
-  "2a.05_monthly_profile.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(profile_figure_path) >= save_started - 2
+profile_key <- tribble(
+  ~mark,    ~colour,                                    ~label,
+  "line",   chart_fills[["accent"]],                    "Median site",
+  "square", alpha(chart_fills[["accent"]], band_alpha), "Middle half of sites",
+  "line",   chart_fills[["other"]],                     "PM2.5 median without event and fireworks days"
 )
+
+summer_profile_figure <- tagged_figure(
+  summer_profile_panels,
+  profile_key,
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, %s to %s, sites with data in all five years; ozone uses only the sites that report every winter. ",
+      "Site-months need 75%% of their expected days."
+    ),
+    first_year, last_year
+  ),
+  ncol = 3
+)
+
+winter_profile_figure <- tagged_figure(
+  winter_profile_panels,
+  profile_key[1:2, ],
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, %s to %s, sites with data in all five years. ",
+      "Site-months need 75%% of their expected days."
+    ),
+    first_year, last_year
+  ),
+  ncol = 3
+)
+
+save_figure(summer_profile_figure, "2a.06_summer_peaks.png", 2.95)
+
+save_figure(winter_profile_figure, "2a.07_winter_peaks.png", 2.85)
 
 # Two-panel figure of the 60 monthly medians for PM2.5 and ozone. The grey PM2.5 line leaves out event and fireworks
 # days, so the gap between the lines is what labelled events added
 series_panel_labels <- tribble(
-  ~pollutant, ~kicker,                       ~panel_title,
-  "PM2.5",    "01  PM2.5 DAILY MEAN",         "Monthly median (µg/m³)",
-  "Ozone",    "02  OZONE DAILY MAX 8-HOUR",   "Monthly median (ppm)"
+  ~pollutant, ~panel_name,              ~panel_title,
+  "PM2.5",    "PM2.5 daily mean",       "Monthly median (µg/m³)",
+  "Ozone",    "Ozone daily max 8-hour", "Monthly median (ppm)"
 )
 
 pm25_series <- national_monthly_series %>%
@@ -1818,13 +1811,13 @@ highest_ozone_month <- national_monthly_series %>%
   slice_max(median_value, n = 1, with_ties = FALSE)
 
 stopifnot(
-  "The highest PM2.5 month is the one events added most to, as the title says" =
+  "The highest PM2.5 month is the one events added most to" =
     identical(highest_pm25_month$year_month, largest_event_month$year_month),
-  "Without event days a different month would be highest, as the subtitle says" =
+  "Without event days a different month would be highest" =
     !identical(highest_pm25_month$year_month, highest_ordinary_month$year_month)
 )
 
-month_year_label <- function(dates) str_c(toupper(month.abb[month(dates)]), " ", year(dates))
+month_year_label <- function(dates) str_c(month.abb[month(dates)], " ", year(dates))
 
 month_year_name <- function(dates) str_c(month.name[month(dates)], " ", year(dates))
 
@@ -1838,73 +1831,56 @@ series_panel <- function(panel_pollutant) {
   if (panel_pollutant == "PM2.5") {
     marked_month <- largest_event_month %>%
       mutate(label = sprintf("%s  %.1f", month_year_label(year_month), median_value)) %>%
-      mutate(label_ordinary = sprintf("%.1f WITHOUT EVENTS", median_ordinary))
+      mutate(label_ordinary = sprintf("%.1f without events", median_ordinary))
     panel_plot <- panel_plot +
       geom_line(aes(y = median_ordinary), colour = chart_fills[["other"]], linewidth = 0.6) +
       chart_end_label(marked_month, "year_month", "median_value", "label", hjust = 1.08, vjust = 0.4) +
       chart_end_label(marked_month, "year_month", "median_ordinary", "label_ordinary", colour = chart_ink[["muted"]], hjust = 1.08, vjust = 0.4)
     panel_caption <- sprintf(
-      "EVENTS ADDED %.1f TO THE %s MEDIAN", largest_event_month$event_effect, month_year_label(largest_event_month$year_month)
+      "Events added %.1f to the %s median", largest_event_month$event_effect, month_year_label(largest_event_month$year_month)
     )
   } else {
-    panel_caption <- sprintf("HIGHEST MONTH %s, %.3f PPM", month_year_label(highest_ozone_month$year_month), highest_ozone_month$median_value)
+    panel_caption <- sprintf("Highest month %s, %.3f ppm", month_year_label(highest_ozone_month$year_month), highest_ozone_month$median_value)
   }
   panel_plot +
     geom_line(colour = chart_fills[["accent"]], linewidth = 0.7) +
     scale_x_date(breaks = year_starts, date_labels = "%Y", expand = expansion(add = 15)) +
     expand_limits(y = 0) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.08))) +
-    labs(title = panel_labels$kicker, subtitle = panel_labels$panel_title, caption = panel_caption, x = NULL, y = NULL) +
-    theme_aqs() +
+    labs(
+      title = panel_label(match(panel_pollutant, series_panel_labels$pollutant), panel_labels$panel_name),
+      subtitle = sprintf("%s, %s to %s sites a month", panel_labels$panel_title, comma(min(panel_data$n_sites)), comma(max(panel_data$n_sites))),
+      caption = panel_caption,
+      x = NULL,
+      y = NULL
+    ) +
+    theme_paper() +
     theme(
-      plot.caption = element_text(
-        family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["label"]] - 0.5,
-        hjust = 0, margin = margin(t = 6)
-      )
+      plot.caption = panel_note_text
     )
 }
 
 series_panels <- lapply(series_panel_labels$pollutant, series_panel)
 
-series_header <- chart_header(
-  "FIGURE 2A.6  /  MONTH BY MONTH  /  FIVE-YEAR SITES",
-  sprintf("Event days made %s the top PM2.5 month", month_year_name(highest_pm25_month$year_month)),
-  sprintf(
-    str_c(
-      "Median of each site's monthly mean. In %s, the PM2.5 median was %.1f µg/m³ with all days\n",
-      "and %.1f without event and fireworks days, which would rank it below %s (%.1f)."
-    ),
-    month_year_name(highest_pm25_month$year_month), highest_pm25_month$median_value, highest_pm25_month$median_ordinary,
-    month_year_name(highest_ordinary_month$year_month), highest_ordinary_month$median_ordinary
-  ),
-  key = tribble(
+series_figure <- tagged_figure(
+  series_panels,
+  tribble(
     ~mark,    ~colour,                                    ~label,
-    "dot",    chart_fills[["accent"]],                    "Median site, all days",
+    "line",   chart_fills[["accent"]],                    "Median site, all days",
     "square", alpha(chart_fills[["accent"]], band_alpha), "Middle half of sites",
-    "dot",    chart_fills[["other"]],                     "PM2.5 median without event and fireworks days"
-  )
-)
-
-series_footer <- chart_footer(sprintf(
-  str_c(
-    "EPA AQS daily data, five-year sites, site-months with 75%% of their expected days. Ozone uses the %d sites that\n",
-    "report every winter. Event days are events.csv windows (smoke, dust, storms)."
+    "line",   chart_fills[["other"]],                     "PM2.5 median without event and fireworks days"
   ),
-  length(year_round_ozone_ids)
-))
-
-series_figure <- chart_compose(series_header, series_panels, series_footer, ncol = 1)
-
-series_figure_path <- here("figures", "phase2", "2a.06_monthly_series.png")
-
-save_started <- Sys.time()
-
-ggsave(series_figure_path, series_figure, width = 6.5, height = 6.2, dpi = 300)
-
-stopifnot(
-  "2a.06_monthly_series.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(series_figure_path) >= save_started - 2
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, %s to %s, sites with data in all five years; ozone uses the %d sites that report every winter. ",
+      "Site-months need 75%% of their expected days. Event days: events.csv."
+    ),
+    first_year, last_year, length(year_round_ozone_ids)
+  ),
+  ncol = 1
 )
+
+save_figure(series_figure, "2a.08_monthly_series.png", 4.6)
 
 rm(seasonal_site_days, site_month_totals)
 invisible(gc())
@@ -2128,8 +2104,8 @@ no2_ozone_summary <- no2_ozone_ratios %>%
 
 print(no2_ozone_summary)
 
-# Four-panel figure: the weekend ratio of each pollutant, NO2 and ozone through the week, NO2 against ozone per site with
-# the case-study sites in their group colours, and the metros where weekend ozone rises most
+# Two figures: the weekend ratio of each pollutant with NO2 and ozone through the week, then NO2 against ozone per site
+# with the case-study sites marked, and the metros where weekend ozone rises most
 weekend_row_data <- weekend_summary %>%
   mutate(pollutant = reorder(pollutant, -median_ratio)) %>%
   mutate(label = sprintf("%.2f", median_ratio))
@@ -2143,28 +2119,26 @@ ratio_panel <- ggplot(weekend_row_data, aes(median_ratio, pollutant)) +
     colour = chart_ink[["secondary"]]
   ) +
   scale_x_continuous(limits = c(0.7, 1.15), breaks = seq(0.7, 1.1, 0.1)) +
+  scale_y_discrete(labels = pretty_text) +
   labs(
-    title = "01  WEEKEND OVER WEEKDAY",
+    title = panel_label(1, "Weekend over weekday"),
     subtitle = "Below 1.0 is lower on weekends",
-    caption = sprintf("%s SITE RATIOS ACROSS 5 POLLUTANTS", comma(sum(weekend_summary$n_sites))),
-    x = NULL,
+    caption = sprintf("%s site ratios across 5 pollutants", comma(sum(weekend_summary$n_sites))),
+    x = "Weekend mean \u00f7 weekday mean",
     y = NULL
   ) +
-  theme_aqs() +
+  theme_paper() +
   theme(
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
     axis.text.y = element_text(family = chart_fonts[["text"]], colour = chart_ink[["secondary"]], size = 7.5),
-    plot.caption = element_text(
-      family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["label"]] - 0.5,
-      hjust = 0, margin = margin(t = 6)
-    )
+    plot.caption = panel_note_text
   )
 
 day_of_week_data <- day_of_week_profile %>%
   filter(pollutant %in% c("NO2", "Ozone")) %>%
   mutate(day_number = as.integer(day_of_week)) %>%
-  mutate(label = sprintf("%s %.2f", toupper(pollutant), median_ratio))
+  mutate(label = pretty_text(sprintf("%s %.2f", pollutant, median_ratio)))
 
 sunday_points <- day_of_week_data %>%
   filter(day_number == 7)
@@ -2176,67 +2150,54 @@ day_panel <- ggplot(day_of_week_data, aes(day_number, median_ratio, colour = pol
   geom_line(linewidth = 0.7) +
   chart_end_label(no2_sunday, "day_number", "median_ratio", "label", hjust = -0.15, vjust = 0.4) +
   chart_end_label(
-    filter(sunday_points, pollutant == "Ozone"), "day_number", "median_ratio", "label", colour = chart_ink[["muted"]], hjust = -0.15, vjust = 0.4
+    filter(sunday_points, pollutant == "Ozone"), "day_number", "median_ratio", "label", colour = chart_warm[["text"]], hjust = -0.15, vjust = 0.4
   ) +
-  scale_colour_manual(values = c(NO2 = chart_fills[["accent"]], Ozone = chart_fills[["other"]]), guide = "none") +
+  scale_colour_manual(values = c(NO2 = chart_fills[["accent"]], Ozone = chart_warm[["line"]]), guide = "none") +
   scale_x_continuous(breaks = 1:7, labels = levels(day_of_week_profile$day_of_week), expand = expansion(add = c(0.3, 2.8))) +
   scale_y_continuous(limits = c(0.7, 1.06), breaks = seq(0.7, 1.0, 0.1)) +
   labs(
-    title = "02  DAY OF WEEK",
-    subtitle = "Ratio to the site's weekday mean",
-    caption = sprintf("SUNDAY NO2 %.0f%% BELOW WEEKDAYS", 100 * (1 - no2_sunday$median_ratio)),
+    title = panel_label(2, "Day of week"),
+    subtitle = sprintf(
+      "Ratio to the site's weekday mean; NO2 %s and ozone %s sites",
+      comma(weekend_summary$n_sites[weekend_summary$pollutant == "NO2"]), comma(weekend_summary$n_sites[weekend_summary$pollutant == "Ozone"])
+    ),
+    caption = sprintf("Sunday NO2 %.0f%% below weekdays", 100 * (1 - no2_sunday$median_ratio)),
     x = NULL,
     y = NULL
   ) +
-  theme_aqs() +
+  theme_paper() +
   theme(
-    plot.caption = element_text(
-      family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["label"]] - 0.5,
-      hjust = 0, margin = margin(t = 6)
-    )
+    plot.caption = panel_note_text
   )
-
-# Group labels sit above the highest dot so they never cover one
-group_label_data <- tibble(
-  site_group = factor(names(site_group_colours), levels = names(site_group_colours)),
-  label = toupper(names(site_group_colours))
-) %>%
-  mutate(NO2 = min(no2_ozone_ratios$NO2)) %>%
-  mutate(Ozone = max(no2_ozone_ratios$Ozone) + 0.07 - (row_number() - 1) * 0.021)
 
 scatter_panel <- ggplot(no2_ozone_ratios, aes(NO2, Ozone)) +
   geom_hline(yintercept = 1, colour = chart_ink[["primary"]], linewidth = 0.35) +
   geom_vline(xintercept = 1, colour = chart_ink[["primary"]], linewidth = 0.35) +
   geom_point(data = filter(no2_ozone_ratios, is.na(site_group)), colour = chart_fills[["other"]], size = 0.9, alpha = 0.7) +
-  geom_point(data = filter(no2_ozone_ratios, !is.na(site_group)), aes(fill = site_group), shape = 21, colour = "white", stroke = 0.4, size = 2) +
-  geom_text(
-    data = group_label_data, aes(label = label, colour = site_group), hjust = 0,
-    family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt
+  geom_point(
+    data = filter(no2_ozone_ratios, !is.na(site_group)), aes(colour = site_group, shape = site_group), size = 1.9
   ) +
-  scale_fill_manual(values = site_group_colours, guide = "none") +
   scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_shape_manual(values = site_group_shapes, guide = "none") +
   labs(
-    title = "03  NO2 AGAINST OZONE",
-    subtitle = "One dot per site, 1.0 is no change",
-    caption = sprintf("OZONE HIGHER ON WEEKENDS AT %d OF %d SITES", no2_ozone_summary$n_ozone_higher, no2_ozone_summary$n_sites),
-    x = "NO2 RATIO",
-    y = "OZONE RATIO"
+    title = panel_label(1, "NO2 against ozone"),
+    subtitle = "One point per site, 1.0 is no change",
+    caption = sprintf("Ozone higher on weekends at %d of %d sites", no2_ozone_summary$n_ozone_higher, no2_ozone_summary$n_sites),
+    x = "NO\u2082, weekend \u00f7 weekday",
+    y = "Ozone, weekend \u00f7 weekday"
   ) +
-  theme_aqs() +
+  theme_paper() +
   theme(
     panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
-    axis.title = element_text(family = chart_fonts[["mono"]], colour = chart_ink[["muted"]], size = chart_sizes[["axis"]]),
-    plot.caption = element_text(
-      family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["label"]] - 0.5,
-      hjust = 0, margin = margin(t = 6)
-    )
+    plot.caption = panel_note_text
   )
 
 metro_rows <- ozone_weekend_metros %>%
   filter(metro_rank <= 8 | is_case_study) %>%
+  mutate(metro_label = str_c(metro_label, " (", n_sites, ")")) %>%
   mutate(metro_label = reorder(metro_label, median_ratio)) %>%
   mutate(is_higher = median_ratio > 1) %>%
-  mutate(label = sprintf("%+.1f%%", 100 * (median_ratio - 1)))
+  mutate(label = minus_sign(sprintf("%+.1f%%", 100 * (median_ratio - 1))))
 
 case_study_metro_labels <- as.character(metro_rows$metro_label[metro_rows$is_case_study])
 
@@ -2255,27 +2216,23 @@ ozone_metro_panel <- ggplot(metro_rows, aes(median_ratio, metro_label)) +
     labels %in% case_study_metro_labels, sprintf('bold("%s")', labels), sprintf('"%s"', labels)
   ))) +
   scale_x_continuous(expand = expansion(mult = c(0.9, 0.55)), breaks = c(0.95, 1, 1.05), labels = label_number(accuracy = 0.01)) +
-  coord_cartesian(clip = "off") +
   labs(
-    title = "04  WHERE WEEKEND OZONE RISES",
-    subtitle = "Median site, metros with 5+ sites",
+    title = panel_label(2, "Where weekend ozone rises"),
+    subtitle = "Median site, metros with 5+ sites, sites in brackets",
     caption = sprintf(
-      "HOUSTON %s, DFW %s",
+      "Houston %s, DFW %s",
       case_study_ozone_metros$label[case_study_ozone_metros$region == "Houston"],
       case_study_ozone_metros$label[case_study_ozone_metros$region == "Dallas-Fort Worth"]
     ),
-    x = NULL,
+    x = "Weekend \u00f7 weekday",
     y = NULL
   ) +
-  theme_aqs() +
+  theme_paper() +
   theme(
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
     axis.text.y = element_text(family = chart_fonts[["text"]], colour = chart_ink[["secondary"]], size = 7.5),
-    plot.caption = element_text(
-      family = chart_fonts[["mono"]], colour = chart_fills[["accent"]], size = chart_sizes[["label"]] - 0.5,
-      hjust = 0, margin = margin(t = 6)
-    )
+    plot.caption = panel_note_text
   )
 
 no2_summary <- filter(weekend_summary, pollutant == "NO2")
@@ -2285,46 +2242,53 @@ ozone_summary <- filter(weekend_summary, pollutant == "Ozone")
 top_ozone_metro <- slice_min(ozone_weekend_metros, metro_rank, n = 1, with_ties = FALSE)
 
 stopifnot(
-  "NO2 at the median site is about a fifth lower on weekends, as the title says" = round(1 - no2_summary$median_ratio, 1) == 0.2,
-  "Ozone at the median site is lower on weekends, as the subtitle says" = ozone_summary$median_ratio < 1,
+  "NO2 at the median site is about a fifth lower on weekends" = round(1 - no2_summary$median_ratio, 1) == 0.2,
+  "Ozone at the median site is lower on weekends" = ozone_summary$median_ratio < 1,
   "The top metro's ozone is higher on weekends" = top_ozone_metro$median_ratio > 1
 )
 
-weekend_header <- chart_header(
-  "FIGURE 2A.7  /  WEEKEND EFFECT  /  APRIL TO OCTOBER",
-  "Weekend NO2 runs a fifth below weekdays",
-  sprintf(
-    str_c(
-      "Ozone at the median site is %.1f%% lower on weekends, and higher at %.0f%% of sites.\n",
-      "%s leads at %+.1f%%, consistent with VOC-limited ozone, which rises when NOx falls."
-    ),
-    100 * (1 - ozone_summary$median_ratio), ozone_summary$pct_higher_on_weekends, top_ozone_metro$metro_label,
-    100 * (top_ozone_metro$median_ratio - 1)
+weekend_no2_figure <- tagged_figure(
+  list(ratio_panel, day_panel),
+  tribble(
+    ~mark,   ~colour,                                 ~label,
+    "point", chart_fills[["accent"]],                 "Median site",
+    "thick", alpha(chart_fills[["accent"]], 0.45),    "Middle half of sites",
+    "line",  chart_fills[["accent"]],                 "(b) NO2",
+    "line",  chart_warm[["line"]],                    "(b) Ozone"
   ),
-  key = tribble(
-    ~mark, ~colour,                                ~label,
-    "dot", chart_fills[["accent"]],                "Median site",
-    "bar", alpha(chart_fills[["accent"]], 0.45),   "Middle half of sites"
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, April to October %s to %s, sites with data in all five years, without event and fireworks days. ",
+      "Weekend: Saturday and Sunday; Memorial Day, Independence Day and Labor Day are left out."
+    ),
+    first_year, last_year
   )
 )
 
-weekend_footer <- chart_footer(str_c(
-  "EPA AQS daily data, April to October 2021 to 2025, five-year sites, without event and fireworks days. Weekend\n",
-  "means Saturday and Sunday. Memorial Day, Independence Day and Labor Day are left out of both groups."
-))
-
-weekend_figure <- chart_compose(weekend_header, list(ratio_panel, day_panel, scatter_panel, free(ozone_metro_panel)), weekend_footer)
-
-weekend_figure_path <- here("figures", "phase2", "2a.07_weekend.png")
-
-save_started <- Sys.time()
-
-ggsave(weekend_figure_path, weekend_figure, width = 6.5, height = 6.6, dpi = 300)
-
-stopifnot(
-  "2a.07_weekend.png was written (close any viewer of it and rerun this step)" =
-    file.mtime(weekend_figure_path) >= save_started - 2
+weekend_ozone_figure <- tagged_figure(
+  list(scatter_panel, ozone_metro_panel),
+  tribble(
+    ~mark,   ~colour,                                      ~label,                   ~shape,                                       ~row,
+    "point", chart_fills[["other"]],                       "(a) Other sites",        16,                                           1,
+    "point", site_group_colours[["Houston Ship Channel"]], "Ship Channel",           site_group_shapes[["Houston Ship Channel"]], 1,
+    "point", site_group_colours[["Houston other"]],        "Houston other",          site_group_shapes[["Houston other"]],        1,
+    "point", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth",      site_group_shapes[["Dallas-Fort Worth"]],    1,
+    "point", chart_fills[["accent"]],                      "(b) Higher on weekends", 16,                                           2,
+    "point", chart_fills[["other"]],                       "(b) Lower on weekends",  16,                                           2
+  ),
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS daily data, April to October %s to %s, sites with data in all five years, without event and fireworks days. ",
+      "Weekend: Saturday and Sunday; Memorial Day, Independence Day and Labor Day are left out."
+    ),
+    first_year, last_year
+  ),
+  free_panels = 2
 )
+
+save_figure(weekend_no2_figure, "2a.09_weekend_no2.png", 3.15)
+
+save_figure(weekend_ozone_figure, "2a.10_weekend_ozone.png", 3.5)
 
 rm(weekend_site_days, day_type_means)
 invisible(gc())
@@ -2479,7 +2443,7 @@ print(checkpoint_manifest, width = Inf)
 
 
 # 8. CSV RECORDS FOR THE REPORT ----
-# The national tables behind the main panels of figures 2A.1 to 2A.7 and every national number the docs quote, saved as
+# The national tables behind the main panels of figures 2A.1 to 2A.10 and every national number the docs quote, saved as
 # CSV records with dictionary rows
 pollutant_units <- naaqs %>%
   distinct(pollutant, units_of_measure)
@@ -2622,20 +2586,20 @@ headline_rows <- list(
     value = range(ozone_design_shares$pct_above), unit = "% of sites", source_table = "national_design_values"
   ),
   tibble(
-    figure = "2A.3", finding = str_c("Exceedance site-days on labelled event days, ", first_year, " to ", last_year), subject = c("PM2.5", "Ozone"),
+    figure = "2A.4", finding = str_c("Exceedance site-days on labelled event days, ", first_year, " to ", last_year), subject = c("PM2.5", "Ozone"),
     value = round(period_event_shares$pct_event[match(c("PM2.5", "Ozone"), period_event_shares$pollutant)], 1), unit = "%",
     source_table = "national_exceedances_by_year"
   ),
   tibble(
-    figure = "2A.3", finding = "PM2.5 exceedance site-days on labelled event days, in 2023", subject = "PM2.5",
+    figure = "2A.4", finding = "PM2.5 exceedance site-days on labelled event days, in 2023", subject = "PM2.5",
     value = pm25_2023_events$pct_event, unit = "%", source_table = "national_exceedances_by_year"
   ),
   tibble(
-    figure = "2A.3", finding = "PM2.5 event-day exceedances that carry EPA's exceptional-event flag", subject = "PM2.5",
+    figure = "2A.4", finding = "PM2.5 event-day exceedances that carry EPA's exceptional-event flag", subject = "PM2.5",
     value = round(100 * mean(pm25_event_exceedances$is_agency_event_flagged), 1), unit = "%", source_table = "national_exceedances_by_year"
   ),
   tibble(
-    figure = "2A.4", finding = "Metro rank by exceedance site-days",
+    figure = "2A.5", finding = "Metro rank by exceedance site-days",
     subject = c("Houston, ozone", "Dallas-Fort Worth, ozone", "Houston, PM2.5", "Dallas-Fort Worth, PM2.5"),
     value = c(
       metro_rank_of("Ozone", "Houston")$metro_rank, metro_rank_of("Ozone", "Dallas-Fort Worth")$metro_rank,
@@ -2647,21 +2611,23 @@ headline_rows <- list(
     source_table = "national_metro_ranks"
   ),
   tibble(
-    figure = "2A.5", finding = "Peak month of the typical year, as peak over low", subject = str_c(profile_peaks$pollutant, ", peak in ", profile_peaks$peak_month),
+    figure = if_else(as.character(profile_peaks$pollutant) %in% c("PM2.5", "Ozone"), "2A.6", "2A.7"),
+    finding = "Peak month of the typical year, as peak over low",
+    subject = str_c(profile_peaks$pollutant, ", peak in ", profile_peaks$peak_month),
     value = round(profile_peaks$peak_to_trough, 2), unit = "times the lowest month", source_table = "national_monthly_profile"
   ),
   tibble(
-    figure = "2A.6", finding = "Highest monthly PM2.5 median",
+    figure = "2A.8", finding = "Highest monthly PM2.5 median",
     subject = str_c(month.name[month(pm25_top_month$year_month)], " ", year(pm25_top_month$year_month)),
     value = round(pm25_top_month$median_value, 1), unit = "µg/m³", source_table = "national_monthly_series"
   ),
   tibble(
-    figure = "2A.7", finding = "Weekend over weekday, median site, April to October", subject = c("NO2", "Ozone"),
+    figure = "2A.9", finding = "Weekend over weekday, median site, April to October", subject = c("NO2", "Ozone"),
     value = national_weekend_summary$median_ratio[match(c("NO2", "Ozone"), national_weekend_summary$pollutant)], unit = "ratio",
     source_table = "national_weekend_summary"
   ),
   tibble(
-    figure = "2A.7", finding = "Weekend ozone against weekdays, metro median", subject = c("Los Angeles", "Houston", "Dallas-Fort Worth"),
+    figure = "2A.10", finding = "Weekend ozone against weekdays, metro median", subject = c("Los Angeles", "Houston", "Dallas-Fort Worth"),
     value = round(c(ozone_metro_change("^Los Angeles"), ozone_metro_change("^Houston"), ozone_metro_change("^Dallas")), 1), unit = "%",
     source_table = "national_ozone_weekend_metros"
   )
@@ -2749,7 +2715,7 @@ national_dictionary <- tribble(
   "national_exceedances_by_year",  "pct_agency_flagged",       "Share of exceedances with EPA's exceptional-event flag, percent; PM2.5 and ozone only",
   "national_metro_ranks",          "pollutant",                "PM2.5 or Ozone",
   "national_metro_ranks",          "cbsa_name",                "Core-based statistical area (metro) name",
-  "national_metro_ranks",          "metro_label",              "Short name used in figure 2A.4",
+  "national_metro_ranks",          "metro_label",              "Short name used in figure 2A.5",
   "national_metro_ranks",          "is_case_study",            "TRUE for the Houston and Dallas-Fort Worth metros",
   "national_metro_ranks",          "metro_rank",               "Rank by exceedance site-days (1 is most); ties share the lower rank",
   "national_metro_ranks",          "n_metros",                 "Metros with at least one exceedance for the pollutant",
@@ -2784,7 +2750,7 @@ national_dictionary <- tribble(
   "national_weekend_summary",      "median_sunday",            "Median site Sunday over weekday mean",
   "national_weekend_summary",      "pct_higher_on_weekends",   "Share of sites with a ratio above 1, percent",
   "national_ozone_weekend_metros", "cbsa_name",                "Metro with at least 5 five-year ozone sites",
-  "national_ozone_weekend_metros", "metro_label",              "Short name used in figure 2A.7",
+  "national_ozone_weekend_metros", "metro_label",              "Short name used in figure 2A.10",
   "national_ozone_weekend_metros", "is_case_study",            "TRUE for the Houston and Dallas-Fort Worth metros",
   "national_ozone_weekend_metros", "n_sites",                  "Five-year ozone sites in the metro",
   "national_ozone_weekend_metros", "median_ratio",             "Median site weekend over weekday ozone",

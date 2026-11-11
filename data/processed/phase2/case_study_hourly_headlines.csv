@@ -15,17 +15,17 @@ H13,2C.5,Extra NO2 in Deer Park #2 SO2 spike hours,Deer Park #2,7.49,ppb,5.07,10
 H14,2C.6,Share of hours that are calm,Houston Ship Channel,6.03,% of wind hours,NA,NA,case_study_wind_sites
 H15,2C.6,Share of hours that are calm,Houston other,8.89,% of wind hours,NA,NA,case_study_wind_sites
 H16,2C.6,Share of hours that are calm,Dallas-Fort Worth,1.59,% of wind hours,NA,NA,case_study_wind_sites
-H17,2C.7,Calm minus windy hours at the same hour and month,"NO2, every site",3.01,"ppb, smallest site",NA,NA,case_study_calm_air
-H18,2C.7,Calm minus windy hours at the same hour and month,"Ozone, every site",-3.83,"ppb, smallest site",NA,NA,case_study_calm_air
-H19,2C.7,Share of the ozone lost in calm air that shows up as NO2,Lowest group,70.52,%,NA,NA,case_study_calm_air
-H20,2C.8,"NO2 in the wind direction with the most, against usual",Houston East,1.36,times usual,NA,NA,case_study_pollution_roses
-H21,2C.8,"NO2 in the wind direction with the most, against usual",Deer Park #2,1.39,times usual,NA,NA,case_study_pollution_roses
-H22,2C.8,"NO2 in the wind direction with the most, against usual",Bayland Park,1.58,times usual,NA,NA,case_study_pollution_roses
-H23,2C.8,"NO2 in the wind direction with the most, against usual",Harvard Street,1.64,times usual,NA,NA,case_study_pollution_roses
-H24,2C.9,Croquet SO2 spike hours from the southwest,Croquet,75.46,% of spike hours,68.34,81.82,case_study_channel_bearings
-H25,2C.9,Park Place SO2 spike hours from the channel side,Park Place,77.01,% of spike hours,67.63,85.62,case_study_channel_bearings
-H26,2C.9,Croquet hours with wind from the southwest,Croquet,10.99,% of hours,NA,NA,case_study_channel_bearings
-H27,2C.9,Park Place hours with wind from the channel side,Park Place,30.05,% of hours,NA,NA,case_study_channel_bearings
-H28,2C.10,"Ship Channel minus Houston other Ox, by wind","Channel wind, without Harvard Street",-2.16,ppb,-2.73,-1.66,case_study_ox_gap_by_wind
-H29,2C.10,"Ship Channel minus Houston other Ox, by wind","Other wind, without Harvard Street",0.03,ppb,-0.3,0.35,case_study_ox_gap_by_wind
-H30,2C.11,Headline findings that hold under every check that applies,All findings,10,of 10,NA,NA,case_study_hourly_robustness
+H17,2C.8,Calm minus windy hours at the same hour and month,"NO2, every site",3.01,"ppb, smallest site",NA,NA,case_study_calm_air
+H18,2C.8,Calm minus windy hours at the same hour and month,"Ozone, every site",-3.83,"ppb, smallest site",NA,NA,case_study_calm_air
+H19,2C.8,Share of the ozone lost in calm air that shows up as NO2,Lowest group,70.52,%,NA,NA,case_study_calm_air
+H20,2C.9,"NO2 in the wind direction with the most, against usual",Houston East,1.36,times usual,NA,NA,case_study_pollution_roses
+H21,2C.9,"NO2 in the wind direction with the most, against usual",Deer Park #2,1.39,times usual,NA,NA,case_study_pollution_roses
+H22,2C.9,"NO2 in the wind direction with the most, against usual",Bayland Park,1.58,times usual,NA,NA,case_study_pollution_roses
+H23,2C.9,"NO2 in the wind direction with the most, against usual",Harvard Street,1.64,times usual,NA,NA,case_study_pollution_roses
+H24,2C.10,Croquet SO2 spike hours from the southwest,Croquet,75.46,% of spike hours,68.34,81.82,case_study_channel_bearings
+H25,2C.10,Park Place SO2 spike hours from the channel side,Park Place,77.01,% of spike hours,67.63,85.62,case_study_channel_bearings
+H26,2C.10,Croquet hours with wind from the southwest,Croquet,10.99,% of hours,NA,NA,case_study_channel_bearings
+H27,2C.10,Park Place hours with wind from the channel side,Park Place,30.05,% of hours,NA,NA,case_study_channel_bearings
+H28,2C.11,"Ship Channel minus Houston other Ox, by wind","Channel wind, without Harvard Street",-2.16,ppb,-2.73,-1.66,case_study_ox_gap_by_wind
+H29,2C.11,"Ship Channel minus Houston other Ox, by wind","Other wind, without Harvard Street",0.03,ppb,-0.3,0.35,case_study_ox_gap_by_wind
+H30,2C.12,Headline findings that hold under every check that applies,All findings,10,of 10,NA,NA,case_study_hourly_robustness

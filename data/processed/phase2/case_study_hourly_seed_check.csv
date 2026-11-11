@@ -50,19 +50,19 @@ R01,2C.2,NO2 at 23:00,0,0.823,0.571,1.081,0.544,1.085,Above,Above,FALSE,0.053
 R04,2C.4,"Ox gap, All year",0,-0.909,-1.244,-0.582,-1.272,-0.57,Below,Below,FALSE,0.043
 R04,2C.4,"Ox gap, Winter",0,0.05,-0.458,0.557,-0.446,0.535,Includes,Includes,FALSE,0.022
 R06,2C.5,Deer Park #2 plume NO2,0,7.49,5.07,10.04,4.875,10.25,Above,Above,FALSE,0.042
-R07,2C.7,"Ozone, Dallas Redbird",0,-5.797,-7.675,-3.757,-7.741,-3.79,Below,Below,FALSE,0.017
-R07,2C.7,"Ozone, Bayland Park",0,-8.98,-10.694,-6.971,-10.605,-6.985,Below,Below,FALSE,0.024
-R07,2C.7,"Ozone, Harvard Street",0,-3.833,-5.034,-2.623,-5.076,-2.573,Below,Below,FALSE,0.021
-R07,2C.7,"Ozone, Houston East",0,-7.292,-8.5,-5.886,-8.497,-5.94,Below,Below,FALSE,0.021
-R07,2C.7,"Ozone, Deer Park #2",0,-6.565,-7.953,-5.026,-7.901,-4.841,Below,Below,FALSE,0.063
-R07,2C.7,"Ozone, Grapevine Fairway",0,-5.725,-7.119,-3.815,-7.231,-3.768,Below,Below,FALSE,0.034
-R07,2C.7,"NO2, Dallas Redbird",0,5.219,4.102,6.718,4.076,6.664,Above,Above,FALSE,0.021
-R07,2C.7,"NO2, Bayland Park",0,6.006,4.597,7.358,4.72,7.407,Above,Above,FALSE,0.044
-R07,2C.7,"NO2, Harvard Street",0,6.754,5.776,7.785,5.75,7.774,Above,Above,FALSE,0.013
-R07,2C.7,"NO2, Houston East",0,5.501,4.643,6.354,4.674,6.353,Above,Above,FALSE,0.018
-R07,2C.7,"NO2, Deer Park #2",0,4.761,3.724,5.716,3.669,5.706,Above,Above,FALSE,0.027
-R07,2C.7,"NO2, Grapevine Fairway",0,3.012,2.041,3.817,2.066,3.835,Above,Above,FALSE,0.014
-R09,2C.9,"Croquet, share from the southwest",50,75.463,68.341,81.822,69.058,82.193,Above,Above,FALSE,0.053
-R09,2C.9,"Park Place, share from the channel side",50,77.011,67.629,85.621,68.535,85.279,Above,Above,FALSE,0.05
-R10,2C.10,"Channel wind, with Harvard Street",0,-1.475,-2.069,-0.939,-2.079,-0.906,Below,Below,FALSE,0.029
-R10,2C.10,"Channel wind, without Harvard Street",0,-2.155,-2.732,-1.656,-2.751,-1.652,Below,Below,FALSE,0.018
+R07,2C.8,"Ozone, Dallas Redbird",0,-5.797,-7.675,-3.757,-7.741,-3.79,Below,Below,FALSE,0.017
+R07,2C.8,"Ozone, Bayland Park",0,-8.98,-10.694,-6.971,-10.605,-6.985,Below,Below,FALSE,0.024
+R07,2C.8,"Ozone, Harvard Street",0,-3.833,-5.034,-2.623,-5.076,-2.573,Below,Below,FALSE,0.021
+R07,2C.8,"Ozone, Houston East",0,-7.292,-8.5,-5.886,-8.497,-5.94,Below,Below,FALSE,0.021
+R07,2C.8,"Ozone, Deer Park #2",0,-6.565,-7.953,-5.026,-7.901,-4.841,Below,Below,FALSE,0.063
+R07,2C.8,"Ozone, Grapevine Fairway",0,-5.725,-7.119,-3.815,-7.231,-3.768,Below,Below,FALSE,0.034
+R07,2C.8,"NO2, Dallas Redbird",0,5.219,4.102,6.718,4.076,6.664,Above,Above,FALSE,0.021
+R07,2C.8,"NO2, Bayland Park",0,6.006,4.597,7.358,4.72,7.407,Above,Above,FALSE,0.044
+R07,2C.8,"NO2, Harvard Street",0,6.754,5.776,7.785,5.75,7.774,Above,Above,FALSE,0.013
+R07,2C.8,"NO2, Houston East",0,5.501,4.643,6.354,4.674,6.353,Above,Above,FALSE,0.018
+R07,2C.8,"NO2, Deer Park #2",0,4.761,3.724,5.716,3.669,5.706,Above,Above,FALSE,0.027
+R07,2C.8,"NO2, Grapevine Fairway",0,3.012,2.041,3.817,2.066,3.835,Above,Above,FALSE,0.014
+R09,2C.10,"Croquet, share from the southwest",50,75.463,68.341,81.822,69.058,82.193,Above,Above,FALSE,0.053
+R09,2C.10,"Park Place, share from the channel side",50,77.011,67.629,85.621,68.535,85.279,Above,Above,FALSE,0.05
+R10,2C.11,"Channel wind, with Harvard Street",0,-1.475,-2.069,-0.939,-2.079,-0.906,Below,Below,FALSE,0.029
+R10,2C.11,"Channel wind, without Harvard Street",0,-2.155,-2.732,-1.656,-2.751,-1.652,Below,Below,FALSE,0.018

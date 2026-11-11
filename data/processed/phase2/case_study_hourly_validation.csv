@@ -11,7 +11,7 @@ Second-seed ranges whose verdict changes,0,0,TRUE
 Second-seed ranges whose ends move over 10% of their width,0,0,TRUE
 Finding and check pairs that fail,0,0,TRUE
 Headlines whose source table is not saved,0,0,TRUE
-2c figures on disk,11,11,TRUE
+2c figures on disk,12,12,TRUE
 Saved 2c tables without data dictionary rows (this table aside),0,0,TRUE
 Saved 2c tables at or over the GitHub limit,0,0,TRUE
 Monitors and sites,"16 monitors, 9 sites","16 monitors, 9 sites",TRUE
