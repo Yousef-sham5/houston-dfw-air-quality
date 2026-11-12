@@ -15,7 +15,8 @@ source(here("R", "utils.R")) # study_years, region_lookup, read_methods_ref(), s
 # The fitting packages are called with :: so MASS, which fitdistrplus attaches, never masks dplyr's select()
 stopifnot(
   "moments is installed (run R/0_setup.R)" = requireNamespace("moments", quietly = TRUE),
-  "fitdistrplus is installed (run R/0_setup.R)" = requireNamespace("fitdistrplus", quietly = TRUE)
+  "fitdistrplus is installed (run R/0_setup.R)" = requireNamespace("fitdistrplus", quietly = TRUE),
+  "readxl is installed (run R/0_setup.R)" = requireNamespace("readxl", quietly = TRUE)
 )
 
 
@@ -269,6 +270,30 @@ stopifnot(
     short_term_limits$first_counted[short_term_limits$pollutant == "PM2.5"] == 35.5,
   "Tail percentiles rise and stay inside the curve" = !is.unsorted(tail_percentiles) && all(between(tail_percentiles, 0.5, 1)),
   "The closeness ratio is above 1" = close_tail_ratio > 1
+)
+
+# Section 6: EPA's ozone design value (40 CFR 50, Appendix U) worked for Houston Aldine, then at every case-study ozone site,
+# against EPA's 2023-2025 design value file, downloaded from epa.gov/air-trends/air-quality-design-values on 2026-11-12
+design_value_path <- here("data", "reference", "o3_designvalues_2023_2025_final_06_08_26.xlsx")
+
+design_value_md5 <- "3845feca4954632cd990eb993ba03c28"
+
+aldine_id <- "48-201-0024"
+
+# Appendix U 4(a) and 4(b): the standard, and the share of ozone-season days a valid design value needs, on average over
+# three years and in each year
+ozone_standard_ppm <- 0.070
+
+design_value_completeness <- c(average = 90, each_year = 75)
+
+# Three-year windows inside the study years. EPA's file gives its own value for each
+design_value_windows <- tibble(first_year = min(study_years):(max(study_years) - 2)) %>%
+  mutate(last_year = first_year + 2)
+
+stopifnot(
+  "EPA's design value file is in data/reference" = file.exists(design_value_path),
+  "The standard matches the ozone limit of section 5" = ozone_standard_ppm == short_term_limits$limit[short_term_limits$pollutant == "Ozone"],
+  "Three windows: 2021-2023, 2022-2024 and 2023-2025" = nrow(design_value_windows) == 3 && max(design_value_windows$last_year) == 2025
 )
 
 
@@ -2034,7 +2059,8 @@ site_fits <- bind_rows(
   fit_sites(filter(ordinary_fit_days, !is_at_or_below_zero), "Without values at or below zero")
 )
 
-rm(fast_site_fits, fit_agreement, spread_agreement, section_three_spreads, day_order_check)
+# fit_agreement stays for the validation table of section 7
+rm(fast_site_fits, spread_agreement, section_three_spreads, day_order_check)
 invisible(gc())
 
 # Linked days: how much each day repeats the day before, and the independent days that leaves. AIC gaps grow with n, so
@@ -4294,4 +4320,965 @@ national_tail_main %>%
   print(n = Inf, width = Inf)
 
 rm(tail_source_days, tail_ordinary_days, case_warm_ozone_days, warm_ozone_tail_check_days, case_tail_check_days, tail_range_sets, warm_ozone_pieces)
+invisible(gc())
+
+
+
+# 6. OZONE DESIGN VALUE ----
+# Appendix U 3(e): the design value is each year's 4th-highest daily maximum 8-hour ozone, averaged over three years and
+# truncated to three decimals. 4(b): it is valid with valid days on 90% of the ozone season on average and 75% in each year,
+# and a value above 0.070 ppm is always valid. Worked for Houston Aldine, then at every case-study ozone site, against EPA
+design_value_file_md5 <- unname(tools::md5sum(design_value_path))
+
+stopifnot("EPA's design value file is the one saved on 2026-11-12" = tolower(design_value_file_md5) == design_value_md5)
+
+read_design_value_sheet <- function(sheet, header_row) {
+  readxl::read_excel(design_value_path, sheet = sheet, skip = header_row - 1, col_types = "text") %>%
+    clean_names()
+}
+
+epa_site_status <- read_design_value_sheet("Table5. Site Status", 4)
+
+epa_site_trends <- read_design_value_sheet("Table6. Site Trends", 4)
+
+epa_monitors <- read_design_value_sheet("Appendix. Monitor Information", 2)
+
+# Case-study ozone on every day, events included, since EPA leaves out only the event days it has agreed to exclude
+design_value_days <- case_fit_days %>%
+  filter(pollutant == "Ozone") %>%
+  mutate(site_group = as.character(site_group)) %>%
+  mutate(epa_site_id = str_remove_all(site_id, "-")) %>%
+  select(site_group, site_id, epa_site_id, local_site_name, date_local, year, value, event_class)
+
+# Each monitor's ozone season from EPA's monitor sheet: the days that completeness counts against
+design_value_seasons <- epa_monitors %>%
+  filter(aqs_parameter_code == "44201", aqs_site_id %in% design_value_days$epa_site_id) %>%
+  transmute(
+    epa_site_id = aqs_site_id,
+    season_begin = monitoring_season_begin_date,
+    season_end = monitoring_season_end_date,
+    naaqs_exclusion = coalesce(naaqs_exclusion_begin_date, ""),
+    combination_site = coalesce(combination_site_id, "")
+  )
+
+design_value_site_seasons <- design_value_days %>%
+  distinct(site_group, site_id, epa_site_id) %>%
+  left_join(design_value_seasons, by = "epa_site_id", relationship = "one-to-one")
+
+stopifnot(
+  "Every case-study ozone site has one ozone monitor in EPA's file" =
+    nrow(design_value_site_seasons) == 22 && !anyNA(design_value_site_seasons$season_begin),
+  "Houston sites run all year and Dallas-Fort Worth sites from March to November" =
+    all(with(design_value_site_seasons, if_else(
+      site_group == "Dallas-Fort Worth",
+      season_begin == "03-01" & season_end == "11-30",
+      season_begin == "01-01" & season_end == "12-31"
+    ))),
+  "No case-study monitor has a NAAQS exclusion or a combined site in EPA's file" =
+    all(design_value_site_seasons$naaqs_exclusion == "" & design_value_site_seasons$combination_site == "")
+)
+
+# One row per site and year: the season, the valid days inside it, and the four highest days. A valid day here is a day
+# 1a kept, which needs 13 of its 17 eight-hour periods. Appendix U 3(d) also keeps a shorter day above 0.070 ppm, which 1a
+# drops, so a few high days EPA counts can be missing here
+design_value_site_years <- design_value_days %>%
+  inner_join(select(design_value_site_seasons, epa_site_id, season_begin, season_end), by = "epa_site_id", relationship = "many-to-one") %>%
+  mutate(season_start = ymd(str_c(year, "-", season_begin))) %>%
+  mutate(season_stop = ymd(str_c(year, "-", season_end))) %>%
+  mutate(is_in_season = between(date_local, season_start, season_stop)) %>%
+  arrange(site_id, year, desc(value), date_local) %>%
+  summarise(
+    season_days = as.integer(first(season_stop) - first(season_start)) + 1L,
+    valid_days = sum(is_in_season),
+    days_outside_season = sum(!is_in_season),
+    event_days = sum(event_class != "None"),
+    highest_ppm = value[1],
+    highest_date = date_local[1],
+    second_ppm = value[2],
+    second_date = date_local[2],
+    third_ppm = value[3],
+    third_date = date_local[3],
+    fourth_ppm = value[4],
+    fourth_date = date_local[4],
+    top_four_in_season = all(is_in_season[1:4]),
+    .by = c(site_group, site_id, epa_site_id, local_site_name, year)
+  ) %>%
+  mutate(completeness_pct = 100 * valid_days / season_days)
+
+stopifnot(
+  "Five years for each of the 22 sites" = nrow(design_value_site_years) == 22 * length(study_years),
+  "Every top-four day falls inside its ozone season, so the season leaves the 4th-highest day as it is" =
+    all(design_value_site_years$top_four_in_season)
+)
+
+# EPA's completeness and 4th-highest day for 2023 to 2025, one row per site and year
+epa_site_years <- epa_site_status %>%
+  filter(aqs_site_id %in% design_value_days$epa_site_id) %>%
+  select(epa_site_id = aqs_site_id, matches("^x20\\d\\d_data_completeness"), matches("^x20\\d\\d_4th_highest")) %>%
+  pivot_longer(-epa_site_id, names_to = c("year", ".value"), names_pattern = "^x(\\d{4})_(data_completeness|4th_highest).*$") %>%
+  transmute(epa_site_id, year = as.numeric(year), epa_completeness_pct = as.numeric(data_completeness), epa_fourth_ppm = as.numeric(`4th_highest`))
+
+design_value_site_years <- design_value_site_years %>%
+  left_join(epa_site_years, by = c("epa_site_id", "year"), relationship = "one-to-one") %>%
+  mutate(completeness_matches_epa = round_half_up(completeness_pct) == epa_completeness_pct) %>%
+  mutate(fourth_matches_epa = abs(fourth_ppm - epa_fourth_ppm) < 1e-9)
+
+# Each three-year window: the mean of the three 4th-highest days, truncated, then checked for completeness
+design_values <- design_value_site_years %>%
+  cross_join(design_value_windows) %>%
+  filter(between(year, first_year, last_year)) %>%
+  summarise(
+    n_years = n(),
+    mean_fourth_ppm = mean(fourth_ppm),
+    mean_completeness_pct = mean(completeness_pct),
+    lowest_completeness_pct = min(completeness_pct),
+    .by = c(site_group, site_id, epa_site_id, local_site_name, first_year, last_year)
+  ) %>%
+  mutate(design_value_ppm = truncate_to(mean_fourth_ppm, 3)) %>%
+  mutate(is_complete = mean_completeness_pct >= design_value_completeness[["average"]]) %>%
+  mutate(is_complete = is_complete & lowest_completeness_pct >= design_value_completeness[["each_year"]]) %>%
+  mutate(is_valid = is_complete | design_value_ppm > ozone_standard_ppm) %>%
+  mutate(is_above_standard = design_value_ppm > ozone_standard_ppm)
+
+epa_design_values <- epa_site_trends %>%
+  filter(aqs_site_id %in% design_value_days$epa_site_id) %>%
+  select(epa_site_id = aqs_site_id, matches("^x20\\d\\d_20\\d\\d_design_value")) %>%
+  pivot_longer(-epa_site_id, names_to = "window", values_to = "epa_design_value_ppm") %>%
+  transmute(
+    epa_site_id,
+    first_year = as.numeric(str_extract(window, "(?<=^x)\\d{4}")),
+    epa_design_value_ppm = as.numeric(epa_design_value_ppm)
+  ) %>%
+  filter(first_year %in% design_value_windows$first_year)
+
+epa_validity <- epa_site_status %>%
+  filter(aqs_site_id %in% design_value_days$epa_site_id) %>%
+  select(epa_site_id = aqs_site_id, epa_valid_value = matches("^valid_\\d{4}_\\d{4}_design_value")) %>%
+  transmute(epa_site_id, first_year = max(design_value_windows$first_year), epa_is_valid = !is.na(as.numeric(epa_valid_value)))
+
+design_values <- design_values %>%
+  left_join(epa_design_values, by = c("epa_site_id", "first_year"), relationship = "one-to-one") %>%
+  left_join(epa_validity, by = c("epa_site_id", "first_year"), relationship = "one-to-one") %>%
+  mutate(gap_to_epa_ppm = design_value_ppm - epa_design_value_ppm) %>%
+  mutate(matches_epa = abs(gap_to_epa_ppm) < 1e-9)
+
+aldine_years <- design_value_site_years %>%
+  filter(site_id == aldine_id, year >= max(design_value_windows$first_year))
+
+aldine_value <- design_values %>%
+  filter(site_id == aldine_id, first_year == max(design_value_windows$first_year))
+
+cat("\nHouston Aldine, 2023 to 2025, worked through Appendix U\n")
+aldine_years %>%
+  select(year, season_days, valid_days, completeness_pct, epa_completeness_pct, highest_ppm, fourth_ppm, fourth_date, epa_fourth_ppm) %>%
+  as.data.frame() %>%
+  print()
+cat(sprintf(
+  "(%.3f + %.3f + %.3f) / 3 = %.5f ppm, truncated to %.3f ppm; EPA %.3f ppm. Completeness %.1f%% on average, lowest %.1f%%.\n",
+  aldine_years$fourth_ppm[1], aldine_years$fourth_ppm[2], aldine_years$fourth_ppm[3], aldine_value$mean_fourth_ppm, aldine_value$design_value_ppm,
+  aldine_value$epa_design_value_ppm, aldine_value$mean_completeness_pct, aldine_value$lowest_completeness_pct
+))
+
+design_value_matches <- design_values %>%
+  summarise(
+    n_sites = n(),
+    n_matching_epa = sum(matches_epa),
+    n_above_standard = sum(is_above_standard),
+    n_valid = sum(is_valid),
+    lowest_ppm = min(design_value_ppm),
+    highest_ppm = max(design_value_ppm),
+    .by = c(first_year, last_year)
+  )
+
+design_value_groups <- design_values %>%
+  summarise(
+    n_sites = n(),
+    n_above_standard = sum(is_above_standard),
+    median_ppm = median(design_value_ppm),
+    highest_ppm = max(design_value_ppm),
+    .by = c(first_year, last_year, site_group)
+  )
+
+design_value_misses <- design_values %>%
+  filter(!matches_epa)
+
+print(as.data.frame(design_value_matches))
+
+print(as.data.frame(design_value_groups))
+
+print(as.data.frame(select(design_value_misses, local_site_name, first_year, last_year, design_value_ppm, epa_design_value_ppm, gap_to_epa_ppm)))
+
+# Misses against EPA are consistent with the days 1a drops: it keeps a day with 18 of 24 hourly periods, while Appendix U
+# 3(d) keeps a day with 13 of its 17 daytime periods, or any day above 0.070 ppm. So EPA can count a few more days, never fewer
+checked_site_years <- design_value_site_years %>%
+  filter(!is.na(epa_fourth_ppm))
+
+completeness_gaps <- checked_site_years$epa_completeness_pct - round_half_up(checked_site_years$completeness_pct)
+
+latest_window <- max(design_value_windows$first_year)
+
+latest_values <- design_values %>%
+  filter(first_year == latest_window)
+
+stopifnot(
+  "Aldine's completeness and 4th-highest day match EPA in 2023, 2024 and 2025" =
+    nrow(aldine_years) == 3 && all(aldine_years$completeness_matches_epa) && all(aldine_years$fourth_matches_epa),
+  "Aldine's 2023-2025 design value is 0.082 ppm, valid and above the standard, as in EPA's file" =
+    isTRUE(all.equal(aldine_value$design_value_ppm, 0.082)) && aldine_value$matches_epa && aldine_value$is_valid && aldine_value$is_above_standard,
+  "Design values match EPA at 20, 20 and 21 of 22 sites for 2021-2023, 2022-2024 and 2023-2025" =
+    identical(design_value_matches$n_matching_epa, c(20L, 20L, 21L)),
+  "Every miss is 0.001 ppm below EPA, as missing high days would make it" =
+    nrow(design_value_misses) == 5 && all(abs(design_value_misses$gap_to_epa_ppm + 0.001) < 1e-9),
+  "No miss changes whether a site is above the standard" =
+    all((design_value_misses$design_value_ppm > ozone_standard_ppm) == (design_value_misses$epa_design_value_ppm > ozone_standard_ppm)),
+  "The 4th-highest day matches EPA at 64 of 66 site-years, and EPA's is higher at the other two" =
+    sum(checked_site_years$fourth_matches_epa) == 64 && all(checked_site_years$epa_fourth_ppm >= checked_site_years$fourth_ppm - 1e-9),
+  "Completeness matches EPA or sits 1 point below it at every site-year, never above" =
+    length(completeness_gaps) == 66 && all(completeness_gaps %in% c(0, 1)),
+  "Validity matches EPA for 2023-2025 at every site" = all(latest_values$is_valid == latest_values$epa_is_valid),
+  "All 22 case-study ozone sites are above the standard for 2023-2025" = all(latest_values$is_above_standard) && nrow(latest_values) == 22
+)
+
+cat(
+  "Completeness equal to EPA at", sum(completeness_gaps == 0), "of", length(completeness_gaps), "site-years and 1 point below at",
+  sum(completeness_gaps == 1), "\n"
+)
+
+# Two CSV records: one row per site and year, and one per site and three-year window, each beside EPA's numbers
+design_value_year_record <- design_value_site_years %>%
+  mutate(site_group = factor(site_group, levels = names(site_group_colours))) %>%
+  select(
+    site_group, site_id, local_site_name, year, season_days, valid_days, completeness_pct, epa_completeness_pct, completeness_matches_epa,
+    days_outside_season, event_days, highest_ppm, highest_date, second_ppm, second_date, third_ppm, third_date, fourth_ppm, fourth_date,
+    epa_fourth_ppm, fourth_matches_epa
+  ) %>%
+  arrange(site_group, site_id, year) %>%
+  mutate(completeness_pct = round(completeness_pct, 2))
+
+design_value_record <- design_values %>%
+  mutate(site_group = factor(site_group, levels = names(site_group_colours))) %>%
+  select(
+    site_group, site_id, local_site_name, first_year, last_year, mean_fourth_ppm, design_value_ppm, mean_completeness_pct, lowest_completeness_pct,
+    is_complete, is_valid, is_above_standard, epa_design_value_ppm, epa_is_valid, gap_to_epa_ppm, matches_epa
+  ) %>%
+  arrange(site_group, site_id, first_year) %>%
+  mutate(mean_fourth_ppm = round(mean_fourth_ppm, 5)) %>%
+  mutate(across(c(mean_completeness_pct, lowest_completeness_pct), \(x) round(x, 2))) %>%
+  mutate(gap_to_epa_ppm = round(gap_to_epa_ppm, 3))
+
+stopifnot(
+  "One year row per site and year" = !anyDuplicated(select(design_value_year_record, site_id, year)) && nrow(design_value_year_record) == 110,
+  "One window row per site and window" = !anyDuplicated(select(design_value_record, site_id, first_year)) && nrow(design_value_record) == 66,
+  "EPA's numbers fill the years and windows its file covers" =
+    sum(!is.na(design_value_year_record$epa_fourth_ppm)) == 66 && !anyNA(design_value_record$epa_design_value_ppm)
+)
+
+design_value_records <- list(
+  distribution_design_value_years = design_value_year_record,
+  distribution_design_values = design_value_record
+)
+
+save_records(design_value_records, records_dir)
+
+design_value_dictionary <- tribble(
+  ~table,                            ~column,                    ~description,
+  "distribution_design_value_years", "site_group",               "Case-study group",
+  "distribution_design_value_years", "site_id",                  "AQS site ID of a five-year case-study ozone site",
+  "distribution_design_value_years", "local_site_name",          "Site name given by the reporting agency",
+  "distribution_design_value_years", "year",                     "Calendar year",
+  "distribution_design_value_years", "season_days",              "Ozone-season days in EPA's file: all year in Houston, Mar to Nov in DFW",
+  "distribution_design_value_years", "valid_days",               "Days in the season with a daily maximum 8-hour value after 1a's cleaning",
+  "distribution_design_value_years", "completeness_pct",         "valid_days / season_days x 100 (Appendix U 4(b))",
+  "distribution_design_value_years", "epa_completeness_pct",     "EPA's completeness for the year, whole percent; NA before 2023",
+  "distribution_design_value_years", "completeness_matches_epa", "TRUE when completeness_pct rounded half up equals EPA's; NA before 2023",
+  "distribution_design_value_years", "days_outside_season",      "Days with data outside the season; in the top four days, out of completeness",
+  "distribution_design_value_years", "event_days",               "Days in an events.csv window, kept as EPA keeps them",
+  "distribution_design_value_years", "highest_ppm",              "Highest daily maximum 8-hour ozone of the year, ppm",
+  "distribution_design_value_years", "highest_date",             "Date of highest_ppm; the earliest on a tie",
+  "distribution_design_value_years", "second_ppm",               "Second-highest daily maximum 8-hour ozone, ppm",
+  "distribution_design_value_years", "second_date",              "Date of second_ppm",
+  "distribution_design_value_years", "third_ppm",                "Third-highest daily maximum 8-hour ozone, ppm",
+  "distribution_design_value_years", "third_date",               "Date of third_ppm",
+  "distribution_design_value_years", "fourth_ppm",               "Fourth-highest daily maximum 8-hour ozone (Appendix U 3(e)), ppm",
+  "distribution_design_value_years", "fourth_date",              "Date of fourth_ppm",
+  "distribution_design_value_years", "epa_fourth_ppm",           "EPA's fourth-highest value for the year, ppm; NA before 2023",
+  "distribution_design_value_years", "fourth_matches_epa",       "TRUE when fourth_ppm equals EPA's; NA before 2023",
+  "distribution_design_values",      "site_group",               "Case-study group",
+  "distribution_design_values",      "site_id",                  "AQS site ID of a five-year case-study ozone site",
+  "distribution_design_values",      "local_site_name",          "Site name given by the reporting agency",
+  "distribution_design_values",      "first_year",               "First year of the three-year window",
+  "distribution_design_values",      "last_year",                "Last year of the three-year window",
+  "distribution_design_values",      "mean_fourth_ppm",          "Mean of the three yearly fourth-highest values, before truncation, ppm",
+  "distribution_design_values",      "design_value_ppm",         "mean_fourth_ppm truncated to three decimals (Appendix U 3(e)), ppm",
+  "distribution_design_values",      "mean_completeness_pct",    "Mean of the three yearly completeness_pct values",
+  "distribution_design_values",      "lowest_completeness_pct",  "Lowest yearly completeness_pct in the window",
+  "distribution_design_values",      "is_complete",              "TRUE with a mean of 90% or more and every year at 75% or more (Appendix U 4(b))",
+  "distribution_design_values",      "is_valid",                 "TRUE when is_complete or the design value is above 0.070 ppm (Appendix U 4(b))",
+  "distribution_design_values",      "is_above_standard",        "TRUE above 0.070 ppm: the site misses the standard (Appendix U 4(a))",
+  "distribution_design_values",      "epa_design_value_ppm",     "EPA's design value for the window from its 2023-2025 file, ppm",
+  "distribution_design_values",      "epa_is_valid",             "TRUE when EPA lists the value as valid; NA before 2023-2025",
+  "distribution_design_values",      "gap_to_epa_ppm",           "design_value_ppm - epa_design_value_ppm",
+  "distribution_design_values",      "matches_epa",              "TRUE when design_value_ppm equals EPA's"
+)
+
+# Stops on a saved column without a description, or a description of a column that was not saved
+design_value_dictionary <- document_tables(design_value_records, design_value_dictionary)
+
+replace_own_rows(design_value_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
+rm(epa_site_status, epa_site_trends, epa_monitors, design_value_days)
+invisible(gc())
+
+
+
+# 7. VALIDATE AND SAVE ----
+# The last step of the analysis: each figure claim of sections 3 to 5 under every check (Figure 3.10), one table of headline
+# numbers for the report read from the saved records, and a final observed / expected / passed table
+phase3_records <- c(inventory_records, summary_records, shape_records, fit_records, tail_records, design_value_records)
+
+stopifnot("Fifteen Phase 3 records before this section, each named once" = length(phase3_records) == 15 && !anyDuplicated(names(phase3_records)))
+
+# Findings tested under every check. Each is a claim a Phase 3 figure makes; a check that was not run for a finding, or that
+# changes nothing it uses, has no row in its record and does not apply
+robustness_findings <- tribble(
+  ~finding_id, ~scope,        ~figure, ~finding,
+  "R01",       "National",    "3.1",   "PM2.5, SO2 and CO sit closer to a lognormal",
+  "R02",       "National",    "3.2",   "Ozone sits closer to a normal curve",
+  "R03",       "National",    "3.5",   "A lognormal wins the most SO2 and CO sites",
+  "R04",       "National",    "3.5",   "Ozone leans normal once it may compete",
+  "R05",       "National",    "3.7",   "PM2.5's winner runs short at the top 1%",
+  "R06",       "National",    "3.7",   "NO2's winner runs long at the top 1%",
+  "R07",       "National",    "3.7",   "Under half of sites land within 25%",
+  "R08",       "National",    "3.7",   "The lognormal overcounts ozone at the limit",
+  "R09",       "Case study",  "3.6",   "Warm ozone swings wider in Houston",
+  "R10",       "Case study",  "3.9",   "Gamma lands within 25% at the warm limit",
+  "R11",       "Case study",  "3.9",   "Lognormal runs high, normal low, warm limit",
+  "R12",       "Case study",  "3.8",   "Gamma overshoots the warm top 1%"
+)
+
+# The checks behind each column. The two halves of a split check share one column and pass only together
+national_check_labels <- c(
+  "Ordinary days" = "Main",
+  "All days" = "All days",
+  "Warm season" = "Warm season",
+  "Cool season" = "Cool season",
+  "Without values at or below zero" = "Without values at or below zero",
+  "Year-round sites" = "Year-round ozone sites",
+  "Sites on daily sampling" = "PM2.5 sites on daily sampling",
+  "Sites without a method change" = "Sites with and without a method change",
+  "Sites with a method change" = "Sites with and without a method change",
+  "Western PM2.5 sites" = "Western and eastern PM2.5 sites",
+  "Eastern PM2.5 sites" = "Western and eastern PM2.5 sites",
+  "SO2 sites with a lower limit" = "SO2 sites with a lower limit",
+  "Without the half-step" = "Without the half-step"
+)
+
+case_check_labels <- c(
+  "Main" = "Main",
+  "All days" = "All days",
+  "Without values at or below zero" = "Without values at or below zero",
+  "Without readings below the limit" = "Without readings below the limit",
+  "Without the transition band" = "Without the transition band",
+  "Without days after method changes" = "Without days after method changes",
+  "Without Deer Park #2 after its move" = "Without Deer Park #2 after its move",
+  "Without each group's busiest site" = "Without each group's busiest site",
+  "Second seed" = "Second seed"
+)
+
+# Figure 3.10 column labels, at most eight or nine characters a line so eleven columns fit
+check_plot_labels <- c(
+  "Main" = "Main",
+  "All days" = "All\ndays",
+  "Warm season" = "Warm\nmonths",
+  "Cool season" = "Cool\nmonths",
+  "Without values at or below zero" = "Values\nabove 0",
+  "Year-round ozone sites" = "Year-\nround\nozone",
+  "PM2.5 sites on daily sampling" = "Daily\nPM2.5",
+  "Sites with and without a method change" = "Method\nchange\nsplit",
+  "Western and eastern PM2.5 sites" = "PM2.5\nwest and\neast",
+  "SO2 sites with a lower limit" = "Lower-\nlimit\nSO2",
+  "Without the half-step" = "No half-\nstep",
+  "Without readings below the limit" = "Readings\nabove\nlimit",
+  "Without the transition band" = "No\ntransition\nband",
+  "Without days after method changes" = "No post-\nchange\ndays",
+  "Without Deer Park #2 after its move" = "No Deer\nPark #2\nmove",
+  "Without each group's busiest site" = "No\nbusiest\nsite",
+  "Second seed" = "Second\nseed"
+)
+
+shape_national <- phase3_records$distribution_shape_summary %>%
+  filter(scope == "National")
+
+fit_national <- phase3_records$distribution_fit_summary %>%
+  filter(scope == "National")
+
+tail_national <- phase3_records$distribution_tail_summary %>%
+  filter(scope == "National")
+
+national_robustness <- bind_rows(
+  shape_national %>%
+    filter(pollutant %in% c("PM2.5", "SO2", "CO")) %>%
+    summarise(holds = all(pct_sites_lognormal_closer >= 75 & pct_sites_log_nearer_symmetry >= 75), .by = site_set) %>%
+    mutate(finding_id = "R01"),
+  shape_national %>%
+    filter(pollutant == "Ozone") %>%
+    summarise(holds = all(pct_sites_lognormal_closer <= 25), .by = site_set) %>%
+    mutate(finding_id = "R02"),
+  fit_national %>%
+    filter(pollutant %in% c("SO2", "CO")) %>%
+    summarise(holds = all(wins_lognormal > wins_gamma & wins_lognormal > wins_weibull), .by = site_set) %>%
+    mutate(finding_id = "R03"),
+  fit_national %>%
+    filter(pollutant == "Ozone") %>%
+    summarise(
+      holds = all(wins_with_normal_normal > pmax(wins_with_normal_lognormal, wins_with_normal_gamma, wins_with_normal_weibull)),
+      .by = site_set
+    ) %>%
+    mutate(finding_id = "R04"),
+  tail_national %>%
+    filter(pollutant == "PM2.5", test == "P99") %>%
+    summarise(holds = all(ratio_total_winner < 1), .by = site_set) %>%
+    mutate(finding_id = "R05"),
+  tail_national %>%
+    filter(pollutant == "NO2", test == "P99") %>%
+    summarise(holds = all(ratio_total_winner > close_tail_ratio), .by = site_set) %>%
+    mutate(finding_id = "R06"),
+  tail_national %>%
+    filter(test == "P99") %>%
+    summarise(holds = all(pct_within_25_winner < 50), .by = site_set) %>%
+    mutate(finding_id = "R07"),
+  tail_national %>%
+    filter(pollutant == "Ozone", test == "Limit") %>%
+    summarise(holds = all(ratio_total_lognormal > 1.5), .by = site_set) %>%
+    mutate(finding_id = "R08")
+) %>%
+  mutate(site_set = as.character(site_set)) %>%
+  mutate(check = national_check_labels[site_set]) %>%
+  summarise(holds = all(holds), .by = c(finding_id, check))
+
+# The case-study findings use the warm-month sets, named after the check they apply
+warm_check_names <- c(
+  "Warm season" = "Main",
+  "Warm season, all days" = "All days",
+  "Warm season, without readings below the limit" = "Without readings below the limit",
+  "Warm season, without the transition band" = "Without the transition band",
+  "Warm season, without days after method changes" = "Without days after method changes",
+  "Warm season, without Deer Park #2 after its move" = "Without Deer Park #2 after its move",
+  "Warm season, without each group's busiest site" = "Without each group's busiest site"
+)
+
+warm_tail_sets <- phase3_records$distribution_tail_summary %>%
+  filter(scope == "Case study", pollutant == "Ozone", as.character(site_set) %in% names(warm_check_names)) %>%
+  mutate(check_set = warm_check_names[as.character(site_set)])
+
+warm_spread_seed <- phase3_records$distribution_fit_checks %>%
+  filter(check == "Group spread", version == "Warm season", pollutant == "Ozone", str_ends(comparison, "Dallas-Fort Worth"))
+
+warm_limit_ranges <- phase3_records$distribution_tail_ranges %>%
+  filter(site_set == "Warm season", !is.na(site_group))
+
+warm_lognormal_seed <- warm_limit_ranges %>%
+  filter(measure == "lognormal")
+
+warm_normal_seed <- warm_limit_ranges %>%
+  filter(measure == "normal")
+
+case_robustness <- bind_rows(
+  warm_ozone_check_gaps %>%
+    filter(site_group != "Dallas-Fort Worth") %>%
+    mutate(check_set = if_else(site_set == "Ordinary days", "Main", site_set)) %>%
+    summarise(holds = all(gap_to_dfw > 0.05), .by = check_set) %>%
+    mutate(finding_id = "R09"),
+  tibble(finding_id = "R09", check_set = "Second seed", holds = all(warm_spread_seed$gap_low_check_seed > 0) && nrow(warm_spread_seed) == 2),
+  warm_tail_sets %>%
+    filter(test == "Limit") %>%
+    summarise(holds = all(between(ratio_total_gamma, 1, close_tail_ratio)), .by = check_set) %>%
+    mutate(finding_id = "R10"),
+  warm_limit_ranges %>%
+    filter(measure == "gamma") %>%
+    summarise(holds = all(range_low_check_seed < 1 & range_high_check_seed > 1) && n() == 3) %>%
+    mutate(finding_id = "R10", check_set = "Second seed"),
+  warm_tail_sets %>%
+    filter(test == "Limit") %>%
+    summarise(holds = all(ratio_total_lognormal > 1 & ratio_total_normal < 1), .by = check_set) %>%
+    mutate(finding_id = "R11"),
+  tibble(
+    finding_id = "R11",
+    check_set = "Second seed",
+    holds = all(warm_lognormal_seed$range_low_check_seed > 1) && all(warm_normal_seed$range_high_check_seed < 1)
+  ),
+  warm_tail_sets %>%
+    filter(test == "P99") %>%
+    summarise(holds = all(ratio_total_gamma > close_tail_ratio), .by = check_set) %>%
+    mutate(finding_id = "R12")
+) %>%
+  mutate(check = case_check_labels[check_set]) %>%
+  select(finding_id, check, holds)
+
+robustness_columns <- unique(c(national_check_labels, case_check_labels))
+
+robustness_grid <- robustness_findings %>%
+  cross_join(tibble(check = robustness_columns)) %>%
+  filter(if_else(scope == "National", check %in% national_check_labels, check %in% case_check_labels))
+
+robustness <- bind_rows(national_robustness, case_robustness) %>%
+  right_join(robustness_grid, by = c("finding_id", "check"), relationship = "one-to-one") %>%
+  mutate(result = case_when(is.na(holds) ~ "Does not apply", holds ~ "Holds", .default = "Fails")) %>%
+  mutate(check = factor(check, levels = robustness_columns)) %>%
+  select(finding_id, scope, figure, finding, check, result) %>%
+  arrange(finding_id, check)
+
+robustness %>%
+  count(scope, result) %>%
+  print()
+
+n_failing <- sum(robustness$result == "Fails")
+
+tested_beyond_main <- robustness %>%
+  filter(result != "Does not apply", check != "Main") %>%
+  count(finding_id)
+
+stopifnot(
+  "Every finding is tested in its main set" = all(robustness$result[robustness$check == "Main"] == "Holds"),
+  "Every finding holds under every check that applies" = n_failing == 0,
+  "Every finding is tested under at least two checks beyond its main set" =
+    nrow(tested_beyond_main) == nrow(robustness_findings) && all(tested_beyond_main$n >= 2)
+)
+
+# Figure 3.10: each finding under each check, national and case study
+robustness_fills <- c(
+  "Holds" = chart_fills[["accent"]],
+  "Fails" = site_group_colours[["Houston Ship Channel"]],
+  "Does not apply" = chart_fills[["band"]]
+)
+
+robustness_panel <- function(scope_name, panel_number, panel_title, panel_subtitle) {
+  scope_rows <- robustness_findings %>%
+    filter(scope == scope_name)
+  scope_columns <- if (scope_name == "National") unique(national_check_labels) else unique(case_check_labels)
+  row_levels <- rev(pretty_text(str_c(scope_rows$figure, "  ", scope_rows$finding)))
+  robustness %>%
+    filter(scope == scope_name) %>%
+    mutate(row_label = factor(pretty_text(str_c(figure, "  ", finding)), levels = row_levels)) %>%
+    mutate(check = factor(check_plot_labels[as.character(check)], levels = check_plot_labels[scope_columns])) %>%
+    mutate(cell_text = if_else(result == "Does not apply", "", result)) %>%
+    ggplot(aes(check, row_label, fill = result)) +
+    geom_tile(colour = "white", linewidth = 0.8) +
+    geom_text(aes(label = cell_text), colour = "white", family = chart_fonts[["text"]], size = 5.6 / .pt) +
+    scale_fill_manual(values = robustness_fills, guide = "none") +
+    scale_x_discrete(position = "top", expand = expansion(add = 0), labels = pretty_text) +
+    scale_y_discrete(expand = expansion(add = 0)) +
+    labs(title = panel_label(panel_number, panel_title), subtitle = panel_subtitle, x = NULL, y = NULL) +
+    theme_paper() +
+    theme(
+      panel.grid = element_blank(),
+      axis.ticks = element_blank(),
+      axis.text.x.top = element_text(colour = chart_ink[["secondary"]], size = 5.8, lineheight = 0.95),
+      axis.text.y = element_text(colour = chart_ink[["primary"]], size = 6.4, hjust = 0, margin = margin(r = 6))
+    )
+}
+
+national_tested <- sum(robustness$result != "Does not apply" & robustness$scope == "National")
+
+case_tested <- sum(robustness$result != "Does not apply" & robustness$scope == "Case study")
+
+robustness_row_weights <- c(
+  sum(robustness_findings$scope == "National") + 2.2,
+  sum(robustness_findings$scope == "Case study") + 2.2
+)
+
+robustness_figure <- tagged_figure(
+  list(
+    robustness_panel("National", 1, "National findings", sprintf("All %d finding and check pairs hold", national_tested)),
+    robustness_panel("Case study", 2, "Houston and Dallas-Fort Worth", sprintf("All %d finding and check pairs hold", case_tested))
+  ),
+  tribble(
+    ~mark,    ~colour,                              ~label,
+    "square", robustness_fills[["Holds"]],          "Holds",
+    "square", robustness_fills[["Fails"]],          "Fails",
+    "square", robustness_fills[["Does not apply"]], "Check does not apply to the finding"
+  ),
+  source_note = sprintf(
+    str_c(
+      "Source: Phase 3 records, EPA AQS daily data %s to %s. (a) five-year sites outside the near-zero rule; (b) warm-month case-study ozone. ",
+      "Second seed: the 95%% ranges redrawn with seed %s."
+    ),
+    min(study_years), max(study_years), group_range_check_seed
+  ),
+  ncol = 1,
+  row_weights = robustness_row_weights
+)
+
+save_figure(robustness_figure, "3.10_checks.png", 5)
+
+# Headline numbers for the report: one row per number the text quotes, each with its unit, 95% range where there is one, and
+# the record it comes from. Every value is read from a saved record, so the report never retypes a number
+record_row <- function(table, ...) {
+  rows <- filter(phase3_records[[table]], ...)
+  stopifnot("Each headline reads exactly one row of its record" = nrow(rows) == 1)
+  rows
+}
+
+headline <- function(figure, finding, subject, value, unit, source_table, ci_low = NA_real_, ci_high = NA_real_) {
+  tibble(
+    figure = figure,
+    finding = finding,
+    subject = subject,
+    value = value,
+    unit = unit,
+    ci_low = ci_low,
+    ci_high = ci_high,
+    source_table = source_table
+  )
+}
+
+national_shape <- function(pollutant_name) {
+  record_row("distribution_shape_summary", scope == "National", site_set == "Ordinary days", pollutant == pollutant_name)
+}
+
+national_fit <- function(pollutant_name) {
+  record_row("distribution_fit_summary", scope == "National", site_set == "Ordinary days", pollutant == pollutant_name)
+}
+
+national_tail <- function(pollutant_name, test_name) {
+  record_row("distribution_tail_summary", scope == "National", site_set == "Ordinary days", pollutant == pollutant_name, test == test_name)
+}
+
+national_pooled <- function(pollutant_name) {
+  record_row("distribution_summary", scope == "National", site_set == "Ordinary days", pollutant == pollutant_name)
+}
+
+instrument_share <- function(version_name) {
+  rows <- phase3_records$distribution_fit_checks %>%
+    filter(check == "Instrument", version == version_name)
+  tibble(n_sites = nrow(rows), pct_lognormal = 100 * mean(rows$winner == "lognormal"))
+}
+
+warm_spread <- function(comparison_name) {
+  record_row("distribution_fit_checks", check == "Group spread", version == "Warm season", pollutant == "Ozone", comparison == comparison_name)
+}
+
+warm_gamma <- function(group) {
+  record_row("distribution_tail_ranges", site_set == "Warm season", measure == "gamma", site_group == group)
+}
+
+warm_top <- function(group) {
+  record_row("distribution_tail_summary", scope == "Case study", site_set == "Warm season", pollutant == "Ozone", test == "P99", site_group == group)
+}
+
+deer_park_p99_ratio <- function(set_name) {
+  row <- record_row("distribution_tail_sites", pollutant == "SO2", site_id == deer_park_id, site_set == set_name, test == "P99")
+  row$expected_winner / row$actual_days
+}
+
+latest_design_values <- phase3_records$distribution_design_values %>%
+  filter(first_year == max(design_value_windows$first_year))
+
+aldine_design_value <- record_row("distribution_design_values", site_id == aldine_id, first_year == max(design_value_windows$first_year))
+
+highest_design_value <- latest_design_values %>%
+  slice_max(design_value_ppm, n = 1)
+
+lowest_design_value <- latest_design_values %>%
+  slice_min(design_value_ppm, n = 1)
+
+t640_alone <- instrument_share("T640 alone")
+
+without_t640 <- instrument_share("Without T640")
+
+ozone_main_fit <- national_fit("Ozone")
+
+ozone_limit <- national_tail("Ozone", "Limit")
+
+log_suited <- c("PM2.5", "SO2", "CO")
+
+ship_channel_spread <- warm_spread("Ship Channel minus Dallas-Fort Worth")
+
+houston_other_spread <- warm_spread("Houston other minus Dallas-Fort Worth")
+
+group_names <- names(site_group_colours)
+
+p99_rows <- bind_rows(lapply(pollutant_levels, \(pollutant_name) national_tail(pollutant_name, "P99")))
+
+within_rows <- p99_rows %>%
+  filter(pct_within_25_winner %in% range(pct_within_25_winner))
+
+inventory <- phase3_records$distribution_site_inventory
+
+headline_rows <- list(
+  headline(
+    NA_character_, "Five-year sites fitted, outside the near-zero rule", "All pollutants",
+    nrow(phase3_records$distribution_shape_sites), "sites", "distribution_shape_sites"
+  ),
+  headline(
+    NA_character_, "Site-days in the fit table, collocated instruments averaged", "All pollutants",
+    sum(inventory$n_site_days), "site-days", "distribution_site_inventory"
+  ),
+  headline(
+    NA_character_, "Sites left out of the fits as near zero", "SO2",
+    sum(inventory$is_near_zero_site & inventory$pollutant == "SO2"), "sites", "distribution_site_inventory"
+  ),
+  headline(NA_character_, "Skewness of the pooled ordinary days", "SO2", national_pooled("SO2")$skewness, "skewness", "distribution_summary"),
+  headline(NA_character_, "Skewness of the typical site", "SO2", national_pooled("SO2")$median_site_skewness, "skewness", "distribution_summary"),
+  headline(
+    NA_character_, "Share of the pooled variance that lies between sites", "NO2",
+    national_pooled("NO2")$pct_variance_between_sites, "%", "distribution_summary"
+  ),
+  headline(
+    "3.1", "Sites where a lognormal is closer than a normal curve", log_suited,
+    vapply(log_suited, \(p) national_shape(p)$pct_sites_lognormal_closer, numeric(1)), "% of sites", "distribution_shape_summary"
+  ),
+  headline(
+    "3.2", "Sites where a normal curve is closer than a lognormal", "Ozone",
+    100 - national_shape("Ozone")$pct_sites_lognormal_closer, "% of sites", "distribution_shape_summary"
+  ),
+  headline(
+    "3.2", "Sites where a lognormal is closer than a normal curve", "NO2",
+    national_shape("NO2")$pct_sites_lognormal_closer, "% of sites", "distribution_shape_summary"
+  ),
+  headline(
+    "3.5", "Sites a lognormal wins by AIC", c("SO2", "CO"),
+    c(national_fit("SO2")$wins_lognormal, national_fit("CO")$wins_lognormal),
+    str_c("of ", c(national_fit("SO2")$n_sites, national_fit("CO")$n_sites), " sites"), "distribution_fit_summary"
+  ),
+  headline(
+    "3.5", "Sites a normal curve wins when it may compete", "Ozone",
+    ozone_main_fit$wins_with_normal_normal, str_c("of ", ozone_main_fit$n_sites, " sites"), "distribution_fit_summary"
+  ),
+  headline("3.5", "Sites with an AIC gap of 10 or more", "Ozone", ozone_main_fit$pct_sites_gap_decisive, "% of sites", "distribution_fit_summary"),
+  headline(
+    "3.5", "Sites with an AIC gap of 10 or more after scaling for linked days", "Ozone",
+    ozone_main_fit$pct_sites_scaled_gap_decisive, "% of sites", "distribution_fit_summary"
+  ),
+  headline(
+    "3.5", "Sampled sites whose winner holds in 90% of block resamples", "Ozone",
+    ozone_main_fit$pct_resampled_clear, "% of sites", "distribution_fit_summary"
+  ),
+  headline(
+    "3.5", "Lognormal wins at the same PM2.5 sites, by instrument", c("T640 alone", "Other monitors"),
+    c(t640_alone$pct_lognormal, without_t640$pct_lognormal), "% of fits", "distribution_fit_checks"
+  ),
+  headline(
+    "3.6", "Warm-month ozone spread factor, median site", group_names,
+    c(ship_channel_spread$spread_first_group, houston_other_spread$spread_first_group, houston_other_spread$spread_second_group),
+    "spread factor", "distribution_fit_checks"
+  ),
+  headline(
+    "3.6", "Warm-month ozone spread factor gap to Dallas-Fort Worth", group_names[1:2],
+    c(ship_channel_spread$spread_gap, houston_other_spread$spread_gap), "spread factor", "distribution_fit_checks",
+    ci_low = c(ship_channel_spread$gap_low, houston_other_spread$gap_low),
+    ci_high = c(ship_channel_spread$gap_high, houston_other_spread$gap_high)
+  ),
+  headline(
+    "3.7", "Winner's expected / actual days above each site's P99, totals", as.character(p99_rows$pollutant),
+    p99_rows$ratio_total_winner, "ratio", "distribution_tail_summary"
+  ),
+  headline(
+    "3.7", "Judged sites where the winner lands within 25% at P99, lowest and highest", as.character(within_rows$pollutant),
+    within_rows$pct_within_25_winner, "% of judged sites", "distribution_tail_summary"
+  ),
+  headline("3.7", "Ordinary ozone days above the limit", "Ozone", ozone_limit$n_actual_days, "site-days", "distribution_tail_summary"),
+  headline(
+    "3.7", "Expected / actual ozone days above the limit, totals", c("Winner", "Lognormal"),
+    c(ozone_limit$ratio_total_winner, ozone_limit$ratio_total_lognormal), "ratio", "distribution_tail_summary"
+  ),
+  headline(
+    "3.9", "Gamma's expected / actual warm-month ozone days above the limit", group_names,
+    vapply(group_names, \(g) warm_gamma(g)$estimate, numeric(1)), "ratio", "distribution_tail_ranges",
+    ci_low = vapply(group_names, \(g) warm_gamma(g)$range_low, numeric(1)),
+    ci_high = vapply(group_names, \(g) warm_gamma(g)$range_high, numeric(1))
+  ),
+  headline(
+    "3.8", "Gamma's expected / actual days in each site's warm top 1%", group_names,
+    vapply(group_names, \(g) warm_top(g)$ratio_total_gamma, numeric(1)), "ratio", "distribution_tail_summary"
+  ),
+  headline(
+    "3.9", "Deer Park #2 SO2 expected / actual days above P99", c("Main lognormal fit", "Censored Weibull fit"),
+    c(deer_park_p99_ratio("Ordinary days"), deer_park_p99_ratio("Readings below the limit censored")), "ratio", "distribution_tail_sites"
+  ),
+  headline(
+    NA_character_, "Ozone design value, 2023 to 2025", c("Houston Aldine", "Houston Aldine, EPA's file"),
+    c(aldine_design_value$design_value_ppm, aldine_design_value$epa_design_value_ppm), "ppm", "distribution_design_values"
+  ),
+  headline(
+    NA_character_, "Site-windows whose design value matches EPA's", "22 sites, 3 windows",
+    sum(phase3_records$distribution_design_values$matches_epa), str_c("of ", nrow(phase3_records$distribution_design_values)),
+    "distribution_design_values"
+  ),
+  headline(
+    NA_character_, "Case-study ozone sites above the 0.070 ppm standard, 2023 to 2025", "All groups",
+    sum(latest_design_values$is_above_standard), str_c("of ", nrow(latest_design_values), " sites"), "distribution_design_values"
+  ),
+  headline(
+    NA_character_, "Highest and lowest 2023 to 2025 design value", c(highest_design_value$local_site_name, lowest_design_value$local_site_name),
+    c(highest_design_value$design_value_ppm, lowest_design_value$design_value_ppm), "ppm", "distribution_design_values"
+  ),
+  headline(
+    "3.10", "Findings that hold under every check that applies", "All findings",
+    nrow(robustness_findings) - n_distinct(robustness$finding_id[robustness$result == "Fails"]), str_c("of ", nrow(robustness_findings)),
+    "distribution_robustness"
+  )
+)
+
+# ppm and spread factors keep 3 decimals, everything else 2, with halves rounded up as elsewhere in the project
+distribution_headlines <- bind_rows(headline_rows) %>%
+  mutate(headline_id = sprintf("F%02d", row_number())) %>%
+  mutate(digits = if_else(unit %in% c("ppm", "spread factor"), 3, 2)) %>%
+  mutate(across(c(value, ci_low, ci_high), \(x) round_half_up(x, digits))) %>%
+  select(headline_id, figure, finding, subject, value, unit, ci_low, ci_high, source_table)
+
+print(distribution_headlines, n = Inf, width = Inf)
+
+headline_ranges <- distribution_headlines %>%
+  filter(!is.na(ci_low))
+
+stopifnot(
+  "Every headline has a value" = !anyNA(distribution_headlines$value),
+  "Every headline range holds its value" = all(headline_ranges$ci_low <= headline_ranges$value & headline_ranges$value <= headline_ranges$ci_high),
+  "Highest and lowest design values each belong to one site" = nrow(highest_design_value) == 1 && nrow(lowest_design_value) == 1,
+  "The T640 comparison covers the same 67 sites on both sides" = t640_alone$n_sites == 67 && without_t640$n_sites == 67
+)
+
+# Final validation: inputs, counts, fits, ranges, findings, EPA's design values and saved files
+range_rows <- bind_rows(
+  phase3_records$distribution_fit_checks %>%
+    filter(check == "Group spread") %>%
+    transmute(estimate = spread_gap, range_low = gap_low, range_high = gap_high, seed_shift_share),
+  phase3_records$distribution_tail_ranges %>%
+    select(estimate, range_low, range_high, seed_shift_share)
+)
+
+figure_paths <- file.path(figures_dir, c(
+  "3.01_shape_log_scale.png", "3.02_shape_ozone_no2.png", "3.03_case_study_shape.png", "3.04_case_study_qq.png", "3.05_fits.png",
+  "3.06_ozone_spread.png", "3.07_tails.png", "3.08_warm_ozone_tails.png", "3.09_case_study_limit.png", "3.10_checks.png"
+))
+
+final_records <- list(
+  distribution_robustness = mutate(robustness, check = as.character(check)),
+  distribution_headlines = distribution_headlines
+)
+
+save_records(final_records, records_dir)
+
+all_records <- c(phase3_records, final_records)
+
+record_paths <- file.path(records_dir, str_c(names(all_records), ".csv"))
+
+documented_tables <- read_csv(data_dictionary_path, col_types = cols(.default = col_character())) %>%
+  distinct(table) %>%
+  pull(table)
+
+fitted_site_counts <- phase3_records$distribution_shape_sites %>%
+  count(pollutant) %>%
+  arrange(pollutant)
+
+case_ozone_counts <- latest_design_values %>%
+  count(site_group) %>%
+  arrange(match(site_group, group_names))
+
+design_values_record <- phase3_records$distribution_design_values
+
+ours_above_standard <- design_values_record$design_value_ppm > ozone_standard_ppm
+
+epa_above_standard <- design_values_record$epa_design_value_ppm > ozone_standard_ppm
+
+verdict_changes <- sum(ours_above_standard != epa_above_standard)
+
+near_zero_sites <- sum(inventory$is_near_zero_site)
+
+inputs_matching <- sum(input_check$md5 == input_check$md5_on_disk)
+
+duplicate_fits <- sum(duplicated(select(phase3_records$distribution_fits, pollutant, site_id, site_set)))
+
+fits_off_fitdistrplus <- sum(fit_agreement$largest_gap >= fit_agreement_tolerance)
+
+ranges_missing_estimate <- sum(range_rows$estimate < range_rows$range_low | range_rows$estimate > range_rows$range_high)
+
+ranges_moved_by_seed <- sum(range_rows$seed_shift_share > group_range_seed_tolerance)
+
+headline_sources_missing <- sum(!distribution_headlines$source_table %in% names(all_records))
+
+undocumented_tables <- sum(!names(phase3_records) %in% documented_tables)
+
+tables_over_limit <- sum(file.size(record_paths) / 2^20 >= github_limit_mib)
+
+sites_fitted <- nrow(phase3_records$distribution_shape_sites)
+
+inventory_sites_expected <- sum(five_year_site_counts)
+
+count_checks <- tribble(
+  ~check,                                                                   ~observed,                             ~expected,
+  "Inputs whose MD5 matches the manifest",                                  inputs_matching,                       length(input_files),
+  "Five-year site-days after collocated instruments are averaged",          sum(inventory$n_site_days),            five_year_site_days,
+  "Five-year sites in the inventory",                                       nrow(inventory),                       inventory_sites_expected,
+  "Sites left out of the fits as near zero",                                near_zero_sites,                       56,
+  "Sites fitted",                                                           sites_fitted,                          inventory_sites_expected - 56,
+  "Duplicate fits (pollutant, site and set)",                               duplicate_fits,                        0,
+  "Sites where the fast fit misses fitdistrplus by 0.001 AIC or more",      fits_off_fitdistrplus,                 0,
+  "95% ranges with a second seed: group spread gaps and tail ranges",       nrow(range_rows),                      27 + 72,
+  "95% ranges that leave out their own estimate",                           ranges_missing_estimate,               0,
+  "95% ranges whose ends move over 10% of their width with a second seed",  ranges_moved_by_seed,                  0,
+  "Finding and check pairs that fail",                                      n_failing,                             0,
+  "Site-windows whose design value matches EPA's",                          sum(design_values_record$matches_epa), 61,
+  "Design value misses that change whether a site is above the standard",  verdict_changes,                       0,
+  "Headlines whose source table is not saved",                              headline_sources_missing,              0,
+  "Phase 3 figures on disk",                                                sum(file.exists(figure_paths)),        length(figure_paths),
+  "Saved Phase 3 tables without data dictionary rows (this section aside)", undocumented_tables,                   0,
+  "Saved Phase 3 tables at or over the GitHub limit",                       tables_over_limit,                     0
+) %>%
+  mutate(observed = as.character(observed)) %>%
+  mutate(expected = as.character(expected))
+
+aldine_values_text <- str_c(sprintf("%.3f", aldine_design_value$design_value_ppm), "/", sprintf("%.3f", aldine_design_value$epa_design_value_ppm))
+
+text_checks <- tribble(
+  ~check,                                                        ~observed,                                         ~expected,
+  "Sites fitted per pollutant: PM2.5, ozone, NO2, SO2, CO",      str_flatten(fitted_site_counts$n, collapse = "/"), "769/964/311/249/132",
+  "Case-study ozone sites: Ship Channel, Houston other, DFW",    str_flatten(case_ozone_counts$n, collapse = "/"),  "6/10/6",
+  "Houston Aldine 2023-2025 design value: ours and EPA's, ppm",  aldine_values_text,                                "0.082/0.082"
+)
+
+distribution_validation <- bind_rows(count_checks, text_checks) %>%
+  mutate(passed = observed == expected)
+
+print(distribution_validation, n = Inf, width = Inf)
+
+stopifnot("Every Phase 3 validation check passed" = all(distribution_validation$passed))
+
+# CSV records: the validation table, saved last so it reports on every other file
+validation_records <- list(
+  distribution_validation = distribution_validation
+)
+
+save_records(validation_records, records_dir)
+
+final_dictionary <- tribble(
+  ~table,                    ~column,         ~description,
+  "distribution_robustness", "finding_id",    "R01 to R12, one per finding a Phase 3 figure makes",
+  "distribution_robustness", "scope",         "National (five-year sites outside the near-zero rule) or Case study (warm-month ozone)",
+  "distribution_robustness", "figure",        "Figure that shows the finding",
+  "distribution_robustness", "finding",       "The finding in plain words",
+  "distribution_robustness", "check",         "Main, a check from the summary records, or Second seed; a split check holds when both halves do",
+  "distribution_robustness", "result",        "Holds, Fails, or Does not apply (not run for the finding, or changes nothing it uses)",
+  "distribution_headlines",  "headline_id",   "F01 onward, in section order",
+  "distribution_headlines",  "figure",        "Figure that shows the number; NA for sections 1, 2 and 6, which have no figure for it",
+  "distribution_headlines",  "finding",       "What the number measures, in plain words",
+  "distribution_headlines",  "subject",       "Pollutant, group, site, curve or set the number belongs to",
+  "distribution_headlines",  "value",         "The number: 3 decimals for ppm and spread factors, 2 otherwise, halves rounded up",
+  "distribution_headlines",  "unit",          "Unit of value",
+  "distribution_headlines",  "ci_low",        "Lower end of the 95% range where the record gives one; NA otherwise",
+  "distribution_headlines",  "ci_high",       "Upper end of the 95% range where the record gives one; NA otherwise",
+  "distribution_headlines",  "source_table",  "CSV record in data/processed/phase3 the number comes from",
+  "distribution_validation", "check",         "What section 7 checks: inputs, counts, fits, ranges, findings, design values or saved files",
+  "distribution_validation", "observed",      "Value found in this run",
+  "distribution_validation", "expected",      "Value the check requires",
+  "distribution_validation", "passed",        "TRUE when observed equals expected; the script stops otherwise"
+)
+
+# Stops on a saved column without a description, or a description of a column that was not saved
+final_dictionary <- document_tables(c(final_records, validation_records), final_dictionary)
+
+replace_own_rows(final_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
+
+rm(fit_agreement, warm_ozone_check_gaps)
 invisible(gc())

@@ -2,7 +2,7 @@
 
 This project uses R to clean, explore and model five years of air quality data from the EPA's Air Quality System (AQS) for PM2.5, ozone, NO₂, SO₂ and CO. The national daily data hold 8.9 million records, 5.56 million after cleaning. Hourly pollutant and weather data cover 16 case-study monitors in Houston and Dallas–Fort Worth (661,545 monitor-hours).
 
-**Status:** Phases 1 and 2 are complete. Phase 3 is under way: shape, curve fits and tails are done, and a worked ozone design value is next. Five years is too short to separate a trend from year-to-year weather, so the project does not test trends. 40 figures so far.
+**Status:** The analysis is complete (Phases 1 to 3), and the R Markdown report is being written. Five years is too short to separate a trend from year-to-year weather, so the project does not test trends. 41 figures.
 
 ## Research question
 
@@ -14,7 +14,7 @@ How do pollutant levels and NAAQS compliance near the Houston Ship Channel, a co
 |---|---|---|
 | 1. Import and cleaning | Daily data for 5 pollutants nationwide; hourly pollutants and weather for 16 monitors at 9 sites. Row counts checked against EPA's; suspect readings flagged and kept | Done |
 | 2. Exploratory analysis | National NAAQS screening, events, seasons and weekends; then same-day group differences, daily cycles, an Ox (ozone + NO₂) test, SO₂ spikes, calm air and pollution roses. Block-bootstrap ranges, every result rerun under every check | Done |
-| 3. Distributions | Per-site lognormal, gamma and Weibull fits ranked by AIC, with a normal reference, censored checks and resampled winners; tail tests against actual days; a worked ozone design value checked against EPA's file | In progress |
+| 3. Distributions | Per-site lognormal, gamma and Weibull fits ranked by AIC, with a normal reference, censored checks and resampled winners; tail tests against actual days; a worked ozone design value checked against EPA's file; every figure claim rerun under every check | Done |
 | 4. Report | R Markdown report (PDF and HTML) on GitHub Pages | Planned |
 
 ## Data quality highlights
@@ -25,14 +25,14 @@ How do pollutant levels and NAAQS compliance near the Houston Ship Channel, a co
 - Named assertions check each step; a dictionary lists every saved column, and a manifest holds checkpoint MD5s.
 - The hourly data rebuild all 27,747 daily maximums exactly. A site move, a method change and five sensor replacements are checked against neighbours and flagged.
 
-## Early findings (Phase 2, national)
+## Findings (Phase 2, national)
 
 - **NAAQS screening:** in 2023, 42.7% of five-year ozone sites and 39.0% of annual PM2.5 sites were above the standard; over three-year windows, about 23% of ozone sites.
 - **Events:** labelled smoke, dust and storm days hold 39.9% of PM2.5 exceedance days (68.2% in 2023). EPA's own event flag covers 14% of those days.
 - **Weekends:** NO₂ is 20% lower at the median site. Weekend ozone rises in Los Angeles (+5.0%), consistent with VOC-limited ozone, and falls in Houston (−4.0%) and Dallas–Fort Worth (−4.8%).
 - **Houston and Dallas–Fort Worth** rank 6th and 8th of the 353 metros with an ozone exceedance, by exceedance site-days, a count that favours large networks.
 
-## Early findings (Phase 2, daily case study)
+## Findings (Phase 2, daily case study)
 
 Same-day group differences with 95% block-bootstrap ranges, rerun under every check that changes them.
 
@@ -41,7 +41,7 @@ Same-day group differences with 95% block-bootstrap ranges, rerun under every ch
 - **SO₂:** the 0.13 ppb gap is far under the 2 ppb detection limit, so SO₂ is read through spikes instead.
 - **PM2.5:** no clear gap within Houston (ranges include zero in 3 of 6 runs), consistent with regional PM2.5.
 
-## Early findings (Phase 2, hourly case study)
+## Findings (Phase 2, hourly case study)
 
 Two ozone and NO₂ sites per group; for SO₂, three Ship Channel sites and Croquet. Ordinary hours only.
 
@@ -53,9 +53,9 @@ Two ozone and NO₂ sites per group; for SO₂, three Ship Channel sites and Cro
 - **The rest of the ozone gap:** without Harvard Street, the Ox gap is −2.2 ppb in wind from the channel and about zero otherwise, consistent with ozone forming in channel air as it crosses Houston.
 - **Checks:** all ten headline findings hold under every check that applies and with a second random seed (figure 2C.12).
 
-## Early findings (Phase 3, distributions so far)
+## Findings (Phase 3, distributions)
 
-Curves are fitted per site on ordinary days at 2,425 five-year sites. Causes are untested.
+Curves are fitted per site on ordinary days at 2,425 five-year sites; design values use every day at the 22 case-study ozone sites. Causes are untested.
 
 - **Which curve:** a lognormal wins at 188 of 249 SO₂ and 82 of 132 CO sites, consistent with pollutants diluted as they spread. A normal curve wins at 525 of 964 ozone sites if allowed, consistent with ozone forming in the air.
 - **How sure:** linked days make AIC gaps overstate certainty. 87.7% of ozone sites have a gap of 10 or more, 36.1% after scaling, and 52.0% of 100 random sites keep their winner.
@@ -65,6 +65,8 @@ Curves are fitted per site on ordinary days at 2,425 five-year sites. Causes are
 - **Tails:** curves are tested on the days they were fitted to. At the top 1% of days, the winner's total runs from 0.80 of actual (PM2.5) to 1.54 (NO₂), and it lands within 25% at only 23% to 32% of sites. Misses cancel in totals: ozone totals 1.10, with the middle half of sites from 0.63 to 1.46.
 - **At the limit:** across 20,252 ordinary ozone days above it, the winner's total is 1.00 and the lognormal's 2.17. PM2.5 days above it rise from 3,798 ordinary to 6,887 with events, and the winner falls from 0.73 to 0.55.
 - **Warm-month Texas ozone:** gamma's count above the limit runs 6% to 12% high in all three groups, with 95% ranges that reach 1. The lognormal runs high and the normal low, with ranges clear of 1. Gamma overcounts the warm top 1% by 51% to 69%.
+- **Ozone design values:** Houston Aldine's 2023–2025 value is (0.078 + 0.097 + 0.073) / 3, truncated to 0.082 ppm, the same as EPA's file. All 22 case-study ozone sites are above the 0.070 ppm standard (0.071 to 0.085). The method matches EPA at 61 of 66 site-windows; each miss is 0.001 ppm low, because cleaning drops short days that EPA keeps when they top 0.070 (confirmed against the raw files).
+- **Checks:** all 88 pairs of 12 figure findings and the checks that apply hold, including a second random seed (figure 3.10), and all 20 validation checks pass.
 
 ## Engineering angle
 
@@ -72,7 +74,7 @@ Gas readings are converted to µg/m³ with the ideal gas law (RT/P = 24.465 L/mo
 
 ## Tech stack
 
-R (`dplyr`, `tidyr`, `readr`, `lubridate`, `ggplot2`, `patchwork`, `fitdistrplus`, `moments`), R Markdown, Git and GitHub Pages.
+R (`dplyr`, `tidyr`, `readr`, `readxl`, `lubridate`, `ggplot2`, `patchwork`, `fitdistrplus`, `moments`), R Markdown, Git and GitHub Pages.
 
 ## Reproduce
 
@@ -85,7 +87,7 @@ Data come from the [EPA AirData download page](https://aqs.epa.gov/aqsweb/airdat
 
 The figures use Arial; RStudio's Plots pane needs its Graphics Backend set to AGG. `fonts/` holds the report's fonts (Inter and IBM Plex Mono).
 
-## Repository structure (so far)
+## Repository structure
 
 <details>
 <summary>Show folder layout</summary>
@@ -106,7 +108,7 @@ EPA AQS Project/
 ├── figures/                # numbered, one folder per phase
 │   ├── phase1/             # case-study site map
 │   ├── phase2/             # 2a.01_ to 2a.10_, 2b.01_ to 2b.08_, 2c.01_ to 2c.12_
-│   └── phase3/             # 3.01_ to 3.09_
+│   └── phase3/             # 3.01_ to 3.10_
 ├── fonts/                  # report fonts and their licences
 ├── docs/                   # GitHub Pages output and methodology.md
 ├── renv.lock               # package versions used
@@ -119,7 +121,7 @@ EPA AQS Project/
 
 - **Changing network:** from 2021 to 2025, PM2.5 rows grew 23.6% and SO₂ and CO rows fell about 18%, so levels use five-year sites only.
 - **No trends:** five years is too short to separate a trend from year-to-year weather, so changes between years are only described.
-- **Screening values:** every year is judged against today's standards, including 2024's 9.0 µg/m³ annual PM2.5 level. EPA's design values add rules not reproduced here.
+- **Screening values:** every year is judged against today's standards, including 2024's 9.0 µg/m³ annual PM2.5 level. EPA's three-year design values are worked only for the 22 case-study ozone sites, where they match EPA's at 61 of 66 site-windows.
 - **Weather:** seasonal and weekend comparisons do not control for weather.
 - **T640 corrections:** 1,941 site-days in 2024–2025 had no corrected version and no other PM2.5 reading, so they were lost.
 - **Coverage:** monitors aren't placed at random, and coastal Houston and inland Dallas–Fort Worth differ in weather.

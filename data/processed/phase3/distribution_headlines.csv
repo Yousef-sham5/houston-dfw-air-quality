@@ -1,0 +1,50 @@
+headline_id,figure,finding,subject,value,unit,ci_low,ci_high,source_table
+F01,NA,"Five-year sites fitted, outside the near-zero rule",All pollutants,2425,sites,NA,NA,distribution_shape_sites
+F02,NA,"Site-days in the fit table, collocated instruments averaged",All pollutants,4016891,site-days,NA,NA,distribution_site_inventory
+F03,NA,Sites left out of the fits as near zero,SO2,52,sites,NA,NA,distribution_site_inventory
+F04,NA,Skewness of the pooled ordinary days,SO2,20.17,skewness,NA,NA,distribution_summary
+F05,NA,Skewness of the typical site,SO2,3.89,skewness,NA,NA,distribution_summary
+F06,NA,Share of the pooled variance that lies between sites,NO2,50.38,%,NA,NA,distribution_summary
+F07,3.1,Sites where a lognormal is closer than a normal curve,PM2.5,96.75,% of sites,NA,NA,distribution_shape_summary
+F08,3.1,Sites where a lognormal is closer than a normal curve,SO2,95.58,% of sites,NA,NA,distribution_shape_summary
+F09,3.1,Sites where a lognormal is closer than a normal curve,CO,81.06,% of sites,NA,NA,distribution_shape_summary
+F10,3.2,Sites where a normal curve is closer than a lognormal,Ozone,82.47,% of sites,NA,NA,distribution_shape_summary
+F11,3.2,Sites where a lognormal is closer than a normal curve,NO2,60.77,% of sites,NA,NA,distribution_shape_summary
+F12,3.5,Sites a lognormal wins by AIC,SO2,188,of 249 sites,NA,NA,distribution_fit_summary
+F13,3.5,Sites a lognormal wins by AIC,CO,82,of 132 sites,NA,NA,distribution_fit_summary
+F14,3.5,Sites a normal curve wins when it may compete,Ozone,525,of 964 sites,NA,NA,distribution_fit_summary
+F15,3.5,Sites with an AIC gap of 10 or more,Ozone,87.66,% of sites,NA,NA,distribution_fit_summary
+F16,3.5,Sites with an AIC gap of 10 or more after scaling for linked days,Ozone,36.1,% of sites,NA,NA,distribution_fit_summary
+F17,3.5,Sampled sites whose winner holds in 90% of block resamples,Ozone,52,% of sites,NA,NA,distribution_fit_summary
+F18,3.5,"Lognormal wins at the same PM2.5 sites, by instrument",T640 alone,95.52,% of fits,NA,NA,distribution_fit_checks
+F19,3.5,"Lognormal wins at the same PM2.5 sites, by instrument",Other monitors,46.27,% of fits,NA,NA,distribution_fit_checks
+F20,3.6,"Warm-month ozone spread factor, median site",Houston Ship Channel,1.47,spread factor,NA,NA,distribution_fit_checks
+F21,3.6,"Warm-month ozone spread factor, median site",Houston other,1.46,spread factor,NA,NA,distribution_fit_checks
+F22,3.6,"Warm-month ozone spread factor, median site",Dallas-Fort Worth,1.336,spread factor,NA,NA,distribution_fit_checks
+F23,3.6,Warm-month ozone spread factor gap to Dallas-Fort Worth,Houston Ship Channel,0.134,spread factor,0.092,0.168,distribution_fit_checks
+F24,3.6,Warm-month ozone spread factor gap to Dallas-Fort Worth,Houston other,0.125,spread factor,0.081,0.159,distribution_fit_checks
+F25,3.7,"Winner's expected / actual days above each site's P99, totals",PM2.5,0.8,ratio,NA,NA,distribution_tail_summary
+F26,3.7,"Winner's expected / actual days above each site's P99, totals",Ozone,1.1,ratio,NA,NA,distribution_tail_summary
+F27,3.7,"Winner's expected / actual days above each site's P99, totals",NO2,1.54,ratio,NA,NA,distribution_tail_summary
+F28,3.7,"Winner's expected / actual days above each site's P99, totals",SO2,1.24,ratio,NA,NA,distribution_tail_summary
+F29,3.7,"Winner's expected / actual days above each site's P99, totals",CO,1.07,ratio,NA,NA,distribution_tail_summary
+F30,3.7,"Judged sites where the winner lands within 25% at P99, lowest and highest",PM2.5,32.45,% of judged sites,NA,NA,distribution_tail_summary
+F31,3.7,"Judged sites where the winner lands within 25% at P99, lowest and highest",NO2,22.83,% of judged sites,NA,NA,distribution_tail_summary
+F32,3.7,Ordinary ozone days above the limit,Ozone,20252,site-days,NA,NA,distribution_tail_summary
+F33,3.7,"Expected / actual ozone days above the limit, totals",Winner,1,ratio,NA,NA,distribution_tail_summary
+F34,3.7,"Expected / actual ozone days above the limit, totals",Lognormal,2.17,ratio,NA,NA,distribution_tail_summary
+F35,3.9,Gamma's expected / actual warm-month ozone days above the limit,Houston Ship Channel,1.06,ratio,0.9,1.26,distribution_tail_ranges
+F36,3.9,Gamma's expected / actual warm-month ozone days above the limit,Houston other,1.09,ratio,0.95,1.21,distribution_tail_ranges
+F37,3.9,Gamma's expected / actual warm-month ozone days above the limit,Dallas-Fort Worth,1.12,ratio,0.97,1.32,distribution_tail_ranges
+F38,3.8,Gamma's expected / actual days in each site's warm top 1%,Houston Ship Channel,1.51,ratio,NA,NA,distribution_tail_summary
+F39,3.8,Gamma's expected / actual days in each site's warm top 1%,Houston other,1.69,ratio,NA,NA,distribution_tail_summary
+F40,3.8,Gamma's expected / actual days in each site's warm top 1%,Dallas-Fort Worth,1.66,ratio,NA,NA,distribution_tail_summary
+F41,3.9,Deer Park #2 SO2 expected / actual days above P99,Main lognormal fit,2.18,ratio,NA,NA,distribution_tail_sites
+F42,3.9,Deer Park #2 SO2 expected / actual days above P99,Censored Weibull fit,1.06,ratio,NA,NA,distribution_tail_sites
+F43,NA,"Ozone design value, 2023 to 2025",Houston Aldine,0.082,ppm,NA,NA,distribution_design_values
+F44,NA,"Ozone design value, 2023 to 2025","Houston Aldine, EPA's file",0.082,ppm,NA,NA,distribution_design_values
+F45,NA,Site-windows whose design value matches EPA's,"22 sites, 3 windows",61,of 66,NA,NA,distribution_design_values
+F46,NA,"Case-study ozone sites above the 0.070 ppm standard, 2023 to 2025",All groups,22,of 22 sites,NA,NA,distribution_design_values
+F47,NA,Highest and lowest 2023 to 2025 design value,Houston Deer Park #2,0.085,ppm,NA,NA,distribution_design_values
+F48,NA,Highest and lowest 2023 to 2025 design value,Houston Monroe,0.071,ppm,NA,NA,distribution_design_values
+F49,3.10,Findings that hold under every check that applies,All findings,12,of 12,NA,NA,distribution_robustness

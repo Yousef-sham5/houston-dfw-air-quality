@@ -1,0 +1,21 @@
+check,observed,expected,passed
+Inputs whose MD5 matches the manifest,4,4,TRUE
+Five-year site-days after collocated instruments are averaged,4016891,4016891,TRUE
+Five-year sites in the inventory,2481,2481,TRUE
+Sites left out of the fits as near zero,56,56,TRUE
+Sites fitted,2425,2425,TRUE
+"Duplicate fits (pollutant, site and set)",0,0,TRUE
+Sites where the fast fit misses fitdistrplus by 0.001 AIC or more,0,0,TRUE
+95% ranges with a second seed: group spread gaps and tail ranges,99,99,TRUE
+95% ranges that leave out their own estimate,0,0,TRUE
+95% ranges whose ends move over 10% of their width with a second seed,0,0,TRUE
+Finding and check pairs that fail,0,0,TRUE
+Site-windows whose design value matches EPA's,61,61,TRUE
+Design value misses that change whether a site is above the standard,0,0,TRUE
+Headlines whose source table is not saved,0,0,TRUE
+Phase 3 figures on disk,10,10,TRUE
+Saved Phase 3 tables without data dictionary rows (this section aside),0,0,TRUE
+Saved Phase 3 tables at or over the GitHub limit,0,0,TRUE
+"Sites fitted per pollutant: PM2.5, ozone, NO2, SO2, CO",769/964/311/249/132,769/964/311/249/132,TRUE
+"Case-study ozone sites: Ship Channel, Houston other, DFW",6/10/6,6/10/6,TRUE
+"Houston Aldine 2023-2025 design value: ours and EPA's, ppm",0.082/0.082,0.082/0.082,TRUE

@@ -9,7 +9,7 @@ November 12, 2026 · Yousef Shamsaldeen
 
 **Phase 2** explores them in `2a` (national), `2b` (daily case study) and `2c` (hourly case study).
 
-**Phase 3** describes their distributions in `3_distributions`. Sections 1 to 5 are done; a worked ozone design value for Houston Aldine, checked against EPA's 2023–2025 design value file, is planned as section 6.
+**Phase 3** describes their distributions in `3_distributions`, works an ozone design value through EPA's rules and checks every result (sections 1 to 7). The R Markdown report comes next.
 
 Trends are not tested: five years is too short to separate a trend from year-to-year weather.
 
@@ -174,7 +174,7 @@ The gap left after section 3 appears in wind from the channel, consistent with o
 
 **Validation (section 7, figure 2C.12):** a second seed changed none of the 67 headline ranges' verdicts and moved no end more than 9.1% of its range. All ten headline findings hold under every check that applies. Quoted numbers are in `case_study_hourly_headlines.csv`, and all 19 checks in `case_study_hourly_validation.csv` pass.
 
-## Distributions (3_distributions, in progress)
+## Distributions (3_distributions)
 
 **Fit table (section 1):** five-year sites give 4,016,891 site-days after collocated instruments are averaged. Values at or below zero take half the method's federal detection limit in a fitting copy, and the reported value stays beside it. Sites with at least 25% of days at or below zero (52 SO₂, 3 CO, 1 NO₂) stay out of the fits, leaving 2,425. Fits use ordinary days, and `distribution_site_inventory.csv` records each site's schedule, method changes and limits.
 
@@ -235,14 +235,26 @@ The warm-month gap is consistent with Houston swinging between cleaner Gulf air 
 - **Year-round:** gamma's ratio is 0.96 and 1.01 in Houston and 1.32 (1.09 to 1.65) in Dallas–Fort Worth, so its year-round overcount shows only there.
 - **Top 1%:** gamma overcounts it by 51% to 69%.
 
-**Validation:** a separate base R recomputation, kept outside the repo, matched every saved fit within rounding, including the censored fits, resampled shares and group ranges. For section 5 it matched 35 of 35 key numbers and did not recompute the tail ranges. Records are saved as `distribution_*.csv`.
+**Design value (section 6):** Appendix U takes each year's 4th-highest daily maximum 8-hour ozone, averages three years and truncates to three decimals. The value is valid with valid days on 90% of the ozone season on average and 75% in each year, and always valid above 0.070 ppm. Seasons come from EPA's monitor list (all year in Houston, March to November in Dallas–Fort Worth), and every day counts, events included.
+
+| Houston Aldine | 2023 | 2024 | 2025 | 2023–2025 |
+|---|---|---|---|---|
+| 4th-highest day (ppm) | 0.078 | 0.097 | 0.073 | 0.082, as in EPA's file |
+| Completeness | 87% | 90% | 94% | 90% on average |
+
+- **All 22 case-study ozone sites:** above 0.070 ppm for 2023–2025, from 0.071 (Houston Monroe) to 0.085 (Deer Park #2); 19 and 21 sites for 2021–2023 and 2022–2024.
+- **Against EPA:** the values match at 61 of 66 site-windows. Each miss is 0.001 ppm low and none changes pass or fail. Completeness matches at 51 of 66 site-years and is 1 point low at the rest. `1a` drops days with under 75% of hours, while Appendix U keeps a day with 13 of its 17 daytime periods or a value above 0.070 ppm. Adding the short days above 0.070 back from the raw files reproduces all 66 values, and the completeness gap is consistent with the other dropped days.
+
+**Validation (section 7, figure 3.10):** 12 claims the Phase 3 figures make are rerun beside their main result under every check that applies, from 10 national and 7 case-study checks plus a second seed: all 88 pairs hold. A final table of 20 checks (inputs, counts, fits, seeds, ranges, findings, EPA matches, figures, dictionary rows, file sizes) passes in full, and the 49 numbers the report quotes are in `distribution_headlines.csv` (F01 to F49).
+
+**Recomputation:** a separate base R recomputation, kept outside the repo, matched every saved fit within rounding, including the censored fits, resampled shares and group ranges. For section 5 it matched 35 of 35 key numbers and did not recompute the tail ranges; for sections 6 and 7 it matched every saved column and all 49 headlines. Records are saved as `distribution_*.csv`.
 
 ## Saved files
 
 - **`data/processed/`:** the `.rds` checkpoints that later scripts read, `data_dictionary.csv` (every saved column) and `checkpoint_manifest.csv` (the size and MD5 of each checkpoint).
 - **`data/processed/phase1/`, `phase2/` and `phase3/`:** the CSV records from each script, readable on GitHub.
 - **`data/distribution_cache/`:** not tracked. The slowest `3_distributions` steps reuse results saved here while their days, settings and code are unchanged. `rerun_cached_steps <- TRUE` recomputes them.
-- **`figures/`:** every figure, numbered in order (`2a.01` to `3.09`) and sized for a 6.5-inch report page. All figures show lettered panels with their measure and sample size, a key and a short source note; the report text gives each finding.
+- **`figures/`:** every figure, numbered in order (`2a.01` to `3.10`) and sized for a 6.5-inch report page. All figures show lettered panels with their measure and sample size, a key and a short source note; the report text gives each finding.
 
 ## Known limits
 
@@ -254,6 +266,7 @@ The warm-month gap is consistent with Houston swinging between cleaner Gulf air 
 - **Curves are relative:** a winner can still miss its tail, landing within 25% of the actual top 1% of days at 23% to 32% of judged sites, and a year-round curve blends two seasons. Tail tests say nothing about new days.
 - **Detection limits:** the censored checks use method-wide federal limits, which can differ from a monitor's actual limit.
 - **No ozone on December 31** in the daily table, an EPA file artifact. The hourly table has these days.
+- **Short high days:** cleaning drops days under 75% of hours, so 5 of 66 case-study design values sit 0.001 ppm below EPA's.
 
 ## Sources
 
@@ -272,7 +285,7 @@ Regulation text was read on Cornell's Legal Information Institute. The official 
 | [40 CFR 50, Appendix N](https://www.law.cornell.edu/cfr/text/40/appendix-N_to_part_50), Table 1 and section 4.3 | PM2.5: 98th percentile ranks, quarterly means and rounding |
 | [40 CFR 50, Appendix S](https://www.law.cornell.edu/cfr/text/40/appendix-S_to_part_50), sections 3.2(b) and 4.2(c), Table 1 | NO₂: complete days, 98th percentile ranks and rounding |
 | [40 CFR 50, Appendix T](https://www.law.cornell.edu/cfr/text/40/appendix-T_to_part_50), sections 3.1(b) and 4.1(c), Table 1 | SO₂: complete days, 99th percentile ranks and rounding |
-| [40 CFR 50, Appendix U](https://www.law.cornell.edu/cfr/text/40/appendix-U_to_part_50), sections 3(b) to 3(e) | Ozone 8-hour means, valid days and truncation |
+| [40 CFR 50, Appendix U](https://www.law.cornell.edu/cfr/text/40/appendix-U_to_part_50), sections 3(b) to 3(e), 4(a) and 4(b) | Ozone 8-hour means, valid days, truncation and design value completeness |
 | [40 CFR 50.8](https://www.law.cornell.edu/cfr/text/40/50.8)(d) | CO rounding |
 | [40 CFR 58, Appendix D](https://www.law.cornell.edu/cfr/text/40/appendix-D_to_part_58), Table D-3 | Ozone monitoring seasons by state |
 | [U.S. Census Bureau regions and divisions](https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf) | The 13 states of the West region |

@@ -1,0 +1,125 @@
+finding_id,scope,figure,finding,check,result
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",Main,Holds
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",All days,Holds
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",Warm season,Holds
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",Cool season,Does not apply
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",Without values at or below zero,Holds
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",Year-round ozone sites,Does not apply
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",PM2.5 sites on daily sampling,Holds
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",Sites with and without a method change,Holds
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",Western and eastern PM2.5 sites,Holds
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",SO2 sites with a lower limit,Holds
+R01,National,3.1,"PM2.5, SO2 and CO sit closer to a lognormal",Without the half-step,Does not apply
+R02,National,3.2,Ozone sits closer to a normal curve,Main,Holds
+R02,National,3.2,Ozone sits closer to a normal curve,All days,Holds
+R02,National,3.2,Ozone sits closer to a normal curve,Warm season,Holds
+R02,National,3.2,Ozone sits closer to a normal curve,Cool season,Does not apply
+R02,National,3.2,Ozone sits closer to a normal curve,Without values at or below zero,Holds
+R02,National,3.2,Ozone sits closer to a normal curve,Year-round ozone sites,Holds
+R02,National,3.2,Ozone sits closer to a normal curve,PM2.5 sites on daily sampling,Does not apply
+R02,National,3.2,Ozone sits closer to a normal curve,Sites with and without a method change,Holds
+R02,National,3.2,Ozone sits closer to a normal curve,Western and eastern PM2.5 sites,Does not apply
+R02,National,3.2,Ozone sits closer to a normal curve,SO2 sites with a lower limit,Does not apply
+R02,National,3.2,Ozone sits closer to a normal curve,Without the half-step,Does not apply
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,Main,Holds
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,All days,Holds
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,Warm season,Holds
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,Cool season,Holds
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,Without values at or below zero,Holds
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,Year-round ozone sites,Does not apply
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,PM2.5 sites on daily sampling,Does not apply
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,Sites with and without a method change,Holds
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,Western and eastern PM2.5 sites,Does not apply
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,SO2 sites with a lower limit,Holds
+R03,National,3.5,A lognormal wins the most SO2 and CO sites,Without the half-step,Does not apply
+R04,National,3.5,Ozone leans normal once it may compete,Main,Holds
+R04,National,3.5,Ozone leans normal once it may compete,All days,Holds
+R04,National,3.5,Ozone leans normal once it may compete,Warm season,Holds
+R04,National,3.5,Ozone leans normal once it may compete,Cool season,Holds
+R04,National,3.5,Ozone leans normal once it may compete,Without values at or below zero,Holds
+R04,National,3.5,Ozone leans normal once it may compete,Year-round ozone sites,Holds
+R04,National,3.5,Ozone leans normal once it may compete,PM2.5 sites on daily sampling,Does not apply
+R04,National,3.5,Ozone leans normal once it may compete,Sites with and without a method change,Holds
+R04,National,3.5,Ozone leans normal once it may compete,Western and eastern PM2.5 sites,Does not apply
+R04,National,3.5,Ozone leans normal once it may compete,SO2 sites with a lower limit,Does not apply
+R04,National,3.5,Ozone leans normal once it may compete,Without the half-step,Does not apply
+R05,National,3.7,PM2.5's winner runs short at the top 1%,Main,Holds
+R05,National,3.7,PM2.5's winner runs short at the top 1%,All days,Holds
+R05,National,3.7,PM2.5's winner runs short at the top 1%,Warm season,Does not apply
+R05,National,3.7,PM2.5's winner runs short at the top 1%,Cool season,Does not apply
+R05,National,3.7,PM2.5's winner runs short at the top 1%,Without values at or below zero,Holds
+R05,National,3.7,PM2.5's winner runs short at the top 1%,Year-round ozone sites,Does not apply
+R05,National,3.7,PM2.5's winner runs short at the top 1%,PM2.5 sites on daily sampling,Holds
+R05,National,3.7,PM2.5's winner runs short at the top 1%,Sites with and without a method change,Holds
+R05,National,3.7,PM2.5's winner runs short at the top 1%,Western and eastern PM2.5 sites,Holds
+R05,National,3.7,PM2.5's winner runs short at the top 1%,SO2 sites with a lower limit,Does not apply
+R05,National,3.7,PM2.5's winner runs short at the top 1%,Without the half-step,Holds
+R06,National,3.7,NO2's winner runs long at the top 1%,Main,Holds
+R06,National,3.7,NO2's winner runs long at the top 1%,All days,Holds
+R06,National,3.7,NO2's winner runs long at the top 1%,Warm season,Does not apply
+R06,National,3.7,NO2's winner runs long at the top 1%,Cool season,Does not apply
+R06,National,3.7,NO2's winner runs long at the top 1%,Without values at or below zero,Holds
+R06,National,3.7,NO2's winner runs long at the top 1%,Year-round ozone sites,Does not apply
+R06,National,3.7,NO2's winner runs long at the top 1%,PM2.5 sites on daily sampling,Does not apply
+R06,National,3.7,NO2's winner runs long at the top 1%,Sites with and without a method change,Holds
+R06,National,3.7,NO2's winner runs long at the top 1%,Western and eastern PM2.5 sites,Does not apply
+R06,National,3.7,NO2's winner runs long at the top 1%,SO2 sites with a lower limit,Does not apply
+R06,National,3.7,NO2's winner runs long at the top 1%,Without the half-step,Holds
+R07,National,3.7,Under half of sites land within 25%,Main,Holds
+R07,National,3.7,Under half of sites land within 25%,All days,Holds
+R07,National,3.7,Under half of sites land within 25%,Warm season,Holds
+R07,National,3.7,Under half of sites land within 25%,Cool season,Does not apply
+R07,National,3.7,Under half of sites land within 25%,Without values at or below zero,Holds
+R07,National,3.7,Under half of sites land within 25%,Year-round ozone sites,Holds
+R07,National,3.7,Under half of sites land within 25%,PM2.5 sites on daily sampling,Holds
+R07,National,3.7,Under half of sites land within 25%,Sites with and without a method change,Holds
+R07,National,3.7,Under half of sites land within 25%,Western and eastern PM2.5 sites,Holds
+R07,National,3.7,Under half of sites land within 25%,SO2 sites with a lower limit,Holds
+R07,National,3.7,Under half of sites land within 25%,Without the half-step,Holds
+R08,National,3.7,The lognormal overcounts ozone at the limit,Main,Holds
+R08,National,3.7,The lognormal overcounts ozone at the limit,All days,Holds
+R08,National,3.7,The lognormal overcounts ozone at the limit,Warm season,Holds
+R08,National,3.7,The lognormal overcounts ozone at the limit,Cool season,Does not apply
+R08,National,3.7,The lognormal overcounts ozone at the limit,Without values at or below zero,Holds
+R08,National,3.7,The lognormal overcounts ozone at the limit,Year-round ozone sites,Holds
+R08,National,3.7,The lognormal overcounts ozone at the limit,PM2.5 sites on daily sampling,Does not apply
+R08,National,3.7,The lognormal overcounts ozone at the limit,Sites with and without a method change,Holds
+R08,National,3.7,The lognormal overcounts ozone at the limit,Western and eastern PM2.5 sites,Does not apply
+R08,National,3.7,The lognormal overcounts ozone at the limit,SO2 sites with a lower limit,Does not apply
+R08,National,3.7,The lognormal overcounts ozone at the limit,Without the half-step,Holds
+R09,Case study,3.6,Warm ozone swings wider in Houston,Main,Holds
+R09,Case study,3.6,Warm ozone swings wider in Houston,All days,Holds
+R09,Case study,3.6,Warm ozone swings wider in Houston,Without values at or below zero,Holds
+R09,Case study,3.6,Warm ozone swings wider in Houston,Without readings below the limit,Holds
+R09,Case study,3.6,Warm ozone swings wider in Houston,Without the transition band,Holds
+R09,Case study,3.6,Warm ozone swings wider in Houston,Without days after method changes,Holds
+R09,Case study,3.6,Warm ozone swings wider in Houston,Without Deer Park #2 after its move,Holds
+R09,Case study,3.6,Warm ozone swings wider in Houston,Without each group's busiest site,Does not apply
+R09,Case study,3.6,Warm ozone swings wider in Houston,Second seed,Holds
+R10,Case study,3.9,Gamma lands within 25% at the warm limit,Main,Holds
+R10,Case study,3.9,Gamma lands within 25% at the warm limit,All days,Holds
+R10,Case study,3.9,Gamma lands within 25% at the warm limit,Without values at or below zero,Does not apply
+R10,Case study,3.9,Gamma lands within 25% at the warm limit,Without readings below the limit,Holds
+R10,Case study,3.9,Gamma lands within 25% at the warm limit,Without the transition band,Holds
+R10,Case study,3.9,Gamma lands within 25% at the warm limit,Without days after method changes,Holds
+R10,Case study,3.9,Gamma lands within 25% at the warm limit,Without Deer Park #2 after its move,Holds
+R10,Case study,3.9,Gamma lands within 25% at the warm limit,Without each group's busiest site,Holds
+R10,Case study,3.9,Gamma lands within 25% at the warm limit,Second seed,Holds
+R11,Case study,3.9,"Lognormal runs high, normal low, warm limit",Main,Holds
+R11,Case study,3.9,"Lognormal runs high, normal low, warm limit",All days,Holds
+R11,Case study,3.9,"Lognormal runs high, normal low, warm limit",Without values at or below zero,Does not apply
+R11,Case study,3.9,"Lognormal runs high, normal low, warm limit",Without readings below the limit,Holds
+R11,Case study,3.9,"Lognormal runs high, normal low, warm limit",Without the transition band,Holds
+R11,Case study,3.9,"Lognormal runs high, normal low, warm limit",Without days after method changes,Holds
+R11,Case study,3.9,"Lognormal runs high, normal low, warm limit",Without Deer Park #2 after its move,Holds
+R11,Case study,3.9,"Lognormal runs high, normal low, warm limit",Without each group's busiest site,Holds
+R11,Case study,3.9,"Lognormal runs high, normal low, warm limit",Second seed,Holds
+R12,Case study,3.8,Gamma overshoots the warm top 1%,Main,Holds
+R12,Case study,3.8,Gamma overshoots the warm top 1%,All days,Holds
+R12,Case study,3.8,Gamma overshoots the warm top 1%,Without values at or below zero,Does not apply
+R12,Case study,3.8,Gamma overshoots the warm top 1%,Without readings below the limit,Holds
+R12,Case study,3.8,Gamma overshoots the warm top 1%,Without the transition band,Holds
+R12,Case study,3.8,Gamma overshoots the warm top 1%,Without days after method changes,Holds
+R12,Case study,3.8,Gamma overshoots the warm top 1%,Without Deer Park #2 after its move,Holds
+R12,Case study,3.8,Gamma overshoots the warm top 1%,Without each group's busiest site,Holds
+R12,Case study,3.8,Gamma overshoots the warm top 1%,Second seed,Does not apply

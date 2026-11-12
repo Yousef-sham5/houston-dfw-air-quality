@@ -1129,3 +1129,59 @@ distribution_tail_curves,pct_lognormal,numeric,"% of site-days each site's logno
 distribution_tail_curves,pct_gamma,numeric,"% of site-days each site's gamma curve puts above value_ppm less half a step, pooled"
 distribution_tail_curves,pct_weibull,numeric,"% of site-days each site's Weibull curve puts above value_ppm less half a step, pooled"
 distribution_tail_curves,pct_normal,numeric,"% of site-days each site's normal curve puts above value_ppm less half a step, pooled"
+distribution_design_value_years,site_group,factor,Case-study group
+distribution_design_value_years,site_id,character,AQS site ID of a five-year case-study ozone site
+distribution_design_value_years,local_site_name,character,Site name given by the reporting agency
+distribution_design_value_years,year,numeric,Calendar year
+distribution_design_value_years,season_days,integer,"Ozone-season days in EPA's file: all year in Houston, Mar to Nov in DFW"
+distribution_design_value_years,valid_days,integer,Days in the season with a daily maximum 8-hour value after 1a's cleaning
+distribution_design_value_years,completeness_pct,numeric,valid_days / season_days x 100 (Appendix U 4(b))
+distribution_design_value_years,epa_completeness_pct,numeric,"EPA's completeness for the year, whole percent; NA before 2023"
+distribution_design_value_years,completeness_matches_epa,logical,TRUE when completeness_pct rounded half up equals EPA's; NA before 2023
+distribution_design_value_years,days_outside_season,integer,"Days with data outside the season; in the top four days, out of completeness"
+distribution_design_value_years,event_days,integer,"Days in an events.csv window, kept as EPA keeps them"
+distribution_design_value_years,highest_ppm,numeric,"Highest daily maximum 8-hour ozone of the year, ppm"
+distribution_design_value_years,highest_date,Date,Date of highest_ppm; the earliest on a tie
+distribution_design_value_years,second_ppm,numeric,"Second-highest daily maximum 8-hour ozone, ppm"
+distribution_design_value_years,second_date,Date,Date of second_ppm
+distribution_design_value_years,third_ppm,numeric,"Third-highest daily maximum 8-hour ozone, ppm"
+distribution_design_value_years,third_date,Date,Date of third_ppm
+distribution_design_value_years,fourth_ppm,numeric,"Fourth-highest daily maximum 8-hour ozone (Appendix U 3(e)), ppm"
+distribution_design_value_years,fourth_date,Date,Date of fourth_ppm
+distribution_design_value_years,epa_fourth_ppm,numeric,"EPA's fourth-highest value for the year, ppm; NA before 2023"
+distribution_design_value_years,fourth_matches_epa,logical,TRUE when fourth_ppm equals EPA's; NA before 2023
+distribution_design_values,site_group,factor,Case-study group
+distribution_design_values,site_id,character,AQS site ID of a five-year case-study ozone site
+distribution_design_values,local_site_name,character,Site name given by the reporting agency
+distribution_design_values,first_year,numeric,First year of the three-year window
+distribution_design_values,last_year,numeric,Last year of the three-year window
+distribution_design_values,mean_fourth_ppm,numeric,"Mean of the three yearly fourth-highest values, before truncation, ppm"
+distribution_design_values,design_value_ppm,numeric,"mean_fourth_ppm truncated to three decimals (Appendix U 3(e)), ppm"
+distribution_design_values,mean_completeness_pct,numeric,Mean of the three yearly completeness_pct values
+distribution_design_values,lowest_completeness_pct,numeric,Lowest yearly completeness_pct in the window
+distribution_design_values,is_complete,logical,TRUE with a mean of 90% or more and every year at 75% or more (Appendix U 4(b))
+distribution_design_values,is_valid,logical,TRUE when is_complete or the design value is above 0.070 ppm (Appendix U 4(b))
+distribution_design_values,is_above_standard,logical,TRUE above 0.070 ppm: the site misses the standard (Appendix U 4(a))
+distribution_design_values,epa_design_value_ppm,numeric,"EPA's design value for the window from its 2023-2025 file, ppm"
+distribution_design_values,epa_is_valid,logical,TRUE when EPA lists the value as valid; NA before 2023-2025
+distribution_design_values,gap_to_epa_ppm,numeric,design_value_ppm - epa_design_value_ppm
+distribution_design_values,matches_epa,logical,TRUE when design_value_ppm equals EPA's
+distribution_robustness,finding_id,character,"R01 to R12, one per finding a Phase 3 figure makes"
+distribution_robustness,scope,character,National (five-year sites outside the near-zero rule) or Case study (warm-month ozone)
+distribution_robustness,figure,character,Figure that shows the finding
+distribution_robustness,finding,character,The finding in plain words
+distribution_robustness,check,character,"Main, a check from the summary records, or Second seed; a split check holds when both halves do"
+distribution_robustness,result,character,"Holds, Fails, or Does not apply (not run for the finding, or changes nothing it uses)"
+distribution_headlines,headline_id,character,"F01 onward, in section order"
+distribution_headlines,figure,character,"Figure that shows the number; NA for sections 1, 2 and 6, which have no figure for it"
+distribution_headlines,finding,character,"What the number measures, in plain words"
+distribution_headlines,subject,character,"Pollutant, group, site, curve or set the number belongs to"
+distribution_headlines,value,numeric,"The number: 3 decimals for ppm and spread factors, 2 otherwise, halves rounded up"
+distribution_headlines,unit,character,Unit of value
+distribution_headlines,ci_low,numeric,Lower end of the 95% range where the record gives one; NA otherwise
+distribution_headlines,ci_high,numeric,Upper end of the 95% range where the record gives one; NA otherwise
+distribution_headlines,source_table,character,CSV record in data/processed/phase3 the number comes from
+distribution_validation,check,character,"What section 7 checks: inputs, counts, fits, ranges, findings, design values or saved files"
+distribution_validation,observed,character,Value found in this run
+distribution_validation,expected,character,Value the check requires
+distribution_validation,passed,logical,TRUE when observed equals expected; the script stops otherwise
