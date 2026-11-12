@@ -1,6 +1,6 @@
 # Methodology
 
-November 5, 2026 · Yousef Shamsaldeen
+November 12, 2026 · Yousef Shamsaldeen
 
 **Phase 1** builds three cleaned datasets:
 - national daily data (`1a`, `1b`)
@@ -9,7 +9,9 @@ November 5, 2026 · Yousef Shamsaldeen
 
 **Phase 2** explores them in `2a` (national), `2b` (daily case study) and `2c` (hourly case study).
 
-**Phase 3** describes their distributions in `3_distributions`. Sections 1 to 5 are done; extreme values and a worked design value are planned.
+**Phase 3** describes their distributions in `3_distributions`. Sections 1 to 5 are done; a worked ozone design value for Houston Aldine, checked against EPA's 2023–2025 design value file, is planned as section 6.
+
+Trends are not tested: five years is too short to separate a trend from year-to-year weather.
 
 Every column is read with an explicit type, and named assertions stop a script when an assumption fails.
 
@@ -231,7 +233,7 @@ The warm-month gap is consistent with Houston swinging between cleaner Gulf air 
 - **Ranges:** 2,000 resamples of the same 14-day date blocks at every site, with every curve refitted and each site keeping its named winner. At 1,000 a second seed moved one end 10.4% of its range, past the 10% tolerance; at 2,000 the largest move is 6.8%.
 - **Checks:** gamma's warm ratio stays 1.06 to 1.14 on all days, without readings below the limit, without the transition band, without days after method changes, without Deer Park #2 after its move and without each group's busiest site.
 - **Year-round:** gamma's ratio is 0.96 and 1.01 in Houston and 1.32 (1.09 to 1.65) in Dallas–Fort Worth, so its year-round overcount shows only there.
-- **Top 1%:** gamma overcounts it by 51% to 69%, which supports a separate extreme-value fit.
+- **Top 1%:** gamma overcounts it by 51% to 69%.
 
 **Validation:** a separate base R recomputation, kept outside the repo, matched every saved fit within rounding, including the censored fits, resampled shares and group ranges. For section 5 it matched 35 of 35 key numbers and did not recompute the tail ranges. Records are saved as `distribution_*.csv`.
 
@@ -265,6 +267,7 @@ Regulation text was read on Cornell's Legal Information Institute. The official 
 | [AQS methods code table](https://aqs.epa.gov/aqsweb/documents/codetables/methods_all.html) | FRM and FEM designations and method ranges |
 | [AQS qualifier code table](https://aqs.epa.gov/aqsweb/documents/codetables/qualifiers.html) | The meaning of `RT` |
 | [EPA NAAQS table](https://www.epa.gov/criteria-air-pollutants/naaqs-table) | Standard levels |
+| [EPA Air Quality Design Values](https://www.epa.gov/air-trends/air-quality-design-values), ozone file for 2023–2025 (posted 8 June 2026) | The official Houston Aldine design value that the worked one is checked against |
 | [AirNow hourly data fact sheet](https://docs.airnowapi.org/docs/HourlyDataFactSheet.pdf) | Negative hourly readings as instrument drift |
 | [40 CFR 50, Appendix N](https://www.law.cornell.edu/cfr/text/40/appendix-N_to_part_50), Table 1 and section 4.3 | PM2.5: 98th percentile ranks, quarterly means and rounding |
 | [40 CFR 50, Appendix S](https://www.law.cornell.edu/cfr/text/40/appendix-S_to_part_50), sections 3.2(b) and 4.2(c), Table 1 | NO₂: complete days, 98th percentile ranks and rounding |
