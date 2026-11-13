@@ -5,7 +5,7 @@ November 13, 2026 · Yousef Shamsaldeen
 - **Phase 1** builds three cleaned datasets: national daily data (`1a`, `1b`), hourly pollutants for 16 case-study monitors (`1c`, `1d`) and hourly weather for their 9 sites (`1e`).
 - **Phase 2** explores them in `2a` (national), `2b` (daily case study) and `2c` (hourly case study).
 - **Phase 3** describes their distributions in `3_distributions`, works an ozone design value through EPA's rules and checks every result.
-- **Phase 4** is the report, `R/5_report.Rmd`, knit to `5_report.pdf`.
+- **Phase 4** is the report, `R/houston_dfw_air_quality.Rmd`, knit to `houston_dfw_air_quality.pdf`.
 
 Trends are not tested: five years is too short to separate a trend from year-to-year weather. Every column is read with an explicit type, and named assertions stop a script when an assumption fails.
 
@@ -46,15 +46,11 @@ The Harris County counts include Seabrook (ozone and NO₂), which no case-study
 | Houston other | Harvard Street, Bayland Park | Croquet |
 | Dallas–Fort Worth | Dallas Redbird, Grapevine Fairway | None |
 
-**Import:** chunked reads of the hourly zips (79.4 million rows) keep these monitors, giving 661,545 rows (94.3% of possible hours). The hourly values rebuild all 27,747 daily maximums exactly. Times stay in local standard time, so a 7–9 am summer rush hour shows as hours 6–8. Wildfire hours, event hours, values below the detection limit and incomplete days are flagged, never removed.
+**Import:** chunked reads of the hourly zips (79.4 million rows) keep these monitors, giving 661,545 rows (94.3% of possible hours), and rebuild all 27,747 daily maximums exactly. Times stay in local standard time, so a 7–9 am summer rush hour shows as hours 6–8. Wildfire hours, event hours, values below the detection limit and incomplete days are flagged, never removed.
 
-**Monitor changes** were checked against an unchanged neighbour and flagged, not adjusted. Deer Park #2 moved on 2025-05-30 with no clear shift. Harvard Street NO₂ changed method on 2024-04-22; its May to December gap to Bayland Park dropped from 1.91–3.07 ppb to 0.72 in 2024 and returned to 2.24 in 2025, consistent with a low baseline that was later corrected.
+**Monitor changes** were checked against an unchanged neighbour and flagged, not adjusted: Deer Park #2 moved on 2025-05-30 with no clear shift, and Harvard Street NO₂ changed method on 2024-04-22, after which its gap to Bayland Park dropped for a year.
 
-**Weather:** wind and temperature for the 9 sites, one row per site and hour.
-- **Harvard Street** has no wind sensor, so it borrows Croquet's wind and Bayland Park's temperature.
-- **Calm and direction:** calm is wind below 0.5 m/s (EPA-454/R-99-005), and directions are where the wind blows from, in 12 sectors.
-- **Sensor switches:** five sites switched to sonic sensors in 2022–2024, and these hours are flagged.
-- **Coverage:** wind covers at least 98% of pollutant hours at most sites, but about 90% at Deer Park #2, 82% at Grapevine and 68–71% at Bayland Park.
+**Weather:** wind and temperature for the 9 sites, one row per site and hour. Harvard Street has no wind sensor, so it borrows Croquet's wind and Bayland Park's temperature. Calm is wind below 0.5 m/s (EPA-454/R-99-005), and directions are where the wind blows from, in 12 sectors. Five sites switched to sonic sensors in 2022–2024, and these hours are flagged. Wind covers at least 98% of pollutant hours at most sites, but 68–71% at Bayland Park.
 
 ## National daily analysis (2a)
 
@@ -62,8 +58,7 @@ Collocated instruments are averaged per site-day (5,198,843 site-days). Levels u
 - **Network:** reporting SO₂ and CO sites fell 18% and 17%. The FEM share of PM2.5 rose from 79% to 85%, and FEM reads 0.3 to 0.5 µg/m³ above FRM on the same site-day.
 - **NAAQS screening:** each site-year gets its standard's statistic, rounded as the standard specifies. In 2023, 42.7% of ozone sites and 39.0% of annual PM2.5 sites were above the level; the three-year screen gives 22.8% to 24.1% for ozone.
 - **Exceedances:** labelled events hold 39.9% of PM2.5 exceedance days (68.2% in 2023), and EPA's own event flag marks 14.4% of those. Houston and Dallas–Fort Worth rank 6th and 8th of 353 metros with an ozone exceedance, by exceedance site-days, which favour large networks.
-- **Seasons and weekends:** NO₂ and CO peak in winter at 1.7 to 1.8 times their lows, ozone in June and PM2.5 in July. From April to October, with three holidays left out, the median weekend-to-weekday ratio is 0.805 for NO₂ and 0.987 for ozone.
-- **Records:** tables are saved as `national_*.csv`, and quoted numbers are in `national_headlines.csv`.
+- **Seasons and weekends:** NO₂ and CO peak in winter, ozone in June and PM2.5 in July. From April to October, the median weekend-to-weekday ratio is 0.805 for NO₂ and 0.987 for ozone. Quoted numbers are in `national_headlines.csv`.
 
 ## Daily case study (2b)
 
@@ -73,11 +68,10 @@ Five-year sites: Ship Channel, Houston other and Dallas–Fort Worth hold 3, 1 a
 
 **What it finds:**
 - **Ozone:** Dallas–Fort Worth has the most exceedance days per site in every year; the Ship Channel has the fewest in 3 of 5.
-- **NO₂:** the Ship Channel is highest in every year under every check, and NO₂ falls with distance from the channel (Spearman −0.72, p = 0.02, with four-year sites). It stays negative whichever site is left out; without Northwest Harris County, the farthest, p is 0.08.
-- **SO₂:** read through spike days (5 ppb or more). Croquet spikes more often than the average Ship Channel site in every year.
+- **NO₂:** the Ship Channel is highest in every year under every check, and NO₂ falls with distance from the channel (Spearman −0.72, p = 0.02, with four-year sites; p = 0.08 without the farthest site).
 - **Events:** during Beryl, about 20% of Ship Channel monitors reported, against 100% in Dallas–Fort Worth.
 
-**Same-day differences:** each group's daily value is the mean of its reporting sites, and same-day differences cancel most shared weather. 95% ranges come from 1,000 resamples of 14-day blocks, because nearby days are linked.
+**Same-day differences:** each group's daily value is the mean of its reporting sites, which cancels most shared weather. 95% ranges come from 1,000 resamples of 14-day blocks, because nearby days are linked.
 
 | Same-day median (95% range) | Ship Channel minus Houston other | Runs holding | Houston minus Dallas–Fort Worth |
 |---|---|---|---|
@@ -90,9 +84,9 @@ Houston minus Dallas–Fort Worth holds in all 19 runs. The PM2.5 gap does not h
 
 ## Hourly case study (2c)
 
-**Hours:** ordinary hours are on a valid day, outside Uri, Beryl and wildfire flags (98.2% of hours). Every group reports in the same hour in at least 95% of hours. Results are rerun without Harvard Street (the one hourly site in the transition band), without its NO₂ hours after the method change and without Deer Park #2 after its move; wind results also without hours on the new sonic sensors.
+**Hours:** ordinary hours are on a valid day, outside Uri, Beryl and wildfire flags (98.2% of hours). Results are rerun without Harvard Street (the one hourly site in the transition band), without its NO₂ hours after the method change and without Deer Park #2 after its move.
 
-**Daily cycles (figures 2C.2 and 2C.3):** gaps are taken in the same hour, with each site counting equally in its group. NO₂ peaks at 06:00 to 07:00 and ozone at 14:00 to 15:00. Ship Channel NO₂ is higher and its ozone lower at **all 24 hours**, under every check, with both gaps widest late in the day (NO₂ +1.9 ppb at 17:00, ozone −3.0 ppb at 16:00). From April to October, 6 to 8 am weekend NO₂ is 36% below weekdays at the Ship Channel, against 42% in Houston other and 50% in Dallas–Fort Worth, consistent with more Ship Channel NO₂ from sources running all week.
+**Daily cycles (figures 2C.2 and 2C.3):** gaps are taken in the same hour, with each site counting equally in its group. Ship Channel NO₂ is higher and its ozone lower at **all 24 hours**, under every check, with both gaps widest late in the day (NO₂ +1.9 ppb at 17:00, ozone −3.0 ppb at 16:00). From April to October, 6 to 8 am weekend NO₂ is 36% below weekdays at the Ship Channel, against 42% in Houston other and 50% in Dallas–Fort Worth, consistent with more Ship Channel NO₂ from sources running all week.
 
 **Ozone and NO₂ together (figure 2C.4):** NO + O₃ → NO₂ + O₂ swaps ozone for NO₂ one for one, so it leaves Ox (ozone + NO₂) unchanged. If the Ship Channel's lower ozone came only from this reaction, its Ox would match Houston other's.
 
@@ -104,11 +98,11 @@ Houston minus Dallas–Fort Worth holds in all 19 runs. The PM2.5 gap does not h
 
 Ox closes at least half the gap under every check, consistent with fresh NO using up ozone near the channel. The data have no NO, so Ox cannot be regressed on NOx.
 
-**SO₂ spike hours (figure 2C.5):** a spike is an hour at 5 ppb or more, 2.5 times the usual 2 ppb detection limit. Rates per 1,000 hours are 5.4 at Croquet, 4.4 at Park Place, 2.0 at Deer Park #2 and 1.1 at Clinton. 96% of Croquet's spike hours fall between 9 am and 6 pm, and its summer rate is 4 times any other season's, consistent with a raised plume mixed down by daytime heating. Spikes last a median of one hour, and 16 of 289 Ship Channel spike hours hit two sites at once, consistent with separate local plumes. On Deer Park #2 spike hours, NO₂ is 7.5 ppb above normal (+5.1 to +10.0).
+**SO₂ spike hours (figure 2C.5):** a spike is an hour at 5 ppb or more, 2.5 times the usual 2 ppb detection limit. Croquet spikes most often (5.4 per 1,000 hours); 96% of its spike hours fall between 9 am and 6 pm, and its summer rate is 4 times any other season's, consistent with a raised plume mixed down by daytime heating. Spikes last a median of one hour and seldom hit two sites at once, consistent with separate local plumes. On Deer Park #2 spike hours, NO₂ is 7.5 ppb above normal (+5.1 to +10.0).
 
-**Wind and calm air (figures 2C.6 to 2C.8):** each calm hour is compared with windy hours at the same site, hour of day and month. Calm makes up 6.0% of hours at the Ship Channel, 8.9% in Houston other and 1.6% in Dallas–Fort Worth. Calm hours carry 3.0 to 6.8 ppb more NO₂ and 3.8 to 9.0 ppb less ozone at every site, each range clear of zero, and in every group at least 70% of the lost ozone shows up as NO₂. New sonic sensors read fewer calm hours at three sites, and every result holds without them.
+**Wind and calm air (figures 2C.6 to 2C.8):** each calm hour is compared with windy hours at the same site, hour of day and month. Calm makes up 6.0% of hours at the Ship Channel, 8.9% in Houston other and 1.6% in Dallas–Fort Worth. Calm hours carry 3.0 to 6.8 ppb more NO₂ and 3.8 to 9.0 ppb less ozone at every site, each range clear of zero, and in every group at least 70% of the lost ozone shows up as NO₂. Every result holds without hours on the new sonic sensors.
 
-**Source directions (figures 2C.9 to 2C.11):** channel directions come from the same USACE sections as the site groups. At all four Houston NO₂ sites, NO₂ runs 1.4 to 1.6 times its usual level in wind from 60° to 90°. 75% of Croquet's SO₂ spike hours (68% to 82%) come from 195° to 255°, a direction that brings 11% of its hours and points away from the channel; 77% of Park Place's (68% to 86%) come from the channel side, which brings 30% of its hours. For the Ox gap, each hour takes the vector mean of the 6 Houston sensors, and wind from the channel covers 45° to 135°.
+**Source directions (figures 2C.9 to 2C.11):** at all four Houston NO₂ sites, NO₂ runs 1.4 to 1.6 times its usual level in wind from 60° to 90°. 75% of Croquet's SO₂ spike hours come from the southwest, a direction that brings 11% of its hours and points away from the channel; 77% of Park Place's come from the channel side, which brings 30% of its hours. For the Ox gap, wind from the channel (45° to 135°) uses the vector mean of the 6 Houston sensors.
 
 | Ox gap, Ship Channel minus Houston other (ppb) | Wind from the channel | Other wind |
 |---|---|---|
@@ -121,11 +115,11 @@ The gap left over appears in wind from the channel, consistent with ozone formin
 
 ## Distributions (3_distributions)
 
-**Fit table:** five-year sites give 4,016,891 site-days after collocated instruments are averaged. Values at or below zero take half the method's federal detection limit in a fitting copy. Sites with at least 25% of days at or below zero (52 SO₂, 3 CO, 1 NO₂) stay out, leaving 2,425. Fits use ordinary days.
+**Fit table:** five-year sites give 4,016,891 site-days. Sites with at least 25% of days at or below zero (52 SO₂, 3 CO, 1 NO₂) stay out, leaving 2,425, and fits use ordinary days.
 
 **Shape (figures 3.1 to 3.4):** pooling mixes sites (SO₂'s pooled skew is 20.2 against 3.89 at the typical site), so each site's percentiles are compared with its own normal and lognormal curves. A lognormal is closer at 97% of PM2.5, 96% of SO₂ and 81% of CO sites, and a normal curve at 82% of ozone sites. NO₂ splits, at 61% lognormal.
 
-**Fits (figures 3.5 and 3.6):** lognormal, gamma and Weibull curves are fitted per site on value / site mean and ranked by AIC (2k − 2 ln L). Every curve has k = 2, so the ranking rests on the likelihood alone. A normal curve is fitted beside them as a reference. `fitdistrplus` fits the main run, and a faster fit for checks and resamples must match it within 0.001 AIC.
+**Fits (figures 3.5 and 3.6):** lognormal, gamma and Weibull curves are fitted per site on value / site mean and ranked by AIC (2k − 2 ln L); every curve has k = 2, so the ranking rests on the likelihood alone. A normal curve is fitted beside them as a reference.
 
 | Ordinary days | Sites | Lognormal | Gamma | Weibull | Normal wins if allowed | AIC gap 10+ | Scaled gap 10+ | Winner holds |
 |---|---|---|---|---|---|---|---|---|
@@ -135,11 +129,10 @@ The gap left over appears in wind from the channel, consistent with ozone formin
 | SO₂ | 249 | 188 | 53 | 8 | 0 | 96.4% | 79.5% | 78.0% |
 | CO | 132 | 82 | 41 | 9 | 4 | 89.4% | 65.2% | 77.0% |
 
-- **Certainty:** nearby days are linked. Effective days are n(1 − r) / (1 + r), where r is the correlation of logs on consecutive days, and the scaled gap is the AIC gap × effective days / n. A winner holds when it is kept in at least 90% of 100 two-week block resamples (100 random sites per pollutant, and every case-study site).
-- **Censored checks:** a day below a limit counts only as somewhere below it. Censoring days at or below zero keeps the winner at 95.2% of SO₂ and 96.2% of CO sites; censoring every reading below the limit keeps it at 72.3% and 75.8%.
-- **Deer Park #2 SO₂:** the main fit picks a lognormal whose P99 runs 49% high. With the 22.9% of days below the limit censored, a Weibull curve wins by an AIC gap of 24.2, consistent with the main win resting on the low readings.
-- **PM2.5 monitors:** at 67 sites with at least 365 ordinary days each side, a lognormal wins 95.5% of fits on a T640 alone and 46.3% on other monitors. At 228 sites with no T640, split at the typical switch date (2023-02-18), it falls from 51.3% to 36.0%. That is consistent with an instrument effect whose cause is not confirmed.
-- **Group spread:** the spread factor is exp(SD of logs), compared per site since winner labels are unstable. 95% ranges come from 1,000 resamples of the same 14-day date blocks at every site.
+- **Certainty:** nearby days are linked, so the scaled gap is the AIC gap × effective days / n, with effective days n(1 − r) / (1 + r) and r the correlation of logs on consecutive days. A winner holds when it is kept in at least 90% of 100 two-week block resamples.
+- **Censored checks:** a day below a limit counts only as somewhere below it. Censoring every reading below the limit keeps the winner at 72.3% of SO₂ and 75.8% of CO sites. At Deer Park #2, it moves the win from a lognormal to a Weibull curve, consistent with the main win resting on the low readings.
+- **PM2.5 monitors:** at 67 sites with at least 365 ordinary days each side, a lognormal wins 95.5% of fits on a T640 alone and 46.3% on other monitors, consistent with an instrument effect whose cause is not confirmed.
+- **Group spread:** the spread factor is exp(SD of logs), compared per site since winner labels are unstable, with 95% ranges from 1,000 resamples of 14-day date blocks.
 
 | Ozone spread factor (median) | Ship Channel | Houston other | Dallas–Fort Worth | Gaps to Dallas–Fort Worth (95% range) |
 |---|---|---|---|---|
@@ -148,7 +141,7 @@ The gap left over appears in wind from the channel, consistent with ozone formin
 
 The warm-month gap is consistent with Houston swinging between cleaner Gulf air and stagnant days, which is not tested here.
 
-**Tails (figures 3.7 to 3.9):** expected days = days measured × the curve's share above a level, compared with actual days on the days the curve was fitted to. A ratio above 1 is an overcount. This tests fit and forecasts nothing. Levels are the short-term limit under 2a's rounding and each site's own P98 and P99. Readings sit on a measurement grid, so a smooth curve is read half a step below the first counted value. Misses cancel in totals, so the typical site and the share within 25% (ratio 0.8 to 1.25) sit beside them, using sites with at least 10 actual days and 200 days.
+**Tails (figures 3.7 to 3.9):** expected days = days measured × the curve's share above a level, compared with actual days on the days the curve was fitted to. A ratio above 1 is an overcount. This tests fit and forecasts nothing. Levels are the short-term limit and each site's own P98 and P99. Misses cancel in totals, so the typical site and the share within 25% (ratio 0.8 to 1.25) sit beside them.
 
 | Top 1% of days | Actual days | Winner total | Lognormal total | Judged sites | Typical site (middle half) | Within 25% |
 |---|---|---|---|---|---|---|
@@ -177,13 +170,13 @@ Ranges use 2,000 resamples of the same 14-day date blocks, with every curve refi
 | Completeness | 87% | 90% | 94% | 90% on average |
 
 - **All 22 case-study ozone sites:** above 0.070 ppm for 2023–2025, from 0.071 (Houston Monroe) to 0.085 (Deer Park #2).
-- **Against EPA:** the values match at 61 of 66 site-windows. Each miss is 0.001 ppm low and none changes pass or fail. `1a` drops days with under 75% of hours, while Appendix U keeps a day with 13 of its 17 daytime periods or a value above 0.070 ppm; adding the short days above 0.070 back from the raw files reproduces all 66 values.
+- **Against EPA:** the values match at 61 of 66 site-windows. Each miss is 0.001 ppm low and none changes pass or fail: `1a` drops days with under 75% of hours, which Appendix U keeps when they pass 0.070 ppm, and adding those days back reproduces all 66 values.
 
-**Validation (figure 3.10):** 12 claims the Phase 3 figures make are rerun under every check that applies, plus a second seed: all 88 pairs hold. All 20 checks in `distribution_validation.csv` pass, and the 49 numbers the report quotes are in `distribution_headlines.csv`. A separate base R recomputation, kept outside the repo, matched every saved fit and all 49 headlines.
+**Validation (figure 3.10):** 12 figure claims are rerun under every check that applies, plus a second seed, and all 88 pairs hold. All 20 checks in `distribution_validation.csv` pass, and the report's 49 numbers are in `distribution_headlines.csv`.
 
-## Report (5_report)
+## Report
 
-`R/5_report.Rmd` knits to `5_report.pdf` (28 pages) with LuaLaTeX. Every number is read at knit time from the four headline tables (139 rows) or from saved records, behind named assertions, so a changed result changes the text and a missing one stops the knit. Five figures sit in the text (2A.2, 2A.10, 1C.1, 2C.4, 3.6) and 12 in the appendix, beside the cleaning log, a code map and code excerpts read from the scripts. The verdicts: H1 (more NO₂ near the channel) is supported, H2 (less ozone from titration) is supported in part, and H3 (SO₂ from short local plumes) is supported.
+`R/houston_dfw_air_quality.Rmd` knits to `houston_dfw_air_quality.pdf` (28 pages) with LuaLaTeX. Every number is read at knit time from the four headline tables (139 rows) or from saved records, behind named assertions, so a changed result changes the text and a missing one stops the knit. Five figures sit in the text and 12 in the appendix, beside the cleaning log, a code map and code excerpts read from the scripts.
 
 ## Saved files
 
@@ -197,8 +190,7 @@ Ranges use 2,000 resamples of the same 14-day date blocks, with every curve refi
 - **Small groups:** hourly ozone and NO₂ have two sites per group, and Houston other has one five-year PM2.5 site.
 - **Pointers, not proof:** distance to the channel water stands in for distance to the plants along it, and each wind direction brings its own kind of air.
 - **Weather gaps:** wind is missing for up to 474 days in a row at Bayland Park, 314 at Grapevine and 161 at Deer Park #2.
-- **Curves are relative:** a winner can still miss its tail, and a year-round curve blends two seasons. Tail tests say nothing about new days.
-- **Detection limits:** the censored checks use method-wide federal limits, which can differ from a monitor's actual limit.
+- **Curves and limits:** tail tests say nothing about new days, and the censored checks use method-wide federal limits, which can differ from a monitor's own.
 - **No ozone on December 31** in the daily table, an EPA file artifact. The hourly table has these days.
 - **Short high days:** cleaning drops days under 75% of hours, so 5 of 66 case-study design values sit 0.001 ppm below EPA's.
 - **Many comparisons:** dozens of ranges are reported without a multiple-comparison adjustment, so the results that hold under every check are the safest to cite.
