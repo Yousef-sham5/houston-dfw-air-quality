@@ -29,6 +29,11 @@ region_lookup <- tribble(
 
 
 
+# POLLUTANTS ----
+pollutant_levels <- c("PM2.5", "Ozone", "NO2", "SO2", "CO")
+
+
+
 # CALENDAR COLUMNS ----
 # Weekday, weekend and meteorological season from date_local, so the daily, hourly and weather tables group the
 # same way. Winter is December to February
@@ -75,6 +80,65 @@ add_calendar_columns <- function(data) {
 
 
 
+# NAAQS STANDARDS (2a AND 2b) ----
+# Primary standards in their own units and forms, shared so 2a and 2b screen with the same levels, rounding and ranks.
+# Each site-year is screened on its own, which is not an EPA design value (those average three years). Values are
+# rounded as the standard specifies before comparing: ozone truncated to 3 decimals (Appendix U 3(e)), PM2.5 to 0.1
+# and 1 (Appendix N 4.3), NO2 and SO2 to whole ppb (Appendices S 4.2(c) and T 4.1(c)) and CO to whole ppm (50.8(d)),
+# with halves rounded up
+naaqs <- tribble(
+  ~pollutant, ~standard, ~level, ~digits, ~rounding,  ~units_of_measure,             ~form,
+  "Ozone",    "8-hour",  0.070,  3,       "truncate", "Parts per million",           "4th-highest daily maximum 8-hour average",
+  "PM2.5",    "24-hour", 35,     0,       "half up",  "Micrograms/cubic meter (LC)", "98th percentile of daily means",
+  "PM2.5",    "Annual",  9.0,    1,       "half up",  "Micrograms/cubic meter (LC)", "Mean of the four quarterly means",
+  "NO2",      "1-hour",  100,    0,       "half up",  "Parts per billion",           "98th percentile of daily maximum 1-hour values",
+  "SO2",      "1-hour",  75,     0,       "half up",  "Parts per billion",           "99th percentile of daily maximum 1-hour values",
+  "CO",       "8-hour",  9,      0,       "half up",  "Parts per million",           "2nd-highest daily maximum 8-hour average"
+) %>%
+  mutate(pollutant = factor(pollutant, levels = pollutant_levels))
+
+# Rank of the annual 98th and 99th percentile in a site-year's values sorted from highest, by days with data
+# (Table 1 of Appendices N and S for the 98th, Table 1 of Appendix T for the 99th)
+percentile_ranks <- tribble(
+  ~percentile, ~min_days, ~max_days, ~rank,
+  98,          1,         50,        1,
+  98,          51,        100,       2,
+  98,          101,       150,       3,
+  98,          151,       200,       4,
+  98,          201,       250,       5,
+  98,          251,       300,       6,
+  98,          301,       350,       7,
+  98,          351,       366,       8,
+  99,          1,         100,       1,
+  99,          101,       200,       2,
+  99,          201,       300,       3,
+  99,          301,       366,       4
+)
+
+# Which value of the sorted site-year each short-term standard uses: a fixed rank, or a percentile rank from above
+naaqs_ranks <- tribble(
+  ~pollutant, ~fixed_rank, ~percentile,
+  "Ozone",    4,           NA,
+  "PM2.5",    NA,          98,
+  "NO2",      NA,          98,
+  "SO2",      NA,          99,
+  "CO",       2,           NA
+) %>%
+  mutate(pollutant = factor(pollutant, levels = pollutant_levels))
+
+stopifnot(
+  "Every pollutant has a NAAQS row" = setequal(naaqs$pollutant, pollutant_levels),
+  "Each percentile rank table covers 1 to 366 days without gaps" = all(vapply(
+    split(percentile_ranks, percentile_ranks$percentile),
+    \(t) identical(as.numeric(unlist(Map(seq, t$min_days, t$max_days))), as.numeric(1:366)),
+    logical(1)
+  )),
+  "Every pollutant has one short-term rank rule" =
+    setequal(naaqs_ranks$pollutant, pollutant_levels) && all(is.na(naaqs_ranks$fixed_rank) != is.na(naaqs_ranks$percentile))
+)
+
+
+
 # NAAQS ROUNDING ----
 # EPA rounds halves up (12.05 becomes 12.1), while round() rounds them to the nearest even digit. The small offset
 # stops a value stored as 12.0499999 from rounding down
@@ -92,7 +156,7 @@ truncate_to <- function(x, digits = 0) {
 # The value of each standard per site-year: the ranked daily value for the short-term standards and the mean of the
 # quarterly means for annual PM2.5, rounded as the standard specifies and compared with its level. Annual PM2.5
 # keeps only site-years with data in all four quarters, since Appendix N needs every quarter for a complete year.
-# naaqs, naaqs_ranks and percentile_ranks are the tables in 2a's CONFIG
+# naaqs, naaqs_ranks and percentile_ranks are the tables in NAAQS STANDARDS above
 naaqs_statistics <- function(site_days, naaqs, naaqs_ranks, percentile_ranks) {
   site_year_ranks <- site_days %>%
     count(pollutant, site_id, year, name = "n_days") %>%
@@ -724,6 +788,46 @@ tag_panel <- function(panel, panel_number, show_tag = TRUE, boxed = TRUE) {
       plot.subtitle = element_text(size = 7, face = "italic", colour = chart_ink[["secondary"]], hjust = 0, margin = margin(b = 3, l = 12)),
       panel.border = if (boxed) element_rect(colour = "#3A3A3A", linewidth = 0.35, fill = NA) else element_blank()
     )
+}
+
+# Text kept a fixed number of points inside the panel frame, whatever its length. x is "left", "right" or a data value,
+# y is "top", "bottom" or a data value; at a data value, hjust and vjust place the text as in geom_text. facet, a one-row
+# table of facet values, limits the text to that panel
+edge_text_pad <- 4
+
+edge_text <- function(label, x, y, hjust = 0.5, vjust = 0.5, size = chart_sizes[["label"]], colour = chart_ink[["secondary"]],
+                      fontface = "plain", lineheight = 0.95, pad = edge_text_pad, facet = NULL) {
+  purrr::pmap(list(label, x, y, hjust, vjust, colour), \(label, x, y, hjust, vjust, colour) {
+    at_edge_x <- is.character(x)
+    at_edge_y <- is.character(y)
+    stopifnot(
+      "x is left, right or a number" = !at_edge_x || x %in% c("left", "right"),
+      "y is top, bottom or a number" = !at_edge_y || y %in% c("top", "bottom")
+    )
+    grob_x <- if (!at_edge_x) grid::unit(0.5, "npc") else if (x == "left") grid::unit(pad, "pt") else grid::unit(1, "npc") - grid::unit(pad, "pt")
+    grob_y <- if (!at_edge_y) grid::unit(0.5, "npc") else if (y == "bottom") grid::unit(pad, "pt") else grid::unit(1, "npc") - grid::unit(pad, "pt")
+    text_grob <- grid::textGrob(
+      label, x = grob_x, y = grob_y,
+      hjust = if (!at_edge_x) hjust else if (x == "left") 0 else 1,
+      vjust = if (!at_edge_y) vjust else if (y == "bottom") 0 else 1,
+      gp = grid::gpar(
+        fontfamily = chart_fonts[["text"]], fontsize = size, col = colour, fontface = fontface, lineheight = lineheight
+      )
+    )
+    corners <- list(
+      xmin = if (at_edge_x) -Inf else x, xmax = if (at_edge_x) Inf else x,
+      ymin = if (at_edge_y) -Inf else y, ymax = if (at_edge_y) Inf else y
+    )
+    if (is.null(facet)) {
+      do.call(annotation_custom, c(list(grob = text_grob), corners))
+    } else {
+      stopifnot("facet is one row of facet values" = is.data.frame(facet) && nrow(facet) == 1)
+      layer(
+        data = facet, stat = "identity", position = "identity", geom = GeomCustomAnn, inherit.aes = FALSE,
+        params = c(list(grob = text_grob), corners)
+      )
+    }
+  })
 }
 
 # A one or two line source note in small grey type, broken where the printed line would pass the figure width

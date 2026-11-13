@@ -49,54 +49,11 @@ dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
 # Written by 2a section 7, which builds the site groups, collocated averages and site-months from the national table
 case_study_files <- c("daily_case_study.rds", "daily_case_study_instruments.rds", "daily_case_study_months.rds")
 
-pollutant_levels <- c("PM2.5", "Ozone", "NO2", "SO2", "CO")
+# pollutant_levels and the NAAQS tables (naaqs, percentile_ranks, naaqs_ranks) are set in utils.R, shared with 2a, so
+# naaqs_statistics() screens the case-study sites with the same levels, rounding and ranks
 
 # CO stays out of the case study: Harris County has one five-year CO site and Dallas-Fort Worth has none
 case_study_pollutants <- c("PM2.5", "Ozone", "NO2", "SO2")
-
-# Copied from 2a CONFIG, so naaqs_statistics() screens the case-study sites with the same levels, rounding and ranks.
-# Values are rounded as the standard specifies before comparing: ozone truncated to 3 decimals (Appendix U 3(e)),
-# PM2.5 to 0.1 and 1 (Appendix N 4.3), NO2 and SO2 to whole ppb (Appendices S 4.2(c) and T 4.1(c)) and CO to whole
-# ppm (50.8(d)), with halves rounded up
-naaqs <- tribble(
-  ~pollutant, ~standard, ~level, ~digits, ~rounding,  ~units_of_measure,             ~form,
-  "Ozone",    "8-hour",  0.070,  3,       "truncate", "Parts per million",           "4th-highest daily maximum 8-hour average",
-  "PM2.5",    "24-hour", 35,     0,       "half up",  "Micrograms/cubic meter (LC)", "98th percentile of daily means",
-  "PM2.5",    "Annual",  9.0,    1,       "half up",  "Micrograms/cubic meter (LC)", "Mean of the four quarterly means",
-  "NO2",      "1-hour",  100,    0,       "half up",  "Parts per billion",           "98th percentile of daily maximum 1-hour values",
-  "SO2",      "1-hour",  75,     0,       "half up",  "Parts per billion",           "99th percentile of daily maximum 1-hour values",
-  "CO",       "8-hour",  9,      0,       "half up",  "Parts per million",           "2nd-highest daily maximum 8-hour average"
-) %>%
-  mutate(pollutant = factor(pollutant, levels = pollutant_levels))
-
-# Rank of the annual 98th and 99th percentile in a site-year's values sorted from highest, by days with data
-# (Table 1 of Appendices N and S for the 98th, Table 1 of Appendix T for the 99th)
-percentile_ranks <- tribble(
-  ~percentile, ~min_days, ~max_days, ~rank,
-  98,          1,         50,        1,
-  98,          51,        100,       2,
-  98,          101,       150,       3,
-  98,          151,       200,       4,
-  98,          201,       250,       5,
-  98,          251,       300,       6,
-  98,          301,       350,       7,
-  98,          351,       366,       8,
-  99,          1,         100,       1,
-  99,          101,       200,       2,
-  99,          201,       300,       3,
-  99,          301,       366,       4
-)
-
-# Which value of the sorted site-year each short-term standard uses: a fixed rank, or a percentile rank from above
-naaqs_ranks <- tribble(
-  ~pollutant, ~fixed_rank, ~percentile,
-  "Ozone",    4,           NA,
-  "PM2.5",    NA,          98,
-  "NO2",      NA,          98,
-  "SO2",      NA,          99,
-  "CO",       2,           NA
-) %>%
-  mutate(pollutant = factor(pollutant, levels = pollutant_levels))
 
 # Houston North Loop, Houston Southwest Freeway, Dallas LBJ Freeway, Fort Worth California Parkway North
 near_road_ids <- c(
@@ -182,14 +139,6 @@ case_study_events <- c("Winter Storm Uri", "Hurricane Beryl")
 
 stopifnot(
   "Case-study pollutants are daily pollutants other than CO" = setequal(case_study_pollutants, setdiff(pollutant_levels, "CO")),
-  "Every pollutant has a NAAQS row" = setequal(naaqs$pollutant, pollutant_levels),
-  "Each percentile rank table covers 1 to 366 days without gaps" = all(vapply(
-    split(percentile_ranks, percentile_ranks$percentile),
-    \(t) identical(as.numeric(unlist(Map(seq, t$min_days, t$max_days))), as.numeric(1:366)),
-    logical(1)
-  )),
-  "Every pollutant has one short-term rank rule" =
-    setequal(naaqs_ranks$pollutant, pollutant_levels) && all(is.na(naaqs_ranks$fixed_rank) != is.na(naaqs_ranks$percentile)),
   "Near-road IDs are in the three case-study counties" = all(str_sub(near_road_ids, 1, 6) %in% region_lookup$county_id),
   "1c has written the Harris site groups (run 1c first)" = file.exists(harris_groups_path),
   "The transition band starts at the Ship Channel cutoff" = ship_channel_km < transition_km,
@@ -609,7 +558,7 @@ timeline_panel <- ggplot(coverage_runs) +
   geom_segment(aes(x = run_start, xend = run_end + 1, y = row_key, yend = row_key, colour = bar_colour), linewidth = 1.3) +
   geom_point(data = method_change_marks, aes(change_date, row_key), shape = "|", size = 2.4, colour = chart_ink[["primary"]]) +
   geom_point(data = relocation_marks, aes(relocation_date, row_key), shape = "|", size = 2.4, colour = chart_fills[["accent"]]) +
-  facet_grid(pollutant ~ ., scales = "free_y", space = "free_y") +
+  facet_grid(pollutant ~ ., scales = "free_y", space = "free_y", labeller = as_labeller(pretty_text)) +
   scale_colour_identity() +
   scale_x_date(
     limits = c(study_start, study_end + 1), breaks = make_date(study_years, 1, 1), labels = \(x) year(x),
@@ -651,7 +600,7 @@ distance_panel <- ggplot(distance_plot, aes(km_to_channel, short_name)) +
   ) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_shape_manual(values = site_group_shapes, guide = "none") +
-  scale_x_continuous(limits = c(0, 78), breaks = seq(0, 60, 20), expand = expansion(mult = c(0.04, 0))) +
+  scale_x_continuous(limits = c(0, 78), breaks = seq(0, 60, 20), expand = expansion(mult = c(0.12, 0.03))) +
   scale_y_discrete(
     labels = \(labels) parse(text = if_else(labels %in% transition_names, sprintf('bold("%s")', labels), sprintf('"%s"', labels)))
   ) +
@@ -1013,10 +962,7 @@ gradient_label <- ozone_gradient %>%
 
 gradient_panel <- ggplot(ozone_houston_sites, aes(km_to_channel, mean_ppm, colour = site_group)) +
   annotate("rect", xmin = ship_channel_km, xmax = transition_km, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
-  annotate(
-    "text", x = Inf, y = Inf, label = gradient_label$label, hjust = 1.03, vjust = 1.6,
-    family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_ink[["secondary"]]
-  ) +
+  edge_text(gradient_label$label, "right", "top", size = chart_sizes[["label"]] - 0.7) +
   geom_point(aes(shape = site_group), size = 1.9) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_shape_manual(values = site_group_shapes, guide = "none") +
@@ -1295,10 +1241,7 @@ no2_gradient_label <- no2_gradient %>%
 
 no2_gradient_panel <- ggplot(no2_houston_sites, aes(km_to_channel, mean_ppb, colour = site_group)) +
   annotate("rect", xmin = ship_channel_km, xmax = transition_km, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
-  annotate(
-    "text", x = Inf, y = Inf, label = no2_gradient_label$label, hjust = 1.03, vjust = 1.6,
-    family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_ink[["secondary"]]
-  ) +
+  edge_text(no2_gradient_label$label, "right", "top", size = chart_sizes[["label"]] - 0.7, lineheight = 1.2) +
   geom_point(aes(shape = site_marker(site_group, !is_five_year)), size = 1.9, stroke = 0.9) +
   scale_shape_identity() +
   scale_colour_manual(values = site_group_colours, guide = "none") +
@@ -1537,7 +1480,7 @@ main_pm25_annual <- pm25_by_group %>%
 
 pm25_annual_panel <- ggplot(main_pm25_annual, aes(year, median_value, colour = site_group)) +
   annotate(
-    "segment", x = min(study_years) - 0.15, xend = max(study_years) + 0.15, y = pm25_annual_level, yend = pm25_annual_level,
+    "segment", x = min(study_years) - 0.15, xend = max(study_years), y = pm25_annual_level, yend = pm25_annual_level,
     colour = chart_ink[["primary"]], linewidth = 0.4, linetype = "22"
   ) +
   geom_line(linewidth = 0.7) +
@@ -1568,10 +1511,10 @@ pm25_high_plot <- pm25_high_by_class %>%
   mutate(group_label = recode_values(
     as.character(site_group),
     from = names(site_group_colours),
-    to = c("Ship Channel", "Houston other", "DFW"),
+    to = c("Ship Channel", "Houston other", "Dallas-Fort Worth"),
     unmatched = "error"
   )) %>%
-  mutate(group_label = factor(group_label, levels = c("Ship Channel", "Houston other", "DFW")))
+  mutate(group_label = factor(group_label, levels = c("Ship Channel", "Houston other", "Dallas-Fort Worth")))
 
 pm25_high_totals <- pm25_high_plot %>%
   summarise(n_site_days = sum(n_site_days), .by = group_label)
@@ -1599,15 +1542,12 @@ pm25_gradient_label <- pm25_gradient %>%
 
 pm25_gradient_panel <- ggplot(pm25_houston_sites, aes(km_to_channel, mean_ugm3, colour = site_group)) +
   annotate("rect", xmin = ship_channel_km, xmax = transition_km, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
-  annotate(
-    "text", x = Inf, y = Inf, label = pm25_gradient_label$label, hjust = 1.03, vjust = 1.6,
-    family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_ink[["secondary"]]
-  ) +
+  edge_text(pm25_gradient_label$label, "right", "top", size = chart_sizes[["label"]] - 0.7, lineheight = 1.2) +
   geom_point(aes(shape = site_marker(site_group, !is_five_year)), size = 1.9, stroke = 0.9) +
   scale_shape_identity() +
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_x_continuous(breaks = seq(0, 40, 10)) +
-  scale_y_continuous(expand = expansion(mult = c(0.08, 0.9))) +
+  scale_y_continuous(expand = expansion(mult = c(0.12, 0.9))) +
   labs(title = panel_label(4, "Distance"), subtitle = "Mean (µg/m³) by km to the channel", x = NULL, y = NULL) +
   theme_paper()
 
@@ -2104,7 +2044,7 @@ level_panel <- function(event, kicker) {
     geom_point(aes(shape = level_marker(level_group, is_thin)), size = 2, stroke = 0.9) +
     scale_shape_identity() +
     scale_colour_manual(values = level_colours, guide = "none") +
-    scale_x_continuous(trans = "log2", limits = c(0.5, 3.2), breaks = c(0.5, 1, 2), labels = c("0.5x", "1x", "2x")) +
+    scale_x_continuous(trans = "log2", limits = c(0.5, 3.2), breaks = c(0.5, 1, 2), labels = c("0.5\u00d7", "1\u00d7", "2\u00d7")) +
     scale_y_continuous(breaks = 1:3, labels = pretty_text(c("NO2", "Ozone", "PM2.5")), expand = expansion(add = 0.4)) +
     labs(title = kicker, subtitle = "Median during the event against normal", x = NULL, y = NULL) +
     theme_paper() +
@@ -2373,9 +2313,12 @@ stopifnot(
 )
 
 # Figure 2B.7: main differences, the Ship Channel against Houston other by season, by check and by year
-gas_colours <- c(NO2 = chart_fills[["accent"]], Ozone = chart_ink[["primary"]], SO2 = chart_ink[["muted"]], PM2.5 = chart_fills[["other"]])
+gas_colours <- c(NO2 = chart_fills[["accent"]], Ozone = chart_ink[["primary"]], SO2 = "#7A4FA0", PM2.5 = "#8C8C8C")
 
-contrast_short <- c("Ship Channel minus Houston other" = "SC \u2212 Houston other", "Houston minus Dallas-Fort Worth" = "Houston \u2212 DFW")
+contrast_short <- c(
+  "Ship Channel minus Houston other" = "Ship Channel \u2212 Houston other",
+  "Houston minus Dallas-Fort Worth" = "Houston \u2212 Dallas-Fort Worth"
+)
 
 forest_theme <- theme(
   panel.grid.major.y = element_blank(),
@@ -2408,7 +2351,7 @@ season_panel <- ggplot(season_plot, aes(period, median_difference, colour = poll
   geom_point(size = 1.7, position = position_dodge(width = 0.5)) +
   scale_colour_manual(values = gas_colours, guide = "none") +
   scale_y_continuous(labels = label_number(style_negative = "minus")) +
-  labs(title = panel_label(2, "By season"), subtitle = "SC minus Houston other (ppb)", x = NULL, y = NULL) +
+  labs(title = panel_label(2, "By season"), subtitle = "Ship Channel minus Houston other (ppb)", x = NULL, y = NULL) +
   theme_paper()
 
 check_labels <- c(
@@ -2433,7 +2376,7 @@ check_panel <- ggplot(check_plot, aes(median_difference, check, colour = polluta
   geom_point(size = 1.7) +
   scale_colour_manual(values = gas_colours, guide = "none") +
   scale_x_continuous(labels = label_number(style_negative = "minus")) +
-  labs(title = panel_label(3, "By check"), subtitle = "SC minus Houston other (ppb)", x = NULL, y = NULL) +
+  labs(title = panel_label(3, "By check"), subtitle = "Ship Channel minus Houston other (ppb)", x = NULL, y = NULL) +
   theme_paper() +
   forest_theme
 
@@ -2448,7 +2391,7 @@ year_panel <- ggplot(year_plot, aes(period, median_difference, colour = pollutan
   scale_colour_manual(values = gas_colours, guide = "none") +
   scale_x_continuous(breaks = study_years) +
   scale_y_continuous(labels = label_number(style_negative = "minus")) +
-  labs(title = panel_label(4, "By year"), subtitle = "SC minus Houston other (ppb)", x = NULL, y = NULL) +
+  labs(title = panel_label(4, "By year"), subtitle = "Ship Channel minus Houston other (ppb)", x = NULL, y = NULL) +
   theme_paper()
 
 paired_figure <- tagged_figure(

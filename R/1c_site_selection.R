@@ -373,7 +373,7 @@ map_sites <- case_study_sites %>%
   mutate(site_label = str_remove(local_site_name, " Airport Executive$")) %>%
   mutate(site_label = if_else(site_label == "Houston East", site_label, str_remove(site_label, "^Houston "))) %>%
   mutate(label_side = case_when(
-    site_label %in% c("Grapevine Fairway", "Houston East", "Park Place", "Bayland Park") ~ "right",
+    site_label %in% c("Grapevine Fairway", "Houston East", "Park Place", "Bayland Park", "Croquet") ~ "right",
     site_label == "Harvard Street" ~ "left",
     site_label == "Deer Park #2" ~ "below",
     site_label == "Clinton" ~ "above, west",
@@ -406,11 +406,12 @@ map_landmarks <- tribble(
   "Dallas-Fort Worth", "DFW Airport",      32.8998,   -97.0403,   0,         0.5
 )
 
-# Both frames span 0.46 degrees of latitude, so the two maps share one scale
+# Both frames span 0.38 degrees of latitude, so the two maps share one scale. Houston's reaches east past the end of
+# the channel's 7.5 km zone
 map_frames <- tribble(
   ~region,             ~lon_min, ~lon_max, ~lat_min, ~lat_max,
-  "Houston",           -95.585,  -95.035,  29.525,   29.985,
-  "Dallas-Fort Worth", -97.150,  -96.710,  32.635,   33.095
+  "Houston",           -95.585,  -94.885,  29.510,   29.890,
+  "Dallas-Fort Worth", -97.150,  -96.710,  32.640,   33.020
 )
 
 sites_outside_frame <- map_sites %>%
@@ -494,13 +495,18 @@ stopifnot(
 
 degree_breaks <- function(low, high, step) seq(ceiling(round(low / step, 6)) * step, floor(round(high / step, 6)) * step, by = step)
 
-draw_region_map <- function(region_name, panel_label, frames = map_frames, text_mm = map_text_mm, degree_step = 0.1, bar_km = 10) {
+draw_region_map <- function(region_name, panel_label, frames = map_frames, text_mm = map_text_mm, degree_step = 0.1, bar_km = 10,
+                            label_spread = 1) {
   frame <- filter(frames, region == region_name)
-  region_sites <- filter(map_sites, region == region_name)
-  region_landmarks <- filter(map_landmarks, region == region_name)
-  bar_start <- frame$lon_min + 0.025
+  region_sites <- map_sites %>%
+    filter(region == region_name) %>%
+    mutate(across(c(name_dx, name_dy, pollutant_dx, pollutant_dy), \(x) x * label_spread))
+  region_landmarks <- map_landmarks %>%
+    filter(region == region_name) %>%
+    mutate(label_dx = label_dx * label_spread)
+  bar_start <- frame$lon_min + 0.025 * label_spread
   bar_end <- bar_start + bar_km / km_per_lon_degree((frame$lat_min + frame$lat_max) / 2)
-  bar_y <- frame$lat_min + 0.022
+  bar_y <- frame$lat_min + 0.022 * label_spread
   region_map <- ggplot()
   if (region_name == "Houston") {
     region_map <- region_map +
@@ -520,10 +526,13 @@ draw_region_map <- function(region_name, panel_label, frames = map_frames, text_
       "segment", x = c(bar_start, bar_end), xend = c(bar_start, bar_end), y = bar_y - 0.005, yend = bar_y + 0.005, colour = "black",
       linewidth = 0.4
     ) +
-    annotate("text", x = (bar_start + bar_end) / 2, y = bar_y + 0.017, label = str_c(bar_km, " km"), family = map_font, size = text_mm[["detail"]]) +
+    annotate(
+      "text", x = (bar_start + bar_end) / 2, y = bar_y + 0.017 * label_spread, label = str_c(bar_km, " km"), family = map_font,
+      size = text_mm[["detail"]]
+    ) +
     geom_point(data = region_landmarks, aes(longitude, latitude), shape = 3, size = 1.3, stroke = 0.35, colour = "grey40") +
     geom_text(
-      data = region_landmarks, aes(longitude + label_dx, latitude - 0.012, label = landmark, hjust = label_hjust), family = map_font,
+      data = region_landmarks, aes(longitude + label_dx, latitude - 0.012 * label_spread, label = landmark, hjust = label_hjust), family = map_font,
       fontface = "italic", size = text_mm[["detail"]], colour = "grey40", vjust = 1
     ) +
     geom_point(
@@ -599,7 +608,7 @@ site_map_path <- here("figures", "phase1", "case_study_sites.png")
 save_started <- Sys.time()
 
 # Saved at the report text width, so the sizes above are the printed sizes
-ggsave(site_map_path, site_map, width = 6.5, height = 4.3, dpi = 300)
+ggsave(site_map_path, site_map, width = 6.5, height = 3.5, dpi = 300)
 
 # ragg only warns when the file is locked (an open viewer or OneDrive syncing), so check the write
 stopifnot(
@@ -611,8 +620,8 @@ stopifnot(
 # the sites and their labels. Both frames are the same width in km, so the stacked maps line up
 narrow_frames <- tribble(
   ~region,             ~lon_min, ~lon_max, ~lat_min, ~lat_max,
-  "Houston",           -95.585,  -95.060,  29.525,   29.895,
-  "Dallas-Fort Worth", -97.201,  -96.658,  32.635,   33.060
+  "Houston",           -95.610,  -94.885,  29.525,   29.870,
+  "Dallas-Fort Worth", -97.295,  -96.546,  32.635,   33.025
 )
 
 narrow_frame_km <- narrow_frames %>%
@@ -629,10 +638,19 @@ stopifnot(
   "Both narrow frames are the same width in km, so the stacked maps line up" = diff(range(narrow_frame_km$width_km)) < 0.1
 )
 
+# Label offsets are in degrees. The narrow map prints about 1.3 times as many km per inch as the wide one, so its offsets
+# stretch by that much to keep the same printed gaps
+narrow_label_spread <- 1.3
+
 narrow_map <- tagged_figure(
   list(
-    draw_region_map("Houston", "(a) Houston", frames = narrow_frames, text_mm = narrow_text_mm, degree_step = 0.2),
-    draw_region_map("Dallas-Fort Worth", "(b) Dallas-Fort Worth", frames = narrow_frames, text_mm = narrow_text_mm, degree_step = 0.2)
+    draw_region_map(
+      "Houston", "(a) Houston", frames = narrow_frames, text_mm = narrow_text_mm, degree_step = 0.2, label_spread = narrow_label_spread
+    ),
+    draw_region_map(
+      "Dallas-Fort Worth", "(b) Dallas-Fort Worth", frames = narrow_frames, text_mm = narrow_text_mm, degree_step = 0.2,
+      label_spread = narrow_label_spread
+    )
   ),
   mutate(map_key, row = c(1, 1, 2, 2, 3, 3)),
   source_note = str_c("Source: EPA AQS site coordinates; USACE channel. Shaded: within ", ship_channel_km, " km of the channel."),
@@ -645,7 +663,7 @@ narrow_map_path <- here("figures", "phase1", "case_study_sites_narrow.png")
 
 narrow_save_started <- Sys.time()
 
-ggsave(narrow_map_path, narrow_map, width = 3.2, height = 6.75, dpi = 300)
+ggsave(narrow_map_path, narrow_map, width = 3.2, height = 5.4, dpi = 300)
 
 stopifnot(
   "case_study_sites_narrow.png was written (close any viewer of it and rerun this step)" =

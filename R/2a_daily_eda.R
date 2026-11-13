@@ -47,7 +47,7 @@ records_dir <- file.path(processed_dir, "phase2")
 
 dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
 
-pollutant_levels <- c("PM2.5", "Ozone", "NO2", "SO2", "CO")
+# pollutant_levels and the NAAQS tables (naaqs, percentile_ranks, naaqs_ranks) are set in utils.R
 
 # CO stays out of the case-study checkpoint: Harris County has one five-year CO site and Dallas-Fort Worth has none
 case_study_pollutants <- c("PM2.5", "Ozone", "NO2", "SO2")
@@ -73,51 +73,7 @@ parameter_codes <- tribble(
 ) %>%
   mutate(pollutant = factor(pollutant, levels = pollutant_levels))
 
-# Primary standards in their own units and forms. Each site-year is screened on its own, which is not an EPA
-# design value (those average three years). Values are rounded as the standard specifies before comparing:
-# ozone truncated to 3 decimals (Appendix U 3(e)), PM2.5 to 0.1 and 1 (Appendix N 4.3), NO2 and SO2 to whole ppb
-# (Appendices S 4.2(c) and T 4.1(c)) and CO to whole ppm (50.8(d)), with halves rounded up
-naaqs <- tribble(
-  ~pollutant, ~standard, ~level, ~digits, ~rounding,  ~units_of_measure,             ~form,
-  "Ozone",    "8-hour",  0.070,  3,       "truncate", "Parts per million",           "4th-highest daily maximum 8-hour average",
-  "PM2.5",    "24-hour", 35,     0,       "half up",  "Micrograms/cubic meter (LC)", "98th percentile of daily means",
-  "PM2.5",    "Annual",  9.0,    1,       "half up",  "Micrograms/cubic meter (LC)", "Mean of the four quarterly means",
-  "NO2",      "1-hour",  100,    0,       "half up",  "Parts per billion",           "98th percentile of daily maximum 1-hour values",
-  "SO2",      "1-hour",  75,     0,       "half up",  "Parts per billion",           "99th percentile of daily maximum 1-hour values",
-  "CO",       "8-hour",  9,      0,       "half up",  "Parts per million",           "2nd-highest daily maximum 8-hour average"
-) %>%
-  mutate(pollutant = factor(pollutant, levels = pollutant_levels))
-
-# Rank of the annual 98th and 99th percentile in a site-year's values sorted from highest, by days with data
-# (Table 1 of Appendices N and S for the 98th, Table 1 of Appendix T for the 99th)
-percentile_ranks <- tribble(
-  ~percentile, ~min_days, ~max_days, ~rank,
-  98,          1,         50,        1,
-  98,          51,        100,       2,
-  98,          101,       150,       3,
-  98,          151,       200,       4,
-  98,          201,       250,       5,
-  98,          251,       300,       6,
-  98,          301,       350,       7,
-  98,          351,       366,       8,
-  99,          1,         100,       1,
-  99,          101,       200,       2,
-  99,          201,       300,       3,
-  99,          301,       366,       4
-)
-
-# Which value of the sorted site-year each short-term standard uses: a fixed rank, or a percentile rank from above
-naaqs_ranks <- tribble(
-  ~pollutant, ~fixed_rank, ~percentile,
-  "Ozone",    4,           NA,
-  "PM2.5",    NA,          98,
-  "NO2",      NA,          98,
-  "SO2",      NA,          99,
-  "CO",       2,           NA
-) %>%
-  mutate(pollutant = factor(pollutant, levels = pollutant_levels))
-
-# The annual PM2.5 level before EPA's 2024 rule. Screening uses the current 9.0 in every year (table above); the old
+# The annual PM2.5 level before EPA's 2024 rule. Screening uses the current 9.0 in every year (naaqs in utils.R); the old
 # level is only used to count sites that would have passed before the change
 pm25_annual_old_level <- 12.0
 
@@ -164,14 +120,6 @@ stopifnot(
   "Near-road IDs are in the three case-study counties" = all(str_sub(near_road_ids, 1, 6) %in% region_lookup$county_id),
   "Case-study pollutants are daily pollutants other than CO" = setequal(case_study_pollutants, setdiff(pollutant_levels, "CO")),
   "One parameter code per pollutant" = setequal(parameter_codes$pollutant, pollutant_levels),
-  "Every pollutant has a NAAQS row" = setequal(naaqs$pollutant, pollutant_levels),
-  "Each percentile rank table covers 1 to 366 days without gaps" = all(vapply(
-    split(percentile_ranks, percentile_ranks$percentile),
-    \(t) identical(as.numeric(unlist(Map(seq, t$min_days, t$max_days))), as.numeric(1:366)),
-    logical(1)
-  )),
-  "Every pollutant has one short-term rank rule" =
-    setequal(naaqs_ranks$pollutant, pollutant_levels) && all(is.na(naaqs_ranks$fixed_rank) != is.na(naaqs_ranks$percentile)),
   "The old annual PM2.5 level is above the current one" = pm25_annual_old_level > naaqs$level[naaqs$standard == "Annual"],
   "Partial winters are 2021 and 2026" = identical(partial_winter_years, c(2021, 2026)),
   "The West region has 13 unique two-digit state codes" =
@@ -694,10 +642,7 @@ stopifnot("The widest event-day gap falls in 2023, the Canadian smoke year the b
 
 gap_panel <- ggplot(gap_by_day_type, aes(year, median_gap, colour = day_type)) +
   annotate("rect", xmin = smoke_year$year - 0.5, xmax = smoke_year$year + 0.5, ymin = -Inf, ymax = Inf, fill = chart_warm[["band"]]) +
-  annotate(
-    "text", x = smoke_year$year, y = Inf, label = "Smoke year", vjust = 1.6,
-    family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_warm[["text"]]
-  ) +
+  edge_text("Smoke year", smoke_year$year, "top", size = chart_sizes[["label"]] - 0.7, colour = chart_warm[["text"]]) +
   geom_hline(yintercept = 0, colour = chart_ink[["axis"]], linewidth = 0.35) +
   geom_line(linewidth = 0.7) +
   chart_end_label(filter(gap_ends, day_type == "Event days"), "year", "median_gap", "label", colour = chart_warm[["text"]]) +
@@ -1282,7 +1227,7 @@ metro_panel <- function(panel_pollutant, panel_name, panel_title) {
   label_gap <- x_limit * 0.015
   panel_ranks <- filter(case_study_metro_ranks, pollutant == panel_pollutant)
   panel_caption <- sprintf(
-    "Houston %s, DFW %s of %d metros",
+    "Houston %s, Dallas-Fort Worth %s of %d metros",
     ordinal_label(panel_ranks$metro_rank[panel_ranks$region == "Houston"]),
     ordinal_label(panel_ranks$metro_rank[panel_ranks$region == "Dallas-Fort Worth"]),
     n_distinct(metro_ranks$cbsa_name[metro_ranks$pollutant == panel_pollutant])
@@ -1631,7 +1576,7 @@ stopifnot(
 # with the share of sites peaking in each month, then the winter peaks
 band_alpha <- 0.18
 
-month_scale <- scale_x_continuous(breaks = 1:12, labels = str_sub(month.abb, 1, 1), expand = expansion(add = 0.4))
+month_scale <- scale_x_continuous(breaks = 1:12, labels = str_sub(month.abb, 1, 1), expand = expansion(add = 0.6))
 
 profile_panel_labels <- tribble(
   ~pollutant, ~statistic,         ~panel_title,     ~digits, ~panel_number,
@@ -2215,12 +2160,12 @@ ozone_metro_panel <- ggplot(metro_rows, aes(median_ratio, metro_label)) +
   scale_y_discrete(limits = levels(metro_rows$metro_label), labels = \(labels) parse(text = if_else(
     labels %in% case_study_metro_labels, sprintf('bold("%s")', labels), sprintf('"%s"', labels)
   ))) +
-  scale_x_continuous(expand = expansion(mult = c(0.9, 0.55)), breaks = c(0.95, 1, 1.05), labels = label_number(accuracy = 0.01)) +
+  scale_x_continuous(expand = expansion(mult = c(0.9, 0.75)), breaks = c(0.95, 1, 1.05), labels = label_number(accuracy = 0.01)) +
   labs(
     title = panel_label(2, "Where weekend ozone rises"),
     subtitle = "Median site, metros with 5+ sites, sites in brackets",
     caption = sprintf(
-      "Houston %s, DFW %s",
+      "Houston %s, Dallas-Fort Worth %s",
       case_study_ozone_metros$label[case_study_ozone_metros$region == "Houston"],
       case_study_ozone_metros$label[case_study_ozone_metros$region == "Dallas-Fort Worth"]
     ),

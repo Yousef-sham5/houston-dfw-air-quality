@@ -2,7 +2,7 @@
 pkgs <- c(
   "dplyr", "readr", "readxl", "tidyr", "stringr", "purrr", "janitor", "lubridate", "here", "jsonlite", "lobstr",
   "ggplot2", "scales", "naniar", "patchwork", "corrplot", "ragg", "systemfonts", "openair",
-  "MASS", "moments", "nortest", "fitdistrplus", "extRemes", "trend",
+  "MASS", "moments", "nortest", "fitdistrplus",
   "broom", "car",
   "knitr", "rmarkdown", "tinytex", "kableExtra", "renv"
 )

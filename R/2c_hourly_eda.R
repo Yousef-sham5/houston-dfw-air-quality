@@ -705,7 +705,7 @@ analysis_panel <- ggplot(analysis_rows, aes(y = row_key)) +
   scale_colour_identity() +
   scale_x_continuous(
     limits = c(analysis_x_low, 100), breaks = seq(analysis_x_low, 100, 20), labels = \(x) str_c(x, "%"),
-    expand = expansion(mult = c(0.02, 0.06))
+    expand = expansion(mult = c(0.02, 0.1))
   ) +
   scale_y_discrete(labels = bold_row_label, expand = expansion(add = c(0.6, 1.2))) +
   labs(
@@ -1062,23 +1062,15 @@ stopifnot(
 # Figure 2C.2: the average day per group, and the Ship Channel gap at each hour with its range and the checks
 hour_axis <- scale_x_continuous(breaks = seq(0, 18, 6), labels = \(x) sprintf("%02d:00", x), expand = expansion(mult = 0.02))
 
-short_hour_axis <- scale_x_continuous(breaks = seq(0, 18, 6), expand = expansion(mult = 0.02))
-
 # Gap charts show a + on values above zero and name each side of the zero line, so a reader sees which way is which
 signed_labels <- function(x) {
   if_else(x > 0, str_c("+", x), minus_sign(as.character(x)))
 }
 
-zero_line_labels <- function(above, below, x = Inf, hjust = 1) {
-  list(
-    annotate(
-      "text", x = x, y = 0, label = above, hjust = hjust, vjust = -0.7,
-      family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 1.2) / .pt, colour = chart_ink[["muted"]]
-    ),
-    annotate(
-      "text", x = x, y = 0, label = below, hjust = hjust, vjust = 1.7,
-      family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 1.2) / .pt, colour = chart_ink[["muted"]]
-    )
+zero_line_labels <- function(above, below) {
+  edge_text(
+    c(above, below), "right", 0, vjust = c(-0.7, 1.7),
+    size = chart_sizes[["label"]] - 1.2, colour = chart_ink[["muted"]]
   )
 }
 
@@ -1174,8 +1166,8 @@ season_panel <- function(pollutant_name, kicker) {
     facet_grid(. ~ season, labeller = as_labeller(pretty_text)) +
     scale_colour_manual(values = site_group_colours, guide = "none") +
     scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.05))) +
-    short_hour_axis +
-    labs(title = kicker, subtitle = "Mean by hour of day, 0 to 23 (ppb)", x = NULL, y = NULL) +
+    hour_axis +
+    labs(title = kicker, subtitle = "Mean by hour of day (ppb)", x = NULL, y = NULL) +
     theme_paper() +
     facet_strips
 }
@@ -1187,20 +1179,15 @@ weekend_plot <- weekend_profiles %>%
   filter(site_set == "Main") %>%
   mutate(weekend_pct = 100 * (weekend_ratio - 1))
 
-weekend_side_labels <- tibble(
-  pollutant = factor("NO2", levels = cycle_pollutants),
-  label = c("Higher on weekends", "Lower on weekends"),
-  y = c(0, -Inf),
-  vjust = c(-0.7, -0.6)
-)
+weekend_label_facet <- tibble(pollutant = factor("NO2", levels = cycle_pollutants))
 
 weekend_panel <- ggplot(weekend_plot, aes(hour_local, weekend_pct, colour = site_group)) +
   annotate("rect", xmin = min(morning_hours) - 0.5, xmax = max(morning_hours) + 0.5, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
   geom_hline(yintercept = 0, colour = chart_ink[["primary"]], linewidth = 0.35) +
   geom_line(linewidth = 0.6) +
-  geom_text(
-    data = weekend_side_labels, aes(x = Inf, y = y, label = label, vjust = vjust), inherit.aes = FALSE, hjust = 1,
-    family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 1.2) / .pt, colour = chart_ink[["muted"]]
+  edge_text(
+    c("Higher on weekends", "Lower on weekends"), "right", list(0, "bottom"), vjust = c(-0.7, 0),
+    size = chart_sizes[["label"]] - 1.2, colour = chart_ink[["muted"]], facet = weekend_label_facet
   ) +
   facet_grid(. ~ pollutant, labeller = as_labeller(pretty_text)) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
@@ -1584,9 +1571,9 @@ ox_check_panel <- ggplot(check_rows, aes(y = check)) +
   ) +
   geom_point(aes(x = ozone_gap_ppb), colour = chart_ink[["muted"]], size = 1.8) +
   geom_point(aes(x = ox_gap_ppb), colour = chart_fills[["accent"]], size = 1.8) +
-  geom_text(
-    aes(x = -Inf, label = check), hjust = 0, vjust = -1.1,
-    family = chart_fonts[["text"]], size = (chart_sizes[["label"]] - 0.6) / .pt, colour = chart_ink[["secondary"]]
+  edge_text(
+    as.character(check_rows$check), "left", as.integer(check_rows$check), vjust = -1.1,
+    size = chart_sizes[["label"]] - 0.6, colour = chart_ink[["secondary"]]
   ) +
   geom_text(
     aes(x = coalesce(ox_ci_high, ox_gap_ppb), label = sprintf("%.0f%%", 100 * share_of_ozone_gap_closed)), hjust = -0.5,
@@ -1951,19 +1938,22 @@ so2_hour_panel <- ggplot(hour_rates, aes(hour_local, short_name)) +
     family = chart_fonts[["mono"]], size = so2_label_size, colour = chart_ink[["secondary"]]
   ) +
   scale_fill_gradient(
-    low = "white", high = chart_fills[["accent"]], name = "Spike hours per 1,000",
-    guide = guide_colourbar(title.position = "left", barwidth = unit(70, "pt"), barheight = unit(4, "pt"))
+    low = "white", high = chart_fills[["accent"]], name = "Spike\nhours\nper 1,000",
+    guide = guide_colourbar(title.position = "top", barwidth = unit(4, "pt"), barheight = unit(60, "pt"))
   ) +
-  scale_x_continuous(breaks = seq(0, 18, 6), labels = \(x) sprintf("%02d:00", x), expand = expansion(add = c(0.6, 5.2))) +
+  scale_x_continuous(breaks = seq(0, 18, 6), labels = \(x) sprintf("%02d:00", x), expand = expansion(add = c(0.6, 6.2))) +
   scale_y_discrete(expand = expansion(add = c(0.6, 1.3))) +
   labs(title = panel_label(1, "By hour of day"), subtitle = "When in the day each site spikes", x = NULL, y = NULL) +
   theme_paper() +
   so2_site_axis +
   theme(
-    legend.position = "bottom",
+    legend.position = "right",
+    legend.direction = "vertical",
+    legend.justification = "center",
     legend.title = element_text(family = chart_fonts[["mono"]], colour = chart_ink[["muted"]], size = chart_sizes[["axis"]] - 0.6),
     legend.text = element_text(family = chart_fonts[["mono"]], colour = chart_ink[["muted"]], size = chart_sizes[["axis"]] - 0.6),
-    legend.margin = margin(4, 0, 0, 0)
+    legend.margin = margin(0, 0, 0, 0),
+    legend.box.spacing = unit(6, "pt")
   )
 
 season_rates <- site_season_rates %>%
@@ -2020,7 +2010,7 @@ so2_day_type_panel <- ggplot(day_type_rates, aes(spike_rate_per_1000, short_name
     family = chart_fonts[["mono"]], size = so2_label_size, colour = chart_fills[["accent"]]
   ) +
   scale_colour_identity() +
-  scale_x_continuous(limits = c(0, NA), expand = expansion(mult = c(0.02, 0.2))) +
+  scale_x_continuous(limits = c(0, NA), expand = expansion(mult = c(0.02, 0.28))) +
   scale_y_discrete(expand = expansion(add = c(0.6, 1.1))) +
   labs(title = panel_label(3, "Weekday and weekend"), subtitle = "Spike hours per 1,000, April to October", x = NULL, y = NULL) +
   theme_paper() +
@@ -2050,7 +2040,7 @@ so2_plume_panel <- ggplot(plume_plot, aes(mean_difference_ppb, measure)) +
     family = chart_fonts[["mono"]], size = so2_label_size, colour = chart_ink[["secondary"]]
   ) +
   facet_grid(. ~ period, labeller = as_labeller(period_labels)) +
-  scale_x_continuous(breaks = c(-5, 0, 5, 10), labels = signed_labels) +
+  scale_x_continuous(breaks = c(-5, 0, 5, 10), labels = signed_labels, expand = expansion(mult = c(0.05, 0.12))) +
   scale_y_discrete(labels = measure_labels, expand = expansion(add = c(0.5, 0.8))) +
   labs(title = panel_label(4, "Deer Park #2 plumes"), subtitle = "In spike hours against a normal hour (ppb)", x = NULL, y = NULL) +
   theme_paper() +
@@ -2681,7 +2671,7 @@ rose_panel <- function(roses, panel_number, name, group_label, caption) {
     ) +
     annotate("path", x = seq(-15, 345, 1), y = rose_hole + rose_top, colour = chart_ink[["axis"]], linewidth = 0.3) +
     scale_x_continuous(limits = c(-15, 345), expand = expansion(0)) +
-    scale_y_continuous(limits = c(0, rose_hole + rose_top + 4.5), expand = expansion(0)) +
+    scale_y_continuous(limits = c(0, rose_hole + rose_top), expand = expansion(0), oob = scales::oob_keep) +
     scale_fill_manual(values = rose_band_colours, guide = "none") +
     coord_polar(start = -pi / 12, clip = "off") +
     labs(title = panel_label(panel_number, name), subtitle = group_label, caption = caption, x = NULL, y = NULL) +
@@ -2693,7 +2683,7 @@ rose_panel <- function(roses, panel_number, name, group_label, caption) {
       panel.grid.major.x = element_blank(),
       panel.grid.major.y = element_blank(),
       plot.caption = panel_note_text,
-      plot.margin = margin(0, 10, 20, 0)
+      plot.margin = margin(0, 10, 8, 0)
     )
 }
 
@@ -2851,7 +2841,7 @@ speed_panel <- ggplot(speed_panel_data, aes(mean_speed_ms, difference_from_typic
   geom_point(aes(shape = site_group), size = 1.5) +
   scale_shape_manual(values = site_group_shapes, guide = "none") +
   geom_text(
-    data = speed_calm_labels, aes(x = x, y = y, label = label), inherit.aes = FALSE, hjust = 0.2,
+    data = speed_calm_labels, aes(x = x, y = y, label = label), inherit.aes = FALSE, hjust = 0,
     family = chart_fonts[["mono"]], size = so2_label_size, colour = chart_ink[["secondary"]]
   ) +
   facet_grid(. ~ measure, labeller = as_labeller(pretty_text)) +
@@ -2916,8 +2906,6 @@ calm_site_panel <- ggplot(main_calm_rows, aes(calm_minus_windy_ppb, short_name))
     axis.text.y = element_text(family = chart_fonts[["text"]], colour = chart_ink[["secondary"]], size = 6.3)
   )
 
-so2_band_labels <- c("Calm" = "Calm", "0.5 to 1.5" = "0.5-1.5", "1.5 to 3" = "1.5-3", "3 to 5" = "3-5", "5 or more" = "5+")
-
 so2_period_labels <- c("Day, 9 am to 6 pm" = "Day, 9 am to 6 pm", "Night and morning" = "Night, 6 pm to 9 am")
 
 so2_tiles <- main_so2_bands %>%
@@ -2935,7 +2923,6 @@ so2_wind_panel <- ggplot(so2_tiles, aes(speed_band, short_name, fill = spike_rat
   facet_wrap(~period, ncol = 1, labeller = as_labeller(so2_period_labels)) +
   scale_fill_gradient(low = "white", high = chart_fills[["accent"]], guide = "none") +
   scale_colour_manual(values = c(`TRUE` = "white", `FALSE` = chart_ink[["secondary"]]), guide = "none") +
-  scale_x_discrete(labels = so2_band_labels) +
   labs(title = panel_label(4, "SO2 spikes by wind speed"), subtitle = "Spike hours per 1,000, by wind (m/s)", x = NULL, y = NULL) +
   theme_paper() +
   facet_strips +
@@ -3586,7 +3573,7 @@ direction_rose_base <- function(sectors_toward_channel, top, panel_number, name,
     ),
     annotate("path", x = seq(-15, 345, 1), y = top, colour = chart_ink[["axis"]], linewidth = 0.3),
     scale_x_continuous(limits = c(-15, 345), expand = expansion(0)),
-    scale_y_continuous(limits = c(0, top * 1.16), expand = expansion(0), transform = radius_scale),
+    scale_y_continuous(limits = c(0, top), expand = expansion(0), transform = radius_scale, oob = scales::oob_keep),
     coord_polar(start = -pi / 12, clip = "off"),
     labs(title = panel_label(panel_number, name), subtitle = group_label, caption = caption, x = NULL, y = NULL),
     theme_paper(),
@@ -3597,7 +3584,7 @@ direction_rose_base <- function(sectors_toward_channel, top, panel_number, name,
       panel.grid.major.x = element_blank(),
       panel.grid.major.y = element_blank(),
       plot.caption = panel_note_text,
-      plot.margin = margin(0, 18, 20, 0)
+      plot.margin = margin(0, 18, 8, 0)
     )
   )
 }
@@ -3621,10 +3608,6 @@ no2_rose_panel <- function(site, panel_number) {
     ) +
     geom_rect(aes(xmin = wind_sector - 12, xmax = wind_sector + 12, ymin = 0, ymax = ratio_to_typical, fill = petal_fill)) +
     annotate("path", x = seq(-15, 345, 1), y = 1, colour = chart_ink[["primary"]], linewidth = 0.5) +
-    annotate(
-      "text", x = 210, y = 1, label = "Usual", vjust = 1.6,
-      family = chart_fonts[["mono"]], size = (chart_sizes[["axis"]] - 1.2) / .pt, colour = chart_ink[["primary"]]
-    ) +
     scale_fill_identity()
 }
 
@@ -3704,7 +3687,7 @@ save_figure(so2_rose_figure, "2c.10_so2_roses.png", 6.6)
 # by season. The sector detail, the other checks and Harvard Street against Bayland Park are in the CSV record
 main_channel_sectors <- channel_wind_sectors$wind_sector[channel_wind_sectors$site_set == "Main"]
 
-wind_type_fills <- c("Wind from the channel" = chart_fills[["accent"]], "Other wind" = below_normal_fill)
+wind_type_fills <- c("Wind from the channel" = "#6E6E6E", "Other wind" = below_normal_fill)
 
 harvard_labels <- c("Main" = "With Harvard St", "Without the transition band" = "Without Harvard St")
 
@@ -3721,18 +3704,14 @@ bar_dodge <- position_dodge(width = 0.78)
 channel_bar_panel <- ggplot(channel_bars, aes(set_label, ox_gap_ppb, fill = wind_type)) +
   geom_hline(yintercept = 0, colour = chart_ink[["primary"]], linewidth = 0.35) +
   geom_col(position = bar_dodge, width = 0.72) +
-  geom_errorbar(aes(ymin = ox_ci_low, ymax = ox_ci_high), position = bar_dodge, width = 0, colour = chart_ink[["secondary"]], linewidth = 0.45) +
+  geom_errorbar(aes(ymin = ox_ci_low, ymax = ox_ci_high), position = bar_dodge, width = 0, colour = chart_ink[["primary"]], linewidth = 0.45) +
   geom_text(
     aes(y = label_y, label = label, vjust = label_vjust), position = bar_dodge,
     family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.4) / .pt, colour = chart_ink[["primary"]]
   ) +
-  annotate(
-    "text", x = -Inf, y = Inf, label = "Ship Channel has more Ox", hjust = -0.04, vjust = 1.4,
-    family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 1.2) / .pt, colour = chart_ink[["muted"]]
-  ) +
-  annotate(
-    "text", x = -Inf, y = -Inf, label = "Houston other has more Ox", hjust = -0.04, vjust = -0.6,
-    family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 1.2) / .pt, colour = chart_ink[["muted"]]
+  edge_text(
+    c("Ship Channel has more Ox", "Houston other has more Ox"), "left", c("top", "bottom"),
+    size = chart_sizes[["label"]] - 1.2, colour = chart_ink[["muted"]]
   ) +
   scale_fill_manual(values = wind_type_fills, guide = "none") +
   scale_y_continuous(labels = signed_labels, expand = expansion(mult = c(0.3, 0.3))) +
@@ -3781,7 +3760,7 @@ ox_wind_figure <- tagged_figure(
   list(channel_bar_panel, ox_season_panel),
   tribble(
     ~mark,    ~colour,                                     ~label,
-    "square", chart_fills[["accent"]],                     "Wind from the channel",
+    "square", wind_type_fills[["Wind from the channel"]],  "Wind from the channel",
     "square", below_normal_fill,                           "Other wind",
     "square", site_group_colours[["Houston other"]],       "Houston other more Ox",
     "square", site_group_colours[["Houston Ship Channel"]], "Ship Channel more Ox"

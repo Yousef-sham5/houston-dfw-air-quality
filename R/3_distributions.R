@@ -1330,7 +1330,7 @@ national_panel_names <- c("PM2.5" = "PM2.5", "Ozone" = "Ozone", "NO2" = "NO2", "
 # The Q-Q panels plot the miss from a perfect fit in SDs, so the small gaps at each percentile can be read
 miss_breaks <- c(-1, 0, 1)
 
-miss_labels <- c("-1", "0", "+1")
+miss_labels <- c("\u22121", "0", "+1")
 
 miss_limits <- c(-1.9, 1.9)
 
@@ -1475,7 +1475,7 @@ case_group_note <- function(pollutant_name) {
     filter(pollutant == pollutant_name)
   if (nrow(counts) == 1) return(sprintf("%d site", counts$n_sites))
   sprintf(
-    "Sites: Ship Channel %d, Houston other %d, DFW %d",
+    "Sites: Ship Channel %d, Houston other %d, Dallas-Fort Worth %d",
     counts$n_sites[counts$site_group == "Houston Ship Channel"], counts$n_sites[counts$site_group == "Houston other"],
     counts$n_sites[counts$site_group == "Dallas-Fort Worth"]
   )
@@ -1658,6 +1658,21 @@ stopifnot(
     isTRUE(all.equal(deer_park_so2_top$value_fit, mdl_fraction * unique(deer_park_so2_days$federal_mdl)))
 )
 
+deer_park_so2_median <- median(deer_park_so2_days$value_fit)
+
+stopifnot(
+  "Deer Park #2 SO2 readings come in 0.1 ppb steps" =
+    all(abs(10 * deer_park_so2_days$value_fit - round(10 * deer_park_so2_days$value_fit)) < 1e-9)
+)
+
+case_shape_note <- sprintf(
+  str_c(
+    "Source: EPA AQS daily data, %s to %s, ordinary days, case-study sites with data in all five years. SO2 is Deer Park #2 alone; its ",
+    "readings come in 0.1 ppb steps (%s below the %s ppb limit) around a median of %s ppb, so low days fall on a few ratios."
+  ),
+  min(study_years), max(study_years), deer_park_so2_top$value_fit, unique(deer_park_so2_days$federal_mdl), deer_park_so2_median
+)
+
 case_group_lines <- tribble(
   ~mark,  ~colour,                                      ~label,
   "line", site_group_colours[["Houston Ship Channel"]], "Ship Channel",
@@ -1668,10 +1683,7 @@ case_group_lines <- tribble(
 case_shape_figure <- tagged_figure(
   case_histogram_panels,
   case_group_lines,
-  source_note = sprintf(
-    "Source: EPA AQS daily data, %s to %s, ordinary days, case-study sites with data in all five years. SO2 is Deer Park #2 alone.",
-    min(study_years), max(study_years)
-  )
+  source_note = case_shape_note
 )
 
 case_qq_figure <- tagged_figure(
@@ -1680,10 +1692,7 @@ case_qq_figure <- tagged_figure(
     mutate(case_group_lines, mark = "range", shape = unname(site_group_shapes)),
     tibble(mark = "dashed", colour = chart_ink[["primary"]], label = "Perfect fit", shape = 16)
   ),
-  source_note = sprintf(
-    "Source: EPA AQS daily data, %s to %s, ordinary days, case-study sites with data in all five years. SO2 is Deer Park #2 alone.",
-    min(study_years), max(study_years)
-  )
+  source_note = case_shape_note
 )
 
 save_figure(case_shape_figure, "3.03_case_study_shape.png", 4.45)
@@ -2795,7 +2804,7 @@ ozone_spread_sites <- site_fits %>%
 ozone_spread_medians <- ozone_spread_sites %>%
   summarise(median_spread = median(spread_factor), .by = c(site_set, site_group))
 
-group_axis_labels <- c("Houston Ship Channel" = "Ship Channel", "Houston other" = "Houston other", "Dallas-Fort Worth" = "DFW")
+group_axis_labels <- c("Houston Ship Channel" = "Ship Channel", "Houston other" = "Houston other", "Dallas-Fort Worth" = "Dallas-Fort Worth")
 
 spread_limits <- c(min(ozone_spread_sites$spread_factor) - 0.01, max(ozone_spread_sites$spread_factor) + 0.06)
 
@@ -2858,8 +2867,7 @@ certainty_panel <- ggplot(winner_certainty, aes(pct_of_sites, pollutant)) +
 instrument_panel_data <- instrument_summary %>%
   mutate(group = if_else(version %in% c("T640 alone", "Without T640"), "With a T640", "Without one")) %>%
   mutate(group = factor(group, levels = c("With a T640", "Without one"))) %>%
-  mutate(side = factor(version, levels = rev(c("Without T640", "T640 alone", "Control, before the date", "Control, after the date")))) %>%
-  mutate(is_t640 = version == "T640 alone")
+  mutate(side = factor(version, levels = rev(c("Without T640", "T640 alone", "Control, before the date", "Control, after the date"))))
 
 instrument_site_counts <- instrument_panel_data %>%
   distinct(group, n_sites) %>%
@@ -2872,8 +2880,8 @@ instrument_side_labels <- c(
   "Control, after the date" = "After date"
 )
 
-instrument_panel <- ggplot(instrument_panel_data, aes(pct_lognormal, side, fill = is_t640)) +
-  geom_col(width = 0.72) +
+instrument_panel <- ggplot(instrument_panel_data, aes(pct_lognormal, side)) +
+  geom_col(width = 0.72, fill = curve_fills[["Lognormal"]]) +
   geom_text(
     aes(label = sprintf("%.0f%%", pct_lognormal)),
     family = chart_fonts[["mono"]],
@@ -2882,7 +2890,6 @@ instrument_panel <- ggplot(instrument_panel_data, aes(pct_lognormal, side, fill 
     hjust = -0.2
   ) +
   facet_grid(rows = vars(group), scales = "free_y", space = "free_y") +
-  scale_fill_manual(values = c("TRUE" = chart_ink[["secondary"]], "FALSE" = chart_fills[["other"]]), guide = "none") +
   scale_y_discrete(labels = instrument_side_labels) +
   scale_x_continuous(limits = c(0, 118), breaks = c(0, 50, 100), labels = \(x) str_c(x, "%"), expand = expansion(mult = 0)) +
   labs(
@@ -2988,8 +2995,7 @@ national_fit_figure <- tagged_figure(
     "square", curve_fills[["Normal"]],    "Normal",               16,     1,
     "point",  certainty_colours[[1]],     "(c) AIC gap 10+",      21,     2,
     "point",  certainty_colours[[2]],     "(c) Scaled gap 10+",   21,     2,
-    "point",  certainty_colours[[3]],     "(c) Winner holds",     21,     2,
-    "square", chart_ink[["secondary"]],   "(d) T640 alone",       16,     2
+    "point",  certainty_colours[[3]],     "(c) Winner holds",     21,     2
   ),
   source_note = sprintf(
     str_c(
@@ -3015,13 +3021,13 @@ ozone_spread_figure <- tagged_figure(
     ~mark,   ~colour,                                      ~label,              ~shape,
     "point", site_group_colours[["Houston Ship Channel"]], "Ship Channel site",  site_group_shapes[["Houston Ship Channel"]],
     "point", site_group_colours[["Houston other"]],        "Houston other site", site_group_shapes[["Houston other"]],
-    "point", site_group_colours[["Dallas-Fort Worth"]],    "DFW site",           site_group_shapes[["Dallas-Fort Worth"]],
+    "point", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth site", site_group_shapes[["Dallas-Fort Worth"]],
     "tick",  chart_ink[["primary"]],                       "Group median",       16
   ),
   source_note = sprintf(
     str_c(
       "Source: EPA AQS daily data, %s to %s, ordinary days, case-study sites, site counts in brackets; cool-season ozone on year-round ",
-      "sites. Warm-month gaps to DFW have 95%% ranges clear of zero from %s two-week block resamples."
+      "sites. Warm-month gaps to Dallas-Fort Worth have 95%% ranges clear of zero from %s two-week block resamples."
     ),
     min(study_years), max(study_years), comma(group_range_reps)
   )
@@ -3908,8 +3914,8 @@ within_panel <- ggplot(within_table, aes(curve, pollutant, fill = pct_within)) +
     colour = chart_ink[["primary"]]
   ) +
   scale_fill_gradient(low = chart_fills[["band"]], high = chart_fills[["accent"]], limits = c(0, 60), guide = "none") +
-  scale_x_discrete(position = "top", expand = expansion(add = 0)) +
-  scale_y_discrete(expand = expansion(add = 0), labels = pretty_text) +
+  scale_x_discrete(position = "top") +
+  scale_y_discrete(labels = pretty_text) +
   labs(title = panel_label(4, "% of sites within 25%, top 1%"), subtitle = "Few sites land close", x = NULL, y = NULL) +
   theme_paper() +
   theme(panel.grid = element_blank())
@@ -4123,7 +4129,7 @@ warm_tail_figure <- tagged_figure(
   list(
     warm_tail_panel("Houston Ship Channel", 1, "Ship Channel, warm"),
     warm_tail_panel("Houston other", 2, "Houston other, warm"),
-    warm_tail_panel("Dallas-Fort Worth", 3, "DFW, warm")
+    warm_tail_panel("Dallas-Fort Worth", 3, "Dallas-Fort Worth, warm")
   ),
   tribble(
     ~mark,    ~colour,                           ~label,
@@ -4147,7 +4153,7 @@ warm_tail_figure <- tagged_figure(
 case_limit_figure <- tagged_figure(
   list(
     tail_range_panel("Warm season", 1, "At the limit, warm", "Gamma reaches 1"),
-    tail_range_panel("Ordinary days", 2, "At the limit, year", "DFW runs higher"),
+    tail_range_panel("Ordinary days", 2, "At the limit, year", "Dallas-Fort Worth runs higher"),
     deer_park_panel
   ),
   tribble(
@@ -4866,8 +4872,7 @@ robustness_panel <- function(scope_name, panel_number, panel_title, panel_subtit
     geom_tile(colour = "white", linewidth = 0.8) +
     geom_text(aes(label = cell_text), colour = "white", family = chart_fonts[["text"]], size = 5.6 / .pt) +
     scale_fill_manual(values = robustness_fills, guide = "none") +
-    scale_x_discrete(position = "top", expand = expansion(add = 0), labels = pretty_text) +
-    scale_y_discrete(expand = expansion(add = 0)) +
+    scale_x_discrete(position = "top", labels = pretty_text) +
     labs(title = panel_label(panel_number, panel_title), subtitle = panel_subtitle, x = NULL, y = NULL) +
     theme_paper() +
     theme(
