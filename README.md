@@ -4,6 +4,12 @@ This project uses R to clean, explore and model five years of air quality data f
 
 **Status:** Complete. Phases 1 to 3 hold the analysis, and the 28-page report (`R/houston_dfw_air_quality.Rmd`, knit to `houston_dfw_air_quality.pdf`) presents it. Five years is too short to separate a trend from year-to-year weather, so the project does not test trends. 41 figures.
 
+<a href="houston_dfw_air_quality.pdf">
+  <img src="docs/report_cover.png" width="400" alt="Cover page of the report">
+</a>
+
+**[Read the full report (PDF, 28 pages)](houston_dfw_air_quality.pdf)**
+
 ## Research question
 
 How do pollutant levels and NAAQS compliance near the Houston Ship Channel, a corridor of refineries and chemical plants in east Harris County, compare with the rest of Harris County and with Dallas–Fort Worth (Dallas and Tarrant counties)? Ship Channel sites are Harris County monitors within 7.5 km of the channel. Comparing within Houston holds the weather constant, and Dallas–Fort Worth helps separate an industrial signal from general urban pollution.
@@ -104,7 +110,7 @@ EPA AQS Project/
 │   ├── phase2/             # 2a.01_ to 2a.10_, 2b.01_ to 2b.08_, 2c.01_ to 2c.12_
 │   └── phase3/             # 3.01_ to 3.10_
 ├── fonts/                  # report fonts and their licences
-├── docs/                   # methodology.md
+├── docs/                   # methodology.md, report_cover.png
 ├── houston_dfw_air_quality.pdf  # the report
 ├── renv.lock               # package versions used
 └── README.md
