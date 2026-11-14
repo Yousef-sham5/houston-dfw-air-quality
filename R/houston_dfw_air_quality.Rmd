@@ -746,9 +746,9 @@ script_link <- function(file) {
 
 # Introduction
 
-The U.S. Environmental Protection Agency (EPA) sets National Ambient Air Quality Standards (NAAQS) for six criteria pollutants, with limits chosen to protect public health [1]. Many areas still do not meet them. In 2023, `r hl("N08")`% of ozone monitoring sites and `r sprintf("%.1f", hl("N09"))`% of annual PM2.5 sites with data in all five study years were above their standards (Section 3).
+The U.S. Environmental Protection Agency (EPA) sets National Ambient Air Quality Standards (NAAQS) for six criteria pollutants, with limits chosen to protect public health [\hyperlink{ref-1}{1}]. Many areas still do not meet them. In 2023, `r hl("N08")`% of ozone monitoring sites and `r sprintf("%.1f", hl("N09"))`% of annual PM2.5 sites with data in all five study years were above their standards (Section 3).
 
-Houston and Dallas–Fort Worth both have long-running ozone problems. EPA classifies both metros as severe nonattainment areas for the 2008 ozone standard and serious nonattainment areas for the 2015 standard [2, 3]. In this dataset they rank `r hl("N16")`th and `r hl("N17")`th of `r hl_unit_count("N16")` metros with an ozone exceedance, by exceedance site-days. This count goes up with the number of monitors in a metro, so it is only a rough comparison. Houston also has the Houston Ship Channel. The American Society of Civil Engineers calls the area around it the second largest petrochemical complex in the world [4], with refineries, chemical plants and ships along its banks.
+Houston and Dallas–Fort Worth both have long-running ozone problems. EPA classifies both metros as severe nonattainment areas for the 2008 ozone standard and serious nonattainment areas for the 2015 standard [\hyperlink{ref-2}{2}, \hyperlink{ref-3}{3}]. In this dataset they rank `r hl("N16")`th and `r hl("N17")`th of `r hl_unit_count("N16")` metros with an ozone exceedance, by exceedance site-days. This count goes up with the number of monitors in a metro, so it is only a rough comparison. Houston also has the Houston Ship Channel. The American Society of Civil Engineers calls the area around it the second largest petrochemical complex in the world [\hyperlink{ref-4}{4}], with refineries, chemical plants and ships along its banks.
 
 This study compares air near the Ship Channel with the rest of Harris County ("Houston other") and with Dallas–Fort Worth, and checks whether the differences match basic atmospheric chemistry. It tests three hypotheses:
 
@@ -770,7 +770,7 @@ Section 2 covers the data and methods. Section 3 gives the national context, and
 
 ## Data and cleaning
 
-The data are EPA's AirData pre-generated files [5], in the versions dated 25 June 2026: 25 daily, 15 hourly pollutant and 10 hourly weather files. Table 2.1 lists the parameter codes, daily values and standards. Only PM2.5 from federal reference and equivalent methods (FRM and FEM) is used. The weather data are AQS wind speed, wind direction and temperature (61103, 61104, 62101).
+The data are EPA's AirData pre-generated files [\hyperlink{ref-5}{5}], in the versions dated 25 June 2026: 25 daily, 15 hourly pollutant and 10 hourly weather files. Table 2.1 lists the parameter codes, daily values and standards. Only PM2.5 from federal reference and equivalent methods (FRM and FEM) is used. The weather data are AQS wind speed, wind direction and temperature (61103, 61104, 62101).
 
 ```{r pollutant-table}
 pollutant_table <- tribble(
@@ -788,7 +788,7 @@ stopifnot("Six standards in the table" = nrow(pollutant_table) == 6)
 pollutant_table %>%
   kable(
     format = table_format,
-    caption = "Pollutants, AQS parameter codes, daily values and the NAAQS each site-year was screened against [1].",
+    caption = "Pollutants, AQS parameter codes, daily values and the NAAQS each site-year was screened against [\\protect\\hyperlink{ref-1}{1}].",
     booktabs = TRUE,
     escape = FALSE,
     linesep = ""
@@ -801,7 +801,7 @@ Cleaning cut the daily files from `r comma(raw_daily_rows)` to `r comma(clean_da
 
 ## Site groups
 
-The Ship Channel group is the Harris County sites within 7.5 km of the channel's 12 land-cut sections in the U.S. Army Corps of Engineers channel framework [6]. The cutoff falls between `r last_site_inside$local_site_name` (`r sprintf("%.2f", last_site_inside$km_to_channel)` km) and `r first_site_outside$local_site_name` (`r sprintf("%.2f", first_site_outside$km_to_channel)` km). The rest of Harris County is "Houston other". Seabrook is left out because it sits next to the separate Bayport industrial district. Dallas and Tarrant counties form Dallas–Fort Worth. Table 2.2 gives the sites in each group, and Section 4 maps the hourly sites.
+The Ship Channel group is the Harris County sites within 7.5 km of the channel's 12 land-cut sections in the U.S. Army Corps of Engineers channel framework [\hyperlink{ref-6}{6}]. The cutoff falls between `r last_site_inside$local_site_name` (`r sprintf("%.2f", last_site_inside$km_to_channel)` km) and `r first_site_outside$local_site_name` (`r sprintf("%.2f", first_site_outside$km_to_channel)` km). The rest of Harris County is "Houston other". Seabrook is left out because it sits next to the separate Bayport industrial district. Dallas and Tarrant counties form Dallas–Fort Worth. Table 2.2 gives the sites in each group, and Section 4 maps the hourly sites.
 
 ```{r site-count-table}
 group_order <- c("Houston Ship Channel", "Houston other", "Dallas-Fort Worth")
@@ -848,7 +848,7 @@ site_counts %>%
 
 ## How comparisons are tested
 
-Groups are compared with same-day differences. Each day, a group's value is the mean of its sites that reported, and the two groups are subtracted on the same day. Both groups share that day's weather, so most of the weather effect cancels out. The median daily difference gets a 95% range from a block bootstrap that resamples 14-day blocks 1,000 times. Blocks are used because neighbouring days are correlated. Each result is then rerun under up to eight checks. These include other site groups, such as the one in TCEQ's 2024 air toxics memo [7], adding four-year sites, and dropping event days or days after a monitor change. A check that does not change the data is skipped. A result holds when it keeps its sign and its range does not include zero. Appendix A.3 shows the code.
+Groups are compared with same-day differences. Each day, a group's value is the mean of its sites that reported, and the two groups are subtracted on the same day. Both groups share that day's weather, so most of the weather effect cancels out. The median daily difference gets a 95% range from a block bootstrap that resamples 14-day blocks 1,000 times. Blocks are used because neighbouring days are correlated. Each result is then rerun under up to eight checks. These include other site groups, such as the one in TCEQ's 2024 air toxics memo [\hyperlink{ref-7}{7}], adding four-year sites, and dropping event days or days after a monitor change. A check that does not change the data is skipped. A result holds when it keeps its sign and its range does not include zero. Appendix A.3 shows the code.
 
 
 
@@ -858,7 +858,7 @@ Groups are compared with same-day differences. Each day, a group's value is the 
 
 Level comparisons use only sites with data in all five years (`r comma(five_year_n("Ozone"))` ozone, `r comma(five_year_n("PM2.5"))` PM2.5, `r five_year_n("NO2")` NO~2~, `r five_year_n("SO2")` SO~2~ and `r five_year_n("CO")` CO sites). Exceedance counts use all sites. The number of reporting SO~2~ and CO sites fell by `r abs(hl("N01"))`% and `r abs(hl("N02"))`%, and PM2.5 sites grew by `r hl("N03")`%. The share of PM2.5 data from FEM monitors rose from `r hl("N04")`% to `r hl("N05")`%. At the same site and day, FEM read `r hl("N06")` to `r hl("N07")` µg/m^3^ higher than FRM (Figure 2A.1, Appendix).
 
-Each site-year was checked against its standard in the form and rounding the regulations give [8–12] (Figure 2A.2). Ozone and annual PM2.5 fail most often. In 2023, `r hl("N08")`% of ozone sites and `r sprintf("%.1f", hl("N09"))`% of annual PM2.5 sites were above their levels. The 9.0 µg/m^3^ annual PM2.5 level, set in 2024, is applied to every year. With three-year windows, which are closer to how EPA judges compliance, `r hl("N10")` to `r hl("N11")`% of ozone sites were above the standard.
+Each site-year was checked against its standard in the form and rounding the regulations give [\hyperlink{ref-8}{8–12}] (Figure 2A.2). Ozone and annual PM2.5 fail most often. In 2023, `r hl("N08")`% of ozone sites and `r sprintf("%.1f", hl("N09"))`% of annual PM2.5 sites were above their levels. The 9.0 µg/m^3^ annual PM2.5 level, set in 2024, is applied to every year. With three-year windows, which are closer to how EPA judges compliance, `r hl("N10")` to `r hl("N11")`% of ozone sites were above the standard.
 
 ```{r naaqs-figure}
 report_figure(
@@ -1081,7 +1081,7 @@ For warm-month ozone in the case study, a gamma curve gets the number of days ab
 
 ## A worked design value
 
-An ozone design value is the three-year average of each year's 4th-highest daily maximum 8-hour value, truncated to three decimal places. A site meets the standard if its design value is 0.070 ppm or lower [11]. At Houston Aldine, the 4th-highest days were `r sprintf("%.3f", aldine_years$fourth_ppm[1])`, `r sprintf("%.3f", aldine_years$fourth_ppm[2])` and `r sprintf("%.3f", aldine_years$fourth_ppm[3])` ppm in 2023, 2024 and 2025. Their average, `r sprintf("%.4f", mean(aldine_years$fourth_ppm))`, truncates to `r sprintf("%.3f", hl("F43"))` ppm, which matches EPA's published value [13]. The site also just passes EPA's completeness rule, which needs at least 90% of days to be valid on average.
+An ozone design value is the three-year average of each year's 4th-highest daily maximum 8-hour value, truncated to three decimal places. A site meets the standard if its design value is 0.070 ppm or lower [\hyperlink{ref-11}{11}]. At Houston Aldine, the 4th-highest days were `r sprintf("%.3f", aldine_years$fourth_ppm[1])`, `r sprintf("%.3f", aldine_years$fourth_ppm[2])` and `r sprintf("%.3f", aldine_years$fourth_ppm[3])` ppm in 2023, 2024 and 2025. Their average, `r sprintf("%.4f", mean(aldine_years$fourth_ppm))`, truncates to `r sprintf("%.3f", hl("F43"))` ppm, which matches EPA's published value [\hyperlink{ref-13}{13}]. The site also just passes EPA's completeness rule, which needs at least 90% of days to be valid on average.
 
 Doing the same for all 22 case-study ozone sites over three periods matches EPA in `r hl("F45")` of `r hl_unit_count("F45")` site-periods. Each miss is 0.001 ppm low, because the daily cleaning drops incomplete days that EPA keeps when they exceed the limit. None of the misses changes whether a site passes. All `r hl("F46")` sites are above the standard for 2023 to 2025, and the highest value is at Deer Park #2, a Ship Channel site. The typical design values of the three groups are nearly the same, so the Ship Channel's lower average ozone does not show up on its highest days. All `r hl("F49")` findings in this section hold under every check that applies (Figure 3.10, Appendix).
 
@@ -1125,19 +1125,19 @@ The results point to three things for air quality planning, keeping in mind that
 
 # References {-}
 
-1. U.S. Environmental Protection Agency. NAAQS Table. <https://www.epa.gov/criteria-air-pollutants/naaqs-table>
-2. Texas Commission on Environmental Quality. Houston-Galveston-Brazoria ozone nonattainment status. <https://www.tceq.texas.gov/airquality/sip/hgb/hgb-status>, accessed 29 October 2026.
-3. Texas Commission on Environmental Quality. Dallas-Fort Worth ozone nonattainment status. <https://www.tceq.texas.gov/airquality/sip/dfw/dfw-status>, accessed 29 October 2026.
-4. American Society of Civil Engineers. Houston Ship Channel, Historic Civil Engineering Landmark. <https://www.asce.org/about-civil-engineering/history-and-heritage/historic-landmarks/houston-ship-channel>, accessed 29 October 2026.
-5. U.S. Environmental Protection Agency. AirData pre-generated data files. <https://aqs.epa.gov/aqsweb/airdata/download_files.html>, file versions dated 25 June 2026.
-6. U.S. Army Corps of Engineers. National Channel Framework, ChannelArea layer. <https://services7.arcgis.com/n1YM8pTrFmm7L4hs/ArcGIS/rest/services/National_Channel_Framework/FeatureServer>, downloaded 22 October 2026.
-7. Texas Commission on Environmental Quality. Region 12 2024 air monitoring evaluation memo. <https://www.tceq.texas.gov/downloads/toxicology/monitoring/air-evaluations/2024/reg12.pdf>
-8. 40 CFR Part 50, Appendix N (PM2.5). <https://www.law.cornell.edu/cfr/text/40/appendix-N_to_part_50>
-9. 40 CFR Part 50, Appendix S (NO~2~). <https://www.law.cornell.edu/cfr/text/40/appendix-S_to_part_50>
-10. 40 CFR Part 50, Appendix T (SO~2~). <https://www.law.cornell.edu/cfr/text/40/appendix-T_to_part_50>
-11. 40 CFR Part 50, Appendix U (ozone). <https://www.law.cornell.edu/cfr/text/40/appendix-U_to_part_50>
-12. 40 CFR 50.8 (CO). <https://www.law.cornell.edu/cfr/text/40/50.8>
-13. U.S. Environmental Protection Agency. Air Quality Design Values, Ozone Design Values 2023–2025. <https://www.epa.gov/air-trends/air-quality-design-values>, file posted 8 June 2026.
+1. `\hypertarget{ref-1}{}`{=latex}U.S. Environmental Protection Agency. NAAQS Table. <https://www.epa.gov/criteria-air-pollutants/naaqs-table>
+2. `\hypertarget{ref-2}{}`{=latex}Texas Commission on Environmental Quality. Houston-Galveston-Brazoria ozone nonattainment status. <https://www.tceq.texas.gov/airquality/sip/hgb/hgb-status>, accessed 29 October 2026.
+3. `\hypertarget{ref-3}{}`{=latex}Texas Commission on Environmental Quality. Dallas-Fort Worth ozone nonattainment status. <https://www.tceq.texas.gov/airquality/sip/dfw/dfw-status>, accessed 29 October 2026.
+4. `\hypertarget{ref-4}{}`{=latex}American Society of Civil Engineers. Houston Ship Channel, Historic Civil Engineering Landmark. <https://www.asce.org/about-civil-engineering/history-and-heritage/historic-landmarks/houston-ship-channel>, accessed 29 October 2026.
+5. `\hypertarget{ref-5}{}`{=latex}U.S. Environmental Protection Agency. AirData pre-generated data files. <https://aqs.epa.gov/aqsweb/airdata/download_files.html>, file versions dated 25 June 2026.
+6. `\hypertarget{ref-6}{}`{=latex}U.S. Army Corps of Engineers. National Channel Framework, ChannelArea layer. <https://services7.arcgis.com/n1YM8pTrFmm7L4hs/ArcGIS/rest/services/National_Channel_Framework/FeatureServer>, downloaded 22 October 2026.
+7. `\hypertarget{ref-7}{}`{=latex}Texas Commission on Environmental Quality. Region 12 2024 air monitoring evaluation memo. <https://www.tceq.texas.gov/downloads/toxicology/monitoring/air-evaluations/2024/reg12.pdf>
+8. `\hypertarget{ref-8}{}`{=latex}40 CFR Part 50, Appendix N (PM2.5). <https://www.law.cornell.edu/cfr/text/40/appendix-N_to_part_50>
+9. `\hypertarget{ref-9}{}`{=latex}40 CFR Part 50, Appendix S (NO~2~). <https://www.law.cornell.edu/cfr/text/40/appendix-S_to_part_50>
+10. `\hypertarget{ref-10}{}`{=latex}40 CFR Part 50, Appendix T (SO~2~). <https://www.law.cornell.edu/cfr/text/40/appendix-T_to_part_50>
+11. `\hypertarget{ref-11}{}`{=latex}40 CFR Part 50, Appendix U (ozone). <https://www.law.cornell.edu/cfr/text/40/appendix-U_to_part_50>
+12. `\hypertarget{ref-12}{}`{=latex}40 CFR 50.8 (CO). <https://www.law.cornell.edu/cfr/text/40/50.8>
+13. `\hypertarget{ref-13}{}`{=latex}U.S. Environmental Protection Agency. Air Quality Design Values, Ozone Design Values 2023–2025. <https://www.epa.gov/air-trends/air-quality-design-values>, file posted 8 June 2026.
 
 Regulation text was read on Cornell's Legal Information Institute; the official version is the eCFR (<https://www.ecfr.gov/current/title-40/chapter-I/subchapter-C/part-50>).
 
