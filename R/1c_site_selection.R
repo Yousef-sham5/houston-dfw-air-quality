@@ -9,7 +9,7 @@ library(patchwork)
 library(jsonlite)
 library(here)
 
-source(here("R", "utils.R")) # study_years, region_lookup, chart theme
+source(here("R", "utils.R"))
 
 
 
@@ -42,8 +42,8 @@ case_regions <- region_lookup %>%
 
 stopifnot("region_lookup holds Harris, Dallas and Tarrant" = nrow(case_regions) == 3)
 
-# Sites in TCEQ's 2024 Region 12 air toxics memo, plus Park Place and Baytown Garth. The groups no longer come from
-# this list; 2b reruns its comparisons with it as a check
+# sites from TCEQ's 2024 region 12 air toxics memo + park place and baytown garth. the groups don't come from
+# this list anymore, 2b just reruns stuff with it as a check
 memo_list_ids <- c(
   "48-201-0026",
   "48-201-0036",
@@ -64,13 +64,13 @@ memo_list_ids <- c(
   "48-201-6000"
 )
 
-# Next to the Bayport Industrial District, so kept out of both Houston groups
+# right next to the bayport industrial district so it's out of both houston groups
 bayport_adjacent_ids <- c(
   "48-201-1050"
 )
 
-# Land-cut reach of the Houston Ship Channel, from Morgan's Point to the Turning Basin: 12 sections of the USACE
-# National Channel Framework (ChannelArea layer)
+# land-cut part of the ship channel, morgan's point to the turning basin: 12 sections of the USACE
+# national channel framework (ChannelArea layer)
 channel_path <- here("data", "reference", "ship_channel.geojson")
 
 land_cut_sections <- c(
@@ -88,9 +88,9 @@ land_cut_sections <- c(
   "CESWG_HS_9A_TPC"
 )
 
-# A Harris site within ship_channel_km of the land-cut channel is a Ship Channel site; every other Harris site is
-# Houston other. 7.5 km falls between Deer Park #2 (6.9 km) and North Wayside (8.5 km). Sites up to transition_km form a
-# transition band that 2b leaves out as a check
+# harris site within ship_channel_km of the land-cut channel = ship channel, every other harris site = houston
+# other. 7.5 km lands between deer park #2 (6.9 km) and north wayside (8.5 km). sites up to transition_km are a
+# transition band that 2b drops as a check
 ship_channel_km <- 7.5
 
 transition_km <- 15
@@ -111,7 +111,6 @@ stopifnot("Study window is 1826 days" = study_days == 1826)
 
 
 # 3. MEASURE DISTANCE TO THE SHIP CHANNEL ----
-# Outer ring of each land-cut section, one row per vertex
 channel_features <- read_json(channel_path)$features
 
 feature_sections <- vapply(channel_features, \(feature) feature$properties$channelareaidpk, character(1))
@@ -138,7 +137,6 @@ ring_ends <- channel_vertices %>%
 
 stopifnot("Each section's ring closes on its first vertex" = all(ring_ends$is_closed))
 
-# Kilometres on a flat map centred on Houston's latitude (29.7°)
 km_per_lat_degree <- 110.574
 
 km_per_lon_degree_houston <- 111.320 * cos(29.7 * pi / 180)
@@ -155,8 +153,8 @@ harris_sites <- sites %>%
   select(site_id, local_site_name, latitude, longitude) %>%
   mutate(site_x = longitude * km_per_lon_degree_houston, site_y = latitude * km_per_lat_degree)
 
-# Shortest distance from each site to any edge of a section, and whether the site sits inside it (an odd number of edge
-# crossings on a ray running east)
+# shortest distance from each site to any edge of a section, plus whether it's inside (odd number of edge
+# crossings on a ray going east)
 section_distances <- harris_sites %>%
   select(site_id, site_x, site_y) %>%
   cross_join(channel_edges) %>%
@@ -169,7 +167,6 @@ section_distances <- harris_sites %>%
 channel_distances <- section_distances %>%
   summarise(km_to_channel = if_else(any(is_inside), 0, min(edge_km)), .by = site_id)
 
-# Every Harris site with its distance, distance band, group, and its group under the memo list
 harris_channel_distance <- harris_sites %>%
   select(site_id, local_site_name, latitude, longitude) %>%
   inner_join(channel_distances, by = "site_id", relationship = "one-to-one") %>%
@@ -216,7 +213,6 @@ stopifnot(
 
 
 # 4. COUNT VALID DAYS PER SITE AND POLLUTANT ----
-# Days with data per site and pollutant (instruments pooled), as a share of the 1,826 study days
 day_counts <- aqs_long_clean %>%
   filter(pollutant %in% hourly_pollutants) %>%
   filter(str_sub(site_id, 1, 6) %in% case_regions$county_id) %>%
@@ -224,15 +220,14 @@ day_counts <- aqs_long_clean %>%
   count(pollutant, site_id, name = "n_days") %>%
   mutate(pct_days = n_days / study_days)
 
-# The daily table is no longer needed, so free its memory
 rm(aqs_long_clean)
 invisible(gc())
 
 
 
 # 5. BUILD CANDIDATE TABLE ----
-# Eligible pool: 5-year monitors of the three pollutants in the case-study counties, each placed in one group. Houston
-# sites take the group set by their distance to the channel
+# eligible pool: 5-yr monitors of the 3 pollutants in the case-study counties, one group each.
+# houston sites get their group from distance to the channel
 candidates <- site_coverage %>%
   filter(pollutant %in% hourly_pollutants) %>%
   filter(n_years_active == length(study_years)) %>%
@@ -248,7 +243,6 @@ candidates <- site_coverage %>%
   mutate(site_group = if_else(county_id == houston_county, houston_group, "Dallas-Fort Worth")) %>%
   select(-houston_group)
 
-# Flag sites that measure both ozone and NO2, since the NO2-ozone lag needs both at one place
 collocation <- candidates %>%
   group_by(site_id) %>%
   summarise(
@@ -282,13 +276,12 @@ candidates %>%
 eligible <- candidates %>%
   filter(!str_starts(site_group, "Excluded"))
 
-# SO2: keep every full-coverage monitor
 so2_picks <- eligible %>%
   filter(pollutant == "SO2") %>%
   mutate(selection_reason = "All full-coverage SO2")
 
-# Ozone and NO2: score each paired site by its less complete pollutant.
-# Keep the top 2 in each Houston group and the top 1 in each Dallas-Fort Worth county
+# ozone + NO2: score each paired site by its less complete pollutant,
+# then keep the top 2 per houston group and the top 1 per DFW county
 pair_ranking <- eligible %>%
   filter(pollutant %in% c("Ozone", "NO2")) %>%
   filter(o3_no2_pair) %>%
@@ -310,7 +303,6 @@ pair_sites <- pair_ranking %>%
     "Top O3/NO2 completeness in group"
   ))
 
-# Expand the picked sites back to one row per monitor
 pair_picks <- eligible %>%
   filter(pollutant %in% c("Ozone", "NO2")) %>%
   inner_join(
@@ -345,7 +337,7 @@ case_study_sites %>%
 
 
 # 7. SAVE ----
-# The full pool and the picks; 1d reads case_study_sites.csv. 2a and 2b take the Houston groups from
+# full pool + picks. 1d reads case_study_sites.csv, 2a and 2b get the houston groups from
 # harris_site_channel_distance.csv
 write_csv(harris_channel_distance, here("data", "reference", "harris_site_channel_distance.csv"))
 write_csv(candidates, here("data", "reference", "case_study_candidates.csv"))
@@ -354,8 +346,7 @@ write_csv(case_study_sites, here("data", "reference", "case_study_sites.csv"))
 
 
 # 8. MAP PICKED SITES ----
-# Visual check that each group sits where expected, laid out like a journal figure: boxed maps, a key and a caption
-# One row per site, labelled with a short name and the pollutants picked there
+# quick visual check that each group sits where it should
 pollutant_symbols <- c(Ozone = "O₃", NO2 = "NO₂", SO2 = "SO₂")
 
 map_sites <- case_study_sites %>%
@@ -380,7 +371,6 @@ map_sites <- case_study_sites %>%
     .default = "above"
   ))
 
-# Label offsets from each point, in degrees, for a figure printed 6.5 inches wide
 label_offsets <- tribble(
   ~label_side, ~name_dx, ~name_dy, ~name_hjust, ~name_vjust, ~pollutant_dx, ~pollutant_dy, ~pollutant_hjust, ~pollutant_vjust,
   "above",     0,        0.036,    0.5,         0,           0,             0.017,         0.5,              0,
@@ -393,12 +383,11 @@ label_offsets <- tribble(
 map_sites <- map_sites %>%
   left_join(label_offsets, by = "label_side", relationship = "many-to-one")
 
-# Text sizes in mm (1 mm is about 2.85 pt); none prints below 6 pt. The half-width map uses the smaller set
+# text sizes in mm (1 mm is about 2.85 pt), nothing under 6 pt. the half-width map uses the smaller set
 map_text_mm <- c(site = 2.5, detail = 2.25)
 
 narrow_text_mm <- c(site = 2.3, detail = 2.1)
 
-# Reference points for orientation only
 map_landmarks <- tribble(
   ~region,             ~landmark,          ~latitude, ~longitude, ~label_dx, ~label_hjust,
   "Houston",           "Downtown",         29.7604,   -95.3698,   -0.004,    1,
@@ -406,8 +395,8 @@ map_landmarks <- tribble(
   "Dallas-Fort Worth", "DFW Airport",      32.8998,   -97.0403,   0,         0.5
 )
 
-# Both frames span 0.38 degrees of latitude, so the two maps share one scale. Houston's reaches east past the end of
-# the channel's 7.5 km zone
+# both frames span 0.38° of latitude so the maps share one scale. houston's goes east past the end of
+# the 7.5 km zone
 map_frames <- tribble(
   ~region,             ~lon_min, ~lon_max, ~lat_min, ~lat_max,
   "Houston",           -95.585,  -94.885,  29.510,   29.890,
@@ -429,8 +418,8 @@ stopifnot(
 
 km_per_lon_degree <- function(lat) 111.32 * cos(lat * pi / 180)
 
-# Distance from a point to the nearest land-cut edge, on section 3's flat map. The shaded zone uses it, so the zone's
-# edge is the Ship Channel cutoff
+# distance from a point to the nearest land-cut edge on section 3's flat map. the shaded zone uses this so
+# its edge is the ship channel cutoff
 km_to_channel_edges <- function(longitude, latitude) {
   point_x <- longitude * km_per_lon_degree_houston
   point_y <- latitude * km_per_lat_degree
@@ -464,12 +453,10 @@ zone_grid <- expand_grid(longitude = zone_longitudes, latitude = zone_latitudes)
 
 stopifnot("Latitude varies fastest in the grid, so each matrix column is one longitude" = identical(zone_grid$latitude[1:2], zone_latitudes[1:2]))
 
-# Map colours: the Okabe-Ito group colours used in every figure, a steel blue for water and a darker orange for the cutoff
 map_font <- "Arial"
 
 stopifnot("Arial is installed, since the maps use it" = str_detect(systemfonts::match_fonts(map_font)$path, regex("arial", ignore_case = TRUE)))
 
-# The tagged-figure helpers in utils.R draw the panel letters, key and source line in these fonts and colours
 chart_fonts[] <- map_font
 
 chart_ink[c("primary", "secondary", "muted", "grid", "axis")] <- c("#000000", "#333333", "#666666", "#EBEBEB", "#999999")
@@ -577,7 +564,6 @@ draw_region_map <- function(region_name, panel_label, frames = map_frames, text_
     )
 }
 
-# Panel widths in km, so both maps keep the same scale side by side
 frame_widths_km <- map_frames %>%
   mutate(width_km = (lon_max - lon_min) * km_per_lon_degree((lat_min + lat_max) / 2))
 
@@ -607,17 +593,16 @@ site_map_path <- here("figures", "phase1", "case_study_sites.png")
 
 save_started <- Sys.time()
 
-# Saved at the report text width, so the sizes above are the printed sizes
 ggsave(site_map_path, site_map, width = 6.5, height = 3.5, dpi = 300)
 
-# ragg only warns when the file is locked (an open viewer or OneDrive syncing), so check the write
+# ragg only warns if the file's locked (open viewer or onedrive syncing) so check the write
 stopifnot(
   "case_study_sites.png was written (close any viewer of it and rerun this step)" =
     file.mtime(site_map_path) >= save_started - 2
 )
 
-# Narrow version for a half-width report column: the two maps stacked at one shared scale, in frames trimmed to
-# the sites and their labels. Both frames are the same width in km, so the stacked maps line up
+# narrow version for a half-width column: both maps stacked at one scale, frames trimmed to
+# the sites + labels. same width in km so they line up
 narrow_frames <- tribble(
   ~region,             ~lon_min, ~lon_max, ~lat_min, ~lat_max,
   "Houston",           -95.610,  -94.885,  29.525,   29.870,
@@ -638,8 +623,8 @@ stopifnot(
   "Both narrow frames are the same width in km, so the stacked maps line up" = diff(range(narrow_frame_km$width_km)) < 0.1
 )
 
-# Label offsets are in degrees. The narrow map prints about 1.3 times as many km per inch as the wide one, so its offsets
-# stretch by that much to keep the same printed gaps
+# offsets are in degrees and the narrow map packs about 1.3x more km per inch, so the offsets get
+# stretched by that much to keep the same printed gaps
 narrow_label_spread <- 1.3
 
 narrow_map <- tagged_figure(

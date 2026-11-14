@@ -10,9 +10,9 @@ library(scales)
 library(patchwork)
 library(here)
 
-source(here("R", "utils.R")) # study_years, region_lookup, read_methods_ref(), save helpers, figure helpers
+source(here("R", "utils.R"))
 
-# The fitting packages are called with :: so MASS, which fitdistrplus attaches, never masks dplyr's select()
+# fitting pkgs get called with :: so MASS (which fitdistrplus attaches) never masks dplyr's select()
 stopifnot(
   "moments is installed (run R/0_setup.R)" = requireNamespace("moments", quietly = TRUE),
   "fitdistrplus is installed (run R/0_setup.R)" = requireNamespace("fitdistrplus", quietly = TRUE),
@@ -24,7 +24,6 @@ stopifnot(
 # CONFIG ----
 processed_dir <- here("data", "processed")
 
-# CSV records go to the phase 3 folder; the dictionary stays in data/processed
 records_dir <- file.path(processed_dir, "phase3")
 
 dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
@@ -43,35 +42,29 @@ parameter_codes <- tribble(
 ) %>%
   mutate(pollutant = factor(pollutant, levels = pollutant_levels))
 
-# Five-year sites per pollutant (2a section 1) and their site-days after collocated instruments are averaged
 five_year_site_counts <- c("PM2.5" = 769L, "Ozone" = 964L, "NO2" = 312L, "SO2" = 301L, "CO" = 135L)
 
 five_year_site_days <- 4016891L
 
-# Five-year ozone sites with December or January data in every year (2a section 5). The rest are seasonal monitors
 year_round_ozone_sites <- 615L
 
-# Labels 1a builds in code rather than reading from events.csv
 fireworks_events <- c("July 4 fireworks", "New Year fireworks")
 
-# January to February 2021 and December 2025 are the only parts of their winters inside the window
 partial_winter_years <- c(min(study_years), max(study_years) + 1)
 
-# Teledyne T640 and T640X PM2.5 monitors: firmware-corrected (636, 638) and EPA-corrected (736, 738) codes
 t640_method_codes <- c("636", "638", "736", "738")
 
-# Days between samples for each PM2.5 schedule; gas monitors run daily
 sampling_schedules <- c("Daily" = 1, "1-in-3" = 3, "1-in-6" = 6)
 
-# Values at or below zero are instrument noise around a true level near zero. The fits use half the method's federal
-# detection limit in their place; the reported value is kept beside it
+# values at or below zero are just noise around a true level near zero. fits use half the method's federal
+# MDL instead, the reported value stays next to it
 mdl_fraction <- 0.5
 
-# A site with at least this share of days at or below zero is left out of the fits and read through its spike days.
-# In the case study this covers Clinton, Croquet and Park Place SO2
+# a site with at least this share of days at or below zero gets left out of the fits and read through spike days.
+# in the case study that's clinton, croquet and park place SO2
 near_zero_share <- 0.25
 
-# Copied from 2b CONFIG, so the case-study fits use the same groups and with-and-without checks
+# copied from 2b CONFIG so the case-study fits use the same groups and with and without checks
 harris_groups_path <- here("data", "reference", "harris_site_channel_distance.csv")
 
 ship_channel_km <- 7.5
@@ -80,7 +73,7 @@ transition_km <- 15
 
 transition_band <- str_c(ship_channel_km, " to ", transition_km, " km")
 
-# Houston North Loop, Houston Southwest Freeway, Dallas LBJ Freeway, Fort Worth California Parkway North
+# north loop, southwest fwy, LBJ fwy, california pkwy north
 near_road_ids <- c(
   "48-201-1052",
   "48-201-1066",
@@ -103,7 +96,6 @@ relocations <- tribble(
 ) %>%
   mutate(relocation_date = ymd(relocation_date))
 
-# Houston SO2 sites by how they are read: Deer Park #2 (detection limit 0.2 ppb) is fitted, the others are near zero
 houston_so2_ids <- c(
   "Clinton"              = "48-201-1035",
   "Houston Croquet"      = "48-201-0051",
@@ -111,32 +103,29 @@ houston_so2_ids <- c(
   "Houston Deer Park #2" = "48-201-1039"
 )
 
-# Warm months for the season check, the same April to October window as 2a's weekend comparison
 warm_months <- c("Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct")
 
-# Census Bureau West region (AK, AZ, CA, CO, HI, ID, MT, NV, NM, OR, UT, WA, WY), copied from 2a, for the PM2.5 region check
+# census west region (AK, AZ, CA, CO, HI, ID, MT, NV, NM, OR, UT, WA, WY), copied from 2a, for the PM2.5 region check
 western_state_codes <- c("02", "04", "06", "08", "15", "16", "30", "32", "35", "41", "49", "53", "56")
 
-# Percentiles compared with each reference curve in the Q-Q summaries
 qq_percentiles <- c(1, 5, 10, 25, 50, 75, 90, 95, 99)
 
-# Histogram bins of each day against its site's median, on a log2 scale: quarter-steps from 1/16 to 16 times the median.
-# Days beyond either end stay in the end bins
+# histogram bins of each day / its site's median on a log2 scale: quarter-steps from 1/16 to 16x the median.
+# days past either end go in the end bins
 shape_bin_width <- 0.25
 
 shape_bin_limit <- 4
 
-# SO2 monitors with this federal detection limit report most days below it, so one check keeps only lower-limit sites
+# SO2 monitors with this MDL report most days under it, so one check keeps only the lower-limit sites
 coarse_so2_limit <- 2
 
-# A site needs this many days under a check for its shape measures to be read
 min_shape_days <- 100
 
-# A curve fits a site closely when none of the site's percentiles misses it by more than this many SDs
+# a curve fits a site closely when none of its percentiles misses by more than this many SDs
 close_fit_miss <- 0.25
 
-# The federal detection limit of the case-study ozone monitors. Readings below it are noise-level, and on a log scale a
-# few of them can pull the skew a long way
+# federal MDL of the case-study ozone monitors. readings under it are noise, and on a log scale a
+# few of them can drag the skew way off
 very_low_ozone_ppm <- 0.005
 
 figures_dir <- here("figures", "phase3")
@@ -160,33 +149,31 @@ stopifnot(
   "The histogram range is a whole number of bins" = (2 * shape_bin_limit / shape_bin_width) %% 1 == 0
 )
 
-# Section 4: the three curves in the contest. The normal curve is fitted beside them as a reference, since section 3 found
+# section 4: the 3 curves in the contest. normal gets fitted next to them as a reference bc section 3 found
 # it closest for ozone
 contest_curves <- c("lognormal", "gamma", "weibull")
 
 fitdist_names <- c("lognormal" = "lnorm", "gamma" = "gamma", "weibull" = "weibull", "normal" = "norm")
 
-# Every curve has two parameters, so AIC's penalty cancels and the ranking rests on the likelihood alone
+# every curve has 2 params so AIC's penalty cancels and the ranking is just the likelihood
 curve_parameter_count <- 2
 
-# fitdistrplus's default stopping rule can leave a shape about 0.08% short of the optimum, which moves P99 and the test
-# statistics in their fourth digit, so its fits run to this tighter rule
+# fitdistrplus's default stopping rule can leave a shape about 0.08% off the optimum, which moves P99 and the test
+# stats in the 4th digit, so its fits run to this tighter rule
 fit_relative_tolerance <- 1e-12
 
-# The fast fit must match fitdistrplus within this AIC on the main run
+# the fast fit has to match fitdistrplus within this AIC on the main run
 fit_agreement_tolerance <- 0.001
 
-# The usual rule of thumb for a decisive AIC gap. It assumes independent days, so the gap is also scaled for linked days
+# usual rule of thumb for a decisive AIC gap. it assumes independent days so the gap also gets scaled for linked days
 decisive_aic_gap <- 10
 
-# A site's Weibull fit stops when a Newton step moves its shape by less than this
 weibull_step_tolerance <- 1e-8
 
-# Consecutive-day pairs a site needs before its day-to-day correlation is read
 min_link_pairs <- 30
 
-# How often a winner survives resampling. Nearby days are linked, so whole two-week blocks are drawn, as in 2b. A winner
-# counts as clear at this share of resamples. All case-study sites and a seeded sample per pollutant are resampled
+# how often a winner survives resampling. nearby days are linked so whole 2-week blocks get drawn like 2b. a winner
+# counts as clear at this share of resamples. all case-study sites + a seeded sample per pollutant get resampled
 stability_block_days <- 14
 
 stability_reps <- 100
@@ -197,18 +184,16 @@ stability_sample_sites <- 100
 
 clear_winner_share <- 0.9
 
-# P99 rests on too few days below this many, so tail ratios are left blank
 min_tail_days <- 200
 
-# Below-limit readings are censored only for the two pollutants agreed, and rounding only for CO's 0.1 ppm steps
+# below-limit readings only get censored for the 2 agreed pollutants, and rounding only for CO's 0.1 ppm steps
 censored_pollutants <- c("SO2", "CO")
 
 rounded_pollutants <- "CO"
 
-# Days each side of a PM2.5 instrument comparison needs, so both sides span a full year
 min_instrument_side_days <- 365
 
-# Ranges for gaps in group spread: same-date blocks across every site, since sites share weather. Copied from 2b
+# ranges for gaps in group spread: same-date blocks across every site bc sites share weather. copied from 2b
 group_range_reps <- 1000
 
 group_range_seed <- 2026
@@ -230,8 +215,8 @@ stopifnot(
   "Each group-range pollutant is in the case study" = all(group_range_pollutants %in% pollutant_levels)
 )
 
-# Section 5: how each short-term standard rounds a daily value before comparing it with the limit, copied from 2a.
-# first_counted is the lowest reading that counts as above the limit
+# section 5: how each short-term standard rounds a daily value before comparing to the limit, copied from 2a.
+# first_counted = lowest reading that counts as over the limit
 short_term_limits <- tribble(
   ~pollutant, ~limit, ~digits, ~rounding,
   "PM2.5",    35,     0,       "half up",
@@ -246,19 +231,17 @@ tail_percentiles <- c("P98" = 0.98, "P99" = 0.99)
 
 tail_test_levels <- c("Limit", names(tail_percentiles))
 
-# A single site is judged only with this many actual days, since 2 expected against 1 actual is mostly chance
+# a single site only gets judged with this many actual days, 2 expected vs 1 actual is mostly luck
 min_judged_days <- 10
 
-# A curve is close at a site when expected / actual sits between 1 / 1.25 and 1.25
 close_tail_ratio <- 1.25
 
-# Share of each row's actual days held by its busiest sites
 n_top_tail_sites <- 10
 
-# Resamples behind the ozone tail ranges. Their ends need more draws than section 4's spread gaps to settle within the seed tolerance
+# resamples for the ozone tail ranges, the ends need more draws than section 4's gaps to settle within seed tolerance
 tail_range_reps <- 2000
 
-# The slowest steps save their results here, which git leaves out. TRUE recomputes them all and replaces what is saved
+# slowest steps save their results here (git ignores it). TRUE recomputes them all and overwrites what's saved
 cache_dir <- here("data", "distribution_cache")
 
 rerun_cached_steps <- FALSE
@@ -272,21 +255,20 @@ stopifnot(
   "The closeness ratio is above 1" = close_tail_ratio > 1
 )
 
-# Section 6: EPA's ozone design value (40 CFR 50, Appendix U) worked for Houston Aldine, then at every case-study ozone site,
-# against EPA's 2023-2025 design value file, downloaded from epa.gov/air-trends/air-quality-design-values on 2026-11-12
+# section 6: EPA's ozone design value (40 CFR 50, Appendix U) for houston aldine, then every case-study ozone site,
+# vs EPA's 2023-2025 design value file, downloaded from epa.gov/air-trends/air-quality-design-values on 2026-11-12
 design_value_path <- here("data", "reference", "o3_designvalues_2023_2025_final_06_08_26.xlsx")
 
 design_value_md5 <- "3845feca4954632cd990eb993ba03c28"
 
 aldine_id <- "48-201-0024"
 
-# Appendix U 4(a) and 4(b): the standard, and the share of ozone-season days a valid design value needs, on average over
-# three years and in each year
+# appendix U 4(a) and 4(b): the standard, and the share of ozone-season days a valid design value needs, on avg over
+# 3 years and in each year
 ozone_standard_ppm <- 0.070
 
 design_value_completeness <- c(average = 90, each_year = 75)
 
-# Three-year windows inside the study years. EPA's file gives its own value for each
 design_value_windows <- tibble(first_year = min(study_years):(max(study_years) - 2)) %>%
   mutate(last_year = first_year + 2)
 
@@ -299,8 +281,7 @@ stopifnot(
 
 
 # FIGURE STYLE ----
-# Phase 3 figures are laid out like a journal's, with the helpers in utils.R. These settings replace utils.R's chart
-# colours and fonts for this script only
+# journal-style figures (helpers in utils.R). these settings override utils.R's colours + fonts here only
 stopifnot("Arial is installed, since Phase 3 figures use it" = str_detect(systemfonts::match_fonts("Arial")$path, regex("arial", ignore_case = TRUE)))
 
 chart_fonts[] <- "Arial"
@@ -316,7 +297,6 @@ chart_sizes[c("key", "label")] <- c(7, 6.5)
 
 
 # 1. FIT TABLE AND DATA NUANCES ----
-# The daily checkpoints, checked against the manifest
 aqs_long_clean <- read_rds(file.path(processed_dir, "aqs_long_clean.rds"))
 
 sites <- read_rds(file.path(processed_dir, "sites.rds"))
@@ -337,7 +317,6 @@ stopifnot(
   "Pollutant levels match the case-study table" = identical(levels(daily_case_study$pollutant), pollutant_levels)
 )
 
-# Federal detection limit and FRM/FEM type of each method, for the five pollutants
 method_limits <- read_methods_ref() %>%
   inner_join(parameter_codes, by = "parameter_code", relationship = "many-to-one") %>%
   distinct(parameter_code, method_code, method_type, federal_mdl, mdl_units = units) %>%
@@ -361,7 +340,6 @@ fit_instruments <- fit_instruments %>%
   left_join(parameter_codes, by = "pollutant", relationship = "many-to-one") %>%
   left_join(method_limits, by = c("parameter_code", "method_code"), relationship = "many-to-one")
 
-# PM2.5 is judged on its daily mean, the gases on their daily maximum, in original units
 fit_instruments <- fit_instruments %>%
   mutate(value = if_else(pollutant == "PM2.5", arithmetic_mean, first_max_value))
 
@@ -372,8 +350,8 @@ stopifnot(
   "Detection limits are in the data's units" = all(fit_instruments$mdl_units == fit_instruments$units_of_measure)
 )
 
-# Collocated instruments are averaged per site and day, as in 2a. Sorting puts each site-day's rows
-# together, so rowsum() can total them in one pass
+# collocated instruments averaged per site-day like 2a. sorting puts each site-day's rows
+# together so rowsum() can total them in one pass
 fit_instruments <- fit_instruments %>%
   arrange(pollutant, site_id, date_local)
 
@@ -425,7 +403,7 @@ fit_days <- fit_days %>%
 fit_days <- fit_days %>%
   mutate(is_full_season = !(season == "Winter" & season_year %in% partial_winter_years))
 
-# The fitting copy: values at or below zero take half the detection limit, every other value stays as reported
+# fitting copy: values at or below zero become half the MDL, everything else stays as reported
 fit_days <- fit_days %>%
   mutate(is_at_or_below_zero = value <= 0) %>%
   mutate(is_below_mdl = value < federal_mdl) %>%
@@ -445,7 +423,7 @@ stopifnot(
   "Only values at or below zero are replaced" = all((fit_days$value_fit != fit_days$value) == fit_days$is_at_or_below_zero)
 )
 
-# Method codes in each year. A site whose set of codes changes swapped or added an instrument, which can shift its level
+# method codes each year. a site whose set of codes changes swapped or added an instrument, which can shift its level
 # and look like a trend
 method_sets <- fit_instruments %>%
   distinct(pollutant, site_id, year, method_code) %>%
@@ -468,8 +446,8 @@ site_methods <- fit_instruments %>%
     relationship = "one-to-one"
   )
 
-# Measurement step: the smallest gap between a site's distinct positive readings, before averaging. Coarse steps
-# (ozone 0.001 ppm, CO 0.1 ppm) give many tied values, which fit tests built for smooth data handle poorly
+# measurement step = smallest gap between a site's distinct positive readings, before averaging. coarse steps
+# (ozone 0.001 ppm, CO 0.1 ppm) give lots of ties, which fit tests built for smooth data don't handle well
 value_steps <- fit_instruments %>%
   filter(value > 0) %>%
   distinct(pollutant, site_id, value) %>%
@@ -480,8 +458,8 @@ value_steps <- fit_instruments %>%
 rm(fit_instruments, method_sets)
 invisible(gc())
 
-# Sampling schedule per site-year from the typical gap between samples. A PM2.5 site that moves from 1-in-3 to daily
-# sampling catches more high days, so its exceedance counts can rise with no change in the air
+# sampling schedule per site-year from the typical gap between samples. a PM2.5 site going from 1-in-3 to daily
+# catches more high days, so its exceedance counts can go up without the air changing at all
 site_year_schedules <- fit_days %>%
   select(pollutant, site_id, year, date_local) %>%
   arrange(pollutant, site_id, date_local) %>%
@@ -498,8 +476,8 @@ site_schedules <- site_year_schedules %>%
     .by = c(pollutant, site_id)
   )
 
-# Sites with December or January data in every year. Seasonal ozone monitors stop in autumn, so a year-round fit at
-# those sites describes the ozone season only
+# sites with dec or jan data every year. seasonal ozone monitors stop in autumn so a year-round fit there
+# only describes the ozone season
 winter_years <- fit_days %>%
   filter(month %in% c("Dec", "Jan")) %>%
   distinct(pollutant, site_id, year) %>%
@@ -519,7 +497,7 @@ site_day_summary <- fit_days %>%
     .by = c(pollutant, site_id)
   )
 
-# Case-study five-year site-days from 2a section 7, with the Houston distance bands from 1c and the checks 2b runs
+# case-study 5-yr site-days from 2a section 7, with the houston distance bands from 1c and the checks 2b runs
 harris_groups <- read_csv(
   harris_groups_path,
   col_types = cols(
@@ -557,7 +535,6 @@ case_fit_days <- case_fit_days %>%
 case_fit_days <- case_fit_days %>%
   mutate(is_near_road = site_id %in% near_road_ids)
 
-# The case study takes the fitting columns from the national table, so both use one substitution rule
 case_fit_days <- case_fit_days %>%
   left_join(
     select(fit_days, pollutant, site_id, date_local, value_national = value, federal_mdl, is_at_or_below_zero, is_below_mdl, value_fit),
@@ -603,7 +580,6 @@ case_study_roles <- case_fit_days %>%
     .by = c(pollutant, site_id, site_group)
   )
 
-# One row per five-year site and pollutant with every nuance that can bend a fitted distribution or a trend
 fit_site_inventory <- site_day_summary %>%
   left_join(select(sites, site_id, local_site_name, state_name, cbsa_name), by = "site_id", relationship = "many-to-one") %>%
   left_join(site_schedules, by = c("pollutant", "site_id"), relationship = "one-to-one") %>%
@@ -643,7 +619,6 @@ stopifnot(
     identical(houston_so2_flags$is_near_zero_site, c(TRUE, TRUE, TRUE, FALSE))
 )
 
-# Nuances per pollutant: how much the substitution touches, and how many sites changed instrument, schedule or season
 pollutant_day_nuances <- fit_days %>%
   summarise(
     site_days = n(),
@@ -728,7 +703,6 @@ inventory_dictionary <- tribble(
   "distribution_site_inventory", "has_relocation",                "TRUE for Houston Deer Park #2, which moved on 2025-05-30"
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 inventory_dictionary <- document_tables(inventory_records, inventory_dictionary)
 
 replace_own_rows(inventory_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
@@ -736,9 +710,9 @@ replace_own_rows(inventory_dictionary, data_dictionary_path, key = "table", col_
 
 
 # 2. DESCRIPTIVE TABLE ----
-# Summary statistics of the reported values, in original units. Pooled numbers weight each site by its days and mix the
+# summary stats of the reported values in original units. pooled numbers weight each site by its days and mix the
 # gaps between sites with the swings inside a site, so each row also gives the typical site's own mean, SD and skewness
-# and the share of the pooled variance that lies between sites. Skewness is 0 and kurtosis 3 for a normal curve
+# and the share of pooled variance that's between sites. skewness 0 and kurtosis 3 = normal curve
 describe_days <- function(site_days, group_cols) {
   pooled <- site_days %>%
     summarise(
@@ -795,7 +769,6 @@ describe_days <- function(site_days, group_cols) {
     select(-n_units)
 }
 
-# A check that leaves a comparison's days exactly as in the ordinary-day row adds nothing, so it is dropped for that row
 drop_unchanged_checks <- function(summary_rows, group_cols, kept_sets = c("All days", "Ordinary days")) {
   ordinary_days <- summary_rows %>%
     filter(site_set == "Ordinary days") %>%
@@ -807,7 +780,6 @@ drop_unchanged_checks <- function(summary_rows, group_cols, kept_sets = c("All d
     select(-ordinary_site_days)
 }
 
-# Site flags from section 1, so each check below keeps or drops whole sites
 site_flags <- fit_site_inventory %>%
   select(pollutant, site_id, is_year_round, is_near_zero_site, has_method_change, sampling_schedule)
 
@@ -838,7 +810,6 @@ national_summary <- bind_rows(Map(
 rm(summary_days, ordinary_summary_days, national_site_sets)
 invisible(gc())
 
-# The same table per case-study group, with the checks 2b runs, on ordinary days
 case_summary_days <- case_fit_days %>%
   left_join(select(site_flags, pollutant, site_id, is_near_zero_site), by = c("pollutant", "site_id"), relationship = "many-to-one")
 
@@ -868,8 +839,8 @@ case_summary <- bind_rows(Map(
 
 rm(case_summary_days, case_ordinary_days, case_site_sets)
 
-# Means do not describe a group led by near-zero SO2 sites, where most daily maximums sit at the noise floor, so those
-# rows keep only the percentiles and the shares. Nationally these sites are a minority, and a check row leaves them out
+# means don't describe a group led by near-zero SO2 sites where most daily maxes sit at the noise floor, so those
+# rows only keep the percentiles and shares. nationally these sites are a minority and a check row drops them
 mean_based_columns <- c(
   "mean", "sd", "skewness", "kurtosis", "median_site_mean", "median_site_sd", "median_site_skewness", "pct_variance_between_sites"
 )
@@ -983,7 +954,6 @@ summary_dictionary <- tribble(
   "distribution_summary", "pct_fireworks_days",         "% of site-days in a fireworks window (PM2.5 only)"
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 summary_dictionary <- document_tables(summary_records, summary_dictionary)
 
 replace_own_rows(summary_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
@@ -995,14 +965,14 @@ shape_bins <- tibble(bin = seq(-shape_bin_limit, shape_bin_limit - shape_bin_wid
   mutate(bin_upper = bin + shape_bin_width) %>%
   mutate(is_open_ended = bin == min(bin) | bin_upper == max(bin_upper))
 
-# The bin of each day. Rounding first keeps a day exactly on an edge in the upper bin, since a ratio of 2 can compute as
-# just under 2
+# bin for each day. rounding first keeps a day sitting right on an edge in the upper bin, since a ratio of 2 can
+# come out as just under 2
 shape_bin_of <- function(log2_ratio) {
   pmin(pmax(floor(round(log2_ratio, 10) / shape_bin_width) * shape_bin_width, min(shape_bins$bin)), max(shape_bins$bin))
 }
 
-# Share of a site's days that its own lognormal curve puts in the wrong histogram bin: half the absolute gaps, since each
-# misplaced day counts twice. Measured site by site, because averaging sites first would cancel their misses
+# share of a site's days its own lognormal puts in the wrong bin: half the absolute gaps bc each
+# misplaced day counts twice. done site by site bc averaging sites first would cancel their misses
 days_off_lognormal <- function(values) {
   log2_ratio <- log2(values / median(values))
   bin_index <- round((shape_bin_of(log2_ratio) - min(shape_bins$bin)) / shape_bin_width) + 1
@@ -1014,15 +984,15 @@ days_off_lognormal <- function(values) {
   100 * sum(abs(actual_share - (upper_share - lower_share))) / 2
 }
 
-# How far each percentile misses a perfect normal curve, in SDs. Passing the logs measures the miss from a lognormal instead
+# how far each percentile misses a perfect normal curve, in SDs. pass the logs to measure the miss from a lognormal
 qq_miss <- function(values) {
   abs((quantile(values, qq_percentiles / 100, names = FALSE) - mean(values)) / sd(values) - qnorm(qq_percentiles / 100))
 }
 
-# Each site's own shape on the fitting copy, before and after logs, with near-zero sites left out as in the fits. The
-# ratios compare the site's percentiles with the normal and lognormal curves that share its mean and SD. The quantile
-# skew uses the 10th, 50th and 90th percentiles, so a handful of very low days cannot drive it. Values are rounded before
-# counting ties, since averaging instruments can leave 5.8 and 5.8000000000000007
+# each site's own shape on the fitting copy, before and after logs, near-zero sites dropped like in the fits. the
+# ratios compare the site's percentiles with the normal and lognormal curves with the same mean and SD. quantile
+# skew uses the 10th, 50th, 90th pcts so a few really low days can't drive it. values get rounded before
+# counting ties bc averaging instruments can leave 5.8 and 5.8000000000000007
 shape_by_site <- function(site_days, group_cols) {
   site_days %>%
     mutate(log_value = log(value_fit)) %>%
@@ -1065,7 +1035,6 @@ shape_measures <- c(
   "p99_over_normal", "p99_over_lognormal", "p05_over_lognormal", "pct_days_off_lognormal", "pct_top_value", "pct_filled_in"
 )
 
-# The typical site and the middle half across sites, per pollutant or group. Each site counts once
 summarise_shapes <- function(site_shapes, group_cols) {
   site_shapes %>%
     summarise(
@@ -1085,8 +1054,8 @@ summarise_shapes <- function(site_shapes, group_cols) {
     )
 }
 
-# Q-Q summary: at each site, how many SDs each percentile sits from the mean, on the plain and the log scale. A perfect
-# normal or lognormal site would match the theoretical value. Standard units stay usable at the low end, where a normal
+# Q-Q summary: at each site, how many SDs each percentile is from the mean, on the plain and log scale. a perfect
+# normal or lognormal site would match the theoretical value. standard units still work at the low end, where a normal
 # curve can predict a negative concentration and a ratio would break
 qq_by_group <- function(site_days, group_cols) {
   site_days %>%
@@ -1108,8 +1077,8 @@ qq_by_group <- function(site_days, group_cols) {
     mutate(theoretical_z = qnorm(percentile / 100))
 }
 
-# Share of days in each bin of value / site median, with each site counting once, beside what each site's own lognormal
-# would put there. Dividing by the site median removes the gaps between sites, so only the shape is left
+# share of days in each bin of value / site median (each site counts once), next to what each site's own lognormal
+# would put there. dividing by the site median removes the gaps between sites so only the shape's left
 histogram_by_group <- function(site_days, group_cols) {
   ratio_days <- site_days %>%
     mutate(log2_ratio = log2(value_fit / median(value_fit)), .by = all_of(c(group_cols, "site_id"))) %>%
@@ -1142,7 +1111,7 @@ histogram_by_group <- function(site_days, group_cols) {
     arrange(across(all_of(c(group_cols, "bin"))))
 }
 
-# The fitting days, without near-zero sites, on ordinary days as the main run. Site flags from section 1 drive the checks
+# fitting days without near-zero sites, ordinary days as the main run. site flags from section 1 drive the checks
 shape_site_flags <- fit_site_inventory %>%
   mutate(region = if_else(str_sub(site_id, 1, 2) %in% western_state_codes, "West", "East")) %>%
   select(
@@ -1177,7 +1146,6 @@ stopifnot(
   "Spread factors sit above 1" = all(site_shapes$spread_factor > 1)
 )
 
-# National checks. Those that recompute each site's shape come first; the rest keep or drop whole sites
 warm_shape_days <- ordinary_shape_days %>%
   filter(month %in% warm_months)
 
@@ -1211,7 +1179,6 @@ national_shape_summary <- bind_rows(Map(
 rm(warm_shape_days, national_site_shapes)
 invisible(gc())
 
-# The same by case-study group, with the checks 2b runs
 case_shape_days <- case_fit_days %>%
   semi_join(filter(shape_site_flags, !is_near_zero_site), by = c("pollutant", "site_id"))
 
@@ -1317,8 +1284,6 @@ shape_summary %>%
   mutate(across(where(is.numeric), \(x) signif(x, 3))) %>%
   print(n = Inf, width = Inf)
 
-# Figures 3.1 and 3.2: each pollutant's shape at a typical site. The left panels remove site level, and the right
-# panels show where each curve misses
 figure_percentiles <- c(1, 10, 50, 90, 99)
 
 ratio_breaks <- c(-4, -2, 0, 2, 4)
@@ -1327,7 +1292,7 @@ ratio_labels <- c("1/16", "1/4", "1", "4", "16")
 
 national_panel_names <- c("PM2.5" = "PM2.5", "Ozone" = "Ozone", "NO2" = "NO2", "SO2" = "SO2", "CO" = "CO")
 
-# The Q-Q panels plot the miss from a perfect fit in SDs, so the small gaps at each percentile can be read
+# Q-Q panels plot the miss from a perfect fit in SDs so u can actually see the small gaps at each percentile
 miss_breaks <- c(-1, 0, 1)
 
 miss_labels <- c("\u22121", "0", "+1")
@@ -1380,13 +1345,11 @@ national_qq_panel <- function(pollutant_name, panel_number) {
     sprintf("Normal closer at %.0f%% of sites", 100 - lognormal_share)
   )
 
-  ggplot(points, aes(theoretical_z, median_observed_z - theoretical_z, colour = reference, fill = reference)) +
+  ggplot(points, aes(theoretical_z, median_observed_z - theoretical_z, colour = reference)) +
     geom_hline(yintercept = 0, colour = chart_ink[["primary"]], linewidth = 0.35, linetype = "22") +
-    geom_ribbon(aes(ymin = q1_observed_z - theoretical_z, ymax = q3_observed_z - theoretical_z), colour = NA, alpha = 0.22) +
     geom_line(linewidth = 0.55) +
     geom_point(size = 0.9) +
     scale_colour_manual(values = c("Normal" = chart_ink[["muted"]], "Lognormal" = chart_fills[["accent"]]), guide = "none") +
-    scale_fill_manual(values = c("Normal" = chart_ink[["muted"]], "Lognormal" = chart_fills[["accent"]]), guide = "none") +
     scale_x_continuous(breaks = qnorm(figure_percentiles / 100), labels = str_c("P", figure_percentiles)) +
     scale_y_continuous(breaks = miss_breaks, labels = miss_labels) +
     coord_cartesian(ylim = miss_limits) +
@@ -1408,7 +1371,6 @@ national_shape_panels <- function(pollutant_names) {
   )
 }
 
-# The figure's claims must hold under every national check, site by site
 national_check_rows <- shape_summary %>%
   filter(scope == "National")
 
@@ -1445,7 +1407,7 @@ log_suited_figure <- tagged_figure(
   source_note = sprintf(
     str_c(
       "Source: EPA AQS daily data, %s to %s, ordinary days, five-year sites; values at or below zero at half the detection limit, ",
-      "near-zero sites left out. Right: median and middle half of sites; above zero, the actual percentile runs higher."
+      "near-zero sites left out. Right: median site; above zero, the actual percentile runs higher."
     ),
     min(study_years), max(study_years)
   )
@@ -1457,7 +1419,7 @@ near_normal_figure <- tagged_figure(
   source_note = sprintf(
     str_c(
       "Source: EPA AQS daily data, %s to %s, ordinary days, five-year sites; values at or below zero at half the detection limit, ",
-      "near-zero sites left out. Right: median and middle half of sites; above zero, the actual percentile runs higher."
+      "near-zero sites left out. Right: median site; above zero, the actual percentile runs higher."
     ),
     min(study_years), max(study_years)
   )
@@ -1469,7 +1431,6 @@ save_figure(log_suited_figure, "3.01_shape_log_scale.png", 5.45)
 
 save_figure(near_normal_figure, "3.02_shape_ozone_no2.png", 4.05)
 
-# Figures 3.3 and 3.4: the same shape by case-study group. One curve per group, since the groups overlap
 case_group_note <- function(pollutant_name) {
   counts <- case_main_shapes %>%
     filter(pollutant == pollutant_name)
@@ -1539,8 +1500,6 @@ case_qq_panels <- unlist(
   recursive = FALSE
 )
 
-# The figure's claims must hold under every check. A check that leaves a group unchanged has no row, so that group
-# keeps its main row
 group_shape_range <- function(check_name) {
   check_rows <- shape_summary %>%
     filter(scope == "Case study", pollutant != "SO2", site_set == check_name)
@@ -1568,7 +1527,6 @@ dfw_ozone_log_skew <- case_ozone_shapes$log_skewness_median[case_ozone_shapes$si
 
 houston_ozone_log_skew <- case_ozone_shapes$log_skewness_median[case_ozone_shapes$site_group != "Dallas-Fort Worth"]
 
-# Ozone's log skew once readings below the detection limit are set aside in every group, and how few readings those are
 ozone_case_days <- case_ordinary_shape_days %>%
   filter(pollutant == "Ozone")
 
@@ -1595,7 +1553,6 @@ print(as.data.frame(very_low_days_all_groups))
 
 print(as.data.frame(arrange(group_shape_ranges, desc(spread_ratio)) %>% slice_head(n = 3)))
 
-# How often a lognormal beats a normal curve for ozone, year-round and by season
 ozone_closer_sites <- function(check_name) {
   case_site_shapes[[check_name]] %>%
     filter(pollutant == "Ozone") %>%
@@ -1644,7 +1601,7 @@ stopifnot(
     mean(houston_ozone_trimmed_skew) - dfw_ozone_trimmed_skew <= 0.6 * (mean(houston_ozone_log_skew) - dfw_ozone_log_skew)
 )
 
-# Deer Park #2 SO2: half the detection limit lands on the same value as a common reading, so one value holds many days
+# deer park #2 SO2: half the MDL lands on the same value as a common reading, so one value holds a lot of days
 deer_park_so2_days <- case_ordinary_shape_days %>%
   filter(pollutant == "SO2")
 
@@ -1699,7 +1656,6 @@ save_figure(case_shape_figure, "3.03_case_study_shape.png", 4.45)
 
 save_figure(case_qq_figure, "3.04_case_study_qq.png", 7.3)
 
-# Four CSV records: one row per site, medians under each check, and the numbers behind both figures
 shape_site_record <- site_shapes %>%
   select(
     pollutant, site_id, local_site_name, state_name, region, site_group, n_days, pct_filled_in, pct_top_value, skewness, kurtosis,
@@ -1814,7 +1770,6 @@ shape_dictionary <- bind_rows(
   )
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 shape_dictionary <- document_tables(shape_records, shape_dictionary)
 
 replace_own_rows(shape_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
@@ -1825,7 +1780,7 @@ invisible(gc())
 
 
 # 4. FITTED CURVES ----
-# A slow step reuses its saved result only while its days, settings and code match the ones that made it. Anything else recomputes
+# slow steps reuse their saved result only while the days, settings and code match what made it, otherwise recompute
 step_fingerprint <- function(data, settings, code) {
   tools::md5sum(bytes = serialize(
     list(data = data, settings = settings, code = lapply(code, deparse), r_version = R.version.string),
@@ -1850,8 +1805,8 @@ cached_step <- function(step_name, data, settings, code, compute) {
   result
 }
 
-# Each site's values are divided by their mean first, so parameters carry no units and compare across sites. AIC then
-# compares curves within one site and one check
+# each site's values get divided by their mean first so params have no units and compare across sites. AIC then
+# compares curves inside one site and one check
 fast_curve_parameters <- function(values) {
   scaled <- values / mean(values)
   log_scaled <- log(scaled)
@@ -1891,7 +1846,6 @@ fast_curve_parameters <- function(values) {
   )
 }
 
-# The same parameters from fitdistrplus, which the main run uses. Slower, so the checks and resamples use the fast fit
 package_curve_parameters <- function(values) {
   scaled <- values / mean(values)
   estimates <- lapply(fitdist_names, \(curve) fitdistrplus::fitdist(scaled, curve, control = list(reltol = fit_relative_tolerance))$estimate)
@@ -1936,8 +1890,8 @@ curve_probabilities <- function(curve, values, parameters) {
   )
 }
 
-# One row per site: AIC for each curve, the winner with and without the normal curve, and where the curves miss the tail.
-# KS and Anderson-Darling are statistics only. Their p-values assume smooth, independent data and a curve not fitted to it
+# one row per site: AIC for each curve, the winner with and without the normal curve, and where the curves miss the tail.
+# KS and anderson-darling are just stats here, their p-values assume smooth independent data and a curve not fit to it
 describe_site_fit <- function(parameters) {
   scaled <- parameters$scaled
   n_days <- length(scaled)
@@ -1990,7 +1944,7 @@ fit_sites <- function(site_days, site_set, curve_parameters = fast_curve_paramet
     mutate(site_set = site_set)
 }
 
-# The days behind each national fit, without near-zero sites. Seasonal ozone monitors have too few cool days to describe
+# days behind each national fit, without near-zero sites. seasonal ozone monitors have too few cool days to describe
 # that season, so the cool fits keep year-round ozone sites
 fit_source_days <- fit_days %>%
   select(pollutant, site_id, date_local, month, event_class, n_instruments, has_t640, is_at_or_below_zero, value, federal_mdl, value_fit) %>%
@@ -2068,12 +2022,11 @@ site_fits <- bind_rows(
   fit_sites(filter(ordinary_fit_days, !is_at_or_below_zero), "Without values at or below zero")
 )
 
-# fit_agreement stays for the validation table of section 7
 rm(fast_site_fits, spread_agreement, section_three_spreads, day_order_check)
 invisible(gc())
 
-# Linked days: how much each day repeats the day before, and the independent days that leaves. AIC gaps grow with n, so
-# they are also scaled down to those days
+# linked days: how much each day repeats the day before, and how many independent days that leaves. AIC gaps grow with n
+# so they also get scaled down to those days
 site_links <- ordinary_fit_days %>%
   mutate(log_value = log(value_fit)) %>%
   mutate(previous_log = lag(log_value), previous_date = lag(date_local), .by = c(pollutant, site_id)) %>%
@@ -2088,8 +2041,8 @@ site_fits <- site_fits %>%
   mutate(scaled_aic_gap = aic_gap * effective_days / n_days) %>%
   select(-n_day_pairs)
 
-# Winner stability. Resampling every site would take about 22 minutes, so it covers every case-study site in each season
-# and a seeded sample nationally. Each resample draws two-week blocks of a site's days and asks which curve wins again
+# winner stability. resampling every site would take about 22 min, so it covers every case-study site per season
+# and a seeded sample nationally. each resample draws 2-week blocks of a site's days and checks which curve wins again
 set.seed(stability_seed)
 
 national_sample <- shape_site_flags %>%
@@ -2177,7 +2130,6 @@ stopifnot(
   "Every fit has a winner" = all(site_fits$winner %in% contest_curves) && !anyNA(site_fits$aic_gap)
 )
 
-# Medians across sites, with winners as site counts. A site counts once, so a site with many days has no extra weight
 summarise_fits <- function(fits, group_cols) {
   fits %>%
     summarise(
@@ -2239,7 +2191,7 @@ national_fit_sets <- list(
   "SO2 sites with a lower limit" = filter(ordinary_site_fits, pollutant == "SO2", federal_mdl_max < coarse_so2_limit)
 )
 
-# National resampling shares count only the random sample. Case-study sites were chosen, so counting them would tilt the shares
+# national resampling shares only count the random sample. case-study sites were hand-picked so they'd tilt it
 random_sample_only <- function(fits) {
   fits %>%
     left_join(mutate(national_sample, in_random_sample = TRUE), by = c("pollutant", "site_id", "site_set"), relationship = "one-to-one") %>%
@@ -2256,8 +2208,8 @@ national_fit_summary <- bind_rows(Map(
   drop_unchanged_checks("pollutant", kept_sets = "Ordinary days") %>%
   mutate(scope = "National")
 
-# The same by case-study group, with the checks 2b runs. The site rows of the checks are fitted here, since each
-# check changes only a few sites
+# same by case-study group with the checks 2b runs. the checks' site rows get fitted here since each
+# check only changes a few sites
 case_fit_source <- case_ordinary_shape_days %>%
   filter(pollutant != "CO")
 
@@ -2299,7 +2251,6 @@ fit_summary <- bind_rows(national_fit_summary, case_fit_summary) %>%
   arrange(scope, pollutant, site_group, site_set) %>%
   select(scope, pollutant, site_group, site_set, everything())
 
-# Only the sites a check changed go in the site record, since the others repeat their main row
 main_fit_days <- ordinary_site_fits %>%
   select(pollutant, site_id, main_days = n_days)
 
@@ -2317,8 +2268,8 @@ stopifnot(
     all(with(fit_summary, wins_with_normal_lognormal + wins_with_normal_gamma + wins_with_normal_weibull + wins_with_normal_normal == n_sites))
 )
 
-# Censored checks. A day below a limit counts as "somewhere below the limit" and the likelihood uses the curve's share
-# below that limit, so the fill-in value plays no part. Rounding treats each reading as an interval one measurement step wide
+# censored checks. a day under a limit counts as "somewhere under the limit" and the likelihood uses the curve's share
+# under that limit, so the fill-in value doesn't matter. rounding treats each reading as an interval one step wide
 censored_data <- function(site_days, version, step = NA_real_) {
   scale_value <- mean(site_days$value_fit)
   if (version == "Rounded readings") {
@@ -2341,8 +2292,8 @@ curve_starts <- function(parameters) {
   )
 }
 
-# log(F(upper) - F(lower)) worked out on the log scale from whichever tail is smaller. A rare CO spike can sit so far out on a
-# Weibull or gamma curve that F itself rounds to exactly 1, which fitdistcens cannot score
+# log(F(upper) - F(lower)) done on the log scale from whichever tail is smaller. a rare CO spike can sit so far out on a
+# weibull or gamma curve that F rounds to exactly 1, which fitdistcens can't score
 interval_log_probability <- function(curve, first, second, lower, upper) {
   log_tail <- function(q, lower_tail) {
     switch(
@@ -2380,8 +2331,8 @@ fit_rounded_curve <- function(curve, grouped, start) {
   list(aic = 2 * curve_parameter_count + 2 * found$value, estimate = estimate)
 }
 
-# Identical days are grouped with a count, which gives the same likelihood far faster. The plain fit supplies the starting
-# values, since fitdistcens's default ones can get stuck. It warns about those defaults even when they go unused
+# identical days get grouped with a count, same likelihood but way faster. the plain fit gives the starting
+# values bc fitdistcens's defaults can get stuck. it warns about those defaults even when they're not used
 censored_site_row <- function(site_days, version, step = NA_real_) {
   site_data <- censored_data(site_days, version, step)
   grouped <- site_data %>%
@@ -2428,7 +2379,6 @@ censored_site_row <- function(site_days, version, step = NA_real_) {
   )
 }
 
-# Sites with nothing to censor keep the plain fit under the same check, since the likelihood is then the same
 ozone_limit_row <- function(site_days) {
   if (any(site_days$value < site_days$federal_mdl)) {
     return(censored_site_row(site_days, "Readings below the limit censored"))
@@ -2532,8 +2482,8 @@ stopifnot(
   "Every censored fit names a winner" = all(censored_fits$winner %in% contest_curves)
 )
 
-# PM2.5 by instrument, inside one site. Sites need a full year each side. Fitting the two sides of a site compares like with
-# like; never-T640 sites split at the typical switch date show what the calendar alone does
+# PM2.5 by instrument inside one site, sites need a full year each side. fitting both sides of one site compares like with
+# like, never-T640 sites split at the usual switch date show what the calendar alone does
 pm25_days <- ordinary_fit_days %>%
   filter(pollutant == "PM2.5")
 
@@ -2615,8 +2565,8 @@ stopifnot(
     nrow(instrument_fits) == 2 * (length(t640_sites) + length(control_sites_kept))
 )
 
-# Group spread. Sites near each other share weather, so one resample draws the same dates at every site in a pollutant. The
-# gap is one group's median site spread minus another's, and the range is the middle 95% of 1,000 resamples
+# group spread. nearby sites share weather so one resample draws the same dates at every site in a pollutant. the
+# gap = one group's median site spread minus another's, range = middle 95% of 1,000 resamples
 group_spread_levels <- names(site_group_colours)
 
 group_spread_medians <- function(day_table, date_weights = NULL) {
@@ -2711,8 +2661,8 @@ print(as.data.frame(fit_summary %>%
          spread_factor_median, p99_over_winner_median, pct_sites_winner_closest_at_p99) %>%
   mutate(across(where(is.double), \(x) signif(x, 3)))))
 
-# The ozone gap in warm months under the checks 2b runs. Readings below the limit are set aside in one check, since they
-# moved Dallas-Fort Worth's year-round winner
+# warm-month ozone gap under the checks 2b runs. below-limit readings get set aside in one check bc they
+# moved DFW's year-round winner
 warm_ozone_days <- case_fit_source %>%
   filter(pollutant == "Ozone", month %in% warm_months)
 
@@ -2744,7 +2694,6 @@ warm_ozone_check_gaps <- bind_rows(Map(
 
 print(as.data.frame(mutate(warm_ozone_check_gaps, across(where(is.double), \(x) round(x, 3)))))
 
-# Figures 3.5 and 3.6: which curve wins nationally, how far to trust the winner, and where the case-study groups differ
 season_labels <- c("Ordinary days" = "Year", "Warm season" = "Warm", "Cool season" = "Cool")
 
 curve_labels <- c("lognormal" = "Lognormal", "gamma" = "Gamma", "weibull" = "Weibull", "normal" = "Normal")
@@ -2801,39 +2750,32 @@ ozone_spread_sites <- site_fits %>%
   filter(pollutant == "Ozone", site_set %in% c("Warm season", "Cool season"), !is.na(site_group)) %>%
   mutate(site_group = factor(site_group, levels = rev(names(site_group_colours))))
 
-ozone_spread_medians <- ozone_spread_sites %>%
-  summarise(median_spread = median(spread_factor), .by = c(site_set, site_group))
+ozone_spread_boxes <- ozone_spread_sites %>%
+  box_stats("spread_factor", c("site_set", "site_group"))
+
+stopifnot("Two seasons, three groups, one spread box each" = nrow(ozone_spread_boxes) == 6)
 
 group_axis_labels <- c("Houston Ship Channel" = "Ship Channel", "Houston other" = "Houston other", "Dallas-Fort Worth" = "Dallas-Fort Worth")
 
 spread_limits <- c(min(ozone_spread_sites$spread_factor) - 0.01, max(ozone_spread_sites$spread_factor) + 0.06)
 
 spread_panel <- function(site_set_name, panel_number, panel_title, panel_subtitle) {
-  set_sites <- filter(ozone_spread_sites, site_set == site_set_name)
-  group_counts <- count(set_sites, site_group)
+  set_boxes <- filter(ozone_spread_boxes, site_set == site_set_name)
   group_labels <- setNames(
-    str_c(group_axis_labels[as.character(group_counts$site_group)], " (", group_counts$n, ")"),
-    as.character(group_counts$site_group)
+    str_c(group_axis_labels[as.character(set_boxes$site_group)], " (", set_boxes$n_values, ")"),
+    as.character(set_boxes$site_group)
   )
-  ggplot(set_sites, aes(spread_factor, site_group, colour = site_group, shape = site_group)) +
-    geom_point(size = 1.5, alpha = 0.7) +
-    geom_point(
-      data = filter(ozone_spread_medians, site_set == site_set_name),
-      aes(median_spread, site_group),
-      shape = "|",
-      size = 5.5,
-      colour = chart_ink[["primary"]]
-    ) +
+  ggplot(set_boxes, aes(y = site_group, colour = site_group, fill = site_group)) +
+    geom_box_whisker(horizontal = TRUE, width = 0.5) +
     geom_text(
-      data = filter(ozone_spread_medians, site_set == site_set_name),
-      aes(x = spread_limits[2], y = site_group, label = sprintf("%.2f", median_spread)),
+      aes(x = spread_limits[2], label = sprintf("%.2f", box_median)),
       family = chart_fonts[["mono"]],
       size = chart_sizes[["label"]] / .pt,
       colour = chart_ink[["primary"]],
       hjust = 1
     ) +
     scale_colour_manual(values = site_group_colours, guide = "none") +
-    scale_shape_manual(values = site_group_shapes, guide = "none") +
+    scale_fill_manual(values = alpha(site_group_colours, box_fill_alpha), guide = "none") +
     scale_y_discrete(labels = \(x) group_labels[x], expand = expansion(add = 0.75)) +
     scale_x_continuous(limits = spread_limits, breaks = c(1.35, 1.45, 1.55)) +
     labs(title = panel_label(panel_number, panel_title), subtitle = panel_subtitle, x = "Spread factor, exp(SD of logged days)", y = NULL) +
@@ -2905,7 +2847,6 @@ instrument_panel <- ggplot(instrument_panel_data, aes(pct_lognormal, side)) +
     strip.text.y = element_blank()
   )
 
-# The figure's claims must hold under every national check, site by site
 national_fit_checks <- fit_summary %>%
   filter(scope == "National")
 
@@ -3018,11 +2959,11 @@ ozone_spread_figure <- tagged_figure(
     spread_panel("Cool season", 2, "Ozone, cool months", "The three groups match")
   ),
   tribble(
-    ~mark,   ~colour,                                      ~label,              ~shape,
-    "point", site_group_colours[["Houston Ship Channel"]], "Ship Channel site",  site_group_shapes[["Houston Ship Channel"]],
-    "point", site_group_colours[["Houston other"]],        "Houston other site", site_group_shapes[["Houston other"]],
-    "point", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth site", site_group_shapes[["Dallas-Fort Worth"]],
-    "tick",  chart_ink[["primary"]],                       "Group median",       16
+    ~mark,    ~colour,                                      ~label,                                                                          ~row,
+    "square", site_group_colours[["Houston Ship Channel"]], "Ship Channel",                                                                  1,
+    "square", site_group_colours[["Houston other"]],        "Houston other",                                                                 1,
+    "square", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth",                                                             1,
+    "box",    chart_ink[["secondary"]],                     "Sites: box holds the middle half, line and number are the median site, whiskers 10th to 90th percentile", 2
   ),
   source_note = sprintf(
     str_c(
@@ -3037,7 +2978,6 @@ save_figure(national_fit_figure, "3.05_fits.png", 6.4)
 
 save_figure(ozone_spread_figure, "3.06_ozone_spread.png", 2.65)
 
-# Three CSV records: one row per site and check, medians under each check, and the censored, instrument and group checks
 aic_columns <- c("aic_lognormal", "aic_gamma", "aic_weibull", "aic_normal", "aic_gap", "scaled_aic_gap")
 
 fit_site_record <- bind_rows(site_fits, changed_check_fits) %>%
@@ -3209,7 +3149,6 @@ fit_dictionary <- bind_rows(
   )
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 fit_dictionary <- document_tables(fit_records, fit_dictionary)
 
 replace_own_rows(fit_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
@@ -3229,8 +3168,8 @@ invisible(gc())
 
 
 # 5. TAILS ----
-# Each curve is fitted to a site's days and then asked how many of those same days sit above a level, so this tests fit and
-# forecasts nothing. Expected days = days measured x the curve's share above the level
+# each curve gets fit to a site's days and then asked how many of those same days are over a level, so this tests fit
+# and forecasts nothing. expected days = days measured x the curve's share over the level
 tail_curves <- names(fitdist_names)
 
 curve_shares_above <- function(scaled_cut, parameters) {
@@ -3242,8 +3181,8 @@ curve_shares_above <- function(scaled_cut, parameters) {
   )
 }
 
-# Readings sit on a grid of measurement steps and a curve is smooth. A reading of 0.071 stands for the curve's stretch from
-# 0.0705 to 0.0715, so a curve is read halfway between the last day left out and the first day counted
+# readings sit on a grid of measurement steps and the curve is smooth. a reading of 0.071 stands for the curve from
+# 0.0705 to 0.0715, so the curve gets read halfway between the last day left out and the first day counted
 percentile_boundary <- function(values, cut) {
   above <- values[values > cut]
   below <- values[values <= cut]
@@ -3260,7 +3199,6 @@ days_above_limit <- function(values, limit_row) {
   sum(rounded > limit_row$limit)
 }
 
-# One row per test at one site: the limit, then each percentile of the site's own days
 site_tail_rows <- function(values, value_step, limit_row, parameters, winner, half_step = TRUE) {
   n_days <- length(values)
   percentile_cuts <- quantile(values, tail_percentiles, names = FALSE)
@@ -3323,7 +3261,7 @@ tail_source_days <- fit_days %>%
 tail_ordinary_days <- tail_source_days %>%
   filter(event_class == "None")
 
-# The same 2a rounding gives the same count from the reported value and from the fitting value, which differ only at or below zero
+# same 2a rounding gives the same count from the reported and fitting values, they only differ at or below zero
 limit_count_check <- fit_days %>%
   inner_join(short_term_limits, by = "pollutant", relationship = "many-to-one") %>%
   mutate(value_rounded = if_else(rounding == "truncate", truncate_to(value, digits), round_half_up(value, digits))) %>%
@@ -3405,8 +3343,8 @@ stopifnot(
 rm(limit_count_check)
 invisible(gc())
 
-# Totals show whether a curve gets the overall count right. Misses of opposite sign cancel in a total, so the typical judged
-# site and the share of judged sites within 25% sit beside it
+# totals show if a curve gets the overall count right. misses with opposite signs cancel in a total, so the typical judged
+# site and the share of judged sites within 25% go next to it
 summarise_tails <- function(tail_rows, group_cols) {
   tail_rows %>%
     summarise(
@@ -3474,7 +3412,7 @@ national_tail_summary <- bind_rows(Map(
   )) %>%
   mutate(scope = "National")
 
-# The same by case-study group, with the checks 2b runs. Warm-month ozone leads, so it runs each check too
+# same by case-study group with the checks 2b runs. warm-month ozone leads so it runs each check too
 case_tail_source <- tail_site_rows %>%
   filter(!is.na(site_group))
 
@@ -3562,9 +3500,9 @@ stopifnot(
     sum(tail_summary$n_sites[tail_summary$scope == "Case study" & tail_summary$site_set == "Ordinary days" & tail_summary$test == "Limit"]) == 41
 )
 
-# Ranges for warm-month and year-round ozone at the limit, in Houston and Dallas-Fort Worth. Bad days arrive in runs and sites
-# share weather, so one resample draws the same two-week blocks of dates at every site and refits every curve. Each site keeps
-# its named winner, since a winner that switched inside a resample would give a range with two humps
+# ranges for warm-month and year-round ozone at the limit, in houston and DFW. bad days come in runs and sites
+# share weather, so one resample draws the same 2-week blocks of dates at every site and refits every curve. each site
+# keeps its named winner, bc a winner that flipped inside a resample would give a range with two humps
 range_tail_curves <- c(tail_curves, "winner")
 
 prepare_tail_range_days <- function(site_days) {
@@ -3690,7 +3628,6 @@ stopifnot(
   "Thirty-six range rows for each ozone set" = nrow(tail_ranges) == 36 * length(tail_range_sets)
 )
 
-# The whole warm-month ozone tail by group: the share of days above each value, against each curve
 tail_curve_values <- seq(0.055, 0.1, by = 0.001)
 
 warm_ozone_pieces <- split(case_warm_ozone_days, case_warm_ozone_days$site_id)
@@ -3745,8 +3682,8 @@ stopifnot(
     all(with(warm_ozone_curves, ave(pct_actual, site_group, FUN = \(x) c(0, diff(x)))) <= 0)
 )
 
-# Deer Park #2 with its below-limit readings censored, read at the same levels as the main fit. The fits repeat section 4's,
-# which kept only their AIC and P99
+# deer park #2 with below-limit readings censored, read at the same levels as the main fit. the fits repeat section 4's,
+# which only kept their AIC and P99
 deer_park_tail_days <- tail_ordinary_days %>%
   filter(pollutant == "SO2", site_id == deer_park_id) %>%
   left_join(
@@ -3816,8 +3753,6 @@ stopifnot(
   "Deer Park #2 reads below the limit on more than a fifth of days" = deer_park_censored_row$pct_censored > 20
 )
 
-# Figure 3.7: how close each curve gets at the high end, nationally. Figures 3.8 and 3.9: the same for Houston and
-# Dallas-Fort Worth
 national_tail_main <- tail_summary %>%
   filter(scope == "National", site_set == "Ordinary days")
 
@@ -3872,26 +3807,36 @@ limit_national_rows <- tail_summary %>%
   mutate(row_text = sprintf("%s\n%s days", row_name, comma(n_actual_days))) %>%
   mutate(row_label = factor(row_text, levels = rev(row_text)))
 
-typical_site_rows <- p99_national_rows %>%
+typical_site_rows <- tail_ordinary_rows %>%
+  filter(test == "P99", is_judged) %>%
+  mutate(ratio_winner = expected_winner / actual_days) %>%
+  box_stats("ratio_winner", "pollutant") %>%
+  inner_join(select(p99_national_rows, pollutant, n_judged_sites, median_ratio_winner), by = "pollutant", relationship = "one-to-one") %>%
+  arrange(factor(pollutant, levels = pollutant_levels)) %>%
   mutate(row_label = factor(sprintf("%s (%d)", pollutant, n_judged_sites), levels = rev(sprintf("%s (%d)", pollutant, n_judged_sites))))
 
-typical_site_panel <- ggplot(typical_site_rows, aes(median_ratio_winner, row_label)) +
+stopifnot(
+  "Every judged pollutant has a box" = nrow(typical_site_rows) == nrow(p99_national_rows),
+  "Box medians match the saved typical-site ratios" = isTRUE(all.equal(typical_site_rows$box_median, typical_site_rows$median_ratio_winner)),
+  "Each box holds every judged site" = all(typical_site_rows$n_values == typical_site_rows$n_judged_sites)
+)
+
+typical_site_panel <- ggplot(typical_site_rows, aes(y = row_label)) +
   geom_vline(xintercept = 1, colour = chart_ink[["axis"]], linewidth = 0.4) +
-  geom_segment(aes(x = q1_ratio_winner, xend = q3_ratio_winner, yend = row_label), colour = chart_fills[["other"]], linewidth = 2.2) +
-  geom_point(shape = "|", size = 5, colour = chart_ink[["primary"]]) +
+  geom_box_whisker(horizontal = TRUE, width = 0.55, colour = chart_ink[["secondary"]], fill = alpha(chart_fills[["other"]], 0.6)) +
   geom_text(
-    aes(x = q3_ratio_winner, label = sprintf("%.2f", median_ratio_winner)),
+    aes(x = p90, label = sprintf("%.2f", box_median)),
     family = chart_fonts[["mono"]],
     size = chart_sizes[["label"]] / .pt,
     colour = chart_ink[["primary"]],
-    hjust = -0.25
+    hjust = -0.35
   ) +
-  scale_x_log10(limits = c(0.4, 3.6), breaks = c(0.5, 1, 2), labels = c("0.5", "1", "2")) +
+  scale_x_log10(breaks = c(0.25, 0.5, 1, 2, 4), labels = c("0.25", "0.5", "1", "2", "4"), expand = expansion(mult = c(0.05, 0.16))) +
   scale_y_discrete(labels = pretty_text) +
   labs(
     title = panel_label(3, "Each site, top 1%"),
-    subtitle = "The winner at the typical site",
-    x = "Expected \u00f7 actual days, middle half of sites",
+    subtitle = "The winner, site by site",
+    x = "Expected \u00f7 actual days",
     y = NULL
   ) +
   theme_paper() +
@@ -3920,7 +3865,6 @@ within_panel <- ggplot(within_table, aes(curve, pollutant, fill = pct_within)) +
   theme_paper() +
   theme(panel.grid = element_blank())
 
-# The figure's claims must hold under every national check
 national_p99_checks <- tail_summary %>%
   filter(scope == "National", test == "P99")
 
@@ -3967,13 +3911,13 @@ national_tail_figure <- tagged_figure(
     within_panel
   ),
   tribble(
-    ~mark,   ~colour,                           ~label,
-    "point", tail_curve_colours[["Lognormal"]], "Lognormal",
-    "point", tail_curve_colours[["Gamma"]],     "Gamma",
-    "point", tail_curve_colours[["Weibull"]],   "Weibull",
-    "point", tail_curve_colours[["Normal"]],    "Normal",
-    "tick",  chart_ink[["primary"]],            "Each site's AIC winner",
-    "thick", chart_fills[["other"]],            "(c) Middle half of sites"
+    ~mark,   ~colour,                           ~label,                                                                                  ~row,
+    "point", tail_curve_colours[["Lognormal"]], "Lognormal",                                                                             1,
+    "point", tail_curve_colours[["Gamma"]],     "Gamma",                                                                                 1,
+    "point", tail_curve_colours[["Weibull"]],   "Weibull",                                                                               1,
+    "point", tail_curve_colours[["Normal"]],    "Normal",                                                                                1,
+    "tick",  chart_ink[["primary"]],            "(a), (b) Each site's AIC winner",                                                       1,
+    "box",   chart_ink[["secondary"]],          "(c) Sites: box holds the middle half, line is the median site, whiskers 10th to 90th percentile", 2
   ),
   source_note = sprintf(
     str_c(
@@ -4039,8 +3983,7 @@ range_ratio_rows <- function(set_name) {
 tail_range_panel <- function(set_name, panel_number, panel_title, panel_subtitle) {
   ggplot(range_ratio_rows(set_name), aes(estimate, curve, colour = site_group, shape = site_group)) +
     geom_vline(xintercept = 1, colour = chart_ink[["axis"]], linewidth = 0.4) +
-    geom_linerange(aes(xmin = range_low, xmax = range_high), position = position_dodge(width = 0.7), linewidth = 0.5) +
-    geom_point(position = position_dodge(width = 0.7), size = 1.5) +
+    geom_point(position = position_dodge(width = 0.7), size = 1.8) +
     scale_colour_manual(values = site_group_colours, guide = "none") +
     scale_shape_manual(values = site_group_shapes, guide = "none") +
     scale_x_log10(limits = c(0.28, 2.8), breaks = c(0.5, 1, 2), labels = c("0.5", "1", "2")) +
@@ -4158,18 +4101,18 @@ case_limit_figure <- tagged_figure(
   ),
   tribble(
     ~mark,   ~colour,                                      ~label,              ~shape,                                       ~row,
-    "range", site_group_colours[["Houston Ship Channel"]], "Ship Channel",      site_group_shapes[["Houston Ship Channel"]], 1,
-    "range", site_group_colours[["Houston other"]],        "Houston other",     site_group_shapes[["Houston other"]],        1,
-    "range", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth", site_group_shapes[["Dallas-Fort Worth"]],    1,
+    "point", site_group_colours[["Houston Ship Channel"]], "Ship Channel",      site_group_shapes[["Houston Ship Channel"]], 1,
+    "point", site_group_colours[["Houston other"]],        "Houston other",     site_group_shapes[["Houston other"]],        1,
+    "point", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth", site_group_shapes[["Dallas-Fort Worth"]],    1,
     "point", chart_fills[["accent"]],                      "(c) Main fit",      16,                                           1,
     "point", chart_ink[["muted"]],                         "(c) Censored fit",  16,                                           1
   ),
   source_note = sprintf(
     str_c(
-      "Source: EPA AQS daily data, %s to %s, ordinary days. Lines: 95%% ranges from %s same-date two-week block resamples, curves ",
-      "refitted. (c) Deer Park #2 SO2, readings below the limit censored (%.1f%% of days)."
+      "Source: EPA AQS daily data, %s to %s, ordinary days. (a), (b) Each group's expected days over its actual days. ",
+      "(c) Deer Park #2 SO2, readings below the limit censored (%.1f%% of days)."
     ),
-    min(study_years), max(study_years), comma(tail_range_reps), deer_park_censored_row$pct_censored
+    min(study_years), max(study_years), deer_park_censored_row$pct_censored
   ),
   ncol = 3
 )
@@ -4178,7 +4121,6 @@ save_figure(warm_tail_figure, "3.08_warm_ozone_tails.png", 2.95)
 
 save_figure(case_limit_figure, "3.09_case_study_limit.png", 3.1)
 
-# Four CSV records: one row per site, set and test; medians and totals under each check; the ozone ranges; the warm-month curves
 tail_site_record <- bind_rows(tail_site_rows, deer_park_tail_rows) %>%
   mutate(site_set = factor(site_set, levels = c(tail_summary_set_levels, "Readings below the limit censored"))) %>%
   mutate(test = factor(test, levels = tail_test_levels)) %>%
@@ -4315,7 +4257,6 @@ tail_dictionary <- bind_rows(
   )
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 tail_dictionary <- document_tables(tail_records, tail_dictionary)
 
 replace_own_rows(tail_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
@@ -4331,9 +4272,9 @@ invisible(gc())
 
 
 # 6. OZONE DESIGN VALUE ----
-# Appendix U 3(e): the design value is each year's 4th-highest daily maximum 8-hour ozone, averaged over three years and
-# truncated to three decimals. 4(b): it is valid with valid days on 90% of the ozone season on average and 75% in each year,
-# and a value above 0.070 ppm is always valid. Worked for Houston Aldine, then at every case-study ozone site, against EPA
+# appendix U 3(e): design value = each year's 4th-highest daily max 8-hr ozone, averaged over 3 years and
+# truncated to 3 decimals. 4(b): valid with valid days on 90% of the ozone season on avg and 75% each year,
+# and anything over 0.070 ppm is always valid. worked for houston aldine, then every case-study ozone site, vs EPA
 design_value_file_md5 <- unname(tools::md5sum(design_value_path))
 
 stopifnot("EPA's design value file is the one saved on 2026-11-12" = tolower(design_value_file_md5) == design_value_md5)
@@ -4349,14 +4290,13 @@ epa_site_trends <- read_design_value_sheet("Table6. Site Trends", 4)
 
 epa_monitors <- read_design_value_sheet("Appendix. Monitor Information", 2)
 
-# Case-study ozone on every day, events included, since EPA leaves out only the event days it has agreed to exclude
+# case-study ozone on every day incl. events, since EPA only drops the event days it agreed to exclude
 design_value_days <- case_fit_days %>%
   filter(pollutant == "Ozone") %>%
   mutate(site_group = as.character(site_group)) %>%
   mutate(epa_site_id = str_remove_all(site_id, "-")) %>%
   select(site_group, site_id, epa_site_id, local_site_name, date_local, year, value, event_class)
 
-# Each monitor's ozone season from EPA's monitor sheet: the days that completeness counts against
 design_value_seasons <- epa_monitors %>%
   filter(aqs_parameter_code == "44201", aqs_site_id %in% design_value_days$epa_site_id) %>%
   transmute(
@@ -4384,8 +4324,8 @@ stopifnot(
     all(design_value_site_seasons$naaqs_exclusion == "" & design_value_site_seasons$combination_site == "")
 )
 
-# One row per site and year: the season, the valid days inside it, and the four highest days. A valid day here is a day
-# 1a kept, which needs 13 of its 17 eight-hour periods. Appendix U 3(d) also keeps a shorter day above 0.070 ppm, which 1a
+# one row per site and year: the season, valid days inside it, and the 4 highest days. a valid day here = a day
+# 1a kept, which needs 13 of its 17 8-hr periods. appendix U 3(d) also keeps a shorter day over 0.070 ppm, which 1a
 # drops, so a few high days EPA counts can be missing here
 design_value_site_years <- design_value_days %>%
   inner_join(select(design_value_site_seasons, epa_site_id, season_begin, season_end), by = "epa_site_id", relationship = "many-to-one") %>%
@@ -4417,7 +4357,6 @@ stopifnot(
     all(design_value_site_years$top_four_in_season)
 )
 
-# EPA's completeness and 4th-highest day for 2023 to 2025, one row per site and year
 epa_site_years <- epa_site_status %>%
   filter(aqs_site_id %in% design_value_days$epa_site_id) %>%
   select(epa_site_id = aqs_site_id, matches("^x20\\d\\d_data_completeness"), matches("^x20\\d\\d_4th_highest")) %>%
@@ -4429,7 +4368,6 @@ design_value_site_years <- design_value_site_years %>%
   mutate(completeness_matches_epa = round_half_up(completeness_pct) == epa_completeness_pct) %>%
   mutate(fourth_matches_epa = abs(fourth_ppm - epa_fourth_ppm) < 1e-9)
 
-# Each three-year window: the mean of the three 4th-highest days, truncated, then checked for completeness
 design_values <- design_value_site_years %>%
   cross_join(design_value_windows) %>%
   filter(between(year, first_year, last_year)) %>%
@@ -4514,8 +4452,8 @@ print(as.data.frame(design_value_groups))
 
 print(as.data.frame(select(design_value_misses, local_site_name, first_year, last_year, design_value_ppm, epa_design_value_ppm, gap_to_epa_ppm)))
 
-# Misses against EPA are consistent with the days 1a drops: it keeps a day with 18 of 24 hourly periods, while Appendix U
-# 3(d) keeps a day with 13 of its 17 daytime periods, or any day above 0.070 ppm. So EPA can count a few more days, never fewer
+# misses vs EPA fit the days 1a drops: it keeps a day with 18 of 24 hourly periods, while appendix U
+# 3(d) keeps a day with 13 of its 17 daytime periods, or any day over 0.070 ppm. so EPA can count a few more days
 checked_site_years <- design_value_site_years %>%
   filter(!is.na(epa_fourth_ppm))
 
@@ -4550,7 +4488,6 @@ cat(
   sum(completeness_gaps == 1), "\n"
 )
 
-# Two CSV records: one row per site and year, and one per site and three-year window, each beside EPA's numbers
 design_value_year_record <- design_value_site_years %>%
   mutate(site_group = factor(site_group, levels = names(site_group_colours))) %>%
   select(
@@ -4627,7 +4564,6 @@ design_value_dictionary <- tribble(
   "distribution_design_values",      "matches_epa",              "TRUE when design_value_ppm equals EPA's"
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 design_value_dictionary <- document_tables(design_value_records, design_value_dictionary)
 
 replace_own_rows(design_value_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
@@ -4638,14 +4574,14 @@ invisible(gc())
 
 
 # 7. VALIDATE AND SAVE ----
-# The last step of the analysis: each figure claim of sections 3 to 5 under every check (Figure 3.10), one table of headline
+# last step: each figure claim from sections 3 to 5 under every check (fig 3.10), one table of headline
 # numbers for the report read from the saved records, and a final observed / expected / passed table
 phase3_records <- c(inventory_records, summary_records, shape_records, fit_records, tail_records, design_value_records)
 
 stopifnot("Fifteen Phase 3 records before this section, each named once" = length(phase3_records) == 15 && !anyDuplicated(names(phase3_records)))
 
-# Findings tested under every check. Each is a claim a Phase 3 figure makes; a check that was not run for a finding, or that
-# changes nothing it uses, has no row in its record and does not apply
+# findings tested under every check. each is a claim a phase 3 figure makes, a check that wasn't run for a finding or
+# that changes nothing it uses has no row and doesn't apply
 robustness_findings <- tribble(
   ~finding_id, ~scope,        ~figure, ~finding,
   "R01",       "National",    "3.1",   "PM2.5, SO2 and CO sit closer to a lognormal",
@@ -4662,7 +4598,6 @@ robustness_findings <- tribble(
   "R12",       "Case study",  "3.8",   "Gamma overshoots the warm top 1%"
 )
 
-# The checks behind each column. The two halves of a split check share one column and pass only together
 national_check_labels <- c(
   "Ordinary days" = "Main",
   "All days" = "All days",
@@ -4691,7 +4626,6 @@ case_check_labels <- c(
   "Second seed" = "Second seed"
 )
 
-# Figure 3.10 column labels, at most eight or nine characters a line so eleven columns fit
 check_plot_labels <- c(
   "Main" = "Main",
   "All days" = "All\ndays",
@@ -4762,7 +4696,6 @@ national_robustness <- bind_rows(
   mutate(check = national_check_labels[site_set]) %>%
   summarise(holds = all(holds), .by = c(finding_id, check))
 
-# The case-study findings use the warm-month sets, named after the check they apply
 warm_check_names <- c(
   "Warm season" = "Main",
   "Warm season, all days" = "All days",
@@ -4851,7 +4784,6 @@ stopifnot(
     nrow(tested_beyond_main) == nrow(robustness_findings) && all(tested_beyond_main$n >= 2)
 )
 
-# Figure 3.10: each finding under each check, national and case study
 robustness_fills <- c(
   "Holds" = chart_fills[["accent"]],
   "Fails" = site_group_colours[["Houston Ship Channel"]],
@@ -4916,8 +4848,8 @@ robustness_figure <- tagged_figure(
 
 save_figure(robustness_figure, "3.10_checks.png", 5)
 
-# Headline numbers for the report: one row per number the text quotes, each with its unit, 95% range where there is one, and
-# the record it comes from. Every value is read from a saved record, so the report never retypes a number
+# headline numbers for the report: one row per number the text quotes, with unit, 95% range if any, and
+# the record it comes from. every value's read from a saved record so the report never retypes a number
 record_row <- function(table, ...) {
   rows <- filter(phase3_records[[table]], ...)
   stopifnot("Each headline reads exactly one row of its record" = nrow(rows) == 1)
@@ -5125,7 +5057,6 @@ headline_rows <- list(
   )
 )
 
-# ppm and spread factors keep 3 decimals, everything else 2, with halves rounded up as elsewhere in the project
 distribution_headlines <- bind_rows(headline_rows) %>%
   mutate(headline_id = sprintf("F%02d", row_number())) %>%
   mutate(digits = if_else(unit %in% c("ppm", "spread factor"), 3, 2)) %>%
@@ -5144,7 +5075,6 @@ stopifnot(
   "The T640 comparison covers the same 67 sites on both sides" = t640_alone$n_sites == 67 && without_t640$n_sites == 67
 )
 
-# Final validation: inputs, counts, fits, ranges, findings, EPA's design values and saved files
 range_rows <- bind_rows(
   phase3_records$distribution_fit_checks %>%
     filter(check == "Group spread") %>%
@@ -5250,7 +5180,7 @@ print(distribution_validation, n = Inf, width = Inf)
 
 stopifnot("Every Phase 3 validation check passed" = all(distribution_validation$passed))
 
-# CSV records: the validation table, saved last so it reports on every other file
+# validation table gets saved last so it covers every other file
 validation_records <- list(
   distribution_validation = distribution_validation
 )
@@ -5280,7 +5210,6 @@ final_dictionary <- tribble(
   "distribution_validation", "passed",        "TRUE when observed equals expected; the script stops otherwise"
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 final_dictionary <- document_tables(c(final_records, validation_records), final_dictionary)
 
 replace_own_rows(final_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))

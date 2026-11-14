@@ -8,7 +8,7 @@ library(lubridate)
 library(lobstr)
 library(here)
 
-source(here("R", "utils.R")) # study_years, log_step(), region_lookup, calendar, events, save helpers
+source(here("R", "utils.R")) # study years, log_step(), lookups, save helpers etc
 
 
 
@@ -108,7 +108,6 @@ cleaning_log <- tibble(
   rows_removed = NA_integer_
 )
 
-# Inspect
 glimpse(aqs_long)
 
 print(summary(aqs_long))
@@ -191,7 +190,7 @@ cleaning_log <- cleaning_log %>%
 
 
 # 6. VALIDATE METHOD CODES ----
-# T640/T640X PM2.5 monitors: 236/238 raw, 636/638 post-firmware, 736/738 EPA-corrected
+# T640/T640X codes: 236/238 raw, 636/638 post-firmware, 736/738 EPA-corrected
 t640_raw_codes       <- c("236", "238")
 t640_firmware_codes  <- c("636", "638")
 t640_corrected_codes <- c("736", "738")
@@ -214,14 +213,14 @@ gas_methods <- aqs_long %>%
 
 print(gas_methods, n = Inf)
 
-# EPA AQS methods reference table (FRM/FEM designations, instrument ranges, units)
+# EPA's methods table (FRM/FEM, ranges, units)
 methods_ref <- read_methods_ref()
 
 regulatory_methods <- methods_ref %>%
   filter(method_type %in% c("FRM", "FEM")) %>%
   distinct(parameter_code, method_code)
 
-# Methods in the data without an FRM/FEM designation
+# methods without an FRM/FEM label
 method_status <- aqs_long %>%
   distinct(pollutant, parameter_code, method_code) %>%
   left_join(methods_ref %>% distinct(parameter_code, method_code, method_type),
@@ -231,7 +230,7 @@ method_status %>%
   filter(!method_type %in% c("FRM", "FEM")) %>%
   print(n = Inf)
 
-# Finds any 636/638 rows dated before 2023, for the check below
+# any 636/638 rows before 2023? should be none
 early_firmware_rows <- aqs_long %>%
   filter(
     method_code %in% t640_firmware_codes,
@@ -248,11 +247,11 @@ stopifnot(
   "Corrected codes (736/738) cover 2021 and 2022" = all(c(2021, 2022) %in% corrected_years)
 )
 
-# Rows to remove, by reason (the three reasons don't overlap)
+# rows to drop, by reason (the reasons don't overlap)
 non_regulatory_count <- aqs_long %>%
   filter(!is.na(method_code), !method_code %in% t640_raw_codes) %>%
   anti_join(regulatory_methods, by = c("parameter_code", "method_code")) %>%
-  nrow() # no FRM/FEM distinction but has method code and is not 236/238
+  nrow() # no FRM/FEM label but it has a method code and isn't 236/238
 
 removal_breakdown <- tibble(
   raw_t640 = sum(aqs_long$method_code %in% t640_raw_codes),
@@ -279,7 +278,7 @@ cleaning_log <- cleaning_log %>%
 
 
 # 7. RESOLVE EVENT-TYPE DUPLICATES ----
-# Event-flagged days have an "Included" and an "Excluded" row; keep "Included"
+# event days come with an "Included" and an "Excluded" row, keep "Included"
 allowed_event_types <- c("None", "Included", "Excluded")
 
 event_type_counts <- aqs_long %>%
@@ -314,8 +313,7 @@ rm(excluded_rows, included_rows, unpaired_excluded)
 # 8. RESOLVE DUPLICATE INSTRUMENT-DAYS ----
 t640_codes <- c(t640_firmware_codes, t640_corrected_codes)
 
-# Site-days reported under both a firmware and a corrected code. Matched by site, not POC:
-# corrected data can sit under a separate POC (e.g. firmware POC 4, corrected POC 23)
+# same site-day under a firmware and a corrected code. match on site only, corrected data can sit under another POC
 t640_overlap <- aqs_long %>%
   filter(method_code %in% t640_codes) %>%
   mutate(code_type = if_else(method_code %in% t640_firmware_codes, "firmware", "corrected")) %>%
@@ -329,7 +327,7 @@ aqs_long %>%
   count(site_id, poc, method_code, name = "overlap_days") %>%
   print(n = Inf)
 
-# 636 must pair with 736 and 638 with 738 (same T640 model)
+# 636 pairs with 736 and 638 with 738 (same T640 model)
 mixed_models <- aqs_long %>%
   filter(method_code %in% t640_codes) %>%
   semi_join(t640_overlap, by = c("site_id", "date_local")) %>%
@@ -340,7 +338,7 @@ mixed_models <- aqs_long %>%
 
 stopifnot("Overlapping codes come from the same T640 model" = nrow(mixed_models) == 0)
 
-# Keep the firmware rows and drop the corrected duplicates
+# keep the firmware rows, drop the corrected dupes
 corrected_overlap_rows <- aqs_long %>%
   filter(method_code %in% t640_corrected_codes) %>%
   semi_join(t640_overlap, by = c("site_id", "date_local"))
@@ -371,7 +369,6 @@ stopifnot(
   "One row per instrument per day" = nrow(duplicate_keys) == 0
 )
 
-# Site-days with more than one instrument (POC)
 multi_poc_days <- aqs_long %>%
   distinct(pollutant, site_id, date_local, poc) %>%
   count(pollutant, site_id, date_local, name = "n_pocs") %>%
@@ -442,7 +439,6 @@ max_check <- aqs_long %>%
 
 print(max_check)
 
-# Three lowest daily means per pollutant
 aqs_long %>%
   group_by(pollutant) %>%
   slice_min(arithmetic_mean, n = 3, with_ties = FALSE) %>%
@@ -450,7 +446,6 @@ aqs_long %>%
   select(pollutant, site_id, poc, date_local, method_code, arithmetic_mean, units_of_measure) %>%
   print()
 
-# Reference rows for the methods in the data
 data_methods <- aqs_long %>%
   distinct(parameter_code, method_code, units_of_measure)
 
@@ -497,7 +492,7 @@ limits_missing <- rows_with_limits %>%
 
 stopifnot("Every method has a lower and upper limit" = !limits_missing)
 
-# Drop instrument-days whose daily max exceeds the method's upper limit
+# drop instrument-days where the daily max is over the method's upper limit
 out_of_range_rows <- rows_with_limits %>%
   filter(first_max_value > method_max)
 
@@ -524,14 +519,13 @@ rm(rows_with_limits, in_range_rows, out_of_range_rows)
 
 
 # 12. CONVERT UNITS TO µg/m³ ----
-# molar_volume (ideal gas at 25 °C and 1 atm) comes from utils.R, shared with 1d
 conversion_factors <- pollutant_lookup %>%
   mutate(ugm3_factor = if_else(pollutant == "PM2.5", 1, to_ppb * mw_g_mol / molar_volume)) %>%
   select(pollutant, ugm3_factor)
 
 print(conversion_factors)
 
-# Hand-calculated with Vm = 24.4654 L/mol: PM2.5, ozone, NO2, SO2, CO
+# checked by hand with Vm = 24.4654 L/mol: PM2.5, ozone, NO2, SO2, CO
 expected_factors <- c(1, 1961.954, 1.880615, 2.618391, 1144.882)
 
 stopifnot(
@@ -567,11 +561,10 @@ aqs_long <- aqs_long %>%
     day_of_year = yday(date_local)
   )
 
-# Weekday, weekend and meteorological season, defined once in utils.R so 1d and 1e group the same way
 aqs_long <- aqs_long %>%
   add_calendar_columns()
 
-# December counts toward the following year's winter
+# december counts toward next year's winter
 aqs_long <- aqs_long %>%
   mutate(season_year = if_else(month(date_local) == 12, year + 1, year))
 
@@ -594,7 +587,6 @@ aqs_long %>%
 
 
 # 14. EVENT LABELS ----
-# Dates and codes are checked in read_events() (utils.R), which 1b, 1d and 1e also use
 events <- read_events()
 
 us_states <- aqs_long %>%
@@ -603,7 +595,7 @@ us_states <- aqs_long %>%
 
 stopifnot("Every event state has monitors in the data" = all(events$state_code %in% us_states))
 
-# Fireworks windows (July 4-5 and Jan 1), every state, PM2.5 only
+# fireworks windows (Jul 4-5 and Jan 1), every state, PM2.5 only
 july_4 <- expand_grid(state_code = us_states, year = study_years) %>%
   mutate(
     event_name = "July 4 fireworks",
@@ -620,7 +612,6 @@ new_year <- expand_grid(state_code = us_states, year = study_years) %>%
     end_date = make_date(year, 1, 1)
   )
 
-# One row per event, state and pollutant
 event_windows <- events %>%
   select(event_name, state_code, event_county, pollutants, start_date, end_date) %>%
   bind_rows(
@@ -635,7 +626,7 @@ unknown_event_pollutants <- event_windows %>%
 
 stopifnot("Event pollutants exist in the data (\"all\" = every pollutant)" = nrow(unknown_event_pollutants) == 0)
 
-# Match on state and date window, then on county (if given) and pollutant
+# match on state + date window, then county (if there is one) + pollutant
 event_matches <- aqs_long %>%
   select(pollutant, site_id, poc, date_local, state_code, county_code) %>%
   inner_join(event_windows, by = join_by(state_code, between(date_local, start_date, end_date))) %>%
@@ -682,9 +673,9 @@ rm(event_matches)
 
 
 # 15. SITE COVERAGE ----
-# A year counts as active with at least 75% of its expected samples.
-# Seasonal ozone uses the most common federal season (Mar 1 to Oct 31, 245 days),
-# except Dallas-Fort Worth, whose season runs Mar 1 to Nov 30 (275 days).
+# a year counts as active with at least 75% of its expected samples
+# seasonal ozone uses the usual federal season (Mar 1 to Oct 31, 245 days)
+# except DFW, whose season runs Mar 1 to Nov 30 (275 days)
 schedule_minimums <- tribble(
   ~schedule,           ~expected_days,
   "daily",             365,
@@ -713,7 +704,7 @@ instrument_years <- aqs_long %>%
     .groups = "drop"
   )
 
-# Ozone with no Dec/Jan data is seasonal; PM2.5 schedule comes from median day spacing
+# ozone with no Dec/Jan data = seasonal. PM2.5 schedule comes from the median day spacing
 instrument_years <- instrument_years %>%
   mutate(
     schedule = case_when(
@@ -727,7 +718,6 @@ instrument_years <- instrument_years %>%
     )
   )
 
-# A site-year is active if any schedule meets its minimum (days pooled across POCs)
 site_schedule_years <- aqs_long %>%
   select(pollutant, site_id, poc, year, date_local) %>%
   inner_join(
@@ -757,7 +747,6 @@ stopifnot(
     all(site_coverage$n_years_active %in% 0:length(study_years))
 )
 
-# Full-coverage sites in the Houston and Dallas-Fort Worth case-study counties
 site_coverage %>%
   filter(n_years_active == length(study_years)) %>%
   mutate(county_id = str_sub(site_id, 1, 6)) %>%
@@ -768,7 +757,7 @@ site_coverage %>%
 
 
 # 16. MONITORING GAPS ----
-# Gaps longer than twice an instrument's typical sampling interval
+# gaps longer than 2x the instrument's usual sampling interval
 monitor_gaps <- aqs_long %>%
   select(pollutant, site_id, poc, date_local) %>%
   arrange(pollutant, site_id, poc, date_local) %>%
@@ -790,7 +779,7 @@ monitor_gaps <- monitor_gaps %>%
   ) %>%
   select(pollutant, site_id, poc, year, gap_start, gap_end, gap_days)
 
-# Seasonal ozone off-season: the whole gap falls between Oct 31 and Mar 31
+# seasonal ozone off-season: the whole gap sits between Oct 31 and Mar 31
 monitor_gaps <- monitor_gaps %>%
   left_join(
     instrument_years %>% select(pollutant, site_id, poc, year, schedule),
@@ -821,7 +810,7 @@ monitor_gaps %>%
   count(is_off_season, name = "n_gaps") %>%
   print()
 
-# Harris County gaps overlapping Winter Storm Uri (Feb 11-23, 2021, as in events.csv)
+# harris gaps overlapping winter storm uri (Feb 11-23 2021, same as events.csv)
 monitor_gaps %>%
   filter(
     str_starts(site_id, "48-201-"),
@@ -842,7 +831,7 @@ site_cols <- c(
   "cbsa_name", "local_site_name", "latitude", "longitude"
 )
 
-# Sites whose metadata changed during the study (the latest values are kept)
+# sites whose metadata changed during the study (keeps the latest values)
 sites_with_changes <- aqs_long %>%
   select(all_of(site_cols)) %>%
   distinct() %>%
@@ -905,7 +894,6 @@ stopifnot(
 print(cleaning_log)
 print(final_counts)
 
-# The same checks as a table, saved in step 19 as a record of what this run confirmed
 daily_validation <- tribble(
   ~check,                                         ~observed,                                 ~expected,
   "Pollutants in the table",                      as.character(nrow(final_counts)),          as.character(nrow(pollutant_lookup)),
@@ -926,12 +914,11 @@ print(daily_validation, width = Inf)
 
 
 # 19. SAVE CHECKPOINT ----
-# Scripts 1b onward read these files: aqs_long_clean.rds and sites.rds are the names 1b expects
+# 1b onward reads these, aqs_long_clean.rds and sites.rds are the names 1b expects
 processed_dir <- here("data", "processed")
 
 dir.create(processed_dir, recursive = TRUE, showWarnings = FALSE)
 
-# CSV records go to a folder per phase; checkpoints, the dictionary and the manifest stay in data/processed
 records_dir <- file.path(processed_dir, "phase1")
 
 dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
@@ -942,10 +929,8 @@ checkpoint <- list(
   site_coverage = site_coverage
 )
 
-# Each file is reloaded and checked against the object in memory (save_checkpoints() in utils.R)
 checkpoint_paths <- save_checkpoints(checkpoint, processed_dir)
 
-# Records of the run that no later script reads are saved as CSV
 records <- list(
   cleaning_log = cleaning_log,
   daily_validation = daily_validation
@@ -953,7 +938,6 @@ records <- list(
 
 save_records(records, records_dir)
 
-# Column descriptions
 saved_tables <- c(checkpoint, records)
 
 data_dictionary <- tribble(
@@ -1002,13 +986,12 @@ data_dictionary <- tribble(
   "daily_validation", "passed",            "TRUE when observed equals expected"
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 data_dictionary <- document_tables(saved_tables, data_dictionary)
 
-# 1d and 1e add their own rows to both shared files, and only the daily rows are replaced here
+# 1d and 1e add their own rows to these shared files, only the daily rows get replaced here
 replace_own_rows(data_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
 
-# File sizes and checksums; GitHub rejects files over 100 MiB
+# sizes + checksums, GitHub won't take files over 100 MiB
 daily_manifest <- manifest_rows(checkpoint, checkpoint_paths)
 
 checkpoint_manifest <- replace_own_rows(daily_manifest, manifest_path, key = "file", col_types = manifest_col_types)

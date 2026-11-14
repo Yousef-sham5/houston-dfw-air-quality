@@ -10,13 +10,12 @@ library(scales)
 library(patchwork)
 library(here)
 
-source(here("R", "utils.R")) # study_years, region_lookup, read helpers, naaqs_statistics(), monthly_profile(), save helpers, chart theme
+source(here("R", "utils.R"))
 
 
 
 # FIGURE STYLE ----
-# 2a figures are laid out like a journal's, with the tagged-figure helpers in utils.R and the findings left to the report
-# text. These settings replace utils.R's chart colours and fonts for this script only
+# journal-style figures (helpers in utils.R). these settings override utils.R's colours + fonts here only
 stopifnot("Arial is installed, since 2a figures use it" = str_detect(systemfonts::match_fonts("Arial")$path, regex("arial", ignore_case = TRUE)))
 
 chart_fonts[] <- "Arial"
@@ -25,7 +24,7 @@ chart_ink[c("primary", "secondary", "muted", "grid", "axis")] <- c("#000000", "#
 
 chart_fills[c("accent", "other", "band")] <- c("#1D5D9B", "#B5B5B5", "#F2F2F2")
 
-# A warm second colour for the series each panel compares against the blue one: T640 monitors, event days, ozone
+# warm 2nd colour for whatever the blue series gets compared against: T640s, event days, ozone
 chart_warm <- c(line = "#E3872D", text = "#B9621A", band = "#FCEEDF")
 
 site_group_colours[] <- c("#D55E00", "#0072B2", "#009E73")
@@ -34,7 +33,6 @@ chart_sizes[c("key", "label")] <- c(7, 6.5)
 
 figures_dir <- here("figures", "phase2")
 
-# Short notes under single panels, such as a share of sites
 panel_note_text <- element_text(colour = chart_ink[["secondary"]], size = 6.5, hjust = 0, margin = margin(t = 4))
 
 
@@ -42,20 +40,16 @@ panel_note_text <- element_text(colour = chart_ink[["secondary"]], size = 6.5, h
 # CONFIG ----
 processed_dir <- here("data", "processed")
 
-# CSV records for the report go to the phase 2 folder; the checkpoint, the dictionary and the manifest stay in data/processed
 records_dir <- file.path(processed_dir, "phase2")
 
 dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
 
-# pollutant_levels and the NAAQS tables (naaqs, percentile_ranks, naaqs_ranks) are set in utils.R
 
-# CO stays out of the case-study checkpoint: Harris County has one five-year CO site and Dallas-Fort Worth has none
 case_study_pollutants <- c("PM2.5", "Ozone", "NO2", "SO2")
 
-# Group of every Harris site, set by 1c from its distance to the land-cut Ship Channel
 harris_groups_path <- here("data", "reference", "harris_site_channel_distance.csv")
 
-# Houston North Loop, Houston Southwest Freeway, Dallas LBJ Freeway, Fort Worth California Parkway North
+# north loop, southwest fwy, LBJ fwy, california pkwy north
 near_road_ids <- c(
   "48-201-1052",
   "48-201-1066",
@@ -73,13 +67,13 @@ parameter_codes <- tribble(
 ) %>%
   mutate(pollutant = factor(pollutant, levels = pollutant_levels))
 
-# The annual PM2.5 level before EPA's 2024 rule. Screening uses the current 9.0 in every year (naaqs in utils.R); the old
-# level is only used to count sites that would have passed before the change
+# annual PM2.5 level before EPA's 2024 rule. screening uses the current 9.0 every year (naaqs in utils.R), the old
+# level is only for counting sites that would've passed before the change
 pm25_annual_old_level <- 12.0
 
-# First daily value on the new method at monitors whose method changed inside the study window.
-# Harvard Street's first hourly value on method 186 is 2024-04-22; its first complete day is 2024-04-23.
-# Clinton kept its FRM filter and added a T640X beside it, so its averaged site-days mix both from that date
+# first daily value on the new method at monitors that changed method during the study.
+# harvard street's first hourly value on 186 is 2024-04-22, first complete day 2024-04-23.
+# clinton kept its FRM filter and added a T640X next to it so its averaged site-days mix both from then on
 method_changes <- tribble(
   ~site_id,      ~pollutant, ~new_method_code, ~change_date,
   "48-201-0417", "NO2",      "186",            "2024-04-23",
@@ -91,22 +85,19 @@ method_changes <- tribble(
   mutate(pollutant = factor(pollutant, levels = pollutant_levels)) %>%
   mutate(change_date = ymd(change_date))
 
-# Teledyne T640 and T640X PM2.5 monitors: firmware-corrected (636, 638) and EPA-corrected (736, 738) codes
 t640_method_codes <- c("636", "638", "736", "738")
 
-# Labels 1a builds in code rather than reading from events.csv
 fireworks_events <- c("July 4 fireworks", "New Year fireworks")
 
-# January to February 2021 and December 2025 are the only parts of their winters inside the window
 partial_winter_years <- c(min(study_years), max(study_years) + 1)
 
-# Census Bureau West region (AK, AZ, CA, CO, HI, ID, MT, NV, NM, OR, UT, WA, WY), for the West and East split of peak
+# census west region (AK, AZ, CA, CO, HI, ID, MT, NV, NM, OR, UT, WA, WY) for the west/east split of peak
 # months in section 5
 western_state_codes <- c("02", "04", "06", "08", "15", "16", "30", "32", "35", "41", "49", "53", "56")
 
-# Weekday holidays from April to October that section 6 leaves out of the weekday group, since NO2 on them is closer to a
-# Sunday than to a weekday: Memorial Day (last Monday of May), Independence Day as observed (Friday when July 4 is a
-# Saturday, Monday when it is a Sunday) and Labor Day (first Monday of September)
+# weekday holidays apr-oct that section 6 drops from weekdays, NO2 on them looks more like a
+# sunday: memorial day (last mon of may), july 4th as observed (fri if jul 4 is a
+# sat, mon if it's a sun) and labor day (first mon of sep)
 weekday_holidays <- tibble(year = study_years) %>%
   mutate(july_4 = make_date(year, 7, 4)) %>%
   mutate(`Memorial Day` = floor_date(make_date(year, 5, 31), "week", week_start = 1)) %>%
@@ -169,12 +160,11 @@ daily_instruments <- aqs_long_clean %>%
 rm(aqs_long_clean)
 invisible(gc())
 
-# PM2.5 is judged on its daily mean, the gases on their daily maximum, in original units
 daily_instruments <- daily_instruments %>%
   mutate(value = if_else(pollutant == "PM2.5", arithmetic_mean, first_max_value))
 
-# Sorting puts each site-day's instruments next to each other, so site-days can be numbered and counted in one
-# pass. Grouping 5 million site-days with group_by() takes minutes
+# sorting puts each site-day's instruments next to each other so they can be numbered + counted in one
+# pass. group_by() on 5M site-days takes minutes
 daily_instruments <- daily_instruments %>%
   arrange(pollutant, site_id, date_local)
 
@@ -184,7 +174,6 @@ daily_instruments <- daily_instruments %>%
   mutate(site_day_id = cumsum(is_new_site_day)) %>%
   mutate(n_instruments = tabulate(site_day_id)[site_day_id])
 
-# An independent count on every row: each row's site-day is matched by a text key, which does not rely on the sort
 site_day_key <- str_c(daily_instruments$pollutant, daily_instruments$site_id, daily_instruments$date_local)
 
 site_day_index <- match(site_day_key, unique(site_day_key))
@@ -218,7 +207,7 @@ stopifnot(
     all(method_change_check$first_date == method_change_check$change_date)
 )
 
-# Rows of one site-day sit together, so a label that differs from the row above within the same site-day is a conflict
+# a site-day's rows sit together, so a label that differs from the row above in the same site-day = conflict
 collocated_label_conflicts <- daily_instruments %>%
   mutate(label = coalesce(event_name, "")) %>%
   mutate(previous_label = lag(label)) %>%
@@ -226,7 +215,6 @@ collocated_label_conflicts <- daily_instruments %>%
 
 stopifnot("Collocated instruments never carry two different event labels" = nrow(collocated_label_conflicts) == 0)
 
-# Columns that hold one value per site and day, so they survive the averaging unchanged
 site_day_columns <- c(
   "pollutant", "site_id", "state_code", "county_code", "date_local", "year", "month", "year_month",
   "day_of_year", "season", "season_year", "day_of_week", "is_weekend", "units_of_measure", "event_name",
@@ -239,8 +227,8 @@ single_instrument_days <- daily_instruments %>%
   mutate(is_agency_event_flagged = event_type == "Included") %>%
   select(site_day_id, all_of(site_day_columns), method_types, value, is_agency_event_flagged)
 
-# Collocated instruments are averaged per site and day. A day with both kinds reads "FEM+FRM".
-# rowsum() totals each site-day's readings and counts in one pass, where a grouped summarise() takes about a minute
+# collocated instruments averaged per site-day. a day with both kinds reads "FEM+FRM".
+# rowsum() totals everything in one pass, a grouped summarise() takes like a minute
 collocated_rows <- daily_instruments %>%
   filter(n_instruments > 1)
 
@@ -340,7 +328,6 @@ daily_sites %>%
 
 
 # 2. HOW THE NETWORK CHANGED ----
-# Sites per pollutant and year, the % change from the first to the last year, and the share with all five years
 first_year <- as.character(min(study_years))
 
 last_year <- as.character(max(study_years))
@@ -367,7 +354,6 @@ site_change <- sites_per_year %>%
 
 print(site_change)
 
-# Share of PM2.5 instrument-days measured by FEM monitors, and by T640s in particular, each year
 pm25_instrument_mix <- daily_instruments %>%
   filter(pollutant == "PM2.5") %>%
   group_by(year) %>%
@@ -393,9 +379,9 @@ stopifnot(
   "T640 monitors are all FEM" = identical(t640_method_types$method_type, "FEM")
 )
 
-# FEM minus FRM on site-days where both reported, by year and by event class.
-# Each kind is averaged first. A positive gap means FEM read higher. rowsum() totals each site-day's FEM and FRM
-# readings in one pass, where a grouped mean over the collocated site-days takes about 19 seconds
+# FEM minus FRM on site-days where both reported, by year and event class.
+# each kind averaged first, positive = FEM higher. rowsum() does it in one pass, a grouped mean
+# over the collocated site-days takes about 19 s
 pm25_collocated <- daily_instruments %>%
   filter(pollutant == "PM2.5", n_instruments > 1) %>%
   mutate(is_fem = method_type == "FEM")
@@ -465,8 +451,8 @@ stopifnot(
   "Every pair has an event class" = !anyNA(fem_frm_pairs$event_class)
 )
 
-# PM2.5 sampling schedule per site-year, from 1a's thresholds on the median gap between the site's sampled days
-# (up to 1.5 days is daily, up to 4.5 is 1-in-3)
+# PM2.5 schedule per site-year from 1a's thresholds on the median gap between sampled days
+# (up to 1.5 days = daily, up to 4.5 = 1-in-3)
 pm25_schedules <- daily_sites %>%
   filter(pollutant == "PM2.5") %>%
   group_by(site_id, year) %>%
@@ -504,7 +490,6 @@ stopifnot(
   "Each PM2.5 site-year has one schedule" = all(schedule_site_years$n_site_years == schedule_site_years$n_sites)
 )
 
-# Ozone site-years with no December or January data (seasonal monitors), nationally and at the case-study sites
 ozone_site_years <- daily_sites %>%
   filter(pollutant == "Ozone") %>%
   group_by(site_id, year) %>%
@@ -536,8 +521,7 @@ stopifnot(
   "No five-year case-study ozone site is seasonal" = all(case_study_ozone_site_years$has_winter_data)
 )
 
-# Four-panel figure of the site, monitor-mix, sampling and FEM minus FRM results. Blue marks the series each panel is
-# about and grey the rest
+# 4-panel figure: sites, monitor mix, sampling, FEM minus FRM. blue = the focus, grey = the rest
 year_scale <- scale_x_continuous(breaks = study_years)
 
 share_scale <- scale_y_continuous(labels = label_number(suffix = "%"), limits = c(0, 100))
@@ -678,7 +662,6 @@ save_figure(network_figure, "2a.01_network.png", 5.15)
 
 
 # 3. NATIONAL STATISTICS IN NAAQS FORM ----
-# Five-year site-years only: every year of these sites passed 1a's 75% completeness rule
 naaqs_site_days <- daily_sites %>%
   filter(is_five_year) %>%
   select(pollutant, site_id, state_name, cbsa_name, year, date_local, value, event_class)
@@ -695,8 +678,8 @@ stopifnot(
   "No site-year has more days than the calendar" = max(site_year_days$n_days) <= 366
 )
 
-# Each standard's value per site-year, with and without event days. naaqs_statistics() is in utils.R so 2b screens the
-# case-study sites with the same rules
+# each standard's value per site-year, with and without event days. naaqs_statistics() lives in utils.R so 2b screens
+# the case-study sites the same way
 naaqs_site_year <- bind_rows(
   naaqs_statistics(naaqs_site_days, naaqs, naaqs_ranks, percentile_ranks) %>%
     mutate(day_set = "All days"),
@@ -719,7 +702,6 @@ stopifnot(
   "Site counts match the five-year sites from section 2" = all(naaqs_site_counts$n_sites == naaqs_site_counts$n_five_year_sites)
 )
 
-# Median, 90th percentile and share of sites above the level, per standard and year, with and without event days
 naaqs_summary <- naaqs_site_year %>%
   summarise(
     n_sites = n(),
@@ -738,7 +720,7 @@ naaqs_summary %>%
   pivot_wider(names_from = year, values_from = pct_above) %>%
   print(n = Inf)
 
-# Sites on annual PM2.5 that pass the old 12.0 level but fail the current 9.0, from the quarterly means and from a plain
+# sites that pass the old 12.0 annual PM2.5 level but fail the new 9.0, from quarterly means and from a plain
 # mean of days
 pm25_plain_annual <- naaqs_site_days %>%
   filter(pollutant == "PM2.5") %>%
@@ -763,8 +745,8 @@ pm25_annual_bands <- bind_rows(
 
 print(pm25_annual_bands, n = Inf)
 
-# Three-year screen in the form of an EPA design value: each site's annual value averaged over three consecutive
-# years, then rounded as the standard specifies. CO is left out, since its standard is judged one year at a time
+# 3-yr screen shaped like an EPA design value: annual value averaged over 3 straight
+# years then rounded per the standard. CO's out since its standard is judged one year at a time
 design_windows <- tibble(window_end = (min(study_years) + 2):max(study_years)) %>%
   mutate(window = sprintf("%d to %d", window_end - 2, window_end))
 
@@ -803,19 +785,28 @@ design_value_summary %>%
   ) %>%
   print(n = Inf)
 
-# Two three-panel figures of each site's value divided by its standard's level, so 1.0 is the standard in every panel.
-# Blue shows the median and middle half of sites with all days, grey the median without event and fireworks days
+# two 3-panel figures of each site's value / its standard's level, so 1.0 = the standard everywhere.
+# blue boxes = sites with all days, grey dot = the median site without event and fireworks days
 naaqs_ratios <- naaqs_site_year %>%
   mutate(ratio = value_rounded / level) %>%
   summarise(
     median_ratio = median(ratio),
-    q25_ratio = quantile(ratio, 0.25),
-    q75_ratio = quantile(ratio, 0.75),
     pct_above = round(100 * mean(is_above), 1),
     .by = c(day_set, pollutant, standard, year)
   )
 
-# Figure 2A.2 holds the standards sites come near and figure 2A.3 the ones they sit far below
+naaqs_boxes <- naaqs_site_year %>%
+  filter(day_set == "All days") %>%
+  mutate(ratio = value_rounded / level) %>%
+  box_stats("ratio", c("pollutant", "standard", "year"))
+
+stopifnot(
+  "Box medians match the median sites" = isTRUE(all.equal(
+    arrange(naaqs_boxes, pollutant, standard, year)$box_median,
+    arrange(filter(naaqs_ratios, day_set == "All days"), pollutant, standard, year)$median_ratio
+  ))
+)
+
 naaqs_panel_order <- tribble(
   ~pollutant, ~standard, ~statistic,            ~near_standard,
   "Ozone",    "8-hour",  "4th-highest day",     TRUE,
@@ -833,22 +824,18 @@ stopifnot(
     identical(sort(str_c(naaqs_panel_order$pollutant, naaqs_panel_order$standard)), sort(str_c(naaqs$pollutant, naaqs$standard)))
 )
 
-ratio_limit <- ceiling(max(naaqs_ratios$q75_ratio) * 10) / 10
+ratio_limit <- ceiling(max(naaqs_boxes$p90) * 10) / 10
 
 naaqs_panel <- function(panel_pollutant, panel_standard) {
   panel_labels <- filter(naaqs_panel_order, pollutant == panel_pollutant, standard == panel_standard)
   all_days <- filter(naaqs_ratios, pollutant == panel_pollutant, standard == panel_standard, day_set == "All days")
   no_events <- filter(naaqs_ratios, pollutant == panel_pollutant, standard == panel_standard, day_set != "All days")
+  site_boxes <- filter(naaqs_boxes, pollutant == panel_pollutant, standard == panel_standard)
   final_year <- filter(all_days, year == max(year))
-  ggplot(all_days, aes(year, median_ratio)) +
+  ggplot(site_boxes, aes(year, group = year)) +
     geom_hline(yintercept = 1, colour = chart_ink[["primary"]], linewidth = 0.35) +
-    annotate(
-      "text", x = max(study_years) + 0.3, y = 1, label = "Standard", hjust = 1, vjust = -0.7,
-      family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 1) / .pt, colour = chart_ink[["muted"]]
-    ) +
-    geom_segment(aes(xend = year, y = q25_ratio, yend = q75_ratio), colour = chart_fills[["accent"]], linewidth = 0.6, alpha = 0.45) +
-    geom_point(data = no_events, aes(year + 0.22, median_ratio), colour = chart_fills[["other"]], size = 1.5) +
-    geom_point(colour = chart_fills[["accent"]], size = 1.7) +
+    geom_box_whisker(width = 0.5, colour = chart_fills[["accent"]], fill = alpha(chart_fills[["accent"]], box_fill_alpha)) +
+    geom_point(data = no_events, aes(year + 0.38, median_ratio), inherit.aes = FALSE, colour = chart_fills[["other"]], size = 1.5) +
     year_scale +
     scale_y_continuous(limits = c(0, ratio_limit), breaks = seq(0, ratio_limit, 0.5), labels = label_number(accuracy = 0.1)) +
     labs(
@@ -892,11 +879,10 @@ stopifnot(
 )
 
 naaqs_key <- tribble(
-  ~mark,   ~colour,                                ~label,
-  "point", chart_fills[["accent"]],                "Median site",
-  "tick",  alpha(chart_fills[["accent"]], 0.45),   "Middle half of sites",
-  "point", chart_fills[["other"]],                 "Median without event and fireworks days",
-  "line",  chart_ink[["primary"]],                 "Standard"
+  ~mark,   ~colour,                  ~label,                                                                     ~row,
+  "box",   chart_fills[["accent"]],  "Sites: box holds the middle half, line is the median site, whiskers 10th to 90th percentile", 1,
+  "point", chart_fills[["other"]],   "Median site without event and fireworks days",                             2,
+  "line",  chart_ink[["primary"]],   "Standard",                                                                 2
 )
 
 near_standard_figure <- tagged_figure(
@@ -929,9 +915,9 @@ invisible(gc())
 
 
 # 4. EXCEEDANCE SCREENING AND EVENTS ----
-# A site-day exceeds when its value, rounded as the standard specifies, is above the short-term level. All sites are
-# kept, since rates per 1,000 site-days already allow for a network that changes in size. These are screening counts,
-# not violations: the standards allow some days above the level
+# a site-day exceeds when its value (rounded per the standard) is over the short-term level. all sites
+# kept bc rates per 1,000 site-days already handle a network that changes size. these are just screening
+# counts, the standards allow some days over the level
 short_term_levels <- naaqs %>%
   filter(standard != "Annual") %>%
   select(pollutant, standard, level, digits, rounding)
@@ -951,7 +937,6 @@ stopifnot(
   "Every site-day is judged" = !anyNA(site_day_exceedances$is_exceedance)
 )
 
-# Exceedance site-days per 1,000 site-days with data, per pollutant and year, for all sites and for five-year sites
 exceedance_rates <- bind_rows(
   site_day_exceedances %>%
     summarise(site_days = n(), n_exceedances = sum(is_exceedance), .by = c(pollutant, year)) %>%
@@ -975,8 +960,6 @@ stopifnot(
     sum(exceedance_rates$n_exceedances[exceedance_rates$site_set == "All sites"]) == nrow(exceedances)
 )
 
-# How many exceedances fall on labelled event days and on fireworks days, per pollutant and year, and which events
-# contributed most
 exceedances_by_class <- exceedances %>%
   count(pollutant, year, event_class) %>%
   complete(pollutant, year, event_class, fill = list(n = 0)) %>%
@@ -997,7 +980,6 @@ stopifnot(
   "Every exceedance has exactly one class" = sum(exceedances_by_class$total, na.rm = TRUE) == nrow(exceedances)
 )
 
-# Our event labels against EPA's own exceptional-event flag ("Included"), for PM2.5 and ozone exceedances
 agency_flag_share <- exceedances %>%
   filter(pollutant %in% c("PM2.5", "Ozone")) %>%
   summarise(n_exceedances = n(), pct_agency_flagged = round(100 * mean(is_agency_event_flagged), 1), .by = c(pollutant, year)) %>%
@@ -1011,7 +993,7 @@ exceedances %>%
   pivot_wider(names_from = is_agency_event_flagged, values_from = n, values_fill = 0, names_prefix = "agency_flagged_") %>%
   print()
 
-# Where exceedances concentrate: the top states and metros per pollutant (metros with and without event days), and the
+# where exceedances pile up: top states and metros per pollutant (with and without event days), plus the
 # share held by each pollutant's 10 busiest sites
 top_states <- exceedances %>%
   count(pollutant, state_name, name = "n_exceedances") %>%
@@ -1048,8 +1030,6 @@ site_concentration <- exceedances %>%
 
 print(site_concentration, width = Inf)
 
-# One-line facts: the few NO2 and CO exceedances by state and year, and the check that the missing December 31 ozone
-# rows (a 1a known limit) can hardly change the counts
 exceedances %>%
   filter(pollutant %in% c("NO2", "CO")) %>%
   count(pollutant, state_name, year) %>%
@@ -1069,7 +1049,6 @@ stopifnot(
   "Late-December ozone exceedances are rare" = nrow(ozone_late_december) <= 5
 )
 
-# Three-panel figure of exceedance days per 1,000 site-days, split into ordinary, event and fireworks days
 day_class_fills <- c(None = chart_fills[["accent"]], Event = chart_warm[["line"]], Fireworks = chart_fills[["other"]])
 
 figure_pollutants <- tribble(
@@ -1160,8 +1139,6 @@ exceedance_figure <- tagged_figure(
 save_figure(exceedance_figure, "2a.04_exceedances.png", 3.25)
 
 
-# Two-panel figure of the 10 metros with the most exceedance days for PM2.5 and ozone, split into ordinary, event and
-# fireworks days, with the ranks of the two case-study metros
 case_study_metros <- daily_sites %>%
   mutate(county_id = str_sub(site_id, 1, 6)) %>%
   filter(county_id %in% region_lookup$county_id, !is.na(cbsa_name)) %>%
@@ -1171,7 +1148,6 @@ case_study_metros <- daily_sites %>%
 
 stopifnot("One metro for Houston and one for Dallas-Fort Worth" = nrow(case_study_metros) == 2 && n_distinct(case_study_metros$region) == 2)
 
-# First city and first state of a CBSA name: "Los Angeles-Long Beach-Anaheim, CA" becomes "Los Angeles, CA"
 short_metro_name <- function(cbsa_name) str_replace(cbsa_name, "^([^-,]+)[^,]*, ([A-Z]{2}).*$", "\\1, \\2")
 
 metro_ranks <- exceedances %>%
@@ -1196,7 +1172,6 @@ print(top_10_metros %>% select(pollutant, metro_rank, metro_label, n_exceedance_
 
 print(case_study_metro_ranks)
 
-# Sites per metro and pollutant, shown in brackets beside each name since totals grow with the number of sites
 metro_site_counts <- daily_sites %>%
   filter(!is.na(cbsa_name)) %>%
   distinct(pollutant, cbsa_name, site_id) %>%
@@ -1207,7 +1182,6 @@ top_metro_site_counts <- top_10_metros %>%
 
 stopifnot("Every top-10 metro has a site count" = !anyNA(top_metro_site_counts$n_metro_sites))
 
-# 1st, 2nd, 3rd, 4th ... with 11th to 13th as exceptions
 ordinal_label <- function(n) {
   suffix <- if_else(n %% 100 %in% 11:13, "th", c("th", "st", "nd", "rd", rep("th", 6))[n %% 10 + 1])
   str_c(n, suffix)
@@ -1297,8 +1271,8 @@ invisible(gc())
 
 
 # 5. SEASONALITY ----
-# Five-year sites only. Ozone keeps the sites with December or January data in every study year, so each month is
-# averaged over the same sites. Seasonal monitors would otherwise leave the winter months to a different set of sites
+# 5-yr sites only. ozone keeps sites with dec or jan data every year so each month is
+# averaged over the same sites, otherwise seasonal monitors would leave winter to a diff set
 five_year_ozone_ids <- daily_sites %>%
   filter(pollutant == "Ozone", is_five_year) %>%
   distinct(site_id) %>%
@@ -1322,8 +1296,8 @@ stopifnot(
     length(five_year_ozone_ids) == 964 && length(year_round_ozone_ids) == 615
 )
 
-# One row per site and month with the mean of all days and of ordinary days. A site-month is kept when it has at least
-# 75% of the days its schedule expects: every day for the gases, every 1st, 3rd or 6th day for PM2.5 (section 2)
+# one row per site-month with the mean of all days and ordinary days. a site-month's kept if it has 75%+
+# of the days its schedule expects: every day for gases, every 1st/3rd/6th day for PM2.5 (section 2)
 sampling_intervals <- pm25_schedules %>%
   transmute(
     pollutant = factor("PM2.5", levels = pollutant_levels),
@@ -1332,8 +1306,8 @@ sampling_intervals <- pm25_schedules %>%
     sampling_interval = case_when(schedule == "1-in-3" ~ 3, schedule == "1-in-6" ~ 6, .default = 1)
   )
 
-# daily_sites is sorted by pollutant, site and date, so each site-month's days sit together and can be numbered in one
-# pass. rowsum() then totals every site-month at once, where a grouped summarise() takes about 25 seconds
+# daily_sites is sorted by pollutant, site, date so each site-month's days sit together and get numbered in one
+# pass. rowsum() then totals them all at once, a grouped summarise() takes about 25 s
 seasonal_site_days <- seasonal_site_days %>%
   mutate(is_new_site_month = pollutant != lag(pollutant) | site_id != lag(site_id) | year_month != lag(year_month)) %>%
   mutate(is_new_site_month = coalesce(is_new_site_month, TRUE)) %>%
@@ -1390,8 +1364,8 @@ stopifnot(
   "The 75% rule drops under 6% of site-months for every pollutant" = all(site_month_completeness$pct_dropped < 6)
 )
 
-# Typical year: each site's mean for a calendar month across the five years, each year counting once, then the median
-# and middle half across sites. monthly_profile() is in utils.R, where 2b reuses it with the case-study groups
+# typical year: each site's mean per calendar month across the 5 yrs (each year counts once), then the median
+# and middle half across sites. monthly_profile() is in utils.R so 2b can reuse it
 site_calendar_months <- complete_site_months %>%
   summarise(
     n_years = n(),
@@ -1440,7 +1414,7 @@ stopifnot(
     all(profile_site_counts$n_sites >= 0.99 * profile_site_counts$n_sites_total)
 )
 
-# The calendar month with each site's highest mean, and how peak seasons split between the Census West region and the
+# month with each site's highest mean, and how peak seasons split between census west and the
 # rest, with PM2.5 also on ordinary days only
 month_seasons <- daily_sites %>%
   distinct(month, season)
@@ -1498,8 +1472,8 @@ stopifnot(
   "Peak-month shares sum to 100 for every pollutant" = all(abs(peak_share_totals$total - 100) < 1e-9)
 )
 
-# Month by month: the median and middle half across sites for each of the 60 months, with all days and ordinary days.
-# The gap between the two medians is what labelled event and fireworks days added
+# month by month: median + middle half across sites for all 60 months, all days and ordinary days.
+# the gap between the two medians is what event + fireworks days added
 national_monthly_series <- complete_site_months %>%
   summarise(
     n_sites = n(),
@@ -1547,7 +1521,6 @@ stopifnot(
     all(series_site_counts$min_sites >= 0.9 * series_site_counts$max_sites)
 )
 
-# Seasons by year from complete site-months: a site-season needs all three of its months. The partial winters are left out
 site_seasons <- complete_site_months %>%
   filter(is_full_season) %>%
   summarise(n_months = n(), mean_value = mean(mean_value), .by = c(pollutant, site_id, season_year, season)) %>%
@@ -1572,10 +1545,6 @@ stopifnot(
     nrow(filter(season_medians, season != "Winter")) == length(pollutant_levels) * 3 * length(study_years)
 )
 
-# Two figures of the typical year, one per pollutant with the median site and the middle half of sites: the summer peaks
-# with the share of sites peaking in each month, then the winter peaks
-band_alpha <- 0.18
-
 month_scale <- scale_x_continuous(breaks = 1:12, labels = str_sub(month.abb, 1, 1), expand = expansion(add = 0.6))
 
 profile_panel_labels <- tribble(
@@ -1598,8 +1567,7 @@ profile_panel <- function(panel_pollutant) {
     filter(month == panel_peak$peak_month) %>%
     mutate(label = formatC(median_value, format = "f", digits = panel_labels$digits))
   peak_hjust <- case_when(peak_point$month_number <= 2 ~ 0, peak_point$month_number >= 11 ~ 1, .default = 0.5)
-  panel_plot <- ggplot(panel_data, aes(month_number, median_value)) +
-    geom_ribbon(aes(ymin = q25_value, ymax = q75_value), fill = chart_fills[["accent"]], alpha = band_alpha)
+  panel_plot <- ggplot(panel_data, aes(month_number, median_value))
   if (panel_pollutant == "PM2.5") {
     panel_plot <- panel_plot +
       geom_line(aes(y = median_ordinary), colour = chart_fills[["other"]], linewidth = 0.6)
@@ -1695,10 +1663,9 @@ stopifnot(
 )
 
 profile_key <- tribble(
-  ~mark,    ~colour,                                    ~label,
-  "line",   chart_fills[["accent"]],                    "Median site",
-  "square", alpha(chart_fills[["accent"]], band_alpha), "Middle half of sites",
-  "line",   chart_fills[["other"]],                     "PM2.5 median without event and fireworks days"
+  ~mark,  ~colour,                 ~label,
+  "line", chart_fills[["accent"]], "Median site",
+  "line", chart_fills[["other"]],  "PM2.5 median without event and fireworks days"
 )
 
 summer_profile_figure <- tagged_figure(
@@ -1716,7 +1683,7 @@ summer_profile_figure <- tagged_figure(
 
 winter_profile_figure <- tagged_figure(
   winter_profile_panels,
-  profile_key[1:2, ],
+  profile_key[1, ],
   source_note = sprintf(
     str_c(
       "Source: EPA AQS daily data, %s to %s, sites with data in all five years. ",
@@ -1731,8 +1698,6 @@ save_figure(summer_profile_figure, "2a.06_summer_peaks.png", 2.95)
 
 save_figure(winter_profile_figure, "2a.07_winter_peaks.png", 2.85)
 
-# Two-panel figure of the 60 monthly medians for PM2.5 and ozone. The grey PM2.5 line leaves out event and fireworks
-# days, so the gap between the lines is what labelled events added
 series_panel_labels <- tribble(
   ~pollutant, ~panel_name,              ~panel_title,
   "PM2.5",    "PM2.5 daily mean",       "Monthly median (µg/m³)",
@@ -1771,8 +1736,7 @@ year_starts <- ymd(str_c(study_years, "-01-01"))
 series_panel <- function(panel_pollutant) {
   panel_labels <- filter(series_panel_labels, pollutant == panel_pollutant)
   panel_data <- filter(national_monthly_series, pollutant == panel_pollutant)
-  panel_plot <- ggplot(panel_data, aes(year_month, median_value)) +
-    geom_ribbon(aes(ymin = q25_value, ymax = q75_value), fill = chart_fills[["accent"]], alpha = band_alpha)
+  panel_plot <- ggplot(panel_data, aes(year_month, median_value))
   if (panel_pollutant == "PM2.5") {
     marked_month <- largest_event_month %>%
       mutate(label = sprintf("%s  %.1f", month_year_label(year_month), median_value)) %>%
@@ -1810,10 +1774,9 @@ series_panels <- lapply(series_panel_labels$pollutant, series_panel)
 series_figure <- tagged_figure(
   series_panels,
   tribble(
-    ~mark,    ~colour,                                    ~label,
-    "line",   chart_fills[["accent"]],                    "Median site, all days",
-    "square", alpha(chart_fills[["accent"]], band_alpha), "Middle half of sites",
-    "line",   chart_fills[["other"]],                     "PM2.5 median without event and fireworks days"
+    ~mark,  ~colour,                 ~label,
+    "line", chart_fills[["accent"]], "Median site, all days",
+    "line", chart_fills[["other"]],  "PM2.5 median without event and fireworks days"
   ),
   source_note = sprintf(
     str_c(
@@ -1833,14 +1796,13 @@ invisible(gc())
 
 
 # 6. WEEKEND EFFECT ----
-# April to October at five-year sites, ordinary days only, so smoke cannot tilt either side. Weekend is Saturday and
-# Sunday. The weekday holidays in CONFIG are left out of both groups
+# apr-oct at 5-yr sites, ordinary days only so smoke can't tilt either side. weekend = sat +
+# sun. the weekday holidays in CONFIG are dropped from both groups
 weekend_site_days <- daily_sites %>%
   filter(is_five_year, between(as.integer(month), 4, 10), event_class == "None") %>%
   select(pollutant, site_id, state_code, cbsa_name, year, date_local, day_of_week, is_weekend, value) %>%
   left_join(select(weekday_holidays, date_local, holiday), by = "date_local", relationship = "many-to-one")
 
-# Each holiday's mean against the site's ordinary weekdays, beside Saturday and Sunday, to show why holidays are left out
 day_type_means <- weekend_site_days %>%
   mutate(
     day_type = case_when(
@@ -1879,8 +1841,8 @@ stopifnot(
   "NO2 on each left-out holiday is closer to Sunday than to a weekday" = all(no2_holiday_ratios < (1 + no2_sunday_ratio) / 2)
 )
 
-# Weekend mean over weekday mean per site, with Saturday and Sunday on their own. A site needs a weekday mean above zero
-# for its ratio to mean anything, which drops a few SO2 and CO sites that read near zero
+# weekend mean / weekday mean per site, with sat and sun on their own too. a site needs a weekday mean over zero
+# for the ratio to mean anything, which drops a few SO2 and CO sites sitting near zero
 weekend_ratios <- weekend_site_days %>%
   filter(is.na(holiday)) %>%
   summarise(
@@ -1922,7 +1884,6 @@ stopifnot(
   "Every ratio is a finite number" = all(is.finite(weekend_ratios$weekend_ratio))
 )
 
-# Each day of the week against the site's weekday mean, and the weekend ratio year by year
 day_of_week_profile <- weekend_site_days %>%
   filter(is.na(holiday)) %>%
   summarise(day_mean = mean(value), .by = c(pollutant, site_id, day_of_week)) %>%
@@ -1955,7 +1916,6 @@ stopifnot(
   "Five years per pollutant" = all(count(weekend_by_year, pollutant)$n == length(study_years))
 )
 
-# Where weekend ozone rises: the Census West region against the rest, and metros with at least 5 five-year ozone sites
 ozone_weekend_regions <- weekend_ratios %>%
   filter(pollutant == "Ozone") %>%
   mutate(region = if_else(state_code %in% western_state_codes, "West", "East")) %>%
@@ -1989,8 +1949,8 @@ print(filter(ozone_weekend_metros, is_case_study))
 
 stopifnot("Both case-study metros have at least 5 five-year ozone sites" = sum(ozone_weekend_metros$is_case_study) == 2)
 
-# Case-study group of every Harris, Dallas and Tarrant site, saved for 2b in section 7. Harris sites take the group 1c
-# set from their distance to the Ship Channel; the Bayport-adjacent site belongs to neither Houston group
+# case-study group for every harris, dallas and tarrant site, saved for 2b in section 7. harris sites get the group 1c
+# set from distance to the channel, the bayport-adjacent site is in neither houston group
 harris_groups <- read_csv(
   harris_groups_path,
   col_types = cols_only(site_id = col_character(), km_to_channel = col_double(), site_group = col_character())
@@ -2030,7 +1990,7 @@ stopifnot(
   "Group labels match the chart colours" = all(levels(site_groups$site_group) == names(site_group_colours))
 )
 
-# NO2 against ozone at sites that measure both. Ozone rising where NO2 falls is consistent with VOC-limited ozone, where
+# NO2 vs ozone at sites that measure both. ozone going up where NO2 drops is consistent with VOC-limited ozone, where
 # less NOx leaves more ozone
 no2_ozone_ratios <- weekend_ratios %>%
   filter(pollutant %in% c("NO2", "Ozone")) %>%
@@ -2049,21 +2009,26 @@ no2_ozone_summary <- no2_ozone_ratios %>%
 
 print(no2_ozone_summary)
 
-# Two figures: the weekend ratio of each pollutant with NO2 and ozone through the week, then NO2 against ozone per site
-# with the case-study sites marked, and the metros where weekend ozone rises most
-weekend_row_data <- weekend_summary %>%
-  mutate(pollutant = reorder(pollutant, -median_ratio)) %>%
-  mutate(label = sprintf("%.2f", median_ratio))
+weekend_row_data <- weekend_ratios %>%
+  box_stats("weekend_ratio", "pollutant") %>%
+  mutate(pollutant = reorder(pollutant, -box_median)) %>%
+  mutate(label = sprintf("%.2f", box_median))
 
-ratio_panel <- ggplot(weekend_row_data, aes(median_ratio, pollutant)) +
+stopifnot(
+  "Weekend boxes match the saved medians" = isTRUE(all.equal(
+    weekend_row_data$box_median[order(as.character(weekend_row_data$pollutant))],
+    weekend_summary$median_ratio[order(as.character(weekend_summary$pollutant))]
+  ))
+)
+
+ratio_panel <- ggplot(weekend_row_data, aes(y = pollutant)) +
   geom_vline(xintercept = 1, colour = chart_ink[["primary"]], linewidth = 0.35) +
-  geom_segment(aes(x = q25_ratio, xend = q75_ratio, yend = pollutant), colour = chart_fills[["accent"]], linewidth = 1.6, alpha = 0.45) +
-  geom_point(colour = chart_fills[["accent"]], size = 1.9) +
+  geom_box_whisker(horizontal = TRUE, width = 0.55, colour = chart_fills[["accent"]], fill = alpha(chart_fills[["accent"]], box_fill_alpha)) +
   geom_text(
-    aes(x = q75_ratio, label = label), hjust = -0.35, family = chart_fonts[["mono"]], size = chart_sizes[["label"]] / .pt,
+    aes(x = p90, label = label), hjust = -0.4, family = chart_fonts[["mono"]], size = chart_sizes[["label"]] / .pt,
     colour = chart_ink[["secondary"]]
   ) +
-  scale_x_continuous(limits = c(0.7, 1.15), breaks = seq(0.7, 1.1, 0.1)) +
+  scale_x_continuous(breaks = seq(0.6, 1.4, 0.1), expand = expansion(mult = c(0.04, 0.14))) +
   scale_y_discrete(labels = pretty_text) +
   labs(
     title = panel_label(1, "Weekend over weekday"),
@@ -2195,11 +2160,10 @@ stopifnot(
 weekend_no2_figure <- tagged_figure(
   list(ratio_panel, day_panel),
   tribble(
-    ~mark,   ~colour,                                 ~label,
-    "point", chart_fills[["accent"]],                 "Median site",
-    "thick", alpha(chart_fills[["accent"]], 0.45),    "Middle half of sites",
-    "line",  chart_fills[["accent"]],                 "(b) NO2",
-    "line",  chart_warm[["line"]],                    "(b) Ozone"
+    ~mark,  ~colour,                 ~label,                                                                          ~row,
+    "box",  chart_fills[["accent"]], "(a) Sites: box holds the middle half, line is the median site, whiskers 10th to 90th percentile", 1,
+    "line", chart_fills[["accent"]], "(b) NO2",                                                                       2,
+    "line", chart_warm[["line"]],    "(b) Ozone",                                                                     2
   ),
   source_note = sprintf(
     str_c(
@@ -2241,8 +2205,8 @@ invisible(gc())
 
 
 # 7. SAVE THE CASE-STUDY CHECKPOINT ----
-# Site-days of every Harris, Dallas and Tarrant site in a case-study group, with a flag for days on a monitor's new
-# method. 2b_daily_case_study.R starts from these files, so the national table is only built here
+# site-days for every harris, dallas, tarrant site in a case-study group, flagging days on a monitor's new
+# method. 2b starts from these files so the national table only gets built here
 daily_case_study <- daily_sites %>%
   filter(pollutant %in% case_study_pollutants) %>%
   inner_join(site_groups, by = "site_id", relationship = "many-to-one")
@@ -2260,13 +2224,11 @@ daily_case_study <- daily_case_study %>%
   ) %>%
   arrange(pollutant, site_id, date_local)
 
-# Each instrument's own daily value, for method histories and collocated FEM and FRM comparisons
 daily_case_study_instruments <- daily_instruments %>%
   semi_join(daily_case_study, by = c("pollutant", "site_id")) %>%
   select(site_id, pollutant, poc, method_code, method_type, date_local, value) %>%
   arrange(pollutant, site_id, poc, date_local)
 
-# Section 5's site-months for the five-year case-study sites, so 2b's monthly profiles follow the same 75% rule
 daily_case_study_months <- site_months %>%
   filter(pollutant %in% case_study_pollutants) %>%
   inner_join(site_groups, by = "site_id", relationship = "many-to-one") %>%
@@ -2316,7 +2278,6 @@ case_study_checkpoint <- list(
   daily_case_study_months = daily_case_study_months
 )
 
-# Each file is reloaded and checked against the object in memory (save_checkpoints() in utils.R)
 case_study_checkpoint_paths <- save_checkpoints(case_study_checkpoint, processed_dir)
 
 case_study_dictionary <- tribble(
@@ -2371,10 +2332,9 @@ case_study_dictionary <- tribble(
   "daily_case_study_months",      "mean_ordinary",           "Mean over days with no event or fireworks label; NA when the month has none"
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 case_study_dictionary <- document_tables(case_study_checkpoint, case_study_dictionary)
 
-# 1a, 1d and 1e add their own rows to both shared files, and only the rows of these three tables are replaced here
+# 1a, 1d and 1e add their own rows to these shared files, only these 3 tables' rows get replaced here
 replace_own_rows(case_study_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
 
 case_study_manifest <- manifest_rows(case_study_checkpoint, case_study_checkpoint_paths)
@@ -2388,8 +2348,6 @@ print(checkpoint_manifest, width = Inf)
 
 
 # 8. CSV RECORDS FOR THE REPORT ----
-# The national tables behind the main panels of figures 2A.1 to 2A.10 and every national number the docs quote, saved as
-# CSV records with dictionary rows
 pollutant_units <- naaqs %>%
   distinct(pollutant, units_of_measure)
 
@@ -2473,7 +2431,7 @@ stopifnot(
     nrow(national_monthly_series_record) == 12 * length(study_years) * length(pollutant_levels)
 )
 
-# Headline numbers: one row per national number the README and methodology quote, with the record it comes from
+# headline numbers: one row per national number the README/methodology quote, with the record it comes from
 screening_share <- function(gas, standard_name, screen_year) {
   national_naaqs_screening$pct_above[
     national_naaqs_screening$day_set == "All days" & national_naaqs_screening$pollutant == gas &

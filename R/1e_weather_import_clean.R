@@ -9,12 +9,11 @@ library(lubridate)
 library(lobstr)
 library(here)
 
-source(here("R", "utils.R")) # study_years, standard_time_zone, log_step(), region_lookup, hourly zip helpers, calendar, events, save helpers
+source(here("R", "utils.R"))
 
 
 
 # CONFIG ----
-# The WIND files hold speed and direction, the TEMP files temperature
 weather_codes <- tribble(
   ~variable,        ~parameter_code, ~file_type,
   "Wind speed",     61103L,          "WIND",
@@ -26,41 +25,37 @@ weather_dir <- here("data", "raw", "weather")
 
 processed_dir <- here("data", "processed")
 
-# CSV records go to a folder per phase; checkpoints, the dictionary and the manifest stay in data/processed
 records_dir <- file.path(processed_dir, "phase1")
 
 dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
 
 filtered_dir <- here("data", "weather_filtered")
 
-# 1 knot is 1,852 m per hour
 knots_to_ms <- 1852 / 3600
 
-# EPA counts an hour as calm when the wind speed is below 0.5 m/s
+# EPA calls an hour calm when wind's under 0.5 m/s
 calm_threshold_ms <- 0.5
 
-# Spike: an hour more than 20 knots above both the hour before and the hour after
+# spike = an hour 20+ knots above both the hour before and the hour after
 spike_threshold_kt <- 20
 
 sector_width <- 30
 
-# 75% of 24 hours, as in 1d
 min_hours_per_day <- 18
 
-# Harvard Street takes its temperature from Bayland Park and its wind from Croquet (section 9)
+# harvard street borrows temp from bayland park and wind from croquet (section 9)
 harvard_street_id <- "48-201-0417"
 
 temp_source_id <- "48-201-0055"
 
 wind_source_id <- "48-201-0051"
 
-# Method code of the Met One AIO2 sonic sensor, which measures wind with ultrasound
 sonic_method_code <- "069"
 
 
 
 # 1. RAW FILES AND EPA ROW COUNTS ----
-# The 10 zips the folder should hold: 2 file types x 5 years
+# 10 zips expected: 2 file types x 5 years
 expected_zips <- expand_grid(
   file_type = unique(weather_codes$file_type),
   year = study_years
@@ -75,8 +70,8 @@ stopifnot(
     setequal(basename(zip_paths), expected_zips$file)
 )
 
-# Row counts from EPA's AirData file list (file_list.csv, files dated 2026-06-25). Section 3 counts every row
-# while it reads each zip and checks the counts against this list
+# row counts from EPA's file list (file_list.csv, dated 2026-06-25). section 3 counts every row as it
+# reads each zip and checks against this
 airdata_list_counts <- tribble(
   ~file_type, ~year, ~listed_rows,
   "WIND",     2021,  11807514,
@@ -94,7 +89,6 @@ airdata_list_counts <- tribble(
 
 
 # 2. CHECK FILE HEADERS ----
-# aqs_hourly_columns (utils.R) holds the 24 columns EPA documents for hourly files (AirData file formats, section 6.2)
 file_headers <- tibble(zip_path = zip_paths) %>%
   mutate(
     file = basename(zip_path),
@@ -113,7 +107,6 @@ stopifnot(
   "Header matches EPA's 24 documented columns, in order" = identical(first_header, aqs_hourly_columns)
 )
 
-# Preview 5 rows as text, to see how values are written before setting column types
 header_preview <- zip_paths[1] %>%
   read_first_lines(n = 6) %>%
   I() %>%
@@ -124,7 +117,6 @@ glimpse(header_preview)
 
 
 # 3. FILTER TO THE CASE-STUDY SITES ----
-# The 9 sites picked in 1c, each searched for all three codes
 case_study_site_ids <- here("data", "reference", "case_study_sites.csv") %>%
   read_csv(col_types = cols_only(site_id = col_character())) %>%
   distinct(site_id)
@@ -137,8 +129,8 @@ stopifnot(
   "27 site and code pairs to look for" = nrow(weather_monitors) == 27
 )
 
-# Each zip is read in chunks and its case-study rows saved to data/weather_filtered (filter_case_study_zip() in
-# utils.R). A rerun reuses the saved rows while the zip is unchanged
+# each zip is read in chunks and the case-study rows saved to data/weather_filtered (filter_case_study_zip() in
+# utils.R). reruns reuse the saved rows while the zip hasn't changed
 dir.create(filtered_dir, showWarnings = FALSE)
 
 filtered_paths <- map_chr(zip_paths, \(zip_path) filter_case_study_zip(zip_path, filtered_dir, weather_monitors), .progress = TRUE)
@@ -153,7 +145,7 @@ filter_log <- tibble(
 
 print(filter_log, n = Inf)
 
-# Every row in every file must have been read: rows read has to equal EPA's listed count
+# every row has to be read: rows read must equal EPA's count
 weather_row_counts <- filter_log %>%
   mutate(
     file_type = str_sub(file, 8, 11),
@@ -168,7 +160,7 @@ row_count_check <- weather_row_counts %>%
 
 print(row_count_check, n = Inf, width = Inf)
 
-# A mismatch means a damaged download, or files EPA has since regenerated (check file_list.csv again)
+# a mismatch = broken download, or EPA regenerated the files (check file_list.csv again)
 stopifnot(
   "Every file has an EPA listed count" = !anyNA(row_count_check$listed_rows),
   "Rows read match EPA's file list" = all(row_count_check$difference == 0),
@@ -182,7 +174,6 @@ weather_row_counts %>%
 
 print(sum(weather_row_counts$raw_rows))
 
-# Saved as a record of the rows in each raw file
 write_csv(weather_row_counts, file.path(records_dir, "weather_raw_row_counts.csv"))
 
 weather_raw <- filtered_files %>%
@@ -235,13 +226,12 @@ print(weather_cleaning_log)
 
 
 # 4. INSPECT VALUES ----
-# Nothing is removed in this section. The counts below decide the rules in section 5
+# nothing gets removed here, these counts decide the rules in section 5
 weather_raw <- weather_raw %>%
   left_join(select(weather_codes, variable, parameter_code), by = "parameter_code", relationship = "many-to-one")
 
 stopifnot("Every row has a variable name" = !anyNA(weather_raw$variable))
 
-# Missing values by column, then missing measurements by site and variable
 missing_by_column <- weather_raw %>%
   summarise(across(everything(), \(x) sum(is.na(x)))) %>%
   pivot_longer(everything(), names_to = "column", values_to = "n_missing") %>%
@@ -258,7 +248,6 @@ weather_raw %>%
   ) %>%
   print(n = Inf)
 
-# Share of each year's hours present, by site and variable
 weather_raw %>%
   count(site_id, variable, year = year(date_local), name = "n_hours") %>%
   mutate(hours_in_year = if_else(leap_year(year), 8784, 8760)) %>%
@@ -266,7 +255,6 @@ weather_raw %>%
   pivot_wider(id_cols = c(site_id, variable), names_from = year, values_from = pct_hours) %>%
   print(n = Inf, width = Inf)
 
-# Units: one per variable
 expected_units <- tribble(
   ~variable,        ~expected_unit,
   "Wind speed",     "Knots",
@@ -285,16 +273,14 @@ stopifnot(
   "Units are knots, compass degrees and °F" = all(unit_check$units_of_measure == unit_check$expected_unit)
 )
 
-# Time zone: AQS local times skip daylight saving, so Texas is always 6 hours behind GMT (check in utils.R)
+# AQS local times skip DST so texas is always 6 hrs behind GMT (check in utils.R)
 check_local_standard_time(weather_raw)
 
-# Method codes against EPA's methods table, for each method's name, units and valid range
 methods_ref <- read_methods_ref()
 
 weather_methods <- weather_raw %>%
   count(variable, parameter_code, method_code, units_of_measure, name = "n_rows")
 
-# A blank upper limit means EPA lists none for that method
 method_limits <- methods_ref %>%
   semi_join(weather_methods, by = c("parameter_code", "method_code")) %>%
   mutate(
@@ -325,7 +311,7 @@ stopifnot(
   "Every method has a lower limit" = !anyNA(method_check$method_min)
 )
 
-# Dates each site reports under each method. Two methods mean a sensor change (section 12)
+# dates each site reports under each method. 2 methods = a sensor change (section 12)
 method_history <- weather_raw %>%
   group_by(site_id, variable, method_code) %>%
   summarise(
@@ -338,7 +324,6 @@ method_history <- weather_raw %>%
 
 print(method_history, n = Inf)
 
-# Range, zeros and the method's limits for each site and variable
 range_check <- weather_raw %>%
   left_join(
     select(method_limits, parameter_code, method_code, method_min, method_max),
@@ -359,7 +344,6 @@ range_check <- weather_raw %>%
 
 print(range_check, n = Inf, width = Inf)
 
-# Detection limit (MDL) against the one EPA lists for the method, printed for the record only
 weather_raw %>%
   distinct(variable, parameter_code, method_code, mdl) %>%
   left_join(
@@ -370,7 +354,6 @@ weather_raw %>%
   mutate(matches_federal_mdl = abs(mdl - federal_mdl) < 1e-9) %>%
   print(n = Inf)
 
-# Qualifier codes (flags agencies attach to readings), typed with aqs_qualifier_types (utils.R)
 qualifier_counts <- weather_raw %>%
   filter(!is.na(qualifier)) %>%
   count(variable, qualifier, name = "n_rows") %>%
@@ -380,14 +363,14 @@ qualifier_counts <- weather_raw %>%
 
 print(qualifier_counts, n = Inf, width = Inf)
 
-# Repeated hours for the same instrument (checked again when timestamps are built)
+# repeated hours for the same instrument (checked again when timestamps get built)
 duplicate_hours <- weather_raw %>%
   count(site_id, parameter_code, poc, date_local, time_local) %>%
   filter(n > 1)
 
 print(nrow(duplicate_hours))
 
-# Coordinates over time, printed to 6 decimals. Deer Park #2's move does not show here because EPA lists one pair
+# coords over time to 6 decimals. deer park #2's move doesn't show up bc EPA lists just one pair
 site_locations <- weather_raw %>%
   group_by(site_id, latitude, longitude) %>%
   summarise(
@@ -404,7 +387,7 @@ print(site_locations, n = Inf, width = Inf)
 
 
 # 5. CHECK QUALIFIERS, FLAG CALM HOURS AND WIND SPIKES ----
-# No rows are removed from here on. Each rule adds a flag, so later phases can keep or leave out these hours
+# no rows removed from here on, each rule just adds a flag so later phases can keep or drop those hours
 qualifiers_present <- weather_raw %>%
   filter(!is.na(qualifier)) %>%
   distinct(qualifier) %>%
@@ -417,8 +400,8 @@ stopifnot(
     sum(range_check$n_below_method_min) == 0 && sum(range_check$n_above_method_max) == 0
 )
 
-# Calm: the vane cannot point reliably in very light wind, so later phases leave calm hours out of wind sectors.
-# Spike: the next largest one-hour jump at any site is 13.9 knots. An hour beside a missing hour is not checked
+# calm: the vane can't point reliably in really light wind so later phases keep calm hours out of sectors.
+# spike: the next biggest 1-hr jump anywhere is 13.9 knots. hours next to a missing hour aren't checked
 wind_flags <- weather_raw %>%
   filter(variable == "Wind speed") %>%
   select(site_id, date_local, time_local, wind_speed_kt = sample_measurement) %>%
@@ -456,7 +439,6 @@ weather <- weather_raw %>%
     relationship = "many-to-one"
   )
 
-# Wind flags stay NA on temperature rows
 weather <- weather %>%
   mutate(is_calm = if_else(variable == "Temperature", NA, is_calm)) %>%
   mutate(is_wind_spike = if_else(variable == "Temperature", NA, is_wind_spike))
@@ -492,11 +474,10 @@ rm(wind_flags)
 
 
 # 6. BUILD TIMESTAMPS AND CALENDAR COLUMNS ----
-# Built as in 1d at the fixed UTC-6 of standard_time_zone (utils.R), so weather and pollutant hours line up
+# built like 1d at the fixed UTC-6 (standard_time_zone in utils.R) so weather and pollutant hours line up
 weather <- weather %>%
   mutate(datetime_local = ymd_hm(str_c(date_local, " ", time_local), tz = standard_time_zone))
 
-# The UTC timestamp matches each weather hour to hourly_case_study.rds
 weather <- weather %>%
   mutate(datetime_utc = ymd_hm(str_c(date_gmt, " ", time_gmt), tz = "UTC"))
 
@@ -515,14 +496,13 @@ stopifnot(
   "One row per site, variable and hour" = nrow(duplicate_timestamps) == 0
 )
 
-# Same calendar columns as 1a and 1d (utils.R)
 weather <- weather %>%
   add_calendar_columns()
 
 
 
 # 7. CONVERT UNITS ----
-# Direction stays in degrees. The original values are kept beside the converted ones, as in 1d
+# direction stays in degrees. original values kept next to the converted ones like in 1d
 fahrenheit_to_celsius <- function(temp_f) {
   (temp_f - 32) * 5 / 9
 }
@@ -558,7 +538,6 @@ weather %>%
 
 
 # 8. RESHAPE TO ONE ROW PER SITE AND HOUR ----
-# An hour missing a variable keeps NA for it, so no reading is dropped
 hour_keys <- c("site_id", "datetime_local")
 
 calendar_hours <- weather %>%
@@ -611,13 +590,13 @@ stopifnot(
 weather_hourly <- weather_hourly %>%
   select(-direction_method_code)
 
-# Wind direction is the direction the wind blows from, in degrees clockwise from true north (EPA-454/R-99-005,
-# section 2.2). Sectors are named by their centre, so sector 0 runs from 345° to 15° and holds 0° and 360°
+# direction = where the wind blows FROM, degrees clockwise from true north (EPA-454/R-99-005,
+# section 2.2). sectors are named by their centre so sector 0 runs 345° to 15° and holds 0° and 360°
 weather_hourly <- weather_hourly %>%
   mutate(wind_sector = floor(((wind_dir_deg + sector_width / 2) %% 360) / sector_width) * sector_width)
 
-# The wind split into east-west (u) and north-south (v) parts in m/s. Averaging the parts gives a correct mean
-# direction near north, where 350° and 10° would average to 180° (EPA-454/R-99-005, section 6.2.2)
+# wind split into east-west (u) and north-south (v) parts in m/s. averaging those gives a correct mean
+# direction near north, where 350° and 10° would otherwise average to 180° (EPA-454/R-99-005, section 6.2.2)
 weather_hourly <- weather_hourly %>%
   mutate(wind_u_ms = -wind_speed_ms * sin(wind_dir_deg * pi / 180)) %>%
   mutate(wind_v_ms = -wind_speed_ms * cos(wind_dir_deg * pi / 180))
@@ -639,7 +618,6 @@ stopifnot(
     isTRUE(all.equal(c(unit_vector_check$u[2], unit_vector_check$v[2]), c(0, -1)))
 )
 
-# Reshaping combines rows, so the step has no removal count
 weather_cleaning_log <- weather_cleaning_log %>%
   add_row(
     step = "Reshape to one row per site and hour, no reading removed",
@@ -668,8 +646,8 @@ rm(calendar_hours, wind_speed_hours, wind_direction_hours, temperature_hours, un
 
 
 # 9. FILL HOUSTON HARVARD STREET FROM ITS NEIGHBOURS ----
-# Harvard Street has no wind sensor and its own temperature starts on 2023-04-19. All five years take temperature
-# from Bayland Park (about 13 km) and wind from Croquet (about 18 km). own_temp_f and own_temp_c keep its own sensor
+# harvard street has no wind sensor and its own temp only starts 2023-04-19, so all 5 yrs take temp
+# from bayland park (about 13 km) and wind from croquet (about 18 km). own_temp_f and own_temp_c keep its own sensor
 harvard_own_rows <- weather_hourly %>%
   filter(site_id == harvard_street_id)
 
@@ -679,7 +657,6 @@ stopifnot(
     min(harvard_own_rows$date_local) == ymd("2023-04-19")
 )
 
-# The other 8 sites use their own sensors
 own_site_rows <- weather_hourly %>%
   filter(site_id != harvard_street_id) %>%
   mutate(own_temp_f = temp_f) %>%
@@ -709,7 +686,7 @@ wind_from_source <- weather_hourly %>%
 harvard_own_temp <- harvard_own_rows %>%
   select(all_of(calendar_columns), own_temp_f = temp_f, own_temp_c = temp_c)
 
-# Harvard Street gets an hour wherever either source or its own sensor has a reading
+# harvard street gets an hour whenever either source or its own sensor has a reading
 harvard_hours <- bind_rows(
   select(temp_from_source, all_of(calendar_columns)),
   select(wind_from_source, all_of(calendar_columns)),
@@ -773,7 +750,6 @@ stopifnot(
     all(harvard_check$wind_source_site %in% c(wind_source_id, NA))
 )
 
-# Bayland Park against Harvard Street's own sensor, from 2023-04-19
 harvard_temp_comparison <- harvard_check %>%
   filter(!is.na(temp_f), !is.na(own_temp_f)) %>%
   summarise(
@@ -791,7 +767,6 @@ stopifnot(
     harvard_temp_comparison$correlation > 0.95
 )
 
-# Filling adds rows, so the step has no removal count
 weather_cleaning_log <- weather_cleaning_log %>%
   add_row(
     step = "Fill Harvard Street from Bayland Park and Croquet, rows added",
@@ -849,7 +824,6 @@ stopifnot(
   "Three site groups" = n_distinct(weather_hourly$site_group) == 3
 )
 
-# Hourly pollutants measured at the case-study sites in 1d
 hourly_pollutants <- here("data", "reference", "case_study_sites.csv") %>%
   read_csv(col_types = cols_only(pollutant = col_character())) %>%
   distinct(pollutant) %>%
@@ -857,7 +831,7 @@ hourly_pollutants <- here("data", "reference", "case_study_sites.csv") %>%
 
 stopifnot("Hourly pollutants found" = length(hourly_pollutants) > 0 && !anyNA(hourly_pollutants))
 
-# Events as in 1a and 1d (read_events() in utils.R), kept when they list "all" or an hourly pollutant
+# events like 1a and 1d (read_events() in utils.R), kept if they list "all" or an hourly pollutant
 events <- read_events()
 
 event_windows <- events %>%
@@ -906,7 +880,7 @@ rm(site_days, event_windows, dropped_windows)
 
 
 # 11. FLAG COMPLETE DAYS ----
-# A day is complete with 18 of 24 hours, as in 1d, counted separately for temperature and wind
+# a day is complete with 18 of 24 hours like 1d, counted separately for temp and wind
 weather_hourly <- weather_hourly %>%
   add_count(site_id, date_local, wt = !is.na(temp_f), name = "n_temp_hours_day")
 
@@ -941,8 +915,8 @@ weather_hourly %>%
 
 
 # 12. CHECK THE SWITCH TO SONIC SENSORS ----
-# Five sites replaced their older sensors with the sonic sensor in 2022-2024, which may change the share of calm hours.
-# Each is compared with a nearby site that kept its old sensor, over 365 days either side. Nothing is adjusted
+# 5 sites swapped to the sonic sensor in 2022-2024, which might change the share of calm hours.
+# each one's compared with a nearby site that kept its old sensor, 365 days either side. nothing adjusted
 weather_hourly <- weather_hourly %>%
   mutate(is_sonic_temp = temp_method_code == sonic_method_code) %>%
   mutate(is_sonic_wind = wind_method_code == sonic_method_code)
@@ -950,7 +924,6 @@ weather_hourly <- weather_hourly %>%
 weather_cleaning_log <- weather_cleaning_log %>%
   log_step("Flag hours measured by a sonic sensor, none removed", weather_hourly)
 
-# Wind speed stands for both wind columns, which share one method (section 8)
 sensor_periods <- method_history %>%
   filter(variable != "Wind direction") %>%
   mutate(sensor = if_else(variable == "Wind speed", "Wind", "Temperature")) %>%
@@ -976,7 +949,6 @@ stopifnot(
     all(sensor_switches$first_sonic_date > sensor_switches$last_old_date, na.rm = TRUE)
 )
 
-# One row per site and sensor
 sensor_check <- expand_grid(site_id = site_groups$site_id, sensor = c("Temperature", "Wind")) %>%
   left_join(sensor_switches, by = c("site_id", "sensor"), relationship = "one-to-one") %>%
   mutate(
@@ -991,7 +963,7 @@ sensor_check <- expand_grid(site_id = site_groups$site_id, sensor = c("Temperatu
   mutate(hours_old = coalesce(hours_old, 0L)) %>%
   mutate(hours_sonic = coalesce(hours_sonic, 0L))
 
-# Neighbours for the switched sites: the nearest case-study site in the same region that kept one sensor
+# neighbours for the switched sites: nearest case-study site in the same region that kept one sensor
 sensor_neighbours <- tribble(
   ~site_id,      ~neighbour_id,
   "48-201-0055", "48-201-0051",
@@ -1014,7 +986,7 @@ stopifnot(
     all(neighbour_histories$sensor_history == "Older sensor throughout")
 )
 
-# Only each site's own sensor readings, so Harvard Street's borrowed wind is left out
+# only each site's own sensor readings, so harvard street's borrowed wind is left out
 own_sensor_hours <- bind_rows(
   weather_hourly %>%
     filter(!is.na(own_temp_f)) %>%
@@ -1094,7 +1066,6 @@ duplicate_site_hours <- weather_hourly %>%
   count(site_id, datetime_local) %>%
   filter(n > 1)
 
-# Summer should be warmer than winter at every site
 season_check <- weather_hourly %>%
   filter(!is.na(temp_f)) %>%
   group_by(site_id, season) %>%
@@ -1104,7 +1075,6 @@ season_check <- weather_hourly %>%
 
 print(season_check)
 
-# Harvard Street against its sources, hour by hour, and every source reading used
 harvard_source_check <- weather_hourly %>%
   filter(site_id == harvard_street_id) %>%
   left_join(
@@ -1148,7 +1118,7 @@ own_temp_differences <- weather_hourly %>%
   summarise(n = sum(differs(own_temp_f, temp_f))) %>%
   pull(n)
 
-# Join to the hourly pollutant table on site and UTC hour, as later phases will
+# join to the hourly pollutant table on site + UTC hour, same as later phases will
 pollutant_hours <- read_rds(file.path(processed_dir, "hourly_case_study.rds")) %>%
   select(site_id, pollutant, datetime_utc, datetime_local)
 
@@ -1172,7 +1142,6 @@ print(join_coverage, n = Inf)
 
 rows_read <- sum(filter_log$rows_read)
 
-# The raw row counts are EPA's listed counts, which section 3 checked file by file
 raw_rows <- sum(airdata_list_counts$listed_rows)
 
 sites_in_table <- n_distinct(weather_hourly$site_id)
@@ -1225,7 +1194,6 @@ invisible(gc())
 
 
 # 14. SUMMARISE EACH SITE ----
-# One row per site: weather sources, completeness, longest gaps, sensors, calms and prevailing wind
 study_start <- make_datetime(min(study_years), 1, 1, 0, tz = standard_time_zone)
 
 study_end <- make_datetime(max(study_years), 12, 31, 23, tz = standard_time_zone)
@@ -1234,7 +1202,7 @@ n_study_hours <- as.numeric(difftime(study_end, study_start, units = "hours")) +
 
 stopifnot("The study window holds 43,824 hours" = n_study_hours == 43824)
 
-# Longest run of missing hours, including the study's start and end, and its first date
+# longest run of missing hours, incl. the study's start and end, and when it starts
 longest_gap <- function(hours_with_data) {
   hour_values <- c(as.numeric(study_start) - 3600, sort(as.numeric(hours_with_data)), as.numeric(study_end) + 3600)
   gap_hours <- diff(hour_values) / 3600 - 1
@@ -1256,7 +1224,7 @@ wind_gaps <- weather_hourly %>%
   summarise(longest_gap(datetime_local), .by = site_id) %>%
   rename(longest_wind_gap_days = gap_days, longest_wind_gap_start = gap_start)
 
-# Prevailing wind: the most common sector among hours that are not calm
+# prevailing wind = most common sector among hours that aren't calm
 prevailing_wind <- weather_hourly %>%
   filter(!is.na(wind_sector), !is_calm) %>%
   count(site_id, wind_sector, name = "n_hours") %>%
@@ -1323,7 +1291,6 @@ final_keys <- hourly_weather %>%
   count(site_id, datetime_local) %>%
   filter(n > 1)
 
-# Only the site, time and day columns must be complete
 required_columns_have_na <- hourly_weather %>%
   select(
     site_id, local_site_name, site_group, region,
@@ -1341,7 +1308,6 @@ stopifnot(
   "Data stay inside the study years" = all(year(hourly_weather$date_local) %in% study_years)
 )
 
-# Row counts are stored as whole numbers, like the daily and hourly cleaning logs
 stopifnot(
   "Cleaning log row counts are whole numbers" = all(weather_cleaning_log$rows == round(weather_cleaning_log$rows))
 )
@@ -1354,15 +1320,12 @@ weather_cleaning_log <- weather_cleaning_log %>%
 
 print(weather_cleaning_log)
 
-# The hourly weather table is the checkpoint later phases read, saved as a compressed .rds
 weather_checkpoint <- list(
   hourly_weather = hourly_weather
 )
 
-# Each file is reloaded and checked against the object in memory (save_checkpoints() in utils.R)
 weather_checkpoint_paths <- save_checkpoints(weather_checkpoint, processed_dir)
 
-# Records of the run that no later script reads are saved as CSV
 weather_records <- list(
   weather_cleaning_log = weather_cleaning_log,
   weather_validation = weather_validation,
@@ -1472,13 +1435,12 @@ weather_dictionary <- tribble(
   "weather_raw_row_counts", "raw_rows",                  "Data rows in the file, header excluded; equal to the count in EPA's file list"
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 weather_dictionary <- document_tables(saved_weather_tables, weather_dictionary)
 
-# 1a and 1d add their own rows to both shared files, and only the weather rows are replaced here
+# 1a and 1d add their own rows to these shared files, only the weather rows get replaced here
 replace_own_rows(weather_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
 
-# File size and checksum of the checkpoint; GitHub rejects files over 100 MiB
+# size + checksum of the checkpoint, GitHub won't take files over 100 MiB
 weather_manifest <- manifest_rows(weather_checkpoint, weather_checkpoint_paths)
 
 stopifnot("Every weather file is under GitHub's 100 MiB limit" = all(weather_manifest$under_github_limit))

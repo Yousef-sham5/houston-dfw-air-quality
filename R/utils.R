@@ -13,8 +13,8 @@ log_step <- function(log, step, data) {
 # STUDY PERIOD AND TIME ZONE ----
 study_years <- 2021:2025
 
-# AQS local times skip daylight saving, so Texas is always UTC-6. "Etc/GMT+6" is that fixed offset (the name
-# reverses the sign). "America/Chicago" would add daylight saving and shift every summer hour
+# AQS local times skip DST so texas is always UTC-6. "Etc/GMT+6" is that fixed offset (yes the name
+# flips the sign). "America/Chicago" would add DST and shift every summer hour
 standard_time_zone <- "Etc/GMT+6"
 
 
@@ -35,8 +35,7 @@ pollutant_levels <- c("PM2.5", "Ozone", "NO2", "SO2", "CO")
 
 
 # CALENDAR COLUMNS ----
-# Weekday, weekend and meteorological season from date_local, so the daily, hourly and weather tables group the
-# same way. Winter is December to February
+# weekday, weekend + met season from date_local so daily, hourly and weather tables match. winter = dec-feb
 add_calendar_columns <- function(data) {
   data <- data %>%
     mutate(day_of_week = wday(date_local, label = TRUE, week_start = 1, locale = "C"))
@@ -81,11 +80,11 @@ add_calendar_columns <- function(data) {
 
 
 # NAAQS STANDARDS (2a AND 2b) ----
-# Primary standards in their own units and forms, shared so 2a and 2b screen with the same levels, rounding and ranks.
-# Each site-year is screened on its own, which is not an EPA design value (those average three years). Values are
-# rounded as the standard specifies before comparing: ozone truncated to 3 decimals (Appendix U 3(e)), PM2.5 to 0.1
+# primary standards in their own units and forms, shared so 2a and 2b screen with the same levels, rounding and ranks.
+# each site-year is screened on its own, which isn't an EPA design value (those average 3 yrs). values get
+# rounded per the standard before comparing: ozone truncated to 3 decimals (Appendix U 3(e)), PM2.5 to 0.1
 # and 1 (Appendix N 4.3), NO2 and SO2 to whole ppb (Appendices S 4.2(c) and T 4.1(c)) and CO to whole ppm (50.8(d)),
-# with halves rounded up
+# halves rounded up
 naaqs <- tribble(
   ~pollutant, ~standard, ~level, ~digits, ~rounding,  ~units_of_measure,             ~form,
   "Ozone",    "8-hour",  0.070,  3,       "truncate", "Parts per million",           "4th-highest daily maximum 8-hour average",
@@ -97,8 +96,7 @@ naaqs <- tribble(
 ) %>%
   mutate(pollutant = factor(pollutant, levels = pollutant_levels))
 
-# Rank of the annual 98th and 99th percentile in a site-year's values sorted from highest, by days with data
-# (Table 1 of Appendices N and S for the 98th, Table 1 of Appendix T for the 99th)
+# rank of the annual 98th/99th pct in a site-year's values sorted high to low, by days with data
 percentile_ranks <- tribble(
   ~percentile, ~min_days, ~max_days, ~rank,
   98,          1,         50,        1,
@@ -115,7 +113,7 @@ percentile_ranks <- tribble(
   99,          301,       366,       4
 )
 
-# Which value of the sorted site-year each short-term standard uses: a fixed rank, or a percentile rank from above
+# which value of the sorted site-year each short-term standard uses: a fixed rank or a percentile rank from the top
 naaqs_ranks <- tribble(
   ~pollutant, ~fixed_rank, ~percentile,
   "Ozone",    4,           NA,
@@ -140,8 +138,7 @@ stopifnot(
 
 
 # NAAQS ROUNDING ----
-# EPA rounds halves up (12.05 becomes 12.1), while round() rounds them to the nearest even digit. The small offset
-# stops a value stored as 12.0499999 from rounding down
+# EPA rounds halves up (12.05 -> 12.1) but round() goes to the nearest even. tiny offset stops 12.0499999 rounding down
 round_half_up <- function(x, digits = 0) {
   floor(x * 10^digits + 0.5 + 1e-9) / 10^digits
 }
@@ -153,10 +150,9 @@ truncate_to <- function(x, digits = 0) {
 
 
 # NAAQS-FORM VALUES (2a AND 2b) ----
-# The value of each standard per site-year: the ranked daily value for the short-term standards and the mean of the
-# quarterly means for annual PM2.5, rounded as the standard specifies and compared with its level. Annual PM2.5
-# keeps only site-years with data in all four quarters, since Appendix N needs every quarter for a complete year.
-# naaqs, naaqs_ranks and percentile_ranks are the tables in NAAQS STANDARDS above
+# each standard's value per site-year: the ranked daily value for short-term standards and the mean of the
+# quarterly means for annual PM2.5, rounded per the standard and compared with its level. annual PM2.5
+# only keeps site-years with data in all 4 quarters bc appendix N needs every quarter for a complete year.
 naaqs_statistics <- function(site_days, naaqs, naaqs_ranks, percentile_ranks) {
   site_year_ranks <- site_days %>%
     count(pollutant, site_id, year, name = "n_days") %>%
@@ -204,7 +200,7 @@ naaqs_statistics <- function(site_days, naaqs, naaqs_ranks, percentile_ranks) {
 
 
 # GAS UNIT CONVERSION ----
-# Ideal-gas molar volume at 25 °C and 1 atm, used to convert ppb to µg/m³
+# ideal-gas molar volume at 25 °C and 1 atm, for converting ppb to µg/m³
 r_gas <- 8.31446261815324 # J/(mol K), CODATA 2017
 t_ref <- 298.15           # K
 p_ref <- 101325           # Pa
@@ -214,8 +210,8 @@ molar_volume <- 1000 * r_gas * t_ref / p_ref # L/mol
 
 
 # EPA REFERENCE TABLES ----
-# EPA AQS methods reference table (FRM/FEM designations, instrument ranges, units). Method codes are padded to
-# 3 characters so leading zeros survive. Needs janitor loaded by the calling script
+# EPA's methods table (FRM/FEM, instrument ranges, units). method codes padded to
+# 3 chars so leading zeros survive. needs janitor loaded by whatever script calls it
 read_methods_ref <- function() {
   here("data", "reference", "methods_all.csv") %>%
     read_csv(col_types = cols(.default = col_character())) %>%
@@ -224,7 +220,6 @@ read_methods_ref <- function() {
     mutate(method_code = str_pad(method_code, width = 3, pad = "0"))
 }
 
-# AQS qualifier codes by type, from EPA's qualifier table
 aqs_qualifier_types <- bind_rows(
   tibble(
     qualifier = c(as.character(1:9), "MD", "ND", "SQ", "V", "LJ"),
@@ -243,8 +238,8 @@ aqs_qualifier_types <- bind_rows(
 
 
 # EVENT WINDOWS ----
-# events.csv with its dates parsed and checked, one row per event row. Read as text so Excel-stripped leading
-# zeros in the state and county codes are caught
+# events.csv with dates parsed and checked, one row per event row. read as text so excel-stripped leading
+# zeros in the state/county codes get caught
 read_events <- function() {
   events_raw <- here("data", "reference", "events.csv") %>%
     read_csv(col_types = cols(.default = col_character()))
@@ -266,7 +261,7 @@ read_events <- function() {
   events
 }
 
-# One row per event row and pollutant, from the semicolon-separated pollutants column. "all" stands for every pollutant
+# one row per event row and pollutant, from the semicolon-separated pollutants col. "all" = every pollutant
 split_event_pollutants <- function(events) {
   events %>%
     separate_longer_delim(pollutants, delim = ";") %>%
@@ -277,8 +272,8 @@ split_event_pollutants <- function(events) {
 
 
 # DAILY EVENT MEDIANS ----
-# Median value per pollutant, area and day within an event window.
-# PM2.5 uses the daily mean; gases use the daily max (both in µg/m³).
+# median value per pollutant, area and day inside an event window.
+# PM2.5 uses the daily mean, gases the daily max (both in µg/m³).
 event_medians <- function(data, area_col, areas, pollutants, start, end) {
   area_col <- match.arg(area_col, c("state_code", "county_id"))
 
@@ -301,7 +296,6 @@ event_medians <- function(data, area_col, areas, pollutants, start, end) {
     )
 }
 
-# The same medians as a table with one column per area, for reading an event day by day
 event_median_table <- function(data, area_col, areas, pollutants, start, end) {
   data %>%
     event_medians(area_col, areas, pollutants, start, end) %>%
@@ -313,8 +307,8 @@ event_median_table <- function(data, area_col, areas, pollutants, start, end) {
 
 
 # MONTHLY PROFILES (2a AND 2b) ----
-# Typical year from one row per site and calendar month (mean_value, mean_ordinary): the median and middle half across
-# sites for each month. group_cols adds groups such as site_group, so the case study and the nation share one rule
+# typical year from one row per site + calendar month (mean_value, mean_ordinary): median and middle half across
+# sites per month. group_cols adds groups like site_group so the case study and the nation share one rule
 monthly_profile <- function(site_calendar_months, group_cols = "pollutant") {
   site_calendar_months %>%
     summarise(
@@ -331,8 +325,7 @@ monthly_profile <- function(site_calendar_months, group_cols = "pollutant") {
 
 
 # HOURLY ZIP FILES (1d AND 1e) ----
-# The 24 columns EPA documents for hourly files (AirData file formats, section 6.2), shared by the pollutant
-# and weather files
+# the 24 cols EPA documents for hourly files (AirData file formats, section 6.2), shared by pollutant + weather files
 aqs_hourly_columns <- c(
   "State Code",
   "County Code",
@@ -360,8 +353,7 @@ aqs_hourly_columns <- c(
   "Date of Last Change"
 )
 
-# The 16 columns later steps use (8 of 24 are never parsed); codes stay text so leading zeros survive.
-# Latitude, longitude and the GMT columns are needed for the location and time-zone checks
+# the 16 cols later steps use (8 of 24 never get parsed), codes stay text so leading zeros survive
 aqs_hourly_col_spec <- cols_only(
   `State Code`         = col_character(),
   `County Code`        = col_character(),
@@ -381,7 +373,6 @@ aqs_hourly_col_spec <- cols_only(
   `Method Code`        = col_character()
 )
 
-# Read the first lines of a zipped CSV without unzipping the whole file
 read_first_lines <- function(zip_path, n) {
   csv_name <- str_replace(basename(zip_path), "\\.zip$", ".csv")
   con <- unz(zip_path, csv_name)
@@ -395,8 +386,8 @@ read_header <- function(zip_path) {
     scan(text = ., what = "", sep = ",", quiet = TRUE)
 }
 
-# Keep the rows of the case-study monitors (site_id and parameter_code). Non-Texas rows are dropped first
-# (cheap text comparison) so site IDs are only built for Texas rows
+# keep rows for the case-study monitors (site_id + parameter_code). non-texas rows get dropped first
+# (cheap text compare) so site IDs only get built for texas rows
 keep_case_study_rows <- function(chunk, monitors) {
   chunk %>%
     filter(`State Code` == "48") %>%
@@ -404,9 +395,9 @@ keep_case_study_rows <- function(chunk, monitors) {
     semi_join(monitors, by = c("site_id", "Parameter Code" = "parameter_code"))
 }
 
-# Read one zip in 1-million-row chunks, keep only the case-study rows and save them to out_dir with the number of
-# rows read and the zip's size and modification time. The saved file is reused while the zip is unchanged, so a
-# crash resumes where it stopped and a rerun skips the full read. A changed zip is read again
+# read one zip in 1M-row chunks, keep only case-study rows and save them to out_dir with the number of
+# rows read and the zip's size + mod time. the saved file gets reused while the zip's unchanged, so a
+# crash picks up where it stopped and a rerun skips the full read. a changed zip gets read again
 filter_case_study_zip <- function(zip_path, out_dir, monitors) {
   out_path <- file.path(out_dir, str_replace(basename(zip_path), "\\.zip$", ".rds"))
 
@@ -446,8 +437,7 @@ filter_case_study_zip <- function(zip_path, out_dir, monitors) {
   out_path
 }
 
-# AQS local times skip daylight saving, so Texas is always 6 hours behind GMT. A 5-hour gap in summer would
-# mean daylight saving had been applied
+# AQS local times skip DST so texas is always 6 hrs behind GMT, a 5-hr gap in summer would mean DST got applied
 check_local_standard_time <- function(data) {
   time_check <- data %>%
     select(date_local, time_local, date_gmt, time_gmt) %>%
@@ -474,8 +464,7 @@ check_local_standard_time <- function(data) {
 
 
 # SAVE CHECKPOINTS, RECORDS, DICTIONARY AND MANIFEST ----
-# Each table in a named list goes to dir as <name>.rds (gz), is read back and must be identical to the object in
-# memory. Returns the file paths
+# each table in a named list goes to dir as <name>.rds (gz), gets read back and has to match what's in memory
 save_checkpoints <- function(checkpoint, dir) {
   paths <- file.path(dir, str_c(names(checkpoint), ".rds"))
 
@@ -492,7 +481,6 @@ save_checkpoints <- function(checkpoint, dir) {
   paths
 }
 
-# Records of a run that no later script reads are saved as CSV, so they open in any editor and on GitHub
 save_records <- function(records, dir) {
   paths <- file.path(dir, str_c(names(records), ".csv"))
 
@@ -513,8 +501,8 @@ save_records <- function(records, dir) {
   invisible(paths)
 }
 
-# One dictionary row per saved column, with its type and description. A saved column without a description, or
-# a description of a column that was not saved, stops the script
+# one dictionary row per saved column with its type and description. a saved column without a description, or
+# a description for a column that wasn't saved, stops the script
 document_tables <- function(saved_tables, descriptions) {
   saved_columns <- tibble(
     table = rep(names(saved_tables), times = lengths(saved_tables)),
@@ -542,8 +530,8 @@ document_tables <- function(saved_tables, descriptions) {
     left_join(descriptions, by = c("table", "column"), relationship = "one-to-one")
 }
 
-# File size and checksum of each checkpoint. GitHub rejects files over 100 MiB. The CSV records stay out of the
-# manifest, since Git may change their line endings and with them the checksum
+# size + checksum of each checkpoint, GitHub won't take files over 100 MiB. CSV records stay out of the
+# manifest bc git might change their line endings and with them the checksum
 github_limit_mib <- 100
 
 manifest_rows <- function(checkpoint, paths) {
@@ -570,10 +558,10 @@ manifest_col_types <- cols(
   under_github_limit = col_logical()
 )
 
-# Every script that saves files shares data_dictionary.csv, and 1a, 1d, 1e and 2a share checkpoint_manifest.csv.
-# Each replaces only its own rows (matched on key: table or file) and keeps the rows the others wrote, so rerunning
-# one script never removes another's rows. Replaced rows keep their place in the file; a script writing for the
-# first time adds its rows at the end. Returns the whole updated file
+# every script that saves stuff shares data_dictionary.csv, and 1a, 1d, 1e and 2a share checkpoint_manifest.csv.
+# each one only replaces its own rows (matched on key: table or file) and keeps the rest, so rerunning
+# one script never wipes another's rows. replaced rows keep their spot in the file, a script writing for the
+# first time adds its rows at the end. returns the whole updated file
 replace_own_rows <- function(new_rows, path, key, col_types) {
   if (!file.exists(path)) {
     write_csv(new_rows, path)
@@ -603,8 +591,8 @@ replace_own_rows <- function(new_rows, path, key, col_types) {
 
 
 # CHART COLOURS, FONTS AND SIZES ----
-# Base values for the figure helpers below. Each figure script sets its own fonts and colours in its FIGURE STYLE
-# section before drawing. Text uses the ink colours; data colours are kept for the marks
+# base values for the figure helpers below. each figure script sets its own fonts + colours in its FIGURE STYLE
+# section before drawing. text uses the ink colours, data colours are for the marks
 chart_ink <- c(
   primary   = "#0b0b0b",
   secondary = "#52514e",
@@ -613,36 +601,33 @@ chart_ink <- c(
   axis      = "#c3c2b7"
 )
 
-# National figures: one accent for the series a panel is about, grey for the rest, and a light band for a
-# highlighted period. Case-study figures use site_group_colours instead
+# national figures: one accent for the series the panel is about, grey for the rest, light band for a
+# highlighted period. case-study figures use site_group_colours instead
 chart_fills <- c(
   accent = "#0e7c86",
   other  = "#b9b8b1",
   band   = "#f4f3ef"
 )
 
-# One fixed colour per case-study group, so a group keeps its colour in every figure
 site_group_colours <- c(
   "Houston Ship Channel" = "#eb6834",
   "Houston other"        = "#2a78d6",
   "Dallas-Fort Worth"    = "#1baf7a"
 )
 
-# One marker shape per group in every figure, so the groups read without colour too: a circle, a square and a triangle.
-# Solid marks are the main reading; the open version of the same shape carries a second meaning, such as a site with
-# four of five years or weekend hours
+# one marker shape per group in every figure so groups read without colour too: circle, square, triangle.
+# solid = the main reading, the open version of the same shape means something else, like a site with
+# 4 of 5 years or weekend hours
 site_group_shapes <- c("Houston Ship Channel" = 16, "Houston other" = 15, "Dallas-Fort Worth" = 17)
 
 site_group_open_shapes <- c("Houston Ship Channel" = 1, "Houston other" = 0, "Dallas-Fort Worth" = 2)
 
-# Every figure draws in Arial, checked at the top of each figure script
 chart_fonts <- c(
   title = "Arial",
   text  = "Arial",
   mono  = "Arial"
 )
 
-# Text sizes in points
 chart_sizes <- c(
   kicker      = 7,
   title       = 18,
@@ -654,8 +639,7 @@ chart_sizes <- c(
   footer      = 6.6
 )
 
-# End-of-line marker: a dot with a white ring and its value beside it; shape takes a group's marker. Needs ggplot2
-# loaded
+# end-of-line marker: dot with a white ring + its value next to it, shape takes the group's marker. needs ggplot2 loaded
 chart_end_label <- function(data, x, y, label, colour = chart_fills[["accent"]], hjust = 1, vjust = -1.1, shape = 19) {
   list(
     geom_point(data = data, mapping = aes(.data[[x]], .data[[y]]), inherit.aes = FALSE, size = 1.9, colour = "white", shape = shape),
@@ -667,14 +651,42 @@ chart_end_label <- function(data, x, y, label, colour = chart_fills[["accent"]],
   )
 }
 
+# box plot numbers: box = middle half, whiskers = 10th to 90th percentile, so the whiskers hold 80% of the values
+box_stats <- function(data, value, by) {
+  data %>%
+    summarise(
+      n_values = n(),
+      p10 = quantile(.data[[value]], 0.10, names = FALSE),
+      q1 = quantile(.data[[value]], 0.25, names = FALSE),
+      box_median = median(.data[[value]]),
+      q3 = quantile(.data[[value]], 0.75, names = FALSE),
+      p90 = quantile(.data[[value]], 0.90, names = FALSE),
+      .by = all_of(by)
+    )
+}
+
+box_fill_alpha <- 0.3
+
+# draws box_stats() rows as boxes with capped whiskers. x or y and the colours come from the plot's own aes()
+geom_box_whisker <- function(horizontal = FALSE, width = 0.55, linewidth = 0.35, ...) {
+  box_aes <- if (horizontal) {
+    aes(xmin = p10, xlower = q1, xmiddle = box_median, xupper = q3, xmax = p90)
+  } else {
+    aes(ymin = p10, lower = q1, middle = box_median, upper = q3, ymax = p90)
+  }
+  geom_boxplot(
+    mapping = box_aes, stat = "identity", width = width, staplewidth = 0.5, linewidth = linewidth,
+    orientation = if (horizontal) "y" else "x", ...
+  )
+}
+
 
 
 # JOURNAL FIGURE STYLE ----
-# Figures laid out like a journal's: boxed panels tagged a, b and so on, a key and a short source line under the
-# panels, and no caption, since the report text gives each finding. A script that uses them first sets chart_fonts
-# and the colour palettes above to its own values. Needs ggplot2, patchwork and stringr loaded by the calling script
+# journal-style figures: boxed panels tagged a, b etc, a key and a short source line under the
+# panels, no caption since the report text gives each finding. scripts using these set chart_fonts
+# and the colour palettes above first. needs ggplot2, patchwork and stringr loaded by the calling script
 
-# Printed width a source line may fill: 6.5 inches less the figure margins
 caption_width_points <- 448
 
 panel_label <- function(panel_number, panel_name) sprintf("(%s) %s", letters[panel_number], panel_name)
@@ -706,8 +718,8 @@ theme_paper <- function() {
     )
 }
 
-# One key row per value of row, centred. Marks: square, point (pch in shape; 21 to 25 are outlined), line, thick, dashed,
-# tick (a vertical bar) and range (a line through a point)
+# one key row per value of row, centred. marks: square, point (pch in shape, 21-25 are outlined), line, thick, dashed,
+# tick (a vertical bar), range (a line through a point) and box (a little box plot)
 key_row_points <- 12
 
 figure_key <- function(key) {
@@ -746,7 +758,19 @@ figure_key <- function(key) {
         tick = list(grid::segmentsGrob(
           centre, y - grid::unit(4, "pt"), centre, y + grid::unit(4, "pt"), gp = grid::gpar(col = items$colour[i], lwd = 1.6)
         )),
-        range = list(line_at(1.1), point_at(centre))
+        range = list(line_at(1.1), point_at(centre)),
+        box = list(
+          grid::segmentsGrob(left, y, right, y, gp = grid::gpar(col = items$colour[i], lwd = 0.8)),
+          grid::segmentsGrob(
+            grid::unit.c(left, right), y - grid::unit(2.5, "pt"), grid::unit.c(left, right), y + grid::unit(2.5, "pt"),
+            gp = grid::gpar(col = items$colour[i], lwd = 0.8)
+          ),
+          grid::rectGrob(
+            centre, y, width = grid::unit(7, "pt"), height = grid::unit(7, "pt"),
+            gp = grid::gpar(fill = alpha(items$colour[i], box_fill_alpha), col = items$colour[i], lwd = 0.8)
+          ),
+          grid::segmentsGrob(centre, y - grid::unit(3.5, "pt"), centre, y + grid::unit(3.5, "pt"), gp = grid::gpar(col = items$colour[i], lwd = 1.4))
+        )
       )
       stopifnot("Every key mark is a known kind" = !is.null(mark))
       label <- grid::textGrob(
@@ -763,13 +787,12 @@ figure_key <- function(key) {
   key_row
 }
 
-# Text the reader sees: chemical formulas with subscripts, and true minus signs on negative numbers
 pretty_text <- function(x) str_replace_all(x, c("NO2" = "NO₂", "SO2" = "SO₂"))
 
 minus_sign <- function(x) str_replace(x, "^-", "−")
 
-# The panel letter moves out of the title into a bold blue tag on the title line, and the subtitle turns italic. A figure
-# with one panel has no letter, and boxed = FALSE leaves round panels such as wind roses without a frame
+# panel letter moves out of the title into a bold blue tag on the title line, subtitle goes italic. a figure
+# with one panel gets no letter, and boxed = FALSE leaves round panels like wind roses without a frame
 tag_panel <- function(panel, panel_number, show_tag = TRUE, boxed = TRUE) {
   panel_labs <- get_labs(panel)
   title <- panel_labs$title
@@ -790,9 +813,9 @@ tag_panel <- function(panel, panel_number, show_tag = TRUE, boxed = TRUE) {
     )
 }
 
-# Text kept a fixed number of points inside the panel frame, whatever its length. x is "left", "right" or a data value,
-# y is "top", "bottom" or a data value; at a data value, hjust and vjust place the text as in geom_text. facet, a one-row
-# table of facet values, limits the text to that panel
+# text kept a fixed number of pts inside the panel frame no matter how long it is. x is "left", "right" or a data value,
+# y is "top", "bottom" or a data value; at a data value hjust and vjust place it like geom_text. facet (a one-row
+# table of facet values) limits the text to that panel
 edge_text_pad <- 4
 
 edge_text <- function(label, x, y, hjust = 0.5, vjust = 0.5, size = chart_sizes[["label"]], colour = chart_ink[["secondary"]],
@@ -830,7 +853,6 @@ edge_text <- function(label, x, y, hjust = 0.5, vjust = 0.5, size = chart_sizes[
   })
 }
 
-# A one or two line source note in small grey type, broken where the printed line would pass the figure width
 source_points <- 6.5
 
 source_line_points <- 7.8
@@ -862,8 +884,8 @@ source_row <- function(note, width_points = caption_width_points) {
   row
 }
 
-# Tagged panels in rows of ncol, then the key if there is one, then the source note. There is no caption: the report text
-# gives each finding. Panels listed in free_panels keep their own axis widths; widths sets the column widths
+# tagged panels in rows of ncol, then the key if there is one, then the source note. no caption, the report text
+# gives each finding. panels in free_panels keep their own axis widths, widths sets the column widths
 tagged_figure <- function(panels, key = NULL, source_note, ncol = 2, row_weights = NULL, free_panels = integer(0), widths = NULL,
                           width_points = caption_width_points, boxed = TRUE) {
   tagged <- lapply(seq_along(panels), \(i) tag_panel(panels[[i]], i, show_tag = length(panels) > 1, boxed = boxed))
@@ -887,7 +909,7 @@ tagged_figure <- function(panels, key = NULL, source_note, ncol = 2, row_weights
     plot_annotation(theme = theme(plot.margin = margin(8, 8, 6, 8), plot.background = element_rect(fill = "white", colour = NA)))
 }
 
-# Saves at the report text width and checks the write, since ragg only warns when a viewer or OneDrive holds the file
+# saves at the report text width and checks the write, ragg only warns when a viewer or onedrive holds the file
 save_figure <- function(figure, file_name, height, directory = figures_dir) {
   path <- file.path(directory, file_name)
   started <- Sys.time()

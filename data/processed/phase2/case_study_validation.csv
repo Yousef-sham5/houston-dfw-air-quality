@@ -10,7 +10,7 @@ Same-day results without a 95% range,0,0,TRUE
 Main ranges whose ends move over 10% of their width (second seed),0,0,TRUE
 Runs in which Ship Channel NO2 is not clearly higher,0,0,TRUE
 Runs in which Houston minus Dallas-Fort Worth does not hold,0,0,TRUE
-2b figures on disk,8,8,TRUE
+2b figures on disk,9,9,TRUE
 Saved 2b tables without data dictionary rows,0,0,TRUE
 Saved 2b tables at or over the GitHub limit,0,0,TRUE
 Sites and site-pollutants in the inventory,"33 sites, 68 site-pollutants","33 sites, 68 site-pollutants",TRUE

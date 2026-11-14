@@ -6,7 +6,7 @@ library(stringr)
 library(lubridate)
 library(here)
 
-source(here("R", "utils.R")) # event_medians(), event_median_table(), read_events()
+source(here("R", "utils.R"))
 
 checkpoint_paths <- c(
   aqs_long = here("data", "processed", "aqs_long_clean.rds"),
@@ -26,7 +26,6 @@ all_pollutants <- levels(aqs_long$pollutant)
 
 
 # WINTER STORM URI ----
-# Harris County, Feb 1 to Mar 7, 2021
 uri_check <- aqs_long %>%
   event_medians("county_id", "48-201", c("SO2", "NO2", "CO", "PM2.5"), "2021-02-01", "2021-03-07") %>%
   select(-area) %>%
@@ -37,7 +36,6 @@ print(uri_check, n = Inf, width = Inf)
 
 
 # CANADIAN WILDFIRE SMOKE, JULY 2021 ----
-# 12 candidate states, Jul 12 to Aug 3
 smoke_2021_states <- c("36", "34", "42", "09", "25", "44", "24", "11", "10", "51", "50", "33")
 
 smoke_2021_check <- aqs_long %>%
@@ -48,7 +46,7 @@ print(smoke_2021_check, n = Inf, width = Inf)
 
 
 # WILDFIRE SMOKE, LATE JULY TO EARLY AUGUST 2021 ----
-# 15 candidate states, Jul 20 to Aug 18 (Canadian smoke over the Upper Midwest, then western fires)
+# smoke from canada over the upper midwest, then western fires
 smoke_late_july_2021_states <- c("08", "16", "19", "20", "27", "31", "32", "35", "38", "40", "41", "46", "49", "53", "56")
 
 smoke_late_july_2021_check <- aqs_long %>%
@@ -59,7 +57,6 @@ print(smoke_late_july_2021_check, n = Inf, width = Inf)
 
 
 # WILDFIRE SMOKE, MID AUGUST 2021 ----
-# 6 candidate states, Aug 5-30
 smoke_mid_august_2021_states <- c("16", "30", "32", "38", "41", "53")
 
 smoke_mid_august_2021_check <- aqs_long %>%
@@ -70,7 +67,7 @@ print(smoke_mid_august_2021_check, n = Inf, width = Inf)
 
 
 # WILDFIRE SMOKE, LATE AUGUST 2021 ----
-# 4 candidate states, Aug 17 to Sep 8 (Caldor fire)
+# caldor fire
 smoke_late_august_2021_states <- c("06", "32", "49", "56")
 
 smoke_late_august_2021_check <- aqs_long %>%
@@ -81,7 +78,6 @@ print(smoke_late_august_2021_check, n = Inf, width = Inf)
 
 
 # HURRICANE IDA ----
-# Louisiana, Aug 15 to Sep 20, 2021
 ida_check <- aqs_long %>%
   event_medians("state_code", "22", all_pollutants, "2021-08-15", "2021-09-20") %>%
   select(-area) %>%
@@ -92,7 +88,7 @@ print(ida_check, n = Inf, width = Inf)
 
 
 # WILDFIRE SMOKE, SEPTEMBER 2022 ----
-# 6 candidate states, Sep 1-21 (Cedar Creek and Bolt Creek fires; Mosquito fire smoke over Reno)
+# cedar creek + bolt creek fires, plus mosquito fire smoke over reno
 smoke_september_2022_states <- c("16", "30", "32", "41", "49", "53")
 
 smoke_september_2022_check <- aqs_long %>%
@@ -103,7 +99,6 @@ print(smoke_september_2022_check, n = Inf, width = Inf)
 
 
 # EAST PALESTINE DERAILMENT ----
-# Columbiana County and 8 nearby counties, Jan 28 to Feb 14, 2023
 palestine_counties <- c(
   "39-029", "39-099", "39-155", "39-081",
   "42-007", "42-073", "42-003",
@@ -118,7 +113,7 @@ print(palestine_check, n = Inf, width = Inf)
 
 
 # CANADIAN WILDFIRE SMOKE, MAY 2023 ----
-# 8 candidate states, May 8-28 (Alberta and British Columbia fires)
+# alberta and BC fires
 smoke_may_2023_states <- c("08", "16", "27", "30", "31", "38", "46", "56")
 
 smoke_may_2023_check <- aqs_long %>%
@@ -129,7 +124,6 @@ print(smoke_may_2023_check, n = Inf, width = Inf)
 
 
 # CANADIAN WILDFIRE SMOKE, EARLY JUNE 2023 ----
-# 17 candidate states, May 28 to Jun 16
 smoke_2023_states <- c(
   "36", "34", "42", "09", "25", "44", "50", "33", "23",
   "24", "11", "10", "51", "54", "39", "26", "37"
@@ -143,8 +137,8 @@ print(smoke_2023_check, n = Inf, width = Inf)
 
 
 # CANADIAN WILDFIRE SMOKE, LATE JUNE 2023 ----
-# 26 candidate states, Jun 19 to Jul 3 (ends before the July 4 fireworks window). The Midwest, New York and
-# Pennsylvania first, then New England, the Mid-Atlantic and the Southeast
+# ends before the jul 4 fireworks window. midwest, NY and PA first,
+# then new england, the mid-atlantic and the southeast
 smoke_late_june_states <- c(
   "17", "26", "55", "18", "39", "27", "19", "42", "36", "21", "29",
   "01", "09", "10", "11", "13", "24", "25", "33", "34", "37", "44", "47", "50", "51", "54"
@@ -158,7 +152,7 @@ print(smoke_late_june_check, n = Inf, width = Inf)
 
 
 # CANADIAN WILDFIRE SMOKE, MID JULY 2023 ----
-# 23 candidate states, Jul 5-27 (Montana to the Ohio Valley, then the Carolinas)
+# montana to the ohio valley, then the carolinas
 smoke_mid_july_2023_states <- c(
   "01", "13", "17", "18", "19", "21", "25", "27", "30", "31", "33", "36",
   "37", "38", "39", "42", "45", "46", "47", "50", "51", "54", "55"
@@ -172,7 +166,6 @@ print(smoke_mid_july_2023_check, n = Inf, width = Inf)
 
 
 # CANADIAN WILDFIRE SMOKE, LATE JULY 2023 ----
-# 5 candidate states, Jul 16 to Aug 4
 smoke_late_july_2023_states <- c("17", "18", "26", "27", "55")
 
 smoke_late_july_2023_check <- aqs_long %>%
@@ -183,7 +176,7 @@ print(smoke_late_july_2023_check, n = Inf, width = Inf)
 
 
 # WILDFIRE SMOKE, AUGUST 2023 ----
-# 4 candidate states, Aug 8-28 (Northwest fires, then the Gray and Oregon Road fires near Spokane)
+# northwest fires, then the gray + oregon road fires near spokane
 smoke_august_2023_states <- c("16", "30", "41", "53")
 
 smoke_august_2023_check <- aqs_long %>%
@@ -194,7 +187,6 @@ print(smoke_august_2023_check, n = Inf, width = Inf)
 
 
 # CANADIAN WILDFIRE SMOKE, SEPTEMBER 2023 ----
-# 8 candidate states, Aug 27 to Sep 15
 smoke_september_2023_states <- c("19", "20", "29", "30", "31", "38", "46", "56")
 
 smoke_september_2023_check <- aqs_long %>%
@@ -205,7 +197,6 @@ print(smoke_september_2023_check, n = Inf, width = Inf)
 
 
 # HURRICANE BERYL ----
-# Harris County, Jul 1-24, 2024
 beryl_check <- aqs_long %>%
   event_medians("county_id", "48-201", all_pollutants, "2024-07-01", "2024-07-24") %>%
   select(-area) %>%
@@ -213,7 +204,7 @@ beryl_check <- aqs_long %>%
 
 print(beryl_check, n = Inf, width = Inf)
 
-# CO by Harris County site during Beryl (no site on Jul 8-9, one back online from Jul 10)
+# CO by harris site during beryl (nothing on Jul 8-9, one site back from Jul 10)
 aqs_long %>%
   filter(
     pollutant == "CO",
@@ -233,7 +224,7 @@ sites %>%
 
 
 # WILDFIRE SMOKE, SEPTEMBER 2024 ----
-# 4 candidate states, Sep 1-19 (Southern California fires over Nevada and Utah)
+# socal fires over nevada and utah
 smoke_september_2024_states <- c("30", "32", "38", "49")
 
 smoke_september_2024_check <- aqs_long %>%
@@ -244,7 +235,6 @@ print(smoke_september_2024_check, n = Inf, width = Inf)
 
 
 # LA PALISADES AND EATON FIRES ----
-# LA County and 4 neighbors, Jan 2-24, 2025
 la_fire_counties <- c("06-037", "06-059", "06-065", "06-071", "06-111")
 
 la_fire_check <- aqs_long %>%
@@ -255,7 +245,7 @@ print(la_fire_check, n = Inf, width = Inf)
 
 
 # PLAINS DUST STORM, MARCH 2025 ----
-# 7 candidate states, Mar 4-22 (dust from the Texas South Plains and Panhandle to the Great Lakes)
+# dust from the texas south plains/panhandle all the way to the great lakes
 dust_march_2025_states <- c("05", "17", "20", "26", "29", "40", "48")
 
 dust_march_2025_check <- aqs_long %>%
@@ -266,7 +256,6 @@ print(dust_march_2025_check, n = Inf, width = Inf)
 
 
 # CANADIAN WILDFIRE SMOKE, EARLY JUNE 2025 ----
-# 13 candidate states, May 23 to Jun 16
 smoke_early_june_2025_states <- c("17", "18", "19", "23", "25", "26", "27", "36", "38", "39", "42", "50", "55")
 
 smoke_early_june_2025_check <- aqs_long %>%
@@ -277,7 +266,6 @@ print(smoke_early_june_2025_check, n = Inf, width = Inf)
 
 
 # CANADIAN WILDFIRE SMOKE, MID JULY 2025 ----
-# 4 candidate states, Jul 2-22
 smoke_mid_july_2025_states <- c("26", "27", "38", "55")
 
 smoke_mid_july_2025_check <- aqs_long %>%
@@ -288,7 +276,7 @@ print(smoke_mid_july_2025_check, n = Inf, width = Inf)
 
 
 # CANADIAN WILDFIRE SMOKE, LATE JULY 2025 ----
-# 18 candidate states, Jul 19 to Aug 15 (New England first, then the Upper Midwest, then the Northeast again)
+# new england first, then the upper midwest, then the northeast again
 smoke_late_july_2025_states <- c(
   "09", "17", "18", "19", "20", "23", "25", "26", "27",
   "29", "31", "33", "36", "38", "42", "46", "50", "55"
@@ -302,18 +290,17 @@ print(smoke_late_july_2025_check, n = Inf, width = Inf)
 
 
 # PM2.5 EVENT RULE CHECK ----
-# Every smoke, fire and dust row in events.csv must meet the inclusion rule: on at least one day of the row, the
-# area's median PM2.5 is at least twice its median for the event's baseline week, and at least one site-day is
-# above 35 µg/m³ (the 24-hour standard). Collocated instruments are averaged per site and day first. Baseline days
-# that carry any event label are left out. Uri, Ida and Beryl are outage and emission events and are not judged
-# on PM2.5
+# rule for every smoke/fire/dust row in events.csv: on at least one day the area's median PM2.5 is 2x+ its
+# baseline week median, and at least one site-day is over 35 µg/m³ (the 24-hr standard). collocated instruments
+# get averaged per site-day first, and baseline days with any event label are skipped. uri, ida and beryl are
+# outage/emission events so they aren't judged on PM2.5
 rule_exempt_events <- c("Winter Storm Uri", "Hurricane Ida", "Hurricane Beryl")
 
 pm25_exceedance_level <- 35
 
 min_ratio_to_baseline <- 2
 
-# The week before each event, or the week after when the week before was itself smoky
+# the week before each event, or the week after if the week before was smoky too
 event_baselines <- tribble(
   ~event_name,                                     ~base_start,  ~base_end,
   "Wildfire smoke July 2021 (episode 1)",          "2021-07-12", "2021-07-18",
@@ -338,7 +325,6 @@ event_baselines <- tribble(
 ) %>%
   mutate(across(c(base_start, base_end), ymd))
 
-# Dates and codes are checked in read_events() (utils.R), the same reader 1a, 1d and 1e use
 events_to_check <- read_events() %>%
   filter(str_detect(pollutants, "PM2.5")) %>%
   filter(!event_name %in% rule_exempt_events) %>%
@@ -358,7 +344,6 @@ pm25_site_days <- aqs_long %>%
     .groups = "drop"
   )
 
-# The area's median and exceedance count on each day of each row
 row_peaks <- events_to_check %>%
   inner_join(pm25_site_days, by = join_by(state_code, start_date <= date_local, end_date >= date_local)) %>%
   filter(is.na(event_county) | county_code == event_county) %>%
@@ -375,7 +360,7 @@ row_peaks <- events_to_check %>%
     .groups = "drop"
   )
 
-# The area's median over the event's baseline week, leaving out labelled days
+# area median over the baseline week, skipping labelled days
 row_baselines <- events_to_check %>%
   left_join(event_baselines, by = "event_name", relationship = "many-to-one") %>%
   inner_join(pm25_site_days, by = join_by(state_code, base_start <= date_local, base_end >= date_local)) %>%

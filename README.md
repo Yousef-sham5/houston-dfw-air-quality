@@ -2,13 +2,13 @@
 
 This project uses R to clean, explore and model five years of air quality data from the EPA's Air Quality System (AQS) for PM2.5, ozone, NO₂, SO₂ and CO. The national daily data hold 8.9 million records, 5.56 million after cleaning. Hourly pollutant and weather data cover 16 case-study monitors in Houston and Dallas–Fort Worth (661,545 monitor-hours).
 
-**Status:** Complete. Phases 1 to 3 hold the analysis, and the 28-page report (`R/houston_dfw_air_quality.Rmd`, knit to `houston_dfw_air_quality.pdf`) presents it. Five years is too short to separate a trend from year-to-year weather, so the project does not test trends. 41 figures.
+**Status:** Complete. Phases 1 to 3 hold the analysis, and the 29-page report (`R/houston_dfw_air_quality.Rmd`, knit to `houston_dfw_air_quality.pdf`) presents it. Five years is too short to separate a trend from year-to-year weather, so the project does not test trends. 43 figures.
 
 <a href="houston_dfw_air_quality.pdf">
   <img src="docs/report_cover.png" width="400" alt="Cover page of the report">
 </a>
 
-**[Read the full report (PDF, 28 pages)](houston_dfw_air_quality.pdf)**
+**[Read the full report (PDF, 29 pages)](houston_dfw_air_quality.pdf)**
 
 ## Research question
 
@@ -85,7 +85,7 @@ Data come from the [EPA AirData download page](https://aqs.epa.gov/aqsweb/airdat
 4. Source the scripts in order: `1a`, `1b`, `1c`, `1d`, `1e`, `2a`, `2b`, `2c`, `3_distributions`. First runs of `1d`, `1e` and `3_distributions` are slow (up to about 45 minutes for `3_distributions`); later runs reuse saved results.
 5. Knit `R/houston_dfw_air_quality.Rmd` in RStudio. The PDF lands in the project root in under a minute.
 
-The figures use Arial; RStudio's Plots pane needs its Graphics Backend set to AGG.
+The figures use Arial; RStudio's Plots pane needs its Graphics Backend set to AGG. Spread across sites or days is drawn as box plots: the box holds the middle half, the line is the median and the whiskers run from the 10th to the 90th percentile.
 
 ## Repository structure
 
@@ -107,7 +107,7 @@ EPA AQS Project/
 ├── R/                      # scripts, run in order, utils.R and the report source
 ├── figures/                # numbered, one folder per phase
 │   ├── phase1/             # case-study site maps, wide and narrow
-│   ├── phase2/             # 2a.01_ to 2a.10_, 2b.01_ to 2b.08_, 2c.01_ to 2c.12_
+│   ├── phase2/             # 2a.01_ to 2a.10_, 2b.01_ to 2b.09_, 2c.01_ to 2c.13_
 │   └── phase3/             # 3.01_ to 3.10_
 ├── fonts/                  # report fonts and their licences
 ├── docs/                   # methodology.md, report_cover.png

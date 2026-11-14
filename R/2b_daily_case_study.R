@@ -9,13 +9,12 @@ library(scales)
 library(patchwork)
 library(here)
 
-source(here("R", "utils.R")) # study_years, region_lookup, read_events(), naaqs_statistics(), monthly_profile(), save helpers, chart theme
+source(here("R", "utils.R"))
 
 
 
 # FIGURE STYLE ----
-# 2b figures are laid out like a journal's, with the tagged-figure helpers in utils.R and the findings left to the
-# report text. These settings replace utils.R's chart colours and fonts for this script only
+# journal-style figures (helpers in utils.R). these settings override utils.R's colours + fonts here only
 stopifnot("Arial is installed, since 2b figures use it" = str_detect(systemfonts::match_fonts("Arial")$path, regex("arial", ignore_case = TRUE)))
 
 chart_fonts[] <- "Arial"
@@ -24,7 +23,6 @@ chart_ink[c("primary", "secondary", "muted", "grid", "axis")] <- c("#000000", "#
 
 chart_fills[c("accent", "other", "band")] <- c("#1D5D9B", "#B5B5B5", "#F2F2F2")
 
-# A warm second colour for labelled events, as in 2a
 chart_warm <- c(line = "#E3872D", text = "#B9621A", band = "#FCEEDF")
 
 site_group_colours[] <- c("#D55E00", "#0072B2", "#009E73")
@@ -33,7 +31,6 @@ chart_sizes[c("key", "label")] <- c(7, 6.5)
 
 figures_dir <- here("figures", "phase2")
 
-# Short notes under single panels
 panel_note_text <- element_text(colour = chart_ink[["secondary"]], size = 6.5, hjust = 0, margin = margin(t = 4))
 
 
@@ -41,21 +38,16 @@ panel_note_text <- element_text(colour = chart_ink[["secondary"]], size = 6.5, h
 # CONFIG ----
 processed_dir <- here("data", "processed")
 
-# CSV records go to a folder per phase; checkpoints, the dictionary and the manifest stay in data/processed
 records_dir <- file.path(processed_dir, "phase2")
 
 dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
 
-# Written by 2a section 7, which builds the site groups, collocated averages and site-months from the national table
 case_study_files <- c("daily_case_study.rds", "daily_case_study_instruments.rds", "daily_case_study_months.rds")
 
-# pollutant_levels and the NAAQS tables (naaqs, percentile_ranks, naaqs_ranks) are set in utils.R, shared with 2a, so
-# naaqs_statistics() screens the case-study sites with the same levels, rounding and ranks
 
-# CO stays out of the case study: Harris County has one five-year CO site and Dallas-Fort Worth has none
 case_study_pollutants <- c("PM2.5", "Ozone", "NO2", "SO2")
 
-# Houston North Loop, Houston Southwest Freeway, Dallas LBJ Freeway, Fort Worth California Parkway North
+# north loop, southwest fwy, LBJ fwy, california pkwy north
 near_road_ids <- c(
   "48-201-1052",
   "48-201-1066",
@@ -63,20 +55,20 @@ near_road_ids <- c(
   "48-439-1053"
 )
 
-# Distance of every Harris site to the land-cut Ship Channel, its group and its group under the memo list, from 1c
+# every harris site's distance to the land-cut channel, its group and its memo-list group, from 1c
 harris_groups_path <- here("data", "reference", "harris_site_channel_distance.csv")
 
-# The distance rule set in 1c, repeated for figure 2B.1 and checked against 1c's groups in section 1. Houston other
-# sites in the transition band sit nearer the channel than the rest and are left out in one check
+# same distance rule as 1c, repeated for fig 2B.1 and checked against 1c's groups in section 1. houston other
+# sites in the transition band are closer to the channel than the rest so one check drops them
 ship_channel_km <- 7.5
 
 transition_km <- 15
 
 transition_band <- str_c(ship_channel_km, " to ", transition_km, " km")
 
-# Sites run with and without, since each could tilt its group. Park Place and Harvard Street NO2 read lower than their
-# neighbours after their method changes, and Westhollow ozone read closer to its neighbours after its change; California
-# Parkway North is near-road and one of three five-year Dallas-Fort Worth PM2.5 sites
+# run with and without these sites since each could tilt its group. park place and harvard street NO2 read lower than their
+# neighbours after their method changes, westhollow ozone read closer to its neighbours after its change, and california
+# parkway north is near-road and one of only three 5-yr DFW PM2.5 sites
 sensitivity_sites <- tribble(
   ~site_id,      ~pollutant, ~local_site_name,                      ~left_out,
   "48-201-0066", "Ozone",    "Houston Westhollow",                  "Days after the method change",
@@ -86,16 +78,15 @@ sensitivity_sites <- tribble(
 ) %>%
   mutate(pollutant = factor(pollutant, levels = pollutant_levels))
 
-# Houston Deer Park #2 moved on 2025-05-30, the date 1d uses for its hourly flag
 relocations <- tribble(
   ~site_id,      ~relocation_date,
   "48-201-1039", "2025-05-30"
 ) %>%
   mutate(relocation_date = ymd(relocation_date))
 
-# PM2.5 sites with four of the five years, added in one sensitivity run since Houston other has one five-year PM2.5
-# site: Clinton, Houston North Wayside, Houston Westhollow, Convention Center and Dallas Hinton. Houston North Loop
-# also has four years but is near-road, so it stays out
+# PM2.5 sites with 4 of the 5 years, added in one sensitivity run bc houston other only has one 5-yr PM2.5
+# site: clinton, north wayside, westhollow, convention center and dallas hinton. north loop
+# has 4 years too but it's near-road so it stays out
 four_year_pm25_ids <- c(
   "48-201-1035",
   "48-201-0046",
@@ -104,9 +95,9 @@ four_year_pm25_ids <- c(
   "48-113-0069"
 )
 
-# NO2 sites with four of the five years, added in one sensitivity run that also lifts the Houston distance test from 7
-# to 10 sites: Channelview, Clinton, Northwest Harris County, Dallas Hinton, Dallas North #2, Eagle Mountain Lake and
-# Keller. The four-year near-road sites (North Loop, Southwest Freeway, California Parkway North) stay out
+# NO2 sites with 4 of 5 years, added in one sensitivity run that also takes the houston distance test from 7
+# to 10 sites: channelview, clinton, NW harris county, dallas hinton, dallas north #2, eagle mountain lake and
+# keller. the 4-yr near-road sites (north loop, southwest fwy, california pkwy north) stay out
 four_year_no2_ids <- c(
   "48-201-0026",
   "48-201-1035",
@@ -117,24 +108,22 @@ four_year_no2_ids <- c(
   "48-439-2003"
 )
 
-# A gap longer than this many days breaks a site's bar in figure 2B.1
 long_gap_days <- 30
 
-# Same-day comparisons (section 7): 95% ranges from a moving-block bootstrap. Nearby days are linked, so whole
-# two-week blocks are resampled; the seed makes every run give the same ranges
+# same-day comparisons (section 7): 95% ranges from a moving-block bootstrap. nearby days are linked so whole
+# 2-week blocks get resampled, the seed makes every run give the same ranges
 bootstrap_block_days <- 14
 
 bootstrap_reps <- 1000
 
 bootstrap_seed <- 2026
 
-# Section 8 reruns the main ranges with a second seed; an end that moves more than this share of the range's width
-# fails validation
+# section 8 reruns the main ranges with a 2nd seed, if an end moves more than this share of the range's width
+# validation fails
 bootstrap_check_seed <- 2027
 
 bootstrap_seed_tolerance <- 0.1
 
-# The two Texas events with a case-study chapter of their own
 case_study_events <- c("Winter Storm Uri", "Hurricane Beryl")
 
 stopifnot(
@@ -162,7 +151,6 @@ stopifnot(
 
 
 # 1. CASE-STUDY SITES AND NUANCES ----
-# The case-study checkpoint from 2a section 7, checked against the manifest, and the Harris site groups from 1c
 daily_case_study <- read_rds(file.path(processed_dir, "daily_case_study.rds"))
 
 daily_case_study_instruments <- read_rds(file.path(processed_dir, "daily_case_study_instruments.rds"))
@@ -196,7 +184,7 @@ site_names <- daily_case_study %>%
 sensitivity_name_check <- sensitivity_sites %>%
   left_join(site_names, by = "site_id", suffix = c("", "_data"), relationship = "many-to-one")
 
-# Houston sites must carry the group 1c set from distance; a mismatch means 2a ran before the latest 1c
+# houston sites must have the group 1c set from distance, a mismatch means 2a ran before the latest 1c
 houston_group_check <- daily_case_study %>%
   filter(region == "Houston") %>%
   distinct(site_id, site_group) %>%
@@ -227,7 +215,6 @@ stopifnot(
   "Every relocated site is in the data" = all(relocations$site_id %in% daily_case_study$site_id)
 )
 
-# Days at Deer Park #2 on or after its move, flagged as in the hourly table and kept
 daily_case_study <- daily_case_study %>%
   left_join(relocations, by = "site_id", relationship = "many-to-one") %>%
   mutate(is_post_relocation = coalesce(date_local >= relocation_date, FALSE)) %>%
@@ -244,7 +231,7 @@ stopifnot(
   "The flag starts on the relocation date" = all(relocation_check$first_flagged == relocations$relocation_date[1])
 )
 
-# Distance to the land-cut Ship Channel for every Houston site. Houston other sites in the transition band are left out
+# distance to the land-cut channel for every houston site. houston other sites in the transition band get dropped
 # in one check, and the memo-list group is kept for another
 houston_distances <- harris_groups %>%
   semi_join(daily_case_study, by = "site_id") %>%
@@ -268,11 +255,11 @@ stopifnot(
   "Every Houston site has one distance" = nrow(houston_distances) == houston_site_count,
   "Every Ship Channel site is nearer the channel than every Houston other site" =
     farthest_ship_channel_site$km_to_channel < nearest_other_site$km_to_channel,
-  "Nine Houston sites lie within the cutoff, as figure 2B.01's title says" = n_ship_channel_sites == 9
+  "Nine Houston sites lie within the cutoff, as panel (b) of figure 2B.1 shows" = n_ship_channel_sites == 9
 )
 
-# Each instrument's method periods. A method is new when it first reports more than 30 days after the site's first day,
-# which separates a method change from a second instrument that ran from the start
+# each instrument's method periods. a method counts as new when it first reports 30+ days after the site's first day,
+# which tells a method change apart from a 2nd instrument that ran from the start
 method_periods <- daily_case_study_instruments %>%
   summarise(first_date = min(date_local), last_date = max(date_local), .by = c(site_id, pollutant, poc, method_code, method_type)) %>%
   arrange(site_id, pollutant, first_date, poc)
@@ -303,7 +290,6 @@ listed_change_check <- listed_method_changes %>%
 
 print(new_method_starts, n = Inf, width = Inf)
 
-# Same-day FEM minus FRM at PM2.5 sites that ran both
 fem_frm_by_site <- daily_case_study_instruments %>%
   filter(pollutant == "PM2.5") %>%
   summarise(fem = mean(value[method_type == "FEM"]), frm = mean(value[method_type == "FRM"]), .by = c(site_id, pollutant, date_local)) %>%
@@ -312,7 +298,7 @@ fem_frm_by_site <- daily_case_study_instruments %>%
 
 print(fem_frm_by_site)
 
-# Missing days between consecutive records. PM2.5 sites sampled every 3rd or 6th day show their schedule as short gaps
+# missing days between records. PM2.5 sites on a 1-in-3 or 1-in-6 schedule show their schedule as short gaps
 site_day_gaps <- daily_case_study %>%
   arrange(pollutant, site_id, date_local) %>%
   mutate(gap_days = as.numeric(date_local - lag(date_local)) - 1, .by = c(pollutant, site_id)) %>%
@@ -328,7 +314,6 @@ days_per_year <- daily_case_study %>%
   mutate(year = str_c("days_", year)) %>%
   pivot_wider(names_from = year, values_from = n, values_fill = 0L)
 
-# One row per site and pollutant: coverage, methods, distance and the role in each analysis
 study_days <- as.numeric(make_date(max(study_years), 12, 31) - make_date(min(study_years), 1, 1)) + 1
 
 site_inventory <- daily_case_study %>%
@@ -430,8 +415,6 @@ stopifnot(
   "Dallas-Fort Worth sites have no channel distance" = all(is.na(site_inventory$km_to_channel[site_inventory$region != "Houston"]))
 )
 
-# Sites per group in each site set: main five-year sites, without the transition band, grouped by the memo list, and with
-# the four-year PM2.5 sites
 memo_set_counts <- site_inventory %>%
   filter(analysis_role == "Main") %>%
   mutate(site_group = factor(memo_site_group, levels = names(site_group_colours))) %>%
@@ -452,7 +435,6 @@ site_set_counts <- site_inventory %>%
 
 print(site_set_counts)
 
-# Days on which every group has at least one five-year site, so same-day comparisons stay balanced
 groups_per_pollutant <- site_set_counts %>%
   filter(main > 0) %>%
   count(pollutant, name = "n_groups")
@@ -466,7 +448,6 @@ same_day_coverage <- daily_case_study %>%
 
 print(same_day_coverage)
 
-# The thinnest site-year and the share of site-months that pass the 75% rule, per group
 site_year_completeness <- daily_case_study %>%
   filter(is_five_year) %>%
   count(pollutant, site_group, site_id, year) %>%
@@ -491,12 +472,10 @@ stopifnot(
   "Every group reports on at least 95% of days for each pollutant" = all(same_day_coverage$days_every_group >= 0.95 * study_days)
 )
 
-# A site's marker: its group's shape, open for a second meaning such as four of five years
 site_marker <- function(site_group, is_open) {
   unname(if_else(is_open, site_group_open_shapes[as.character(site_group)], site_group_shapes[as.character(site_group)]))
 }
 
-# Figure keys name each group with its five-year site count for the pollutant
 group_short_names <- c("Houston Ship Channel" = "Ship Channel", "Houston other" = "Houston other", "Dallas-Fort Worth" = "Dallas-Fort Worth")
 
 group_key <- function(pollutant_name, mark = "point", key_row = 1) {
@@ -514,7 +493,6 @@ group_key <- function(pollutant_name, mark = "point", key_row = 1) {
   )
 }
 
-# Figure 2B.1: when each site reported, where methods changed, and how far each Houston site sits from the Ship Channel
 short_site_name <- function(local_site_name) {
   local_site_name %>%
     str_remove("^Houston ") %>%
@@ -645,7 +623,7 @@ dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
 
 sites_figure_path <- save_figure(sites_figure, "2b.01_sites.png", 8.6)
 
-# The inventory is saved now as a CSV record, so it can be opened while later sections are built
+# inventory saved now as a CSV so u can open it while building later sections
 inventory_records <- list(
   case_study_site_inventory = site_inventory
 )
@@ -692,7 +670,6 @@ inventory_dictionary <- tribble(
   "case_study_site_inventory", "n_fireworks_days",          "Fireworks days (PM2.5 only)"
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 inventory_dictionary <- document_tables(inventory_records, inventory_dictionary)
 
 replace_own_rows(inventory_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
@@ -700,8 +677,8 @@ replace_own_rows(inventory_dictionary, data_dictionary_path, key = "table", col_
 
 
 # 2. OZONE ----
-# Five-year ozone sites. A day's value is its highest 8-hour mean in ppm, truncated to 3 decimals as Appendix U
-# specifies, and the day exceeds when that is above the 0.070 ppm level
+# 5-yr ozone sites. a day's value is its highest 8-hr mean in ppm, truncated to 3 decimals per Appendix U,
+# and it exceeds when that's over 0.070 ppm
 ozone_level <- naaqs$level[naaqs$pollutant == "Ozone"]
 
 ozone_digits <- naaqs$digits[naaqs$pollutant == "Ozone"]
@@ -723,7 +700,7 @@ stopifnot(
     all(between(ozone_days$value, -0.005, 0.2))
 )
 
-# The same site-days under each check, stacked with a site_set label. Reused in sections 3 to 5
+# same site-days under each check, stacked with a site_set label. reused in sections 3 to 5
 site_set_levels <- c(
   "Main",
   "Without the transition band",
@@ -768,7 +745,6 @@ site_set_versions <- function(site_days) {
 
 ozone_site_sets <- site_set_versions(ozone_days)
 
-# Exceedance days per site per year, by group and check
 ozone_by_group <- ozone_site_sets %>%
   summarise(
     n_sites = n_distinct(site_id),
@@ -787,7 +763,6 @@ ozone_by_group %>%
   pivot_wider(names_from = year, values_from = days_per_site) %>%
   print()
 
-# Each check side by side: five-year mean days per site, and the years in which the Ship Channel is lowest
 ozone_check_summary <- ozone_by_group %>%
   mutate(rank_in_year = rank(days_per_site, ties.method = "min"), .by = c(site_set, year)) %>%
   summarise(
@@ -825,7 +800,6 @@ stopifnot(
   "Each check keeps every group" = all(count(ozone_by_group, site_set, year)$n == 3)
 )
 
-# Season: exceedance days by calendar month, and the typical year from section 5's site-months of 2a
 ozone_monthly_exceedances <- ozone_days %>%
   filter(is_exceedance) %>%
   count(site_group, month, name = "n_exceedance_days") %>%
@@ -859,7 +833,6 @@ stopifnot(
     all(houston_july_dip$july < houston_july_dip$june & houston_july_dip$july < houston_july_dip$august)
 )
 
-# The standard: each site-year's 4th-highest day (naaqs_statistics() in utils.R) and a three-year screen of the same values
 ozone_fourth_highest <- naaqs_statistics(ozone_days, naaqs, naaqs_ranks, percentile_ranks) %>%
   left_join(distinct(ozone_days, site_id, site_group, local_site_name), by = "site_id", relationship = "many-to-one")
 
@@ -885,7 +858,6 @@ stopifnot(
   "Every 4th-highest value is filled in" = !anyNA(ozone_fourth_highest$value_rounded)
 )
 
-# Distance gradient for the Houston sites: five-year mean, mean 4th-highest and exceedance days against km to the channel
 ozone_houston_sites <- ozone_days %>%
   filter(region == "Houston") %>%
   summarise(
@@ -915,7 +887,6 @@ stopifnot(
   "Every Houston ozone site has a distance" = !anyNA(ozone_houston_sites$km_to_channel)
 )
 
-# Figure 2B.2: exceedance days by year, the typical year, the standard and the distance gradient
 year_axis <- scale_x_continuous(breaks = study_years, expand = expansion(mult = c(0.06, 0.16)))
 
 main_ozone_by_group <- ozone_by_group %>%
@@ -946,14 +917,15 @@ typical_year_panel <- ggplot(ozone_monthly_profile, aes(month, median_value, col
   labs(title = panel_label(2, "Typical year"), subtitle = "Monthly mean of daily peaks (ppm)", x = NULL, y = NULL) +
   theme_paper()
 
-standard_panel <- ggplot(ozone_fourth_highest, aes(year, value_rounded, colour = site_group)) +
+standard_panel <- ggplot(ozone_standard_by_group, aes(year, median_fourth, colour = site_group)) +
   geom_hline(yintercept = ozone_level, colour = chart_ink[["primary"]], linewidth = 0.4, linetype = "22") +
-  geom_point(aes(shape = site_group), position = position_dodge(width = 0.6), size = 1.2, alpha = 0.85) +
+  geom_line(linewidth = 0.7) +
+  geom_point(aes(shape = site_group), size = 1.5) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_shape_manual(values = site_group_shapes, guide = "none") +
-  scale_x_continuous(breaks = study_years) +
-  scale_y_continuous(labels = label_number(accuracy = 0.01)) +
-  labs(title = panel_label(3, "Standard"), subtitle = "4th-highest day per site and year (ppm)", x = NULL, y = NULL) +
+  year_axis +
+  scale_y_continuous(labels = label_number(accuracy = 0.001)) +
+  labs(title = panel_label(3, "Standard"), subtitle = "4th-highest day, median site (ppm)", x = NULL, y = NULL) +
   theme_paper()
 
 gradient_label <- ozone_gradient %>%
@@ -985,7 +957,6 @@ ozone_figure <- tagged_figure(
 
 ozone_figure_path <- save_figure(ozone_figure, "2b.02_ozone.png", 5.6)
 
-# CSV records: one row per site and year, and one per group, year and check
 ozone_site_years <- ozone_days %>%
   summarise(n_site_days = n(), n_exceedance_days = sum(is_exceedance), .by = c(site_group, site_id, local_site_name, year)) %>%
   left_join(select(ozone_fourth_highest, site_id, year, fourth_highest_ppm = value_rounded, is_above_standard = is_above),
@@ -1028,8 +999,8 @@ replace_own_rows(ozone_dictionary, data_dictionary_path, key = "table", col_type
 
 
 # 3. NO2 ----
-# Five-year NO2 sites. A day's value is its highest 1-hour reading in ppb. Each site gets a yearly mean of these daily
-# peaks, and a group is summarised by the median of its sites' means, so one busy site cannot dominate
+# 5-yr NO2 sites. a day's value is its highest 1-hr reading in ppb. each site gets a yearly mean of these daily
+# peaks and a group = the median of its sites' means, so one busy site can't take over
 no2_level <- naaqs$level[naaqs$pollutant == "NO2"]
 
 no2_days <- daily_case_study %>%
@@ -1043,7 +1014,6 @@ stopifnot(
   "NO2 daily peaks sit between -5 and 150 ppb" = all(between(no2_days$value, -5, 150))
 )
 
-# The 4-year check adds the NO2 sites with four of the five years to every group
 no2_four_year_days <- daily_case_study %>%
   filter(pollutant == "NO2", site_id %in% four_year_no2_ids) %>%
   left_join(site_roles, by = c("site_id", "pollutant"), relationship = "many-to-one")
@@ -1075,7 +1045,6 @@ no2_by_group %>%
   pivot_wider(names_from = year, values_from = median_site_mean_ppb) %>%
   print()
 
-# Each check side by side: five-year mean of the group values, and the years in which the Ship Channel is highest
 no2_check_summary <- no2_by_group %>%
   mutate(rank_in_year = rank(-median_site_mean_ppb, ties.method = "min"), .by = c(site_set, year)) %>%
   summarise(
@@ -1111,7 +1080,6 @@ stopifnot(
   "Each check keeps every group" = all(count(no2_by_group, site_set, year)$n == 3)
 )
 
-# The standard: each site-year's 98th-percentile day (naaqs_statistics() in utils.R), rounded to whole ppb
 no2_p98 <- naaqs_statistics(no2_days, naaqs, naaqs_ranks, percentile_ranks) %>%
   left_join(distinct(no2_days, site_id, site_group, local_site_name), by = "site_id", relationship = "many-to-one")
 
@@ -1125,7 +1093,6 @@ stopifnot(
   "Every site-year stays below the 100 ppb standard" = !any(no2_p98$is_above)
 )
 
-# Season: the typical year by group, and winter against summer with the partial winters left out
 no2_site_calendar_months <- daily_case_study_months %>%
   filter(pollutant == "NO2", is_complete) %>%
   summarise(
@@ -1152,13 +1119,12 @@ stopifnot(
   "Winter is higher than summer in every group" = all(no2_season_ratio$winter_to_summer > 1)
 )
 
-# Deer Park #2 stepped up in 2024 for an unknown reason (Phase 1 known limit); shown here, with no separate check
+# deer park #2 stepped up in 2024 for some unknown reason (phase 1 known limit), shown here without a separate check
 no2_days %>%
   filter(local_site_name == "Houston Deer Park #2") %>%
   summarise(mean_daily_peak_ppb = round(mean(value), 1), .by = year) %>%
   print()
 
-# Distance gradient for the Houston sites: five-year mean of the daily peaks against km to the channel
 no2_houston_sites <- bind_rows(no2_days, no2_four_year_days) %>%
   filter(region == "Houston") %>%
   summarise(
@@ -1180,7 +1146,7 @@ no2_gradient <- bind_rows(
 
 print(no2_gradient)
 
-# Leave-one-out: drop each site in turn, to see whether one site carries the gradient
+# leave-one-out: drop each site in turn to see if one site is carrying the gradient
 no2_leave_one_out <- bind_rows(lapply(no2_houston_sites$site_id, \(left_out_id) {
   kept <- filter(no2_houston_sites, site_id != left_out_id)
   spearman_test(kept$km_to_channel, kept$mean_ppb) %>%
@@ -1196,7 +1162,6 @@ stopifnot(
   "Every Houston NO2 site has a distance" = !anyNA(no2_houston_sites$km_to_channel)
 )
 
-# Figure 2B.3: yearly level by group, the typical year, the standard and the distance gradient
 main_no2_by_group <- no2_by_group %>%
   filter(site_set == "Main") %>%
   mutate(label = sprintf("%.1f", median_site_mean_ppb))
@@ -1223,15 +1188,27 @@ no2_typical_year_panel <- ggplot(no2_monthly_profile, aes(month, median_value, c
   labs(title = panel_label(2, "Typical year"), subtitle = "Monthly mean of daily peaks (ppb)", x = NULL, y = NULL) +
   theme_paper()
 
-no2_standard_panel <- ggplot(no2_p98, aes(year, value_rounded, colour = site_group)) +
-  geom_hline(yintercept = no2_level, colour = chart_ink[["primary"]], linewidth = 0.4, linetype = "22") +
-  geom_point(aes(shape = site_group), position = position_dodge(width = 0.6), size = 1.2, alpha = 0.85) +
+no2_standard_medians <- no2_p98 %>%
+  summarise(median_p98 = median(value_rounded), .by = c(site_group, year))
+
+stopifnot("One NO2 median per group and year" = nrow(no2_standard_medians) == 3 * length(study_years))
+
+no2_standard_panel <- ggplot(no2_standard_medians, aes(year, median_p98, colour = site_group)) +
+  geom_line(linewidth = 0.7) +
+  geom_point(aes(shape = site_group), size = 1.5) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_shape_manual(values = site_group_shapes, guide = "none") +
-  scale_x_continuous(breaks = study_years) +
-  scale_y_continuous(limits = c(0, no2_level * 1.05), breaks = seq(0, 100, 25)) +
-  labs(title = panel_label(3, "Standard"), subtitle = "98th-percentile day per site and year (ppb)", x = NULL, y = NULL) +
-  theme_paper()
+  year_axis +
+  scale_y_continuous(breaks = scales::breaks_pretty(n = 5), expand = expansion(mult = 0.15)) +
+  labs(
+    title = panel_label(3, "Standard"),
+    subtitle = "98th-percentile day, median site (ppb)",
+    caption = sprintf("Every site-year sits well under the %d ppb standard", no2_level),
+    x = NULL,
+    y = NULL
+  ) +
+  theme_paper() +
+  theme(plot.caption = panel_note_text)
 
 no2_gradient_label <- no2_gradient %>%
   mutate(label = sprintf(
@@ -1258,7 +1235,7 @@ no2_figure <- tagged_figure(
   ),
   source_note = sprintf(
     str_c(
-      "Source: EPA AQS daily data, %s to %s, five-year NO2 sites. Daily peak: highest 1-hour value. (c) Dashed line: the 100 ppb standard. ",
+      "Source: EPA AQS daily data, %s to %s, five-year NO2 sites. Daily peak: highest 1-hour value. ",
       "(d) Houston sites; shaded: %s from the channel."
     ),
     min(study_years), max(study_years), transition_band
@@ -1267,7 +1244,6 @@ no2_figure <- tagged_figure(
 
 no2_figure_path <- save_figure(no2_figure, "2b.03_no2.png", 5.6)
 
-# CSV records: one row per site and year, and one per group, year and check
 no2_site_years <- no2_site_year_means %>%
   filter(site_set == "Main") %>%
   select(site_group, site_id, year, n_site_days, mean_daily_peak_ppb = site_mean_ppb) %>%
@@ -1309,8 +1285,8 @@ replace_own_rows(no2_dictionary, data_dictionary_path, key = "table", col_types 
 
 
 # 4. PM2.5 ----
-# Five-year PM2.5 sites. A day's value is its 24-hour mean in µg/m³. The annual standard (9.0) is judged on the mean of the
-# four quarterly means and the 24-hour standard (35) on the 98th-percentile day, both from naaqs_statistics() in utils.R
+# 5-yr PM2.5 sites. a day's value is its 24-hr mean in µg/m³. the annual standard (9.0) uses the mean of the
+# 4 quarterly means, the 24-hr standard (35) uses the 98th pct day, both from naaqs_statistics() in utils.R
 pm25_annual_level <- naaqs$level[naaqs$pollutant == "PM2.5" & naaqs$standard == "Annual"]
 
 pm25_daily_level <- naaqs$level[naaqs$pollutant == "PM2.5" & naaqs$standard == "24-hour"]
@@ -1332,7 +1308,6 @@ stopifnot(
   "PM2.5 daily means sit between -5 and 500 µg/m³" = all(between(pm25_days$value, -5, 500))
 )
 
-# The usual checks, plus one without event and fireworks days and one with the four-year sites
 pm25_site_sets <- bind_rows(
   site_set_versions(pm25_days) %>%
     mutate(site_set = as.character(site_set)),
@@ -1363,7 +1338,6 @@ pm25_by_group %>%
   pivot_wider(names_from = year, values_from = cell) %>%
   print()
 
-# Each check side by side: five-year mean of each group's annual value
 pm25_check_summary <- pm25_by_group %>%
   filter(standard == "Annual") %>%
   summarise(five_year_annual = round(mean(median_value), 2), .by = c(site_set, site_group)) %>%
@@ -1394,7 +1368,7 @@ stopifnot(
   "The four-year set gives 4, 3 and 5 PM2.5 sites" = identical(four_year_sites_per_group$n, c(4L, 3L, 5L))
 )
 
-# Days above the 24-hour level (rounded to whole µg/m³), split by day class, and the dates that hold most of them
+# days over the 24-hr level (rounded to whole µg/m³) by day class, and the dates that hold most of them
 pm25_high_days <- pm25_days %>%
   filter(round_half_up(value, 0) > pm25_daily_level)
 
@@ -1413,7 +1387,6 @@ top_five_date_days <- sum(head(pm25_high_dates$n_sites, 5))
 
 stopifnot("Five dates hold at least half of the site-days above 35 µg/m³" = top_five_date_days >= nrow(pm25_high_days) / 2)
 
-# Season: the typical year by group
 pm25_site_calendar_months <- daily_case_study_months %>%
   filter(pollutant == "PM2.5", is_complete) %>%
   summarise(
@@ -1433,8 +1406,8 @@ print(pm25_peak_months)
 
 stopifnot("Every group peaks from May to July" = all(pm25_peak_months$month %in% c("May", "Jun", "Jul")))
 
-# Deer Park #2 changed instruments on 2023-03-17 and 2023-07-06. Houston East, which kept one, rises over the same months,
-# so the middle period is compared with it before reading a step into it
+# deer park #2 changed instruments on 2023-03-17 and 2023-07-06. houston east (kept one) goes up over the same months,
+# so the middle period gets compared with it before reading a step into it
 instrument_periods <- daily_case_study %>%
   filter(pollutant == "PM2.5", local_site_name %in% c("Houston Deer Park #2", "Houston East")) %>%
   mutate(
@@ -1449,7 +1422,6 @@ instrument_periods <- daily_case_study %>%
 
 print(instrument_periods)
 
-# Distance gradient for the Houston sites, five-year and with the four-year sites
 pm25_houston_sites <- bind_rows(pm25_days, pm25_four_year_days) %>%
   filter(region == "Houston") %>%
   summarise(
@@ -1473,7 +1445,6 @@ print(pm25_gradient)
 
 stopifnot("Four five-year and seven in all Houston PM2.5 sites in the gradient" = nrow(five_year_houston_pm25) == 4 && nrow(pm25_houston_sites) == 7)
 
-# Figure 2B.4: annual mean against the standard, the typical year, days above 35 by cause, and the distance gradient
 main_pm25_annual <- pm25_by_group %>%
   filter(site_set == "Main", standard == "Annual") %>%
   mutate(label = sprintf("%.1f", median_value))
@@ -1573,7 +1544,6 @@ pm25_figure <- tagged_figure(
 
 pm25_figure_path <- save_figure(pm25_figure, "2b.04_pm25.png", 5.75)
 
-# CSV records: one row per site and year (five-year and four-year sites), and one per check, standard, group and year
 pm25_site_years <- bind_rows(pm25_days, pm25_four_year_days) %>%
   summarise(
     n_site_days = n(),
@@ -1630,8 +1600,8 @@ replace_own_rows(pm25_dictionary, data_dictionary_path, key = "table", col_types
 
 
 # 5. SO2 ----
-# Five-year SO2 sites: three at the Ship Channel and Croquet in Houston other; Dallas-Fort Worth has none. SO2 sits near
-# zero on most days, so it is read through spike days (daily 1-hour peak at or above 5, 10 or 20 ppb, all above every
+# 5-yr SO2 sites: three at the ship channel + croquet in houston other, DFW has none. SO2 is near
+# zero most days so it's read through spike days (daily 1-hr peak at or over 5, 10 or 20 ppb, all above every
 # monitor's 2 ppb detection limit) and never through a mean
 so2_level <- naaqs$level[naaqs$pollutant == "SO2"]
 
@@ -1649,7 +1619,6 @@ stopifnot(
   "SO2 daily peaks sit between -5 and 150 ppb" = all(between(so2_days$value, -5, 150))
 )
 
-# Spike days per site and year at each threshold
 so2_spikes_by_site <- so2_days %>%
   summarise(
     n_site_days = n(),
@@ -1672,7 +1641,6 @@ so2_site_totals <- so2_spikes_by_site %>%
 
 print(so2_site_totals)
 
-# Spike days per site in each group and check
 so2_site_sets <- site_set_versions(so2_days)
 
 so2_by_group <- so2_site_sets %>%
@@ -1708,7 +1676,6 @@ stopifnot(
   "Every check keeps Croquet above the Ship Channel average in every year" = all(so2_check_years$years_croquet_higher == length(study_years))
 )
 
-# Season: share of days at or above 5 ppb, by site, with the partial winters left out
 so2_seasons <- so2_days %>%
   filter(is_full_season) %>%
   summarise(pct_spike_days = 100 * mean(is_spike), .by = c(site_group, local_site_name, season))
@@ -1724,8 +1691,8 @@ croquet_top_season <- so2_seasons %>%
 
 stopifnot("Croquet spikes most in summer" = croquet_top_season$season == "Summer")
 
-# Weekdays against weekends, the follow-up to 2a's weekend drop at the Ship Channel (Monday to Friday against
-# Saturday and Sunday, all months)
+# weekdays vs weekends, following up 2a's weekend drop at the ship channel (mon-fri vs
+# sat + sun, all months)
 so2_weekend <- so2_days %>%
   summarise(
     pct_spike_weekday = round(100 * mean(is_spike[!is_weekend]), 1),
@@ -1735,7 +1702,6 @@ so2_weekend <- so2_days %>%
 
 print(so2_weekend)
 
-# The standard: each site-year's 99th-percentile day (naaqs_statistics() in utils.R), and every day above 75 ppb
 so2_p99 <- naaqs_statistics(so2_days, naaqs, naaqs_ranks, percentile_ranks) %>%
   left_join(distinct(so2_days, site_id, site_group, local_site_name), by = "site_id", relationship = "many-to-one")
 
@@ -1751,21 +1717,19 @@ stopifnot(
   "Only one day is above 75 ppb" = nrow(so2_days_above_level) == 1
 )
 
-# Clinton's baseline drifts low (Phase 1): the share of its days that peak below the 2 ppb detection limit, by year
+# clinton's baseline drifts low (phase 1): share of its days peaking under the 2 ppb MDL, by year
 so2_low_days <- so2_days %>%
   summarise(pct_below_2_ppb = round(100 * mean(value < 2), 1), pct_below_zero = round(100 * mean(value < 0), 1), .by = c(local_site_name, year)) %>%
   arrange(local_site_name, year)
 
 print(so2_low_days, n = Inf)
 
-# No spike falls on an event day
 so2_event_spikes <- so2_days %>%
   filter(is_spike, event_class != "None") %>%
   nrow()
 
 cat("SO2 spike days on event days:", so2_event_spikes, "\n")
 
-# Figure 2B.5: spike days per site, by year, by season and against the standard
 so2_short_names <- so2_site_totals %>%
   mutate(short_name = short_site_name(local_site_name)) %>%
   mutate(short_name = reorder(short_name, n_spike_days))
@@ -1819,32 +1783,57 @@ so2_season_panel <- ggplot(so2_season_by_group, aes(season, pct_spike_days, colo
   labs(title = panel_label(3, "Season"), subtitle = "Share of days that spike", x = NULL, y = NULL) +
   theme_paper()
 
-so2_standard_panel <- ggplot(so2_p99, aes(year, value_rounded, colour = site_group)) +
-  geom_hline(yintercept = so2_level, colour = chart_ink[["primary"]], linewidth = 0.4, linetype = "22") +
-  geom_point(aes(shape = site_group), position = position_dodge(width = 0.5), size = 1.4, alpha = 0.85) +
+# one box per site from its five yearly 99th-percentile days, in the same site order as panel (a)
+so2_standard_boxes <- so2_p99 %>%
+  mutate(short_name = factor(short_site_name(local_site_name), levels = levels(so2_short_names$short_name))) %>%
+  box_stats("value_rounded", c("site_group", "short_name"))
+
+stopifnot(
+  "One SO2 standard box per site, each from all five years" =
+    nrow(so2_standard_boxes) == 4 && all(so2_standard_boxes$n_values == length(study_years)) && !anyNA(so2_standard_boxes$short_name)
+)
+
+so2_standard_panel <- ggplot(so2_standard_boxes, aes(y = short_name, colour = site_group, fill = site_group)) +
+  geom_box_whisker(horizontal = TRUE, width = 0.5) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
-  scale_shape_manual(values = site_group_shapes, guide = "none") +
-  scale_x_continuous(breaks = study_years) +
-  scale_y_continuous(limits = c(0, so2_level * 1.05), breaks = seq(0, 75, 25)) +
-  labs(title = panel_label(4, "Standard"), subtitle = "99th-percentile day per site and year (ppb)", x = NULL, y = NULL) +
-  theme_paper()
+  scale_fill_manual(values = alpha(site_group_colours, box_fill_alpha), guide = "none") +
+  scale_x_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.08))) +
+  labs(
+    title = panel_label(4, "Standard"),
+    subtitle = "99th-percentile day, one per year (ppb)",
+    caption = sprintf("Every site-year sits well under the %d ppb standard", so2_level),
+    x = NULL,
+    y = NULL
+  ) +
+  theme_paper() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
+    axis.text.y = element_text(family = chart_fonts[["text"]], colour = chart_ink[["secondary"]], size = 7.5),
+    plot.caption = panel_note_text
+  )
 
 so2_figure <- tagged_figure(
   list(so2_total_panel, so2_year_panel, so2_season_panel, so2_standard_panel),
-  group_key("SO2"),
+  bind_rows(
+    group_key("SO2"),
+    tibble(
+      mark = "box", colour = chart_ink[["secondary"]], shape = 16, row = 2,
+      label = "(d) A site's five years: box holds the middle half, line is the median year, whiskers 10th to 90th percentile"
+    )
+  ),
   source_note = sprintf(
     str_c(
       "Source: EPA AQS daily data, %s to %s, five-year SO2 sites; Dallas-Fort Worth has none. Spike: a daily 1-hour peak at or above 5 ppb. ",
-      "Clinton reads below the 2 ppb detection limit on most days, so its count may run low. (d) Dashed line: 75 ppb."
+      "Clinton reads below the 2 ppb detection limit on most days, so its count may run low."
     ),
     min(study_years), max(study_years)
   ),
-  free_panels = 1
+  free_panels = c(1, 4)
 )
 
 so2_figure_path <- save_figure(so2_figure, "2b.05_so2.png", 5.4)
 
-# CSV records: one row per site and year, and one per group, year and check
 so2_site_years <- so2_spikes_by_site %>%
   left_join(select(so2_p99, site_id, year, p99_ppb = value_rounded, is_above_standard = is_above), by = c("site_id", "year"),
             relationship = "one-to-one") %>%
@@ -1886,9 +1875,9 @@ replace_own_rows(so2_dictionary, data_dictionary_path, key = "table", col_types 
 
 
 # 6. EVENTS: URI AND BERYL ----
-# Both events cut power across Houston. Two questions: how many five-year monitors kept reporting, and how levels moved
-# against normal. Normal is the same calendar dates in the other four study years at the same sites; the week before is
-# kept as a check. SO2 sits near zero, so its ratios mean little and it appears only in the reporting counts
+# both events cut power across houston. 2 questions: how many 5-yr monitors kept reporting, and how levels moved
+# vs normal. normal = same calendar dates in the other 4 study years at the same sites, the week before is
+# kept as a check. SO2 is near zero so its ratios don't mean much, it only shows up in the reporting counts
 event_windows <- read_events() %>%
   filter(state_code == "48", event_name %in% case_study_events) %>%
   summarise(start_date = min(start_date), end_date = max(end_date), .by = event_name) %>%
@@ -1909,7 +1898,6 @@ five_year_monitors <- daily_case_study %>%
 monitors_per_group <- five_year_monitors %>%
   count(site_group, name = "n_monitors")
 
-# Share of each group's five-year monitors (site and gas) reporting on each day, from a week before to a week after
 event_reporting <- bind_rows(lapply(seq_len(nrow(event_windows)), \(i) {
   window <- event_windows[i, ]
   daily_case_study %>%
@@ -1928,7 +1916,6 @@ event_reporting_summary <- event_reporting %>%
 
 print(event_reporting_summary)
 
-# The emptiest day for each Houston gas, counting days with no site reporting
 houston_lowest_days <- bind_rows(lapply(seq_len(nrow(event_windows)), \(i) {
   window <- event_windows[i, ]
   daily_case_study %>%
@@ -1942,7 +1929,7 @@ houston_lowest_days <- bind_rows(lapply(seq_len(nrow(event_windows)), \(i) {
 
 print(houston_lowest_days)
 
-# Levels against normal for each group and gas (SO2 left out), with the near-road North Loop NO2 as its own row
+# levels vs normal per group and gas (no SO2), with near-road north loop NO2 as its own row
 level_days <- daily_case_study %>%
   filter(pollutant != "SO2", is_five_year | (site_id == near_road_check_id & pollutant == "NO2")) %>%
   mutate(
@@ -2011,7 +1998,6 @@ stopifnot(
   "Houston NO2 rose above normal during Beryl" = all(beryl_houston_no2 > 1)
 )
 
-# Figure 2B.6: monitors reporting and levels against normal, for each event
 reporting_panel <- function(event, kicker) {
   window <- filter(event_windows, event_name == event)
   ggplot(filter(event_reporting, event_name == event), aes(date_local, pct_reporting, colour = site_group)) +
@@ -2026,7 +2012,6 @@ reporting_panel <- function(event, kicker) {
 
 level_colours <- c(site_group_colours, "North Loop (near-road)" = chart_ink[["primary"]])
 
-# Group markers in the level panels, with North Loop as a diamond; open when one site or none reported
 level_marker <- function(level_group, is_thin) {
   solid <- c(site_group_shapes, "North Loop (near-road)" = 18)
   open <- c(site_group_open_shapes, "North Loop (near-road)" = 5)
@@ -2087,7 +2072,6 @@ events_figure <- tagged_figure(
 
 events_figure_path <- save_figure(events_figure, "2b.06_events.png", 5.6)
 
-# CSV records: daily reporting shares and the level ratios
 event_records <- list(
   case_study_event_reporting = event_reporting %>%
     mutate(pct_reporting = round(pct_reporting, 1)) %>%
@@ -2131,8 +2115,8 @@ replace_own_rows(event_dictionary, data_dictionary_path, key = "table", col_type
 
 
 # 7. PAIRED SAME-DAY DIFFERENCES ----
-# The main test. Each group's daily value is the mean of its five-year sites reporting that day; the difference between
-# two groups on the same day cancels most of the weather they share. Ozone is in ppb here so the gases share one scale
+# the main test. each group's daily value = mean of its 5-yr sites reporting that day, and the difference between
+# 2 groups on the same day cancels most of the weather they share. ozone's in ppb here so the gases share a scale
 paired_columns <- c(
   "site_set", "pollutant", "site_group", "region", "site_id", "date_local", "season", "year", "is_full_season", "event_class", "value"
 )
@@ -2145,8 +2129,8 @@ paired_site_days <- bind_rows(
 ) %>%
   mutate(site_set = as.character(site_set))
 
-# Checks added here for every gas: without event and fireworks days (PM2.5 already has it), and only group-days on which
-# at least half of the group's sites reported
+# checks added here for every gas: without event + fireworks days (PM2.5 already has it), and only group-days where
+# at least half the group's sites reported
 gas_event_free_days <- paired_site_days %>%
   filter(site_set == "Main", pollutant != "PM2.5", event_class == "None") %>%
   mutate(site_set = "Without event and fireworks days")
@@ -2194,8 +2178,8 @@ stopifnot(
     all(count(filter(daily_differences, site_set == "Main"), contrast, pollutant)$n >= 1700)
 )
 
-# A check that leaves a comparison's days and values exactly as in the main run is not a separate run: its range would
-# differ from the main one only by resampling chance. It is dropped for that comparison, so its row stays empty
+# a check that leaves a comparison's days and values exactly like the main run isn't really a separate run, its range
+# would only differ by resampling luck. so it's dropped for that comparison and its row stays empty
 difference_series <- daily_differences %>%
   summarise(dates = list(date_local), values = list(difference), .by = c(site_set, contrast, pollutant))
 
@@ -2221,7 +2205,7 @@ stopifnot(
     nrow(filter(unchanged_checks, pollutant == "SO2", site_set %in% c("Without the transition band", "Memo-list groups"))) == 2
 )
 
-# Median of a day-ordered series and a 95% range from resampled two-week blocks
+# median of a day-ordered series + a 95% range from resampled 2-week blocks
 block_bootstrap_range <- function(x) {
   n <- length(x)
   if (n < 2 * bootstrap_block_days) {
@@ -2279,8 +2263,8 @@ paired_results %>%
   pivot_wider(names_from = pollutant, values_from = cell) %>%
   print(width = Inf)
 
-# Linked days: how closely each day's difference follows the day before (one-day autocorrelation). Above zero, days
-# are not independent, which is why whole 14-day blocks are resampled
+# linked days: how much each day's difference follows the day before (lag-1 autocorrelation). above zero means
+# days aren't independent, which is why whole 14-day blocks get resampled
 main_differences %>%
   summarise(lag_one_correlation = round(cor(difference[-1], difference[-n()]), 2), .by = c(contrast, pollutant)) %>%
   print()
@@ -2312,12 +2296,33 @@ stopifnot(
   "Ship Channel NO2 is higher in every year" = all(no2_years$median_difference > 0)
 )
 
-# Figure 2B.7: main differences, the Ship Channel against Houston other by season, by check and by year
+# box plots of the daily differences behind each result, so u see how much single days swing around the median
+paired_boxes <- bind_rows(
+  box_stats(daily_differences, "difference", c("site_set", "contrast", "pollutant")) %>%
+    mutate(period_type = "Overall", period = str_c(min(study_years), " to ", max(study_years))),
+  box_stats(filter(main_differences, is_full_season), "difference", c("site_set", "contrast", "pollutant", "season")) %>%
+    mutate(period_type = "Season", period = as.character(season)),
+  box_stats(main_differences, "difference", c("site_set", "contrast", "pollutant", "year")) %>%
+    mutate(period_type = "Year", period = as.character(year))
+) %>%
+  select(-season, -year)
+
+paired_plot_rows <- paired_results %>%
+  inner_join(paired_boxes, by = c("site_set", "contrast", "pollutant", "period_type", "period"), relationship = "one-to-one")
+
+stopifnot(
+  "Every paired result has its box" = nrow(paired_plot_rows) == nrow(paired_results),
+  "Box medians match the saved medians" = isTRUE(all.equal(paired_plot_rows$box_median, paired_plot_rows$median_difference)),
+  "Box days match the saved days" = all(paired_plot_rows$n_values == paired_plot_rows$n_days)
+)
+
 gas_colours <- c(NO2 = chart_fills[["accent"]], Ozone = chart_ink[["primary"]], SO2 = "#7A4FA0", PM2.5 = "#8C8C8C")
 
+gas_box_fills <- alpha(gas_colours, box_fill_alpha)
+
 contrast_short <- c(
-  "Ship Channel minus Houston other" = "Ship Channel \u2212 Houston other",
-  "Houston minus Dallas-Fort Worth" = "Houston \u2212 Dallas-Fort Worth"
+  "Ship Channel minus Houston other" = "Ship Channel − Houston other",
+  "Houston minus Dallas-Fort Worth" = "Houston − Dallas-Fort Worth"
 )
 
 forest_theme <- theme(
@@ -2325,34 +2330,6 @@ forest_theme <- theme(
   panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
   axis.text.y = element_text(family = chart_fonts[["mono"]], colour = chart_ink[["secondary"]], size = chart_sizes[["axis"]])
 )
-
-main_plot <- main_overall %>%
-  mutate(row_label = str_c(pretty_text(as.character(pollutant)), ", ", contrast_short[as.character(contrast)])) %>%
-  arrange(contrast, pollutant) %>%
-  mutate(row_label = factor(row_label, levels = rev(row_label)))
-
-main_panel <- ggplot(main_plot, aes(median_difference, row_label, colour = pollutant)) +
-  geom_vline(xintercept = 0, colour = chart_ink[["axis"]], linewidth = 0.4) +
-  geom_errorbar(aes(xmin = ci_low, xmax = ci_high), orientation = "y", width = 0, linewidth = 0.9) +
-  geom_point(size = 1.9) +
-  scale_colour_manual(values = gas_colours, guide = "none") +
-  scale_x_continuous(labels = label_number(style_negative = "minus")) +
-  labs(title = panel_label(1, "Main result"), subtitle = "Median same-day difference, 95% range", x = NULL, y = NULL) +
-  theme_paper() +
-  forest_theme
-
-season_plot <- paired_results %>%
-  filter(site_set == "Main", period_type == "Season", contrast == contrast_levels[1], pollutant %in% c("NO2", "Ozone", "SO2")) %>%
-  mutate(period = factor(period, levels = levels(daily_case_study$season)))
-
-season_panel <- ggplot(season_plot, aes(period, median_difference, colour = pollutant)) +
-  geom_hline(yintercept = 0, colour = chart_ink[["axis"]], linewidth = 0.4) +
-  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0, linewidth = 0.9, position = position_dodge(width = 0.5)) +
-  geom_point(size = 1.7, position = position_dodge(width = 0.5)) +
-  scale_colour_manual(values = gas_colours, guide = "none") +
-  scale_y_continuous(labels = label_number(style_negative = "minus")) +
-  labs(title = panel_label(2, "By season"), subtitle = "Ship Channel minus Houston other (ppb)", x = NULL, y = NULL) +
-  theme_paper()
 
 check_labels <- c(
   "Main" = "Main",
@@ -2366,56 +2343,91 @@ check_labels <- c(
   "At least half of each group's sites" = "Half the sites or more"
 )
 
-check_plot <- paired_results %>%
-  filter(period_type == "Overall", contrast == contrast_levels[1], pollutant %in% c("NO2", "Ozone")) %>%
-  mutate(check = factor(check_labels[as.character(site_set)], levels = rev(check_labels)))
+# box = how single days spread, the line inside is the median day
+paired_box_layers <- function(horizontal = FALSE) {
+  list(
+    geom_box_whisker(horizontal = horizontal, width = 0.6),
+    scale_colour_manual(values = gas_colours, guide = "none"),
+    scale_fill_manual(values = gas_box_fills, guide = "none")
+  )
+}
 
-check_panel <- ggplot(check_plot, aes(median_difference, check, colour = pollutant)) +
+gas_strip_theme <- theme(strip.text = element_text(size = 7.5, face = "bold", hjust = 0, margin = margin(b = 3)))
+
+main_plot <- paired_plot_rows %>%
+  filter(site_set == "Main", period_type == "Overall") %>%
+  mutate(row_label = str_c(pretty_text(as.character(pollutant)), ", ", contrast_short[as.character(contrast)])) %>%
+  arrange(contrast, pollutant) %>%
+  mutate(row_label = factor(row_label, levels = rev(row_label)))
+
+houston_dfw_rows <- sum(main_plot$contrast == contrast_levels[2])
+
+main_panel <- ggplot(main_plot, aes(y = row_label, colour = pollutant, fill = pollutant)) +
   geom_vline(xintercept = 0, colour = chart_ink[["axis"]], linewidth = 0.4) +
-  geom_errorbar(aes(xmin = ci_low, xmax = ci_high), orientation = "y", width = 0, linewidth = 0.9) +
-  geom_point(size = 1.7) +
-  scale_colour_manual(values = gas_colours, guide = "none") +
+  geom_hline(yintercept = houston_dfw_rows + 0.5, colour = chart_ink[["axis"]], linewidth = 0.3, linetype = "22") +
+  paired_box_layers(horizontal = TRUE) +
   scale_x_continuous(labels = label_number(style_negative = "minus")) +
-  labs(title = panel_label(3, "By check"), subtitle = "Ship Channel minus Houston other (ppb)", x = NULL, y = NULL) +
+  labs(
+    title = panel_label(1, "Main result"),
+    subtitle = "Same-day difference between groups (gases in ppb, PM2.5 in µg/m³)",
+    x = NULL,
+    y = NULL
+  ) +
   theme_paper() +
   forest_theme
 
-year_plot <- paired_results %>%
-  filter(site_set == "Main", period_type == "Year", contrast == contrast_levels[1], pollutant %in% c("NO2", "Ozone")) %>%
-  mutate(period = as.integer(period))
+season_plot <- paired_plot_rows %>%
+  filter(site_set == "Main", period_type == "Season", contrast == contrast_levels[1], pollutant %in% c("NO2", "Ozone", "SO2")) %>%
+  mutate(period = factor(period, levels = levels(daily_case_study$season))) %>%
+  mutate(pollutant = factor(as.character(pollutant), levels = c("NO2", "Ozone", "SO2")))
 
-year_panel <- ggplot(year_plot, aes(period, median_difference, colour = pollutant)) +
+season_panel <- ggplot(season_plot, aes(period, colour = pollutant, fill = pollutant)) +
   geom_hline(yintercept = 0, colour = chart_ink[["axis"]], linewidth = 0.4) +
-  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), width = 0, linewidth = 0.9, position = position_dodge(width = 0.4)) +
-  geom_point(size = 1.7, position = position_dodge(width = 0.4)) +
-  scale_colour_manual(values = gas_colours, guide = "none") +
-  scale_x_continuous(breaks = study_years) +
+  paired_box_layers() +
+  facet_wrap(~pollutant, nrow = 1, labeller = as_labeller(pretty_text)) +
   scale_y_continuous(labels = label_number(style_negative = "minus")) +
-  labs(title = panel_label(4, "By year"), subtitle = "Ship Channel minus Houston other (ppb)", x = NULL, y = NULL) +
-  theme_paper()
+  labs(title = panel_label(2, "By season"), subtitle = "Ship Channel minus Houston other (ppb)", x = NULL, y = NULL) +
+  theme_paper() +
+  gas_strip_theme
 
-paired_figure <- tagged_figure(
-  list(main_panel, season_panel, check_panel, year_panel),
-  tribble(
-    ~mark,   ~colour,                ~label,
-    "range", gas_colours[["NO2"]],   "NO2",
-    "range", gas_colours[["Ozone"]], "Ozone",
-    "range", gas_colours[["SO2"]],   "SO2",
-    "range", gas_colours[["PM2.5"]], "PM2.5"
-  ),
-  source_note = sprintf(
-    str_c(
-      "Source: EPA AQS daily data, %s to %s, five-year sites. Group value: the mean of the sites reporting that day; gases in ppb, PM2.5 ",
-      "in \u00b5g/m\u00b3. 95%% ranges: %s resamples of %d-day blocks. (c) Every check from sections 2 to 7."
-    ),
-    min(study_years), max(study_years), comma(bootstrap_reps), bootstrap_block_days
-  ),
-  free_panels = c(1, 3)
+paired_key <- tribble(
+  ~mark, ~colour,                  ~label,
+  "box", chart_ink[["secondary"]], "Days: box holds the middle half, line is the median day, whiskers 10th to 90th percentile"
 )
 
-paired_figure_path <- save_figure(paired_figure, "2b.07_paired.png", 5.8)
+paired_note <- sprintf(
+  "Source: EPA AQS daily data, %s to %s, five-year sites. Group value: mean of the sites reporting that day.",
+  min(study_years), max(study_years)
+)
 
-# CSV record: every summary row (overall for each check, by season and by year for the main set)
+paired_figure <- tagged_figure(
+  list(main_panel, season_panel),
+  paired_key,
+  source_note = paired_note,
+  ncol = 1,
+  row_weights = c(1.1, 1),
+  free_panels = 1
+)
+
+paired_figure_path <- save_figure(paired_figure, "2b.07_paired.png", 6.2)
+
+year_plot <- paired_plot_rows %>%
+  filter(site_set == "Main", period_type == "Year", contrast == contrast_levels[1], pollutant %in% c("NO2", "Ozone")) %>%
+  mutate(pollutant = factor(as.character(pollutant), levels = c("NO2", "Ozone")))
+
+year_panel <- ggplot(year_plot, aes(period, colour = pollutant, fill = pollutant)) +
+  geom_hline(yintercept = 0, colour = chart_ink[["axis"]], linewidth = 0.4) +
+  paired_box_layers() +
+  facet_wrap(~pollutant, nrow = 1, labeller = as_labeller(pretty_text)) +
+  scale_y_continuous(labels = label_number(style_negative = "minus")) +
+  labs(title = "Ship Channel minus Houston other, year by year", subtitle = "Same-day difference (ppb)", x = NULL, y = NULL) +
+  theme_paper() +
+  gas_strip_theme
+
+year_figure <- tagged_figure(list(year_panel), paired_key, source_note = paired_note, ncol = 1)
+
+year_figure_path <- save_figure(year_figure, "2b.09_paired_years.png", 3.1)
+
 paired_records <- list(
   case_study_paired_differences = paired_results %>%
     mutate(across(c(median_difference, ci_low, ci_high, pct_days_positive), \(x) round(x, 3)))
@@ -2445,8 +2457,8 @@ replace_own_rows(paired_dictionary, data_dictionary_path, key = "table", col_typ
 
 
 # 8. VALIDATE AND SAVE ----
-# The main ranges rerun with a second seed, every run side by side for each gas, a table of the numbers the report quotes,
-# and a final observed / expected / passed table saved as a CSV record
+# main ranges rerun with a 2nd seed, every run side by side per gas, a table of the numbers the report quotes,
+# and a final observed / expected / passed table saved as a CSV
 set.seed(bootstrap_check_seed)
 
 seed_check <- main_differences %>%
@@ -2470,7 +2482,7 @@ seed_verdict_changes <- seed_check %>%
   pull(label) %>%
   str_flatten(collapse = "; ")
 
-# A run is the main site set or one check. A run holds when its median keeps the main sign and its range is clear of zero
+# a run = the main site set or one check. it holds when its median keeps the main sign and its range clears zero
 run_results <- paired_results %>%
   filter(period_type == "Overall") %>%
   mutate(main_sign = sign(median_difference[site_set == "Main"]), .by = c(contrast, pollutant)) %>%
@@ -2503,7 +2515,7 @@ pm25_tally <- tally_for(contrast_levels[1], "PM2.5")
 houston_dfw_tally <- check_tally %>%
   filter(contrast == contrast_levels[2])
 
-# Detection limits from hourly_case_study.rds (mdl_ppb): 2 ppb at Clinton, Croquet and Park Place, 0.2 ppb at Deer Park #2
+# MDLs from hourly_case_study.rds (mdl_ppb): 2 ppb at clinton, croquet and park place, 0.2 ppb at deer park #2
 so2_detection_limit_ppb <- 2
 
 so2_main_difference <- run_results %>%
@@ -2524,7 +2536,6 @@ stopifnot(
     seed_verdict_changes == "PM2.5, Ship Channel minus Houston other"
 )
 
-# Figure 2B.8: Ship Channel minus Houston other in every run, one panel per gas, each with its own check labels
 run_plot <- run_results %>%
   filter(contrast == contrast_levels[1]) %>%
   mutate(check = factor(check_labels[as.character(site_set)], levels = rev(check_labels)))
@@ -2538,8 +2549,7 @@ run_panel <- function(gas, number) {
   ggplot(gas_runs, aes(median_difference, check, colour = as.character(holds))) +
     geom_vline(xintercept = 0, colour = chart_ink[["axis"]], linewidth = 0.4) +
     geom_vline(xintercept = main_value, colour = chart_fills[["accent"]], linewidth = 0.3, linetype = "22") +
-    geom_errorbar(aes(xmin = ci_low, xmax = ci_high), orientation = "y", width = 0, linewidth = 0.9) +
-    geom_point(size = 1.7) +
+    geom_point(size = 2) +
     scale_colour_manual(values = run_colours, guide = "none") +
     scale_x_continuous(breaks = breaks_pretty(n = 3), labels = label_number(style_negative = "minus")) +
     scale_y_discrete(drop = FALSE) +
@@ -2565,14 +2575,14 @@ runs_figure <- tagged_figure(
   list(no2_run_panel, ozone_run_panel, so2_run_panel, pm25_run_panel),
   tribble(
     ~mark,    ~colour,                 ~label,
-    "range",  run_colours[["TRUE"]],   "Same sign as the main result, range clear of zero",
-    "range",  run_colours[["FALSE"]],  "Range includes zero",
+    "point",  run_colours[["TRUE"]],   "Holds: same sign as the main result, 95% range clear of zero",
+    "point",  run_colours[["FALSE"]],  "95% range includes zero",
     "dashed", chart_fills[["accent"]], "Main result"
   ),
   source_note = sprintf(
     str_c(
-      "Source: EPA AQS daily data, %s to %s, five-year sites; Ship Channel minus Houston other on the same day. A run is the main site set ",
-      "or one check. 95%% ranges: %s resamples of %d-day blocks. Empty rows: the check does not apply or changes nothing."
+      "Source: EPA AQS daily data, %s to %s, five-year sites; Ship Channel minus Houston other, median same-day difference. A run is the ",
+      "main site set or one check. 95%% ranges: %s resamples of %d-day blocks. Empty rows: the check does not apply or changes nothing."
     ),
     min(study_years), max(study_years), comma(bootstrap_reps), bootstrap_block_days
   )
@@ -2580,8 +2590,8 @@ runs_figure <- tagged_figure(
 
 runs_figure_path <- save_figure(runs_figure, "2b.08_checks.png", 5.6)
 
-# CSV records for the report: the distance gradients from sections 2 to 4, and one table of the numbers the text quotes,
-# each with its unit, 95% range where there is one, and the record it comes from
+# CSVs for the report: distance gradients from sections 2 to 4, plus one table of the numbers the text quotes,
+# each with its unit, 95% range if there is one, and the record it comes from
 distance_gradients <- bind_rows(
   mutate(ozone_gradient, pollutant = "Ozone", site_set = "Five-year sites"),
   mutate(no2_gradient, pollutant = "NO2", measure = "Five-year mean"),
@@ -2702,7 +2712,6 @@ report_dictionary <- document_tables(report_records, report_dictionary)
 
 replace_own_rows(report_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
 
-# Final validation: inputs, site sets, ranges, findings and saved files
 checkpoint_rows_listed <- input_check$rows[input_check$file == "daily_case_study.rds"]
 
 duplicate_site_days <- daily_case_study %>%
@@ -2747,7 +2756,7 @@ seed_shifts <- sum(seed_check$shift_share > bootstrap_seed_tolerance)
 
 figure_paths <- c(
   sites_figure_path, ozone_figure_path, no2_figure_path, pm25_figure_path,
-  so2_figure_path, events_figure_path, paired_figure_path, runs_figure_path
+  so2_figure_path, events_figure_path, paired_figure_path, runs_figure_path, year_figure_path
 )
 
 earlier_records <- c(inventory_records, ozone_records, no2_records, pm25_records, so2_records, event_records, paired_records, report_records)
@@ -2781,7 +2790,7 @@ count_checks <- tribble(
   "Main ranges whose ends move over 10% of their width (second seed)",  seed_shifts,                   0,
   "Runs in which Ship Channel NO2 is not clearly higher",             no2_runs_not_holding,           0,
   "Runs in which Houston minus Dallas-Fort Worth does not hold",      houston_dfw_runs_not_holding,   0,
-  "2b figures on disk",                                               sum(file.exists(figure_paths)), 8,
+  "2b figures on disk",                                               sum(file.exists(figure_paths)), 9,
   "Saved 2b tables without data dictionary rows",                     undocumented_records,           0,
   "Saved 2b tables at or over the GitHub limit",                      records_over_limit,             0
 ) %>%
@@ -2803,7 +2812,6 @@ print(case_study_validation, n = Inf, width = Inf)
 
 stopifnot("Every 2b validation check passed" = all(case_study_validation$passed))
 
-# CSV record: the validation table
 validation_records <- list(
   case_study_validation = case_study_validation
 )

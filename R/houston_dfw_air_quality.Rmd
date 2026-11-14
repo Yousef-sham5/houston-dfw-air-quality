@@ -2,7 +2,7 @@
 title: "U.S. Criteria Air Pollutants, 2021–2025"
 subtitle: "An EPA AQS Statistical Analysis in R"
 author: "Yousef Shamsaldeen"
-date: "`r format(Sys.Date(), '%d %B %Y')`"
+date: "`r format(Sys.Date(), '%B %Y')`"
 knit: (function(input, ...) rmarkdown::render(input, output_format = "pdf_document", output_dir = dirname(dirname(input))))
 output:
   pdf_document:
@@ -81,10 +81,10 @@ header-includes:
 
     \usepackage{tocloft}
     \tocloftpagestyle{empty}
-    \renewcommand{\contentsname}{CONTENTS}
-    \renewcommand{\cfttoctitlefont}{\footnotesize\color{aqsteal}\labelfont\addfontfeatures{LetterSpace=14}}
-    \renewcommand{\cftaftertoctitle}{\par\nobreak\vspace{-\parskip}\vskip 7pt{\color{aqsink}\hrule height 0.6pt}}
-    \setlength{\cftbeforetoctitleskip}{28.8pt}
+    \renewcommand{\contentsname}{Contents}
+    \renewcommand{\cfttoctitlefont}{\Large\bfseries\color{aqsink}}
+    \renewcommand{\cftaftertoctitle}{\par\nobreak\vspace{-\parskip}\vskip 6pt{\color{aqsrule}\hrule height 0.4pt}}
+    \setlength{\cftbeforetoctitleskip}{0pt}
     \setlength{\cftaftertoctitleskip}{8pt}
     \renewcommand{\cftsecfont}{\normalfont\color{aqsink}}
     \renewcommand{\cftsecpagefont}{\labelfont\small\color{aqsgrey}}
@@ -106,27 +106,32 @@ header-includes:
     \makeatletter
     \def\@subtitle{}
     \newcommand{\subtitle}[1]{\gdef\@subtitle{#1}}
-    \newcommand{\metaitem}[2]{\begin{minipage}[t]{\linewidth}\raggedright\hyphenpenalty=10000{\scriptsize\color{aqsmuted}\kicker{#1}\par}\vspace{5pt}{\small\color{aqsink}#2\par}\end{minipage}}
-    \newcommand{\scopeitem}[2]{\begin{minipage}[t]{\linewidth}\raggedright\hyphenpenalty=10000{\fontsize{16.5}{20}\selectfont\bfseries\color{aqsink}#1\par}\vspace{6pt}{\scriptsize\color{aqsgrey}\kicker{#2}\par}\end{minipage}}
-    \newcommand{\titlegrid}[4]{\noindent\begingroup\setlength{\tabcolsep}{0pt}\begin{tabular}{@{}p{0.255\linewidth}p{0.215\linewidth}p{0.215\linewidth}p{0.315\linewidth}@{}}#1 & #2 & #3 & #4\\\end{tabular}\endgroup\par}
     \renewcommand{\maketitle}{%
+      \pagenumbering{roman}%
       \thispagestyle{empty}%
-      \begingroup\raggedright\setlength{\parskip}{0pt}%
-      \vspace*{0.2in}%
-      {\footnotesize\color{aqsteal}\kicker{Portfolio report · R Markdown}}\par
+      \begingroup\centering\setlength{\parskip}{0pt}%
+      \vspace*{0.5in}%
+      {\large\scshape Technical Report\par}%
+      \vspace{20pt}%
+      {\color{aqsink}\hrule height 1pt}%
+      \vspace{30pt}%
+      {\fontsize{26}{32}\selectfont\bfseries\color{aqsink}\@title\par}%
       \vspace{16pt}%
-      {\fontsize{30}{34}\selectfont\bfseries\color{aqsink}\@title\par}%
-      \vspace{12pt}%
       {\Large\color{aqsgrey}\@subtitle\par}%
       \vspace{30pt}%
-      {\color{aqsink}\hrule height 0.6pt}%
-      \vspace{9.2pt}%
-      \titlegrid{\metaitem{Author}{\@author}}{\metaitem{Date}{\@date}}{\metaitem{Data}{EPA AQS}}{\metaitem{Code}{\href{https://github.com/Yousef-sham5/houston-dfw-air-quality}{GitHub repository}}}%
-      \vspace{18.8pt}%
-      {\color{aqsrule}\hrule height 0.4pt}%
-      \vspace{9.2pt}%
-      \titlegrid{\scopeitem{2021–2025}{Study years}}{\scopeitem{5}{Pollutants}}{\scopeitem{16}{Hourly monitors}}{\scopeitem{3}{Site groups}}%
+      {\color{aqsink}\hrule height 1pt}%
+      \vfill
+      {\normalsize Prepared by\par}%
+      \vspace{10pt}%
+      {\Large\@author\par}%
+      \vspace{36pt}%
+      {\large\@date\par}%
+      \vfill
+      {\small\color{aqsgrey}Data: U.S. EPA Air Quality System (AQS), AirData files dated 25 June 2026\par}%
+      \vspace{4pt}%
+      {\small\color{aqsgrey}Code: \href{https://github.com/Yousef-sham5/houston-dfw-air-quality}{github.com/Yousef-sham5/houston-dfw-air-quality}\par}%
       \endgroup
+      \clearpage
     }
     \frenchspacing
     \makeatother
@@ -731,32 +736,33 @@ script_link <- function(file) {
 {\color{aqsrule}\hrule height 0.4pt}
 \vspace{8pt}
 \begingroup\raggedright\setlength{\parskip}{0pt}
-{\scriptsize\color{aqsgrey}\kicker{Reproducibility}}\par
+{\small\bfseries\color{aqsink}Reproducibility}\par
 \vspace{4pt}
 {\footnotesize\color{aqsgrey}Data: U.S. EPA Air Quality System, file versions dated 25 June 2026. Analysis done in R 4.6.1 and R Markdown, with package versions saved in \texttt{renv.lock}. The numbers in the text are pulled straight from output tables written by the analysis scripts, and all figures are made in code, so the full report can be rebuilt from the raw data. Code: \texttt{github.com/Yousef-sham5/houston-dfw-air-quality}.\par}
 \endgroup
 \newpage
+\pagenumbering{arabic}
 ```
 
 # Introduction
 
 The U.S. Environmental Protection Agency (EPA) sets National Ambient Air Quality Standards (NAAQS) for six criteria pollutants, with limits chosen to protect public health [1]. Many areas still do not meet them. In 2023, `r hl("N08")`% of ozone monitoring sites and `r sprintf("%.1f", hl("N09"))`% of annual PM2.5 sites with data in all five study years were above their standards (Section 3).
 
-Houston and Dallas–Fort Worth both have long-running ozone problems. EPA classifies both metros as severe nonattainment areas for the 2008 ozone standard and serious nonattainment areas for the 2015 standard [2, 3]. In this dataset they rank `r hl("N16")`th and `r hl("N17")`th out of `r hl_unit_count("N16")` metros with an ozone exceedance, ranked by exceedance site-days. That count grows with the number of monitors a metro has, so it is only a rough comparison. The biggest difference between the two metros is the Houston Ship Channel. The channel and the area around it support what the American Society of Civil Engineers calls the second largest petrochemical complex in the world [4], with refineries, chemical plants and shipping concentrated along its banks.
+Houston and Dallas–Fort Worth both have long-running ozone problems. EPA classifies both metros as severe nonattainment areas for the 2008 ozone standard and serious nonattainment areas for the 2015 standard [2, 3]. In this dataset they rank `r hl("N16")`th and `r hl("N17")`th of `r hl_unit_count("N16")` metros with an ozone exceedance, by exceedance site-days. This count goes up with the number of monitors in a metro, so it is only a rough comparison. Houston also has the Houston Ship Channel. The American Society of Civil Engineers calls the area around it the second largest petrochemical complex in the world [4], with refineries, chemical plants and ships along its banks.
 
-The goal of this study is to measure how air near the Ship Channel compares with the rest of Harris County ("Houston other") and with Dallas–Fort Worth, and to check whether the differences match what the chemistry predicts. Three hypotheses are tested:
+This study compares air near the Ship Channel with the rest of Harris County ("Houston other") and with Dallas–Fort Worth, and checks whether the differences match basic atmospheric chemistry. It tests three hypotheses:
 
 ::: {.hypotheses data-latex=""}
-**H1.** NO~2~ is higher near the channel. Combustion sources such as process heaters, flares, ship engines and diesel trucks all emit nitrogen oxides, so sites close to a dense cluster of them should read higher.
+**H1.** NO~2~ is higher near the channel. Process heaters, flares, ship engines and diesel trucks all burn fuel and give off nitrogen oxides, so sites close to many of these sources should read higher.
 
-**H2.** Ozone is lower near the channel because fresh NO reacts with it: NO + O~3~ → NO~2~ + O~2~. Each ozone molecule used up makes one NO~2~ molecule, so the sum Ox = O~3~ + NO~2~ is conserved by this reaction. If titration explains the ozone gap, Ox should be about the same in both groups of sites.
+**H2.** Ozone is lower near the channel because fresh NO reacts with it in the titration reaction NO + O~3~ → NO~2~ + O~2~. Each ozone molecule used up makes one NO~2~ molecule, so this reaction does not change the sum Ox = O~3~ + NO~2~. If titration explains the ozone gap, Ox should be about the same in both groups.
 
-**H3.** SO~2~ comes from short, local plumes. If so, it should show up as brief spikes that line up with certain wind directions, while the background stays near the detection limit.
+**H3.** SO~2~ comes from short, local plumes. If so, it should show up as brief spikes when the wind blows from certain directions, with the other hours near the detection limit.
 :::
 
-The analysis uses EPA Air Quality System (AQS) data from 2021 to 2025 at two scales. Daily data for PM2.5, ozone, NO~2~, SO~2~ and CO across the U.S. give the national picture. For the case study, hourly ozone, NO~2~ and SO~2~ from 16 monitors in Houston and Dallas–Fort Worth are paired with hourly wind and temperature. The Ship Channel group is defined as the `r hl("D01")` Harris County sites within 7.5 km of the channel's land-cut sections. The hourly groups are small, with two ozone and NO~2~ sites each, so the hourly results describe those specific sites. Each comparison is repeated with different site groupings and data subsets to check that it holds up. Because this is observational data, links to a source are stated as "consistent with" that source.
+The analysis uses EPA Air Quality System (AQS) data from 2021 to 2025 at two scales. Daily PM2.5, ozone, NO~2~, SO~2~ and CO data from across the U.S. give the national picture. The case study pairs hourly ozone, NO~2~ and SO~2~ from 16 monitors in Houston and Dallas–Fort Worth with hourly wind and temperature. The Ship Channel group is the `r hl("D01")` Harris County sites within 7.5 km of the channel's land-cut sections. Each hourly group has only two ozone and NO~2~ sites, so the hourly results describe those sites only. Each comparison is rerun with other site groups and data subsets to see if it still holds. Observational data cannot prove what caused a pattern, so links to a source are written as "consistent with" that source.
 
-Section 2 covers the data and methods. Section 3 gives the national context, and Sections 4 and 5 present the daily and hourly case study. Section 6 describes how daily values are distributed, which curves fit them and how well those curves count high days, and works one ozone design value through EPA's rules to check it against EPA's published value. Section 7 lists the limitations, and Section 8 comes back to H1 to H3.
+Section 2 covers the data and methods. Section 3 gives the national context, and Sections 4 and 5 cover the daily and hourly case study. Section 6 looks at the shape of the daily values, fits curves to them, checks how well the curves count high days, and works through one ozone design value using EPA's rules. Section 7 lists the limitations, and Section 8 returns to H1 to H3.
 
 
 
@@ -764,7 +770,7 @@ Section 2 covers the data and methods. Section 3 gives the national context, and
 
 ## Data and cleaning
 
-Data come from EPA's AirData pre-generated files [5], in the versions dated 25 June 2026: 25 daily, 15 hourly pollutant and 10 hourly weather files. Table 2.1 lists the parameter codes, daily values and standards. PM2.5 is limited to federal reference and equivalent methods (FRM and FEM), and the weather data are AQS wind speed, wind direction and temperature (61103, 61104, 62101).
+The data are EPA's AirData pre-generated files [5], in the versions dated 25 June 2026: 25 daily, 15 hourly pollutant and 10 hourly weather files. Table 2.1 lists the parameter codes, daily values and standards. Only PM2.5 from federal reference and equivalent methods (FRM and FEM) is used. The weather data are AQS wind speed, wind direction and temperature (61103, 61104, 62101).
 
 ```{r pollutant-table}
 pollutant_table <- tribble(
@@ -791,11 +797,11 @@ pollutant_table %>%
   style_table()
 ```
 
-Cleaning took the daily files from `r comma(raw_daily_rows)` to `r comma(clean_daily_rows)` rows, mostly by removing duplicate summaries of the same monitor-day (Table A.1, Appendix). Gaps are never filled in, and daily values from days with under 75% of hours are dropped. Other unusual data, such as event days, hourly readings below the detection limit or on incomplete days, one monitor relocation and several method changes, are flagged and kept so each result can be rerun without them. Events are labelled from a sourced table of `r nrow(events)` state and county rows. The `r comma(raw_hourly_rows)` hourly rows were read in chunks down to `r comma(kept_hourly_rows)` monitor-hours for the 16 case-study monitors, and those hours rebuild all `r comma(rebuilt_daily_maxima)` daily maxima in EPA's daily files exactly. Times stay in local standard time, as AQS reports them.
+Cleaning cut the daily files from `r comma(raw_daily_rows)` to `r comma(clean_daily_rows)` rows. Most removed rows were duplicate summaries of the same monitor and day (Table A.1, Appendix). Missing data are never filled in, and days with fewer than 75% of hours reported are dropped. Other unusual data are flagged and kept, so each result can be rerun without them. These include event days, hourly readings below the detection limit or on incomplete days, one monitor move and several method changes. Event days come from a table of `r nrow(events)` state and county records, each with a source. The `r comma(raw_hourly_rows)` raw hourly rows were read in chunks and cut to `r comma(kept_hourly_rows)` monitor-hours for the 16 case-study monitors. These hours rebuild all `r comma(rebuilt_daily_maxima)` daily maximums in EPA's daily files exactly. Times are in local standard time, as AQS reports them.
 
 ## Site groups
 
-The Ship Channel group is the Harris County sites within 7.5 km of the channel's 12 land-cut sections in the U.S. Army Corps of Engineers channel framework [6]. The cutoff falls between `r last_site_inside$local_site_name` (`r sprintf("%.2f", last_site_inside$km_to_channel)` km) and `r first_site_outside$local_site_name` (`r sprintf("%.2f", first_site_outside$km_to_channel)` km). The rest of Harris County is "Houston other", except Seabrook, which sits next to the separate Bayport industrial district. Dallas and Tarrant counties form Dallas–Fort Worth. Table 2.2 gives the sites in each group, and Section 4 maps the hourly sites.
+The Ship Channel group is the Harris County sites within 7.5 km of the channel's 12 land-cut sections in the U.S. Army Corps of Engineers channel framework [6]. The cutoff falls between `r last_site_inside$local_site_name` (`r sprintf("%.2f", last_site_inside$km_to_channel)` km) and `r first_site_outside$local_site_name` (`r sprintf("%.2f", first_site_outside$km_to_channel)` km). The rest of Harris County is "Houston other". Seabrook is left out because it sits next to the separate Bayport industrial district. Dallas and Tarrant counties form Dallas–Fort Worth. Table 2.2 gives the sites in each group, and Section 4 maps the hourly sites.
 
 ```{r site-count-table}
 group_order <- c("Houston Ship Channel", "Houston other", "Dallas-Fort Worth")
@@ -842,7 +848,7 @@ site_counts %>%
 
 ## How comparisons are tested
 
-Groups are compared with same-day differences: each day, a group's value is the mean of its reporting sites, and subtracting two groups on the same day cancels most of the weather they share. The median daily difference gets a 95% range from a block bootstrap that resamples 14-day blocks 1,000 times, because neighbouring days are correlated. Each result is then rerun under up to eight checks, including alternative site groups such as the one in TCEQ's 2024 air toxics memo [7], added four-year sites, and dropping event days or the days after a monitor change. A check that leaves the data unchanged is dropped, and a result is said to hold when it keeps its sign with a range that excludes zero. Appendix A.3 shows the code for these steps.
+Groups are compared with same-day differences. Each day, a group's value is the mean of its sites that reported, and the two groups are subtracted on the same day. Both groups share that day's weather, so most of the weather effect cancels out. The median daily difference gets a 95% range from a block bootstrap that resamples 14-day blocks 1,000 times. Blocks are used because neighbouring days are correlated. Each result is then rerun under up to eight checks. These include other site groups, such as the one in TCEQ's 2024 air toxics memo [7], adding four-year sites, and dropping event days or days after a monitor change. A check that does not change the data is skipped. A result holds when it keeps its sign and its range does not include zero. Appendix A.3 shows the code.
 
 
 
@@ -850,26 +856,26 @@ Groups are compared with same-day differences: each day, a group's value is the 
 
 ## Network and screening
 
-Levels use the sites with data in all five years (`r comma(five_year_n("Ozone"))` ozone, `r comma(five_year_n("PM2.5"))` PM2.5, `r five_year_n("NO2")` NO~2~, `r five_year_n("SO2")` SO~2~ and `r five_year_n("CO")` CO sites), and exceedance counts use all sites. Reporting SO~2~ and CO sites fell by `r abs(hl("N01"))`% and `r abs(hl("N02"))`%, and PM2.5 sites grew by `r hl("N03")`%. The FEM share of PM2.5 rose from `r hl("N04")`% to `r hl("N05")`%, with FEM reading `r hl("N06")` to `r hl("N07")` µg/m^3^ above FRM at the same site and day (Figure 2A.1, Appendix).
+Level comparisons use only sites with data in all five years (`r comma(five_year_n("Ozone"))` ozone, `r comma(five_year_n("PM2.5"))` PM2.5, `r five_year_n("NO2")` NO~2~, `r five_year_n("SO2")` SO~2~ and `r five_year_n("CO")` CO sites). Exceedance counts use all sites. The number of reporting SO~2~ and CO sites fell by `r abs(hl("N01"))`% and `r abs(hl("N02"))`%, and PM2.5 sites grew by `r hl("N03")`%. The share of PM2.5 data from FEM monitors rose from `r hl("N04")`% to `r hl("N05")`%. At the same site and day, FEM read `r hl("N06")` to `r hl("N07")` µg/m^3^ higher than FRM (Figure 2A.1, Appendix).
 
-Each site-year was screened in its standard's own form, rounded as the regulations specify [8–12] (Figure 2A.2). Ozone and annual PM2.5 are missed most often: in 2023, `r hl("N08")`% of ozone sites and `r sprintf("%.1f", hl("N09"))`% of annual PM2.5 sites were above their levels, with the 9.0 µg/m^3^ annual PM2.5 level set in 2024 applied to every year. Over three-year windows, which are closer to EPA's design values, `r hl("N10")` to `r hl("N11")`% of ozone sites were above the standard.
+Each site-year was checked against its standard in the form and rounding the regulations give [8–12] (Figure 2A.2). Ozone and annual PM2.5 fail most often. In 2023, `r hl("N08")`% of ozone sites and `r sprintf("%.1f", hl("N09"))`% of annual PM2.5 sites were above their levels. The 9.0 µg/m^3^ annual PM2.5 level, set in 2024, is applied to every year. With three-year windows, which are closer to how EPA judges compliance, `r hl("N10")` to `r hl("N11")`% of ozone sites were above the standard.
 
 ```{r naaqs-figure}
 report_figure(
   here("figures", "phase2", "2a.02_naaqs_near_standard.png"),
   "national_naaqs_screening.csv",
   placement = "H",
-  label = "Figure 2A.2. Ozone and annual PM2.5 are missed most often."
+  label = "Figure 2A.2. Ozone and annual PM2.5 fail their standards most often."
 )
 ```
 
 ## Events and metro ranks
 
-Events matter much more for PM2.5 than for ozone (Figure 2A.4, Appendix). Labelled smoke, dust and storm days hold `r hl("N12")`% of PM2.5 exceedance site-days, and `r hl("N14")`% in 2023, the year of the large Canadian wildfire smoke episodes. Only `r hl("N15")`% of these event-day exceedances carry EPA's exceptional-event flag. For ozone the share is `r hl("N13")`%, consistent with ozone exceedances coming mainly from ordinary summer photochemistry. By exceedance site-days, Houston and Dallas–Fort Worth rank `r hl("N16")`th and `r hl("N17")`th of `r hl_unit_count("N16")` metros for ozone, against `r hl("N18")`nd and `r hl("N19")`th of `r hl_unit_count("N18")` for PM2.5 (Figure 2A.5, Appendix), so ozone is the main problem in both metros.
+Events such as smoke, dust and storms matter much more for PM2.5 than for ozone (Figure 2A.4, Appendix). Event days hold `r hl("N12")`% of PM2.5 exceedance site-days, and `r hl("N14")`% in 2023, the year of the large Canadian wildfire smoke. Only `r hl("N15")`% of these event-day exceedances carry EPA's exceptional-event flag. For ozone the share is `r hl("N13")`%, consistent with ozone exceedances coming mostly from normal summer photochemistry. By exceedance site-days, Houston and Dallas–Fort Worth rank `r hl("N16")`th and `r hl("N17")`th of `r hl_unit_count("N16")` metros for ozone, and `r hl("N18")`nd and `r hl("N19")`th of `r hl_unit_count("N18")` for PM2.5 (Figure 2A.5, Appendix). Ozone is the bigger problem in both metros.
 
 ## Seasons and the weekend effect
 
-Ozone peaks in June at `r hl("N21")` times its lowest month and PM2.5 in July at `r hl("N20")` times, consistent with summer photochemistry and, for PM2.5, wildfire smoke. NO~2~ and CO peak in winter at `r hl("N22")` and `r hl("N24")` times their lows, consistent with a shallow mixing layer that keeps fresh emissions near the ground. From April to October, weekend NO~2~ at the median site falls to `r sprintf("%.3f", hl("N26"))` of its weekday level while ozone stays at `r sprintf("%.3f", hl("N27"))`, because ozone does not follow NOx one for one. Where VOCs limit ozone formation, less NO on weekends means less titration, and ozone can rise. Weekend ozone is `r hl("N28")`% higher than on weekdays in Los Angeles, consistent with VOC-limited conditions, and `r abs(hl("N29"))`% and `r abs(hl("N30"))`% lower in Houston and Dallas–Fort Worth, consistent with more NOx-limited summer weekends (Figure 2A.10). Section 5 returns to titration at the hourly scale.
+Ozone peaks in June at `r hl("N21")` times its lowest month, and PM2.5 peaks in July at `r hl("N20")` times. This is consistent with summer photochemistry and, for PM2.5, wildfire smoke. NO~2~ and CO peak in winter at `r hl("N22")` and `r hl("N24")` times their lows, consistent with a shallow winter mixing layer that holds fresh emissions near the ground. From April to October, weekend NO~2~ at the median site drops to `r sprintf("%.3f", hl("N26"))` of its weekday level, while ozone stays at `r sprintf("%.3f", hl("N27"))`. Ozone does not track NOx one for one. Where VOCs limit ozone formation, less NO on weekends means less titration, so ozone can go up. Weekend ozone is `r hl("N28")`% higher than weekday ozone in Los Angeles, consistent with VOC-limited conditions. It is `r abs(hl("N29"))`% and `r abs(hl("N30"))`% lower in Houston and Dallas–Fort Worth, consistent with more NOx-limited summer weekends (Figure 2A.10). Section 5 looks at titration again with hourly data.
 
 ```{r weekend-figure}
 report_figure(
@@ -902,13 +908,13 @@ This section compares the three site groups using daily values at the sites with
 
 ## NO~2~ and ozone by group
 
-NO~2~ is highest at the Ship Channel in all `r hl("D04")` years. The median Ship Channel site's mean daily NO~2~ peak is `r hl("D05")` ppb above Houston other, or `r hl("D06")` ppb when the days after the NO~2~ method changes at Park Place (`r month_year(park_place_change)`) and Harvard Street (`r month_year(harvard_change)`) are left out, mostly because Park Place, a Ship Channel site, reads lower on its new method. NO~2~ also falls with distance from the channel. With four-year sites added, the Spearman correlation across `r distance_gradients$n_sites[distance_gradients$pollutant == "NO2" & distance_gradients$site_set == "With 4-year sites"]` sites is `r rho_symbol` = `r signed(hl("D07"))` (p = `r hl("D08")`). Dropping one site at a time keeps `r rho_symbol` between `r signed(min(no2_leave_one_out$rho))` and `r signed(max(no2_leave_one_out$rho))`, but without the farthest site (`r sprintf("%.1f", weakest_site_km)` km away), p rises to `r sprintf("%.3f", weakest_leave_one_out$p_value)`, so the gradient is treated as supporting evidence only.
+NO~2~ is highest at the Ship Channel in all `r hl("D04")` years. The median Ship Channel site's mean daily NO~2~ peak is `r hl("D05")` ppb above Houston other. Leaving out the days after the NO~2~ method changes at Park Place (`r month_year(park_place_change)`) and Harvard Street (`r month_year(harvard_change)`) raises this to `r hl("D06")` ppb, mostly because Park Place, a Ship Channel site, reads lower on its new method. NO~2~ also drops with distance from the channel. With four-year sites added, the Spearman correlation across `r distance_gradients$n_sites[distance_gradients$pollutant == "NO2" & distance_gradients$site_set == "With 4-year sites"]` sites is `r rho_symbol` = `r signed(hl("D07"))` (p = `r hl("D08")`). Dropping one site at a time keeps `r rho_symbol` between `r signed(min(no2_leave_one_out$rho))` and `r signed(max(no2_leave_one_out$rho))`. Without the farthest site (`r sprintf("%.1f", weakest_site_km)` km away), p rises to `r sprintf("%.3f", weakest_leave_one_out$p_value)`, so the distance trend is only supporting evidence.
 
 Ozone shows the opposite pattern. Dallas–Fort Worth has the most ozone exceedance days per site in all `r hl("D02")` years, and the Ship Channel has the fewest in `r hl("D03")` of 5, consistent with fresh NO lowering ozone near the channel (H2).
 
 ## Same-day differences
 
-Table 4.1 gives the same-day differences described in Section 2.3. The Ship Channel has `r hl("D19")` ppb more NO~2~ and `r abs(hl("D18"))` ppb less ozone than Houston other on the same days. More NO~2~ and less ozone on the same days is what titration predicts, and Section 5 tests this directly with Ox. Houston as a whole runs `r sprintf("%.2f", abs(hl("D22")))` ppb lower in ozone and `r hl("D23")` ppb higher in NO~2~ than Dallas–Fort Worth, holding in every run.
+Table 4.1 gives the same-day differences from Section 2.3. On the same days, the Ship Channel has `r hl("D19")` ppb more NO~2~ and `r abs(hl("D18"))` ppb less ozone than Houston other. This is the pattern titration predicts, and Section 5 tests it directly with Ox. Houston as a whole is `r sprintf("%.2f", abs(hl("D22")))` ppb lower in ozone and `r hl("D23")` ppb higher in NO~2~ than Dallas–Fort Worth, and both results hold in every run.
 
 ```{r paired-table}
 paired_rows <- tribble(
@@ -954,11 +960,11 @@ paired_table %>%
   style_table()
 ```
 
-PM2.5 and SO~2~ show no group gap worth reading. The PM2.5 difference holds in only `r hl("D24")` of `r hl_unit_count("D24")` runs, consistent with PM2.5 being mostly regional. The SO~2~ difference holds in every run, but at `r hl("D20")` ppb it sits far below the 2 ppb detection limit, so Section 5 reads SO~2~ through spike hours instead. Croquet, in Houston other, has more SO~2~ spike days than the average Ship Channel site in all `r hl("D11")` years. Figure 2B.7 in the Appendix shows these results by season, year and check.
+PM2.5 and SO~2~ show no useful group gap. The PM2.5 difference holds in only `r hl("D24")` of `r hl_unit_count("D24")` runs, consistent with PM2.5 being mostly regional. The SO~2~ difference holds in every run, but at `r hl("D20")` ppb it is far below the 2 ppb detection limit. Section 5 uses SO~2~ spike hours instead. Croquet, in Houston other, has more SO~2~ spike days than the average Ship Channel site in all `r hl("D11")` years. Figure 2B.7 in the Appendix shows how much single days swing around these medians, and how the gaps change by season.
 
 ## Events
 
-Most Ship Channel monitors stopped reporting during Hurricane Beryl in July 2024. On average only `r hl("D12")`% of them reported during the event window, against `r hl("D13")`% in Houston other and `r hl("D14")`% in Dallas–Fort Worth (Figure 2B.6, Appendix). Winter Storm Uri raised PM2.5 to `r sprintf("%.2f", hl("D15"))` to `r sprintf("%.2f", hl("D16"))` times its normal level across the groups.
+Most Ship Channel monitors stopped reporting during Hurricane Beryl in July 2024. On average only `r hl("D12")`% of them reported during the event window, compared with `r hl("D13")`% in Houston other and `r hl("D14")`% in Dallas–Fort Worth (Figure 2B.6, Appendix). Winter Storm Uri raised PM2.5 to `r sprintf("%.2f", hl("D15"))` to `r sprintf("%.2f", hl("D16"))` times its normal level across the groups.
 
 <!-- 2b: if space allows later, add one sentence on the ozone exceedance-day figure (2B.2) or the NO2-by-group figure (2B.3), both in the Appendix -->
 
@@ -966,15 +972,15 @@ Most Ship Channel monitors stopped reporting during Hurricane Beryl in July 2024
 
 # Houston case study: hourly
 
-Hourly data show when the group gaps appear and how they depend on wind. Each group has two hourly ozone and NO~2~ sites, so these results describe those sites. Harvard Street is the one Houston other site 7.5 to 15 km from the channel, and because it changes the ozone result most, the main numbers are also given without it. All three groups report in the same hour in at least `r hl("H01")`% of hours.
+Hourly data show what time of day the group gaps appear and how they change with wind. Each group has two hourly ozone and NO~2~ sites, so these results describe those sites. Harvard Street is the only Houston other site between 7.5 and 15 km from the channel. It changes the ozone result the most, so the main numbers are also given without it. All three groups report in the same hour in at least `r hl("H01")`% of hours.
 
 ## Daily cycles
 
-Ship Channel NO~2~ is higher and its ozone lower than Houston other at all 24 hours, under every check. Both gaps are widest late in the day, with NO~2~ `r signed(hl("H02"), 1)` ppb at `r hl_subject("H02")` and ozone `r signed(hl("H03"))` ppb at `r hl_subject("H03")` (Figure 2C.2, Appendix). From April to October, 6 to 8 am NO~2~ on weekends is `r round(abs(hl("H04")))`% below weekdays at the Ship Channel, against `r round(abs(hl("H05")))`% in Houston other and `r round(abs(hl("H06")))`% in Dallas–Fort Worth. The smaller drop is consistent with more Ship Channel NO~2~ coming from sources that run all week, such as industry.
+At all 24 hours and under every check, Ship Channel NO~2~ is higher and ozone is lower than in Houston other. Both gaps are largest late in the day, with NO~2~ `r signed(hl("H02"), 1)` ppb at `r hl_subject("H02")` and ozone `r signed(hl("H03"))` ppb at `r hl_subject("H03")` (Figure 2C.2, Appendix). From April to October, weekend NO~2~ from 6 to 8 am is `r round(abs(hl("H04")))`% below weekdays at the Ship Channel, compared with `r round(abs(hl("H05")))`% in Houston other and `r round(abs(hl("H06")))`% in Dallas–Fort Worth. The smaller weekend drop is consistent with more Ship Channel NO~2~ coming from sources that run every day, such as industry.
 
 ## The Ox balance
 
-Titration (NO + O~3~ → NO~2~ + O~2~) turns each ozone molecule it destroys into one NO~2~ molecule, so it leaves Ox = O~3~ + NO~2~ unchanged. If titration were the only reason Ship Channel ozone is lower, the two groups would have the same Ox. Over the year, Ship Channel ozone is `r sprintf("%.2f", abs(hl("H07")))` ppb lower than Houston other (95% range `r sprintf("%.2f", abs(hl_ci("H07", "high")))` to `r sprintf("%.2f", abs(hl_ci("H07", "low")))`), but its Ox is only `r sprintf("%.2f", abs(ox_value("Main", "All year", "ox_gap_ppb")))` ppb lower, so **Ox closes `r round(hl("H08"))`% of the ozone gap** (Figure 2C.4, Table 5.1). Without Harvard Street it closes `r round(hl("H09"))`%, it closes at least `r floor(100 * min(ox_year_checks$share_of_ozone_gap_closed))`% under every check, and in winter, when little new ozone forms, the main Ox gap's range includes zero. This is consistent with fresh NO from channel sources using up ozone near where it is emitted. With no NO data, Ox cannot be split further into local and regional parts.
+Titration (NO + O~3~ → NO~2~ + O~2~) turns each ozone molecule it uses up into one NO~2~ molecule, so Ox = O~3~ + NO~2~ stays the same. If titration were the only reason Ship Channel ozone is lower, both groups would have the same Ox. Over the year, Ship Channel ozone is `r sprintf("%.2f", abs(hl("H07")))` ppb lower than Houston other (95% range `r sprintf("%.2f", abs(hl_ci("H07", "high")))` to `r sprintf("%.2f", abs(hl_ci("H07", "low")))`), while its Ox is only `r sprintf("%.2f", abs(ox_value("Main", "All year", "ox_gap_ppb")))` ppb lower. This means **Ox closes `r round(hl("H08"))`% of the ozone gap** (Figure 2C.4, Table 5.1). Without Harvard Street it closes `r round(hl("H09"))`%, and it closes at least `r floor(100 * min(ox_year_checks$share_of_ozone_gap_closed))`% under every check. In winter, when little new ozone forms, the range of the main Ox gap includes zero. This is consistent with fresh NO from channel sources using up ozone close to where it is released. There are no NO data for these sites, so the leftover Ox gap cannot be split into local and regional parts.
 
 ```{r ox-figure}
 report_figure(
@@ -1030,86 +1036,86 @@ ox_rows %>%
 
 ## Calm air and wind
 
-Calm hours, with wind below 0.5 m/s, make up `r sprintf("%.1f", hl("H14"))`% of hours at the Ship Channel, `r sprintf("%.1f", hl("H15"))`% in Houston other and `r sprintf("%.1f", hl("H16"))`% in Dallas–Fort Worth. Compared with windy hours at the same site, hour and month, calm hours carry `r sprintf("%.1f", min(filter(calm_sites, measure == "NO2")$calm_minus_windy_ppb))` to `r sprintf("%.1f", max(filter(calm_sites, measure == "NO2")$calm_minus_windy_ppb))` ppb more NO~2~ and `r sprintf("%.1f", abs(max(filter(calm_sites, measure == "Ozone")$calm_minus_windy_ppb)))` to `r sprintf("%.1f", abs(min(filter(calm_sites, measure == "Ozone")$calm_minus_windy_ppb)))` ppb less ozone at every site, each range clear of zero (Figure 2C.8, Appendix). In every group at least `r floor(hl("H19"))`% of the ozone lost in calm air shows up as NO~2~, consistent with titration in still air near the ground.
+Calm hours (wind below 0.5 m/s) make up `r sprintf("%.1f", hl("H14"))`% of hours at the Ship Channel, `r sprintf("%.1f", hl("H15"))`% in Houston other and `r sprintf("%.1f", hl("H16"))`% in Dallas–Fort Worth. Compared with windy hours at the same site, hour and month, calm hours have `r sprintf("%.1f", min(filter(calm_sites, measure == "NO2")$calm_minus_windy_ppb))` to `r sprintf("%.1f", max(filter(calm_sites, measure == "NO2")$calm_minus_windy_ppb))` ppb more NO~2~ and `r sprintf("%.1f", abs(max(filter(calm_sites, measure == "Ozone")$calm_minus_windy_ppb)))` to `r sprintf("%.1f", abs(min(filter(calm_sites, measure == "Ozone")$calm_minus_windy_ppb)))` ppb less ozone on average at every site, and no site's 95% range includes zero. Single days vary much more (Figure 2C.8, Appendix). In every group, at least `r floor(hl("H19"))`% of the ozone lost in calm air shows up as NO~2~. This is consistent with titration in still air near the ground.
 
-The Ox gap that titration leaves sits mostly in wind from the channel. Without Harvard Street, Ship Channel Ox is `r sprintf("%.2f", abs(hl("H28")))` ppb lower in wind from the channel but `r signed(hl("H29"))` ppb in other wind, a gap whose range includes zero (Table 5.1, Figure 2C.11 in the Appendix). This is consistent with ozone forming in channel air as it moves across Houston, so sites downwind of the channel gain Ox. NO~2~ also runs `r sprintf("%.1f", min(hl("H20"), hl("H21"), hl("H22"), hl("H23")))` to `r sprintf("%.1f", max(hl("H20"), hl("H21"), hl("H22"), hl("H23")))` times its usual level at all four Houston sites in wind from 60 to 90 degrees. A wind direction points toward a source without proving it, since each direction also brings its own kind of weather.
+The Ox gap left over after titration shows up mostly when the wind comes from the channel. Without Harvard Street, Ship Channel Ox is `r sprintf("%.2f", abs(hl("H28")))` ppb lower in wind from the channel and `r signed(hl("H29"))` ppb in other wind, where the range includes zero (Table 5.1, Figure 2C.11 in the Appendix). This is consistent with ozone forming in channel air as it moves across Houston, so sites downwind of the channel gain Ox. At all four Houston sites, NO~2~ is also `r sprintf("%.1f", min(hl("H20"), hl("H21"), hl("H22"), hl("H23")))` to `r sprintf("%.1f", max(hl("H20"), hl("H21"), hl("H22"), hl("H23")))` times its usual level when the wind comes from 60 to 90 degrees. Wind direction alone does not prove a source, since each direction also brings different weather.
 
 ## SO~2~ plumes
 
-SO~2~ is below the 2 ppb detection limit in `r sprintf("%.1f", min(so2_below_mdl_sites$pct_below_mdl))`% to `r sprintf("%.1f", max(so2_below_mdl_sites$pct_below_mdl))`% of hours at three of the four sites, so it is read through spike hours of 5 ppb or more. Spikes are short, with a median length of `r unique(main_so2_sites$median_episode_hours)` hour at every site. Croquet, in Houston other, spikes most often, at `r sprintf("%.1f", max(main_so2_sites$spike_rate_per_1000))` per 1,000 hours. Of its spikes, `r round(hl("H11"))`% fall between 9 am and 6 pm, and its summer rate is `r sprintf("%.1f", hl("H12"))` times any other season's, consistent with a raised plume mixed down to the ground by daytime heating. Most of its spike hours, `r round(hl("H24"))`%, come from the southwest, a direction that brings only `r round(hl("H26"))`% of its hours and points away from the channel (Figure 2C.10, Appendix). At Park Place, `r round(hl("H25"))`% of spike hours come from the channel side, which brings `r round(hl("H27"))`% of its hours. During Deer Park #2's spike hours, NO~2~ is `r sprintf("%.1f", hl("H13"))` ppb above normal (`r sprintf("%.1f", hl_ci("H13", "low"))` to `r sprintf("%.1f", hl_ci("H13", "high"))`), so the plumes carry nitrogen oxides as well. These patterns support H3: SO~2~ arrives in brief, local plumes from more than one direction.
+At three of the four sites, SO~2~ is below the 2 ppb detection limit in `r sprintf("%.1f", min(so2_below_mdl_sites$pct_below_mdl))`% to `r sprintf("%.1f", max(so2_below_mdl_sites$pct_below_mdl))`% of hours, so the analysis uses spike hours of 5 ppb or more. Spikes are short, with a median length of `r unique(main_so2_sites$median_episode_hours)` hour at every site. Croquet, in Houston other, has the most spikes, at `r sprintf("%.1f", max(main_so2_sites$spike_rate_per_1000))` per 1,000 hours. Of its spikes, `r round(hl("H11"))`% fall between 9 am and 6 pm, and its summer spike rate is `r sprintf("%.1f", hl("H12"))` times that of any other season. This is consistent with an elevated plume that daytime heating mixes down to the ground. Most of its spike hours (`r round(hl("H24"))`%) come from the southwest, away from the channel, even though only `r round(hl("H26"))`% of its hours have wind from that direction (Figure 2C.10, Appendix). At Park Place, `r round(hl("H25"))`% of spike hours come from the channel side, which accounts for `r round(hl("H27"))`% of its hours. During spike hours at Deer Park #2, NO~2~ is `r sprintf("%.1f", hl("H13"))` ppb above normal (`r sprintf("%.1f", hl_ci("H13", "low"))` to `r sprintf("%.1f", hl_ci("H13", "high"))`), so the plumes also carry nitrogen oxides. These patterns support H3: SO~2~ comes in short, local plumes from more than one direction.
 
 ## Robustness
 
-All `r hl("H30")` headline hourly findings hold under every check that applies: without Harvard Street, without its hours after the method change, without Deer Park #2 after its move and without hours on the new wind sensors (Figure 2C.12, Appendix). All `r nrow(seed_check)` bootstrap ranges were redrawn with a second random seed, and `r if (sum(seed_check$verdict_changes) == 0) "none" else sum(seed_check$verdict_changes)` changed whether its range crosses zero.
+All `r hl("H30")` main hourly findings hold under every check that applies. The checks drop Harvard Street, its hours after the method change, Deer Park #2 after its move, and hours on the new wind sensors (Figure 2C.12, Appendix). All `r nrow(seed_check)` bootstrap ranges were also rerun with a second random seed, and `r if (sum(seed_check$verdict_changes) == 0) "none" else sum(seed_check$verdict_changes)` changed whether its range crosses zero.
 
 
 
 # Distributions
 
-Sections 3 to 5 compare average levels. Before these data go into any model, three more questions matter: what shape the daily values take, whether the groups differ in how much ozone swings from day to day, and whether a fitted curve counts high days correctly. At each five-year site, ordinary days are scaled by the site's mean and fitted with three common skewed curves (lognormal, gamma and Weibull), with a normal curve beside them for comparison. All three skewed curves have two parameters, so AIC, a standard score of fit, compares them fairly. Sites where a quarter or more of days sit at or below zero, almost all of them SO~2~ sites, are left out, which leaves `r comma(hl("F01"))` sites. A curve only counts as a clear winner if it keeps winning when the data are resampled in two-week blocks.
+Sections 3 to 5 compare average levels. This section looks at three more things that matter before the data go into a model: the shape of the daily values, whether the groups differ in how much ozone changes from day to day, and whether a fitted curve counts high days correctly. At each five-year site, ordinary days are divided by the site's mean and fitted with three common skewed distributions (lognormal, gamma and Weibull), plus a normal distribution for comparison. The three skewed distributions each have two parameters, so AIC, a standard measure of fit, can compare them fairly. Sites where a quarter or more of days are at or below zero are left out. Almost all of these are SO~2~ sites, and `r comma(hl("F01"))` sites remain. A curve only counts as the clear best fit if it still wins when the data are resampled in two-week blocks.
 
 ## Shape and fitted curves
 
-Each site has to be read on its own. Pooling all sites together blurs the shape, because much of the spread then comes from differences between sites rather than from one day to the next. At almost every PM2.5 and SO~2~ site, and at most CO sites, the values are right-skewed: a few high days sit far above the rest, and a lognormal curve fits better than a normal one. Ozone is close to symmetric, and a normal curve fits better than a lognormal at `r round(hl("F10"))`% of ozone sites. NO~2~ falls in between, with no single shape winning clearly (Figure 3.5, Appendix).
+Each site is fitted on its own. Pooling all sites together hides the shape, because much of the spread would then come from differences between sites instead of day-to-day changes. At almost every PM2.5 and SO~2~ site, and at most CO sites, the values are right-skewed. A few high days sit far above the rest, and a lognormal curve fits better than a normal one. Ozone is close to symmetric, and a normal curve fits better than a lognormal at `r round(hl("F10"))`% of ozone sites. NO~2~ is in between, with no single shape clearly best (Figure 3.5, Appendix).
 
-These curve labels are less certain than they first look. Neighbouring days are linked, so five years of daily data hold less independent information than their size suggests. Once that is allowed for, the best curve for ozone stays the clear winner at only about half of the sites tested. For PM2.5 the monitor matters: the same sites lean much more strongly lognormal on a T640 monitor than on other monitors, consistent with an instrument effect whose cause is not confirmed. In practice, log-scale summaries suit PM2.5, SO~2~ and CO, ozone can be summarised on its normal scale, and PM2.5 comparisons across years should note when a site changed monitor.
+These best-fit labels are less certain than they look. Neighbouring days are correlated, so five years of daily data carry less independent information than the number of days suggests. After accounting for this, the best curve for ozone stays clearly best at only about half of the sites tested. For PM2.5, the monitor type also matters. The same sites look much more lognormal on a T640 monitor than on other monitors, consistent with an instrument effect, but the cause is not confirmed. This means log-scale summaries suit PM2.5, SO~2~ and CO, ozone can be summarised on its normal scale, and PM2.5 comparisons across years should note when a site changed monitors.
 
 ## Ozone spread in the case study
 
-Figure 3.6 compares how much ozone swings from day to day. The measure is a spread factor, which shows how many times above or below its usual level a site's ozone typically runs, so a larger factor means bigger swings. In warm months, Houston sites swing more than Dallas–Fort Worth sites, by `r sprintf("%.2f", min(hl("F23"), hl("F24")))` to `r sprintf("%.2f", max(hl("F23"), hl("F24")))` on this scale, and both ranges stay clear of zero. The Ship Channel and Houston other match each other, and in cool months no group differs. So the channel lowers ozone's level (Sections 4 and 5) without changing how much it swings. The warm-month gap covers all of Houston, consistent with the city switching between clean Gulf air and still, sunny days, though that cause is not tested here.
+Figure 3.6 compares how much ozone changes from day to day at each site. It uses a spread factor, which is how many times above or below its usual level a site's ozone typically is. A larger factor means bigger day-to-day changes. In warm months, the spread factor at Houston sites is `r sprintf("%.2f", min(hl("F23"), hl("F24")))` to `r sprintf("%.2f", max(hl("F23"), hl("F24")))` higher than at Dallas–Fort Worth sites, and neither range includes zero. The Ship Channel and Houston other are about the same, and in cool months no group differs. So near the channel, ozone is lower on average (Sections 4 and 5) while its day-to-day spread stays the same as in the rest of Houston. The warm-month gap covers all of Houston. This is consistent with Houston switching between clean Gulf air and still, sunny days, but that cause is not tested here.
 
 ```{r spread-figure}
 report_figure(
   here("figures", "phase3", "3.06_ozone_spread.png"),
   "distribution_fit_checks.csv",
   placement = "H",
-  label = "Figure 3.6. Warm-month ozone swings wider at Houston sites."
+  label = "Figure 3.6. Warm-month ozone varies more at Houston sites."
 )
 ```
 
 ## Counting high days
 
-A curve can fit typical days well and still miss the rare high ones, which matters for any model that estimates how often a limit is passed. At most sites, the best-fitting curve misses the number of very high days, those above the site's 99th percentile, by more than 25%. Some of these misses cancel when sites are added together, yet for NO~2~ the curves still overcount high days by `r round(100 * (hl("F27") - 1))`% in total. The choice of curve matters as well. At the ozone standard, the best curves match the measured count, but a lognormal curve would predict about twice as many days above the limit as were actually measured.
+A curve can fit typical days well and still get the rare high days wrong. This matters for any model that estimates how often a limit is exceeded. At most sites, the best-fit curve is off by more than 25% on the number of very high days (days above the site's 99th percentile). Some of these errors cancel out when sites are added together, but for NO~2~ the curves still overcount high days by `r round(100 * (hl("F27") - 1))`% in total. The choice of curve also matters. At the ozone standard, the best curves match the measured count, while a lognormal curve predicts about twice as many days above the limit as were measured.
 
-For warm-month ozone in the case study, a gamma curve counts days above the standard well in all three groups, within the uncertainty of the measured count. It still overcounts the very highest days, the top 1% at each site, by `r round(100 * (min(hl("F38"), hl("F39"), hl("F40")) - 1))`% to `r round(100 * (max(hl("F38"), hl("F39"), hl("F40")) - 1))`%. Readings below the detection limit also matter. At Deer Park #2, treating them as "somewhere below the limit" instead of as exact values brings the predicted number of high SO~2~ days from about double the measured number down to about right. Fitted curves here describe the data. They should not stand in for counting the actual high days.
+For warm-month ozone in the case study, a gamma curve gets the number of days above the standard right in all three groups, within the uncertainty of the measured count. It still overcounts the highest days (the top 1% at each site) by `r round(100 * (min(hl("F38"), hl("F39"), hl("F40")) - 1))`% to `r round(100 * (max(hl("F38"), hl("F39"), hl("F40")) - 1))`%. Readings below the detection limit also affect the fit. At Deer Park #2, treating them as "somewhere below the limit" instead of as exact values brings the predicted number of high SO~2~ days from about double the measured number down to about right. The fitted curves are useful for describing the data, but high days should still be counted from the measurements.
 
 ## A worked design value
 
-An ozone design value is the three-year average of each year's 4th-highest daily 8-hour value, cut to three decimals. A site meets the standard at 0.070 ppm or below [11]. At Houston Aldine, the 4th-highest days were `r sprintf("%.3f", aldine_years$fourth_ppm[1])`, `r sprintf("%.3f", aldine_years$fourth_ppm[2])` and `r sprintf("%.3f", aldine_years$fourth_ppm[3])` ppm in 2023, 2024 and 2025. Their average, `r sprintf("%.4f", mean(aldine_years$fourth_ppm))`, is cut to `r sprintf("%.3f", hl("F43"))` ppm, the same value EPA publishes [13]. The site also just meets EPA's rule that at least 90% of days must be valid on average.
+An ozone design value is the three-year average of each year's 4th-highest daily maximum 8-hour value, truncated to three decimal places. A site meets the standard if its design value is 0.070 ppm or lower [11]. At Houston Aldine, the 4th-highest days were `r sprintf("%.3f", aldine_years$fourth_ppm[1])`, `r sprintf("%.3f", aldine_years$fourth_ppm[2])` and `r sprintf("%.3f", aldine_years$fourth_ppm[3])` ppm in 2023, 2024 and 2025. Their average, `r sprintf("%.4f", mean(aldine_years$fourth_ppm))`, truncates to `r sprintf("%.3f", hl("F43"))` ppm, which matches EPA's published value [13]. The site also just passes EPA's completeness rule, which needs at least 90% of days to be valid on average.
 
-Repeating this for all 22 case-study ozone sites over three periods matches EPA at `r hl("F45")` of `r hl_unit_count("F45")` site-periods. The few misses are each 0.001 ppm low, because the daily cleaning drops short days that EPA keeps when they pass the limit, and none changes whether a site passes. All `r hl("F46")` sites are above the standard for 2023 to 2025, and the highest value is at Deer Park #2, a Ship Channel site. The three groups' typical design values are nearly the same, so the Ship Channel's lower average ozone does not carry over to its highest days. All `r hl("F49")` findings in this section hold under every check that applies (Figure 3.10, Appendix).
+Doing the same for all 22 case-study ozone sites over three periods matches EPA in `r hl("F45")` of `r hl_unit_count("F45")` site-periods. Each miss is 0.001 ppm low, because the daily cleaning drops incomplete days that EPA keeps when they exceed the limit. None of the misses changes whether a site passes. All `r hl("F46")` sites are above the standard for 2023 to 2025, and the highest value is at Deer Park #2, a Ship Channel site. The typical design values of the three groups are nearly the same, so the Ship Channel's lower average ozone does not show up on its highest days. All `r hl("F49")` findings in this section hold under every check that applies (Figure 3.10, Appendix).
 
 
 
 # Limitations
 
-- **No trends.** Five years is too short to separate a trend from year-to-year weather, so changes between years are described but not tested.
-- **Small groups.** Each group has two hourly ozone and NO~2~ sites, and Houston other has one five-year PM2.5 site, so the hourly results describe those sites rather than whole areas.
-- **Pointers, not proof.** Distance to the channel's water stands in for distance to the plants along it, and each wind direction brings its own weather. Both point toward a source without proving it, which is why source claims say "consistent with".
-- **No NO or NO~x~ data.** Ox shows how much of the ozone gap titration explains, but the rest cannot be split into local and regional parts.
-- **Near the detection limit.** SO~2~ is below 2 ppb in most hours at three of the four sites, and the censored fits use method-wide detection limits, which can differ from a monitor's own.
-- **Cleaning choices.** Days with under 75% of hours are dropped, which puts `r nrow(design_value_misses)` of `r nrow(design_values)` design values 0.001 ppm below EPA's, and Section 3's single-year screening is not a design value. Wind is missing for up to `r long_wind_gaps$longest_wind_gap_days[1]`, `r long_wind_gaps$longest_wind_gap_days[2]` and `r long_wind_gaps$longest_wind_gap_days[3]` days in a row at `r str_remove(long_wind_gaps$local_site_name[1], "^Houston ")`, `r str_remove(long_wind_gaps$local_site_name[2], "^Houston ")` and `r str_remove(long_wind_gaps$local_site_name[3], "^Houston ")`.
-- **Monitor changes.** PM2.5 moved toward FEM monitors, and Park Place and Harvard Street changed their NO~2~ methods in `r month_year(park_place_change)` and `r month_year(harvard_change)`. Checks drop the affected days, but comparisons between years still partly reflect the monitor mix.
-- **Many comparisons.** Dozens of ranges are reported without a multiple-comparison adjustment, so the results that hold under every check are the safest to cite.
-- **Curves describe, they do not forecast.** Tail checks test fit on the measured days only.
+- **No trends.** Five years is too short to separate a real trend from year-to-year changes in weather, so differences between years are described but not tested.
+- **Small groups.** Each group has only two hourly ozone and NO~2~ sites, and Houston other has one five-year PM2.5 site. The hourly results describe those sites and may not represent whole areas.
+- **Distance and wind are indirect.** Distance to the channel's water is used in place of distance to the plants along it, and each wind direction brings its own weather. Neither one proves a source, which is why source claims say "consistent with".
+- **No NO or NO~x~ data.** Ox shows how much of the ozone gap titration explains, but the rest of the gap cannot be split into local and regional parts.
+- **Near the detection limit.** SO~2~ is below 2 ppb in most hours at three of the four sites. The censored fits use method-wide detection limits, which can differ from a single monitor's own limit.
+- **Cleaning choices.** Dropping days with under 75% of hours puts `r nrow(design_value_misses)` of `r nrow(design_values)` design values 0.001 ppm below EPA's, and Section 3's single-year screening is not a design value. Wind data are missing for up to `r long_wind_gaps$longest_wind_gap_days[1]`, `r long_wind_gaps$longest_wind_gap_days[2]` and `r long_wind_gaps$longest_wind_gap_days[3]` days in a row at `r str_remove(long_wind_gaps$local_site_name[1], "^Houston ")`, `r str_remove(long_wind_gaps$local_site_name[2], "^Houston ")` and `r str_remove(long_wind_gaps$local_site_name[3], "^Houston ")`.
+- **Monitor changes.** PM2.5 moved toward FEM monitors, and Park Place and Harvard Street changed their NO~2~ methods in `r month_year(park_place_change)` and `r month_year(harvard_change)`. The checks drop the affected days, but comparisons between years still partly reflect which monitors were running.
+- **Many comparisons.** Dozens of ranges are reported with no multiple-comparison correction, so the results that hold under every check are the safest to cite.
+- **Curves only describe the data.** The tail checks only test the fit on measured days, so the curves are not forecasts.
 
 
 
 # Conclusion and regulatory implications
 
-**H1 is supported.** Ship Channel NO~2~ is higher than Houston other in all `r hl("D04")` years, on the same days (`r signed(hl("D19"))` ppb, range `r signed(hl_ci("D19", "low"))` to `r signed(hl_ci("D19", "high"))`) and at all 24 hours, under every check. The distance gradient agrees but rests partly on one far site.
+**H1 is supported.** Ship Channel NO~2~ is higher than Houston other in all `r hl("D04")` years, on the same days (`r signed(hl("D19"))` ppb, range `r signed(hl_ci("D19", "low"))` to `r signed(hl_ci("D19", "high"))`) and at all 24 hours, under every check. The drop in NO~2~ with distance from the channel agrees, but it depends partly on one far site.
 
-**H2 is supported in part.** Ship Channel ozone is lower on the same days (`r signed(hl("D18"))` ppb, range `r signed(hl_ci("D18", "low"))` to `r signed(hl_ci("D18", "high"))`) and at every hour. Adding NO~2~ back closes `r round(hl("H08"))`% of the hourly ozone gap, or `r round(hl("H09"))`% without Harvard Street, so titration explains at least half of it. The Ox gap that remains sits in wind from the channel, consistent with ozone forming in channel air as it moves downwind.
+**H2 is supported in part.** Ship Channel ozone is lower on the same days (`r signed(hl("D18"))` ppb, range `r signed(hl_ci("D18", "low"))` to `r signed(hl_ci("D18", "high"))`) and at every hour. Adding NO~2~ back closes `r round(hl("H08"))`% of the hourly ozone gap, or `r round(hl("H09"))`% without Harvard Street, so titration explains at least half of it. The Ox gap that is left shows up in wind from the channel, consistent with ozone forming in channel air as it moves downwind.
 
-**H3 is supported.** SO~2~ arrives as spikes with a median length of `r unique(main_so2_sites$median_episode_hours)` hour over a background below the detection limit, from the southwest at Croquet (`r round(hl("H24"))`% of its spike hours) and from the channel side at Park Place (`r round(hl("H25"))`%), consistent with more than one local source.
+**H3 is supported.** SO~2~ comes as short spikes, with a median length of `r unique(main_so2_sites$median_episode_hours)` hour, on top of a background below the detection limit. The spikes come from the southwest at Croquet (`r round(hl("H24"))`% of its spike hours) and from the channel side at Park Place (`r round(hl("H25"))`%), consistent with more than one local source.
 
-These results carry three implications for air quality planning, each limited by the observational design.
+The results point to three things for air quality planning, keeping in mind that this is an observational study.
 
-**Lower ozone near the channel is not cleaner air.** Much of the ozone missing near the channel shows up as NO~2~, and the Ox left over is consistent with ozone forming downwind. Every case-study ozone site, Ship Channel sites included, is above the 0.070 ppm standard for 2023 to 2025, and the highest design value is at Deer Park #2. This is consistent with treating NO~x~ near the channel and ozone across Houston as one problem.
+**Lower ozone near the channel does not mean cleaner air.** Much of the ozone missing near the channel shows up as NO~2~, and the leftover Ox is consistent with ozone forming downwind. Every case-study ozone site, including the Ship Channel sites, is above the 0.070 ppm standard for 2023 to 2025, and the highest design value is at Deer Park #2. This suggests that NO~x~ near the channel and ozone across Houston should be managed as one problem.
 
-**SO~2~ is best read hourly, at more than one site.** One-hour spikes from different directions disappear in daily means and can be missed by a single monitor, which matters for the 1-hour SO~2~ standard.
+**SO~2~ should be measured hourly at more than one site.** One-hour spikes from different directions get averaged out in daily means and can be missed by a single monitor. This matters because the SO~2~ standard is based on 1-hour values.
 
-**Method choices move the answer.** Monitor changes, site groupings and the choice of curve each shift results enough to matter: a default lognormal roughly doubles ozone exceedance counts, and the share of the ozone gap that Ox closes depends on whether Harvard Street is included. Analyses that feed decisions should state these choices and rerun the main result under each one, as this report does.
+**Method choices change the results.** Monitor changes, site groupings and the choice of curve can each shift the results enough to matter. For example, a default lognormal curve roughly doubles ozone exceedance counts, and the share of the ozone gap that Ox closes depends on whether Harvard Street is included. Analyses used for decisions should state these choices and rerun the main result under each one, as this report does.
 
 
 
@@ -1146,7 +1152,7 @@ Regulation text was read on Cornell's Legal Information Institute; the official 
 
 ## A.1 Data pipeline {-}
 
-Run `R/0_setup.R` once, then the scripts in the order of Table A.2. Each script reads only the saved outputs of earlier scripts, stops on any failed check, and documents every saved table in `data_dictionary.csv`. Package versions are pinned in `renv.lock`. A clean rerun of every script on 13 November 2026 reproduced all 137 outputs byte for byte. Full source code is in the GitHub repository.
+Run `R/0_setup.R` once, then the scripts in the order of Table A.2. Each script reads only the saved outputs of earlier scripts, stops on any failed check, and documents every saved table in `data_dictionary.csv`. Package versions are pinned in `renv.lock`. A clean rerun of every script on 13 November 2026 reproduced all 137 outputs byte for byte, and the scripts from `2a` on were rerun in full after the figure redesign on 14 November 2026. Full source code is in the GitHub repository.
 
 ```{r cleaning-table}
 cleaning_table <- cleaning_log %>%
@@ -1181,8 +1187,8 @@ code_map <- tribble(
   "1d_hourly_import_clean.R",    "Reads the hourly pollutant files in chunks, flags and validates them",    "Hourly case-study table",
   "1e_weather_import_clean.R",   "Reads hourly wind and temperature, sets calm hours and wind sectors",     "Hourly weather table",
   "2a_daily_eda.R",              "National analysis (Section 3)",                                           "Figures 2A.1 to 2A.10, national records",
-  "2b_daily_case_study.R",       "Daily case study (Section 4)",                                            "Figures 2B.1 to 2B.8, daily records",
-  "2c_hourly_eda.R",             "Hourly case study (Section 5)",                                           "Figures 2C.1 to 2C.12, hourly records",
+  "2b_daily_case_study.R",       "Daily case study (Section 4)",                                            "Figures 2B.1 to 2B.9, daily records",
+  "2c_hourly_eda.R",             "Hourly case study (Section 5)",                                           "Figures 2C.1 to 2C.13, hourly records",
   "3_distributions.R",           "Distribution shapes, curve fits, tails and design values (Section 6)",    "Figures 3.1 to 3.10, distribution records"
 ) %>%
   mutate(n_lines = map_int(file, \(f) length(read_script(f))))
@@ -1215,12 +1221,12 @@ code_map %>%
 ```{r appendix-figure-list, include = FALSE}
 appendix_figures <- tribble(
   ~phase,   ~png,                          ~record,                                                              ~label,
-  "phase2", "2a.01_network.png",           "national_sites_by_year.csv, national_pm25_methods.csv",             "Figure 2A.1. SO2 and CO sites fell as PM2.5 went automated.",
+  "phase2", "2a.01_network.png",           "national_sites_by_year.csv, national_pm25_methods.csv",             "Figure 2A.1. SO2 and CO sites fell as PM2.5 moved to continuous monitors.",
   "phase2", "2a.04_exceedances.png",       "national_exceedances_by_year.csv",                                  "Figure 2A.4. Event days hold over a third of PM2.5 exceedances.",
   "phase2", "2a.05_exceedance_metros.png", "national_metro_ranks.csv",                                          "Figure 2A.5. California metros top both lists.",
   "phase2", "2b.06_events.png",            "case_study_event_reporting.csv, case_study_event_levels.csv",       "Figure 2B.6. Beryl knocked out most Ship Channel monitors.",
-  "phase2", "2b.07_paired.png",            "case_study_paired_differences.csv",                                 "Figure 2B.7. Same-day NO2 is higher at the Ship Channel.",
-  "phase2", "2c.02_daily_cycles.png",      "case_study_hourly_gaps.csv",                                        "Figure 2C.2. Ship Channel: more NO2, less ozone, every hour.",
+  "phase2", "2b.07_paired.png",            "case_study_paired_differences.csv",                                 "Figure 2B.7. On the median day, NO2 is higher at the Ship Channel.",
+  "phase2", "2c.02_daily_cycles.png",      "case_study_hourly_gaps.csv",                                        "Figure 2C.2. Ship Channel NO2 is higher and ozone lower at every hour.",
   "phase2", "2c.08_calm_air.png",          "case_study_calm_air.csv",                                           "Figure 2C.8. Calm air lifts NO2 and cuts ozone at every site.",
   "phase2", "2c.10_so2_roses.png",         "case_study_channel_bearings.csv, case_study_so2_directions.csv",    "Figure 2C.10. Croquet's SO2 spikes come from the southwest.",
   "phase2", "2c.11_ox_by_wind.png",        "case_study_ox_gap_by_wind.csv",                                     "Figure 2C.11. The leftover Ox gap appears in wind from the channel.",

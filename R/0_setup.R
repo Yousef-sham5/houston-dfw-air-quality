@@ -1,4 +1,4 @@
-# Installs/Updates required packages
+# installs/updates the packages u need
 pkgs <- c(
   "dplyr", "readr", "readxl", "tidyr", "stringr", "purrr", "janitor", "lubridate", "here", "jsonlite", "lobstr",
   "ggplot2", "scales", "naniar", "patchwork", "corrplot", "ragg", "systemfonts", "openair",

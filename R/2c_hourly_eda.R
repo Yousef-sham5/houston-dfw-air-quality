@@ -10,13 +10,12 @@ library(patchwork)
 library(here)
 library(jsonlite)
 
-source(here("R", "utils.R")) # study_years, read_events(), manifest and save helpers, chart theme
+source(here("R", "utils.R"))
 
 
 
 # FIGURE STYLE ----
-# 2c figures are laid out like a journal's, with the tagged-figure helpers in utils.R and the findings left to the
-# report text. These settings replace utils.R's chart colours and fonts for this script only
+# journal-style figures (helpers in utils.R). these settings override utils.R's colours + fonts here only
 stopifnot("Arial is installed, since 2c figures use it" = str_detect(systemfonts::match_fonts("Arial")$path, regex("arial", ignore_case = TRUE)))
 
 chart_fonts[] <- "Arial"
@@ -25,7 +24,6 @@ chart_ink[c("primary", "secondary", "muted", "grid", "axis")] <- c("#000000", "#
 
 chart_fills[c("accent", "other", "band")] <- c("#1D5D9B", "#B5B5B5", "#F2F2F2")
 
-# A warm second colour for labelled events, as in 2a
 chart_warm <- c(line = "#E3872D", text = "#B9621A", band = "#FCEEDF")
 
 site_group_colours[] <- c("#D55E00", "#0072B2", "#009E73")
@@ -34,7 +32,6 @@ chart_sizes[c("key", "label")] <- c(7, 6.5)
 
 figures_dir <- here("figures", "phase2")
 
-# Short notes under single panels
 panel_note_text <- element_text(colour = chart_ink[["secondary"]], size = 6.5, hjust = 0, margin = margin(t = 4))
 
 
@@ -42,21 +39,19 @@ panel_note_text <- element_text(colour = chart_ink[["secondary"]], size = 6.5, h
 # CONFIG ----
 processed_dir <- here("data", "processed")
 
-# CSV records go to a folder per phase; checkpoints, the dictionary and the manifest stay in data/processed
 records_dir <- file.path(processed_dir, "phase2")
 
 dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
 
-# Hourly pollutants from 1d and hourly wind and temperature from 1e, joined on site_id and datetime_utc
+# hourly pollutants from 1d + hourly wind/temp from 1e, joined on site_id and datetime_utc
 hourly_files <- c("hourly_case_study.rds", "hourly_weather.rds")
 
 hourly_pollutants <- c("Ozone", "NO2", "SO2")
 
-# Distance of every Harris site to the land-cut Ship Channel and its group, from 1c
 harris_groups_path <- here("data", "reference", "harris_site_channel_distance.csv")
 
-# The distance rule set in 1c. Houston other sites in the transition band sit nearer the channel than the rest and are
-# left out in one check
+# distance rule from 1c. houston other sites in the transition band are closer to the channel than the rest so
+# one check drops them
 ship_channel_km <- 7.5
 
 transition_km <- 15
@@ -69,14 +64,13 @@ study_end <- make_date(max(study_years), 12, 31)
 
 possible_hours <- 24 * (as.numeric(study_end - study_start) + 1)
 
-# A month counts as covered in figure 2C.1 when it holds at least 75% of its hours, the share behind a complete day
 covered_month_share <- 0.75
 
-# The two Texas events in the hourly data. 2b covers them, so 2c leaves their hours out of the ordinary hours
+# the 2 texas events in the hourly data. 2b covers them so 2c keeps their hours out of the ordinary ones
 case_study_events <- c("Winter Storm Uri", "Hurricane Beryl")
 
-# Copied from 2a CONFIG. Weekday holidays from April to October that weekend comparisons leave out, since NO2 on them
-# is closer to a Sunday than to a weekday: Memorial Day, Independence Day as observed and Labor Day
+# copied from 2a CONFIG. weekday holidays apr-oct that weekend comparisons drop, NO2 on them looks
+# more like a sunday: memorial day, july 4th as observed and labor day
 weekday_holidays <- tibble(year = study_years) %>%
   mutate(july_4 = make_date(year, 7, 4)) %>%
   mutate(`Memorial Day` = floor_date(make_date(year, 5, 31), "week", week_start = 1)) %>%
@@ -85,8 +79,6 @@ weekday_holidays <- tibble(year = study_years) %>%
   select(-july_4) %>%
   pivot_longer(-year, names_to = "holiday", values_to = "date_local")
 
-# The checks every later section runs beside the main result, as in 2b. The memo-list grouping moves no hourly site, so it
-# is not repeated here
 hourly_check_levels <- c(
   "Main",
   "Without the transition band",
@@ -94,48 +86,47 @@ hourly_check_levels <- c(
   "Without Deer Park #2 after its move"
 )
 
-# Daily cycles (section 2). Hours are local standard time all year, so a 7 to 9 am summer rush hour on daylight time
-# shows as hours 6 to 8. The afternoon window brackets the ozone peak
+# daily cycles (section 2). hours are local standard time all year, so a 7-9 am summer rush hour on DST
+# shows up as hours 6-8. the afternoon window brackets the ozone peak
 cycle_pollutants <- c("Ozone", "NO2")
 
 morning_hours <- 6:8
 
 afternoon_hours <- 12:16
 
-# Weekend comparisons use April to October, as in 2a section 6
 weekend_months <- 4:10
 
-# 95% ranges for the gaps, as in 2b section 7: the days are resampled 1,000 times in whole 14-day runs, because nearby
-# days share weather and are not independent. The seed makes every run give the same ranges
+# 95% ranges for the gaps like 2b section 7: days resampled 1,000 times in 14-day runs bc nearby
+# days share weather and aren't independent. the seed keeps the ranges the same every run
 bootstrap_block_days <- 14
 
 bootstrap_reps <- 1000
 
 bootstrap_seed <- 2026
 
-# SO2 spike hours (section 4): at least 5 ppb, the spike cutoff in 2b and 2.5 times the 2 ppb detection limit at three of
-# the four sites. 10 ppb is a check. Daytime is 9 am to 6 pm, when daytime heating mixes the air near the ground
+# SO2 spike hours (section 4): 5+ ppb, same cutoff as 2b and 2.5x the 2 ppb MDL at 3 of
+# the 4 sites. 10 ppb is a check. daytime = 9 am to 6 pm, when daytime heating mixes the air near the ground
 so2_spike_ppb <- 5
 
 so2_check_spike_ppb <- 10
 
 daytime_hours <- 9:17
 
-# Wind and calm air (section 5). Calm is below 0.5 m/s, EPA's starting threshold for wind sensors (1e). The other
+# wind + calm air (section 5). calm = under 0.5 m/s, EPA's starting threshold for wind sensors (1e). other
 # bands are in m/s
 wind_speed_breaks_ms <- c(0, 0.5, 1.5, 3, 5, Inf)
 
 wind_speed_bands <- c("Calm", "0.5 to 1.5", "1.5 to 3", "3 to 5", "5 or more")
 
-# Each calm hour is compared with windy hours at the same site, hour of day and month, so time of day and season
-# cancel out. Every such cell needs at least this many windy hours
+# each calm hour gets compared with windy hours at the same site, hour of day and month so time of day and season
+# cancel out. each cell needs at least this many windy hours
 min_windy_cell_hours <- 30
 
-# A check in section 5 only: hours on the new sonic wind sensors at the five sites that switched are left out
+# section 5 check only: hours on the new sonic sensors at the 5 sites that switched get dropped
 sensor_check_level <- "Without new wind sensors"
 
-# Pollution roses and source directions (section 6). The land-cut channel from 1c's map file, to find the directions in
-# which it lies from each site
+# pollution roses + source directions (section 6). the land-cut channel from 1c's map file, to find which way
+# it is from each site
 channel_path <- here("data", "reference", "ship_channel.geojson")
 
 land_cut_sections <- c(
@@ -153,35 +144,29 @@ land_cut_sections <- c(
   "CESWG_HS_9A_TPC"
 )
 
-# Kilometres on a flat map centred on Houston's latitude (29.7°), as in 1c
 km_per_lat_degree <- 110.574
 
 km_per_lon_degree_houston <- 111.320 * cos(29.7 * pi / 180)
 
-# A sector with fewer hours than this is left blank in a rose
 min_sector_hours <- 200
 
-# The shared Houston wind for the Ox gap is the vector mean of the Houston sites' own sensors. An hour needs at least
-# three sites, and a mean speed of at least 0.5 m/s (the calm threshold) to have a direction
+# shared houston wind for the Ox gap = vector mean of the houston sites' own sensors. an hour needs at least
+# 3 sites and a mean speed of 0.5+ m/s (the calm threshold) to get a direction
 min_wind_sites <- 3
 
-# Four 90-degree quadrants of three 30-degree sectors each, for the Ox gap by season
 quadrant_sectors <- tibble(
   wind_sector = seq(0, 330, 30),
   quadrant = c("North", "North", "East", "East", "East", "South", "South", "South", "West", "West", "West", "North")
 )
 
-# East wind: the east quadrant, 45° to 135°, used to judge the NO2 peak under every check
 east_sectors <- quadrant_sectors$wind_sector[quadrant_sectors$quadrant == "East"]
 
-# Southwest: the two sectors from 195° to 255°
 southwest_sectors <- c(210, 240)
 
-# 16-point compass names for the 12 sector centres
 compass_names <- c("N", "NNE", "ENE", "E", "ESE", "SSE", "S", "SSW", "WSW", "W", "WNW", "NNW")
 
-# Section 7 redraws the headline 95% ranges with a second seed; an end that moves more than this share of the range's
-# width fails validation, as in 2b
+# section 7 redraws the headline 95% ranges with a 2nd seed, if an end moves more than this share of the range's
+# width validation fails, like 2b
 bootstrap_check_seed <- 2027
 
 bootstrap_seed_tolerance <- 0.1
@@ -209,7 +194,6 @@ stopifnot(
 
 
 # 1. HOURLY SITES, COVERAGE AND FLAGS ----
-# The hourly checkpoints from 1d and 1e, checked against the manifest, and the Harris site groups from 1c
 hourly_case_study <- read_rds(file.path(processed_dir, "hourly_case_study.rds"))
 
 hourly_weather <- read_rds(file.path(processed_dir, "hourly_weather.rds"))
@@ -238,7 +222,7 @@ harris_groups <- read_csv(
 monitors <- hourly_case_study %>%
   distinct(site_group, region, site_id, local_site_name, pollutant)
 
-# Houston sites must carry the group 1c set from distance; a mismatch means 1d ran before the latest 1c
+# houston sites must have the group 1c set from distance, a mismatch means 1d ran before the latest 1c
 houston_group_check <- monitors %>%
   filter(region == "Houston") %>%
   distinct(site_id, site_group) %>%
@@ -267,7 +251,7 @@ stopifnot(
   "The hourly events are Uri and Beryl" = setequal(event_names, case_study_events)
 )
 
-# Wind and temperature for the same site and hour. Harvard Street carries Bayland Park's temperature and Croquet's wind (1e)
+# wind + temp for the same site and hour. harvard street has bayland park's temp and croquet's wind (1e)
 weather_columns <- hourly_weather %>%
   select(
     site_id, datetime_utc, weather_datetime_local = datetime_local, temp_c, temp_source_site, wind_speed_ms, wind_dir_deg,
@@ -288,9 +272,9 @@ stopifnot(
 hourly <- hourly %>%
   select(-weather_datetime_local)
 
-# Hour rules every later section uses. A valid day follows the daily rule (ozone: 13 of 17 8-hour means; NO2 and SO2: 18
-# of 24 hours). Ordinary hours also leave out Uri, Beryl and wildfire-flagged hours. Direction hours have a wind
-# direction, with calm hours (direction unreliable) and the one wind-spike hour left out
+# hour rules every later section uses. a valid day follows the daily rule (ozone: 13 of 17 8-hr means, NO2 and SO2: 18
+# of 24 hours). ordinary hours also skip uri, beryl and wildfire-flagged hours. direction hours have a wind
+# direction, minus calm hours (direction's unreliable) and the one wind-spike hour
 hourly <- hourly %>%
   mutate(is_valid_day = if_else(pollutant == "Ozone", coalesce(is_valid_ozone_day, FALSE), is_complete_day)) %>%
   mutate(is_ordinary_hour = is_valid_day & is.na(event_name) & !is_wildfire_flagged) %>%
@@ -298,7 +282,6 @@ hourly <- hourly %>%
   mutate(is_direction_hour = has_wind & !coalesce(is_calm, FALSE) & !coalesce(is_wind_spike, FALSE)) %>%
   mutate(is_weekday_holiday = date_local %in% weekday_holidays$date_local)
 
-# Distance to the channel per site. Houston other sites in the transition band are left out in one check
 site_roles <- monitors %>%
   distinct(site_id, site_group) %>%
   left_join(select(harris_groups, site_id, km_to_channel, distance_band), by = "site_id", relationship = "one-to-one") %>%
@@ -317,7 +300,6 @@ stopifnot(
   "Dallas-Fort Worth sites have no channel distance" = all(is.na(dfw_sites$km_to_channel))
 )
 
-# When each flagged change starts: Harvard Street NO2's new method, the Deer Park #2 move and each sonic wind sensor
 method_change_starts <- hourly %>%
   filter(is_post_method_change) %>%
   summarise(method_change_from = min(date_local), .by = c(site_id, pollutant))
@@ -340,7 +322,6 @@ sonic_wind_starts <- hourly_weather %>%
   filter(sonic_wind_from > first_own_wind) %>%
   select(site_id, sonic_wind_from)
 
-# Longest run of whole days without wind, from the wind each site uses (Croquet's at Harvard Street)
 wind_gaps <- hourly_weather %>%
   filter(!is.na(wind_sector)) %>%
   distinct(site_id, date_local) %>%
@@ -363,7 +344,6 @@ stopifnot(
   "Harvard Street has no wind sensor of its own" = !"48-201-0417" %in% own_wind_days$site_id
 )
 
-# One row per monitor: coverage by year, the hours each rule keeps, the weather behind them and the checks it is in
 year_hours <- tibble(year = study_years) %>%
   mutate(hours_in_year = 24 * (365 + leap_year(year)))
 
@@ -376,7 +356,7 @@ hours_per_year <- hourly %>%
   select(site_id, pollutant, year, pct_hours) %>%
   pivot_wider(names_from = year, values_from = pct_hours, values_fill = 0)
 
-# Ordinary hours with a usable wind direction in each of the 12 sectors. A pollution rose is only as reliable as its
+# ordinary hours with a usable direction in each of the 12 sectors. a rose is only as good as its
 # emptiest sector, so the smallest count is kept
 sector_hours <- hourly %>%
   filter(is_ordinary_hour, is_direction_hour) %>%
@@ -453,8 +433,8 @@ stopifnot(
   "Ordinary hours are a subset of all hours" = all(hourly_inventory$n_ordinary_hours <= hourly_inventory$n_valid_day_hours)
 )
 
-# The same hours under each check, stacked with a site_set label. Reused in sections 2 to 6; pass only the columns a
-# step needs, since four copies of the full table would not fit comfortably in memory
+# same hours under each check, stacked with a site_set label. reused in sections 2 to 6, only pass the columns a
+# step needs bc 4 copies of the full table won't fit in memory nicely
 hourly_site_sets <- function(hours) {
   versions <- list(
     hours %>%
@@ -494,7 +474,7 @@ stopifnot(
     identical(transition_monitor_counts, c(2L, 1L, 2L, 2L, 1L, 2L, 3L, 1L))
 )
 
-# Ordinary hours in which every group has at least one monitor reporting, so hour-by-hour comparisons stay balanced
+# ordinary hours where every group has at least one monitor reporting, keeps hour-by-hour comparisons balanced
 groups_per_pollutant <- site_set_counts %>%
   filter(site_set == "Main") %>%
   count(pollutant, name = "n_groups")
@@ -524,8 +504,6 @@ stopifnot(
     lowest_same_hour$site_set == "Without the transition band"
 )
 
-# How many hours each rule keeps, per pollutant and group: all hours, valid days, ordinary hours, and those with a
-# usable wind direction
 hour_funnel <- hourly %>%
   summarise(
     n_monitors = n_distinct(site_id),
@@ -552,7 +530,6 @@ stopifnot(
     funnel_totals$with_wind_direction <= funnel_totals$ordinary_hours
 )
 
-# Figure 2C.1: when each monitor and wind sensor reported, and how many hours each keeps for the analysis
 short_site_name <- function(local_site_name) {
   local_site_name %>%
     str_remove("^Houston (?!East$)") %>%
@@ -655,15 +632,14 @@ analysis_rows <- hourly_inventory %>%
 
 analysis_x_low <- 20 * floor((min(analysis_rows$pct_direction_hours) - 10) / 20)
 
-# Arrows run from the ordinary hours to those left with a wind direction, so each line reads as hours lost. Gaps under
-# 4 points are too short for an arrowhead and get a plain line
+# arrows go from ordinary hours to the ones left with a wind direction, so each line reads as hours lost. gaps under
+# 4 pts are too short for an arrowhead so they get a plain line
 long_drops <- analysis_rows %>%
   filter(pct_ordinary_hours - pct_direction_hours >= 4)
 
 short_drops <- analysis_rows %>%
   filter(pct_ordinary_hours - pct_direction_hours < 4)
 
-# The solid and open markers are named once, above the top row
 top_row <- analysis_rows %>%
   filter(row_key == last(levels(row_key)))
 
@@ -672,7 +648,6 @@ mark_labels <- bind_rows(
   transmute(top_row, pollutant, row_key, x = pct_direction_hours + 3, label = "With wind", hjust = 1)
 )
 
-# The blank layer comes first so the rows keep the group order of panel (a)
 analysis_panel <- ggplot(analysis_rows, aes(y = row_key)) +
   geom_blank(aes(x = pct_ordinary_hours)) +
   geom_segment(
@@ -759,7 +734,7 @@ dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
 
 save_figure(coverage_figure, "2c.01_coverage.png", 6.9)
 
-# The inventory is saved now as a CSV record, so it can be opened while later sections are built
+# inventory saved now as a CSV so u can open it while building later sections
 inventory_records <- list(
   case_study_hourly_inventory = hourly_inventory
 )
@@ -809,7 +784,6 @@ inventory_dictionary <- tribble(
   "case_study_hourly_inventory", "min_sector_hours",           "Direction hours in the thinnest of the 12 wind sectors"
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 inventory_dictionary <- document_tables(inventory_records, inventory_dictionary)
 
 replace_own_rows(inventory_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
@@ -817,8 +791,8 @@ replace_own_rows(inventory_dictionary, data_dictionary_path, key = "table", col_
 
 
 # 2. DAILY CYCLES: OZONE AND NO2 ----
-# Ozone and NO2 by hour of day on ordinary hours. A group's value at an hour is the mean of its sites' means, so each
-# site counts equally
+# ozone + NO2 by hour on ordinary hours. a group's value at an hour = mean of its sites' means, so each
+# site counts the same
 cycle_hours <- hourly %>%
   filter(is_ordinary_hour, pollutant %in% cycle_pollutants) %>%
   mutate(pollutant = factor(as.character(pollutant), levels = cycle_pollutants)) %>%
@@ -839,8 +813,8 @@ stopifnot(
 
 cycle_site_sets <- hourly_site_sets(cycle_hours)
 
-# Each check only removes hours, so one that keeps every main hour of a pollutant changes nothing and is dropped for that
-# pollutant (ozone has no method change)
+# each check only removes hours, so one that keeps every main hour of a pollutant changes nothing and gets dropped
+# for that pollutant (ozone has no method change)
 unchanged_cycle_sets <- cycle_site_sets %>%
   count(site_set, pollutant) %>%
   mutate(is_unchanged = site_set != "Main" & n == n[site_set == "Main"], .by = pollutant) %>%
@@ -859,7 +833,6 @@ stopifnot(
 
 season_levels <- c("All year", levels(cycle_hours$season))
 
-# Each site's mean at each hour, over the whole year and within each season
 site_hour_means <- bind_rows(
   cycle_site_sets %>%
     summarise(n_hours = n(), site_mean_ppb = mean(value_ppb), .by = c(site_set, pollutant, site_group, site_id, hour_local)) %>%
@@ -887,7 +860,6 @@ stopifnot(
     all(group_profiles$low_site_ppb <= group_profiles$mean_ppb & group_profiles$mean_ppb <= group_profiles$high_site_ppb)
 )
 
-# When each group peaks, over the year and by season
 peak_hours <- group_profiles %>%
   filter(site_set == "Main") %>%
   summarise(
@@ -913,8 +885,8 @@ stopifnot(
     all(all_year_peaks$peak_hour[all_year_peaks$pollutant == "NO2"] %in% morning_hours)
 )
 
-# Ship Channel minus Houston other in the same hour, on hours when both groups report. A group's value in an hour is
-# the mean of its sites reporting then
+# ship channel minus houston other in the same hour, on hours both groups report. a group's value in an hour =
+# mean of its sites reporting then
 paired_gaps <- cycle_site_sets %>%
   filter(site_group != "Dallas-Fort Worth") %>%
   summarise(group_ppb = mean(value_ppb), .by = c(site_set, pollutant, site_group, datetime_utc, date_local, hour_local)) %>%
@@ -927,8 +899,8 @@ hour_gaps <- paired_gaps %>%
   summarise(n_paired_hours = n(), gap_ppb = mean(gap_ppb), .by = c(site_set, pollutant, hour_local)) %>%
   arrange(site_set, pollutant, hour_local)
 
-# A table of days (rows) by hours of the day (columns). Each resample builds a new five years from random 14-day runs
-# of rows and takes the mean gap at each hour; the middle 95% of the 1,000 means is the range
+# table of days (rows) x hours (cols). each resample builds a new 5 yrs from random 14-day runs
+# of rows and takes the mean gap at each hour, the middle 95% of the 1,000 means is the range
 hour_gap_ranges <- function(gaps) {
   gap_wide <- gaps %>%
     select(date_local, hour_local, gap_ppb) %>%
@@ -976,7 +948,7 @@ stopifnot(
   "Every hour of the day rests on at least 1,000 paired hours" = min(hour_gaps$n_paired_hours) >= 1000
 )
 
-# Weekend against weekday at each hour, April to October with the three holidays left out of both, as in 2a section 6
+# weekend vs weekday at each hour, apr-oct with the 3 holidays dropped from both, like 2a section 6
 weekend_profiles <- cycle_site_sets %>%
   filter(month(date_local) %in% weekend_months, !is_weekday_holiday) %>%
   summarise(
@@ -1005,7 +977,6 @@ morning_weekend %>%
   mutate(morning_weekend_ratio = round(morning_weekend_ratio, 3)) %>%
   print()
 
-# The thinnest cell is Harvard Street NO2 at 1 am before its method change: 89 weekend hours over two warm seasons
 stopifnot(
   "Every site has at least 80 weekend hours at each hour of the day" = min(weekend_profiles$min_weekend_hours) >= 80,
   "Every site has at least 130 weekend hours at each hour of the day in the main set" =
@@ -1015,7 +986,6 @@ stopifnot(
     all(morning_weekend$morning_weekend_ratio[morning_weekend$pollutant == "NO2"] < 1)
 )
 
-# Each check side by side: the Ship Channel gap over the day and in each window, and the morning weekend ratio per group
 cycle_checks <- hour_gaps %>%
   summarise(
     mean_gap_ppb = mean(gap_ppb),
@@ -1059,10 +1029,8 @@ stopifnot(
       pmax(cycle_checks$weekend_ratio_houston_other, cycle_checks$weekend_ratio_dallas_fort_worth)[cycle_checks$pollutant == "NO2"])
 )
 
-# Figure 2C.2: the average day per group, and the Ship Channel gap at each hour with its range and the checks
 hour_axis <- scale_x_continuous(breaks = seq(0, 18, 6), labels = \(x) sprintf("%02d:00", x), expand = expansion(mult = 0.02))
 
-# Gap charts show a + on values above zero and name each side of the zero line, so a reader sees which way is which
 signed_labels <- function(x) {
   if_else(x > 0, str_c("+", x), minus_sign(as.character(x)))
 }
@@ -1079,10 +1047,8 @@ main_profiles <- group_profiles %>%
 
 profile_panel <- function(pollutant_name, kicker) {
   ggplot(filter(main_profiles, pollutant == pollutant_name, season == "All year"), aes(hour_local, mean_ppb)) +
-    geom_ribbon(aes(ymin = low_site_ppb, ymax = high_site_ppb, fill = site_group), alpha = 0.15) +
     geom_line(aes(colour = site_group), linewidth = 0.7) +
     scale_colour_manual(values = site_group_colours, guide = "none") +
-    scale_fill_manual(values = site_group_colours, guide = "none") +
     scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.05))) +
     hour_axis +
     labs(title = kicker, subtitle = "Mean by hour of day (ppb)", x = NULL, y = NULL) +
@@ -1093,7 +1059,6 @@ gap_panel <- function(pollutant_name, kicker) {
   gaps <- filter(hour_gaps, pollutant == pollutant_name)
   ggplot(filter(gaps, site_set == "Main"), aes(hour_local, gap_ppb)) +
     geom_hline(yintercept = 0, colour = chart_ink[["primary"]], linewidth = 0.35) +
-    geom_ribbon(aes(ymin = ci_low, ymax = ci_high), fill = site_group_colours[["Houston Ship Channel"]], alpha = 0.2) +
     geom_line(
       data = filter(gaps, site_set != "Main"), aes(group = site_set, linetype = site_set == "Without the transition band"),
       colour = chart_ink[["muted"]], linewidth = 0.35
@@ -1129,16 +1094,15 @@ cycle_figure <- tagged_figure(
   ),
   source_note = sprintf(
     str_c(
-      "Source: EPA AQS hourly data, %s to %s, ordinary hours, 2 sites per group; local standard time (06:00 is 7 am daylight time). (a), (b) ",
-      "Bands span each group's two sites. (c), (d) 95%% ranges from %s resamples of %d-day blocks; every check keeps both gaps at all hours."
+      "Source: EPA AQS hourly data, %s to %s, ordinary hours, 2 sites per group, each group the mean of its sites; local standard time ",
+      "(06:00 is 7 am daylight time). (c), (d) Every check keeps both gaps on the same side of zero at all hours."
     ),
-    min(study_years), max(study_years), comma(bootstrap_reps), bootstrap_block_days
+    min(study_years), max(study_years)
   )
 )
 
 save_figure(cycle_figure, "2c.02_daily_cycles.png", 5.7)
 
-# Figure 2C.3: the average day by season, and weekend against weekday at each hour
 main_morning_no2 <- morning_weekend %>%
   filter(site_set == "Main", pollutant == "NO2")
 
@@ -1172,9 +1136,9 @@ season_panel <- function(pollutant_name, kicker) {
     facet_strips
 }
 
-# Shown as percent higher or lower on weekends, which reads more easily than the ratio saved in the record. The side
-# labels sit in the NO2 panel only, since ozone runs along the zero line for most of the day; the lower one sits at the
-# foot of the panel, below the evening lines
+# shown as % higher/lower on weekends, easier to read than the ratio in the record. side
+# labels only go in the NO2 panel bc ozone hugs the zero line most of the day, the lower one sits at the
+# bottom of the panel under the evening lines
 weekend_plot <- weekend_profiles %>%
   filter(site_set == "Main") %>%
   mutate(weekend_pct = 100 * (weekend_ratio - 1))
@@ -1217,7 +1181,6 @@ season_weekend_figure <- tagged_figure(
 
 save_figure(season_weekend_figure, "2c.03_season_weekend.png", 6.9)
 
-# CSV records: site and group profiles by hour and season, the Ship Channel gap by hour, weekend ratios and the checks
 site_names <- monitors %>%
   distinct(site_id, local_site_name)
 
@@ -1301,9 +1264,9 @@ rm(cycle_site_sets)
 
 
 # 3. OZONE AND NO2 TOGETHER (OX) ----
-# NO from exhausts and stacks turns ozone into NO2 one for one (NO + O3 -> NO2 + O2), which leaves ozone plus NO2 (Ox)
-# unchanged. If the Ship Channel's lower ozone came only from this, its Ox would match Houston other's. Ox is built per
-# site and hour, from hours when both pollutants are ordinary at that site
+# NO from exhaust and stacks turns ozone into NO2 one for one (NO + O3 -> NO2 + O2), so ozone + NO2 (Ox) stays
+# the same. if the ship channel's lower ozone came only from this, its Ox would match houston other's. Ox gets built per
+# site and hour from hours when both pollutants are ordinary at that site
 ox_measures <- c("Ozone", "NO2", "Ox")
 
 ox_hours <- cycle_hours %>%
@@ -1322,7 +1285,6 @@ ox_hours <- cycle_hours %>%
     is_post_relocation, ozone_ppb, no2_ppb, ox_ppb
   )
 
-# Each site's paired hours against its ozone hours, and its five-year means
 ox_site_summary <- ox_hours %>%
   summarise(
     n_paired_hours = n(),
@@ -1354,7 +1316,6 @@ ox_long <- ox_hours %>%
   pivot_longer(c(ozone_ppb, no2_ppb, ox_ppb), names_to = "measure", values_to = "value_ppb") %>%
   mutate(measure = factor(measure, levels = c("ozone_ppb", "no2_ppb", "ox_ppb"), labels = ox_measures))
 
-# Ox by hour per group, each site counting equally, over the year and by season
 ox_site_hour_means <- bind_rows(
   ox_long %>%
     filter(measure == "Ox") %>%
@@ -1381,7 +1342,6 @@ stopifnot(
   "24 hours for every set, season and group" = all(count(ox_profiles, site_set, season, site_group)$n == 24)
 )
 
-# Ship Channel minus Houston other in the same hour, for ozone, NO2 and Ox
 ox_paired_gaps <- ox_long %>%
   filter(site_group != "Dallas-Fort Worth") %>%
   summarise(group_ppb = mean(value_ppb), .by = c(site_set, measure, site_group, datetime_utc, date_local, hour_local, season)) %>%
@@ -1416,8 +1376,8 @@ stopifnot(
   "Every hour rests on at least 1,000 paired hours" = min(ox_hour_gaps$n_paired_hours) >= 1000
 )
 
-# Each day's mean gap, then the mean over days for the year and each season. The 95% range resamples 14-day runs of
-# days in date order; within a season the runs can join the end of one year to the start of the next
+# each day's mean gap, then the mean over days for the year and each season. the 95% range resamples 14-day runs of
+# days in date order, inside a season the runs can join the end of one year to the start of the next
 block_mean_range <- function(x) {
   n_days <- length(x)
   block_starts <- seq_len(n_days - bootstrap_block_days + 1)
@@ -1453,7 +1413,7 @@ ox_season_gaps <- ox_season_days %>%
   left_join(ox_season_ranges, by = c("site_set", "measure", "season"), relationship = "one-to-one") %>%
   arrange(site_set, measure, season)
 
-# One row per check and season: the three gaps side by side, and the share of the ozone gap that Ox closes
+# one row per check and season: the 3 gaps side by side + the share of the ozone gap that Ox closes
 ox_checks <- ox_season_gaps %>%
   select(site_set, season, measure, n_days, gap_ppb, ci_low, ci_high) %>%
   mutate(measure = str_to_lower(measure)) %>%
@@ -1495,16 +1455,13 @@ stopifnot(
     transition_year$share_of_ozone_gap_closed > 0.9
 )
 
-# Figure 2C.4: Ox by hour per group, the three gaps by hour, and the ozone and Ox gaps by season and under each check
 ox_gap_colours <- c(Ozone = chart_ink[["muted"]], NO2 = chart_ink[["muted"]], Ox = chart_fills[["accent"]])
 
 ox_gap_lines <- c(Ozone = "solid", NO2 = "22", Ox = "solid")
 
 ox_profile_panel <- ggplot(filter(ox_profiles, site_set == "Main", season == "All year"), aes(hour_local, mean_ox_ppb)) +
-  geom_ribbon(aes(ymin = low_site_ppb, ymax = high_site_ppb, fill = site_group), alpha = 0.15) +
   geom_line(aes(colour = site_group), linewidth = 0.7) +
   scale_colour_manual(values = site_group_colours, guide = "none") +
-  scale_fill_manual(values = site_group_colours, guide = "none") +
   scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.05))) +
   hour_axis +
   labs(title = panel_label(1, "Ox by hour"), subtitle = "Ox (ozone + NO2) by hour of day (ppb)", x = NULL, y = NULL) +
@@ -1520,10 +1477,6 @@ ox_line_labels <- main_ox_hour_gaps %>%
 
 ox_gap_panel <- ggplot(main_ox_hour_gaps, aes(hour_local, gap_ppb, colour = measure)) +
   geom_hline(yintercept = 0, colour = chart_ink[["primary"]], linewidth = 0.35) +
-  geom_ribbon(
-    aes(ymin = ci_low, ymax = ci_high), data = filter(main_ox_hour_gaps, measure == "Ox"), fill = chart_fills[["accent"]],
-    alpha = 0.18, colour = NA
-  ) +
   geom_line(aes(linewidth = measure == "Ox", linetype = measure)) +
   geom_text(
     data = ox_line_labels, aes(label = label, vjust = vjust), hjust = 0.5,
@@ -1538,11 +1491,10 @@ ox_gap_panel <- ggplot(main_ox_hour_gaps, aes(hour_local, gap_ppb, colour = meas
   labs(title = panel_label(2, "Gaps by hour"), subtitle = "Ship Channel minus Houston other (ppb)", x = NULL, y = NULL) +
   theme_paper()
 
-# The grey line joins the ozone gap to the Ox gap: its length is the part of the ozone gap that NO2 accounts for
+# the grey line joins the ozone gap to the Ox gap, its length is the part of the ozone gap NO2 accounts for
 ox_season_panel <- ggplot(main_ox, aes(x = season)) +
   geom_hline(yintercept = 0, colour = chart_ink[["primary"]], linewidth = 0.35) +
   geom_segment(aes(y = ozone_gap_ppb, yend = ox_gap_ppb), colour = chart_ink[["axis"]], linewidth = 0.6) +
-  geom_errorbar(aes(ymin = ox_ci_low, ymax = ox_ci_high), colour = chart_fills[["accent"]], width = 0.18, linewidth = 0.45) +
   geom_point(aes(y = ozone_gap_ppb), colour = chart_ink[["muted"]], size = 1.8) +
   geom_point(aes(y = ox_gap_ppb), colour = chart_fills[["accent"]], size = 1.8) +
   zero_line_labels("Ship Channel higher", "Ship Channel lower") +
@@ -1562,13 +1514,9 @@ check_rows <- ox_checks %>%
   filter(season == "All year") %>%
   mutate(check = factor(check_labels[as.character(site_set)], levels = rev(check_labels)))
 
-# Check names sit above each row rather than on the axis, so this panel's left edge lines up with panel (b) above it
 ox_check_panel <- ggplot(check_rows, aes(y = check)) +
   geom_vline(xintercept = 0, colour = chart_ink[["primary"]], linewidth = 0.35) +
   geom_segment(aes(x = ozone_gap_ppb, xend = ox_gap_ppb, yend = check), colour = chart_ink[["axis"]], linewidth = 0.6) +
-  geom_errorbar(
-    aes(xmin = ox_ci_low, xmax = ox_ci_high), orientation = "y", colour = chart_fills[["accent"]], width = 0.25, linewidth = 0.45
-  ) +
   geom_point(aes(x = ozone_gap_ppb), colour = chart_ink[["muted"]], size = 1.8) +
   geom_point(aes(x = ox_gap_ppb), colour = chart_fills[["accent"]], size = 1.8) +
   edge_text(
@@ -1576,7 +1524,7 @@ ox_check_panel <- ggplot(check_rows, aes(y = check)) +
     size = chart_sizes[["label"]] - 0.6, colour = chart_ink[["secondary"]]
   ) +
   geom_text(
-    aes(x = coalesce(ox_ci_high, ox_gap_ppb), label = sprintf("%.0f%%", 100 * share_of_ozone_gap_closed)), hjust = -0.5,
+    aes(x = ox_gap_ppb, label = sprintf("%.0f%%", 100 * share_of_ozone_gap_closed)), hjust = -0.5,
     family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.7) / .pt, colour = chart_fills[["accent"]]
   ) +
   scale_x_continuous(labels = signed_labels, expand = expansion(mult = c(0.05, 0.15))) +
@@ -1606,16 +1554,15 @@ ox_figure <- tagged_figure(
   ),
   source_note = sprintf(
     str_c(
-      "Source: EPA AQS hourly data, %s to %s, ordinary hours with both pollutants at the same site, 2 sites per group. (b) to (d) Same-hour ",
-      "gaps, 95%% ranges from %s resamples of %d-day blocks. Standard-method NO2 also counts some other nitrogen oxides."
+      "Source: EPA AQS hourly data, %s to %s, ordinary hours with both pollutants at the same site, 2 sites per group, each group the ",
+      "mean of its sites. (b) to (d) Same-hour gaps. Standard-method NO2 also counts some other nitrogen oxides."
     ),
-    min(study_years), max(study_years), comma(bootstrap_reps), bootstrap_block_days
+    min(study_years), max(study_years)
   )
 )
 
 save_figure(ox_figure, "2c.04_ox.png", 5.7)
 
-# CSV records: each site's paired hours and means, Ox by hour per group, the gaps by hour, and the gaps by season and check
 ox_records <- list(
   case_study_ox_sites = ox_site_summary,
   case_study_ox_profiles = mutate(ox_profiles, across(c(mean_ox_ppb, low_site_ppb, high_site_ppb), \(x) round(x, 2))),
@@ -1678,8 +1625,8 @@ rm(ox_long, ox_paired_gaps)
 
 
 # 4. SO2 SPIKE HOURS ----
-# SO2 is below the detection limit in most hours, so it is read through spike hours. Rates are per 1,000 ordinary hours so
-# sites with different coverage compare. Each site is shown on its own, since Houston other is Croquet alone
+# SO2's under the MDL most hours so it's read through spike hours. rates are per 1,000 ordinary hours so
+# sites with different coverage compare. each site is shown on its own bc houston other is just croquet
 so2_hours <- hourly %>%
   filter(pollutant == "SO2", is_ordinary_hour) %>%
   mutate(short_name = short_site_name(local_site_name)) %>%
@@ -1692,7 +1639,6 @@ so2_hours <- hourly %>%
 
 so2_site_sets <- hourly_site_sets(so2_hours)
 
-# Checks that remove no SO2 hours change nothing and are dropped, as in section 2
 unchanged_so2_sets <- so2_site_sets %>%
   count(site_set) %>%
   filter(site_set != "Main", n == n[site_set == "Main"])
@@ -1707,7 +1653,7 @@ stopifnot(
     setequal(unique(as.character(so2_site_sets$site_set)), c("Main", "Without Deer Park #2 after its move"))
 )
 
-# Consecutive spike hours at a site form one episode
+# back-to-back spike hours at a site = one episode
 so2_episodes <- so2_site_sets %>%
   filter(is_spike) %>%
   arrange(site_set, site_id, datetime_utc) %>%
@@ -1715,7 +1661,7 @@ so2_episodes <- so2_site_sets %>%
   mutate(episode = cumsum(is.na(hours_since_last) | hours_since_last > 1), .by = c(site_set, site_id)) %>%
   summarise(episode_hours = n(), .by = c(site_set, site_id, episode))
 
-# Ship Channel spike hours that another Ship Channel site shares; few shared hours point to separate local plumes
+# ship channel spike hours another ship channel site also has. few shared hours = separate local plumes
 shared_spikes <- so2_site_sets %>%
   filter(site_group == "Houston Ship Channel", is_spike) %>%
   add_count(site_set, datetime_utc, name = "n_sites_spiking")
@@ -1771,8 +1717,6 @@ n_shared_spike_hours <- sum(main_shared_hours$n_sites_spiking > 1)
 
 cat("Ship Channel spike hours:", n_ship_channel_spike_hours, " shared by two or more sites:", n_shared_spike_hours, "\n")
 
-# Spike rates by hour of day, season and day type for each site. Day type uses April to October with the three holidays
-# left out, as in section 2
 spike_rate_rows <- function(hours, period_type, period_col) {
   hours %>%
     summarise(n_hours = n(), n_spike_hours = sum(is_spike), .by = c(site_group, site_id, short_name, all_of(period_col))) %>%
@@ -1821,9 +1765,9 @@ stopifnot(
     all(site_day_types$Weekday[site_day_types$site_id != relocation_site] < 2 * site_day_types$Weekend[site_day_types$site_id != relocation_site])
 )
 
-# Deer Park #2 is the one site measuring SO2, ozone and NO2. On its spike hours, each gas is compared with the spike-free
-# mean at the same hour of day and month. More NO2 means the plume carries nitrogen oxides; less ozone at night would be
-# the section 3 reaction (fresh NO using up ozone) inside the plume
+# deer park #2 is the only site measuring SO2, ozone and NO2. on its spike hours each gas is compared with the spike-free
+# mean at the same hour and month. more NO2 = the plume carries nitrogen oxides, less ozone at night would be
+# the section 3 reaction (fresh NO eating ozone) inside the plume
 plume_hours <- hourly %>%
   filter(site_id == relocation_site, is_ordinary_hour) %>%
   select(datetime_utc, date_local, hour_local, pollutant, value_ppb) %>%
@@ -1851,7 +1795,7 @@ stopifnot(
   "Every spike hour has at least 50 spike-free hours at the same hour and month to compare with" = min(plume_spikes$n_normal_hours) >= 50
 )
 
-# 95% ranges resample whole episodes, since hours within one plume are linked
+# 95% ranges resample whole episodes bc hours inside one plume are linked
 episode_mean_range <- function(values, episodes) {
   by_episode <- split(values, episodes)
   resampled_means <- vapply(seq_len(bootstrap_reps), \(rep) {
@@ -1896,8 +1840,6 @@ stopifnot(
   "Ozone is lower on night and morning spike hours" = night_ozone$mean_difference_ppb < 0
 )
 
-# Figure 2C.5: when each site spikes, by hour of day, season and day type, and the Deer Park #2 plume test. Labels sit on
-# the panels so each one reads on its own
 site_levels <- main_spike_sites$short_name
 
 n_so2_sites <- length(site_levels)
@@ -1914,7 +1856,6 @@ hour_rates <- so2_spike_profiles %>%
   mutate(hour_local = as.integer(period)) %>%
   mutate(short_name = factor(short_name, levels = rev(site_levels)))
 
-# Each site's share of spikes in the daytime window, written at the end of its row
 daytime_shares <- main_spike_sites %>%
   mutate(short_name = factor(short_name, levels = rev(site_levels))) %>%
   mutate(label = sprintf("%.0f%%", pct_spikes_daytime))
@@ -1982,8 +1923,8 @@ day_type_wide <- day_type_rates %>%
   select(short_name, group_colour, period, spike_rate_per_1000) %>%
   pivot_wider(names_from = period, values_from = spike_rate_per_1000)
 
-# The open (weekend) and solid (weekday) markers are named once, above the top row; each name is anchored to the side away from
-# the other point so the two never overlap
+# open (weekend) and solid (weekday) markers are named once above the top row, each name sits on the side away from
+# the other point so they never overlap
 top_day_type <- day_type_wide %>%
   filter(short_name == site_levels[1])
 
@@ -2024,7 +1965,6 @@ measure_labels <- c(Ozone = "Ozone", NO2 = "NO\u2082", Ox = "Ox (ozone + NO\u208
 
 period_labels <- c("Day, 9 am to 6 pm" = "Day", "Night and morning" = "Night")
 
-# Day and night sit side by side, each with its own value labels, so no label lands on another range
 plume_plot <- plume_test %>%
   filter(period != "All hours") %>%
   mutate(period = factor(as.character(period), levels = names(period_labels))) %>%
@@ -2033,14 +1973,13 @@ plume_plot <- plume_test %>%
 
 so2_plume_panel <- ggplot(plume_plot, aes(mean_difference_ppb, measure)) +
   geom_vline(xintercept = 0, colour = chart_ink[["axis"]], linewidth = 0.4) +
-  geom_errorbar(aes(xmin = ci_low, xmax = ci_high), orientation = "y", width = 0, linewidth = 0.8, colour = chart_fills[["accent"]]) +
-  geom_point(size = 1.7, colour = chart_fills[["accent"]]) +
+  geom_point(size = 1.9, colour = chart_fills[["accent"]]) +
   geom_text(
     aes(label = value_label), vjust = -0.95,
     family = chart_fonts[["mono"]], size = so2_label_size, colour = chart_ink[["secondary"]]
   ) +
   facet_grid(. ~ period, labeller = as_labeller(period_labels)) +
-  scale_x_continuous(breaks = c(-5, 0, 5, 10), labels = signed_labels, expand = expansion(mult = c(0.05, 0.12))) +
+  scale_x_continuous(breaks = c(-5, 0, 5, 10), labels = signed_labels, expand = expansion(mult = c(0.25, 0.2))) +
   scale_y_discrete(labels = measure_labels, expand = expansion(add = c(0.5, 0.8))) +
   labs(title = panel_label(4, "Deer Park #2 plumes"), subtitle = "In spike hours against a normal hour (ppb)", x = NULL, y = NULL) +
   theme_paper() +
@@ -2062,7 +2001,7 @@ so2_figure <- tagged_figure(
   source_note = sprintf(
     str_c(
       "Source: EPA AQS hourly data, %s to %s. Spike: an hour at %s ppb or more (detection limit 2 ppb, 0.2 at Deer Park #2); day: 9 am to 6 pm. ",
-      "(c) Weekday holidays left out. (d) Against the usual level at that hour and month; 95%% ranges resample whole episodes."
+      "(c) Weekday holidays left out. (d) Mean gap against the usual level at that hour and month."
     ),
     min(study_years), max(study_years), so2_spike_ppb
   )
@@ -2070,7 +2009,6 @@ so2_figure <- tagged_figure(
 
 save_figure(so2_figure, "2c.05_so2_spikes.png", 5.7)
 
-# CSV records: spike counts per site and check, spike rates by hour, season and day type, and the plume test
 so2_records <- list(
   case_study_so2_spike_sites = rename(so2_spike_sites, local_site_name = short_name),
   case_study_so2_spike_profiles = so2_spike_profiles %>%
@@ -2126,8 +2064,8 @@ rm(so2_site_sets)
 
 
 # 5. WIND AND CALM AIR ----
-# How the wind behaves at each site, and how calm air changes what the monitors measure. Wind statistics use the eight
-# sites with their own wind sensor, outside Uri and Beryl; Harvard Street borrows Croquet's wind (1e) and would repeat it
+# how wind behaves at each site and how calm air changes what monitors read. wind stats use the 8
+# sites with their own sensor, outside uri and beryl. harvard street borrows croquet's wind (1e) and would just repeat it
 wind_hours <- hourly_weather %>%
   filter(is.na(event_name), !is.na(wind_sector), wind_source_site == site_id, !is_wind_spike) %>%
   mutate(site_group = factor(site_group, levels = names(site_group_colours))) %>%
@@ -2149,7 +2087,7 @@ stopifnot(
     setequal(unique(wind_hours$site_id[wind_hours$is_sonic_wind]), sonic_wind_starts$site_id)
 )
 
-# Each table is built for all hours and again without the new sensors, so the sensor change can be read off directly
+# each table built for all hours and again without the new sensors, so u can read the sensor change straight off
 wind_sets <- bind_rows(
   wind_hours %>%
     mutate(site_set = "Main"),
@@ -2167,9 +2105,9 @@ wind_season_hours <- bind_rows(
 ) %>%
   mutate(season = factor(season, levels = season_levels))
 
-# u and v point where the wind blows to (1e), so the direction it comes from is the reverse of their mean. Steadiness is
-# the length of the mean vector over the mean speed: 1 when the wind always comes from one direction, near 0 when it
-# swings evenly around. Both use hours with wind, since a calm hour has no reliable direction
+# u and v point where the wind blows TO (1e), so where it comes from is the reverse of their mean. steadiness =
+# length of the mean vector / mean speed: 1 when the wind always comes from one way, near 0 when it
+# swings around evenly. both use hours with wind bc a calm hour has no reliable direction
 wind_vectors <- wind_season_hours %>%
   filter(!is_calm) %>%
   summarise(
@@ -2229,8 +2167,8 @@ stopifnot(
     all(houston_wind$Summer > houston_wind$Winter)
 )
 
-# Hours by direction and speed for each wind rose, as a share of all wind hours with calm hours included, so a rose's
-# petals and its calm centre add up to 100%
+# hours by direction and speed for each wind rose, as a share of all wind hours incl. calm, so a rose's
+# petals + calm centre add up to 100%
 rose_moving <- wind_season_hours %>%
   filter(!is_calm) %>%
   count(site_group, site_id, short_name, season, wind_sector, speed_band, name = "n_hours") %>%
@@ -2251,7 +2189,6 @@ site_roses <- bind_rows(rose_moving, rose_calm) %>%
   mutate(level = "Site") %>%
   arrange(season, site_group, short_name, speed_band, wind_sector)
 
-# The six Houston sites together, each counting equally, to show how the wind turns with the seasons
 houston_roses <- site_roses %>%
   filter(site_group != "Dallas-Fort Worth") %>%
   summarise(n_sites = n(), n_hours = sum(n_hours), pct_of_wind_hours = mean(pct_of_wind_hours), .by = c(season, wind_sector, speed_band)) %>%
@@ -2267,7 +2204,6 @@ stopifnot(
   "Each Houston rose adds up to 100%" = all(abs(summarise(houston_roses, s = sum(pct_of_wind_hours), .by = season)$s - 100) < 1e-9)
 )
 
-# Calm share by hour of day; a group's value is the mean of its sites' shares
 calm_site_hours <- wind_sets %>%
   summarise(n_wind_hours = n(), pct_calm = 100 * mean(is_calm), .by = c(site_set, site_group, site_id, hour_local))
 
@@ -2315,7 +2251,7 @@ stopifnot(
     )
 )
 
-# Ozone, NO2 and Ox on ordinary hours with a wind reading. Ox comes from section 3's paired hours. The spike hour is left out
+# ozone, NO2, Ox on ordinary hours with a wind reading. Ox comes from section 3's paired hours. spike hour's left out
 wind_columns <- hourly_weather %>%
   select(site_id, datetime_utc, wind_speed_ms, is_calm, is_wind_spike, is_sonic_wind)
 
@@ -2347,7 +2283,6 @@ wind_site_sets <- function(hours) {
 
 calm_sets <- wind_site_sets(calm_measure_hours)
 
-# Checks that leave a measure's hours unchanged are dropped, as in sections 2 and 4
 unchanged_calm_sets <- calm_sets %>%
   count(site_set, measure) %>%
   mutate(is_unchanged = site_set != "Main" & n == n[site_set == "Main"], .by = measure) %>%
@@ -2366,8 +2301,8 @@ stopifnot(
     identical(as.character(unchanged_calm_sets$measure), "Ozone")
 )
 
-# Each calm hour minus the mean of windy hours at the same site, hour of day and month. A site's value is the mean over
-# days with calm hours of each day's mean difference, so a long calm night counts once
+# each calm hour minus the mean of windy hours at the same site, hour and month. a site's value = the mean over
+# days with calm hours of each day's mean difference, so a long calm night only counts once
 windy_reference <- calm_sets %>%
   filter(!is_calm) %>%
   summarise(n_windy_hours = n(), windy_ppb = mean(value_ppb), .by = c(site_set, measure, site_id, hour_local, month))
@@ -2377,8 +2312,8 @@ calm_differences <- calm_sets %>%
   left_join(windy_reference, by = c("site_set", "measure", "site_id", "hour_local", "month"), relationship = "many-to-one") %>%
   mutate(difference_ppb = value_ppb - windy_ppb)
 
-# Checks that remove years leave some cells thin, and their calm hours are left out. Bayland Park's old wind sensor ran
-# only from March 2021 to April 2022, too short to match by hour and month, so it sits out the sensor check
+# checks that remove years leave some cells thin so their calm hours get dropped. bayland park's old sensor only ran
+# mar 2021 to apr 2022, too short to match by hour and month, so it sits out the sensor check
 thin_cell_hours <- calm_differences %>%
   summarise(n_calm_hours = n(), n_thin = sum(is.na(n_windy_hours) | n_windy_hours < min_windy_cell_hours), .by = c(site_set, measure, site_id)) %>%
   mutate(pct_thin = 100 * n_thin / n_calm_hours)
@@ -2414,7 +2349,7 @@ calm_group_days <- calm_site_days %>%
   summarise(difference_ppb = mean(difference_ppb), .by = c(site_set, measure, site_group, date_local)) %>%
   arrange(site_set, measure, site_group, date_local)
 
-# Plain calm and windy means beside the matched difference, so the effect of matching on time of day can be seen
+# plain calm + windy means next to the matched difference, so u can see what matching on time of day does
 plain_calm_means <- calm_sets %>%
   summarise(
     n_hours = n(),
@@ -2511,8 +2446,8 @@ stopifnot(
       main_site_calm$calm_minus_windy_ppb[main_site_calm$measure == "NO2"])
 )
 
-# Each measure by speed band, against a typical hour: the site's mean at the same hour of day and month over all its wind
-# hours. A group's value is the mean of its sites' values
+# each measure by speed band vs a typical hour: the site's mean at the same hour and month over all its wind
+# hours. a group's value = mean of its sites' values
 typical_hours <- calm_sets %>%
   summarise(typical_ppb = mean(value_ppb), .by = c(site_set, measure, site_id, hour_local, month))
 
@@ -2567,7 +2502,7 @@ stopifnot(
   "NO2 falls with every step up in wind speed in every group" = all(no2_band_steps$falls_every_step)
 )
 
-# SO2 spike hours by wind speed. Calm hours fall mostly at night, when spikes are rare, so day and night are kept apart
+# SO2 spike hours by wind speed. calm hours are mostly at night when spikes are rare, so day and night stay apart
 so2_wind_hours <- so2_hours %>%
   inner_join(wind_columns, by = c("site_id", "datetime_utc"), relationship = "many-to-one") %>%
   filter(!is.na(is_calm), !is_wind_spike) %>%
@@ -2619,8 +2554,8 @@ stopifnot(
     all(so2_band_peaks$peak_band %in% wind_speed_bands[1:2]) && all(so2_band_peaks$strong_rate == 0)
 )
 
-# Figures 2C.6 and 2C.7: a wind rose per site, then the six Houston sites by season. Petals stack hours by speed in each 30° sector,
-# pointing to where the wind comes from; the centre holds the calm share. All roses share one scale
+# figs 2C.6 + 2C.7: a wind rose per site, then the 6 houston sites by season. petals stack hours by speed per 30° sector
+# pointing where the wind comes from, centre = calm share. all roses share one scale
 rose_band_colours <- c("0.5 to 1.5" = "#C6DBEF", "1.5 to 3" = "#7FA9D3", "3 to 5" = "#2F6FAE", "5 or more" = "#123E6B")
 
 rose_hole <- 9
@@ -2636,7 +2571,6 @@ rose_peak <- bind_rows(filter(site_roses, season == "All year"), houston_season_
   pull(sector_pct) %>%
   max()
 
-# The scale ends at the longest petal, so the roses use the whole panel
 rose_top <- rose_peak
 
 rose_rings <- rose_hole + seq(rose_ring_step, rose_top, rose_ring_step)
@@ -2723,7 +2657,6 @@ season_rose_panels <- lapply(seq_along(levels(wind_hours$season)), \(i) {
   )
 })
 
-# North covers the sectors from 330° to 30°, south those from 150° to 210°
 houston_compass <- houston_season_roses %>%
   filter(speed_band != "Calm") %>%
   summarise(
@@ -2809,8 +2742,6 @@ save_figure(wind_rose_figure, "2c.06_wind_roses.png", 4.6)
 
 save_figure(wind_season_figure, "2c.07_wind_seasons.png", 2.6)
 
-# Figure 2C.8: when the air is calm, how each measure moves with wind speed, calm against windy hours per site, and SO2
-# spikes by wind speed
 calm_hour_panel <- ggplot(main_calm_hours, aes(hour_local, pct_calm)) +
   annotate("rect", xmin = -0.5, xmax = 5.5, ymin = -Inf, ymax = Inf, fill = chart_fills[["band"]]) +
   annotate(
@@ -2828,7 +2759,6 @@ speed_panel_data <- main_band_groups %>%
   filter(measure %in% cycle_pollutants) %>%
   mutate(measure = factor(as.character(measure), levels = cycle_pollutants))
 
-# "CALM" is written by the first points: below them for ozone, above them for NO2
 speed_calm_labels <- speed_panel_data %>%
   filter(speed_band == "Calm") %>%
   summarise(x = mean(mean_speed_ms), top = max(difference_from_typical_ppb), bottom = min(difference_from_typical_ppb), .by = measure) %>%
@@ -2848,7 +2778,7 @@ speed_panel <- ggplot(speed_panel_data, aes(mean_speed_ms, difference_from_typic
   scale_colour_manual(values = site_group_colours, guide = "none") +
   scale_x_continuous(breaks = c(0, 2, 4, 6), labels = \(x) if_else(x == 6, "6 m/s", as.character(x)), expand = expansion(mult = 0.06)) +
   scale_y_continuous(labels = signed_labels) +
-  labs(title = panel_label(2, "Wind speed"), subtitle = "Above or below a normal hour (ppb)", x = NULL, y = NULL) +
+  labs(title = panel_label(1, "Wind speed"), subtitle = "Above or below a normal hour (ppb)", x = NULL, y = NULL) +
   theme_paper() +
   facet_strips
 
@@ -2857,52 +2787,32 @@ calm_site_order <- main_site_calm %>%
   mutate(short_name = short_site_name(local_site_name)) %>%
   arrange(site_group, short_name)
 
-# Ozone falls and NO2 rises in calm air at every site (asserted above), so both share one axis: ozone to the left of zero,
-# NO2 to the right, and Ox, their sum, as a diamond. A diamond near zero means the ozone lost is mostly found again as NO2
-calm_site_rows <- calm_air %>%
-  filter(level == "Site") %>%
-  mutate(short_name = factor(short_site_name(local_site_name), levels = rev(calm_site_order$short_name))) %>%
-  mutate(group_colour = unname(site_group_colours[as.character(site_group)]))
+# one box per site of the daily calm-minus-windy gaps, ozone, NO2 and Ox (their sum) side by side. an Ox box near zero
+# means most of the ozone lost in calm air shows up as NO2
+calm_site_boxes <- calm_site_days %>%
+  filter(site_set == "Main", measure %in% c(cycle_pollutants, "Ox")) %>%
+  box_stats("difference_ppb", c("measure", "site_group", "site_id")) %>%
+  inner_join(calm_site_order, by = c("site_group", "site_id"), relationship = "many-to-one") %>%
+  mutate(short_name = factor(short_name, levels = rev(calm_site_order$short_name))) %>%
+  mutate(measure = factor(measure, levels = c("Ozone", "NO2", "Ox")))
 
-main_calm_rows <- calm_site_rows %>%
-  filter(site_set == "Main", measure %in% cycle_pollutants)
+stopifnot("Every main calm-air site has an ozone, NO2 and Ox box" = nrow(calm_site_boxes) == 3 * nrow(calm_site_order))
 
-main_ox_rows <- calm_site_rows %>%
-  filter(site_set == "Main", measure == "Ox")
-
-check_calm_rows <- calm_site_rows %>%
-  filter(site_set != "Main", measure %in% cycle_pollutants)
-
-n_calm_sites <- nrow(calm_site_order)
-
-calm_side_labels <- tibble(x = c(-0.6, 0.6), label = c("Ozone lower", "NO\u2082 higher"), hjust = c(1, 0))
-
-top_ox_row <- main_ox_rows %>%
-  filter(short_name == last(levels(short_name)))
-
-calm_site_panel <- ggplot(main_calm_rows, aes(calm_minus_windy_ppb, short_name)) +
+calm_site_panel <- ggplot(calm_site_boxes, aes(y = short_name, colour = site_group, fill = site_group)) +
   geom_vline(xintercept = 0, colour = chart_ink[["primary"]], linewidth = 0.35) +
-  geom_point(data = check_calm_rows, colour = chart_ink[["muted"]], shape = "|", size = 2.6) +
-  geom_errorbar(aes(xmin = ci_low, xmax = ci_high, colour = group_colour), orientation = "y", width = 0, linewidth = 0.8) +
-  geom_point(aes(colour = group_colour, shape = unname(site_group_shapes[as.character(site_group)])), size = 1.8) +
-  scale_shape_identity() +
-  geom_point(data = main_ox_rows, colour = chart_fills[["accent"]], shape = 18, size = 2.4) +
-  geom_text(
-    data = top_ox_row, aes(label = "Ox"), hjust = 1.7, vjust = 0.4,
-    family = chart_fonts[["mono"]], size = so2_label_size, colour = chart_fills[["accent"]]
-  ) +
-  geom_text(
-    data = calm_side_labels, aes(x = x, y = n_calm_sites + 0.85, label = label, hjust = hjust), inherit.aes = FALSE,
-    family = chart_fonts[["mono"]], size = so2_label_size, colour = chart_ink[["secondary"]]
-  ) +
-  scale_colour_identity() +
-  scale_x_continuous(breaks = seq(-10, 10, 2), labels = signed_labels) +
-  scale_y_discrete(expand = expansion(add = c(0.6, 1.2))) +
-  labs(title = panel_label(3, "Calm against windy"), subtitle = "Calm hours minus windy hours (ppb)", x = NULL, y = NULL) +
+  geom_box_whisker(horizontal = TRUE, width = 0.62) +
+  facet_wrap(~measure, nrow = 1, scales = "free_x", labeller = as_labeller(c(Ozone = "Ozone", NO2 = "NO₂", Ox = "Ox"))) +
+  scale_colour_manual(values = site_group_colours, guide = "none") +
+  scale_fill_manual(values = alpha(site_group_colours, box_fill_alpha), guide = "none") +
+  scale_x_continuous(labels = signed_labels, breaks = scales::breaks_pretty(n = 3)) +
+  labs(title = panel_label(2, "Calm against windy"), subtitle = "Calm hours minus windy hours, per day (ppb)", x = NULL, y = NULL) +
   theme_paper() +
+  facet_strips +
   theme(
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_line(colour = chart_ink[["grid"]], linewidth = 0.25),
+    panel.spacing.x = unit(4, "pt"),
+    axis.text.x = element_text(size = chart_sizes[["axis"]] - 0.8),
     axis.text.y = element_text(family = chart_fonts[["text"]], colour = chart_ink[["secondary"]], size = 6.3)
   )
 
@@ -2923,7 +2833,7 @@ so2_wind_panel <- ggplot(so2_tiles, aes(speed_band, short_name, fill = spike_rat
   facet_wrap(~period, ncol = 1, labeller = as_labeller(so2_period_labels)) +
   scale_fill_gradient(low = "white", high = chart_fills[["accent"]], guide = "none") +
   scale_colour_manual(values = c(`TRUE` = "white", `FALSE` = chart_ink[["secondary"]]), guide = "none") +
-  labs(title = panel_label(4, "SO2 spikes by wind speed"), subtitle = "Spike hours per 1,000, by wind (m/s)", x = NULL, y = NULL) +
+  labs(title = panel_label(2, "SO2 spikes by wind speed"), subtitle = "Spike hours per 1,000, by wind (m/s)", x = NULL, y = NULL) +
   theme_paper() +
   facet_strips +
   so2_site_axis +
@@ -2941,35 +2851,49 @@ ozone_site_effects <- main_site_calm %>%
 
 ox_offset_low <- min(group_ox_offset$share_of_ozone_loss_in_no2)
 
+group_line_key <- tribble(
+  ~mark,   ~colour,                                      ~label,              ~shape, ~row,
+  "range", site_group_colours[["Houston Ship Channel"]], "Ship Channel",      16,     1,
+  "range", site_group_colours[["Houston other"]],        "Houston other",     15,     1,
+  "range", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth", 17,     1
+)
+
 calm_figure <- tagged_figure(
-  list(calm_hour_panel, speed_panel, calm_site_panel, so2_wind_panel),
+  list(calm_hour_panel, calm_site_panel),
   bind_rows(
+    group_line_key,
     tribble(
-      ~mark,   ~colour,                                      ~label,              ~shape, ~row,
-      "range", site_group_colours[["Houston Ship Channel"]], "Ship Channel",      16,     1,
-      "range", site_group_colours[["Houston other"]],        "Houston other",     15,     1,
-      "range", site_group_colours[["Dallas-Fort Worth"]],    "Dallas-Fort Worth", 17,     1
-    ),
-    tribble(
-      ~mark,   ~colour,                 ~label,                   ~shape, ~row,
-      "point", chart_fills[["accent"]], "(c) Ox (ozone + NO2)",   18,     1,
-      "tick",  chart_ink[["muted"]],    "(c) Checks",             16,     1
+      ~mark, ~colour,                  ~label,                                                                                       ~shape, ~row,
+      "box", chart_ink[["secondary"]], "(b) Days: box holds the middle half, line is the median day, whiskers 10th to 90th percentile", 16,     2
     )
   ),
   source_note = sprintf(
     str_c(
-      "Source: EPA AQS hourly data, %s to %s, ordinary hours with wind; calm: under 0.5 m/s. (b), (c) Against hours at the same site, hour and ",
-      "month. (c) 95%% ranges from %d-day blocks. (d) Spike: an hour at %s ppb or more."
+      "Source: EPA AQS hourly data, %s to %s, ordinary hours with wind; calm: under 0.5 m/s. (b) Against windy hours at the same site, ",
+      "hour and month; Ox = ozone + NO2."
     ),
-    min(study_years), max(study_years), bootstrap_block_days, so2_spike_ppb
+    min(study_years), max(study_years)
   ),
-  free_panels = 3
+  ncol = 1,
+  row_weights = c(0.75, 1.25)
 )
 
-save_figure(calm_figure, "2c.08_calm_air.png", 6.3)
+save_figure(calm_figure, "2c.08_calm_air.png", 6.2)
 
-# CSV records: wind per site and season, the wind roses, calm share by hour, calm against windy hours, each measure by
-# wind speed, and SO2 spikes by wind speed
+wind_speed_figure <- tagged_figure(
+  list(speed_panel, so2_wind_panel),
+  group_line_key,
+  source_note = sprintf(
+    str_c(
+      "Source: EPA AQS hourly data, %s to %s, ordinary hours with wind; calm: under 0.5 m/s. (a) Against hours at the same site, hour and ",
+      "month. (b) Spike: an hour at %s ppb or more."
+    ),
+    min(study_years), max(study_years), so2_spike_ppb
+  )
+)
+
+save_figure(wind_speed_figure, "2c.13_wind_speed.png", 3.4)
+
 wind_site_record <- wind_site_summary %>%
   left_join(site_names, by = "site_id", relationship = "many-to-one") %>%
   select(
@@ -3104,8 +3028,8 @@ rm(wind_sets, wind_season_hours, calm_measure_hours, calm_sets, calm_differences
 
 
 # 6. POLLUTION ROSES AND SOURCE DIRECTIONS ----
-# Which wind directions bring NO2, ozone and SO2 spikes to each site, and whether wind direction explains the Ship
-# Channel Ox gap that section 3 left. Direction hours only: calm hours and the wind-spike hour have no reliable direction
+# which wind directions bring NO2, ozone and SO2 spikes to each site, and whether direction explains the ship
+# channel Ox gap section 3 left over. direction hours only, calm and wind-spike hours have no reliable direction
 channel_features <- read_json(channel_path)$features
 
 feature_sections <- vapply(channel_features, \(feature) feature$properties$channelareaidpk, character(1))
@@ -3123,12 +3047,12 @@ stopifnot(
   "The land-cut channel has vertices" = nrow(channel_vertices) > 100
 )
 
-# A 30-degree sector is named by its centre, so sector 0 runs from 345° up to 15° (as in 1e)
+# 30° sector named by its centre so sector 0 runs 345° up to 15° (like 1e)
 sector_of <- function(degrees) {
   30 * (floor((degrees + 15) / 30) %% 12)
 }
 
-# Bearing from each Houston site to every vertex of the channel: the directions the wind must come from to carry
+# bearing from each houston site to every vertex of the channel, ie which way the wind has to come from to bring
 # channel air to the site
 houston_hourly_sites <- site_roles %>%
   filter(!is.na(km_to_channel)) %>%
@@ -3172,8 +3096,8 @@ compass_name <- function(wind_sector) {
   compass_names[wind_sector / 30 + 1]
 }
 
-# NO2 and ozone by direction against a normal hour: the site's mean at the same hour of day and month over its direction
-# hours. A ratio above 1 means more than usual comes with wind from that sector
+# NO2 + ozone by direction vs a normal hour: the site's mean at the same hour and month over its direction
+# hours. ratio over 1 = more than usual comes with wind from that sector
 rose_hours <- hourly %>%
   filter(is_ordinary_hour, is_direction_hour, pollutant %in% cycle_pollutants) %>%
   mutate(measure = factor(as.character(pollutant), levels = cycle_pollutants)) %>%
@@ -3238,8 +3162,8 @@ stopifnot(
   "Every check keeps the Houston NO2 peak in east wind (45° to 135°)" = all(check_no2_peaks$wind_sector %in% east_sectors)
 )
 
-# SO2 spike hours by direction: the share of a site's spikes from each sector beside the share of all its hours from
-# that sector. A sector holding far more spikes than hours points to a source that way
+# SO2 spike hours by direction: share of a site's spikes from each sector next to the share of all its hours from
+# that sector. way more spikes than hours from a sector points to a source that way
 so2_direction_hours <- hourly %>%
   filter(pollutant == "SO2", is_ordinary_hour, is_direction_hour) %>%
   mutate(is_spike = value_ppb >= so2_spike_ppb) %>%
@@ -3273,8 +3197,8 @@ so2_directions <- bind_rows(
   mutate(period = factor(period, levels = c("All hours", "Day, 9 am to 6 pm"))) %>%
   arrange(site_set, site_group, short_name, period, wind_sector)
 
-# Each site's share of spike hours from the channel side and from the southwest, against the share of its hours from there.
-# 95% ranges resample whole spike episodes, as in section 4
+# each site's share of spike hours from the channel side and from the SW, vs the share of its hours from there.
+# 95% ranges resample whole spike episodes like section 4
 main_so2_spikes <- so2_direction_sets %>%
   filter(site_set == "Main", is_spike) %>%
   left_join(channel_sectors, by = c("site_id", "wind_sector"), relationship = "many-to-one") %>%
@@ -3342,8 +3266,8 @@ stopifnot(
   "Every check keeps Croquet's southwest share above half" = all(check_croquet_shares$pct_from_southwest > 50)
 )
 
-# The shared Houston wind for the Ox gap: one direction per hour from the vector mean of the Houston sites' own sensors,
-# and again from their old sensors only for the sensor check
+# shared houston wind for the Ox gap: one direction per hour from the vector mean of the houston sites' own sensors,
+# and again from just their old sensors for the sensor check
 houston_wind_hours <- hourly_weather %>%
   filter(region == "Houston", wind_source_site == site_id, !is.na(wind_sector), !is_wind_spike, is.na(event_name)) %>%
   select(site_id, datetime_utc, wind_u_ms, wind_v_ms, is_sonic_wind)
@@ -3370,7 +3294,6 @@ stopifnot(
   "Every shared-wind hour has a sector and quadrant" = !anyNA(shared_wind$quadrant)
 )
 
-# Ozone, NO2 and Ox gaps per hour, as in section 3, joined to the shared wind
 wind_ox_gaps <- ox_hours %>%
   filter(site_group != "Dallas-Fort Worth") %>%
   hourly_site_sets() %>%
@@ -3393,8 +3316,8 @@ ox_wind_gaps <- bind_rows(
 ) %>%
   mutate(site_set = factor(as.character(site_set), levels = c(hourly_check_levels, sensor_check_level)))
 
-# Wind from the channel toward Houston other: the sectors in which the channel lies from the Houston other ozone sites in
-# each set (Bayland Park, and Harvard Street where it is kept)
+# wind from the channel toward houston other: the sectors where the channel sits from the houston other ozone sites in
+# each set (bayland park, plus harvard street where it's kept)
 houston_other_ox_sites <- ox_hours %>%
   filter(site_group == "Houston other") %>%
   distinct(site_id, in_transition_band)
@@ -3412,8 +3335,8 @@ ox_wind_gaps <- ox_wind_gaps %>%
 
 print(arrange(channel_wind_sectors, site_set, wind_sector), n = Inf)
 
-# Each day's mean gap within a direction, then the mean over days, as in section 3. Directions are the 12 sectors over the
-# year, the four quadrants by season, and wind from the channel against all other wind
+# each day's mean gap within a direction, then the mean over days like section 3. directions = the 12 sectors over the
+# year, the 4 quadrants by season, and channel wind vs all other wind
 direction_day_gaps <- bind_rows(
   ox_wind_gaps %>%
     mutate(direction_type = "Sector", direction = as.character(wind_sector), season = "All year"),
@@ -3485,8 +3408,8 @@ stopifnot(
   "Without Harvard Street, south wind gives the Ship Channel slightly more Ox, range above zero" = south_without_harvard$ox_ci_low > 0
 )
 
-# Harvard Street, the Houston other site nearest the channel, against Bayland Park, the farthest, under the same shared
-# wind. Higher Ox at Harvard Street with wind from the channel side would match channel air reaching it first
+# harvard street (houston other site closest to the channel) vs bayland park (farthest), same shared
+# wind. higher Ox at harvard street with channel-side wind would fit channel air reaching it first
 harvard_site <- transition_sites
 
 bayland_site <- site_roles %>%
@@ -3530,7 +3453,6 @@ stopifnot(
   "Every sector has at least 200 paired hours" = min(harvard_bayland$n_hours) >= min_sector_hours
 )
 
-# Figures 2C.9 and 2C.10: NO2 roses and SO2 spike roses, four large roses each, with the side facing the channel shaded
 channel_shade <- "#fbe3d7"
 
 above_normal_fill <- chart_fills[["accent"]]
@@ -3548,7 +3470,6 @@ no2_rose_order <- channel_bearings %>%
   filter(site_id %in% main_roses$site_id[main_roses$measure == "NO2"]) %>%
   arrange(km_to_channel)
 
-# The two sites the SO2 story turns on come first
 so2_rose_order <- channel_bearings %>%
   filter(site_id %in% so2_direction_shares$site_id) %>%
   inner_join(select(so2_direction_shares, site_id, short_name), by = "site_id", relationship = "one-to-one") %>%
@@ -3683,8 +3604,6 @@ so2_rose_figure <- tagged_figure(
 
 save_figure(so2_rose_figure, "2c.10_so2_roses.png", 6.6)
 
-# Figure 2C.11: the Ox gap in wind from the channel against other wind, with and without Harvard Street, over the year and
-# by season. The sector detail, the other checks and Harvard Street against Bayland Park are in the CSV record
 main_channel_sectors <- channel_wind_sectors$wind_sector[channel_wind_sectors$site_set == "Main"]
 
 wind_type_fills <- c("Wind from the channel" = "#6E6E6E", "Other wind" = below_normal_fill)
@@ -3696,7 +3615,7 @@ channel_bars <- ox_by_wind %>%
   mutate(set_label = factor(harvard_labels[as.character(site_set)], levels = harvard_labels)) %>%
   mutate(wind_type = factor(if_else(direction == "Other", "Other wind", "Wind from the channel"), levels = names(wind_type_fills))) %>%
   mutate(label = minus_sign(sprintf("%+.1f", ox_gap_ppb))) %>%
-  mutate(label_y = if_else(ox_gap_ppb < 0, pmin(ox_ci_low, ox_gap_ppb), pmax(ox_ci_high, ox_gap_ppb))) %>%
+  mutate(label_y = ox_gap_ppb) %>%
   mutate(label_vjust = if_else(ox_gap_ppb < 0, 1.5, -0.6))
 
 bar_dodge <- position_dodge(width = 0.78)
@@ -3704,7 +3623,6 @@ bar_dodge <- position_dodge(width = 0.78)
 channel_bar_panel <- ggplot(channel_bars, aes(set_label, ox_gap_ppb, fill = wind_type)) +
   geom_hline(yintercept = 0, colour = chart_ink[["primary"]], linewidth = 0.35) +
   geom_col(position = bar_dodge, width = 0.72) +
-  geom_errorbar(aes(ymin = ox_ci_low, ymax = ox_ci_high), position = bar_dodge, width = 0, colour = chart_ink[["primary"]], linewidth = 0.45) +
   geom_text(
     aes(y = label_y, label = label, vjust = label_vjust), position = bar_dodge,
     family = chart_fonts[["mono"]], size = (chart_sizes[["label"]] - 0.4) / .pt, colour = chart_ink[["primary"]]
@@ -3768,17 +3686,15 @@ ox_wind_figure <- tagged_figure(
   source_note = sprintf(
     str_c(
       "Source: EPA AQS hourly data, %s to %s; wind: mean of the 6 Houston sensors, calm hours left out. Channel wind: %d\u00b0 to %d\u00b0, ",
-      "where the channel lies from Bayland Park and Harvard Street. 95%% ranges from %d-day blocks; grey values could be zero."
+      "where the channel lies from Bayland Park and Harvard Street. (b) Grey values: their 95%% range includes zero."
     ),
-    min(study_years), max(study_years), min(main_channel_sectors) - 15, max(main_channel_sectors) + 15, bootstrap_block_days
+    min(study_years), max(study_years), min(main_channel_sectors) - 15, max(main_channel_sectors) + 15
   ),
   widths = c(1, 1.15)
 )
 
 save_figure(ox_wind_figure, "2c.11_ox_by_wind.png", 4.4)
 
-# CSV records: each Houston site's bearings to the channel with its SO2 spike shares, the NO2 and ozone roses, SO2 spikes by
-# direction, and the Ox gap by wind direction
 channel_record <- channel_bearings %>%
   left_join(site_names, by = "site_id", relationship = "one-to-one") %>%
   left_join(select(so2_direction_shares, -site_group, -short_name), by = "site_id", relationship = "one-to-one") %>%
@@ -3902,11 +3818,10 @@ rm(rose_hours, rose_sets, so2_direction_hours, so2_direction_sets, wind_ox_gaps,
 
 
 # 7. VALIDATE AND SAVE ----
-# Every headline 95% range redrawn with a second seed, every headline finding under every check (figure 2C.12), one table of
+# every headline 95% range redrawn with a 2nd seed, every headline finding under every check (fig 2C.12), one table of
 # headline numbers for the report, and a final observed / expected / passed table
 set.seed(bootstrap_check_seed)
 
-# Hour gaps (2C.2): the 24 hourly ranges for NO2 and ozone, from the main paired hours kept from section 2
 seed_hour_gaps <- bind_rows(lapply(cycle_pollutants, \(pollutant_name) {
   paired_gaps %>%
     filter(site_set == "Main", pollutant == pollutant_name) %>%
@@ -3924,7 +3839,6 @@ seed_hour_gaps <- bind_rows(lapply(cycle_pollutants, \(pollutant_name) {
   mutate(finding_id = if_else(pollutant == "NO2", "R01", "R02"), item = str_c(pollutant, " at ", hour_local, ":00")) %>%
   select(finding_id, item, estimate, ci_low, ci_high, check_low, check_high)
 
-# Ox gap over the year and in winter (2C.4)
 seed_ox_seasons <- ox_season_days %>%
   filter(site_set == "Main", measure == "Ox", season %in% c("All year", "Winter")) %>%
   summarise(range = list(block_mean_range(gap_ppb)), .by = season) %>%
@@ -3939,7 +3853,6 @@ seed_ox_seasons <- ox_season_days %>%
   mutate(finding_id = "R04", item = str_c("Ox gap, ", season)) %>%
   select(finding_id, item, estimate, ci_low, ci_high, check_low, check_high)
 
-# Deer Park #2 plume NO2 (2C.5)
 plume_no2 <- plume_spikes %>%
   filter(period %in% c("Day, 9 am to 6 pm", "Night and morning"), measure == "NO2")
 
@@ -3955,7 +3868,6 @@ seed_plume <- tibble(
   check_high = plume_no2_check[2]
 )
 
-# Calm minus windy at each site (2C.8)
 seed_calm <- calm_site_days %>%
   filter(site_set == "Main", measure %in% cycle_pollutants) %>%
   summarise(range = list(block_mean_range(difference_ppb)), .by = c(measure, site_id)) %>%
@@ -3970,7 +3882,7 @@ seed_calm <- calm_site_days %>%
   mutate(finding_id = "R07", item = str_c(measure, ", ", short_site_name(local_site_name))) %>%
   select(finding_id, item, estimate, ci_low, ci_high, check_low, check_high)
 
-# Croquet's southwest share and Park Place's channel-side share of spike hours (2C.10), in percent and tested against half
+# croquet's SW share and park place's channel-side share of spike hours (2C.10), in %, tested against half
 spike_share_check <- function(site_name, column) {
   spikes <- filter(main_so2_spikes, short_name == site_name)
   100 * episode_mean_range(as.numeric(spikes[[column]]), spikes$episode)
@@ -3991,7 +3903,6 @@ seed_spike_shares <- tibble(
   threshold = 50
 )
 
-# The Ox gap in wind from the channel, with and without Harvard Street (2C.11)
 seed_channel_wind <- direction_day_gaps %>%
   filter(
     site_set %in% c("Main", "Without the transition band"), measure == "Ox", direction_type == "Channel or other",
@@ -4009,7 +3920,7 @@ seed_channel_wind <- direction_day_gaps %>%
   mutate(finding_id = "R10", item = if_else(site_set == "Main", "Channel wind, with Harvard Street", "Channel wind, without Harvard Street")) %>%
   select(finding_id, item, estimate, ci_low, ci_high, check_low, check_high)
 
-# A range keeps its verdict when it stays on the same side of its threshold (zero, or half for the spike shares)
+# a range keeps its verdict if it stays on the same side of its threshold (zero, or half for the spike shares)
 seed_check <- bind_rows(seed_hour_gaps, seed_ox_seasons, seed_plume, seed_calm, seed_spike_shares, seed_channel_wind) %>%
   mutate(threshold = coalesce(threshold, 0)) %>%
   mutate(main_verdict = case_when(ci_low > threshold ~ "Above", ci_high < threshold ~ "Below", .default = "Includes")) %>%
@@ -4028,7 +3939,7 @@ stopifnot(
   "48 hour gaps, 2 Ox seasons, 1 plume, 12 calm comparisons, 2 spike shares and 2 channel-wind gaps" = nrow(seed_check) == 48 + 2 + 1 + 12 + 2 + 2
 )
 
-# Every headline finding under every check. A check that removes no hours a finding uses is left blank, as it would only
+# every headline finding under every check. a check that removes no hours a finding uses is left blank, it'd only
 # repeat the main result
 robustness_columns <- c(hourly_check_levels, sensor_check_level, "Second seed")
 
@@ -4115,7 +4026,7 @@ stopifnot(
   "Every finding holds under every check that applies" = n_failing == 0
 )
 
-# Headline numbers for the report: one row per number the text quotes, each with its unit, 95% range where there is one,
+# headline numbers for the report: one row per number the text quotes, with unit, 95% range if any,
 # and the record it comes from, so the report reads numbers instead of retyping them
 group_value <- function(table, group, column) {
   table[[column]][table$site_group == group]
@@ -4246,7 +4157,6 @@ stopifnot(
     all(is.na(hourly_headlines$ci_low) | (hourly_headlines$ci_low <= hourly_headlines$value & hourly_headlines$value <= hourly_headlines$ci_high))
 )
 
-# Figure 2C.12: every headline finding under every check, one cell each
 robustness_labels <- c(
   "Main" = "Main",
   "Without the transition band" = "No Harvard\nStreet",
@@ -4300,7 +4210,6 @@ robustness_figure <- tagged_figure(
 
 save_figure(robustness_figure, "2c.12_checks.png", 4.7)
 
-# Final validation: inputs, hour rules, ranges, findings and saved files
 hourly_rows_listed <- input_check$rows[match(hourly_files, input_check$file)]
 
 duplicate_monitor_hours <- sum(duplicated(hourly_case_study[c("site_id", "pollutant", "datetime_utc")]))
@@ -4322,7 +4231,7 @@ ranges_missing_estimate <- sum(main_ranges$estimate < main_ranges$ci_low - 1e-9 
 figure_paths <- here("figures", "phase2", c(
   "2c.01_coverage.png", "2c.02_daily_cycles.png", "2c.03_season_weekend.png", "2c.04_ox.png", "2c.05_so2_spikes.png",
   "2c.06_wind_roses.png", "2c.07_wind_seasons.png", "2c.08_calm_air.png", "2c.09_no2_roses.png", "2c.10_so2_roses.png",
-  "2c.11_ox_by_wind.png", "2c.12_checks.png"
+  "2c.11_ox_by_wind.png", "2c.12_checks.png", "2c.13_wind_speed.png"
 ))
 
 final_records <- list(
@@ -4383,7 +4292,7 @@ print(case_study_hourly_validation, n = Inf, width = Inf)
 
 stopifnot("Every 2c validation check passed" = all(case_study_hourly_validation$passed))
 
-# CSV records: the validation table, saved last so it reports on every other file
+# validation table gets saved last so it covers every other file
 validation_records <- list(
   case_study_hourly_validation = case_study_hourly_validation
 )

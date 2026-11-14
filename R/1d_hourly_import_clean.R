@@ -9,7 +9,7 @@ library(lubridate)
 library(lobstr)
 library(here)
 
-source(here("R", "utils.R")) # study_years, log_step(), region_lookup, hourly zip helpers, calendar, events, save helpers
+source(here("R", "utils.R"))
 
 
 
@@ -20,7 +20,6 @@ hourly_dir <- here("data", "raw", "hourly")
 
 processed_dir <- here("data", "processed")
 
-# CSV records go to a folder per phase; checkpoints, the dictionary and the manifest stay in data/processed
 records_dir <- file.path(processed_dir, "phase1")
 
 dir.create(records_dir, recursive = TRUE, showWarnings = FALSE)
@@ -30,7 +29,7 @@ filtered_dir <- here("data", "hourly_filtered")
 
 
 # 1. RAW FILES AND EPA ROW COUNTS ----
-# The 15 zips the folder should hold: 3 pollutants x 5 years
+# 15 zips expected: 3 pollutants x 5 years
 expected_zips <- expand_grid(
   parameter_code = hourly_codes,
   year = study_years
@@ -45,8 +44,8 @@ stopifnot(
     setequal(basename(zip_paths), expected_zips$file)
 )
 
-# Row counts from EPA's AirData file list (file_list.csv, files dated 2026-06-25). Section 3 counts every row
-# while it reads each zip and checks the counts against this list
+# row counts from EPA's file list (file_list.csv, dated 2026-06-25). section 3 counts every row as it
+# reads each zip and checks against this
 airdata_list_counts <- tribble(
   ~parameter_code, ~year, ~listed_rows,
   "44201",         2021,  9187353,
@@ -69,7 +68,6 @@ airdata_list_counts <- tribble(
 
 
 # 2. CHECK FILE HEADERS ----
-# aqs_hourly_columns (utils.R) holds the 24 columns EPA documents for hourly files (AirData file formats, section 6.2)
 file_headers <- tibble(zip_path = zip_paths) %>%
   mutate(
     file = basename(zip_path),
@@ -88,7 +86,6 @@ stopifnot(
   "Header matches EPA's 24 documented columns, in order" = identical(first_header, aqs_hourly_columns)
 )
 
-# Preview 5 rows as text, to see how values are written before setting column types
 header_preview <- zip_paths[1] %>%
   read_first_lines(n = 6) %>%
   I() %>%
@@ -99,7 +96,6 @@ glimpse(header_preview)
 
 
 # 3. FILTER TO THE CASE-STUDY MONITORS ----
-# The 16 monitors picked in 1c, as site ID and parameter code
 parameter_codes <- tribble(
   ~pollutant, ~parameter_code,
   "Ozone",    44201L,
@@ -117,9 +113,9 @@ stopifnot(
   "Every monitor has a parameter code" = !anyNA(case_study_monitors$parameter_code)
 )
 
-# Each zip is read in 1-million-row chunks with the 16 columns in aqs_hourly_col_spec, and the case-study rows are
-# saved to data/hourly_filtered with the number of rows read (filter_case_study_zip() in utils.R). A saved file is
-# reused while its zip keeps the same size and modification time, so a rerun skips the full read
+# each zip gets read in 1M-row chunks (16 cols from aqs_hourly_col_spec) and only case-study rows are kept,
+# saved to data/hourly_filtered with the rows-read count (filter_case_study_zip() in utils.R). the saved file
+# gets reused as long as the zip's size and mod time don't change, so reruns skip the big read
 dir.create(filtered_dir, showWarnings = FALSE)
 
 filtered_paths <- map_chr(zip_paths, \(zip_path) filter_case_study_zip(zip_path, filtered_dir, case_study_monitors), .progress = TRUE)
@@ -134,7 +130,7 @@ filter_log <- tibble(
 
 print(filter_log, n = Inf)
 
-# Every row in every file must have been read: rows read has to equal EPA's listed count
+# every row has to be read: rows read must equal EPA's count
 hourly_row_counts <- filter_log %>%
   mutate(
     parameter_code = str_sub(file, 8, 12),
@@ -149,7 +145,7 @@ row_count_check <- hourly_row_counts %>%
 
 print(row_count_check, n = Inf, width = Inf)
 
-# A mismatch means a damaged download, or files EPA has since regenerated (check file_list.csv again)
+# a mismatch = broken download, or EPA regenerated the files (check file_list.csv again)
 stopifnot(
   "Every file has an EPA listed count" = !anyNA(row_count_check$listed_rows),
   "Rows read match EPA's file list" = all(row_count_check$difference == 0),
@@ -163,7 +159,6 @@ hourly_row_counts %>%
 
 print(sum(hourly_row_counts$raw_rows))
 
-# Saved as a record of the rows in each raw file
 write_csv(hourly_row_counts, file.path(records_dir, "hourly_raw_row_counts.csv"))
 
 hourly_raw <- filtered_files %>%
@@ -176,7 +171,6 @@ invisible(gc())
 
 print(obj_size(hourly_raw))
 
-# All 16 monitors found, and no instrument has more rows in a year than there are hours
 monitors_found <- hourly_raw %>%
   distinct(site_id, parameter_code)
 
@@ -207,13 +201,12 @@ print(hourly_cleaning_log)
 
 
 # 4. INSPECT VALUES ----
-# Nothing is removed in this section. The counts below decide the cleaning rules in section 5
+# nothing gets removed here, these counts decide the cleaning rules in section 5
 hourly_raw <- hourly_raw %>%
   left_join(parameter_codes, by = "parameter_code", relationship = "many-to-one")
 
 stopifnot("Every row has a pollutant name" = !anyNA(hourly_raw$pollutant))
 
-# Missing values by column, then missing measurements by monitor
 missing_by_column <- hourly_raw %>%
   summarise(across(everything(), \(x) sum(is.na(x)))) %>%
   pivot_longer(everything(), names_to = "column", values_to = "n_missing") %>%
@@ -231,7 +224,6 @@ hourly_raw %>%
   ) %>%
   print(n = Inf)
 
-# Units: one per pollutant, matching the daily data (ozone in ppm, NO2 and SO2 in ppb)
 expected_units <- tribble(
   ~pollutant, ~expected_unit,
   "Ozone",    "Parts per million",
@@ -250,11 +242,10 @@ stopifnot(
   "Units match the daily data" = all(unit_check$units_of_measure == unit_check$expected_unit)
 )
 
-# Time zone: AQS local times skip daylight saving, so Texas is always 6 hours behind GMT (check in utils.R)
+# AQS local times skip DST so texas is always 6 hrs behind GMT (check in utils.R)
 check_local_standard_time(hourly_raw)
 
-# Method detection limit (MDL): the values each monitor reports, and whether
-# values below the MDL were replaced with MDL/2
+# MDL: what each monitor reports, and whether values under it got swapped for MDL/2
 mdl_by_monitor <- hourly_raw %>%
   group_by(pollutant, site_id) %>%
   summarise(
@@ -287,8 +278,8 @@ mdl_check <- hourly_raw %>%
 
 print(mdl_check, n = Inf, width = Inf)
 
-# The most common value below the MDL at each monitor. A large pile-up exactly at MDL/2
-# means the agency substituted MDL/2; a spread of values means it reported raw readings
+# most common value under the MDL per monitor. a big pile-up right at MDL/2 means the agency
+# swapped in MDL/2, a spread of values means they reported raw readings
 top_below_mdl_value <- hourly_raw %>%
   filter(sample_measurement < mdl) %>%
   count(pollutant, site_id, mdl, sample_measurement, name = "n_rows") %>%
@@ -297,7 +288,7 @@ top_below_mdl_value <- hourly_raw %>%
 
 print(top_below_mdl_value, n = Inf, width = Inf)
 
-# Range, zeros and negatives. Values between -MDL and 0 are instrument noise around zero
+# range, zeros, negatives. stuff between -MDL and 0 is just noise around zero
 value_check <- hourly_raw %>%
   filter(!is.na(sample_measurement)) %>%
   group_by(pollutant, site_id) %>%
@@ -313,8 +304,8 @@ value_check <- hourly_raw %>%
 
 print(value_check, n = Inf, width = Inf)
 
-# Qualifiers, typed with EPA's AQS qualifier table (aqs_qualifier_types in utils.R). Any code outside the lookup
-# is labelled so it can be looked up before a rule is set
+# qualifiers typed with EPA's qualifier table (aqs_qualifier_types in utils.R). anything not in the lookup
+# gets labelled so u can look it up before setting a rule
 qualifier_counts <- hourly_raw %>%
   filter(!is.na(qualifier)) %>%
   count(pollutant, qualifier, has_value = !is.na(sample_measurement), name = "n_rows") %>%
@@ -334,7 +325,6 @@ hourly_raw %>%
   ) %>%
   print(n = Inf)
 
-# Method codes, checked against EPA's methods table as in 1a_import_clean.R
 methods_ref <- read_methods_ref()
 
 hourly_methods <- hourly_raw %>%
@@ -356,14 +346,13 @@ print(method_check, n = Inf, width = Inf)
 
 stopifnot("Every method code is in EPA's methods table" = !anyNA(method_check$method_type))
 
-# Repeated hours for the same instrument (checked again when timestamps are built)
 duplicate_hours <- hourly_raw %>%
   count(site_id, parameter_code, poc, date_local, time_local) %>%
   filter(n > 1)
 
 print(nrow(duplicate_hours))
 
-# Coordinates over time, printed to 6 decimals. Deer Park #2's move does not show here because EPA lists one pair
+# coords over time to 6 decimals. deer park #2's move doesn't show up bc EPA lists just one pair
 site_locations <- hourly_raw %>%
   group_by(site_id, latitude, longitude) %>%
   summarise(
@@ -380,7 +369,7 @@ print(site_locations, n = Inf, width = Inf)
 
 
 # 5. FLAG WILDFIRE AND BELOW-DETECTION-LIMIT HOURS ----
-# No rows are removed from here on. Each rule adds a flag, so later phases can keep or leave out these hours
+# no rows removed from here on, each rule just adds a flag so later phases can keep or drop those hours
 qualifiers_present <- hourly_raw %>%
   filter(!is.na(qualifier)) %>%
   distinct(qualifier) %>%
@@ -394,14 +383,12 @@ stopifnot(
     all(hourly_raw$sample_measurement >= -hourly_raw$mdl)
 )
 
-# RT marks hours the agency asked EPA to exclude for U.S. wildfire smoke
 hourly <- hourly_raw %>%
   mutate(is_wildfire_flagged = qualifier %in% "RT")
 
 hourly_cleaning_log <- hourly_cleaning_log %>%
   log_step("Flag wildfire (RT) hours, none removed", hourly)
 
-# Readings below the MDL are kept as reported, zeros and negatives included
 hourly <- hourly %>%
   mutate(below_mdl = sample_measurement < mdl)
 
@@ -422,11 +409,10 @@ hourly %>%
 
 
 # 6. BUILD TIMESTAMPS AND CALENDAR COLUMNS ----
-# AQS local times skip daylight saving (section 4), so Texas is always UTC-6 (standard_time_zone in utils.R)
 hourly <- hourly %>%
   mutate(datetime_local = ymd_hm(str_c(date_local, " ", time_local), tz = standard_time_zone))
 
-# The UTC timestamp is kept for joins with data recorded in UTC, such as weather observations
+# UTC timestamp kept for joining with stuff recorded in UTC, like weather
 hourly <- hourly %>%
   mutate(datetime_utc = ymd_hm(str_c(date_gmt, " ", time_gmt), tz = "UTC"))
 
@@ -445,16 +431,14 @@ stopifnot(
   "One row per monitor and hour" = nrow(duplicate_timestamps) == 0
 )
 
-# Weekday, weekend and season come from the same function as in 1a_import_clean.R (utils.R), so hourly and daily
-# results group the same way
 hourly <- hourly %>%
   add_calendar_columns()
 
 
 
 # 7. CONVERT UNITS ----
-# Ozone arrives in ppm, NO2 and SO2 in ppb. Values in ppb put the three gases on one scale, and
-# µg/m³ uses the same ideal-gas molar volume as 1a_import_clean.R (25 °C and 1 atm, molar_volume in utils.R)
+# ozone comes in ppm, NO2 + SO2 in ppb. ppb puts all 3 on one scale, and µg/m³ uses the same
+# molar volume as 1a (25 °C, 1 atm, molar_volume in utils.R)
 unit_factors <- tribble(
   ~pollutant, ~mw_g_mol, ~to_ppb,
   "Ozone",    48.00,     1000,
@@ -463,7 +447,6 @@ unit_factors <- tribble(
 ) %>%
   mutate(ppb_to_ugm3 = mw_g_mol / molar_volume)
 
-# Hand-calculated with Vm = 24.4654 L/mol, in µg/m³ per ppb: ozone, NO2, SO2
 expected_ppb_to_ugm3 <- c(1.961954, 1.880615, 2.618391)
 
 stopifnot(
@@ -528,8 +511,8 @@ stopifnot(
   "Three site groups" = n_distinct(hourly$site_group) == 3
 )
 
-# Event windows from events.csv, read and checked as in 1a_import_clean.R (read_events() in utils.R) and matched
-# the same way: on state and date, then on county (if given) and pollutant
+# event windows from events.csv, read the same way as 1a (read_events() in utils.R) and matched
+# the same way too: state + date, then county (if any) + pollutant
 event_windows <- read_events() %>%
   split_event_pollutants()
 
@@ -560,7 +543,7 @@ hourly %>%
 
 
 # 9. FLAG COMPLETE DAYS ----
-# A day is complete with at least 75% of its hours (18 of 24). Hours on incomplete days stay in and are flagged
+# a day is complete with 75%+ of its hours (18 of 24). hours on incomplete days stay in with a flag
 min_hours_per_day <- 18
 
 hourly <- hourly %>%
@@ -585,11 +568,11 @@ hourly %>%
   ) %>%
   print()
 
-# Ozone days follow EPA's rule (40 CFR 50 Appendix U, section 3), which uses 8-hour averages.
-# Each hour from 7:00 to 23:00 starts one 8-hour window, so a day has 17 windows; the 23:00 window ends at
-# 06:59 the next morning. A window counts if at least 6 of its 8 hours have data, and its average is
-# truncated to 3 decimals in ppm (0.0708 becomes 0.070). A day is valid when at least 13 of its 17 windows count.
-# Missing hours are first added as NA rows, so each row is one hour and lead() moves exactly one hour
+# ozone days follow EPA's rule (40 CFR 50 Appendix U, section 3), which uses 8-hr averages.
+# each hour from 7:00 to 23:00 starts one 8-hr window so a day has 17 of them, the 23:00 one ends at
+# 06:59 next morning. a window counts if 6 of its 8 hours have data, and its avg gets
+# truncated to 3 decimals in ppm (0.0708 -> 0.070). a day's valid when 13 of its 17 windows count.
+# missing hours get added as NA rows first so each row is one hour and lead() moves exactly one hour
 study_hours <- seq(
   make_datetime(min(study_years), 1, 1, 0, tz = standard_time_zone),
   make_datetime(max(study_years), 12, 31, 23, tz = standard_time_zone),
@@ -612,7 +595,6 @@ ozone_8hr <- ozone_grid %>%
 
 min_valid_8hr_means <- 13
 
-# One row per ozone monitor and day in the study window, including days with no data at all
 ozone_day_validity <- ozone_8hr %>%
   mutate(date_local = as_date(datetime_local)) %>%
   mutate(begin_hour = hour(datetime_local)) %>%
@@ -622,7 +604,7 @@ ozone_day_validity <- ozone_8hr %>%
   mutate(pollutant = "Ozone") %>%
   mutate(is_valid_ozone_day = n_valid_8hr_means >= min_valid_8hr_means)
 
-# Both columns stay NA for NO2 and SO2, which are judged on the 18-hour rule above
+# both cols stay NA for NO2 and SO2, those use the 18-hr rule above
 hourly <- hourly %>%
   left_join(
     ozone_day_validity,
@@ -640,7 +622,6 @@ stopifnot(
 hourly_cleaning_log <- hourly_cleaning_log %>%
   log_step("Flag ozone days with fewer than 13 valid 8-hour means, none removed", hourly)
 
-# Ozone monitor-days under each rule. The two flags agree on most days
 hourly %>%
   filter(pollutant == "Ozone") %>%
   distinct(site_id, date_local, is_complete_day, is_valid_ozone_day) %>%
@@ -650,9 +631,9 @@ hourly %>%
 
 
 # 10. CHECK DEER PARK #2 FOR A LEVEL SHIFT AFTER ITS MOVE ----
-# The site moved on 2025-05-30 and kept its AQS ID. Its hourly gap to a neighbour that did not move is
-# averaged over June to December of each year. A 2025 gap outside the range of the earlier years would
-# point to a shift. Nothing is adjusted: hours after the move are flagged
+# site moved on 2025-05-30 and kept its AQS ID. its hourly gap to a neighbour that didn't move gets
+# averaged over jun-dec each year. a 2025 gap outside the earlier years' range would
+# mean a shift. nothing's adjusted, hours after the move just get flagged
 deer_park_id <- "48-201-1039"
 
 relocation_date <- ymd("2025-05-30")
@@ -660,8 +641,8 @@ relocation_date <- ymd("2025-05-30")
 hourly <- hourly %>%
   mutate(is_post_relocation = site_id == deer_park_id & date_local >= relocation_date)
 
-# Houston East measures ozone and NO2 in the same site group. Park Place stands in for SO2,
-# because the Clinton SO2 baseline drifts downward over the five years
+# houston east does ozone + NO2 in the same group. park place stands in for SO2
+# bc clinton's SO2 baseline drifts down over the 5 years
 neighbour_sites <- tribble(
   ~pollutant, ~neighbour_id,
   "Ozone",    "48-201-1034",
@@ -718,9 +699,9 @@ rm(deer_park_hours, neighbour_hours, paired_hours)
 
 
 # 11. CHECK HARVARD STREET NO2 FOR A LEVEL SHIFT AFTER ITS METHOD CHANGE ----
-# The monitor changed from method 099 to method 186 on 2024-04-22, and its detection limit rose from 2.7 to 5 ppb.
-# Its hourly gap to two neighbours that kept one method is averaged over May to December of each year, the months
-# the new method covers in both 2024 and 2025. Nothing is adjusted: hours on the new method are flagged
+# went from method 099 to 186 on 2024-04-22, and its detection limit went from 2.7 to 5 ppb.
+# hourly gap to 2 neighbours that kept one method, averaged over may-dec each year (the months
+# the new method covers in both 2024 and 2025). nothing adjusted, hours on the new method get flagged
 harvard_street_id <- "48-201-0417"
 
 method_change_date <- ymd("2024-04-22")
@@ -767,8 +748,8 @@ stopifnot(
     sum(hourly$is_post_method_change) == nrow(new_method_hours) && all(new_method_hours$is_post_method_change)
 )
 
-# Houston Bayland Park is the other NO2 monitor in the same site group, and Houston East is a second neighbour.
-# Both kept one method for all five years. Deer Park #2 is left out, because its own NO2 stepped up in 2024
+# bayland park is the other NO2 monitor in the group, houston east is a 2nd neighbour.
+# both kept one method all 5 yrs. deer park #2 is out bc its own NO2 stepped up in 2024
 method_neighbour_ids <- c("48-201-0055", "48-201-1034")
 
 harvard_hours <- hourly %>%
@@ -801,7 +782,6 @@ stopifnot(
 
 print(method_yearly_gap, n = Inf)
 
-# The change year and the year after are each compared with the range of the earlier years
 method_change_check <- method_yearly_gap %>%
   group_by(neighbour) %>%
   summarise(
@@ -821,7 +801,6 @@ method_change_check <- method_yearly_gap %>%
 
 print(method_change_check, width = Inf)
 
-# Exact zeros and negatives by month on the new method. A pile-up at zero with no negatives points to a low baseline
 hourly %>%
   filter(is_post_method_change) %>%
   group_by(month = floor_date(date_local, unit = "month")) %>%
@@ -838,7 +817,7 @@ rm(harvard_hours, method_neighbour_hours, method_paired_hours, new_method_hours)
 
 
 # 12. VALIDATE AGAINST THE DAILY DATA ----
-# The hourly values should rebuild the daily maximum that 1a_import_clean.R kept for the same monitor and day
+# hourly values should rebuild the daily max 1a kept for the same monitor and day
 daily_values <- file.path(processed_dir, "aqs_long_clean.rds") %>%
   read_rds() %>%
   mutate(pollutant = as.character(pollutant)) %>%
@@ -858,7 +837,7 @@ stopifnot(
     !anyDuplicated(daily_values[c("pollutant", "site_id", "poc", "date_local")])
 )
 
-# NO2 and SO2: the daily value is the highest 1-hour reading of the day
+# NO2 + SO2: daily value = highest 1-hr reading
 gas_daily_max <- hourly %>%
   filter(pollutant != "Ozone") %>%
   group_by(pollutant, site_id, poc, date_local) %>%
@@ -868,8 +847,8 @@ gas_daily_max <- hourly %>%
     .groups = "drop"
   )
 
-# Ozone: the daily value is the highest of the 8-hour means built in section 9 (start hours 7 to 23,
-# 6 of 8 hours each, truncated to 3 decimals in ppm)
+# ozone: daily value = highest 8-hr mean from section 9 (start hours 7-23,
+# 6 of 8 hrs each, truncated to 3 decimals in ppm)
 ozone_daily_max <- ozone_8hr %>%
   mutate(date_local = as_date(datetime_local)) %>%
   mutate(begin_hour = hour(datetime_local)) %>%
@@ -903,7 +882,6 @@ validation_summary <- daily_check %>%
 
 print(validation_summary)
 
-# Event labels and calendar columns should agree with the daily table on every shared monitor-day
 label_check <- hourly %>%
   distinct(pollutant, site_id, date_local, event_name, day_of_week, is_weekend, season) %>%
   inner_join(
@@ -919,9 +897,9 @@ label_check <- hourly %>%
       as.character(season) == as.character(daily_season)
   )
 
-# The ozone day flag against the daily table. Every ozone day the daily table kept should be a valid ozone day.
-# The reverse fails only on December 31: EPA's yearly files cannot see the January 1 hours, so they report
-# 11 or 12 of that day's 17 means, and the 75% rule in 1a_import_clean.R drops the day
+# ozone day flag vs the daily table. every ozone day the daily table kept should be valid here.
+# the reverse only fails on dec 31: EPA's yearly files can't see the jan 1 hours so they report
+# 11 or 12 of that day's 17 means, and 1a's 75% rule drops the day
 daily_ozone_days <- daily_values %>%
   filter(pollutant == "Ozone") %>%
   distinct(site_id, poc, date_local) %>%
@@ -955,7 +933,6 @@ stopifnot(
     all(valid_days_missing_from_daily$is_december_31)
 )
 
-# The same checks as a table, saved in section 14 as a record of what this run confirmed
 max_checks <- validation_summary %>%
   transmute(
     check = str_c(pollutant, ": daily maximums rebuilt from the hourly values"),
@@ -1006,7 +983,6 @@ invisible(gc())
 
 
 # 13. SUMMARISE EACH MONITOR ----
-# One row per monitor: what was measured, how complete it is and how much sits below the detection limit
 n_study_hours <- length(study_hours)
 
 hourly_monitor_summary <- hourly %>%
@@ -1058,7 +1034,6 @@ final_keys <- hourly_case_study %>%
   count(pollutant, site_id, datetime_local) %>%
   filter(n > 1)
 
-# The two ozone-only columns are NA on NO2 and SO2 rows by design
 final_na <- hourly_case_study %>%
   select(-qualifier, -event_name, -n_valid_8hr_means, -is_valid_ozone_day) %>%
   anyNA()
@@ -1077,7 +1052,6 @@ stopifnot(
   "Data stay inside the study years" = all(year(hourly_case_study$date_local) %in% study_years)
 )
 
-# Row counts are stored as whole numbers, like the daily cleaning log
 stopifnot(
   "Cleaning log row counts are whole numbers" = all(hourly_cleaning_log$rows == round(hourly_cleaning_log$rows))
 )
@@ -1090,15 +1064,12 @@ hourly_cleaning_log <- hourly_cleaning_log %>%
 
 print(hourly_cleaning_log)
 
-# The cleaned hourly table is the checkpoint later phases read, saved as a compressed .rds
 hourly_checkpoint <- list(
   hourly_case_study = hourly_case_study
 )
 
-# Each file is reloaded and checked against the object in memory (save_checkpoints() in utils.R)
 hourly_checkpoint_paths <- save_checkpoints(hourly_checkpoint, processed_dir)
 
-# Records of the run that no later script reads are saved as CSV
 hourly_records <- list(
   hourly_cleaning_log = hourly_cleaning_log,
   hourly_validation = hourly_validation,
@@ -1176,13 +1147,12 @@ hourly_dictionary <- tribble(
   "hourly_raw_row_counts",  "raw_rows",                "Data rows in the file, header excluded; equal to the count in EPA's file list"
 )
 
-# Stops on a saved column without a description, or a description of a column that was not saved
 hourly_dictionary <- document_tables(saved_hourly_tables, hourly_dictionary)
 
-# 1a and 1e add their own rows to both shared files, and only the hourly rows are replaced here
+# 1a and 1e add their own rows to these shared files, only the hourly rows get replaced here
 replace_own_rows(hourly_dictionary, data_dictionary_path, key = "table", col_types = cols(.default = col_character()))
 
-# File size and checksum of the checkpoint; GitHub rejects files over 100 MiB
+# size + checksum of the checkpoint, GitHub won't take files over 100 MiB
 hourly_manifest <- manifest_rows(hourly_checkpoint, hourly_checkpoint_paths)
 
 stopifnot("Every hourly file is under GitHub's 100 MiB limit" = all(hourly_manifest$under_github_limit))
